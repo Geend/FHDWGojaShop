@@ -17,6 +17,8 @@ public interface PreOrder4Public extends AbstractOrder4Public {
     
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
+    public void cancel() 
+				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void initializeOnCreation() 

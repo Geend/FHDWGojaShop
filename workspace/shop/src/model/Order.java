@@ -58,8 +58,7 @@ public class Order extends model.AbstractOrder implements PersistentOrder{
     
     public Order provideCopy() throws PersistenceException{
         Order result = this;
-        result = new Order(this.articles, 
-                           this.customerDeliveryTime, 
+        result = new Order(this.customerDeliveryTime, 
                            this.This, 
                            this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -70,9 +69,9 @@ public class Order extends model.AbstractOrder implements PersistentOrder{
         return false;
     }
     
-    public Order(PersistentOrderQuantifiedArticle articles,PersistentCustomerDeliveryTime customerDeliveryTime,PersistentAbstractOrder This,long id) throws PersistenceException {
+    public Order(PersistentCustomerDeliveryTime customerDeliveryTime,PersistentAbstractOrder This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentOrderQuantifiedArticle)articles,(PersistentCustomerDeliveryTime)customerDeliveryTime,(PersistentAbstractOrder)This,id);        
+        super((PersistentCustomerDeliveryTime)customerDeliveryTime,(PersistentAbstractOrder)This,id);        
     }
     
     static public long getTypeId() {
@@ -124,8 +123,8 @@ public class Order extends model.AbstractOrder implements PersistentOrder{
          return visitor.handleOrder(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getArticles() != null) return 1;
         if (this.getCustomerDeliveryTime() != null) return 1;
+        if (this.getArticles().getLength() > 0) return 1;
         return 0;
     }
     

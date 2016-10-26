@@ -10,10 +10,10 @@ public abstract class AbstractOrderProxi extends ViewProxi implements AbstractOr
     }
     
     
-    public OrderQuantifiedArticleView getArticles()throws ModelException{
+    public java.util.Vector<OrderQuantifiedArticleView> getArticles()throws ModelException{
         return ((AbstractOrder)this.getTheObject()).getArticles();
     }
-    public void setArticles(OrderQuantifiedArticleView newValue) throws ModelException {
+    public void setArticles(java.util.Vector<OrderQuantifiedArticleView> newValue) throws ModelException {
         ((AbstractOrder)this.getTheObject()).setArticles(newValue);
     }
     public CustomerDeliveryTimeView getCustomerDeliveryTime()throws ModelException{

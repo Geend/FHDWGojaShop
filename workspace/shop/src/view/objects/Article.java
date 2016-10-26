@@ -16,8 +16,9 @@ public class Article extends view.objects.Component implements ArticleView{
     protected long currentStock;
     protected long producerDeliveryTime;
     protected ProducerView producer;
+    protected ArticleStateView state;
     
-    public Article(String name,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,ProducerView producer,long id, long classId) {
+    public Article(String name,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,ProducerView producer,ArticleStateView state,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.name = name;
@@ -26,7 +27,8 @@ public class Article extends view.objects.Component implements ArticleView{
         this.maxStock = maxStock;
         this.currentStock = currentStock;
         this.producerDeliveryTime = producerDeliveryTime;
-        this.producer = producer;        
+        this.producer = producer;
+        this.state = state;        
     }
     
     static public long getTypeId() {
@@ -79,6 +81,12 @@ public class Article extends view.objects.Component implements ArticleView{
     public void setProducer(ProducerView newValue) throws ModelException {
         this.producer = newValue;
     }
+    public ArticleStateView getState()throws ModelException{
+        return this.state;
+    }
+    public void setState(ArticleStateView newValue) throws ModelException {
+        this.state = newValue;
+    }
     
     public void accept(ComponentVisitor visitor) throws ModelException {
         visitor.handleArticle(this);
@@ -110,6 +118,10 @@ public class Article extends view.objects.Component implements ArticleView{
         if (producer != null) {
             ((ViewProxi)producer).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(producer.getClassId(), producer.getId())));
         }
+        ArticleStateView state = this.getState();
+        if (state != null) {
+            ((ViewProxi)state).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(state.getClassId(), state.getId())));
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {
@@ -119,20 +131,26 @@ public class Article extends view.objects.Component implements ArticleView{
         int index = originalIndex;
         if(index == 0 && this.getProducer() != null) return new ProducerArticleWrapper(this, originalIndex, (ViewRoot)this.getProducer());
         if(this.getProducer() != null) index = index - 1;
+        if(index == 0 && this.getState() != null) return new StateArticleWrapper(this, originalIndex, (ViewRoot)this.getState());
+        if(this.getState() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getProducer() == null ? 0 : 1);
+            + (this.getProducer() == null ? 0 : 1)
+            + (this.getState() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         return true 
-            && (this.getProducer() == null ? true : false);
+            && (this.getProducer() == null ? true : false)
+            && (this.getState() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
         if(this.getProducer() != null && this.getProducer().equals(child)) return result;
         if(this.getProducer() != null) result = result + 1;
+        if(this.getState() != null && this.getState().equals(child)) return result;
+        if(this.getState() != null) result = result + 1;
         return -1;
     }
     public int getNameIndex() throws ModelException {

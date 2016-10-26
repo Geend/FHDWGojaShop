@@ -18,6 +18,8 @@ public interface ArticleView extends ComponentView {
     public void setProducerDeliveryTime(long newValue) throws ModelException ;
     public ProducerView getProducer()throws ModelException;
     public void setProducer(ProducerView newValue) throws ModelException ;
+    public ArticleStateView getState()throws ModelException;
+    public void setState(ArticleStateView newValue) throws ModelException ;
     
     public void accept(ComponentVisitor visitor) throws ModelException;
     public <R> R accept(ComponentReturnVisitor<R>  visitor) throws ModelException;

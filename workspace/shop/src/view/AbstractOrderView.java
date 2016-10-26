@@ -6,8 +6,8 @@ import view.visitor.*;
 
 public interface AbstractOrderView extends Anything, AbstractViewRoot {
     
-    public OrderQuantifiedArticleView getArticles()throws ModelException;
-    public void setArticles(OrderQuantifiedArticleView newValue) throws ModelException ;
+    public java.util.Vector<OrderQuantifiedArticleView> getArticles()throws ModelException;
+    public void setArticles(java.util.Vector<OrderQuantifiedArticleView> newValue) throws ModelException ;
     public CustomerDeliveryTimeView getCustomerDeliveryTime()throws ModelException;
     public void setCustomerDeliveryTime(CustomerDeliveryTimeView newValue) throws ModelException ;
     

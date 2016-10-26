@@ -79,6 +79,15 @@ public class Article extends model.Component implements PersistentArticle{
                     if(forGUI && producer.hasEssentialFields())producer.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
+            AbstractPersistentRoot state = (AbstractPersistentRoot)this.getState();
+            if (state != null) {
+                result.put("state", state.createProxiInformation(false, essentialLevel <= 1));
+                if(depth > 1) {
+                    state.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && state.hasEssentialFields())state.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -95,6 +104,7 @@ public class Article extends model.Component implements PersistentArticle{
                              this.currentStock, 
                              this.producerDeliveryTime, 
                              this.producer, 
+                             this.state, 
                              this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -110,8 +120,9 @@ public class Article extends model.Component implements PersistentArticle{
     protected long currentStock;
     protected long producerDeliveryTime;
     protected PersistentProducer producer;
+    protected PersistentArticleState state;
     
-    public Article(PersistentComponent This,String name,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,PersistentProducer producer,long id) throws PersistenceException {
+    public Article(PersistentComponent This,String name,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,PersistentProducer producer,PersistentArticleState state,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super((PersistentComponent)This,id);
         this.name = name;
@@ -120,7 +131,8 @@ public class Article extends model.Component implements PersistentArticle{
         this.maxStock = maxStock;
         this.currentStock = currentStock;
         this.producerDeliveryTime = producerDeliveryTime;
-        this.producer = producer;        
+        this.producer = producer;
+        this.state = state;        
     }
     
     static public long getTypeId() {
@@ -139,6 +151,10 @@ public class Article extends model.Component implements PersistentArticle{
         if(this.getProducer() != null){
             this.getProducer().store();
             ConnectionHandler.getTheConnectionHandler().theArticleFacade.producerSet(this.getId(), getProducer());
+        }
+        if(this.getState() != null){
+            this.getState().store();
+            ConnectionHandler.getTheConnectionHandler().theArticleFacade.stateSet(this.getId(), getState());
         }
         
     }
@@ -200,6 +216,20 @@ public class Article extends model.Component implements PersistentArticle{
             ConnectionHandler.getTheConnectionHandler().theArticleFacade.producerSet(this.getId(), newValue);
         }
     }
+    public PersistentArticleState getState() throws PersistenceException {
+        return this.state;
+    }
+    public void setState(PersistentArticleState newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.state)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.state = (PersistentArticleState)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theArticleFacade.stateSet(this.getId(), newValue);
+        }
+    }
     public PersistentArticle getThis() throws PersistenceException {
         if(this.This == null){
             PersistentArticle result = (PersistentArticle)PersistentProxi.createProxi(this.getId(),this.getClassId());
@@ -246,6 +276,7 @@ public class Article extends model.Component implements PersistentArticle{
     }
     public int getLeafInfo() throws PersistenceException{
         if (this.getProducer() != null) return 1;
+        if (this.getState() != null) return 1;
         return 0;
     }
     

@@ -66,7 +66,6 @@ public class ShoppingCart extends PersistentObject implements PersistentShopping
         ShoppingCart result = this;
         result = new ShoppingCart(this.This, 
                                   this.getId());
-        result.articles = this.articles.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

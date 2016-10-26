@@ -17,6 +17,8 @@ public interface PersistentArticle extends PersistentComponent, Article4Public {
     public void setProducerDeliveryTime(long newValue) throws PersistenceException ;
     public PersistentProducer getProducer() throws PersistenceException ;
     public void setProducer(PersistentProducer newValue) throws PersistenceException ;
+    public PersistentArticleState getState() throws PersistenceException ;
+    public void setState(PersistentArticleState newValue) throws PersistenceException ;
     public PersistentArticle getThis() throws PersistenceException ;
     
     

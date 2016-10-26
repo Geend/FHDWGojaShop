@@ -58,8 +58,7 @@ public class PreOrder extends model.AbstractOrder implements PersistentPreOrder{
     
     public PreOrder provideCopy() throws PersistenceException{
         PreOrder result = this;
-        result = new PreOrder(this.articles, 
-                              this.customerDeliveryTime, 
+        result = new PreOrder(this.customerDeliveryTime, 
                               this.This, 
                               this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -70,9 +69,9 @@ public class PreOrder extends model.AbstractOrder implements PersistentPreOrder{
         return false;
     }
     
-    public PreOrder(PersistentOrderQuantifiedArticle articles,PersistentCustomerDeliveryTime customerDeliveryTime,PersistentAbstractOrder This,long id) throws PersistenceException {
+    public PreOrder(PersistentCustomerDeliveryTime customerDeliveryTime,PersistentAbstractOrder This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentOrderQuantifiedArticle)articles,(PersistentCustomerDeliveryTime)customerDeliveryTime,(PersistentAbstractOrder)This,id);        
+        super((PersistentCustomerDeliveryTime)customerDeliveryTime,(PersistentAbstractOrder)This,id);        
     }
     
     static public long getTypeId() {
@@ -124,8 +123,8 @@ public class PreOrder extends model.AbstractOrder implements PersistentPreOrder{
          return visitor.handlePreOrder(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getArticles() != null) return 1;
         if (this.getCustomerDeliveryTime() != null) return 1;
+        if (this.getArticles().getLength() > 0) return 1;
         return 0;
     }
     
@@ -140,6 +139,11 @@ public class PreOrder extends model.AbstractOrder implements PersistentPreOrder{
     
     // Start of section that contains operations that must be implemented.
     
+    public void cancel() 
+				throws PersistenceException{
+        //TODO: implement method: cancel
+        
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes

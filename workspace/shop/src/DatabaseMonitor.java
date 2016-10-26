@@ -6,7 +6,6 @@ import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -25,7 +24,7 @@ public class DatabaseMonitor extends Stage implements Runnable{
 	private BorderPane rootPane = null;
 	private void initialize(){
 		this.rootPane = new BorderPane();
-		this.rootPane.setCenter( this.getScrollPane());
+		this.rootPane.setCenter( this.getConnectionList());
 		this.setTitle("Database Monitor");
 		Scene rootScene = new Scene( this.rootPane, 300, 200);		
 		this.setScene( rootScene );
@@ -36,16 +35,6 @@ public class DatabaseMonitor extends Stage implements Runnable{
 		this.setX( x );
 		this.setY( y );
 	}		
-	private ScrollPane scrollPane = null;
-	private ScrollPane getScrollPane() {
-		if( this.scrollPane == null) {
-			this.scrollPane = new ScrollPane();
-			this.scrollPane.setContent( this.getConnectionList());
-			this.scrollPane.setFitToHeight(true);
-			this.scrollPane.setFitToWidth( true);
-		}
-		return this.scrollPane;
-	}
 	private ListView<Object> connectionList = null;
 	private ListView<Object> getConnectionList() {
 		if( this.connectionList == null) {

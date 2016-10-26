@@ -3,6 +3,7 @@ package model;
 
 import persistence.*;
 import model.visitor.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 
 /* Additional import section end */
@@ -178,6 +179,10 @@ public class OrderArticleWrapper extends model.ArticleWrapper implements Persist
     
     // Start of section that contains overridden operations only.
     
+    public String getName() 
+				throws PersistenceException{
+        throw new NotImplementedException(); //TODO
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
     

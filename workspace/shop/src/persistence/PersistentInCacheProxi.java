@@ -247,11 +247,5 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		return this.getTheObject().getThis();
 	}
 	
-    protected void setDltd() throws PersistenceException {
-        this.getTheObject().setDltd();
-    }
-    public boolean isDltd() throws PersistenceException {
-        return this.getTheObject().isDltd();
-    }
-
+    
 }

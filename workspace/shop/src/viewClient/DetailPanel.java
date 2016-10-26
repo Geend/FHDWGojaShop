@@ -1385,6 +1385,7 @@ class ArticleDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String Article$$currentStock = "Article$$currentStock";
     protected static final String Article$$producerDeliveryTime = "Article$$producerDeliveryTime";
     protected static final String Article$$producer = "Article$$producer";
+    protected static final String Article$$state = "Article$$state";
     
     protected ArticleDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);

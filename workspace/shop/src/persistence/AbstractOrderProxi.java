@@ -12,11 +12,8 @@ public abstract class AbstractOrderProxi extends PersistentProxi implements Pers
     }
     
     
-    public PersistentOrderQuantifiedArticle getArticles() throws PersistenceException {
+    public AbstractOrder_ArticlesProxi getArticles() throws PersistenceException {
         return ((PersistentAbstractOrder)this.getTheObject()).getArticles();
-    }
-    public void setArticles(PersistentOrderQuantifiedArticle newValue) throws PersistenceException {
-        ((PersistentAbstractOrder)this.getTheObject()).setArticles(newValue);
     }
     public PersistentCustomerDeliveryTime getCustomerDeliveryTime() throws PersistenceException {
         return ((PersistentAbstractOrder)this.getTheObject()).getCustomerDeliveryTime();

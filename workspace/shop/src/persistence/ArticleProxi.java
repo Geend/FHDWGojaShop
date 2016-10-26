@@ -60,6 +60,12 @@ public class ArticleProxi extends ComponentProxi implements PersistentArticle{
     public void setProducer(PersistentProducer newValue) throws PersistenceException {
         ((PersistentArticle)this.getTheObject()).setProducer(newValue);
     }
+    public PersistentArticleState getState() throws PersistenceException {
+        return ((PersistentArticle)this.getTheObject()).getState();
+    }
+    public void setState(PersistentArticleState newValue) throws PersistenceException {
+        ((PersistentArticle)this.getTheObject()).setState(newValue);
+    }
     public PersistentArticle getThis() throws PersistenceException {
         return ((PersistentArticle)this.getTheObject()).getThis();
     }

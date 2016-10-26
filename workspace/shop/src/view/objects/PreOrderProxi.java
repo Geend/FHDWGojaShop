@@ -11,14 +11,10 @@ public class PreOrderProxi extends AbstractOrderProxi implements PreOrderView{
         super(objectId, classId, connectionKey);
     }
     
+    @SuppressWarnings("unchecked")
     public PreOrderView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
-        ViewProxi articles = null;
-        String articles$String = (String)resultTable.get("articles");
-        if (articles$String != null) {
-            common.ProxiInformation articles$Info = common.RPCConstantsAndServices.createProxiInformation(articles$String);
-            articles = view.objects.ViewProxi.createProxi(articles$Info,connectionKey);
-            articles.setToString(articles$Info.getToString());
-        }
+        java.util.Vector<String> articles_string = (java.util.Vector<String>)resultTable.get("articles");
+        java.util.Vector<OrderQuantifiedArticleView> articles = ViewProxi.getProxiVector(articles_string, connectionKey);
         ViewProxi customerDeliveryTime = null;
         String customerDeliveryTime$String = (String)resultTable.get("customerDeliveryTime");
         if (customerDeliveryTime$String != null) {
@@ -26,7 +22,7 @@ public class PreOrderProxi extends AbstractOrderProxi implements PreOrderView{
             customerDeliveryTime = view.objects.ViewProxi.createProxi(customerDeliveryTime$Info,connectionKey);
             customerDeliveryTime.setToString(customerDeliveryTime$Info.getToString());
         }
-        PreOrderView result$$ = new PreOrder((OrderQuantifiedArticleView)articles,(CustomerDeliveryTimeView)customerDeliveryTime, this.getId(), this.getClassId());
+        PreOrderView result$$ = new PreOrder(articles,(CustomerDeliveryTimeView)customerDeliveryTime, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -36,27 +32,30 @@ public class PreOrderProxi extends AbstractOrderProxi implements PreOrderView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
         int index = originalIndex;
-        if(index == 0 && this.getArticles() != null) return new ArticlesAbstractOrderWrapper(this, originalIndex, (ViewRoot)this.getArticles());
-        if(this.getArticles() != null) index = index - 1;
+        if(index < this.getArticles().size()) return new ArticlesAbstractOrderWrapper(this, originalIndex, (ViewRoot)this.getArticles().get(index));
+        index = index - this.getArticles().size();
         if(index == 0 && this.getCustomerDeliveryTime() != null) return new CustomerDeliveryTimeAbstractOrderWrapper(this, originalIndex, (ViewRoot)this.getCustomerDeliveryTime());
         if(this.getCustomerDeliveryTime() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getArticles() == null ? 0 : 1)
+            + (this.getArticles().size())
             + (this.getCustomerDeliveryTime() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
-            && (this.getArticles() == null ? true : false)
+            && (this.getArticles().size() == 0)
             && (this.getCustomerDeliveryTime() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
-        if(this.getArticles() != null && this.getArticles().equals(child)) return result;
-        if(this.getArticles() != null) result = result + 1;
+        java.util.Iterator<?> getArticlesIterator = this.getArticles().iterator();
+        while(getArticlesIterator.hasNext()){
+            if(getArticlesIterator.next().equals(child)) return result;
+            result = result + 1;
+        }
         if(this.getCustomerDeliveryTime() != null && this.getCustomerDeliveryTime().equals(child)) return result;
         if(this.getCustomerDeliveryTime() != null) result = result + 1;
         return -1;

@@ -18,15 +18,7 @@ public abstract class AbstractOrder extends PersistentObject implements Persiste
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            AbstractPersistentRoot articles = (AbstractPersistentRoot)this.getArticles();
-            if (articles != null) {
-                result.put("articles", articles.createProxiInformation(false, essentialLevel <= 1));
-                if(depth > 1) {
-                    articles.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && articles.hasEssentialFields())articles.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
+            result.put("articles", this.getArticles().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
             AbstractPersistentRoot customerDeliveryTime = (AbstractPersistentRoot)this.getCustomerDeliveryTime();
             if (customerDeliveryTime != null) {
                 result.put("customerDeliveryTime", customerDeliveryTime.createProxiInformation(false, essentialLevel <= 1));
@@ -47,14 +39,14 @@ public abstract class AbstractOrder extends PersistentObject implements Persiste
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected PersistentOrderQuantifiedArticle articles;
+    protected AbstractOrder_ArticlesProxi articles;
     protected PersistentCustomerDeliveryTime customerDeliveryTime;
     protected PersistentAbstractOrder This;
     
-    public AbstractOrder(PersistentOrderQuantifiedArticle articles,PersistentCustomerDeliveryTime customerDeliveryTime,PersistentAbstractOrder This,long id) throws PersistenceException {
+    public AbstractOrder(PersistentCustomerDeliveryTime customerDeliveryTime,PersistentAbstractOrder This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.articles = articles;
+        this.articles = new AbstractOrder_ArticlesProxi(this);
         this.customerDeliveryTime = customerDeliveryTime;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
@@ -70,10 +62,7 @@ public abstract class AbstractOrder extends PersistentObject implements Persiste
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         super.store();
-        if(this.getArticles() != null){
-            this.getArticles().store();
-            ConnectionHandler.getTheConnectionHandler().theAbstractOrderFacade.articlesSet(this.getId(), getArticles());
-        }
+        this.getArticles().store();
         if(this.getCustomerDeliveryTime() != null){
             this.getCustomerDeliveryTime().store();
             ConnectionHandler.getTheConnectionHandler().theAbstractOrderFacade.customerDeliveryTimeSet(this.getId(), getCustomerDeliveryTime());
@@ -85,19 +74,8 @@ public abstract class AbstractOrder extends PersistentObject implements Persiste
         
     }
     
-    public PersistentOrderQuantifiedArticle getArticles() throws PersistenceException {
+    public AbstractOrder_ArticlesProxi getArticles() throws PersistenceException {
         return this.articles;
-    }
-    public void setArticles(PersistentOrderQuantifiedArticle newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.articles)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.articles = (PersistentOrderQuantifiedArticle)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAbstractOrderFacade.articlesSet(this.getId(), newValue);
-        }
     }
     public PersistentCustomerDeliveryTime getCustomerDeliveryTime() throws PersistenceException {
         return this.customerDeliveryTime;

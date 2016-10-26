@@ -2,31 +2,80 @@ package persistence;
 
 import model.*;
 
+import java.sql.*;
+//import oracle.jdbc.*;
+
 public class InSaleFacade{
 
+	private String schemaName;
+	private Connection con;
 
-
-	public InSaleFacade() {
+	public InSaleFacade(String schemaName, Connection con) {
+		this.schemaName = schemaName;
+		this.con = con;
 	}
 
     /* If idCreateIfLessZero is negative, a new id is generated. */
     public PersistentInSale newInSale(long idCreateIfLessZero) throws PersistenceException {
-        if(idCreateIfLessZero > 0) return (PersistentInSale)PersistentProxi.createProxi(idCreateIfLessZero, 126);
-        long id = ConnectionHandler.getTheConnectionHandler().theArticleStateFacade.getNextId();
-        InSale result = new InSale(null,id);
-        Cache.getTheCache().put(result);
-        return (PersistentInSale)PersistentProxi.createProxi(id, 126);
+        oracle.jdbc.OracleCallableStatement callable;
+        try{
+            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".InSlFacade.newInSl(?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
+            callable.setLong(2, idCreateIfLessZero);
+            callable.execute();
+            long id = callable.getLong(1);
+            callable.close();
+            InSale result = new InSale(null,id);
+            if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
+            return (PersistentInSale)PersistentProxi.createProxi(id, 126);
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
     }
     
     public PersistentInSale newDelayedInSale() throws PersistenceException {
-        long id = ConnectionHandler.getTheConnectionHandler().theArticleStateFacade.getNextId();
-        InSale result = new InSale(null,id);
-        Cache.getTheCache().put(result);
-        return (PersistentInSale)PersistentProxi.createProxi(id, 126);
+        oracle.jdbc.OracleCallableStatement callable;
+        try{
+            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".InSlFacade.newDelayedInSl(); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
+            callable.execute();
+            long id = callable.getLong(1);
+            callable.close();
+            InSale result = new InSale(null,id);
+            Cache.getTheCache().put(result);
+            return (PersistentInSale)PersistentProxi.createProxi(id, 126);
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
     }
     
     public InSale getInSale(long InSaleId) throws PersistenceException{
-        return null; //All data is in the cache!
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".InSlFacade.getInSl(?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            callable.setLong(2, InSaleId);
+            callable.execute();
+            ResultSet obj = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
+            if (!obj.next()) {
+                obj.close();
+                callable.close();
+                return null;
+            }
+            PersistentArticleState This = null;
+            if (obj.getLong(2) != 0)
+                This = (PersistentArticleState)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+            InSale result = new InSale(This,
+                                       InSaleId);
+            obj.close();
+            callable.close();
+            InSaleICProxi inCache = (InSaleICProxi)Cache.getTheCache().put(result);
+            InSale objectInCache = (InSale)inCache.getTheObject();
+            if (objectInCache == result)result.initializeOnInstantiation();
+            return objectInCache;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
     }
 
 }

@@ -56,6 +56,10 @@ public class PreOrderICProxi extends AbstractOrderICProxi implements PersistentP
 				throws PersistenceException{
         ((PersistentPreOrder)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public void cancel() 
+				throws PersistenceException{
+        ((PersistentPreOrder)this.getTheObject()).cancel();
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentPreOrder)this.getTheObject()).copyingPrivateUserAttributes(copy);
