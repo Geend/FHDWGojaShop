@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="goja">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../jars/regExp20160812.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../jars/xmlrpc-1.2-b1ML20130422.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

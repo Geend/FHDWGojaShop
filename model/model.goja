@@ -1,0 +1,106 @@
+model shop {
+
+server Server {
+}
+hierarchy collapsed Parts;
+
+abstract class Component{
+}
+
+class Article extends Component{
+	prior String name;
+	prior Fraction price;
+	prior Integer minStock;
+	prior Integer maxStock;
+	Integer currentStock;
+	prior Integer producerDeliveryTime;
+	prior Producer producer;
+	ArticleState state;
+}
+
+class ProductGroup extends Component{
+	Component ** components hierarchy Parts;
+}
+
+
+abstract class ArticleState{
+}
+
+class NewCreated extends ArticleState{
+}
+class InSale extends ArticleState{
+}
+class RemainingStock extends ArticleState{
+}
+class NotInSale extends ArticleState{
+}
+
+
+class Producer{
+	prior String name;
+}
+
+abstract class QuantifiedArticle{
+	prior Integer quantity;	
+}
+
+class ShoppingCartQuantifiedArticle##scqa extends QuantifiedArticle{
+	ShoppingCartArticleWrapper article;
+}
+
+class OrderQuantifiedArticle##oqa extends QuantifiedArticle{
+	OrderArticleWrapper article;
+}
+
+class CustomerAccount{
+	Fraction balance;
+	Integer limit;
+	ShoppingCart shoppingCart;
+
+	void deposit(Fraction amount);
+	void debit(Fraction amount);	
+}
+
+class ShoppingCart{
+	ShoppingCartQuantifiedArticle ** articles;
+}
+
+abstract class AbstractOrder{
+	OrderQuantifiedArticle ** articles;
+	CustomerDeliveryTime customerDeliveryTime;
+}
+
+class Order extends AbstractOrder{
+}
+
+class PreOrder extends AbstractOrder{
+	void cancel();
+}
+
+
+class CustomerDeliveryTime{
+	prior Fraction price;
+	prior Integer deliveryTime;
+}
+
+abstract class ArticleWrapper{
+	Article article;
+	derived String name;
+}
+
+class ShopArticleWrapper##saw extends ArticleWrapper{
+	void addToCart(Integer amount);
+}
+
+class ShoppingCartArticleWrapper##scaw extends ArticleWrapper{
+	void removeFromCart();
+}
+
+class OrderArticleWrapper##oaw extends ArticleWrapper{
+	Fraction priceAtOrder;
+	void accept();
+	void sendBack();
+}
+
+}
+
