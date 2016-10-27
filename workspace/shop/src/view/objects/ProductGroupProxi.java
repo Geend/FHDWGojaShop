@@ -13,9 +13,10 @@ public class ProductGroupProxi extends ComponentProxi implements ProductGroupVie
     
     @SuppressWarnings("unchecked")
     public ProductGroupView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
+        String name = (String)resultTable.get("name");
         java.util.Vector<String> components_string = (java.util.Vector<String>)resultTable.get("components");
         java.util.Vector<ComponentView> components = ViewProxi.getProxiVector(components_string, connectionKey);
-        ProductGroupView result$$ = new ProductGroup(components, this.getId(), this.getClassId());
+        ProductGroupView result$$ = new ProductGroup((String)name,components, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }

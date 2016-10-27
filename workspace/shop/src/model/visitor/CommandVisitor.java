@@ -1,7 +1,7 @@
 
 package model.visitor;
 
-public interface CommandVisitor {
+public interface CommandVisitor extends ProductGroupCommandVisitor{
     
     
 }

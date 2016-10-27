@@ -21,6 +21,12 @@ public class ShoppingCartProxi extends PersistentProxi implements PersistentShop
     public ShoppingCart_ArticlesProxi getArticles() throws PersistenceException {
         return ((PersistentShoppingCart)this.getTheObject()).getArticles();
     }
+    public SubjInterface getSubService() throws PersistenceException {
+        return ((PersistentShoppingCart)this.getTheObject()).getSubService();
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        ((PersistentShoppingCart)this.getTheObject()).setSubService(newValue);
+    }
     public PersistentShoppingCart getThis() throws PersistenceException {
         return ((PersistentShoppingCart)this.getTheObject()).getThis();
     }
@@ -37,11 +43,35 @@ public class ShoppingCartProxi extends PersistentProxi implements PersistentShop
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleShoppingCart(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleShoppingCart(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleShoppingCart(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleShoppingCart(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleShoppingCart(this);
+    }
     
     
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentShoppingCart)this.getTheObject()).deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentShoppingCart)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentShoppingCart)this.getTheObject()).register(observee);
+    }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentShoppingCart)this.getTheObject()).updateObservers(event);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

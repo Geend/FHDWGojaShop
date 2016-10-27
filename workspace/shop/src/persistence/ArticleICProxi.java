@@ -22,12 +22,6 @@ public class ArticleICProxi extends ComponentICProxi implements PersistentArticl
         return 123;
     }
     
-    public String getName() throws PersistenceException {
-        return ((PersistentArticle)this.getTheObject()).getName();
-    }
-    public void setName(String newValue) throws PersistenceException {
-        ((PersistentArticle)this.getTheObject()).setName(newValue);
-    }
     public common.Fraction getPrice() throws PersistenceException {
         return ((PersistentArticle)this.getTheObject()).getPrice();
     }
@@ -98,6 +92,18 @@ public class ArticleICProxi extends ComponentICProxi implements PersistentArticl
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleArticle(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleArticle(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleArticle(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleArticle(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleArticle(this);
+    }
     public void accept(PartsHIERARCHYVisitor visitor) throws PersistenceException {
         visitor.handleArticle(this);
     }
@@ -120,9 +126,17 @@ public class ArticleICProxi extends ComponentICProxi implements PersistentArticl
 				throws PersistenceException{
         return ((PersistentArticle)this.getTheObject()).containsParts(part, visited);
     }
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentArticle)this.getTheObject()).deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentArticle)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentArticle)this.getTheObject()).register(observee);
     }
     public <T> T strategyParts(final PartsHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
@@ -131,6 +145,10 @@ public class ArticleICProxi extends ComponentICProxi implements PersistentArticl
     public <T> T strategyParts(final PartsHIERARCHYStrategy<T> strategy, final java.util.HashMap<PartsHIERARCHY,T> visited) 
 				throws PersistenceException{
         return ((PersistentArticle)this.getTheObject()).strategyParts(strategy, visited);
+    }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentArticle)this.getTheObject()).updateObservers(event);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

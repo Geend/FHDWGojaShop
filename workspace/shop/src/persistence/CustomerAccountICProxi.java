@@ -40,6 +40,12 @@ public class CustomerAccountICProxi extends PersistentInCacheProxiOptimistic imp
     public void setShoppingCart(PersistentShoppingCart newValue) throws PersistenceException {
         ((PersistentCustomerAccount)this.getTheObject()).setShoppingCart(newValue);
     }
+    public SubjInterface getSubService() throws PersistenceException {
+        return ((PersistentCustomerAccount)this.getTheObject()).getSubService();
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        ((PersistentCustomerAccount)this.getTheObject()).setSubService(newValue);
+    }
     public PersistentCustomerAccount getThis() throws PersistenceException {
         return ((PersistentCustomerAccount)this.getTheObject()).getThis();
     }
@@ -56,11 +62,35 @@ public class CustomerAccountICProxi extends PersistentInCacheProxiOptimistic imp
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCustomerAccount(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleCustomerAccount(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleCustomerAccount(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleCustomerAccount(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleCustomerAccount(this);
+    }
     
     
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentCustomerAccount)this.getTheObject()).deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentCustomerAccount)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentCustomerAccount)this.getTheObject()).register(observee);
+    }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentCustomerAccount)this.getTheObject()).updateObservers(event);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

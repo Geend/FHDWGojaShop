@@ -27,7 +27,7 @@ public class CustomerDeliveryTimeFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            CustomerDeliveryTime result = new CustomerDeliveryTime(price,deliveryTime,null,id);
+            CustomerDeliveryTime result = new CustomerDeliveryTime(price,deliveryTime,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentCustomerDeliveryTime)PersistentProxi.createProxi(id, 150);
         }catch(SQLException se) {
@@ -43,7 +43,7 @@ public class CustomerDeliveryTimeFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            CustomerDeliveryTime result = new CustomerDeliveryTime(price,deliveryTime,null,id);
+            CustomerDeliveryTime result = new CustomerDeliveryTime(price,deliveryTime,null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentCustomerDeliveryTime)PersistentProxi.createProxi(id, 150);
         }catch(SQLException se) {
@@ -64,11 +64,15 @@ public class CustomerDeliveryTimeFacade{
                 callable.close();
                 return null;
             }
-            PersistentCustomerDeliveryTime This = null;
+            SubjInterface subService = null;
             if (obj.getLong(4) != 0)
-                This = (PersistentCustomerDeliveryTime)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+            PersistentCustomerDeliveryTime This = null;
+            if (obj.getLong(6) != 0)
+                This = (PersistentCustomerDeliveryTime)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
             CustomerDeliveryTime result = new CustomerDeliveryTime((obj.getString(2) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(2))),
                                                                    obj.getLong(3),
+                                                                   subService,
                                                                    This,
                                                                    CustomerDeliveryTimeId);
             obj.close();
@@ -113,6 +117,19 @@ public class CustomerDeliveryTimeFacade{
             callable = this.con.prepareCall("Begin " + this.schemaName + ".CstmrDlvrTmFacade.dlvrTmSet(?, ?); end;");
             callable.setLong(1, CustomerDeliveryTimeId);
             callable.setLong(2, deliveryTimeVal);
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void subServiceSet(long CustomerDeliveryTimeId, SubjInterface subServiceVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".CstmrDlvrTmFacade.sbSrvcSet(?, ?, ?); end;");
+            callable.setLong(1, CustomerDeliveryTimeId);
+            callable.setLong(2, subServiceVal.getId());
+            callable.setLong(3, subServiceVal.getClassId());
             callable.execute();
             callable.close();
         }catch(SQLException se) {

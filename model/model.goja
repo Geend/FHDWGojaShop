@@ -1,14 +1,22 @@
 model shop {
 
 server Server {
+
+   ProductGroup rootProductGroup;
+	void createArticle(ProductGroup parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
+
+	void createProductGroup(ProductGroup parent, String name) throws CycleException;
+
 }
+
+
 hierarchy collapsed Parts;
 
 abstract class Component{
+	prior String name;
 }
 
 class Article extends Component{
-	prior String name;
 	prior Fraction price;
 	prior Integer minStock;
 	prior Integer maxStock;
@@ -20,6 +28,11 @@ class Article extends Component{
 
 class ProductGroup extends Component{
 	Component ** components hierarchy Parts;
+	
+	active ProductGroup createSubProductGroup##cspg(String name) throws CycleException;
+
+	active Article createArticle(String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
+
 }
 
 

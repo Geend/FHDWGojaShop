@@ -4,8 +4,6 @@ import view.visitor.*;
 
 public interface ArticleView extends ComponentView {
     
-    public String getName()throws ModelException;
-    public void setName(String newValue) throws ModelException ;
     public common.Fraction getPrice()throws ModelException;
     public void setPrice(common.Fraction newValue) throws ModelException ;
     public long getMinStock()throws ModelException;

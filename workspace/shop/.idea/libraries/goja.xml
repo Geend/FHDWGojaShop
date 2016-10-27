@@ -4,6 +4,9 @@
       <root url="jar://C:/Goja/Goja/JARS/ojdbc6.jar!/" />
       <root url="jar://C:/Goja/Goja/JARS/regExp20160613.jar!/" />
       <root url="jar://C:/Goja/Goja/JARS/xmlrpc20130422.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../GOJA/JARS/ojdbc6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../GOJA/JARS/regExp20160812.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../GOJA/JARS/xmlrpc20130422.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

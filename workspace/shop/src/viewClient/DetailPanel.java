@@ -1283,12 +1283,20 @@ class OrderArticleWrapperDefaultDetailPanel extends DefaultDetailPanel{
 
 class ProductGroupDefaultDetailPanel extends DefaultDetailPanel{
     
+    protected static final String Component$$name = "Component$$name";
     protected static final String ProductGroup$$components = "ProductGroup$$components";
     
     protected ProductGroupDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(Component$$name, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
         
     }
     protected view.ProductGroupView getAnything(){
@@ -1334,6 +1342,7 @@ class OrderQuantifiedArticleDefaultDetailPanel extends DefaultDetailPanel{
 
 class ServerDefaultDetailPanel extends DefaultDetailPanel{
     
+    protected static final String Server$$rootProductGroup = "Server$$rootProductGroup";
     protected static final String Server$$user = "Server$$user";
     
     protected ServerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1378,7 +1387,7 @@ class ErrorDisplayDefaultDetailPanel extends DefaultDetailPanel{
 
 class ArticleDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String Article$$name = "Article$$name";
+    protected static final String Component$$name = "Component$$name";
     protected static final String Article$$price = "Article$$price";
     protected static final String Article$$minStock = "Article$$minStock";
     protected static final String Article$$maxStock = "Article$$maxStock";
@@ -1394,7 +1403,7 @@ class ArticleDefaultDetailPanel extends DefaultDetailPanel{
         try{
             BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
             this.getScrollablePane().getChildren().add(panel);
-            this.panels.put(Article$$name, panel);
+            this.panels.put(Component$$name, panel);
         }catch(ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }

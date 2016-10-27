@@ -13,7 +13,6 @@ import persistence.AbstractPersistentRoot;
 import persistence.Remote;
 
 import persistence.PersistentServer;
-import persistence.Server4Public;
 
 
 import common.RPCConstantsAndServices;
@@ -116,7 +115,7 @@ public class ConnectionServer extends RemoteServerMaster {
 		}
 	}
 	public synchronized HashMap<String,Object> fork(String user, String oldConnection, String objectId, String classId){
-		return createExceptionResult(new PersistenceException("Bitte neue Version der Software von der üblichen Stelle laden!",0));
+		return createExceptionResult(new PersistenceException("Bitte neue Version der Software von der ï¿½blichen Stelle laden!",0));
 	}
 	public synchronized HashMap<String,Object> fork(String user, String oldConnection, String objectId, String classId, java.util.Date date){
 		if (this.connections.size() >= this.maximalNumberOfConnections) 
@@ -154,7 +153,7 @@ public class ConnectionServer extends RemoteServerMaster {
 	}
 	
 	public synchronized HashMap<String,Object> connect(String user, String password, boolean createUserIfNotPresent, byte[] keyBytes){
-		return createExceptionResult(new PersistenceException("Bitte neue Version der Software von der üblichen Stelle laden!",0));
+		return createExceptionResult(new PersistenceException("Bitte neue Version der Software von der ï¿½blichen Stelle laden!",0));
 	}
 	
 	public synchronized HashMap<String,Object> connect(String user, String password, boolean createUserIfNotPresent, byte[] keyBytes, java.util.Date date, int version){
@@ -163,7 +162,7 @@ public class ConnectionServer extends RemoteServerMaster {
 		if (date.before(earliest) || date.after(latest))
 			return createExceptionResult(new PersistenceException("Bitte Systemzeit einstellen: Ihre Zeit: " + date.toString() + ". Unsere Zeit: " + new java.util.Date().toString(),0));
 		if (this.connections.size() >= this.maximalNumberOfConnections)
-			return createExceptionResult(new PersistenceException("!Maximale Anzahl der Verbindungen überschritten! Später nochmals versuchen!",0));
+			return createExceptionResult(new PersistenceException("!Maximale Anzahl der Verbindungen ï¿½berschritten! Spï¿½ter nochmals versuchen!",0));
 		if (version < RPCConstantsAndServices.CurrentVersion)
 			return createExceptionResult(new PersistenceException(RPCConstantsAndServices.VersionErrorText,0));
 		Iterator<PersistentServer> serverIterator;
@@ -174,7 +173,7 @@ public class ConnectionServer extends RemoteServerMaster {
 					int publicNo = new java.util.Random().nextInt();
 					user = Public + publicNo;
 				} while (Server.getServerByUser(user).iterator().hasNext());
-				server = (PersistentServer) Server.createServer(password, user, 0, new java.sql.Timestamp(0), false);
+				server = Server.createServer(password, user, 0, new java.sql.Timestamp(0), false);
 				user = Public; 
 			} else {
 				serverIterator = Server.getServerByUser(user).iterator();
@@ -182,12 +181,12 @@ public class ConnectionServer extends RemoteServerMaster {
 					if (user.equals(AdministratorName) || createUserIfNotPresent){
 						if (password.length() <= 1)
 							return createExceptionResult(new PersistenceException("Password is too short!",0));											
-						server = (PersistentServer) Server.createServer(password, user, 0, new java.sql.Timestamp(0), false);
+						server = Server.createServer(password, user, 0, new java.sql.Timestamp(0), false);
 					}else{
 						return createExceptionResult(new PersistenceException("Unknown user!",0));
 					}
 				}else{
-					server = (PersistentServer) serverIterator.next();
+					server = (PersistentServer)serverIterator.next();
 					if (server.getHackDelay().after(new java.sql.Timestamp(System.currentTimeMillis()))){
 						return createExceptionResult(new PersistenceException("Account locked !",0));
 					}

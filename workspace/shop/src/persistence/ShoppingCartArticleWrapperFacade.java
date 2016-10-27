@@ -25,7 +25,7 @@ public class ShoppingCartArticleWrapperFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ShoppingCartArticleWrapper result = new ShoppingCartArticleWrapper(null,null,id);
+            ShoppingCartArticleWrapper result = new ShoppingCartArticleWrapper(null,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentShoppingCartArticleWrapper)PersistentProxi.createProxi(id, 163);
         }catch(SQLException se) {
@@ -41,7 +41,7 @@ public class ShoppingCartArticleWrapperFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ShoppingCartArticleWrapper result = new ShoppingCartArticleWrapper(null,null,id);
+            ShoppingCartArticleWrapper result = new ShoppingCartArticleWrapper(null,null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentShoppingCartArticleWrapper)PersistentProxi.createProxi(id, 163);
         }catch(SQLException se) {
@@ -65,10 +65,14 @@ public class ShoppingCartArticleWrapperFacade{
             PersistentArticle article = null;
             if (obj.getLong(2) != 0)
                 article = (PersistentArticle)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
-            PersistentArticleWrapper This = null;
+            SubjInterface subService = null;
             if (obj.getLong(4) != 0)
-                This = (PersistentArticleWrapper)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+            PersistentArticleWrapper This = null;
+            if (obj.getLong(6) != 0)
+                This = (PersistentArticleWrapper)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
             ShoppingCartArticleWrapper result = new ShoppingCartArticleWrapper(article,
+                                                                               subService,
                                                                                This,
                                                                                ShoppingCartArticleWrapperId);
             obj.close();

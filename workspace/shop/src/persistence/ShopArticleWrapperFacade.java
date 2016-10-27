@@ -25,7 +25,7 @@ public class ShopArticleWrapperFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ShopArticleWrapper result = new ShopArticleWrapper(null,null,id);
+            ShopArticleWrapper result = new ShopArticleWrapper(null,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentShopArticleWrapper)PersistentProxi.createProxi(id, 161);
         }catch(SQLException se) {
@@ -41,7 +41,7 @@ public class ShopArticleWrapperFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ShopArticleWrapper result = new ShopArticleWrapper(null,null,id);
+            ShopArticleWrapper result = new ShopArticleWrapper(null,null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentShopArticleWrapper)PersistentProxi.createProxi(id, 161);
         }catch(SQLException se) {
@@ -65,10 +65,14 @@ public class ShopArticleWrapperFacade{
             PersistentArticle article = null;
             if (obj.getLong(2) != 0)
                 article = (PersistentArticle)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
-            PersistentArticleWrapper This = null;
+            SubjInterface subService = null;
             if (obj.getLong(4) != 0)
-                This = (PersistentArticleWrapper)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+            PersistentArticleWrapper This = null;
+            if (obj.getLong(6) != 0)
+                This = (PersistentArticleWrapper)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
             ShopArticleWrapper result = new ShopArticleWrapper(article,
+                                                               subService,
                                                                This,
                                                                ShopArticleWrapperId);
             obj.close();

@@ -12,10 +12,15 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		
 	  private static ICProxiFactory [] getTheICProxiFactories(){
 		if (iCProxiFactories == null){
-			iCProxiFactories = new ICProxiFactory[68];
+			iCProxiFactories = new ICProxiFactory[81];
         iCProxiFactories[66] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new OrderArticleWrapperICProxi(objectId);
+            }
+        };
+        iCProxiFactories[72] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new CreateSubProductGroupCommandICProxi(objectId);
             }
         };
         iCProxiFactories[20] = new ICProxiFactory(){
@@ -58,6 +63,16 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new NotInSaleICProxi(objectId);
             }
         };
+        iCProxiFactories[73] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new ServerRootProductGroupICProxi(objectId);
+            }
+        };
+        iCProxiFactories[71] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new CreateArticleCommandICProxi(objectId);
+            }
+        };
         iCProxiFactories[49] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CustomerDeliveryTimeICProxi(objectId);
@@ -96,6 +111,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[25] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new InSaleICProxi(objectId);
+            }
+        };
+        iCProxiFactories[74] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new SubjICProxi(objectId);
             }
         };
         iCProxiFactories[26] = new ICProxiFactory(){

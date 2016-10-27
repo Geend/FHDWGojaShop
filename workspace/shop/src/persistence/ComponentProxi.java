@@ -12,13 +12,37 @@ public abstract class ComponentProxi extends PersistentProxi implements Persiste
     }
     
     
+    public String getName() throws PersistenceException {
+        return ((PersistentComponent)this.getTheObject()).getName();
+    }
+    public void setName(String newValue) throws PersistenceException {
+        ((PersistentComponent)this.getTheObject()).setName(newValue);
+    }
+    public SubjInterface getSubService() throws PersistenceException {
+        return ((PersistentComponent)this.getTheObject()).getSubService();
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        ((PersistentComponent)this.getTheObject()).setSubService(newValue);
+    }
     public abstract PersistentComponent getThis() throws PersistenceException ;
     
     
     
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentComponent)this.getTheObject()).deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentComponent)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentComponent)this.getTheObject()).register(observee);
+    }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentComponent)this.getTheObject()).updateObservers(event);
     }
     public boolean containsParts(final PartsHIERARCHY part) 
 				throws PersistenceException{

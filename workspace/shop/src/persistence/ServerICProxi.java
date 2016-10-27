@@ -22,6 +22,15 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
         return -102;
     }
     
+    public void setRootProductGroup(PersistentServerRootProductGroup newValue) throws PersistenceException {
+        ((PersistentServer)this.getTheObject()).setRootProductGroup(newValue);
+    }
+    public SubjInterface getSubService() throws PersistenceException {
+        return ((PersistentServer)this.getTheObject()).getSubService();
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        ((PersistentServer)this.getTheObject()).setSubService(newValue);
+    }
     public Server_ErrorsProxi getErrors() throws PersistenceException {
         return ((PersistentServer)this.getTheObject()).getErrors();
     }
@@ -77,6 +86,18 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleServer(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleServer(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleServer(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleServer(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleServer(this);
+    }
     public void accept(RemoteVisitor visitor) throws PersistenceException {
         visitor.handleServer(this);
     }
@@ -91,17 +112,37 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     }
     
     
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).deregister(observee);
+    }
+    public PersistentProductGroup getRootProductGroup() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getRootProductGroup();
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).register(observee);
     }
     public String server_Menu_Filter(final Anything anything) 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).server_Menu_Filter(anything);
     }
+    public void setRootProductGroup(final PersistentProductGroup rootProductGroup) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).setRootProductGroup(rootProductGroup);
+    }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).signalChanged(signal);
+    }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).updateObservers(event);
     }
     public void connected(final String user) 
 				throws PersistenceException{
@@ -110,6 +151,14 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public void createArticle(final PersistentProductGroup parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final PersistentProducer producer) 
+				throws model.CycleException, PersistenceException{
+        ((PersistentServer)this.getTheObject()).createArticle(parent, name, price, minStock, maxStock, producerDeliveryTime, producer);
+    }
+    public void createProductGroup(final PersistentProductGroup parent, final String name) 
+				throws model.CycleException, PersistenceException{
+        ((PersistentServer)this.getTheObject()).createProductGroup(parent, name);
     }
     public void disconnected() 
 				throws PersistenceException{
@@ -134,6 +183,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initializeOnInstantiation();
+    }
+    public void rootProductGroup_update(final model.meta.ProductGroupMssgs event) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).rootProductGroup_update(event);
     }
 
     

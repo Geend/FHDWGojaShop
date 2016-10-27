@@ -42,6 +42,19 @@ public class ArticleWrapperFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
+    public void subServiceSet(long ArticleWrapperId, SubjInterface subServiceVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".ArtclWrpprFacade.sbSrvcSet(?, ?, ?); end;");
+            callable.setLong(1, ArticleWrapperId);
+            callable.setLong(2, subServiceVal.getId());
+            callable.setLong(3, subServiceVal.getClassId());
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
     public void ThisSet(long ArticleWrapperId, PersistentArticleWrapper ThisVal) throws PersistenceException {
         try{
             CallableStatement callable;

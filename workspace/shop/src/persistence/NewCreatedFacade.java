@@ -25,7 +25,7 @@ public class NewCreatedFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            NewCreated result = new NewCreated(null,id);
+            NewCreated result = new NewCreated(null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentNewCreated)PersistentProxi.createProxi(id, 130);
         }catch(SQLException se) {
@@ -41,7 +41,7 @@ public class NewCreatedFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            NewCreated result = new NewCreated(null,id);
+            NewCreated result = new NewCreated(null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentNewCreated)PersistentProxi.createProxi(id, 130);
         }catch(SQLException se) {
@@ -62,10 +62,14 @@ public class NewCreatedFacade{
                 callable.close();
                 return null;
             }
-            PersistentArticleState This = null;
+            SubjInterface subService = null;
             if (obj.getLong(2) != 0)
-                This = (PersistentArticleState)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
-            NewCreated result = new NewCreated(This,
+                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+            PersistentArticleState This = null;
+            if (obj.getLong(4) != 0)
+                This = (PersistentArticleState)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+            NewCreated result = new NewCreated(subService,
+                                               This,
                                                NewCreatedId);
             obj.close();
             callable.close();

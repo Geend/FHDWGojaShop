@@ -4,14 +4,13 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>140</x>
-      <y>448</y>
+      <x>469</x>
+      <y>329</y>
       <w>147</w>
       <h>91</h>
     </coordinates>
     <panel_attributes>Article
 --
-name: String
 price: Fraction
 minStock: Integer
 maxStock: Integer
@@ -22,19 +21,21 @@ producerDeliveryTime: Integer</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>98</x>
-      <y>385</y>
+      <x>427</x>
+      <y>252</y>
       <w>70</w>
-      <h>21</h>
+      <h>35</h>
     </coordinates>
-    <panel_attributes>Component</panel_attributes>
+    <panel_attributes>Component
+--
+name: String</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>49</x>
-      <y>448</y>
+      <x>378</x>
+      <y>329</y>
       <w>70</w>
       <h>21</h>
     </coordinates>
@@ -44,8 +45,8 @@ producerDeliveryTime: Integer</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>140</x>
-      <y>399</y>
+      <x>469</x>
+      <y>280</y>
       <w>21</w>
       <h>63</h>
     </coordinates>
@@ -55,8 +56,8 @@ producerDeliveryTime: Integer</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>105</x>
-      <y>399</y>
+      <x>434</x>
+      <y>280</y>
       <w>21</w>
       <h>63</h>
     </coordinates>
@@ -66,8 +67,8 @@ producerDeliveryTime: Integer</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>14</x>
-      <y>385</y>
+      <x>343</x>
+      <y>266</y>
       <w>98</w>
       <h>84</h>
     </coordinates>
@@ -79,8 +80,8 @@ components</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>189</x>
-      <y>294</y>
+      <x>518</x>
+      <y>175</y>
       <w>70</w>
       <h>35</h>
     </coordinates>
@@ -92,9 +93,9 @@ name: String</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>224</x>
-      <y>322</y>
-      <w>56</w>
+      <x>553</x>
+      <y>203</y>
+      <w>63</w>
       <h>140</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
@@ -105,8 +106,8 @@ producer</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>63</x>
-      <y>602</y>
+      <x>392</x>
+      <y>483</y>
       <w>70</w>
       <h>28</h>
     </coordinates>
@@ -117,8 +118,8 @@ producer</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>651</y>
+      <x>329</x>
+      <y>532</y>
       <w>70</w>
       <h>21</h>
     </coordinates>
@@ -128,8 +129,8 @@ producer</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>679</y>
+      <x>329</x>
+      <y>560</y>
       <w>70</w>
       <h>21</h>
     </coordinates>
@@ -139,8 +140,8 @@ producer</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>707</y>
+      <x>329</x>
+      <y>588</y>
       <w>70</w>
       <h>21</h>
     </coordinates>
@@ -150,8 +151,8 @@ producer</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>735</y>
+      <x>329</x>
+      <y>616</y>
       <w>70</w>
       <h>21</h>
     </coordinates>
@@ -161,8 +162,8 @@ producer</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>63</x>
-      <y>623</y>
+      <x>392</x>
+      <y>504</y>
       <w>42</w>
       <h>49</h>
     </coordinates>
@@ -172,8 +173,8 @@ producer</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>63</x>
-      <y>623</y>
+      <x>392</x>
+      <y>504</y>
       <w>56</w>
       <h>77</h>
     </coordinates>
@@ -183,8 +184,8 @@ producer</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>63</x>
-      <y>623</y>
+      <x>392</x>
+      <y>504</y>
       <w>70</w>
       <h>105</h>
     </coordinates>
@@ -194,8 +195,8 @@ producer</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>63</x>
-      <y>623</y>
+      <x>392</x>
+      <y>504</y>
       <w>84</w>
       <h>133</h>
     </coordinates>
@@ -205,8 +206,8 @@ producer</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>91</x>
-      <y>532</y>
+      <x>420</x>
+      <y>413</y>
       <w>77</w>
       <h>84</h>
     </coordinates>
@@ -218,8 +219,8 @@ state</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>434</x>
-      <y>357</y>
+      <x>763</x>
+      <y>238</y>
       <w>91</w>
       <h>42</h>
     </coordinates>
@@ -232,8 +233,8 @@ quantity: Integer</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>532</x>
-      <y>441</y>
+      <x>861</x>
+      <y>322</y>
       <w>140</w>
       <h>21</h>
     </coordinates>
@@ -243,8 +244,8 @@ quantity: Integer</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>350</x>
-      <y>441</y>
+      <x>679</x>
+      <y>322</y>
       <w>140</w>
       <h>21</h>
     </coordinates>
@@ -254,8 +255,8 @@ quantity: Integer</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>490</x>
-      <y>392</y>
+      <x>819</x>
+      <y>273</y>
       <w>63</w>
       <h>63</h>
     </coordinates>
@@ -265,8 +266,8 @@ quantity: Integer</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>462</x>
-      <y>392</y>
+      <x>791</x>
+      <y>273</y>
       <w>21</w>
       <h>63</h>
     </coordinates>
@@ -276,8 +277,8 @@ quantity: Integer</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>525</x>
-      <y>665</y>
+      <x>854</x>
+      <y>546</y>
       <w>112</w>
       <h>49</h>
     </coordinates>
@@ -291,8 +292,8 @@ getName(): String</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>343</x>
-      <y>511</y>
+      <x>672</x>
+      <y>392</y>
       <w>161</w>
       <h>63</h>
     </coordinates>
@@ -307,8 +308,8 @@ sendBack(): void</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>686</x>
-      <y>511</y>
+      <x>1015</x>
+      <y>392</y>
       <w>154</w>
       <h>42</h>
     </coordinates>
@@ -321,8 +322,8 @@ addToCart(amount: Integer): void</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>525</x>
-      <y>511</y>
+      <x>854</x>
+      <y>392</y>
       <w>154</w>
       <h>42</h>
     </coordinates>
@@ -335,9 +336,9 @@ removeFromCart(): void</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>413</x>
-      <y>455</y>
-      <w>42</w>
+      <x>742</x>
+      <y>336</y>
+      <w>49</w>
       <h>70</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
@@ -348,9 +349,9 @@ article</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>595</x>
-      <y>455</y>
-      <w>42</w>
+      <x>924</x>
+      <y>336</y>
+      <w>49</w>
       <h>70</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
@@ -361,8 +362,8 @@ article</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>462</x>
-      <y>567</y>
+      <x>791</x>
+      <y>448</y>
       <w>98</w>
       <h>112</h>
     </coordinates>
@@ -372,8 +373,8 @@ article</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>574</x>
-      <y>546</y>
+      <x>903</x>
+      <y>427</y>
       <w>21</w>
       <h>133</h>
     </coordinates>
@@ -383,8 +384,8 @@ article</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>602</x>
-      <y>546</y>
+      <x>931</x>
+      <y>427</y>
       <w>112</w>
       <h>133</h>
     </coordinates>
@@ -394,8 +395,8 @@ article</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>280</x>
-      <y>364</y>
+      <x>609</x>
+      <y>245</y>
       <w>168</w>
       <h>119</h>
     </coordinates>
@@ -407,8 +408,8 @@ article</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>168</x>
-      <y>119</y>
+      <x>497</x>
+      <y>0</y>
       <w>154</w>
       <h>77</h>
     </coordinates>
@@ -424,8 +425,8 @@ debit(amount: Fraction): void</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>560</x>
-      <y>140</y>
+      <x>889</x>
+      <y>21</y>
       <w>70</w>
       <h>21</h>
     </coordinates>
@@ -435,9 +436,9 @@ debit(amount: Fraction): void</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>588</x>
-      <y>154</y>
-      <w>49</w>
+      <x>917</x>
+      <y>35</y>
+      <w>56</w>
       <h>301</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
@@ -448,8 +449,8 @@ articles</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>315</x>
-      <y>140</y>
+      <x>644</x>
+      <y>21</y>
       <w>259</w>
       <h>35</h>
     </coordinates>
@@ -461,8 +462,8 @@ shoppingCart</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>294</x>
-      <y>665</y>
+      <x>623</x>
+      <y>546</y>
       <w>77</w>
       <h>35</h>
     </coordinates>
@@ -474,8 +475,8 @@ AbstractOrder
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>308</x>
-      <y>448</y>
+      <x>637</x>
+      <y>329</y>
       <w>70</w>
       <h>231</h>
     </coordinates>
@@ -487,8 +488,8 @@ articles</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>175</x>
-      <y>581</y>
+      <x>504</x>
+      <y>462</y>
       <w>119</w>
       <h>42</h>
     </coordinates>
@@ -501,9 +502,9 @@ deliveryTime: Integer</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>245</x>
-      <y>616</y>
-      <w>140</w>
+      <x>574</x>
+      <y>497</y>
+      <w>154</w>
       <h>77</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
@@ -514,8 +515,8 @@ customerDeliveryTime</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>273</x>
-      <y>756</y>
+      <x>602</x>
+      <y>637</y>
       <w>70</w>
       <h>21</h>
     </coordinates>
@@ -525,8 +526,8 @@ customerDeliveryTime</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>357</x>
-      <y>756</y>
+      <x>686</x>
+      <y>637</y>
       <w>77</w>
       <h>42</h>
     </coordinates>
@@ -539,8 +540,8 @@ cancel(): void</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>308</x>
-      <y>693</y>
+      <x>637</x>
+      <y>574</y>
       <w>21</w>
       <h>77</h>
     </coordinates>
@@ -550,8 +551,8 @@ cancel(): void</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>364</x>
-      <y>693</y>
+      <x>693</x>
+      <y>574</y>
       <w>21</w>
       <h>77</h>
     </coordinates>

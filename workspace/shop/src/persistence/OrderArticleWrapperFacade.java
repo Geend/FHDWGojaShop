@@ -26,7 +26,7 @@ public class OrderArticleWrapperFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            OrderArticleWrapper result = new OrderArticleWrapper(null,null,priceAtOrder,id);
+            OrderArticleWrapper result = new OrderArticleWrapper(null,null,null,priceAtOrder,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentOrderArticleWrapper)PersistentProxi.createProxi(id, 167);
         }catch(SQLException se) {
@@ -42,7 +42,7 @@ public class OrderArticleWrapperFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            OrderArticleWrapper result = new OrderArticleWrapper(null,null,priceAtOrder,id);
+            OrderArticleWrapper result = new OrderArticleWrapper(null,null,null,priceAtOrder,id);
             Cache.getTheCache().put(result);
             return (PersistentOrderArticleWrapper)PersistentProxi.createProxi(id, 167);
         }catch(SQLException se) {
@@ -66,12 +66,16 @@ public class OrderArticleWrapperFacade{
             PersistentArticle article = null;
             if (obj.getLong(2) != 0)
                 article = (PersistentArticle)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
-            PersistentArticleWrapper This = null;
+            SubjInterface subService = null;
             if (obj.getLong(4) != 0)
-                This = (PersistentArticleWrapper)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+            PersistentArticleWrapper This = null;
+            if (obj.getLong(6) != 0)
+                This = (PersistentArticleWrapper)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
             OrderArticleWrapper result = new OrderArticleWrapper(article,
+                                                                 subService,
                                                                  This,
-                                                                 (obj.getString(6) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(6))),
+                                                                 (obj.getString(8) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(8))),
                                                                  OrderArticleWrapperId);
             obj.close();
             callable.close();

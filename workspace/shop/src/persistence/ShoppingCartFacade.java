@@ -25,7 +25,7 @@ public class ShoppingCartFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ShoppingCart result = new ShoppingCart(null,id);
+            ShoppingCart result = new ShoppingCart(null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentShoppingCart)PersistentProxi.createProxi(id, 152);
         }catch(SQLException se) {
@@ -41,7 +41,7 @@ public class ShoppingCartFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ShoppingCart result = new ShoppingCart(null,id);
+            ShoppingCart result = new ShoppingCart(null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentShoppingCart)PersistentProxi.createProxi(id, 152);
         }catch(SQLException se) {
@@ -62,10 +62,14 @@ public class ShoppingCartFacade{
                 callable.close();
                 return null;
             }
-            PersistentShoppingCart This = null;
+            SubjInterface subService = null;
             if (obj.getLong(2) != 0)
-                This = (PersistentShoppingCart)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
-            ShoppingCart result = new ShoppingCart(This,
+                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+            PersistentShoppingCart This = null;
+            if (obj.getLong(4) != 0)
+                This = (PersistentShoppingCart)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+            ShoppingCart result = new ShoppingCart(subService,
+                                                   This,
                                                    ShoppingCartId);
             obj.close();
             callable.close();
@@ -133,6 +137,19 @@ public class ShoppingCartFacade{
             list.close();
             callable.close();
             return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void subServiceSet(long ShoppingCartId, SubjInterface subServiceVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".ShppngCrtFacade.sbSrvcSet(?, ?, ?); end;");
+            callable.setLong(1, ShoppingCartId);
+            callable.setLong(2, subServiceVal.getId());
+            callable.setLong(3, subServiceVal.getClassId());
+            callable.execute();
+            callable.close();
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }

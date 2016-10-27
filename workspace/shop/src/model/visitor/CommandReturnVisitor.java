@@ -1,7 +1,7 @@
 
 package model.visitor;
 
-public interface CommandReturnVisitor<R> {
+public interface CommandReturnVisitor<R> extends ProductGroupCommandReturnVisitor<R> {
     
     
 }

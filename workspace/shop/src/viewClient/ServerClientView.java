@@ -311,13 +311,24 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 
 
     interface MenuItemVisitor{
-        
+        ImageView handle(CreateArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem menuItem);
+        ImageView handle(CreateProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem menuItem);
     }
     private abstract class ServerMenuItem extends MenuItem{
         private ServerMenuItem(){
             this.setGraphic(getIconForMenuItem(this));
         }
         abstract protected ImageView accept(MenuItemVisitor visitor);
+    }
+    private class CreateArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class CreateProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
     }
     private java.util.Vector<javafx.scene.control.Button> getToolButtonsForStaticOperations() {
         java.util.Vector<javafx.scene.control.Button> result = new java.util.Vector<javafx.scene.control.Button>();
@@ -333,6 +344,30 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                 this.handleException(me);
                 return result;
             }
+            if (selected instanceof ProductGroupView){
+                item = new CreateArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem();
+                item.setText("createArticle ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final ServerCreateArticleProductGroupStringFractionIntegerIntegerIntegerProducerMssgWizard wizard = new ServerCreateArticleProductGroupStringFractionIntegerIntegerIntegerProducerMssgWizard("createArticle");
+                        wizard.setFirstArgument((ProductGroupView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+                item = new CreateProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem();
+                item.setText("createProductGroup ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final ServerCreateProductGroupProductGroupStringMssgWizard wizard = new ServerCreateProductGroupProductGroupStringMssgWizard("createProductGroup");
+                        wizard.setFirstArgument((ProductGroupView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+            }
             
         }
         this.addNotGeneratedItems(result,selected);
@@ -346,6 +381,132 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         this.preCalculatedFilters = switchOff;
     }
     
+	class ServerCreateArticleProductGroupStringFractionIntegerIntegerIntegerProducerMssgWizard extends Wizard {
+
+		protected ServerCreateArticleProductGroupStringFractionIntegerIntegerIntegerProducerMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new CreateArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateArticleProductGroupStringFractionIntegerIntegerIntegerProducerMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createArticle(firstArgument, ((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult(),
+									((FractionSelectionPanel)getParametersPanel().getChildren().get(1)).getResult(),
+									((IntegerSelectionPanel)getParametersPanel().getChildren().get(2)).getResult().longValue(),
+									((IntegerSelectionPanel)getParametersPanel().getChildren().get(3)).getResult().longValue(),
+									((IntegerSelectionPanel)getParametersPanel().getChildren().get(4)).getResult().longValue(),
+									(ProducerView)((ObjectSelectionPanel)getParametersPanel().getChildren().get(5)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			catch(CycleException e) {
+				getStatusBar().setText(e.getMessage());
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));
+			getParametersPanel().getChildren().add(new FractionSelectionPanel("price", this));
+			getParametersPanel().getChildren().add(new IntegerSelectionPanel("minStock", this));
+			getParametersPanel().getChildren().add(new IntegerSelectionPanel("maxStock", this));
+			getParametersPanel().getChildren().add(new IntegerSelectionPanel("producerDeliveryTime", this));
+			final ObjectSelectionPanel panel1 = new ObjectSelectionPanel("producer", "view.ProducerView", null, this);
+			getParametersPanel().getChildren().add(panel1);
+			panel1.setBrowserRoot((ViewRoot) getConnection().getServerView());		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private ProductGroupView firstArgument; 
+	
+		public void setFirstArgument(ProductGroupView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
+				selectionPanel0.preset(firstArgument.getName());
+				if (!selectionPanel0.check()) selectionPanel0.preset("");
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateProductGroupProductGroupStringMssgWizard extends Wizard {
+
+		protected ServerCreateProductGroupProductGroupStringMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new CreateProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateProductGroupProductGroupStringMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createProductGroup(firstArgument, ((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			catch(CycleException e) {
+				getStatusBar().setText(e.getMessage());
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private ProductGroupView firstArgument; 
+	
+		public void setFirstArgument(ProductGroupView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
+				selectionPanel0.preset(firstArgument.getName());
+				if (!selectionPanel0.check()) selectionPanel0.preset("");
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			this.check();
+		}
+		
+		
+	}
+
 	/* Menu and wizard section end */
 	
 	private ImageView getIconForMenuItem(ServerMenuItem menuItem){

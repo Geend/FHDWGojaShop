@@ -15,7 +15,6 @@ public class Article extends model.Component implements PersistentArticle{
     }
     
     public static PersistentArticle createArticle(String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,PersistentProducer producer,boolean delayed$Persistence) throws PersistenceException {
-        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentArticle result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theArticleFacade
@@ -38,7 +37,6 @@ public class Article extends model.Component implements PersistentArticle{
     }
     
     public static PersistentArticle createArticle(String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,PersistentProducer producer,boolean delayed$Persistence,PersistentArticle This) throws PersistenceException {
-        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentArticle result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theArticleFacade
@@ -64,7 +62,6 @@ public class Article extends model.Component implements PersistentArticle{
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            result.put("name", this.getName());
             result.put("price", this.getPrice().toString());
             result.put("minStock", new Long(this.getMinStock()).toString());
             result.put("maxStock", new Long(this.getMaxStock()).toString());
@@ -96,8 +93,9 @@ public class Article extends model.Component implements PersistentArticle{
     
     public Article provideCopy() throws PersistenceException{
         Article result = this;
-        result = new Article(this.This, 
-                             this.name, 
+        result = new Article(this.name, 
+                             this.subService, 
+                             this.This, 
                              this.price, 
                              this.minStock, 
                              this.maxStock, 
@@ -113,7 +111,6 @@ public class Article extends model.Component implements PersistentArticle{
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected String name;
     protected common.Fraction price;
     protected long minStock;
     protected long maxStock;
@@ -122,10 +119,9 @@ public class Article extends model.Component implements PersistentArticle{
     protected PersistentProducer producer;
     protected PersistentArticleState state;
     
-    public Article(PersistentComponent This,String name,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,PersistentProducer producer,PersistentArticleState state,long id) throws PersistenceException {
+    public Article(String name,SubjInterface subService,PersistentComponent This,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,PersistentProducer producer,PersistentArticleState state,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentComponent)This,id);
-        this.name = name;
+        super((String)name,(SubjInterface)subService,(PersistentComponent)This,id);
         this.price = price;
         this.minStock = minStock;
         this.maxStock = maxStock;
@@ -159,14 +155,6 @@ public class Article extends model.Component implements PersistentArticle{
         
     }
     
-    public String getName() throws PersistenceException {
-        return this.name;
-    }
-    public void setName(String newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theArticleFacade.nameSet(this.getId(), newValue);
-        this.name = newValue;
-    }
     public common.Fraction getPrice() throws PersistenceException {
         return this.price;
     }
@@ -262,6 +250,18 @@ public class Article extends model.Component implements PersistentArticle{
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleArticle(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleArticle(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleArticle(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleArticle(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleArticle(this);
+    }
     public void accept(PartsHIERARCHYVisitor visitor) throws PersistenceException {
         visitor.handleArticle(this);
     }
@@ -292,6 +292,15 @@ public class Article extends model.Component implements PersistentArticle{
 		visited.add(getThis());
 		return false;
     }
+    public synchronized void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentArticle)This);
@@ -304,6 +313,15 @@ public class Article extends model.Component implements PersistentArticle{
 			this.setProducer((PersistentProducer)final$$Fields.get("producer"));
 		}
     }
+    public synchronized void register(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.register(observee);
+    }
     public <T> T strategyParts(final PartsHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         return getThis().strategyParts(strategy, new java.util.HashMap<PartsHIERARCHY,T>());
@@ -314,6 +332,15 @@ public class Article extends model.Component implements PersistentArticle{
 		T result = strategy.Article$$finalize(getThis() );
 		visited.put(getThis(),result);
 		return result;
+    }
+    public synchronized void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.updateObservers(event);
     }
     
     

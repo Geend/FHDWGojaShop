@@ -29,6 +29,31 @@ public class ComponentFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
+    public void nameSet(long ComponentId, String nameVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".CmpnntFacade.nmSet(?, ?); end;");
+            callable.setLong(1, ComponentId);
+            callable.setString(2, nameVal);
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void subServiceSet(long ComponentId, SubjInterface subServiceVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".CmpnntFacade.sbSrvcSet(?, ?, ?); end;");
+            callable.setLong(1, ComponentId);
+            callable.setLong(2, subServiceVal.getId());
+            callable.setLong(3, subServiceVal.getClassId());
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
     public void ThisSet(long ComponentId, PersistentComponent ThisVal) throws PersistenceException {
         try{
             CallableStatement callable;

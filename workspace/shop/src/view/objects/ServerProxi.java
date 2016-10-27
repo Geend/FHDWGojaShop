@@ -13,10 +13,17 @@ public class ServerProxi extends ViewProxi implements ServerView{
     
     @SuppressWarnings("unchecked")
     public ServerView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
+        ViewProxi rootProductGroup = null;
+        String rootProductGroup$String = (String)resultTable.get("rootProductGroup");
+        if (rootProductGroup$String != null) {
+            common.ProxiInformation rootProductGroup$Info = common.RPCConstantsAndServices.createProxiInformation(rootProductGroup$String);
+            rootProductGroup = view.objects.ViewProxi.createProxi(rootProductGroup$Info,connectionKey);
+            rootProductGroup.setToString(rootProductGroup$Info.getToString());
+        }
         java.util.Vector<String> errors_string = (java.util.Vector<String>)resultTable.get("errors");
         java.util.Vector<ErrorDisplayView> errors = ViewProxi.getProxiVector(errors_string, connectionKey);
         String user = (String)resultTable.get("user");
-        ServerView result$$ = new Server(errors,(String)user, this.getId(), this.getClassId());
+        ServerView result$$ = new Server((ProductGroupView)rootProductGroup,errors,(String)user, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -25,20 +32,33 @@ public class ServerProxi extends ViewProxi implements ServerView{
         return RemoteDepth;
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        
+        int index = originalIndex;
+        if(index == 0 && this.getRootProductGroup() != null) return new RootProductGroupServerWrapper(this, originalIndex, (ViewRoot)this.getRootProductGroup());
+        if(this.getRootProductGroup() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 ;
+        return 0 
+            + (this.getRootProductGroup() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
-        return true;
+        if (this.object == null) return this.getLeafInfo() == 0;
+        return true 
+            && (this.getRootProductGroup() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        
+        int result = 0;
+        if(this.getRootProductGroup() != null && this.getRootProductGroup().equals(child)) return result;
+        if(this.getRootProductGroup() != null) result = result + 1;
         return -1;
     }
     
+    public ProductGroupView getRootProductGroup()throws ModelException{
+        return ((Server)this.getTheObject()).getRootProductGroup();
+    }
+    public void setRootProductGroup(ProductGroupView newValue) throws ModelException {
+        ((Server)this.getTheObject()).setRootProductGroup(newValue);
+    }
     public java.util.Vector<ErrorDisplayView> getErrors()throws ModelException{
         return ((Server)this.getTheObject()).getErrors();
     }

@@ -68,12 +68,6 @@ public class ArticleProxi extends ComponentProxi implements ArticleView{
         return -1;
     }
     
-    public String getName()throws ModelException{
-        return ((Article)this.getTheObject()).getName();
-    }
-    public void setName(String newValue) throws ModelException {
-        ((Article)this.getTheObject()).setName(newValue);
-    }
     public common.Fraction getPrice()throws ModelException{
         return ((Article)this.getTheObject()).getPrice();
     }

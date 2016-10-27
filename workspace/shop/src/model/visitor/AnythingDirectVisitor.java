@@ -11,6 +11,10 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleCustomerAccount(PersistentCustomerAccount customerAccount) throws PersistenceException;
     
+    public abstract void handleServerRootProductGroup(PersistentServerRootProductGroup serverRootProductGroup) throws PersistenceException;
+    
+    public abstract void handleSubj(PersistentSubj subj) throws PersistenceException;
+    
     public abstract void handleCustomerDeliveryTime(PersistentCustomerDeliveryTime customerDeliveryTime) throws PersistenceException;
     
     public abstract void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException;
@@ -59,6 +63,12 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;
     
+    public void handleCreateSubProductGroupCommand(PersistentCreateSubProductGroupCommand createSubProductGroupCommand) throws PersistenceException{
+        this.handleCommonDate(createSubProductGroupCommand);
+    }
+    public void handleCreateArticleCommand(PersistentCreateArticleCommand createArticleCommand) throws PersistenceException{
+        this.handleCommonDate(createArticleCommand);
+    }
     public abstract void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException;
     
     public abstract void handleArticleWrapper(PersistentArticleWrapper articleWrapper) throws PersistenceException;

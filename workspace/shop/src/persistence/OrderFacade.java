@@ -25,7 +25,7 @@ public class OrderFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Order result = new Order(null,null,id);
+            Order result = new Order(null,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentOrder)PersistentProxi.createProxi(id, 147);
         }catch(SQLException se) {
@@ -41,7 +41,7 @@ public class OrderFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Order result = new Order(null,null,id);
+            Order result = new Order(null,null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentOrder)PersistentProxi.createProxi(id, 147);
         }catch(SQLException se) {
@@ -65,10 +65,14 @@ public class OrderFacade{
             PersistentCustomerDeliveryTime customerDeliveryTime = null;
             if (obj.getLong(2) != 0)
                 customerDeliveryTime = (PersistentCustomerDeliveryTime)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
-            PersistentAbstractOrder This = null;
+            SubjInterface subService = null;
             if (obj.getLong(4) != 0)
-                This = (PersistentAbstractOrder)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+            PersistentAbstractOrder This = null;
+            if (obj.getLong(6) != 0)
+                This = (PersistentAbstractOrder)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
             Order result = new Order(customerDeliveryTime,
+                                     subService,
                                      This,
                                      OrderId);
             obj.close();

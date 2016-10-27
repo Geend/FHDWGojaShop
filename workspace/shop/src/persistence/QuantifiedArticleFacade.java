@@ -41,6 +41,19 @@ public class QuantifiedArticleFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
+    public void subServiceSet(long QuantifiedArticleId, SubjInterface subServiceVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".QntfdArtclFacade.sbSrvcSet(?, ?, ?); end;");
+            callable.setLong(1, QuantifiedArticleId);
+            callable.setLong(2, subServiceVal.getId());
+            callable.setLong(3, subServiceVal.getClassId());
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
     public void ThisSet(long QuantifiedArticleId, PersistentQuantifiedArticle ThisVal) throws PersistenceException {
         try{
             CallableStatement callable;

@@ -53,6 +53,18 @@ public class ProductGroupICProxi extends ComponentICProxi implements PersistentP
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleProductGroup(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleProductGroup(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleProductGroup(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleProductGroup(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleProductGroup(this);
+    }
     public void accept(PartsHIERARCHYVisitor visitor) throws PersistenceException {
         visitor.handleProductGroup(this);
     }
@@ -75,9 +87,25 @@ public class ProductGroupICProxi extends ComponentICProxi implements PersistentP
 				throws PersistenceException{
         return ((PersistentProductGroup)this.getTheObject()).containsParts(part, visited);
     }
+    public void createArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final PersistentProducer producer, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentProductGroup)this.getTheObject()).createArticle(name, price, minStock, maxStock, producerDeliveryTime, producer, invoker);
+    }
+    public void createSubProductGroup(final String name, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentProductGroup)this.getTheObject()).createSubProductGroup(name, invoker);
+    }
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentProductGroup)this.getTheObject()).deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentProductGroup)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentProductGroup)this.getTheObject()).register(observee);
     }
     public <T> T strategyParts(final PartsHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
@@ -87,9 +115,21 @@ public class ProductGroupICProxi extends ComponentICProxi implements PersistentP
 				throws PersistenceException{
         return ((PersistentProductGroup)this.getTheObject()).strategyParts(strategy, visited);
     }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentProductGroup)this.getTheObject()).updateObservers(event);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentProductGroup)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public PersistentArticle createArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final PersistentProducer producer) 
+				throws model.CycleException, PersistenceException{
+        return ((PersistentProductGroup)this.getTheObject()).createArticle(name, price, minStock, maxStock, producerDeliveryTime, producer);
+    }
+    public PersistentProductGroup createSubProductGroup(final String name) 
+				throws model.CycleException, PersistenceException{
+        return ((PersistentProductGroup)this.getTheObject()).createSubProductGroup(name);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

@@ -25,7 +25,7 @@ public class NotInSaleFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            NotInSale result = new NotInSale(null,id);
+            NotInSale result = new NotInSale(null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentNotInSale)PersistentProxi.createProxi(id, 124);
         }catch(SQLException se) {
@@ -41,7 +41,7 @@ public class NotInSaleFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            NotInSale result = new NotInSale(null,id);
+            NotInSale result = new NotInSale(null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentNotInSale)PersistentProxi.createProxi(id, 124);
         }catch(SQLException se) {
@@ -62,10 +62,14 @@ public class NotInSaleFacade{
                 callable.close();
                 return null;
             }
-            PersistentArticleState This = null;
+            SubjInterface subService = null;
             if (obj.getLong(2) != 0)
-                This = (PersistentArticleState)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
-            NotInSale result = new NotInSale(This,
+                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+            PersistentArticleState This = null;
+            if (obj.getLong(4) != 0)
+                This = (PersistentArticleState)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+            NotInSale result = new NotInSale(subService,
+                                             This,
                                              NotInSaleId);
             obj.close();
             callable.close();

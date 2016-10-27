@@ -5,9 +5,6 @@ import view.*;
 
 public abstract class AnythingStandardVisitor implements AnythingVisitor {
     
-    public void handleOrder(OrderView order) throws ModelException{
-        this.standardHandling(order);
-    }
     public void handleOrderArticleWrapper(OrderArticleWrapperView orderArticleWrapper) throws ModelException{
         this.standardHandling(orderArticleWrapper);
     }
@@ -35,20 +32,8 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleNotInSale(NotInSaleView notInSale) throws ModelException{
         this.standardHandling(notInSale);
     }
-    public void handleCustomerAccount(CustomerAccountView customerAccount) throws ModelException{
-        this.standardHandling(customerAccount);
-    }
-    public void handleInSale(InSaleView inSale) throws ModelException{
-        this.standardHandling(inSale);
-    }
     public void handleCustomerDeliveryTime(CustomerDeliveryTimeView customerDeliveryTime) throws ModelException{
         this.standardHandling(customerDeliveryTime);
-    }
-    public void handleProducer(ProducerView producer) throws ModelException{
-        this.standardHandling(producer);
-    }
-    public void handleShoppingCart(ShoppingCartView shoppingCart) throws ModelException{
-        this.standardHandling(shoppingCart);
     }
     public void handleShoppingCartQuantifiedArticle(ShoppingCartQuantifiedArticleView shoppingCartQuantifiedArticle) throws ModelException{
         this.standardHandling(shoppingCartQuantifiedArticle);
@@ -58,6 +43,21 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleShopArticleWrapper(ShopArticleWrapperView shopArticleWrapper) throws ModelException{
         this.standardHandling(shopArticleWrapper);
+    }
+    public void handleOrder(OrderView order) throws ModelException{
+        this.standardHandling(order);
+    }
+    public void handleCustomerAccount(CustomerAccountView customerAccount) throws ModelException{
+        this.standardHandling(customerAccount);
+    }
+    public void handleInSale(InSaleView inSale) throws ModelException{
+        this.standardHandling(inSale);
+    }
+    public void handleProducer(ProducerView producer) throws ModelException{
+        this.standardHandling(producer);
+    }
+    public void handleShoppingCart(ShoppingCartView shoppingCart) throws ModelException{
+        this.standardHandling(shoppingCart);
     }
     public void handleShoppingCartArticleWrapper(ShoppingCartArticleWrapperView shoppingCartArticleWrapper) throws ModelException{
         this.standardHandling(shoppingCartArticleWrapper);

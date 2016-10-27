@@ -11,9 +11,9 @@ public class ProductGroup extends view.objects.Component implements ProductGroup
     
     protected java.util.Vector<ComponentView> components;
     
-    public ProductGroup(java.util.Vector<ComponentView> components,long id, long classId) {
+    public ProductGroup(String name,java.util.Vector<ComponentView> components,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super(id, classId);
+        super((String)name,id, classId);
         this.components = components;        
     }
     
@@ -90,13 +90,21 @@ public class ProductGroup extends view.objects.Component implements ProductGroup
         }
         return -1;
     }
+    public int getNameIndex() throws ModelException {
+        return 0;
+    }
     public int getRowCount(){
-        return 0 ;
+        return 0 
+            + 1;
     }
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
+                if(rowIndex == 0) return "name";
+                rowIndex = rowIndex - 1;
             } else {
+                if(rowIndex == 0) return this.getName();
+                rowIndex = rowIndex - 1;
             }
             throw new ModelException("Table index out of bounds!", -1);
         } catch (ModelException e){
@@ -108,7 +116,11 @@ public class ProductGroup extends view.objects.Component implements ProductGroup
         return true;
     }
     public void setValueAt(String newValue, int rowIndex) throws Exception {
-        
+        if(rowIndex == 0){
+            this.setName(newValue);
+            return;
+        }
+        rowIndex = rowIndex - 1;
     }
     public boolean hasTransientFields(){
         return false;

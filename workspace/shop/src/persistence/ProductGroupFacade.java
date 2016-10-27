@@ -16,16 +16,17 @@ public class ProductGroupFacade{
 	}
 
     /* If idCreateIfLessZero is negative, a new id is generated. */
-    public PersistentProductGroup newProductGroup(long idCreateIfLessZero) throws PersistenceException {
+    public PersistentProductGroup newProductGroup(String name,long idCreateIfLessZero) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
-            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".PrdctGrpFacade.newPrdctGrp(?); end;");
+            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".PrdctGrpFacade.newPrdctGrp(?,?); end;");
             callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
-            callable.setLong(2, idCreateIfLessZero);
+            callable.setString(2, name);
+            callable.setLong(3, idCreateIfLessZero);
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ProductGroup result = new ProductGroup(null,id);
+            ProductGroup result = new ProductGroup(name,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentProductGroup)PersistentProxi.createProxi(id, 121);
         }catch(SQLException se) {
@@ -33,7 +34,7 @@ public class ProductGroupFacade{
         }
     }
     
-    public PersistentProductGroup newDelayedProductGroup() throws PersistenceException {
+    public PersistentProductGroup newDelayedProductGroup(String name) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
             callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".PrdctGrpFacade.newDelayedPrdctGrp(); end;");
@@ -41,7 +42,7 @@ public class ProductGroupFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ProductGroup result = new ProductGroup(null,id);
+            ProductGroup result = new ProductGroup(name,null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentProductGroup)PersistentProxi.createProxi(id, 121);
         }catch(SQLException se) {
@@ -62,10 +63,15 @@ public class ProductGroupFacade{
                 callable.close();
                 return null;
             }
+            SubjInterface subService = null;
+            if (obj.getLong(3) != 0)
+                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
             PersistentComponent This = null;
-            if (obj.getLong(2) != 0)
-                This = (PersistentComponent)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
-            ProductGroup result = new ProductGroup(This,
+            if (obj.getLong(5) != 0)
+                This = (PersistentComponent)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
+            ProductGroup result = new ProductGroup(obj.getString(2) == null ? "" : obj.getString(2) /* In Oracle "" = null !!! */,
+                                                   subService,
+                                                   This,
                                                    ProductGroupId);
             obj.close();
             callable.close();

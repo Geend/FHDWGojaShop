@@ -26,7 +26,7 @@ public class OrderQuantifiedArticleFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            OrderQuantifiedArticle result = new OrderQuantifiedArticle(quantity,null,null,id);
+            OrderQuantifiedArticle result = new OrderQuantifiedArticle(quantity,null,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentOrderQuantifiedArticle)PersistentProxi.createProxi(id, 148);
         }catch(SQLException se) {
@@ -42,7 +42,7 @@ public class OrderQuantifiedArticleFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            OrderQuantifiedArticle result = new OrderQuantifiedArticle(quantity,null,null,id);
+            OrderQuantifiedArticle result = new OrderQuantifiedArticle(quantity,null,null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentOrderQuantifiedArticle)PersistentProxi.createProxi(id, 148);
         }catch(SQLException se) {
@@ -63,13 +63,17 @@ public class OrderQuantifiedArticleFacade{
                 callable.close();
                 return null;
             }
-            PersistentQuantifiedArticle This = null;
+            SubjInterface subService = null;
             if (obj.getLong(3) != 0)
-                This = (PersistentQuantifiedArticle)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
-            PersistentOrderArticleWrapper article = null;
+                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
+            PersistentQuantifiedArticle This = null;
             if (obj.getLong(5) != 0)
-                article = (PersistentOrderArticleWrapper)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
+                This = (PersistentQuantifiedArticle)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
+            PersistentOrderArticleWrapper article = null;
+            if (obj.getLong(7) != 0)
+                article = (PersistentOrderArticleWrapper)PersistentProxi.createProxi(obj.getLong(7), obj.getLong(8));
             OrderQuantifiedArticle result = new OrderQuantifiedArticle(obj.getLong(2),
+                                                                       subService,
                                                                        This,
                                                                        article,
                                                                        OrderQuantifiedArticleId);

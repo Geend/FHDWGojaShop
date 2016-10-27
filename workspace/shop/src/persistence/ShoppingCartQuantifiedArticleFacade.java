@@ -26,7 +26,7 @@ public class ShoppingCartQuantifiedArticleFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ShoppingCartQuantifiedArticle result = new ShoppingCartQuantifiedArticle(quantity,null,null,id);
+            ShoppingCartQuantifiedArticle result = new ShoppingCartQuantifiedArticle(quantity,null,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentShoppingCartQuantifiedArticle)PersistentProxi.createProxi(id, 153);
         }catch(SQLException se) {
@@ -42,7 +42,7 @@ public class ShoppingCartQuantifiedArticleFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ShoppingCartQuantifiedArticle result = new ShoppingCartQuantifiedArticle(quantity,null,null,id);
+            ShoppingCartQuantifiedArticle result = new ShoppingCartQuantifiedArticle(quantity,null,null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentShoppingCartQuantifiedArticle)PersistentProxi.createProxi(id, 153);
         }catch(SQLException se) {
@@ -63,13 +63,17 @@ public class ShoppingCartQuantifiedArticleFacade{
                 callable.close();
                 return null;
             }
-            PersistentQuantifiedArticle This = null;
+            SubjInterface subService = null;
             if (obj.getLong(3) != 0)
-                This = (PersistentQuantifiedArticle)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
-            PersistentShoppingCartArticleWrapper article = null;
+                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
+            PersistentQuantifiedArticle This = null;
             if (obj.getLong(5) != 0)
-                article = (PersistentShoppingCartArticleWrapper)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
+                This = (PersistentQuantifiedArticle)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
+            PersistentShoppingCartArticleWrapper article = null;
+            if (obj.getLong(7) != 0)
+                article = (PersistentShoppingCartArticleWrapper)PersistentProxi.createProxi(obj.getLong(7), obj.getLong(8));
             ShoppingCartQuantifiedArticle result = new ShoppingCartQuantifiedArticle(obj.getLong(2),
+                                                                                     subService,
                                                                                      This,
                                                                                      article,
                                                                                      ShoppingCartQuantifiedArticleId);

@@ -41,13 +41,15 @@ public abstract class AbstractOrder extends PersistentObject implements Persiste
     }
     protected AbstractOrder_ArticlesProxi articles;
     protected PersistentCustomerDeliveryTime customerDeliveryTime;
+    protected SubjInterface subService;
     protected PersistentAbstractOrder This;
     
-    public AbstractOrder(PersistentCustomerDeliveryTime customerDeliveryTime,PersistentAbstractOrder This,long id) throws PersistenceException {
+    public AbstractOrder(PersistentCustomerDeliveryTime customerDeliveryTime,SubjInterface subService,PersistentAbstractOrder This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.articles = new AbstractOrder_ArticlesProxi(this);
         this.customerDeliveryTime = customerDeliveryTime;
+        this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -66,6 +68,10 @@ public abstract class AbstractOrder extends PersistentObject implements Persiste
         if(this.getCustomerDeliveryTime() != null){
             this.getCustomerDeliveryTime().store();
             ConnectionHandler.getTheConnectionHandler().theAbstractOrderFacade.customerDeliveryTimeSet(this.getId(), getCustomerDeliveryTime());
+        }
+        if(this.getSubService() != null){
+            this.getSubService().store();
+            ConnectionHandler.getTheConnectionHandler().theAbstractOrderFacade.subServiceSet(this.getId(), getSubService());
         }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
@@ -89,6 +95,20 @@ public abstract class AbstractOrder extends PersistentObject implements Persiste
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theAbstractOrderFacade.customerDeliveryTimeSet(this.getId(), newValue);
+        }
+    }
+    public SubjInterface getSubService() throws PersistenceException {
+        return this.subService;
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.subService)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.subService = (SubjInterface)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theAbstractOrderFacade.subServiceSet(this.getId(), newValue);
         }
     }
     protected void setThis(PersistentAbstractOrder newValue) throws PersistenceException {

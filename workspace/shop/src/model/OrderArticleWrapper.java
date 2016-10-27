@@ -61,6 +61,7 @@ public class OrderArticleWrapper extends model.ArticleWrapper implements Persist
     public OrderArticleWrapper provideCopy() throws PersistenceException{
         OrderArticleWrapper result = this;
         result = new OrderArticleWrapper(this.article, 
+                                         this.subService, 
                                          this.This, 
                                          this.priceAtOrder, 
                                          this.getId());
@@ -73,9 +74,9 @@ public class OrderArticleWrapper extends model.ArticleWrapper implements Persist
     }
     protected common.Fraction priceAtOrder;
     
-    public OrderArticleWrapper(PersistentArticle article,PersistentArticleWrapper This,common.Fraction priceAtOrder,long id) throws PersistenceException {
+    public OrderArticleWrapper(PersistentArticle article,SubjInterface subService,PersistentArticleWrapper This,common.Fraction priceAtOrder,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentArticle)article,(PersistentArticleWrapper)This,id);
+        super((PersistentArticle)article,(SubjInterface)subService,(PersistentArticleWrapper)This,id);
         this.priceAtOrder = priceAtOrder;        
     }
     
@@ -134,17 +135,56 @@ public class OrderArticleWrapper extends model.ArticleWrapper implements Persist
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleOrderArticleWrapper(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleOrderArticleWrapper(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleOrderArticleWrapper(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleOrderArticleWrapper(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleOrderArticleWrapper(this);
+    }
     public int getLeafInfo() throws PersistenceException{
         if (this.getArticle() != null) return 1;
         return 0;
     }
     
     
+    public synchronized void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentOrderArticleWrapper)This);
 		if(this.isTheSameAs(This)){
 		}
+    }
+    public synchronized void register(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.register(observee);
+    }
+    public synchronized void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.updateObservers(event);
     }
     
     

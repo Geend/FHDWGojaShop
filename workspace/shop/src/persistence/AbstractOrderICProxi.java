@@ -21,13 +21,31 @@ public abstract class AbstractOrderICProxi extends PersistentInCacheProxiOptimis
     public void setCustomerDeliveryTime(PersistentCustomerDeliveryTime newValue) throws PersistenceException {
         ((PersistentAbstractOrder)this.getTheObject()).setCustomerDeliveryTime(newValue);
     }
+    public SubjInterface getSubService() throws PersistenceException {
+        return ((PersistentAbstractOrder)this.getTheObject()).getSubService();
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        ((PersistentAbstractOrder)this.getTheObject()).setSubService(newValue);
+    }
     public abstract PersistentAbstractOrder getThis() throws PersistenceException ;
     
     
     
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentAbstractOrder)this.getTheObject()).deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentAbstractOrder)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentAbstractOrder)this.getTheObject()).register(observee);
+    }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentAbstractOrder)this.getTheObject()).updateObservers(event);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

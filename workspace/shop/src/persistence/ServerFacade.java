@@ -29,7 +29,7 @@ public class ServerFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Server result = new Server(null,password,user,hackCount,hackDelay,id);
+            Server result = new Server(null,null,null,password,user,hackCount,hackDelay,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentServer)PersistentProxi.createProxi(id, -102);
         }catch(SQLException se) {
@@ -45,7 +45,7 @@ public class ServerFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Server result = new Server(null,password,user,hackCount,hackDelay,id);
+            Server result = new Server(null,null,null,password,user,hackCount,hackDelay,id);
             Cache.getTheCache().put(result);
             return (PersistentServer)PersistentProxi.createProxi(id, -102);
         }catch(SQLException se) {
@@ -66,14 +66,22 @@ public class ServerFacade{
                 callable.close();
                 return null;
             }
-            PersistentServer This = null;
+            PersistentServerRootProductGroup rootProductGroup = null;
             if (obj.getLong(2) != 0)
-                This = (PersistentServer)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
-            Server result = new Server(This,
-                                       obj.getString(4) == null ? "" : obj.getString(4) /* In Oracle "" = null !!! */,
-                                       obj.getString(5) == null ? "" : obj.getString(5) /* In Oracle "" = null !!! */,
-                                       obj.getLong(6),
-                                       obj.getTimestamp(7),
+                rootProductGroup = (PersistentServerRootProductGroup)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+            SubjInterface subService = null;
+            if (obj.getLong(4) != 0)
+                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+            PersistentServer This = null;
+            if (obj.getLong(6) != 0)
+                This = (PersistentServer)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
+            Server result = new Server(rootProductGroup,
+                                       subService,
+                                       This,
+                                       obj.getString(8) == null ? "" : obj.getString(8) /* In Oracle "" = null !!! */,
+                                       obj.getString(9) == null ? "" : obj.getString(9) /* In Oracle "" = null !!! */,
+                                       obj.getLong(10),
+                                       obj.getTimestamp(11),
                                        ServerId);
             obj.close();
             callable.close();
@@ -117,6 +125,32 @@ public class ServerFacade{
             list.close();
             callable.close();
             return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void rootProductGroupSet(long ServerId, PersistentServerRootProductGroup rootProductGroupVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".SrvrFacade.rtPrdctGrpSet(?, ?, ?); end;");
+            callable.setLong(1, ServerId);
+            callable.setLong(2, rootProductGroupVal.getId());
+            callable.setLong(3, rootProductGroupVal.getClassId());
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void subServiceSet(long ServerId, SubjInterface subServiceVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".SrvrFacade.sbSrvcSet(?, ?, ?); end;");
+            callable.setLong(1, ServerId);
+            callable.setLong(2, subServiceVal.getId());
+            callable.setLong(3, subServiceVal.getClassId());
+            callable.execute();
+            callable.close();
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }

@@ -8,12 +8,20 @@ import view.*;
 
 public abstract class Component extends ViewObject implements ComponentView{
     
+    protected String name;
     
-    public Component(long id, long classId) {
+    public Component(String name,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super(id, classId);        
+        super(id, classId);
+        this.name = name;        
     }
     
+    public String getName()throws ModelException{
+        return this.name;
+    }
+    public void setName(String newValue) throws ModelException {
+        this.name = newValue;
+    }
     
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
@@ -36,13 +44,21 @@ public abstract class Component extends ViewObject implements ComponentView{
         
         return -1;
     }
+    public int getNameIndex() throws ModelException {
+        return 0;
+    }
     public int getRowCount(){
-        return 0 ;
+        return 0 
+            + 1;
     }
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
+                if(rowIndex == 0) return "name";
+                rowIndex = rowIndex - 1;
             } else {
+                if(rowIndex == 0) return this.getName();
+                rowIndex = rowIndex - 1;
             }
             throw new ModelException("Table index out of bounds!", -1);
         } catch (ModelException e){
@@ -54,7 +70,11 @@ public abstract class Component extends ViewObject implements ComponentView{
         return true;
     }
     public void setValueAt(String newValue, int rowIndex) throws Exception {
-        
+        if(rowIndex == 0){
+            this.setName(newValue);
+            return;
+        }
+        rowIndex = rowIndex - 1;
     }
     /* Start of protected part that is not overridden by persistence generator */
     

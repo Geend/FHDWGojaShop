@@ -31,7 +31,7 @@ public class ArticleFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Article result = new Article(null,name,price,minStock,maxStock,currentStock,producerDeliveryTime,null,null,id);
+            Article result = new Article(name,null,null,price,minStock,maxStock,currentStock,producerDeliveryTime,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentArticle)PersistentProxi.createProxi(id, 123);
         }catch(SQLException se) {
@@ -47,7 +47,7 @@ public class ArticleFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Article result = new Article(null,name,price,minStock,maxStock,currentStock,producerDeliveryTime,null,null,id);
+            Article result = new Article(name,null,null,price,minStock,maxStock,currentStock,producerDeliveryTime,null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentArticle)PersistentProxi.createProxi(id, 123);
         }catch(SQLException se) {
@@ -68,22 +68,26 @@ public class ArticleFacade{
                 callable.close();
                 return null;
             }
+            SubjInterface subService = null;
+            if (obj.getLong(3) != 0)
+                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
             PersistentComponent This = null;
-            if (obj.getLong(2) != 0)
-                This = (PersistentComponent)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+            if (obj.getLong(5) != 0)
+                This = (PersistentComponent)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
             PersistentProducer producer = null;
-            if (obj.getLong(10) != 0)
-                producer = (PersistentProducer)PersistentProxi.createProxi(obj.getLong(10), obj.getLong(11));
-            PersistentArticleState state = null;
             if (obj.getLong(12) != 0)
-                state = (PersistentArticleState)PersistentProxi.createProxi(obj.getLong(12), obj.getLong(13));
-            Article result = new Article(This,
-                                         obj.getString(4) == null ? "" : obj.getString(4) /* In Oracle "" = null !!! */,
-                                         (obj.getString(5) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(5))),
-                                         obj.getLong(6),
-                                         obj.getLong(7),
+                producer = (PersistentProducer)PersistentProxi.createProxi(obj.getLong(12), obj.getLong(13));
+            PersistentArticleState state = null;
+            if (obj.getLong(14) != 0)
+                state = (PersistentArticleState)PersistentProxi.createProxi(obj.getLong(14), obj.getLong(15));
+            Article result = new Article(obj.getString(2) == null ? "" : obj.getString(2) /* In Oracle "" = null !!! */,
+                                         subService,
+                                         This,
+                                         (obj.getString(7) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(7))),
                                          obj.getLong(8),
                                          obj.getLong(9),
+                                         obj.getLong(10),
+                                         obj.getLong(11),
                                          producer,
                                          state,
                                          ArticleId);
@@ -93,18 +97,6 @@ public class ArticleFacade{
             Article objectInCache = (Article)inCache.getTheObject();
             if (objectInCache == result)result.initializeOnInstantiation();
             return objectInCache;
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
-    }
-    public void nameSet(long ArticleId, String nameVal) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".ArtclFacade.nmSet(?, ?); end;");
-            callable.setLong(1, ArticleId);
-            callable.setString(2, nameVal);
-            callable.execute();
-            callable.close();
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }

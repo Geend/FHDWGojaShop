@@ -109,6 +109,7 @@ public class ConnectionHandler {
 	private String name;
 
     public OrderArticleWrapperFacade theOrderArticleWrapperFacade;
+    public CreateSubProductGroupCommandFacade theCreateSubProductGroupCommandFacade;
     public ProductGroupFacade theProductGroupFacade;
     public RemainingStockFacade theRemainingStockFacade;
     public OrderQuantifiedArticleFacade theOrderQuantifiedArticleFacade;
@@ -117,6 +118,8 @@ public class ConnectionHandler {
     public ArticleFacade theArticleFacade;
     public PreOrderFacade thePreOrderFacade;
     public NotInSaleFacade theNotInSaleFacade;
+    public ServerRootProductGroupFacade theServerRootProductGroupFacade;
+    public CreateArticleCommandFacade theCreateArticleCommandFacade;
     public CustomerDeliveryTimeFacade theCustomerDeliveryTimeFacade;
     public CommandCoordinatorFacade theCommandCoordinatorFacade;
     public QuantifiedArticleFacade theQuantifiedArticleFacade;
@@ -127,6 +130,7 @@ public class ConnectionHandler {
     public OrderFacade theOrderFacade;
     public CustomerAccountFacade theCustomerAccountFacade;
     public InSaleFacade theInSaleFacade;
+    public SubjFacade theSubjFacade;
     public AbstractOrderFacade theAbstractOrderFacade;
     public ProducerFacade theProducerFacade;
     public ShoppingCartFacade theShoppingCartFacade;
@@ -160,6 +164,7 @@ public class ConnectionHandler {
 			callable.execute();
 			callable.close();
             this.theOrderArticleWrapperFacade= new OrderArticleWrapperFacade(this.schemaName, this.con);
+            this.theCreateSubProductGroupCommandFacade= new CreateSubProductGroupCommandFacade(this.schemaName, this.con);
             this.theProductGroupFacade= new ProductGroupFacade(this.schemaName, this.con);
             this.theRemainingStockFacade= new RemainingStockFacade(this.schemaName, this.con);
             this.theOrderQuantifiedArticleFacade= new OrderQuantifiedArticleFacade(this.schemaName, this.con);
@@ -168,6 +173,8 @@ public class ConnectionHandler {
             this.theArticleFacade= new ArticleFacade(this.schemaName, this.con);
             this.thePreOrderFacade= new PreOrderFacade(this.schemaName, this.con);
             this.theNotInSaleFacade= new NotInSaleFacade(this.schemaName, this.con);
+            this.theServerRootProductGroupFacade= new ServerRootProductGroupFacade(this.schemaName, this.con);
+            this.theCreateArticleCommandFacade= new CreateArticleCommandFacade(this.schemaName, this.con);
             this.theCustomerDeliveryTimeFacade= new CustomerDeliveryTimeFacade(this.schemaName, this.con);
             this.theCommandCoordinatorFacade= new CommandCoordinatorFacade(this.schemaName, this.con);
             this.theQuantifiedArticleFacade= new QuantifiedArticleFacade(this.schemaName, this.con);
@@ -178,6 +185,7 @@ public class ConnectionHandler {
             this.theOrderFacade= new OrderFacade(this.schemaName, this.con);
             this.theCustomerAccountFacade= new CustomerAccountFacade(this.schemaName, this.con);
             this.theInSaleFacade= new InSaleFacade(this.schemaName, this.con);
+            this.theSubjFacade= new SubjFacade(this.schemaName, this.con);
             this.theAbstractOrderFacade= new AbstractOrderFacade(this.schemaName, this.con);
             this.theProducerFacade= new ProducerFacade(this.schemaName, this.con);
             this.theShoppingCartFacade= new ShoppingCartFacade(this.schemaName, this.con);

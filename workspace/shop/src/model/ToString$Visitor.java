@@ -41,6 +41,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleProductGroup(PersistentProductGroup productGroup) throws PersistenceException {
+		result = "PG: " + productGroup.getName();
 
 	}
 
@@ -61,6 +62,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleArticle(PersistentArticle article) throws PersistenceException {
+		result = "Article: " + article.getName();
 
 	}
 
@@ -98,6 +100,8 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	public void handleShoppingCart(PersistentShoppingCart shoppingCart) throws PersistenceException {
 
 	}
+
+
 
 	@Override
 	public void handleShoppingCartQuantifiedArticle(PersistentShoppingCartQuantifiedArticle shoppingCartQuantifiedArticle) throws PersistenceException {

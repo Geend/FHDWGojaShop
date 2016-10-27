@@ -18,6 +18,7 @@ public abstract class Component extends PersistentObject implements PersistentCo
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            result.put("name", this.getName());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -29,11 +30,15 @@ public abstract class Component extends PersistentObject implements PersistentCo
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
+    protected String name;
+    protected SubjInterface subService;
     protected PersistentComponent This;
     
-    public Component(PersistentComponent This,long id) throws PersistenceException {
+    public Component(String name,SubjInterface subService,PersistentComponent This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
+        this.name = name;
+        this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -48,6 +53,10 @@ public abstract class Component extends PersistentObject implements PersistentCo
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         super.store();
+        if(this.getSubService() != null){
+            this.getSubService().store();
+            ConnectionHandler.getTheConnectionHandler().theComponentFacade.subServiceSet(this.getId(), getSubService());
+        }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theComponentFacade.ThisSet(this.getId(), getThis());
@@ -55,6 +64,28 @@ public abstract class Component extends PersistentObject implements PersistentCo
         
     }
     
+    public String getName() throws PersistenceException {
+        return this.name;
+    }
+    public void setName(String newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theComponentFacade.nameSet(this.getId(), newValue);
+        this.name = newValue;
+    }
+    public SubjInterface getSubService() throws PersistenceException {
+        return this.subService;
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.subService)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.subService = (SubjInterface)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theComponentFacade.subServiceSet(this.getId(), newValue);
+        }
+    }
     protected void setThis(PersistentComponent newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if (newValue.isTheSameAs(this)){
@@ -78,6 +109,7 @@ public abstract class Component extends PersistentObject implements PersistentCo
 				throws PersistenceException{
         this.setThis((PersistentComponent)This);
 		if(this.isTheSameAs(This)){
+			this.setName((String)final$$Fields.get("name"));
 		}
     }
     

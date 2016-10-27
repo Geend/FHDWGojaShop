@@ -10,12 +10,14 @@ import view.visitor.*;
 
 public class Server extends ViewObject implements ServerView{
     
+    protected ProductGroupView rootProductGroup;
     protected java.util.Vector<ErrorDisplayView> errors;
     protected String user;
     
-    public Server(java.util.Vector<ErrorDisplayView> errors,String user,long id, long classId) {
+    public Server(ProductGroupView rootProductGroup,java.util.Vector<ErrorDisplayView> errors,String user,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
+        this.rootProductGroup = rootProductGroup;
         this.errors = errors;
         this.user = user;        
     }
@@ -28,6 +30,12 @@ public class Server extends ViewObject implements ServerView{
         return getTypeId();
     }
     
+    public ProductGroupView getRootProductGroup()throws ModelException{
+        return this.rootProductGroup;
+    }
+    public void setRootProductGroup(ProductGroupView newValue) throws ModelException {
+        this.rootProductGroup = newValue;
+    }
     public java.util.Vector<ErrorDisplayView> getErrors()throws ModelException{
         return this.errors;
     }
@@ -67,6 +75,10 @@ public class Server extends ViewObject implements ServerView{
     }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
+        ProductGroupView rootProductGroup = this.getRootProductGroup();
+        if (rootProductGroup != null) {
+            ((ViewProxi)rootProductGroup).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(rootProductGroup.getClassId(), rootProductGroup.getId())));
+        }
         java.util.Vector<?> errors = this.getErrors();
         if (errors != null) {
             ViewObject.resolveVectorProxies(errors, resultTable);
@@ -77,21 +89,27 @@ public class Server extends ViewObject implements ServerView{
         
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        
+        int index = originalIndex;
+        if(index == 0 && this.getRootProductGroup() != null) return new RootProductGroupServerWrapper(this, originalIndex, (ViewRoot)this.getRootProductGroup());
+        if(this.getRootProductGroup() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 ;
+        return 0 
+            + (this.getRootProductGroup() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
-        return true;
+        return true 
+            && (this.getRootProductGroup() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        
+        int result = 0;
+        if(this.getRootProductGroup() != null && this.getRootProductGroup().equals(child)) return result;
+        if(this.getRootProductGroup() != null) result = result + 1;
         return -1;
     }
     public int getUserIndex() throws ModelException {
-        return 0;
+        return 0 + (this.getRootProductGroup() == null ? 0 : 1);
     }
     public int getRowCount(){
         return 0 

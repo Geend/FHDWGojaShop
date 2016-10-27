@@ -27,7 +27,7 @@ public class CustomerAccountFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            CustomerAccount result = new CustomerAccount(balance,limit,null,null,id);
+            CustomerAccount result = new CustomerAccount(balance,limit,null,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentCustomerAccount)PersistentProxi.createProxi(id, 125);
         }catch(SQLException se) {
@@ -43,7 +43,7 @@ public class CustomerAccountFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            CustomerAccount result = new CustomerAccount(balance,limit,null,null,id);
+            CustomerAccount result = new CustomerAccount(balance,limit,null,null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentCustomerAccount)PersistentProxi.createProxi(id, 125);
         }catch(SQLException se) {
@@ -67,12 +67,16 @@ public class CustomerAccountFacade{
             PersistentShoppingCart shoppingCart = null;
             if (obj.getLong(4) != 0)
                 shoppingCart = (PersistentShoppingCart)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
-            PersistentCustomerAccount This = null;
+            SubjInterface subService = null;
             if (obj.getLong(6) != 0)
-                This = (PersistentCustomerAccount)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
+                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
+            PersistentCustomerAccount This = null;
+            if (obj.getLong(8) != 0)
+                This = (PersistentCustomerAccount)PersistentProxi.createProxi(obj.getLong(8), obj.getLong(9));
             CustomerAccount result = new CustomerAccount((obj.getString(2) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(2))),
                                                          obj.getLong(3),
                                                          shoppingCart,
+                                                         subService,
                                                          This,
                                                          CustomerAccountId);
             obj.close();
@@ -130,6 +134,19 @@ public class CustomerAccountFacade{
             callable.setLong(1, CustomerAccountId);
             callable.setLong(2, shoppingCartVal.getId());
             callable.setLong(3, shoppingCartVal.getClassId());
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void subServiceSet(long CustomerAccountId, SubjInterface subServiceVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".CstmrAccntFacade.sbSrvcSet(?, ?, ?); end;");
+            callable.setLong(1, CustomerAccountId);
+            callable.setLong(2, subServiceVal.getId());
+            callable.setLong(3, subServiceVal.getClassId());
             callable.execute();
             callable.close();
         }catch(SQLException se) {

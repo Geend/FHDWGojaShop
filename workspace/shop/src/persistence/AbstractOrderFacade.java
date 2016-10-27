@@ -88,6 +88,19 @@ public class AbstractOrderFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
+    public void subServiceSet(long AbstractOrderId, SubjInterface subServiceVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".AbstrctOrdrFacade.sbSrvcSet(?, ?, ?); end;");
+            callable.setLong(1, AbstractOrderId);
+            callable.setLong(2, subServiceVal.getId());
+            callable.setLong(3, subServiceVal.getClassId());
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
     public void ThisSet(long AbstractOrderId, PersistentAbstractOrder ThisVal) throws PersistenceException {
         try{
             CallableStatement callable;

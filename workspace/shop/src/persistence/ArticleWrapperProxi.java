@@ -18,13 +18,31 @@ public abstract class ArticleWrapperProxi extends PersistentProxi implements Per
     public void setArticle(PersistentArticle newValue) throws PersistenceException {
         ((PersistentArticleWrapper)this.getTheObject()).setArticle(newValue);
     }
+    public SubjInterface getSubService() throws PersistenceException {
+        return ((PersistentArticleWrapper)this.getTheObject()).getSubService();
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        ((PersistentArticleWrapper)this.getTheObject()).setSubService(newValue);
+    }
     public abstract PersistentArticleWrapper getThis() throws PersistenceException ;
     
     
     
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentArticleWrapper)this.getTheObject()).deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentArticleWrapper)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentArticleWrapper)this.getTheObject()).register(observee);
+    }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentArticleWrapper)this.getTheObject()).updateObservers(event);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

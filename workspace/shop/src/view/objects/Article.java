@@ -9,7 +9,6 @@ import view.visitor.*;
 
 public class Article extends view.objects.Component implements ArticleView{
     
-    protected String name;
     protected common.Fraction price;
     protected long minStock;
     protected long maxStock;
@@ -20,8 +19,7 @@ public class Article extends view.objects.Component implements ArticleView{
     
     public Article(String name,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,ProducerView producer,ArticleStateView state,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super(id, classId);
-        this.name = name;
+        super((String)name,id, classId);
         this.price = price;
         this.minStock = minStock;
         this.maxStock = maxStock;
@@ -39,12 +37,6 @@ public class Article extends view.objects.Component implements ArticleView{
         return getTypeId();
     }
     
-    public String getName()throws ModelException{
-        return this.name;
-    }
-    public void setName(String newValue) throws ModelException {
-        this.name = newValue;
-    }
     public common.Fraction getPrice()throws ModelException{
         return this.price;
     }

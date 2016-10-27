@@ -59,6 +59,7 @@ public class Order extends model.AbstractOrder implements PersistentOrder{
     public Order provideCopy() throws PersistenceException{
         Order result = this;
         result = new Order(this.customerDeliveryTime, 
+                           this.subService, 
                            this.This, 
                            this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -69,9 +70,9 @@ public class Order extends model.AbstractOrder implements PersistentOrder{
         return false;
     }
     
-    public Order(PersistentCustomerDeliveryTime customerDeliveryTime,PersistentAbstractOrder This,long id) throws PersistenceException {
+    public Order(PersistentCustomerDeliveryTime customerDeliveryTime,SubjInterface subService,PersistentAbstractOrder This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentCustomerDeliveryTime)customerDeliveryTime,(PersistentAbstractOrder)This,id);        
+        super((PersistentCustomerDeliveryTime)customerDeliveryTime,(SubjInterface)subService,(PersistentAbstractOrder)This,id);        
     }
     
     static public long getTypeId() {
@@ -122,6 +123,18 @@ public class Order extends model.AbstractOrder implements PersistentOrder{
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleOrder(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleOrder(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleOrder(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleOrder(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleOrder(this);
+    }
     public int getLeafInfo() throws PersistenceException{
         if (this.getCustomerDeliveryTime() != null) return 1;
         if (this.getArticles().getLength() > 0) return 1;
@@ -129,11 +142,38 @@ public class Order extends model.AbstractOrder implements PersistentOrder{
     }
     
     
+    public synchronized void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentOrder)This);
 		if(this.isTheSameAs(This)){
 		}
+    }
+    public synchronized void register(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.register(observee);
+    }
+    public synchronized void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.updateObservers(event);
     }
     
     

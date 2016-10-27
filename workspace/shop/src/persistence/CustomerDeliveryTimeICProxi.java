@@ -34,6 +34,12 @@ public class CustomerDeliveryTimeICProxi extends PersistentInCacheProxiOptimisti
     public void setDeliveryTime(long newValue) throws PersistenceException {
         ((PersistentCustomerDeliveryTime)this.getTheObject()).setDeliveryTime(newValue);
     }
+    public SubjInterface getSubService() throws PersistenceException {
+        return ((PersistentCustomerDeliveryTime)this.getTheObject()).getSubService();
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        ((PersistentCustomerDeliveryTime)this.getTheObject()).setSubService(newValue);
+    }
     public PersistentCustomerDeliveryTime getThis() throws PersistenceException {
         return ((PersistentCustomerDeliveryTime)this.getTheObject()).getThis();
     }
@@ -50,11 +56,35 @@ public class CustomerDeliveryTimeICProxi extends PersistentInCacheProxiOptimisti
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCustomerDeliveryTime(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleCustomerDeliveryTime(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleCustomerDeliveryTime(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleCustomerDeliveryTime(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleCustomerDeliveryTime(this);
+    }
     
     
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentCustomerDeliveryTime)this.getTheObject()).deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentCustomerDeliveryTime)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentCustomerDeliveryTime)this.getTheObject()).register(observee);
+    }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentCustomerDeliveryTime)this.getTheObject()).updateObservers(event);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
