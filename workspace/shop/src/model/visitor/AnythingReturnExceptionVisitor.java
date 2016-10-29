@@ -3,20 +3,19 @@ package model.visitor;
 
 import persistence.*;
 
-public interface AnythingReturnExceptionVisitor<R, E extends model.UserException> extends AbstractOrderReturnExceptionVisitor<R, E> ,ArticleStateReturnExceptionVisitor<R, E> ,ArticleWrapperReturnExceptionVisitor<R, E> ,CommonDateReturnExceptionVisitor<R, E> ,ComponentReturnExceptionVisitor<R, E> ,QuantifiedArticleReturnExceptionVisitor<R, E> {
+public interface AnythingReturnExceptionVisitor<R, E extends model.UserException> extends ArticleStateReturnExceptionVisitor<R, E> ,CommonDateReturnExceptionVisitor<R, E> ,ComponentReturnExceptionVisitor<R, E> {
     
-    public R handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException, E;
-    public R handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException, E;
-    public R handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException, E;
-    public R handleCreateArticleCommand(PersistentCreateArticleCommand createArticleCommand) throws PersistenceException, E;
-    public R handleCreateSubProductGroupCommand(PersistentCreateSubProductGroupCommand createSubProductGroupCommand) throws PersistenceException, E;
-    public R handleCustomerAccount(PersistentCustomerAccount customerAccount) throws PersistenceException, E;
-    public R handleCustomerDeliveryTime(PersistentCustomerDeliveryTime customerDeliveryTime) throws PersistenceException, E;
-    public R handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException, E;
-    public R handleProducer(PersistentProducer producer) throws PersistenceException, E;
-    public R handleServer(PersistentServer server) throws PersistenceException, E;
-    public R handleServerRootProductGroup(PersistentServerRootProductGroup serverRootProductGroup) throws PersistenceException, E;
-    public R handleShoppingCart(PersistentShoppingCart shoppingCart) throws PersistenceException, E;
-    public R handleSubj(PersistentSubj subj) throws PersistenceException, E;
+    public R handleAddArticleCommand(AddArticleCommand4Public addArticleCommand) throws PersistenceException, E;
+    public R handleAddSubProductGroupCommand(AddSubProductGroupCommand4Public addSubProductGroupCommand) throws PersistenceException, E;
+    public R handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException, E;
+    public R handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException, E;
+    public R handleCommonDate(CommonDate4Public commonDate) throws PersistenceException, E;
+    public R handleComponentLst(ComponentLst4Public componentLst) throws PersistenceException, E;
+    public R handleCreateProducerCommand(CreateProducerCommand4Public createProducerCommand) throws PersistenceException, E;
+    public R handleCreateProductGroupCommand(CreateProductGroupCommand4Public createProductGroupCommand) throws PersistenceException, E;
+    public R handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException, E;
+    public R handleProducer(Producer4Public producer) throws PersistenceException, E;
+    public R handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException, E;
+    public R handleServer(Server4Public server) throws PersistenceException, E;
     
 }

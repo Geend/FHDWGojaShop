@@ -26,7 +26,7 @@ public class ProductGroupFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ProductGroup result = new ProductGroup(name,null,null,id);
+            ProductGroup result = new ProductGroup(name,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentProductGroup)PersistentProxi.createProxi(id, 121);
         }catch(SQLException se) {
@@ -42,7 +42,7 @@ public class ProductGroupFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ProductGroup result = new ProductGroup(name,null,null,id);
+            ProductGroup result = new ProductGroup(name,null,id);
             Cache.getTheCache().put(result);
             return (PersistentProductGroup)PersistentProxi.createProxi(id, 121);
         }catch(SQLException se) {
@@ -63,14 +63,10 @@ public class ProductGroupFacade{
                 callable.close();
                 return null;
             }
-            SubjInterface subService = null;
-            if (obj.getLong(3) != 0)
-                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
             PersistentComponent This = null;
-            if (obj.getLong(5) != 0)
-                This = (PersistentComponent)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
+            if (obj.getLong(3) != 0)
+                This = (PersistentComponent)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
             ProductGroup result = new ProductGroup(obj.getString(2) == null ? "" : obj.getString(2) /* In Oracle "" = null !!! */,
-                                                   subService,
                                                    This,
                                                    ProductGroupId);
             obj.close();
@@ -83,7 +79,7 @@ public class ProductGroupFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public long componentsAdd(long ProductGroupId, PersistentComponent componentsVal) throws PersistenceException {
+    public long componentsAdd(long ProductGroupId, Component4Public componentsVal) throws PersistenceException {
         try{
             CallableStatement callable;
             callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".PrdctGrpFacade.cmpnntsAdd(?, ?, ?); end;");

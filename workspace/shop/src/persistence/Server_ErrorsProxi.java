@@ -4,7 +4,7 @@ import model.*;
 
 import java.util.Iterator;
 
-public class Server_ErrorsProxi extends PersistentListProxi<PersistentErrorDisplay> {
+public class Server_ErrorsProxi extends PersistentListProxi<ErrorDisplay4Public> {
 
   	private ErrorDisplayList list;
 
@@ -17,16 +17,16 @@ public class Server_ErrorsProxi extends PersistentListProxi<PersistentErrorDispl
     	}
     	return this.list;
   	}
-  	public Iterator<PersistentErrorDisplay> iterator() throws PersistenceException{
+  	public Iterator<ErrorDisplay4Public> iterator() throws PersistenceException{
     	return this.getList().iterator(this);
   	}
   	public long getLength() throws PersistenceException{
 		return this.getList().getLength();
   	}
-  	public void add(PersistentErrorDisplay entry) throws PersistenceException {
+  	public void add(ErrorDisplay4Public entry) throws PersistenceException {
     	if (entry != null) {
       		ErrorDisplayList list = this.getList();
-      		list.add((PersistentErrorDisplay)PersistentProxi.createListEntryProxi(entry.getId(),
+      		list.add((ErrorDisplay4Public)PersistentProxi.createListEntryProxi(entry.getId(),
                                			entry.getClassId(),
                                			-1));
       		

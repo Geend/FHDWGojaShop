@@ -16,7 +16,7 @@ public class NotInSale extends view.objects.ArticleState implements NotInSaleVie
     }
     
     static public long getTypeId() {
-        return 124;
+        return 195;
     }
     
     public long getClassId() {

@@ -5,11 +5,11 @@ import persistence.*;
 
 public abstract class ComponentStandardVisitor implements ComponentVisitor {
     
-    public void handleProductGroup(PersistentProductGroup productGroup) throws PersistenceException{
+    public void handleProductGroup(ProductGroup4Public productGroup) throws PersistenceException{
         this.standardHandling(productGroup);
     }
-    public void handleArticle(PersistentArticle article) throws PersistenceException{
+    public void handleArticle(Article4Public article) throws PersistenceException{
         this.standardHandling(article);
     }
-    protected abstract void standardHandling(PersistentComponent component) throws PersistenceException;
+    protected abstract void standardHandling(Component4Public component) throws PersistenceException;
 }

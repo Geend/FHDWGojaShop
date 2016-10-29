@@ -5,17 +5,17 @@ import persistence.*;
 
 public abstract class ArticleStateStandardVisitor implements ArticleStateVisitor {
     
-    public void handleRemainingStock(PersistentRemainingStock remainingStock) throws PersistenceException{
+    public void handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException{
         this.standardHandling(remainingStock);
     }
-    public void handleNotInSale(PersistentNotInSale notInSale) throws PersistenceException{
+    public void handleNotInSale(NotInSale4Public notInSale) throws PersistenceException{
         this.standardHandling(notInSale);
     }
-    public void handleInSale(PersistentInSale inSale) throws PersistenceException{
+    public void handleInSale(InSale4Public inSale) throws PersistenceException{
         this.standardHandling(inSale);
     }
-    public void handleNewCreated(PersistentNewCreated newCreated) throws PersistenceException{
+    public void handleNewCreated(NewCreated4Public newCreated) throws PersistenceException{
         this.standardHandling(newCreated);
     }
-    protected abstract void standardHandling(PersistentArticleState articleState) throws PersistenceException;
+    protected abstract void standardHandling(ArticleState4Public articleState) throws PersistenceException;
 }

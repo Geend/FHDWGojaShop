@@ -10,16 +10,16 @@ import model.visitor.*;
 public class CommonDate extends PersistentObject implements PersistentCommonDate{
     
     /** Throws persistence exception if the object with the given id does not exist. */
-    public static PersistentCommonDate getById(long objectId) throws PersistenceException{
+    public static CommonDate4Public getById(long objectId) throws PersistenceException{
         long classId = ConnectionHandler.getTheConnectionHandler().theCommonDateFacade.getClass(objectId);
-        return (PersistentCommonDate)PersistentProxi.createProxi(objectId, classId);
+        return (CommonDate4Public)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentCommonDate createCommonDate(java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
+    public static CommonDate4Public createCommonDate(java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
         return createCommonDate(createDate,commitDate,false);
     }
     
-    public static PersistentCommonDate createCommonDate(java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
+    public static CommonDate4Public createCommonDate(java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
         PersistentCommonDate result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theCommonDateFacade
@@ -32,7 +32,7 @@ public class CommonDate extends PersistentObject implements PersistentCommonDate
         return result;
     }
     
-    public static PersistentCommonDate createCommonDate(java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence,PersistentCommonDate This) throws PersistenceException {
+    public static CommonDate4Public createCommonDate(java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence,CommonDate4Public This) throws PersistenceException {
         PersistentCommonDate result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theCommonDateFacade

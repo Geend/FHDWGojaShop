@@ -10,11 +10,11 @@ import model.visitor.*;
 public class Article extends model.Component implements PersistentArticle{
     
     
-    public static PersistentArticle createArticle(String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,PersistentProducer producer) throws PersistenceException{
+    public static Article4Public createArticle(String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,Producer4Public producer) throws PersistenceException{
         return createArticle(name,price,minStock,maxStock,producerDeliveryTime,producer,false);
     }
     
-    public static PersistentArticle createArticle(String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,PersistentProducer producer,boolean delayed$Persistence) throws PersistenceException {
+    public static Article4Public createArticle(String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,Producer4Public producer,boolean delayed$Persistence) throws PersistenceException {
         PersistentArticle result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theArticleFacade
@@ -36,7 +36,7 @@ public class Article extends model.Component implements PersistentArticle{
         return result;
     }
     
-    public static PersistentArticle createArticle(String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,PersistentProducer producer,boolean delayed$Persistence,PersistentArticle This) throws PersistenceException {
+    public static Article4Public createArticle(String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,Producer4Public producer,boolean delayed$Persistence,Article4Public This) throws PersistenceException {
         PersistentArticle result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theArticleFacade
@@ -94,7 +94,6 @@ public class Article extends model.Component implements PersistentArticle{
     public Article provideCopy() throws PersistenceException{
         Article result = this;
         result = new Article(this.name, 
-                             this.subService, 
                              this.This, 
                              this.price, 
                              this.minStock, 
@@ -119,9 +118,9 @@ public class Article extends model.Component implements PersistentArticle{
     protected PersistentProducer producer;
     protected PersistentArticleState state;
     
-    public Article(String name,SubjInterface subService,PersistentComponent This,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,PersistentProducer producer,PersistentArticleState state,long id) throws PersistenceException {
+    public Article(String name,PersistentComponent This,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,PersistentProducer producer,PersistentArticleState state,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((String)name,(SubjInterface)subService,(PersistentComponent)This,id);
+        super((String)name,(PersistentComponent)This,id);
         this.price = price;
         this.minStock = minStock;
         this.maxStock = maxStock;
@@ -132,7 +131,7 @@ public class Article extends model.Component implements PersistentArticle{
     }
     
     static public long getTypeId() {
-        return 123;
+        return 194;
     }
     
     public long getClassId() {
@@ -141,7 +140,7 @@ public class Article extends model.Component implements PersistentArticle{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 123) ConnectionHandler.getTheConnectionHandler().theArticleFacade
+        if (this.getClassId() == 194) ConnectionHandler.getTheConnectionHandler().theArticleFacade
             .newArticle(name,price,minStock,maxStock,currentStock,producerDeliveryTime,this.getId());
         super.store();
         if(this.getProducer() != null){
@@ -190,10 +189,10 @@ public class Article extends model.Component implements PersistentArticle{
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theArticleFacade.producerDeliveryTimeSet(this.getId(), newValue);
         this.producerDeliveryTime = newValue;
     }
-    public PersistentProducer getProducer() throws PersistenceException {
+    public Producer4Public getProducer() throws PersistenceException {
         return this.producer;
     }
-    public void setProducer(PersistentProducer newValue) throws PersistenceException {
+    public void setProducer(Producer4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.producer)) return;
         long objectId = newValue.getId();
@@ -204,10 +203,10 @@ public class Article extends model.Component implements PersistentArticle{
             ConnectionHandler.getTheConnectionHandler().theArticleFacade.producerSet(this.getId(), newValue);
         }
     }
-    public PersistentArticleState getState() throws PersistenceException {
+    public ArticleState4Public getState() throws PersistenceException {
         return this.state;
     }
-    public void setState(PersistentArticleState newValue) throws PersistenceException {
+    public void setState(ArticleState4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.state)) return;
         long objectId = newValue.getId();
@@ -250,28 +249,16 @@ public class Article extends model.Component implements PersistentArticle{
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleArticle(this);
     }
-    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+    public void accept(CompHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
         visitor.handleArticle(this);
     }
-    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(CompHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleArticle(this);
     }
-    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(CompHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleArticle(this);
     }
-    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleArticle(this);
-    }
-    public void accept(PartsHIERARCHYVisitor visitor) throws PersistenceException {
-        visitor.handleArticle(this);
-    }
-    public <R> R accept(PartsHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleArticle(this);
-    }
-    public <E extends model.UserException>  void accept(PartsHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleArticle(this);
-    }
-    public <R, E extends model.UserException> R accept(PartsHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(CompHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleArticle(this);
     }
     public int getLeafInfo() throws PersistenceException{
@@ -281,25 +268,16 @@ public class Article extends model.Component implements PersistentArticle{
     }
     
     
-    public boolean containsParts(final PartsHIERARCHY part) 
+    public boolean containsCompHierarchy(final CompHierarchyHIERARCHY part) 
 				throws PersistenceException{
-        return getThis().containsParts(part, new java.util.HashSet<PartsHIERARCHY>());
+        return getThis().containsCompHierarchy(part, new java.util.HashSet<CompHierarchyHIERARCHY>());
     }
-    public boolean containsParts(final PartsHIERARCHY part, final java.util.HashSet<PartsHIERARCHY> visited) 
+    public boolean containsCompHierarchy(final CompHierarchyHIERARCHY part, final java.util.HashSet<CompHierarchyHIERARCHY> visited) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
 		if(visited.contains(getThis())) return false;
 		visited.add(getThis());
 		return false;
-    }
-    public synchronized void deregister(final ObsInterface observee) 
-				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
-		}
-		subService.deregister(observee);
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -313,34 +291,16 @@ public class Article extends model.Component implements PersistentArticle{
 			this.setProducer((PersistentProducer)final$$Fields.get("producer"));
 		}
     }
-    public synchronized void register(final ObsInterface observee) 
+    public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
-		}
-		subService.register(observee);
+        return getThis().strategyCompHierarchy(strategy, new java.util.HashMap<CompHierarchyHIERARCHY,T>());
     }
-    public <T> T strategyParts(final PartsHIERARCHYStrategy<T> strategy) 
-				throws PersistenceException{
-        return getThis().strategyParts(strategy, new java.util.HashMap<PartsHIERARCHY,T>());
-    }
-    public <T> T strategyParts(final PartsHIERARCHYStrategy<T> strategy, final java.util.HashMap<PartsHIERARCHY,T> visited) 
+    public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy, final java.util.HashMap<CompHierarchyHIERARCHY,T> visited) 
 				throws PersistenceException{
         if (visited.containsKey(getThis())) return visited.get(getThis());
 		T result = strategy.Article$$finalize(getThis() );
 		visited.put(getThis(),result);
 		return result;
-    }
-    public synchronized void updateObservers(final model.meta.Mssgs event) 
-				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
-		}
-		subService.updateObservers(event);
     }
     
     

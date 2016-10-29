@@ -16,7 +16,7 @@ public class InSale extends view.objects.ArticleState implements InSaleView{
     }
     
     static public long getTypeId() {
-        return 126;
+        return 196;
     }
     
     public long getClassId() {

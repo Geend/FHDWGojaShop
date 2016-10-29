@@ -9,9 +9,9 @@ import persistence.*;
 public abstract class Component extends PersistentObject implements PersistentComponent{
     
     /** Throws persistence exception if the object with the given id does not exist. */
-    public static PersistentComponent getById(long objectId) throws PersistenceException{
+    public static Component4Public getById(long objectId) throws PersistenceException{
         long classId = ConnectionHandler.getTheConnectionHandler().theComponentFacade.getClass(objectId);
-        return (PersistentComponent)PersistentProxi.createProxi(objectId, classId);
+        return (Component4Public)PersistentProxi.createProxi(objectId, classId);
     }
     
     public java.util.HashMap<String,Object> toHashtable(java.util.HashMap<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
@@ -31,14 +31,12 @@ public abstract class Component extends PersistentObject implements PersistentCo
         return false;
     }
     protected String name;
-    protected SubjInterface subService;
     protected PersistentComponent This;
     
-    public Component(String name,SubjInterface subService,PersistentComponent This,long id) throws PersistenceException {
+    public Component(String name,PersistentComponent This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
-        this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -53,10 +51,6 @@ public abstract class Component extends PersistentObject implements PersistentCo
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         super.store();
-        if(this.getSubService() != null){
-            this.getSubService().store();
-            ConnectionHandler.getTheConnectionHandler().theComponentFacade.subServiceSet(this.getId(), getSubService());
-        }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theComponentFacade.ThisSet(this.getId(), getThis());
@@ -71,20 +65,6 @@ public abstract class Component extends PersistentObject implements PersistentCo
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theComponentFacade.nameSet(this.getId(), newValue);
         this.name = newValue;
-    }
-    public SubjInterface getSubService() throws PersistenceException {
-        return this.subService;
-    }
-    public void setSubService(SubjInterface newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.subService)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.subService = (SubjInterface)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theComponentFacade.subServiceSet(this.getId(), newValue);
-        }
     }
     protected void setThis(PersistentComponent newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);

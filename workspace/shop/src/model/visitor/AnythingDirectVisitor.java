@@ -5,82 +5,55 @@ import persistence.*;
 
 public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
-    public abstract void handleServer(PersistentServer server) throws PersistenceException;
+    public abstract void handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException;
     
-    public abstract void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException;
+    public abstract void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException;
     
-    public abstract void handleCustomerAccount(PersistentCustomerAccount customerAccount) throws PersistenceException;
+    public abstract void handleServer(Server4Public server) throws PersistenceException;
     
-    public abstract void handleServerRootProductGroup(PersistentServerRootProductGroup serverRootProductGroup) throws PersistenceException;
+    public abstract void handleProducer(Producer4Public producer) throws PersistenceException;
     
-    public abstract void handleSubj(PersistentSubj subj) throws PersistenceException;
+    public abstract void handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException;
     
-    public abstract void handleCustomerDeliveryTime(PersistentCustomerDeliveryTime customerDeliveryTime) throws PersistenceException;
+    public abstract void handleArticleState(ArticleState4Public articleState) throws PersistenceException;
     
-    public abstract void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException;
-    
-    public abstract void handleAbstractOrder(PersistentAbstractOrder abstractOrder) throws PersistenceException;
-    
-    public void handleOrder(PersistentOrder order) throws PersistenceException{
-        this.handleAbstractOrder(order);
-    }
-    public void handlePreOrder(PersistentPreOrder preOrder) throws PersistenceException{
-        this.handleAbstractOrder(preOrder);
-    }
-    public abstract void handleQuantifiedArticle(PersistentQuantifiedArticle quantifiedArticle) throws PersistenceException;
-    
-    public void handleOrderQuantifiedArticle(PersistentOrderQuantifiedArticle orderQuantifiedArticle) throws PersistenceException{
-        this.handleQuantifiedArticle(orderQuantifiedArticle);
-    }
-    public void handleShoppingCartQuantifiedArticle(PersistentShoppingCartQuantifiedArticle shoppingCartQuantifiedArticle) throws PersistenceException{
-        this.handleQuantifiedArticle(shoppingCartQuantifiedArticle);
-    }
-    public abstract void handleProducer(PersistentProducer producer) throws PersistenceException;
-    
-    public abstract void handleShoppingCart(PersistentShoppingCart shoppingCart) throws PersistenceException;
-    
-    public abstract void handleArticleState(PersistentArticleState articleState) throws PersistenceException;
-    
-    public void handleRemainingStock(PersistentRemainingStock remainingStock) throws PersistenceException{
+    public void handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException{
         this.handleArticleState(remainingStock);
     }
-    public void handleNotInSale(PersistentNotInSale notInSale) throws PersistenceException{
+    public void handleNotInSale(NotInSale4Public notInSale) throws PersistenceException{
         this.handleArticleState(notInSale);
     }
-    public void handleInSale(PersistentInSale inSale) throws PersistenceException{
+    public void handleInSale(InSale4Public inSale) throws PersistenceException{
         this.handleArticleState(inSale);
     }
-    public void handleNewCreated(PersistentNewCreated newCreated) throws PersistenceException{
+    public void handleNewCreated(NewCreated4Public newCreated) throws PersistenceException{
         this.handleArticleState(newCreated);
     }
-    public abstract void handleComponent(PersistentComponent component) throws PersistenceException;
+    public abstract void handleComponentLst(ComponentLst4Public componentLst) throws PersistenceException;
     
-    public void handleProductGroup(PersistentProductGroup productGroup) throws PersistenceException{
+    public abstract void handleComponent(Component4Public component) throws PersistenceException;
+    
+    public void handleProductGroup(ProductGroup4Public productGroup) throws PersistenceException{
         this.handleComponent(productGroup);
     }
-    public void handleArticle(PersistentArticle article) throws PersistenceException{
+    public void handleArticle(Article4Public article) throws PersistenceException{
         this.handleComponent(article);
     }
-    public abstract void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;
+    public abstract void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException;
     
-    public void handleCreateSubProductGroupCommand(PersistentCreateSubProductGroupCommand createSubProductGroupCommand) throws PersistenceException{
-        this.handleCommonDate(createSubProductGroupCommand);
+    public void handleCreateProductGroupCommand(CreateProductGroupCommand4Public createProductGroupCommand) throws PersistenceException{
+        this.handleCommonDate(createProductGroupCommand);
     }
-    public void handleCreateArticleCommand(PersistentCreateArticleCommand createArticleCommand) throws PersistenceException{
-        this.handleCommonDate(createArticleCommand);
+    public void handleCreateProducerCommand(CreateProducerCommand4Public createProducerCommand) throws PersistenceException{
+        this.handleCommonDate(createProducerCommand);
     }
-    public abstract void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException;
+    public void handleAddArticleCommand(AddArticleCommand4Public addArticleCommand) throws PersistenceException{
+        this.handleCommonDate(addArticleCommand);
+    }
+    public void handleAddSubProductGroupCommand(AddSubProductGroupCommand4Public addSubProductGroupCommand) throws PersistenceException{
+        this.handleCommonDate(addSubProductGroupCommand);
+    }
+    public abstract void handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException;
     
-    public abstract void handleArticleWrapper(PersistentArticleWrapper articleWrapper) throws PersistenceException;
-    
-    public void handleOrderArticleWrapper(PersistentOrderArticleWrapper orderArticleWrapper) throws PersistenceException{
-        this.handleArticleWrapper(orderArticleWrapper);
-    }
-    public void handleShopArticleWrapper(PersistentShopArticleWrapper shopArticleWrapper) throws PersistenceException{
-        this.handleArticleWrapper(shopArticleWrapper);
-    }
-    public void handleShoppingCartArticleWrapper(PersistentShoppingCartArticleWrapper shoppingCartArticleWrapper) throws PersistenceException{
-        this.handleArticleWrapper(shoppingCartArticleWrapper);
-    }
     
 }

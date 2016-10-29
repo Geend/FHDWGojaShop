@@ -311,8 +311,9 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 
 
     interface MenuItemVisitor{
-        ImageView handle(CreateArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem menuItem);
-        ImageView handle(CreateProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(CreateProductGroupPRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(AddArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem menuItem);
+        ImageView handle(AddProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem menuItem);
     }
     private abstract class ServerMenuItem extends MenuItem{
         private ServerMenuItem(){
@@ -320,23 +321,49 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         }
         abstract protected ImageView accept(MenuItemVisitor visitor);
     }
-    private class CreateArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem extends ServerMenuItem{
+    private class CreateProductGroupPRMTRStringPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
     }
-    private class CreateProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem extends ServerMenuItem{
+    private class AddArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class AddProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
     }
     private java.util.Vector<javafx.scene.control.Button> getToolButtonsForStaticOperations() {
         java.util.Vector<javafx.scene.control.Button> result = new java.util.Vector<javafx.scene.control.Button>();
+        javafx.scene.control.Button currentButton = null;
+        currentButton = new javafx.scene.control.Button("NeueProduktgruppe ... ");
+        currentButton.setGraphic(new CreateProductGroupPRMTRStringPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final ServerCreateProductGroupStringMssgWizard wizard = new ServerCreateProductGroupStringMssgWizard("NeueProduktgruppe");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.showAndWait();
+            }
+        });
+        result.add(currentButton);
         return result;
     }
     private ContextMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations, final Point2D menuPos) {
         final ContextMenu result = new ContextMenu();
         MenuItem item = null;
+        item = new CreateProductGroupPRMTRStringPRMTRMenuItem();
+        item.setText("(S) NeueProduktgruppe ... ");
+        item.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final ServerCreateProductGroupStringMssgWizard wizard = new ServerCreateProductGroupStringMssgWizard("NeueProduktgruppe");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.showAndWait();
+            }
+        });
+        if (withStaticOperations) result.getItems().add(item);
         if (selected != null){
             try {
                 this.setPreCalculatedFilters(this.getConnection().server_Menu_Filter((Anything)selected));
@@ -345,22 +372,22 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                 return result;
             }
             if (selected instanceof ProductGroupView){
-                item = new CreateArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem();
-                item.setText("createArticle ... ");
+                item = new AddArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem();
+                item.setText("addArticle ... ");
                 item.setOnAction(new EventHandler<ActionEvent>(){
                     public void handle(javafx.event.ActionEvent e) {
-                        final ServerCreateArticleProductGroupStringFractionIntegerIntegerIntegerProducerMssgWizard wizard = new ServerCreateArticleProductGroupStringFractionIntegerIntegerIntegerProducerMssgWizard("createArticle");
+                        final ServerAddArticleProductGroupStringFractionIntegerIntegerIntegerProducerMssgWizard wizard = new ServerAddArticleProductGroupStringFractionIntegerIntegerIntegerProducerMssgWizard("addArticle");
                         wizard.setFirstArgument((ProductGroupView)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.showAndWait();
                     }
                 });
                 result.getItems().add(item);
-                item = new CreateProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem();
-                item.setText("createProductGroup ... ");
+                item = new AddProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem();
+                item.setText("addProductGroup ... ");
                 item.setOnAction(new EventHandler<ActionEvent>(){
                     public void handle(javafx.event.ActionEvent e) {
-                        final ServerCreateProductGroupProductGroupStringMssgWizard wizard = new ServerCreateProductGroupProductGroupStringMssgWizard("createProductGroup");
+                        final ServerAddProductGroupProductGroupStringMssgWizard wizard = new ServerAddProductGroupProductGroupStringMssgWizard("addProductGroup");
                         wizard.setFirstArgument((ProductGroupView)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.showAndWait();
@@ -381,21 +408,21 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         this.preCalculatedFilters = switchOff;
     }
     
-	class ServerCreateArticleProductGroupStringFractionIntegerIntegerIntegerProducerMssgWizard extends Wizard {
+	class ServerAddArticleProductGroupStringFractionIntegerIntegerIntegerProducerMssgWizard extends Wizard {
 
-		protected ServerCreateArticleProductGroupStringFractionIntegerIntegerIntegerProducerMssgWizard(String operationName){
+		protected ServerAddArticleProductGroupStringFractionIntegerIntegerIntegerProducerMssgWizard(String operationName){
 			super(ServerClientView.this);
 			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new CreateArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem ().getGraphic());
+			getOkButton().setGraphic(new AddArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem ().getGraphic());
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerCreateArticleProductGroupStringFractionIntegerIntegerIntegerProducerMssgWizard.help";
+			this.helpFileName = "ServerAddArticleProductGroupStringFractionIntegerIntegerIntegerProducerMssgWizard.help";
 			super.initialize();		
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().createArticle(firstArgument, ((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult(),
+				getConnection().addArticle(firstArgument, ((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult(),
 									((FractionSelectionPanel)getParametersPanel().getChildren().get(1)).getResult(),
 									((IntegerSelectionPanel)getParametersPanel().getChildren().get(2)).getResult().longValue(),
 									((IntegerSelectionPanel)getParametersPanel().getChildren().get(3)).getResult().longValue(),
@@ -450,26 +477,29 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 		
 	}
 
-	class ServerCreateProductGroupProductGroupStringMssgWizard extends Wizard {
+	class ServerAddProductGroupProductGroupStringMssgWizard extends Wizard {
 
-		protected ServerCreateProductGroupProductGroupStringMssgWizard(String operationName){
+		protected ServerAddProductGroupProductGroupStringMssgWizard(String operationName){
 			super(ServerClientView.this);
 			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new CreateProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem ().getGraphic());
+			getOkButton().setGraphic(new AddProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem ().getGraphic());
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerCreateProductGroupProductGroupStringMssgWizard.help";
+			this.helpFileName = "ServerAddProductGroupProductGroupStringMssgWizard.help";
 			super.initialize();		
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().createProductGroup(firstArgument, ((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().addProductGroup(firstArgument, ((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
 				getConnection().setEagerRefresh();
 				this.close();	
 			} catch(ModelException me){
 				handleException(me);
 				this.close();
+			}
+			catch(DoubleDefinition e) {
+				getStatusBar().setText(e.getMessage());
 			}
 			catch(CycleException e) {
 				getStatusBar().setText(e.getMessage());
@@ -502,6 +532,47 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 				 handleException(me);
 			}
 			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateProductGroupStringMssgWizard extends Wizard {
+
+		protected ServerCreateProductGroupStringMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new CreateProductGroupPRMTRStringPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateProductGroupStringMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createProductGroup(((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			catch(DoubleDefinition e) {
+				getStatusBar().setText(e.getMessage());
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
 		}
 		
 		

@@ -49,83 +49,59 @@ public class ProductGroupProxi extends ComponentProxi implements PersistentProdu
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleProductGroup(this);
     }
-    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+    public void accept(CompHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
         visitor.handleProductGroup(this);
     }
-    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(CompHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleProductGroup(this);
     }
-    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(CompHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleProductGroup(this);
     }
-    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleProductGroup(this);
-    }
-    public void accept(PartsHIERARCHYVisitor visitor) throws PersistenceException {
-        visitor.handleProductGroup(this);
-    }
-    public <R> R accept(PartsHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleProductGroup(this);
-    }
-    public <E extends model.UserException>  void accept(PartsHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleProductGroup(this);
-    }
-    public <R, E extends model.UserException> R accept(PartsHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(CompHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleProductGroup(this);
     }
     
     
-    public boolean containsParts(final PartsHIERARCHY part) 
+    public void addArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer, final Invoker invoker) 
 				throws PersistenceException{
-        return ((PersistentProductGroup)this.getTheObject()).containsParts(part);
+        ((PersistentProductGroup)this.getTheObject()).addArticle(name, price, minStock, maxStock, producerDeliveryTime, producer, invoker);
     }
-    public boolean containsParts(final PartsHIERARCHY part, final java.util.HashSet<PartsHIERARCHY> visited) 
+    public void addSubProductGroup(final String name, final Invoker invoker) 
 				throws PersistenceException{
-        return ((PersistentProductGroup)this.getTheObject()).containsParts(part, visited);
+        ((PersistentProductGroup)this.getTheObject()).addSubProductGroup(name, invoker);
     }
-    public void createArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final PersistentProducer producer, final Invoker invoker) 
+    public boolean containsCompHierarchy(final CompHierarchyHIERARCHY part) 
 				throws PersistenceException{
-        ((PersistentProductGroup)this.getTheObject()).createArticle(name, price, minStock, maxStock, producerDeliveryTime, producer, invoker);
+        return ((PersistentProductGroup)this.getTheObject()).containsCompHierarchy(part);
     }
-    public void createSubProductGroup(final String name, final Invoker invoker) 
+    public boolean containsCompHierarchy(final CompHierarchyHIERARCHY part, final java.util.HashSet<CompHierarchyHIERARCHY> visited) 
 				throws PersistenceException{
-        ((PersistentProductGroup)this.getTheObject()).createSubProductGroup(name, invoker);
-    }
-    public void deregister(final ObsInterface observee) 
-				throws PersistenceException{
-        ((PersistentProductGroup)this.getTheObject()).deregister(observee);
+        return ((PersistentProductGroup)this.getTheObject()).containsCompHierarchy(part, visited);
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentProductGroup)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void register(final ObsInterface observee) 
+    public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
-        ((PersistentProductGroup)this.getTheObject()).register(observee);
+        return ((PersistentProductGroup)this.getTheObject()).strategyCompHierarchy(strategy);
     }
-    public <T> T strategyParts(final PartsHIERARCHYStrategy<T> strategy) 
+    public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy, final java.util.HashMap<CompHierarchyHIERARCHY,T> visited) 
 				throws PersistenceException{
-        return ((PersistentProductGroup)this.getTheObject()).strategyParts(strategy);
+        return ((PersistentProductGroup)this.getTheObject()).strategyCompHierarchy(strategy, visited);
     }
-    public <T> T strategyParts(final PartsHIERARCHYStrategy<T> strategy, final java.util.HashMap<PartsHIERARCHY,T> visited) 
-				throws PersistenceException{
-        return ((PersistentProductGroup)this.getTheObject()).strategyParts(strategy, visited);
+    public void addArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
+				throws model.CycleException, PersistenceException{
+        ((PersistentProductGroup)this.getTheObject()).addArticle(name, price, minStock, maxStock, producerDeliveryTime, producer);
     }
-    public void updateObservers(final model.meta.Mssgs event) 
-				throws PersistenceException{
-        ((PersistentProductGroup)this.getTheObject()).updateObservers(event);
+    public void addSubProductGroup(final String name) 
+				throws model.DoubleDefinition, model.CycleException, PersistenceException{
+        ((PersistentProductGroup)this.getTheObject()).addSubProductGroup(name);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentProductGroup)this.getTheObject()).copyingPrivateUserAttributes(copy);
-    }
-    public PersistentArticle createArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final PersistentProducer producer) 
-				throws model.CycleException, PersistenceException{
-        return ((PersistentProductGroup)this.getTheObject()).createArticle(name, price, minStock, maxStock, producerDeliveryTime, producer);
-    }
-    public PersistentProductGroup createSubProductGroup(final String name) 
-				throws model.CycleException, PersistenceException{
-        return ((PersistentProductGroup)this.getTheObject()).createSubProductGroup(name);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

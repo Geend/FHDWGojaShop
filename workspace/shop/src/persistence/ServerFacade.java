@@ -66,17 +66,17 @@ public class ServerFacade{
                 callable.close();
                 return null;
             }
-            PersistentServerRootProductGroup rootProductGroup = null;
+            PersistentComponentLst manager = null;
             if (obj.getLong(2) != 0)
-                rootProductGroup = (PersistentServerRootProductGroup)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
-            SubjInterface subService = null;
+                manager = (PersistentComponentLst)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+            PersistentProducerLst prmanager = null;
             if (obj.getLong(4) != 0)
-                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+                prmanager = (PersistentProducerLst)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
             PersistentServer This = null;
             if (obj.getLong(6) != 0)
                 This = (PersistentServer)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
-            Server result = new Server(rootProductGroup,
-                                       subService,
+            Server result = new Server(manager,
+                                       prmanager,
                                        This,
                                        obj.getString(8) == null ? "" : obj.getString(8) /* In Oracle "" = null !!! */,
                                        obj.getString(9) == null ? "" : obj.getString(9) /* In Oracle "" = null !!! */,
@@ -129,33 +129,33 @@ public class ServerFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void rootProductGroupSet(long ServerId, PersistentServerRootProductGroup rootProductGroupVal) throws PersistenceException {
+    public void managerSet(long ServerId, ComponentLst4Public managerVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".SrvrFacade.rtPrdctGrpSet(?, ?, ?); end;");
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".SrvrFacade.mngrSet(?, ?, ?); end;");
             callable.setLong(1, ServerId);
-            callable.setLong(2, rootProductGroupVal.getId());
-            callable.setLong(3, rootProductGroupVal.getClassId());
+            callable.setLong(2, managerVal.getId());
+            callable.setLong(3, managerVal.getClassId());
             callable.execute();
             callable.close();
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void subServiceSet(long ServerId, SubjInterface subServiceVal) throws PersistenceException {
+    public void prmanagerSet(long ServerId, ProducerLst4Public prmanagerVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".SrvrFacade.sbSrvcSet(?, ?, ?); end;");
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".SrvrFacade.prmngrSet(?, ?, ?); end;");
             callable.setLong(1, ServerId);
-            callable.setLong(2, subServiceVal.getId());
-            callable.setLong(3, subServiceVal.getClassId());
+            callable.setLong(2, prmanagerVal.getId());
+            callable.setLong(3, prmanagerVal.getClassId());
             callable.execute();
             callable.close();
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void ThisSet(long ServerId, PersistentServer ThisVal) throws PersistenceException {
+    public void ThisSet(long ServerId, Server4Public ThisVal) throws PersistenceException {
         try{
             CallableStatement callable;
             callable = this.con.prepareCall("Begin " + this.schemaName + ".SrvrFacade.ThisSet(?, ?, ?); end;");
@@ -212,6 +212,27 @@ public class ServerFacade{
             callable.setTimestamp(2, hackDelayVal);
             callable.execute();
             callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public ServerSearchList inverseGetManager(long objectId, long classId)throws PersistenceException{
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".SrvrFacade.iGetMngr(?, ?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            callable.setLong(2, objectId);
+            callable.setLong(3, classId);
+            callable.execute();
+            ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
+            ServerSearchList result = new ServerSearchList();
+            while (list.next()) {
+                if (list.getLong(3) != 0) result.add((PersistentServer)PersistentProxi.createProxi(list.getLong(3), list.getLong(4)));
+                else result.add((PersistentServer)PersistentProxi.createProxi(list.getLong(1), list.getLong(2)));
+            }
+            list.close();
+            callable.close();
+            return result;
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }

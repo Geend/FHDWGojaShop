@@ -19,7 +19,7 @@ public class RemainingStockICProxi extends ArticleStateICProxi implements Persis
     }
     
     public long getClassId() {
-        return 122;
+        return 193;
     }
     
     public PersistentRemainingStock getThis() throws PersistenceException {
@@ -50,35 +50,11 @@ public class RemainingStockICProxi extends ArticleStateICProxi implements Persis
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleRemainingStock(this);
     }
-    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
-        visitor.handleRemainingStock(this);
-    }
-    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleRemainingStock(this);
-    }
-    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleRemainingStock(this);
-    }
-    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleRemainingStock(this);
-    }
     
     
-    public void deregister(final ObsInterface observee) 
-				throws PersistenceException{
-        ((PersistentRemainingStock)this.getTheObject()).deregister(observee);
-    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentRemainingStock)this.getTheObject()).initialize(This, final$$Fields);
-    }
-    public void register(final ObsInterface observee) 
-				throws PersistenceException{
-        ((PersistentRemainingStock)this.getTheObject()).register(observee);
-    }
-    public void updateObservers(final model.meta.Mssgs event) 
-				throws PersistenceException{
-        ((PersistentRemainingStock)this.getTheObject()).updateObservers(event);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

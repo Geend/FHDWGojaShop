@@ -9,9 +9,9 @@ import persistence.*;
 public abstract class ArticleState extends PersistentObject implements PersistentArticleState{
     
     /** Throws persistence exception if the object with the given id does not exist. */
-    public static PersistentArticleState getById(long objectId) throws PersistenceException{
+    public static ArticleState4Public getById(long objectId) throws PersistenceException{
         long classId = ConnectionHandler.getTheConnectionHandler().theArticleStateFacade.getClass(objectId);
-        return (PersistentArticleState)PersistentProxi.createProxi(objectId, classId);
+        return (ArticleState4Public)PersistentProxi.createProxi(objectId, classId);
     }
     
     public java.util.HashMap<String,Object> toHashtable(java.util.HashMap<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
@@ -29,18 +29,16 @@ public abstract class ArticleState extends PersistentObject implements Persisten
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected SubjInterface subService;
     protected PersistentArticleState This;
     
-    public ArticleState(SubjInterface subService,PersistentArticleState This,long id) throws PersistenceException {
+    public ArticleState(PersistentArticleState This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
     static public long getTypeId() {
-        return 129;
+        return 199;
     }
     
     public long getClassId() {
@@ -50,10 +48,6 @@ public abstract class ArticleState extends PersistentObject implements Persisten
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         super.store();
-        if(this.getSubService() != null){
-            this.getSubService().store();
-            ConnectionHandler.getTheConnectionHandler().theArticleStateFacade.subServiceSet(this.getId(), getSubService());
-        }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theArticleStateFacade.ThisSet(this.getId(), getThis());
@@ -61,20 +55,6 @@ public abstract class ArticleState extends PersistentObject implements Persisten
         
     }
     
-    public SubjInterface getSubService() throws PersistenceException {
-        return this.subService;
-    }
-    public void setSubService(SubjInterface newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.subService)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.subService = (SubjInterface)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theArticleStateFacade.subServiceSet(this.getId(), newValue);
-        }
-    }
     protected void setThis(PersistentArticleState newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if (newValue.isTheSameAs(this)){

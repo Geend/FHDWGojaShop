@@ -25,9 +25,9 @@ public class RemainingStockFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            RemainingStock result = new RemainingStock(null,null,id);
+            RemainingStock result = new RemainingStock(null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
-            return (PersistentRemainingStock)PersistentProxi.createProxi(id, 122);
+            return (PersistentRemainingStock)PersistentProxi.createProxi(id, 193);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
@@ -41,9 +41,9 @@ public class RemainingStockFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            RemainingStock result = new RemainingStock(null,null,id);
+            RemainingStock result = new RemainingStock(null,id);
             Cache.getTheCache().put(result);
-            return (PersistentRemainingStock)PersistentProxi.createProxi(id, 122);
+            return (PersistentRemainingStock)PersistentProxi.createProxi(id, 193);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
@@ -62,14 +62,10 @@ public class RemainingStockFacade{
                 callable.close();
                 return null;
             }
-            SubjInterface subService = null;
-            if (obj.getLong(2) != 0)
-                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
             PersistentArticleState This = null;
-            if (obj.getLong(4) != 0)
-                This = (PersistentArticleState)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
-            RemainingStock result = new RemainingStock(subService,
-                                                       This,
+            if (obj.getLong(2) != 0)
+                This = (PersistentArticleState)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+            RemainingStock result = new RemainingStock(This,
                                                        RemainingStockId);
             obj.close();
             callable.close();

@@ -10,11 +10,11 @@ import model.visitor.*;
 public class NotInSale extends model.ArticleState implements PersistentNotInSale{
     
     
-    public static PersistentNotInSale createNotInSale() throws PersistenceException{
+    public static NotInSale4Public createNotInSale() throws PersistenceException{
         return createNotInSale(false);
     }
     
-    public static PersistentNotInSale createNotInSale(boolean delayed$Persistence) throws PersistenceException {
+    public static NotInSale4Public createNotInSale(boolean delayed$Persistence) throws PersistenceException {
         PersistentNotInSale result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theNotInSaleFacade
@@ -30,7 +30,7 @@ public class NotInSale extends model.ArticleState implements PersistentNotInSale
         return result;
     }
     
-    public static PersistentNotInSale createNotInSale(boolean delayed$Persistence,PersistentNotInSale This) throws PersistenceException {
+    public static NotInSale4Public createNotInSale(boolean delayed$Persistence,NotInSale4Public This) throws PersistenceException {
         PersistentNotInSale result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theNotInSaleFacade
@@ -58,8 +58,7 @@ public class NotInSale extends model.ArticleState implements PersistentNotInSale
     
     public NotInSale provideCopy() throws PersistenceException{
         NotInSale result = this;
-        result = new NotInSale(this.subService, 
-                               this.This, 
+        result = new NotInSale(this.This, 
                                this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -69,13 +68,13 @@ public class NotInSale extends model.ArticleState implements PersistentNotInSale
         return false;
     }
     
-    public NotInSale(SubjInterface subService,PersistentArticleState This,long id) throws PersistenceException {
+    public NotInSale(PersistentArticleState This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((SubjInterface)subService,(PersistentArticleState)This,id);        
+        super((PersistentArticleState)This,id);        
     }
     
     static public long getTypeId() {
-        return 124;
+        return 195;
     }
     
     public long getClassId() {
@@ -84,7 +83,7 @@ public class NotInSale extends model.ArticleState implements PersistentNotInSale
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 124) ConnectionHandler.getTheConnectionHandler().theNotInSaleFacade
+        if (this.getClassId() == 195) ConnectionHandler.getTheConnectionHandler().theNotInSaleFacade
             .newNotInSale(this.getId());
         super.store();
         
@@ -122,55 +121,16 @@ public class NotInSale extends model.ArticleState implements PersistentNotInSale
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleNotInSale(this);
     }
-    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
-        visitor.handleNotInSale(this);
-    }
-    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleNotInSale(this);
-    }
-    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleNotInSale(this);
-    }
-    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleNotInSale(this);
-    }
     public int getLeafInfo() throws PersistenceException{
         return 0;
     }
     
     
-    public synchronized void deregister(final ObsInterface observee) 
-				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
-		}
-		subService.deregister(observee);
-    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentNotInSale)This);
 		if(this.isTheSameAs(This)){
 		}
-    }
-    public synchronized void register(final ObsInterface observee) 
-				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
-		}
-		subService.register(observee);
-    }
-    public synchronized void updateObservers(final model.meta.Mssgs event) 
-				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
-		}
-		subService.updateObservers(event);
     }
     
     

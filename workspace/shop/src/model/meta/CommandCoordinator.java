@@ -9,10 +9,10 @@ import model.visitor.*;
 
 public class CommandCoordinator extends PersistentObject implements PersistentCommandCoordinator{
     
-    private static PersistentCommandCoordinator theCommandCoordinator = null;
+    private static CommandCoordinator4Public theCommandCoordinator = null;
     private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
-    public static PersistentCommandCoordinator getTheCommandCoordinator() throws PersistenceException{
+    public static CommandCoordinator4Public getTheCommandCoordinator() throws PersistenceException{
         if (theCommandCoordinator == null || reset$For$Test){
             if (reset$For$Test) theCommandCoordinator = null;
             class Initializer implements Runnable {
@@ -23,7 +23,7 @@ public class CommandCoordinator extends PersistentObject implements PersistentCo
                 void produceSingleton() {
                     synchronized ($$lock){
                         try {
-                            PersistentCommandCoordinator proxi = null;
+                            CommandCoordinator4Public proxi = null;
                             proxi = ConnectionHandler.getTheConnectionHandler().theCommandCoordinatorFacade.getTheCommandCoordinator();
                             theCommandCoordinator = proxi;
                             if(proxi.getId() < 0) {
@@ -39,7 +39,7 @@ public class CommandCoordinator extends PersistentObject implements PersistentCo
                         
                     }
                 }
-                PersistentCommandCoordinator getResult() throws PersistenceException{
+                CommandCoordinator4Public getResult() throws PersistenceException{
                     synchronized ($$lock) {
                         if (exception == null && theCommandCoordinator== null) try {$$lock.wait();} catch (InterruptedException e) {}
                         if(exception != null) throw exception;
@@ -121,7 +121,7 @@ public class CommandCoordinator extends PersistentObject implements PersistentCo
     
     public void coordinate(final Command command) 
 				throws PersistenceException{
-        PersistentCommandExecuter executer;
+        CommandExecuter4Public executer;
 		if (!this.getExecuter().iterator().hasNext()){
 			executer = CommandExecuter.createCommandExecuter();
 			this.getExecuter().add(executer);
@@ -141,17 +141,17 @@ public class CommandCoordinator extends PersistentObject implements PersistentCo
     }
     public void interrupt() 
 				throws PersistenceException{
-        java.util.Iterator<PersistentCommandExecuter> currentExecuters = this.getExecuter().iterator();
+        java.util.Iterator<CommandExecuter4Public> currentExecuters = this.getExecuter().iterator();
 		while (currentExecuters.hasNext()){
-			PersistentCommandExecuter executer = currentExecuters.next();
+			CommandExecuter4Public executer = currentExecuters.next();
 			executer.interrupt();
 		}
     }
     public void restart() 
 				throws PersistenceException{
-        java.util.Iterator<PersistentCommandExecuter> currentExecuters = this.getExecuter().iterator();
+        java.util.Iterator<CommandExecuter4Public> currentExecuters = this.getExecuter().iterator();
 		while (currentExecuters.hasNext()){
-			PersistentCommandExecuter executer = currentExecuters.next();
+			CommandExecuter4Public executer = currentExecuters.next();
 			if (!executer.isAlive()) executer.start();
 		}
     }

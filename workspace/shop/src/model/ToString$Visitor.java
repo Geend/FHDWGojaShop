@@ -30,96 +30,52 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
-	public void handleOrder(PersistentOrder order) throws PersistenceException {
+	public void handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException {
+		result = "HERSTELLER"; //TODO! constant
+	}
+
+	@Override
+	public void handleProductGroup(ProductGroup4Public productGroup) throws PersistenceException {
+		result = productGroup.getName();
+	}
+
+	@Override
+	public void handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException {
+		result = "RESTPOSTENVERKAUF"; //TODO! constant
+	}
+
+	@Override
+	public void handleServer(Server4Public server) throws PersistenceException {
 
 	}
 
 	@Override
-	public void handleOrderArticleWrapper(PersistentOrderArticleWrapper orderArticleWrapper) throws PersistenceException {
-
+	public void handleArticle(Article4Public article) throws PersistenceException {
+		result = article.getName();
 	}
 
 	@Override
-	public void handleProductGroup(PersistentProductGroup productGroup) throws PersistenceException {
-		result = "PG: " + productGroup.getName();
-
+	public void handleNotInSale(NotInSale4Public notInSale) throws PersistenceException {
+		result = "NICHT VERFÜGBAR"; //TODO! constant
 	}
 
 	@Override
-	public void handleRemainingStock(PersistentRemainingStock remainingStock) throws PersistenceException {
-
+	public void handleInSale(InSale4Public inSale) throws PersistenceException {
+		result = "VERFÜGBAR"; //TODO! constant
 	}
 
 	@Override
-	public void handleOrderQuantifiedArticle(PersistentOrderQuantifiedArticle orderQuantifiedArticle) throws PersistenceException {
-
+	public void handleProducer(Producer4Public producer) throws PersistenceException {
+		result = producer.getName();
 	}
 
 	@Override
-	public void handleServer(PersistentServer server) throws PersistenceException {
-
+	public void handleComponentLst(ComponentLst4Public componentLst) throws PersistenceException {
+		result = "PRODUKTGRUPPEN"; //TODO! constant
 	}
 
 	@Override
-	public void handleArticle(PersistentArticle article) throws PersistenceException {
-		result = "Article: " + article.getName();
-
-	}
-
-	@Override
-	public void handlePreOrder(PersistentPreOrder preOrder) throws PersistenceException {
-
-	}
-
-	@Override
-	public void handleNotInSale(PersistentNotInSale notInSale) throws PersistenceException {
-
-	}
-
-	@Override
-	public void handleCustomerAccount(PersistentCustomerAccount customerAccount) throws PersistenceException {
-
-	}
-
-	@Override
-	public void handleInSale(PersistentInSale inSale) throws PersistenceException {
-
-	}
-
-	@Override
-	public void handleCustomerDeliveryTime(PersistentCustomerDeliveryTime customerDeliveryTime) throws PersistenceException {
-
-	}
-
-	@Override
-	public void handleProducer(PersistentProducer producer) throws PersistenceException {
-
-	}
-
-	@Override
-	public void handleShoppingCart(PersistentShoppingCart shoppingCart) throws PersistenceException {
-
-	}
-
-
-
-	@Override
-	public void handleShoppingCartQuantifiedArticle(PersistentShoppingCartQuantifiedArticle shoppingCartQuantifiedArticle) throws PersistenceException {
-
-	}
-
-	@Override
-	public void handleNewCreated(PersistentNewCreated newCreated) throws PersistenceException {
-
-	}
-
-	@Override
-	public void handleShopArticleWrapper(PersistentShopArticleWrapper shopArticleWrapper) throws PersistenceException {
-
-	}
-
-	@Override
-	public void handleShoppingCartArticleWrapper(PersistentShoppingCartArticleWrapper shoppingCartArticleWrapper) throws PersistenceException {
-
+	public void handleNewCreated(NewCreated4Public newCreated) throws PersistenceException {
+		result = "NEUER ARTIKEL, NICHT IM VERKAUF"; //TODO! constant
 	}
 }

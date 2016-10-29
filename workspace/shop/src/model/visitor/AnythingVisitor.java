@@ -3,20 +3,19 @@ package model.visitor;
 
 import persistence.*;
 
-public interface AnythingVisitor extends AbstractOrderVisitor,ArticleStateVisitor,ArticleWrapperVisitor,CommonDateVisitor,ComponentVisitor,QuantifiedArticleVisitor{
+public interface AnythingVisitor extends ArticleStateVisitor,CommonDateVisitor,ComponentVisitor{
     
-    public void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException;
-    public void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException;
-    public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;
-    public void handleCreateArticleCommand(PersistentCreateArticleCommand createArticleCommand) throws PersistenceException;
-    public void handleCreateSubProductGroupCommand(PersistentCreateSubProductGroupCommand createSubProductGroupCommand) throws PersistenceException;
-    public void handleCustomerAccount(PersistentCustomerAccount customerAccount) throws PersistenceException;
-    public void handleCustomerDeliveryTime(PersistentCustomerDeliveryTime customerDeliveryTime) throws PersistenceException;
-    public void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException;
-    public void handleProducer(PersistentProducer producer) throws PersistenceException;
-    public void handleServer(PersistentServer server) throws PersistenceException;
-    public void handleServerRootProductGroup(PersistentServerRootProductGroup serverRootProductGroup) throws PersistenceException;
-    public void handleShoppingCart(PersistentShoppingCart shoppingCart) throws PersistenceException;
-    public void handleSubj(PersistentSubj subj) throws PersistenceException;
+    public void handleAddArticleCommand(AddArticleCommand4Public addArticleCommand) throws PersistenceException;
+    public void handleAddSubProductGroupCommand(AddSubProductGroupCommand4Public addSubProductGroupCommand) throws PersistenceException;
+    public void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException;
+    public void handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException;
+    public void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException;
+    public void handleComponentLst(ComponentLst4Public componentLst) throws PersistenceException;
+    public void handleCreateProducerCommand(CreateProducerCommand4Public createProducerCommand) throws PersistenceException;
+    public void handleCreateProductGroupCommand(CreateProductGroupCommand4Public createProductGroupCommand) throws PersistenceException;
+    public void handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException;
+    public void handleProducer(Producer4Public producer) throws PersistenceException;
+    public void handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException;
+    public void handleServer(Server4Public server) throws PersistenceException;
     
 }

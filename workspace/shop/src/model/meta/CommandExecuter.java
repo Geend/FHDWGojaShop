@@ -11,16 +11,16 @@ import model.visitor.*;
 public class CommandExecuter extends PersistentObject implements PersistentCommandExecuter{
     
     /** Throws persistence exception if the object with the given id does not exist. */
-    public static PersistentCommandExecuter getById(long objectId) throws PersistenceException{
+    public static CommandExecuter4Public getById(long objectId) throws PersistenceException{
         long classId = ConnectionHandler.getTheConnectionHandler().theCommandExecuterFacade.getClass(objectId);
-        return (PersistentCommandExecuter)PersistentProxi.createProxi(objectId, classId);
+        return (CommandExecuter4Public)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentCommandExecuter createCommandExecuter() throws PersistenceException{
+    public static CommandExecuter4Public createCommandExecuter() throws PersistenceException{
         return createCommandExecuter(false);
     }
     
-    public static PersistentCommandExecuter createCommandExecuter(boolean delayed$Persistence) throws PersistenceException {
+    public static CommandExecuter4Public createCommandExecuter(boolean delayed$Persistence) throws PersistenceException {
         PersistentCommandExecuter result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theCommandExecuterFacade
@@ -36,7 +36,7 @@ public class CommandExecuter extends PersistentObject implements PersistentComma
         return result;
     }
     
-    public static PersistentCommandExecuter createCommandExecuter(boolean delayed$Persistence,PersistentCommandExecuter This) throws PersistenceException {
+    public static CommandExecuter4Public createCommandExecuter(boolean delayed$Persistence,CommandExecuter4Public This) throws PersistenceException {
         PersistentCommandExecuter result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theCommandExecuterFacade

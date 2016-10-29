@@ -18,39 +18,21 @@ public abstract class ComponentICProxi extends PersistentInCacheProxiOptimistic 
     public void setName(String newValue) throws PersistenceException {
         ((PersistentComponent)this.getTheObject()).setName(newValue);
     }
-    public SubjInterface getSubService() throws PersistenceException {
-        return ((PersistentComponent)this.getTheObject()).getSubService();
-    }
-    public void setSubService(SubjInterface newValue) throws PersistenceException {
-        ((PersistentComponent)this.getTheObject()).setSubService(newValue);
-    }
     public abstract PersistentComponent getThis() throws PersistenceException ;
     
     
     
-    public void deregister(final ObsInterface observee) 
-				throws PersistenceException{
-        ((PersistentComponent)this.getTheObject()).deregister(observee);
-    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentComponent)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void register(final ObsInterface observee) 
+    public boolean containsCompHierarchy(final CompHierarchyHIERARCHY part) 
 				throws PersistenceException{
-        ((PersistentComponent)this.getTheObject()).register(observee);
+        return ((PersistentComponent)this.getTheObject()).containsCompHierarchy(part);
     }
-    public void updateObservers(final model.meta.Mssgs event) 
+    public boolean containsCompHierarchy(final CompHierarchyHIERARCHY part, final java.util.HashSet<CompHierarchyHIERARCHY> visited) 
 				throws PersistenceException{
-        ((PersistentComponent)this.getTheObject()).updateObservers(event);
-    }
-    public boolean containsParts(final PartsHIERARCHY part) 
-				throws PersistenceException{
-        return ((PersistentComponent)this.getTheObject()).containsParts(part);
-    }
-    public boolean containsParts(final PartsHIERARCHY part, final java.util.HashSet<PartsHIERARCHY> visited) 
-				throws PersistenceException{
-        return ((PersistentComponent)this.getTheObject()).containsParts(part, visited);
+        return ((PersistentComponent)this.getTheObject()).containsCompHierarchy(part, visited);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -64,13 +46,13 @@ public abstract class ComponentICProxi extends PersistentInCacheProxiOptimistic 
 				throws PersistenceException{
         ((PersistentComponent)this.getTheObject()).initializeOnInstantiation();
     }
-    public <T> T strategyParts(final PartsHIERARCHYStrategy<T> strategy) 
+    public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
-        return ((PersistentComponent)this.getTheObject()).strategyParts(strategy);
+        return ((PersistentComponent)this.getTheObject()).strategyCompHierarchy(strategy);
     }
-    public <T> T strategyParts(final PartsHIERARCHYStrategy<T> strategy, final java.util.HashMap<PartsHIERARCHY,T> visited) 
+    public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy, final java.util.HashMap<CompHierarchyHIERARCHY,T> visited) 
 				throws PersistenceException{
-        return ((PersistentComponent)this.getTheObject()).strategyParts(strategy, visited);
+        return ((PersistentComponent)this.getTheObject()).strategyCompHierarchy(strategy, visited);
     }
 
     

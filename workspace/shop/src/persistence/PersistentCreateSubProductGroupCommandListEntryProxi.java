@@ -1,5 +1,0 @@
-package persistence;
-
-public interface PersistentCreateSubProductGroupCommandListEntryProxi extends PersistentListEntryProxi {
-
-}

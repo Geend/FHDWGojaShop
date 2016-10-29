@@ -16,7 +16,7 @@ public class RemainingStock extends view.objects.ArticleState implements Remaini
     }
     
     static public long getTypeId() {
-        return 122;
+        return 193;
     }
     
     public long getClassId() {

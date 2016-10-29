@@ -67,7 +67,7 @@ public class CommandCoordinatorFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public long executerAdd(long CommandCoordinatorId, PersistentCommandExecuter executerVal) throws PersistenceException {
+    public long executerAdd(long CommandCoordinatorId, CommandExecuter4Public executerVal) throws PersistenceException {
         try{
             CallableStatement callable;
             callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".CmmndCrdntrFacade.exctrAdd(?, ?, ?); end;");

@@ -4,7 +4,7 @@ import model.meta.*;
 
 import java.util.Iterator;
 
-public class CommandCoordinator_ExecuterProxi extends PersistentListProxi<PersistentCommandExecuter> {
+public class CommandCoordinator_ExecuterProxi extends PersistentListProxi<CommandExecuter4Public> {
 
   	private CommandExecuterList list;
   	private CommandCoordinator owner;
@@ -25,13 +25,13 @@ public class CommandCoordinator_ExecuterProxi extends PersistentListProxi<Persis
     	}
     	return this.list;
   	}
-  	public Iterator<PersistentCommandExecuter> iterator() throws PersistenceException{
+  	public Iterator<CommandExecuter4Public> iterator() throws PersistenceException{
     	return this.getList().iterator(this);
   	}
   	public long getLength() throws PersistenceException{
 	  	return this.getList().getLength();
   	}
-  	public void add(PersistentCommandExecuter entry) throws PersistenceException {
+  	public void add(CommandExecuter4Public entry) throws PersistenceException {
     	if (entry != null) {
       		CommandExecuterList list = this.getList();
       		long entryId = 0;
@@ -40,7 +40,7 @@ public class CommandCoordinator_ExecuterProxi extends PersistentListProxi<Persis
         		entryId = ConnectionHandler.getTheConnectionHandler().theCommandCoordinatorFacade
         	               	.executerAdd(owner.getId(), entry);
       		}
-      		list.add((PersistentCommandExecuter)PersistentProxi.createListEntryProxi(entry.getId(),
+      		list.add((CommandExecuter4Public)PersistentProxi.createListEntryProxi(entry.getId(),
             		                   entry.getClassId(),
         	    	                   entryId));
       		
@@ -58,9 +58,9 @@ public class CommandCoordinator_ExecuterProxi extends PersistentListProxi<Persis
   		return result;
   	}	 
   	public void store() throws PersistenceException {
-  		java.util.Iterator<PersistentCommandExecuter> entries = (this.list == null ? new java.util.Vector<PersistentCommandExecuter>().iterator() : this.list.iterator(this));
+  		java.util.Iterator<CommandExecuter4Public> entries = (this.list == null ? new java.util.Vector<CommandExecuter4Public>().iterator() : this.list.iterator(this));
   		while (entries.hasNext()){
-  			PersistentCommandExecuter current = entries.next();
+  			CommandExecuter4Public current = entries.next();
   			current.store();
       		long entryId = ConnectionHandler.getTheConnectionHandler().theCommandCoordinatorFacade
             	           .executerAdd(owner.getId(), current);

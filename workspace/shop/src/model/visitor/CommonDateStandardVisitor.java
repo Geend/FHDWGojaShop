@@ -5,14 +5,20 @@ import persistence.*;
 
 public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     
-    public void handleCreateSubProductGroupCommand(PersistentCreateSubProductGroupCommand createSubProductGroupCommand) throws PersistenceException{
-        this.standardHandling(createSubProductGroupCommand);
+    public void handleCreateProductGroupCommand(CreateProductGroupCommand4Public createProductGroupCommand) throws PersistenceException{
+        this.standardHandling(createProductGroupCommand);
     }
-    public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException{
+    public void handleCreateProducerCommand(CreateProducerCommand4Public createProducerCommand) throws PersistenceException{
+        this.standardHandling(createProducerCommand);
+    }
+    public void handleAddArticleCommand(AddArticleCommand4Public addArticleCommand) throws PersistenceException{
+        this.standardHandling(addArticleCommand);
+    }
+    public void handleAddSubProductGroupCommand(AddSubProductGroupCommand4Public addSubProductGroupCommand) throws PersistenceException{
+        this.standardHandling(addSubProductGroupCommand);
+    }
+    public void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException{
         this.standardHandling(commonDate);
     }
-    public void handleCreateArticleCommand(PersistentCreateArticleCommand createArticleCommand) throws PersistenceException{
-        this.standardHandling(createArticleCommand);
-    }
-    protected abstract void standardHandling(PersistentCommonDate commonDate) throws PersistenceException;
+    protected abstract void standardHandling(CommonDate4Public commonDate) throws PersistenceException;
 }

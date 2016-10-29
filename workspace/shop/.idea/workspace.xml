@@ -1,564 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8e909946-c392-4d05-8921-3bf4914621cf" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/.TypeNumbers.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/AbstrctOrdrFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/AbstrctOrdrFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/ArtclFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/ArtclFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/ArtclSttFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/ArtclSttFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/ArtclWrpprFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/ArtclWrpprFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/CLEAR.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/CLEARPACKAGES.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/CLEARTABLES.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/ClassFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/ClassFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/CmmnDtFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/CmmnDtFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/CmmndCrdntrFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/CmmndCrdntrFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/CmmndExctrFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/CmmndExctrFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/CmpnntFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/CmpnntFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/CstmrAccntFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/CstmrAccntFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/CstmrDlvrTmFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/CstmrDlvrTmFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/InSlFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/InSlFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/ManyServices.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/Migration.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/MigrationUndo.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/NtInSlFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/NtInSlFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/NwCrtdFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/NwCrtdFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/OrdrFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/OrdrFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/PACKAGES.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/PrOrdrFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/PrOrdrFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/PrdcrFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/PrdcrFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/PrdctGrpFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/PrdctGrpFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/QntfdArtclFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/QntfdArtclFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/RmnngStckFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/RmnngStckFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/SCRIPT.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/ShppngCrtFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/ShppngCrtFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/SrvrFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/SrvrFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/oawFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/oawFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/oqaFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/oqaFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/sawFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/sawFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/scawFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/scawFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/scqaFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/scqaFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000000/shop.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/.TypeNumbers.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/AbstrctOrdrFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/AbstrctOrdrFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/ArtclFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/ArtclFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/ArtclSttFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/ArtclSttFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/ArtclWrpprFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/ArtclWrpprFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/CLEAR.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/CLEARPACKAGES.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/CLEARTABLES.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/ClassFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/ClassFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/CmmnDtFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/CmmnDtFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/CmmndCrdntrFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/CmmndCrdntrFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/CmmndExctrFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/CmmndExctrFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/CmpnntFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/CmpnntFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/CstmrAccntFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/CstmrAccntFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/CstmrDlvrTmFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/CstmrDlvrTmFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/InSlFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/InSlFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/ManyServices.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/Migration.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/MigrationUndo.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/NtInSlFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/NtInSlFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/NwCrtdFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/NwCrtdFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/OrdrFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/OrdrFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/PACKAGES.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/PrOrdrFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/PrOrdrFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/PrdcrFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/PrdcrFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/PrdctGrpFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/PrdctGrpFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/QntfdArtclFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/QntfdArtclFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/RmnngStckFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/RmnngStckFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/SCRIPT.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/ShppngCrtFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/ShppngCrtFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/SrvrFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/SrvrFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/oawFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/oawFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/oqaFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/oqaFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/sawFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/sawFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/scawFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/scawFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/scqaFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/scqaFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000001/shop.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/.TypeNumbers.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/AbstrctOrdrFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/AbstrctOrdrFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/ArtclFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/ArtclFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/ArtclSttFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/ArtclSttFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/ArtclWrpprFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/ArtclWrpprFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/CLEAR.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/CLEARPACKAGES.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/CLEARTABLES.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/ClassFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/ClassFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/CmmnDtFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/CmmnDtFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/CmmndCrdntrFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/CmmndCrdntrFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/CmmndExctrFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/CmmndExctrFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/CmpnntFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/CmpnntFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/CstmrAccntFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/CstmrAccntFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/CstmrDlvrTmFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/CstmrDlvrTmFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/InSlFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/InSlFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/ManyServices.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/Migration.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/MigrationUndo.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/NtInSlFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/NtInSlFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/NwCrtdFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/NwCrtdFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/OrdrFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/OrdrFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/PACKAGES.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/PrOrdrFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/PrOrdrFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/PrdcrFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/PrdcrFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/PrdctGrpFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/PrdctGrpFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/QntfdArtclFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/QntfdArtclFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/RmnngStckFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/RmnngStckFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/SCRIPT.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/ShppngCrtFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/ShppngCrtFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/SrvrFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/SrvrFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/oawFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/oawFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/oqaFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/oqaFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/sawFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/sawFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/scawFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/scawFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/scqaFacade.pkb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/scqaFacade.pks" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../db_scripts/shop/000002/shop.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/AbstractOrder4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/AbstractOrderCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/AbstractOrderFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/AbstractOrderICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/AbstractOrderListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/AbstractOrderProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/AbstractOrder_ArticlesProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/AbstractPersistentProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/AbstractPersistentRoot.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/Aggregtion.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/AggregtionException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/Anything.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/AnythingCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/Article4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ArticleCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ArticleFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ArticleICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ArticleListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ArticleProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ArticleState4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ArticleStateCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ArticleStateFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ArticleStateICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ArticleStateListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ArticleStateProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ArticleWrapper4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ArticleWrapperCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ArticleWrapperFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ArticleWrapperICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ArticleWrapperListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ArticleWrapperProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/Cache.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/Command.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CommandCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CommandCoordinator4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CommandCoordinatorFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CommandCoordinatorICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CommandCoordinatorListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CommandCoordinatorProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CommandCoordinator_ExecuterProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CommandExecuter4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CommandExecuterFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CommandExecuterICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CommandExecuterList.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CommandExecuterListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CommandExecuterProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CommandExecuter_CommandsProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CommandList.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CommitConnectionHandler.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CommonDate4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CommonDateCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CommonDateFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CommonDateICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CommonDateListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CommonDateProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/Component4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ComponentCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ComponentFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ComponentICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ComponentList.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ComponentListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ComponentProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ConflictException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/Connection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ConnectionHandler.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CustomerAccount4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CustomerAccountCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CustomerAccountFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CustomerAccountICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CustomerAccountListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CustomerAccountProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CustomerDeliveryTime4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CustomerDeliveryTimeCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CustomerDeliveryTimeFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CustomerDeliveryTimeICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CustomerDeliveryTimeListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/CustomerDeliveryTimeProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/Decoratees.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/DecorateesCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ErrorDisplay4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ErrorDisplayCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ErrorDisplayFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ErrorDisplayICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ErrorDisplayList.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ErrorDisplayListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ErrorDisplayProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/Fnction.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/InSale4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/InSaleCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/InSaleFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/InSaleICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/InSaleListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/InSaleProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/Invoker.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/InvokerCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/NewCreated4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/NewCreatedCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/NewCreatedFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/NewCreatedICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/NewCreatedListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/NewCreatedProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/NotInSale4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/NotInSaleCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/NotInSaleFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/NotInSaleICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/NotInSaleListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/NotInSaleProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/Order4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/OrderArticleWrapper4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/OrderArticleWrapperCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/OrderArticleWrapperFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/OrderArticleWrapperICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/OrderArticleWrapperListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/OrderArticleWrapperProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/OrderCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/OrderFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/OrderICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/OrderListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/OrderProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/OrderQuantifiedArticle4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/OrderQuantifiedArticleCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/OrderQuantifiedArticleFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/OrderQuantifiedArticleICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/OrderQuantifiedArticleList.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/OrderQuantifiedArticleListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/OrderQuantifiedArticleProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PartsHIERARCHY.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PartsHIERARCHYCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PartsHIERARCHYStrategy.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PartsHIERARCHYStrategyCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistenceError.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistenceException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistenceExceptionCycleTunnel.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistenceExceptionRestrictionTunnel.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentAbstractOrder.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentAbstractOrderListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentArticle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentArticleListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentArticleState.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentArticleStateListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentArticleWrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentArticleWrapperListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentCommandCoordinator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentCommandCoordinatorListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentCommandExecuter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentCommandExecuterListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentCommonDate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentCommonDateListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentComponent.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentComponentListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentCustomerAccount.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentCustomerAccountListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentCustomerDeliveryTime.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentCustomerDeliveryTimeListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentDecoratorProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentErrorDisplay.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentErrorDisplayListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentInCacheDecoratorProxiOptimistic.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentInCacheProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentInCacheProxiOptimistic.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentInSale.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentInSaleListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentListIterator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentListProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentListProxiInterface.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentListService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentMapProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentMapProxiWithCycleException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentNewCreated.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentNewCreatedListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentNotInSale.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentNotInSaleListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentObject.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentOrder.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentOrderArticleWrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentOrderArticleWrapperListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentOrderListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentOrderQuantifiedArticle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentOrderQuantifiedArticleListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentPreOrder.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentPreOrderListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentProducer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentProducerListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentProductGroup.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentProductGroupListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentProxiInterface.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentQuantifiedArticle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentQuantifiedArticleListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentRemainingStock.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentRemainingStockListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentRoot.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentServer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentServerListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentShopArticleWrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentShopArticleWrapperListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentShoppingCart.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentShoppingCartArticleWrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentShoppingCartArticleWrapperListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentShoppingCartListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentShoppingCartQuantifiedArticle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PersistentShoppingCartQuantifiedArticleListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PreOrder4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PreOrderCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PreOrderFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PreOrderICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PreOrderListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PreOrderProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/Predcate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/PredcateException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/Procdure.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ProcdureException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/Producer4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ProducerCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ProducerFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ProducerICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ProducerListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ProducerProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ProductGroup4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ProductGroupCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ProductGroupFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ProductGroupICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ProductGroupListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ProductGroupProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ProductGroup_ComponentsProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/QuantifiedArticle4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/QuantifiedArticleCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/QuantifiedArticleFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/QuantifiedArticleICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/QuantifiedArticleListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/QuantifiedArticleProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/RemainingStock4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/RemainingStockCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/RemainingStockFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/RemainingStockICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/RemainingStockListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/RemainingStockProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/Remote.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/SearchListRoot.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/Server4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ServerCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ServerFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ServerICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ServerListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ServerProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ServerSearchList.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/Server_ErrorsProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShopArticleWrapper4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShopArticleWrapperCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShopArticleWrapperFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShopArticleWrapperICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShopArticleWrapperListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShopArticleWrapperProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShoppingCart4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShoppingCartArticleWrapper4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShoppingCartArticleWrapperCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShoppingCartArticleWrapperFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShoppingCartArticleWrapperICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShoppingCartArticleWrapperListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShoppingCartArticleWrapperProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShoppingCartCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShoppingCartFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShoppingCartICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShoppingCartListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShoppingCartProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShoppingCartQuantifiedArticle4Public.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShoppingCartQuantifiedArticleCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShoppingCartQuantifiedArticleFacade.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShoppingCartQuantifiedArticleICProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShoppingCartQuantifiedArticleList.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShoppingCartQuantifiedArticleListEntryProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShoppingCartQuantifiedArticleProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/ShoppingCart_ArticlesProxi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/persistence/TDObserver.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../.gitignore" afterPath="$PROJECT_DIR$/../../.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../.idea/misc.xml" afterPath="$PROJECT_DIR$/../../.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../docs/klassendiagramm.uxf" afterPath="$PROJECT_DIR$/../../docs/klassendiagramm.uxf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../model/.OracleSchema.sql" afterPath="$PROJECT_DIR$/../../model/.OracleSchema.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../model/.OracleSchemaDelete.sql" afterPath="$PROJECT_DIR$/../../model/.OracleSchemaDelete.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../model/.PersistenceGeneratorConfiguration.xml" afterPath="$PROJECT_DIR$/../../model/.PersistenceGeneratorConfiguration.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../model/.TypeNumbers.xml" afterPath="$PROJECT_DIR$/../../model/.TypeNumbers.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../model/model.goja" afterPath="$PROJECT_DIR$/../../model/model.goja" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../model/modelNames.xml" afterPath="$PROJECT_DIR$/../../model/modelNames.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/goja.xml" afterPath="$PROJECT_DIR$/.idea/libraries/goja.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DatabaseMonitor.java" afterPath="$PROJECT_DIR$/src/DatabaseMonitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/AbstractOrder.java" afterPath="$PROJECT_DIR$/src/model/AbstractOrder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/Article.java" afterPath="$PROJECT_DIR$/src/model/Article.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/ArticleState.java" afterPath="$PROJECT_DIR$/src/model/ArticleState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/ArticleWrapper.java" afterPath="$PROJECT_DIR$/src/model/ArticleWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/Component.java" afterPath="$PROJECT_DIR$/src/model/Component.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/CustomerAccount.java" afterPath="$PROJECT_DIR$/src/model/CustomerAccount.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/CustomerDeliveryTime.java" afterPath="$PROJECT_DIR$/src/model/CustomerDeliveryTime.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/DBConnectionConstants.java" afterPath="$PROJECT_DIR$/src/model/DBConnectionConstants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/ErrorDisplay.java" afterPath="$PROJECT_DIR$/src/model/ErrorDisplay.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/InSale.java" afterPath="$PROJECT_DIR$/src/model/InSale.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/NewCreated.java" afterPath="$PROJECT_DIR$/src/model/NewCreated.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/NotInSale.java" afterPath="$PROJECT_DIR$/src/model/NotInSale.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/Order.java" afterPath="$PROJECT_DIR$/src/model/Order.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/OrderArticleWrapper.java" afterPath="$PROJECT_DIR$/src/model/OrderArticleWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/OrderQuantifiedArticle.java" afterPath="$PROJECT_DIR$/src/model/OrderQuantifiedArticle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/PreOrder.java" afterPath="$PROJECT_DIR$/src/model/PreOrder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/Producer.java" afterPath="$PROJECT_DIR$/src/model/Producer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/ProductGroup.java" afterPath="$PROJECT_DIR$/src/model/ProductGroup.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/QuantifiedArticle.java" afterPath="$PROJECT_DIR$/src/model/QuantifiedArticle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/RemainingStock.java" afterPath="$PROJECT_DIR$/src/model/RemainingStock.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/Server.java" afterPath="$PROJECT_DIR$/src/model/Server.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/ShopArticleWrapper.java" afterPath="$PROJECT_DIR$/src/model/ShopArticleWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/ShoppingCart.java" afterPath="$PROJECT_DIR$/src/model/ShoppingCart.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/ShoppingCartArticleWrapper.java" afterPath="$PROJECT_DIR$/src/model/ShoppingCartArticleWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/ShoppingCartQuantifiedArticle.java" afterPath="$PROJECT_DIR$/src/model/ShoppingCartQuantifiedArticle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/ToString$Visitor.java" afterPath="$PROJECT_DIR$/src/model/ToString$Visitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/meta/CommonDate.java" afterPath="$PROJECT_DIR$/src/model/meta/CommonDate.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/meta/Mssgs.java" afterPath="$PROJECT_DIR$/src/model/meta/Mssgs.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/visitor/AnythingDirectVisitor.java" afterPath="$PROJECT_DIR$/src/model/visitor/AnythingDirectVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/visitor/AnythingExceptionVisitor.java" afterPath="$PROJECT_DIR$/src/model/visitor/AnythingExceptionVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/visitor/AnythingReturnExceptionVisitor.java" afterPath="$PROJECT_DIR$/src/model/visitor/AnythingReturnExceptionVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/visitor/AnythingReturnVisitor.java" afterPath="$PROJECT_DIR$/src/model/visitor/AnythingReturnVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/visitor/AnythingStandardVisitor.java" afterPath="$PROJECT_DIR$/src/model/visitor/AnythingStandardVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/visitor/AnythingVisitor.java" afterPath="$PROJECT_DIR$/src/model/visitor/AnythingVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/visitor/CommandExceptionVisitor.java" afterPath="$PROJECT_DIR$/src/model/visitor/CommandExceptionVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/visitor/CommandReturnExceptionVisitor.java" afterPath="$PROJECT_DIR$/src/model/visitor/CommandReturnExceptionVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/visitor/CommandReturnVisitor.java" afterPath="$PROJECT_DIR$/src/model/visitor/CommandReturnVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/visitor/CommandStandardVisitor.java" afterPath="$PROJECT_DIR$/src/model/visitor/CommandStandardVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/visitor/CommandVisitor.java" afterPath="$PROJECT_DIR$/src/model/visitor/CommandVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/visitor/Server$AuthoriseVisitor.java" afterPath="$PROJECT_DIR$/src/model/visitor/Server$AuthoriseVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/visitor/ToString$Visitor.java" afterPath="$PROJECT_DIR$/src/model/visitor/ToString$Visitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/modelServer/ConnectionServer.java" afterPath="$PROJECT_DIR$/src/modelServer/ConnectionServer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/modelServer/RemoteServer.java" afterPath="$PROJECT_DIR$/src/modelServer/RemoteServer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/modelServer/RemoteServerMaster.java" afterPath="$PROJECT_DIR$/src/modelServer/RemoteServerMaster.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/modelServer/ServerReporter.java" afterPath="$PROJECT_DIR$/src/modelServer/ServerReporter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/ArticleView.java" afterPath="$PROJECT_DIR$/src/view/ArticleView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/ComponentView.java" afterPath="$PROJECT_DIR$/src/view/ComponentView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/ServerView.java" afterPath="$PROJECT_DIR$/src/view/ServerView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/objects/Article.java" afterPath="$PROJECT_DIR$/src/view/objects/Article.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/objects/ArticleArticleWrapperWrapper.java" afterPath="$PROJECT_DIR$/src/view/objects/ArticleArticleWrapperWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/objects/ArticleOrderQuantifiedArticleWrapper.java" afterPath="$PROJECT_DIR$/src/view/objects/ArticleOrderQuantifiedArticleWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/objects/ArticleProxi.java" afterPath="$PROJECT_DIR$/src/view/objects/ArticleProxi.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/objects/ArticleShoppingCartQuantifiedArticleWrapper.java" afterPath="$PROJECT_DIR$/src/view/objects/ArticleShoppingCartQuantifiedArticleWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/objects/ArticlesAbstractOrderWrapper.java" afterPath="$PROJECT_DIR$/src/view/objects/ArticlesAbstractOrderWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/objects/ArticlesShoppingCartWrapper.java" afterPath="$PROJECT_DIR$/src/view/objects/ArticlesShoppingCartWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/objects/Component.java" afterPath="$PROJECT_DIR$/src/view/objects/Component.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/objects/ComponentProxi.java" afterPath="$PROJECT_DIR$/src/view/objects/ComponentProxi.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/objects/ComponentsProductGroupWrapper.java" afterPath="$PROJECT_DIR$/src/view/objects/ComponentsProductGroupWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/objects/CustomerDeliveryTimeAbstractOrderWrapper.java" afterPath="$PROJECT_DIR$/src/view/objects/CustomerDeliveryTimeAbstractOrderWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/objects/ProducerArticleWrapper.java" afterPath="$PROJECT_DIR$/src/view/objects/ProducerArticleWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/objects/ProductGroup.java" afterPath="$PROJECT_DIR$/src/view/objects/ProductGroup.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/objects/ProductGroupProxi.java" afterPath="$PROJECT_DIR$/src/view/objects/ProductGroupProxi.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/objects/Server.java" afterPath="$PROJECT_DIR$/src/view/objects/Server.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/objects/ServerProxi.java" afterPath="$PROJECT_DIR$/src/view/objects/ServerProxi.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/objects/ShoppingCartCustomerAccountWrapper.java" afterPath="$PROJECT_DIR$/src/view/objects/ShoppingCartCustomerAccountWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/objects/StateArticleWrapper.java" afterPath="$PROJECT_DIR$/src/view/objects/StateArticleWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/objects/ViewDecoratorProxi.java" afterPath="$PROJECT_DIR$/src/view/objects/ViewDecoratorProxi.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/objects/ViewProxi.java" afterPath="$PROJECT_DIR$/src/view/objects/ViewProxi.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/objects/ViewRoot.java" afterPath="$PROJECT_DIR$/src/view/objects/ViewRoot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/visitor/AnythingStandardVisitor.java" afterPath="$PROJECT_DIR$/src/view/visitor/AnythingStandardVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/viewClient/ConnectionMaster.java" afterPath="$PROJECT_DIR$/src/viewClient/ConnectionMaster.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/viewClient/DetailPanel.java" afterPath="$PROJECT_DIR$/src/viewClient/DetailPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/viewClient/ServerClientView.java" afterPath="$PROJECT_DIR$/src/viewClient/ServerClientView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/viewClient/ServerConnection.java" afterPath="$PROJECT_DIR$/src/viewClient/ServerConnection.java" />
-    </list>
+    <list default="true" id="8e909946-c392-4d05-8921-3bf4914621cf" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -568,7 +11,6 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -585,110 +27,43 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ToString$Visitor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/model/ToString$Visitor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="121">
-              <caret line="83" column="13" selection-start-line="83" selection-start-column="13" selection-end-line="83" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Subj.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/model/Subj.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/model/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="557">
-              <caret line="433" column="0" selection-start-line="433" selection-start-column="0" selection-end-line="433" selection-end-column="0" />
+            <state relative-caret-position="487">
+              <caret line="397" column="0" selection-start-line="397" selection-start-column="0" selection-end-line="397" selection-end-column="0" />
               <folding>
-                <marker date="1477583579512" expanded="true" signature="185:268" placeholder="/**...*/" />
-                <marker date="1477583579512" expanded="true" signature="354:545" placeholder="{...}" />
-                <marker date="1477583579512" expanded="true" signature="699:776" placeholder="{...}" />
-                <marker date="1477583579512" expanded="true" signature="959:2084" placeholder="{...}" />
-                <marker date="1477583579512" expanded="true" signature="1756:1771" placeholder="&lt;~&gt;" />
-                <marker date="1477583579512" expanded="true" signature="2289:3412" placeholder="{...}" />
-                <marker date="1477583579512" expanded="true" signature="3086:3101" placeholder="&lt;~&gt;" />
-                <marker date="1477583579512" expanded="true" signature="3631:4939" placeholder="{...}" />
-                <marker date="1477583579512" expanded="true" signature="5036:5154" placeholder="{...}" />
-                <marker date="1477583579512" expanded="true" signature="5219:5336" placeholder="{...}" />
-                <marker date="1477583579512" expanded="true" signature="20164:20170" placeholder="{...}" />
+                <element signature="e#7495#7496#0" expanded="true" />
+                <element signature="e#7522#7523#0" expanded="true" />
+                <element signature="e#7558#7559#0" expanded="true" />
+                <element signature="e#7592#7593#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProductGroup.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/model/ProductGroup.java">
+      <file leaf-file-name="ToString$Visitor.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/model/ToString$Visitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-165">
-              <caret line="263" column="66" selection-start-line="263" selection-start-column="66" selection-end-line="263" selection-end-column="66" />
+            <state relative-caret-position="221">
+              <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Article.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/model/Article.java">
+      <file leaf-file-name="ComponentLst.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/model/ComponentLst.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="274">
-              <caret line="362" column="5" selection-start-line="362" selection-start-column="5" selection-end-line="362" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OrderArticleWrapper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/model/OrderArticleWrapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2355">
-              <caret line="203" column="44" selection-start-line="203" selection-start-column="44" selection-end-line="203" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ShopArticleWrapper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/model/ShopArticleWrapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2190">
-              <caret line="192" column="44" selection-start-line="192" selection-start-column="44" selection-end-line="192" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ShoppingCartArticleWrapper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/model/ShoppingCartArticleWrapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1995">
-              <caret line="179" column="45" selection-start-line="179" selection-start-column="45" selection-end-line="179" selection-end-column="45" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ConnectionMaster.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/viewClient/ConnectionMaster.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="121" column="5" selection-start-line="121" selection-start-column="5" selection-end-line="121" selection-end-column="5" />
+            <state relative-caret-position="143">
+              <caret line="175" column="4" selection-start-line="175" selection-start-column="4" selection-end-line="175" selection-end-column="4" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#4056#4086#0" expanded="true" />
-                <element signature="e#5527#5535#0" expanded="true" />
-                <element signature="e#6882#6890#0" expanded="true" />
-                <element signature="e#11401#11409#0" expanded="true" />
-                <element signature="e#11491#11499#0" expanded="true" />
+                <element signature="e#1318#1333#0" expanded="true" />
+                <element signature="e#2087#2102#0" expanded="true" />
+                <element signature="e#4012#4013#0" expanded="true" />
+                <element signature="e#4038#4039#0" expanded="true" />
+                <element signature="e#4074#4075#0" expanded="true" />
+                <element signature="e#4108#4109#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -715,20 +90,24 @@
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/fae73cb9-9c24-4f27-84e6-a9681f0e763d/console.sql" />
         <option value="$PROJECT_DIR$/src/model/ComponentManager.java" />
         <option value="$PROJECT_DIR$/src/model/ProductGroup.java" />
+        <option value="$PROJECT_DIR$/src/model/ComponentLst.java" />
         <option value="$PROJECT_DIR$/src/model/Server.java" />
+        <option value="$PROJECT_DIR$/src/model/ProducerLst.java" />
         <option value="$PROJECT_DIR$/src/model/ToString$Visitor.java" />
       </list>
     </option>
   </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" />
-  <component name="JsBuildToolPackageJson" detection-done="true" />
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="27" />
-    <option name="width" value="1920" />
-    <option name="height" value="1053" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -755,9 +134,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -808,19 +185,21 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="Main.java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="js.eslint.eslintPackage" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../GOJA/JARS/xmlrpc20130422.jar!/" />
+    <property name="last_opened_file_path" value="C:/Goja/JARS/xmlrpc20130422.jar!/" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -864,8 +243,13 @@
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
       <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
       <option name="USE_LAST_SELECTED_DEVICE" value="false" />
       <option name="PREFERRED_AVD" value="" />
+      <Java />
+      <Profilers>
+        <option name="GAPID_DISABLE_PCS" value="false" />
+      </Profilers>
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
       <method />
@@ -884,8 +268,13 @@
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
       <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
       <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
       <option name="USE_LAST_SELECTED_DEVICE" value="false" />
       <option name="PREFERRED_AVD" value="" />
+      <Java />
+      <Profilers>
+        <option name="GAPID_DISABLE_PCS" value="false" />
+      </Profilers>
       <method />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
@@ -1303,11 +692,12 @@
       <workItem from="1477507734762" duration="1629000" />
       <workItem from="1477568714387" duration="341000" />
       <workItem from="1477577610135" duration="6353000" />
+      <workItem from="1477735023524" duration="17239000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10922000" />
+    <option name="totallyTimeSpent" value="28161000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1319,30 +709,28 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32781458" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32769555" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32875264" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20032051" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6025641" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39957717" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1352,6 +740,8 @@
       <window_info id="SonarQube" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1370,7 +760,17 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/model/Server.java</url>
+          <line>412</line>
+          <properties />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="17" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="antWorkspaceConfiguration">
@@ -1378,255 +778,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="47" column="13" selection-start-line="47" selection-start-column="13" selection-end-line="47" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/viewClient/Wizard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
-          <folding>
-            <element signature="e#3612#3613#0" expanded="false" />
-            <element signature="e#3630#3631#0" expanded="false" />
-            <element signature="e#3782#3783#0" expanded="false" />
-            <element signature="e#3817#3818#0" expanded="false" />
-            <element signature="e#3905#3906#0" expanded="false" />
-            <element signature="e#3942#3943#0" expanded="false" />
-            <element signature="e#6233#6234#0" expanded="false" />
-            <element signature="e#6257#6258#0" expanded="false" />
-            <element signature="e#8579#8580#0" expanded="false" />
-            <element signature="e#8602#8603#0" expanded="false" />
-            <element signature="e#12576#12577#0" expanded="false" />
-            <element signature="e#12606#12607#0" expanded="false" />
-            <element signature="e#14260#14261#0" expanded="false" />
-            <element signature="e#14340#14341#0" expanded="false" />
-            <element signature="e#14473#14474#0" expanded="false" />
-            <element signature="e#14506#14507#0" expanded="false" />
-            <element signature="e#15240#15241#0" expanded="false" />
-            <element signature="e#15265#15266#0" expanded="false" />
-            <element signature="e#15583#15584#0" expanded="false" />
-            <element signature="e#15603#15604#0" expanded="false" />
-            <element signature="e#15629#15630#0" expanded="false" />
-            <element signature="e#15703#15704#0" expanded="false" />
-            <element signature="e#15731#15732#0" expanded="false" />
-            <element signature="e#15784#15785#0" expanded="false" />
-            <element signature="e#15859#15860#0" expanded="false" />
-            <element signature="e#15912#15913#0" expanded="false" />
-            <element signature="e#16054#16055#0" expanded="false" />
-            <element signature="e#16087#16088#0" expanded="false" />
-            <element signature="e#16210#16211#0" expanded="false" />
-            <element signature="e#16237#16238#0" expanded="false" />
-            <element signature="e#16904#16905#0" expanded="false" />
-            <element signature="e#16929#16930#0" expanded="false" />
-            <element signature="e#17253#17254#0" expanded="false" />
-            <element signature="e#17273#17274#0" expanded="false" />
-            <element signature="e#17302#17303#0" expanded="false" />
-            <element signature="e#17356#17357#0" expanded="false" />
-            <element signature="e#17386#17387#0" expanded="false" />
-            <element signature="e#17452#17453#0" expanded="false" />
-            <element signature="e#17527#17528#0" expanded="false" />
-            <element signature="e#17581#17582#0" expanded="false" />
-            <element signature="e#17725#17726#0" expanded="false" />
-            <element signature="e#17758#17759#0" expanded="false" />
-            <element signature="e#17881#17882#0" expanded="false" />
-            <element signature="e#17908#17909#0" expanded="false" />
-            <element signature="e#18518#18519#0" expanded="false" />
-            <element signature="e#18548#18549#0" expanded="false" />
-            <element signature="e#18690#18691#0" expanded="false" />
-            <element signature="e#18739#18740#0" expanded="false" />
-            <element signature="e#18767#18768#0" expanded="false" />
-            <element signature="e#18819#18820#0" expanded="false" />
-            <element signature="e#18894#18895#0" expanded="false" />
-            <element signature="e#18946#18947#0" expanded="false" />
-            <element signature="e#19085#19086#0" expanded="false" />
-            <element signature="e#19118#19119#0" expanded="false" />
-            <element signature="e#19242#19243#0" expanded="false" />
-            <element signature="e#19269#19270#0" expanded="false" />
-            <element signature="e#19949#19950#0" expanded="false" />
-            <element signature="e#19979#19980#0" expanded="false" />
-            <element signature="e#20123#20124#0" expanded="false" />
-            <element signature="e#20179#20180#0" expanded="false" />
-            <element signature="e#20207#20208#0" expanded="false" />
-            <element signature="e#20261#20262#0" expanded="false" />
-            <element signature="e#20336#20337#0" expanded="false" />
-            <element signature="e#20390#20391#0" expanded="false" />
-            <element signature="e#20534#20535#0" expanded="false" />
-            <element signature="e#20567#20568#0" expanded="false" />
-            <element signature="e#20690#20691#0" expanded="false" />
-            <element signature="e#20717#20718#0" expanded="false" />
-            <element signature="e#21304#21305#0" expanded="false" />
-            <element signature="e#21334#21335#0" expanded="false" />
-            <element signature="e#21455#21456#0" expanded="false" />
-            <element signature="e#21485#21486#0" expanded="false" />
-            <element signature="e#22155#22156#0" expanded="false" />
-            <element signature="e#22180#22181#0" expanded="false" />
-            <element signature="e#22438#22439#0" expanded="false" />
-            <element signature="e#22500#22501#0" expanded="false" />
-            <element signature="e#22576#22577#0" expanded="false" />
-            <element signature="e#22626#22627#0" expanded="false" />
-            <element signature="e#22757#22758#0" expanded="false" />
-            <element signature="e#22790#22791#0" expanded="false" />
-            <element signature="e#22913#22914#0" expanded="false" />
-            <element signature="e#22940#22941#0" expanded="false" />
-            <element signature="e#24207#24208#0" expanded="false" />
-            <element signature="e#24248#24249#0" expanded="false" />
-            <element signature="e#24298#24299#0" expanded="false" />
-            <element signature="e#24346#24347#0" expanded="false" />
-            <element signature="e#24387#24388#0" expanded="false" />
-            <element signature="e#24435#24436#0" expanded="false" />
-            <element signature="e#24524#24525#0" expanded="false" />
-            <element signature="e#24566#24567#0" expanded="false" />
-            <element signature="e#27482#27483#0" expanded="false" />
-            <element signature="e#27512#27513#0" expanded="false" />
-            <element signature="e#27633#27634#0" expanded="false" />
-            <element signature="e#27663#27664#0" expanded="false" />
-            <element signature="e#29377#29378#0" expanded="false" />
-            <element signature="e#29402#29403#0" expanded="false" />
-            <element signature="e#30380#30381#0" expanded="false" />
-            <element signature="e#30426#30427#0" expanded="false" />
-            <element signature="e#30572#30573#0" expanded="false" />
-            <element signature="e#30605#30606#0" expanded="false" />
-            <element signature="e#30728#30729#0" expanded="false" />
-            <element signature="e#30755#30756#0" expanded="false" />
-            <element signature="e#33750#33751#0" expanded="false" />
-            <element signature="e#33781#33782#0" expanded="false" />
-            <element signature="e#34064#34065#0" expanded="false" />
-            <element signature="e#34115#34116#0" expanded="false" />
-            <element signature="e#34299#34300#0" expanded="false" />
-            <element signature="e#34341#34342#0" expanded="false" />
-            <element signature="e#34473#34474#0" expanded="false" />
-            <element signature="e#34506#34507#0" expanded="false" />
-            <element signature="e#34629#34630#0" expanded="false" />
-            <element signature="e#34656#34657#0" expanded="false" />
-            <element signature="e#35600#35601#0" expanded="false" />
-            <element signature="e#35626#35627#0" expanded="false" />
-            <element signature="e#35967#35968#0" expanded="false" />
-            <element signature="e#36000#36001#0" expanded="false" />
-            <element signature="e#37278#37279#0" expanded="false" />
-            <element signature="e#37305#37306#0" expanded="false" />
-            <element signature="e#37335#37336#0" expanded="false" />
-            <element signature="e#37371#37372#0" expanded="false" />
-            <element signature="e#37417#37418#0" expanded="false" />
-            <element signature="e#37461#37462#0" expanded="false" />
-            <element signature="e#40511#40512#0" expanded="false" />
-            <element signature="e#40532#40533#0" expanded="false" />
-            <element signature="e#40602#40603#0" expanded="false" />
-            <element signature="e#40652#40653#0" expanded="false" />
-            <element signature="e#40884#40885#0" expanded="false" />
-            <element signature="e#40917#40918#0" expanded="false" />
-            <element signature="e#41013#41014#0" expanded="false" />
-            <element signature="e#41031#41032#0" expanded="false" />
-            <element signature="e#41776#41777#0" expanded="false" />
-            <element signature="e#41820#41821#0" expanded="false" />
-            <element signature="e#42354#42355#0" expanded="false" />
-            <element signature="e#42392#42393#0" expanded="false" />
-            <element signature="e#45361#45362#0" expanded="false" />
-            <element signature="e#45430#45431#0" expanded="false" />
-            <element signature="e#46225#46226#0" expanded="false" />
-            <element signature="e#46273#46274#0" expanded="false" />
-            <element signature="e#46564#46565#0" expanded="false" />
-            <element signature="e#46594#46595#0" expanded="false" />
-            <element signature="e#49111#49112#0" expanded="false" />
-            <element signature="e#49147#49148#0" expanded="false" />
-            <element signature="e#49198#49199#0" expanded="false" />
-            <element signature="e#49230#49231#0" expanded="false" />
-            <element signature="e#52299#52300#0" expanded="false" />
-            <element signature="e#52339#52340#0" expanded="false" />
-            <element signature="e#52389#52390#0" expanded="false" />
-            <element signature="e#52421#52422#0" expanded="false" />
-            <element signature="e#55062#55063#0" expanded="false" />
-            <element signature="e#55101#55102#0" expanded="false" />
-            <element signature="e#57180#57181#0" expanded="false" />
-            <element signature="e#57204#57205#0" expanded="false" />
-            <element signature="e#57561#57562#0" expanded="false" />
-            <element signature="e#57591#57592#0" expanded="false" />
-            <element signature="e#59631#59632#0" expanded="false" />
-            <element signature="e#59669#59670#0" expanded="false" />
-            <element signature="e#59923#59924#0" expanded="false" />
-            <element signature="e#59966#59967#0" expanded="false" />
-            <element signature="e#60017#60018#0" expanded="false" />
-            <element signature="e#60049#60050#0" expanded="false" />
-            <element signature="e#60253#60254#0" expanded="false" />
-            <element signature="e#60315#60316#0" expanded="false" />
-            <element signature="e#61438#61439#0" expanded="false" />
-            <element signature="e#61468#61469#0" expanded="false" />
-            <element signature="e#62210#62211#0" expanded="false" />
-            <element signature="e#62258#62259#0" expanded="false" />
-            <element signature="e#64172#64173#0" expanded="false" />
-            <element signature="e#64197#64198#0" expanded="false" />
-            <element signature="e#66896#66897#0" expanded="false" />
-            <element signature="e#66930#66931#0" expanded="false" />
-            <element signature="e#67698#67699#0" expanded="false" />
-            <element signature="e#67732#67733#0" expanded="false" />
-            <element signature="e#68839#68840#0" expanded="false" />
-            <element signature="e#68892#68893#0" expanded="false" />
-            <element signature="e#69521#69522#0" expanded="false" />
-            <element signature="e#69539#69540#0" expanded="false" />
-            <element signature="e#69757#69758#0" expanded="false" />
-            <element signature="e#69790#69791#0" expanded="false" />
-            <element signature="e#70052#70053#0" expanded="false" />
-            <element signature="e#70070#70071#0" expanded="false" />
-            <element signature="e#70119#70120#0" expanded="false" />
-            <element signature="e#70146#70147#0" expanded="false" />
-            <element signature="e#70328#70329#0" expanded="false" />
-            <element signature="e#70343#70344#0" expanded="false" />
-            <element signature="e#70402#70403#0" expanded="false" />
-            <element signature="e#70420#70421#0" expanded="false" />
-            <element signature="e#70484#70485#0" expanded="false" />
-            <element signature="e#70503#70504#0" expanded="false" />
-            <element signature="e#72677#72678#0" expanded="false" />
-            <element signature="e#72698#72699#0" expanded="false" />
-            <element signature="e#72769#72770#0" expanded="false" />
-            <element signature="e#72823#72824#0" expanded="false" />
-            <element signature="e#74368#74369#0" expanded="false" />
-            <element signature="e#74406#74407#0" expanded="false" />
-            <element signature="e#74942#74943#0" expanded="false" />
-            <element signature="e#75006#75007#0" expanded="false" />
-            <element signature="e#75058#75059#0" expanded="false" />
-            <element signature="e#75092#75093#0" expanded="false" />
-            <element signature="e#75304#75305#0" expanded="false" />
-            <element signature="e#75355#75356#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ServerStarter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/Article.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="30" column="21" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/ToString$Visitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/OrderArticleWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2355">
-          <caret line="163" column="44" selection-start-line="163" selection-start-column="44" selection-end-line="163" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/model/ShopArticleWrapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2190">
@@ -1647,71 +798,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
           <caret line="27" column="37" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
-          <folding>
-            <marker date="1477583219844" expanded="true" signature="28:1143" placeholder="..." />
-            <marker date="1477583219844" expanded="true" signature="1354:1398" placeholder="/**...*/" />
-            <marker date="1477583219844" expanded="true" signature="1478:1564" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="1626:1630" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="1650:1653" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="1681:1875" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="1947:2174" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="2254:2730" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="2821:3715" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="3317:3630" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="3436:3625" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="3795:4085" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="4160:4394" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="4470:4773" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="4630:4739" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="4674:4682" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="4723:4734" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="4816:4963" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="4991:5103" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="5193:5532" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="5619:6931" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="5921:6271" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="6103:6266" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="6360:6489" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="6404:6412" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="6473:6484" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="6557:6892" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="6598:6887" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="6682:6872" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="6709:6864" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="7026:7725" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="7809:8285" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="7864:8179" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="7935:7942" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="7961:7966" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="8043:8073" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="8371:8479" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="8618:9115" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="9180:9356" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="9413:9417" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="9446:9449" placeholder=" }" />
-            <marker date="1477583219844" expanded="false" signature="9490:9501" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="9542:9545" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="9547:9622" placeholder="/**...*/" />
-            <marker date="1477583219844" expanded="true" signature="9651:10056" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="9688:10002" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="9710:9998" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="10058:10128" placeholder="/**...*/" />
-            <marker date="1477583219844" expanded="true" signature="10164:10511" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="10203:10453" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="10226:10449" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="10566:10571" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="10610:10613" placeholder=" }" />
-            <marker date="1477583219844" expanded="false" signature="10658:10663" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="10700:10703" placeholder=" }" />
-            <marker date="1477583219844" expanded="false" signature="10761:10766" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="10809:10813" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="10932:10942" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="19444:19564" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="19643:19719" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="19786:19790" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="19803:19806" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="19862:19937" placeholder="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1719,14 +806,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4056#4086#0" expanded="true" />
-            <element signature="e#5527#5535#0" expanded="true" />
-            <element signature="e#6882#6890#0" expanded="true" />
-            <element signature="e#11401#11409#0" expanded="true" />
-            <element signature="e#11491#11499#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1742,208 +822,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
-          <folding>
-            <element signature="e#3612#3613#0" expanded="false" />
-            <element signature="e#3630#3631#0" expanded="false" />
-            <element signature="e#3782#3783#0" expanded="false" />
-            <element signature="e#3817#3818#0" expanded="false" />
-            <element signature="e#3905#3906#0" expanded="false" />
-            <element signature="e#3942#3943#0" expanded="false" />
-            <element signature="e#6233#6234#0" expanded="false" />
-            <element signature="e#6257#6258#0" expanded="false" />
-            <element signature="e#8579#8580#0" expanded="false" />
-            <element signature="e#8602#8603#0" expanded="false" />
-            <element signature="e#12576#12577#0" expanded="false" />
-            <element signature="e#12606#12607#0" expanded="false" />
-            <element signature="e#14260#14261#0" expanded="false" />
-            <element signature="e#14340#14341#0" expanded="false" />
-            <element signature="e#14473#14474#0" expanded="false" />
-            <element signature="e#14506#14507#0" expanded="false" />
-            <element signature="e#15240#15241#0" expanded="false" />
-            <element signature="e#15265#15266#0" expanded="false" />
-            <element signature="e#15583#15584#0" expanded="false" />
-            <element signature="e#15603#15604#0" expanded="false" />
-            <element signature="e#15629#15630#0" expanded="false" />
-            <element signature="e#15703#15704#0" expanded="false" />
-            <element signature="e#15731#15732#0" expanded="false" />
-            <element signature="e#15784#15785#0" expanded="false" />
-            <element signature="e#15859#15860#0" expanded="false" />
-            <element signature="e#15912#15913#0" expanded="false" />
-            <element signature="e#16054#16055#0" expanded="false" />
-            <element signature="e#16087#16088#0" expanded="false" />
-            <element signature="e#16210#16211#0" expanded="false" />
-            <element signature="e#16237#16238#0" expanded="false" />
-            <element signature="e#16904#16905#0" expanded="false" />
-            <element signature="e#16929#16930#0" expanded="false" />
-            <element signature="e#17253#17254#0" expanded="false" />
-            <element signature="e#17273#17274#0" expanded="false" />
-            <element signature="e#17302#17303#0" expanded="false" />
-            <element signature="e#17356#17357#0" expanded="false" />
-            <element signature="e#17386#17387#0" expanded="false" />
-            <element signature="e#17452#17453#0" expanded="false" />
-            <element signature="e#17527#17528#0" expanded="false" />
-            <element signature="e#17581#17582#0" expanded="false" />
-            <element signature="e#17725#17726#0" expanded="false" />
-            <element signature="e#17758#17759#0" expanded="false" />
-            <element signature="e#17881#17882#0" expanded="false" />
-            <element signature="e#17908#17909#0" expanded="false" />
-            <element signature="e#18518#18519#0" expanded="false" />
-            <element signature="e#18548#18549#0" expanded="false" />
-            <element signature="e#18690#18691#0" expanded="false" />
-            <element signature="e#18739#18740#0" expanded="false" />
-            <element signature="e#18767#18768#0" expanded="false" />
-            <element signature="e#18819#18820#0" expanded="false" />
-            <element signature="e#18894#18895#0" expanded="false" />
-            <element signature="e#18946#18947#0" expanded="false" />
-            <element signature="e#19085#19086#0" expanded="false" />
-            <element signature="e#19118#19119#0" expanded="false" />
-            <element signature="e#19242#19243#0" expanded="false" />
-            <element signature="e#19269#19270#0" expanded="false" />
-            <element signature="e#19949#19950#0" expanded="false" />
-            <element signature="e#19979#19980#0" expanded="false" />
-            <element signature="e#20123#20124#0" expanded="false" />
-            <element signature="e#20179#20180#0" expanded="false" />
-            <element signature="e#20207#20208#0" expanded="false" />
-            <element signature="e#20261#20262#0" expanded="false" />
-            <element signature="e#20336#20337#0" expanded="false" />
-            <element signature="e#20390#20391#0" expanded="false" />
-            <element signature="e#20534#20535#0" expanded="false" />
-            <element signature="e#20567#20568#0" expanded="false" />
-            <element signature="e#20690#20691#0" expanded="false" />
-            <element signature="e#20717#20718#0" expanded="false" />
-            <element signature="e#21304#21305#0" expanded="false" />
-            <element signature="e#21334#21335#0" expanded="false" />
-            <element signature="e#21455#21456#0" expanded="false" />
-            <element signature="e#21485#21486#0" expanded="false" />
-            <element signature="e#22155#22156#0" expanded="false" />
-            <element signature="e#22180#22181#0" expanded="false" />
-            <element signature="e#22438#22439#0" expanded="false" />
-            <element signature="e#22500#22501#0" expanded="false" />
-            <element signature="e#22576#22577#0" expanded="false" />
-            <element signature="e#22626#22627#0" expanded="false" />
-            <element signature="e#22757#22758#0" expanded="false" />
-            <element signature="e#22790#22791#0" expanded="false" />
-            <element signature="e#22913#22914#0" expanded="false" />
-            <element signature="e#22940#22941#0" expanded="false" />
-            <element signature="e#24207#24208#0" expanded="false" />
-            <element signature="e#24248#24249#0" expanded="false" />
-            <element signature="e#24298#24299#0" expanded="false" />
-            <element signature="e#24346#24347#0" expanded="false" />
-            <element signature="e#24387#24388#0" expanded="false" />
-            <element signature="e#24435#24436#0" expanded="false" />
-            <element signature="e#24524#24525#0" expanded="false" />
-            <element signature="e#24566#24567#0" expanded="false" />
-            <element signature="e#27482#27483#0" expanded="false" />
-            <element signature="e#27512#27513#0" expanded="false" />
-            <element signature="e#27633#27634#0" expanded="false" />
-            <element signature="e#27663#27664#0" expanded="false" />
-            <element signature="e#29377#29378#0" expanded="false" />
-            <element signature="e#29402#29403#0" expanded="false" />
-            <element signature="e#30380#30381#0" expanded="false" />
-            <element signature="e#30426#30427#0" expanded="false" />
-            <element signature="e#30572#30573#0" expanded="false" />
-            <element signature="e#30605#30606#0" expanded="false" />
-            <element signature="e#30728#30729#0" expanded="false" />
-            <element signature="e#30755#30756#0" expanded="false" />
-            <element signature="e#33750#33751#0" expanded="false" />
-            <element signature="e#33781#33782#0" expanded="false" />
-            <element signature="e#34064#34065#0" expanded="false" />
-            <element signature="e#34115#34116#0" expanded="false" />
-            <element signature="e#34299#34300#0" expanded="false" />
-            <element signature="e#34341#34342#0" expanded="false" />
-            <element signature="e#34473#34474#0" expanded="false" />
-            <element signature="e#34506#34507#0" expanded="false" />
-            <element signature="e#34629#34630#0" expanded="false" />
-            <element signature="e#34656#34657#0" expanded="false" />
-            <element signature="e#35600#35601#0" expanded="false" />
-            <element signature="e#35626#35627#0" expanded="false" />
-            <element signature="e#35967#35968#0" expanded="false" />
-            <element signature="e#36000#36001#0" expanded="false" />
-            <element signature="e#37278#37279#0" expanded="false" />
-            <element signature="e#37305#37306#0" expanded="false" />
-            <element signature="e#37335#37336#0" expanded="false" />
-            <element signature="e#37371#37372#0" expanded="false" />
-            <element signature="e#37417#37418#0" expanded="false" />
-            <element signature="e#37461#37462#0" expanded="false" />
-            <element signature="e#40511#40512#0" expanded="false" />
-            <element signature="e#40532#40533#0" expanded="false" />
-            <element signature="e#40602#40603#0" expanded="false" />
-            <element signature="e#40652#40653#0" expanded="false" />
-            <element signature="e#40884#40885#0" expanded="false" />
-            <element signature="e#40917#40918#0" expanded="false" />
-            <element signature="e#41013#41014#0" expanded="false" />
-            <element signature="e#41031#41032#0" expanded="false" />
-            <element signature="e#41776#41777#0" expanded="false" />
-            <element signature="e#41820#41821#0" expanded="false" />
-            <element signature="e#42354#42355#0" expanded="false" />
-            <element signature="e#42392#42393#0" expanded="false" />
-            <element signature="e#45361#45362#0" expanded="false" />
-            <element signature="e#45430#45431#0" expanded="false" />
-            <element signature="e#46225#46226#0" expanded="false" />
-            <element signature="e#46273#46274#0" expanded="false" />
-            <element signature="e#46564#46565#0" expanded="false" />
-            <element signature="e#46594#46595#0" expanded="false" />
-            <element signature="e#49111#49112#0" expanded="false" />
-            <element signature="e#49147#49148#0" expanded="false" />
-            <element signature="e#49198#49199#0" expanded="false" />
-            <element signature="e#49230#49231#0" expanded="false" />
-            <element signature="e#52299#52300#0" expanded="false" />
-            <element signature="e#52339#52340#0" expanded="false" />
-            <element signature="e#52389#52390#0" expanded="false" />
-            <element signature="e#52421#52422#0" expanded="false" />
-            <element signature="e#55062#55063#0" expanded="false" />
-            <element signature="e#55101#55102#0" expanded="false" />
-            <element signature="e#57180#57181#0" expanded="false" />
-            <element signature="e#57204#57205#0" expanded="false" />
-            <element signature="e#57561#57562#0" expanded="false" />
-            <element signature="e#57591#57592#0" expanded="false" />
-            <element signature="e#59631#59632#0" expanded="false" />
-            <element signature="e#59669#59670#0" expanded="false" />
-            <element signature="e#59923#59924#0" expanded="false" />
-            <element signature="e#59966#59967#0" expanded="false" />
-            <element signature="e#60017#60018#0" expanded="false" />
-            <element signature="e#60049#60050#0" expanded="false" />
-            <element signature="e#60253#60254#0" expanded="false" />
-            <element signature="e#60315#60316#0" expanded="false" />
-            <element signature="e#61438#61439#0" expanded="false" />
-            <element signature="e#61468#61469#0" expanded="false" />
-            <element signature="e#62210#62211#0" expanded="false" />
-            <element signature="e#62258#62259#0" expanded="false" />
-            <element signature="e#64172#64173#0" expanded="false" />
-            <element signature="e#64197#64198#0" expanded="false" />
-            <element signature="e#66896#66897#0" expanded="false" />
-            <element signature="e#66930#66931#0" expanded="false" />
-            <element signature="e#67698#67699#0" expanded="false" />
-            <element signature="e#67732#67733#0" expanded="false" />
-            <element signature="e#68839#68840#0" expanded="false" />
-            <element signature="e#68892#68893#0" expanded="false" />
-            <element signature="e#69521#69522#0" expanded="false" />
-            <element signature="e#69539#69540#0" expanded="false" />
-            <element signature="e#69757#69758#0" expanded="false" />
-            <element signature="e#69790#69791#0" expanded="false" />
-            <element signature="e#70052#70053#0" expanded="false" />
-            <element signature="e#70070#70071#0" expanded="false" />
-            <element signature="e#70119#70120#0" expanded="false" />
-            <element signature="e#70146#70147#0" expanded="false" />
-            <element signature="e#70328#70329#0" expanded="false" />
-            <element signature="e#70343#70344#0" expanded="false" />
-            <element signature="e#70402#70403#0" expanded="false" />
-            <element signature="e#70420#70421#0" expanded="false" />
-            <element signature="e#70484#70485#0" expanded="false" />
-            <element signature="e#70503#70504#0" expanded="false" />
-            <element signature="e#72677#72678#0" expanded="false" />
-            <element signature="e#72698#72699#0" expanded="false" />
-            <element signature="e#72769#72770#0" expanded="false" />
-            <element signature="e#72823#72824#0" expanded="false" />
-            <element signature="e#74368#74369#0" expanded="false" />
-            <element signature="e#74406#74407#0" expanded="false" />
-            <element signature="e#74942#74943#0" expanded="false" />
-            <element signature="e#75006#75007#0" expanded="false" />
-            <element signature="e#75058#75059#0" expanded="false" />
-            <element signature="e#75092#75093#0" expanded="false" />
-            <element signature="e#75304#75305#0" expanded="false" />
-            <element signature="e#75355#75356#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1999,71 +878,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
           <caret line="27" column="37" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
-          <folding>
-            <marker date="1477583219844" expanded="true" signature="28:1143" placeholder="..." />
-            <marker date="1477583219844" expanded="true" signature="1354:1398" placeholder="/**...*/" />
-            <marker date="1477583219844" expanded="true" signature="1478:1564" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="1626:1630" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="1650:1653" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="1681:1875" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="1947:2174" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="2254:2730" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="2821:3715" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="3317:3630" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="3436:3625" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="3795:4085" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="4160:4394" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="4470:4773" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="4630:4739" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="4674:4682" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="4723:4734" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="4816:4963" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="4991:5103" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="5193:5532" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="5619:6931" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="5921:6271" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="6103:6266" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="6360:6489" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="6404:6412" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="6473:6484" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="6557:6892" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="6598:6887" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="6682:6872" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="6709:6864" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="7026:7725" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="7809:8285" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="7864:8179" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="7935:7942" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="7961:7966" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="8043:8073" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="8371:8479" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="8618:9115" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="9180:9356" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="9413:9417" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="9446:9449" placeholder=" }" />
-            <marker date="1477583219844" expanded="false" signature="9490:9501" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="9542:9545" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="9547:9622" placeholder="/**...*/" />
-            <marker date="1477583219844" expanded="true" signature="9651:10056" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="9688:10002" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="9710:9998" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="10058:10128" placeholder="/**...*/" />
-            <marker date="1477583219844" expanded="true" signature="10164:10511" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="10203:10453" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="10226:10449" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="10566:10571" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="10610:10613" placeholder=" }" />
-            <marker date="1477583219844" expanded="false" signature="10658:10663" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="10700:10703" placeholder=" }" />
-            <marker date="1477583219844" expanded="false" signature="10761:10766" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="10809:10813" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="10932:10942" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="19444:19564" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="19643:19719" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="19786:19790" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="19803:19806" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="19862:19937" placeholder="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2071,14 +886,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4056#4086#0" expanded="true" />
-            <element signature="e#5527#5535#0" expanded="true" />
-            <element signature="e#6882#6890#0" expanded="true" />
-            <element signature="e#11401#11409#0" expanded="true" />
-            <element signature="e#11491#11499#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2094,208 +902,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
-          <folding>
-            <element signature="e#3612#3613#0" expanded="false" />
-            <element signature="e#3630#3631#0" expanded="false" />
-            <element signature="e#3782#3783#0" expanded="false" />
-            <element signature="e#3817#3818#0" expanded="false" />
-            <element signature="e#3905#3906#0" expanded="false" />
-            <element signature="e#3942#3943#0" expanded="false" />
-            <element signature="e#6233#6234#0" expanded="false" />
-            <element signature="e#6257#6258#0" expanded="false" />
-            <element signature="e#8579#8580#0" expanded="false" />
-            <element signature="e#8602#8603#0" expanded="false" />
-            <element signature="e#12576#12577#0" expanded="false" />
-            <element signature="e#12606#12607#0" expanded="false" />
-            <element signature="e#14260#14261#0" expanded="false" />
-            <element signature="e#14340#14341#0" expanded="false" />
-            <element signature="e#14473#14474#0" expanded="false" />
-            <element signature="e#14506#14507#0" expanded="false" />
-            <element signature="e#15240#15241#0" expanded="false" />
-            <element signature="e#15265#15266#0" expanded="false" />
-            <element signature="e#15583#15584#0" expanded="false" />
-            <element signature="e#15603#15604#0" expanded="false" />
-            <element signature="e#15629#15630#0" expanded="false" />
-            <element signature="e#15703#15704#0" expanded="false" />
-            <element signature="e#15731#15732#0" expanded="false" />
-            <element signature="e#15784#15785#0" expanded="false" />
-            <element signature="e#15859#15860#0" expanded="false" />
-            <element signature="e#15912#15913#0" expanded="false" />
-            <element signature="e#16054#16055#0" expanded="false" />
-            <element signature="e#16087#16088#0" expanded="false" />
-            <element signature="e#16210#16211#0" expanded="false" />
-            <element signature="e#16237#16238#0" expanded="false" />
-            <element signature="e#16904#16905#0" expanded="false" />
-            <element signature="e#16929#16930#0" expanded="false" />
-            <element signature="e#17253#17254#0" expanded="false" />
-            <element signature="e#17273#17274#0" expanded="false" />
-            <element signature="e#17302#17303#0" expanded="false" />
-            <element signature="e#17356#17357#0" expanded="false" />
-            <element signature="e#17386#17387#0" expanded="false" />
-            <element signature="e#17452#17453#0" expanded="false" />
-            <element signature="e#17527#17528#0" expanded="false" />
-            <element signature="e#17581#17582#0" expanded="false" />
-            <element signature="e#17725#17726#0" expanded="false" />
-            <element signature="e#17758#17759#0" expanded="false" />
-            <element signature="e#17881#17882#0" expanded="false" />
-            <element signature="e#17908#17909#0" expanded="false" />
-            <element signature="e#18518#18519#0" expanded="false" />
-            <element signature="e#18548#18549#0" expanded="false" />
-            <element signature="e#18690#18691#0" expanded="false" />
-            <element signature="e#18739#18740#0" expanded="false" />
-            <element signature="e#18767#18768#0" expanded="false" />
-            <element signature="e#18819#18820#0" expanded="false" />
-            <element signature="e#18894#18895#0" expanded="false" />
-            <element signature="e#18946#18947#0" expanded="false" />
-            <element signature="e#19085#19086#0" expanded="false" />
-            <element signature="e#19118#19119#0" expanded="false" />
-            <element signature="e#19242#19243#0" expanded="false" />
-            <element signature="e#19269#19270#0" expanded="false" />
-            <element signature="e#19949#19950#0" expanded="false" />
-            <element signature="e#19979#19980#0" expanded="false" />
-            <element signature="e#20123#20124#0" expanded="false" />
-            <element signature="e#20179#20180#0" expanded="false" />
-            <element signature="e#20207#20208#0" expanded="false" />
-            <element signature="e#20261#20262#0" expanded="false" />
-            <element signature="e#20336#20337#0" expanded="false" />
-            <element signature="e#20390#20391#0" expanded="false" />
-            <element signature="e#20534#20535#0" expanded="false" />
-            <element signature="e#20567#20568#0" expanded="false" />
-            <element signature="e#20690#20691#0" expanded="false" />
-            <element signature="e#20717#20718#0" expanded="false" />
-            <element signature="e#21304#21305#0" expanded="false" />
-            <element signature="e#21334#21335#0" expanded="false" />
-            <element signature="e#21455#21456#0" expanded="false" />
-            <element signature="e#21485#21486#0" expanded="false" />
-            <element signature="e#22155#22156#0" expanded="false" />
-            <element signature="e#22180#22181#0" expanded="false" />
-            <element signature="e#22438#22439#0" expanded="false" />
-            <element signature="e#22500#22501#0" expanded="false" />
-            <element signature="e#22576#22577#0" expanded="false" />
-            <element signature="e#22626#22627#0" expanded="false" />
-            <element signature="e#22757#22758#0" expanded="false" />
-            <element signature="e#22790#22791#0" expanded="false" />
-            <element signature="e#22913#22914#0" expanded="false" />
-            <element signature="e#22940#22941#0" expanded="false" />
-            <element signature="e#24207#24208#0" expanded="false" />
-            <element signature="e#24248#24249#0" expanded="false" />
-            <element signature="e#24298#24299#0" expanded="false" />
-            <element signature="e#24346#24347#0" expanded="false" />
-            <element signature="e#24387#24388#0" expanded="false" />
-            <element signature="e#24435#24436#0" expanded="false" />
-            <element signature="e#24524#24525#0" expanded="false" />
-            <element signature="e#24566#24567#0" expanded="false" />
-            <element signature="e#27482#27483#0" expanded="false" />
-            <element signature="e#27512#27513#0" expanded="false" />
-            <element signature="e#27633#27634#0" expanded="false" />
-            <element signature="e#27663#27664#0" expanded="false" />
-            <element signature="e#29377#29378#0" expanded="false" />
-            <element signature="e#29402#29403#0" expanded="false" />
-            <element signature="e#30380#30381#0" expanded="false" />
-            <element signature="e#30426#30427#0" expanded="false" />
-            <element signature="e#30572#30573#0" expanded="false" />
-            <element signature="e#30605#30606#0" expanded="false" />
-            <element signature="e#30728#30729#0" expanded="false" />
-            <element signature="e#30755#30756#0" expanded="false" />
-            <element signature="e#33750#33751#0" expanded="false" />
-            <element signature="e#33781#33782#0" expanded="false" />
-            <element signature="e#34064#34065#0" expanded="false" />
-            <element signature="e#34115#34116#0" expanded="false" />
-            <element signature="e#34299#34300#0" expanded="false" />
-            <element signature="e#34341#34342#0" expanded="false" />
-            <element signature="e#34473#34474#0" expanded="false" />
-            <element signature="e#34506#34507#0" expanded="false" />
-            <element signature="e#34629#34630#0" expanded="false" />
-            <element signature="e#34656#34657#0" expanded="false" />
-            <element signature="e#35600#35601#0" expanded="false" />
-            <element signature="e#35626#35627#0" expanded="false" />
-            <element signature="e#35967#35968#0" expanded="false" />
-            <element signature="e#36000#36001#0" expanded="false" />
-            <element signature="e#37278#37279#0" expanded="false" />
-            <element signature="e#37305#37306#0" expanded="false" />
-            <element signature="e#37335#37336#0" expanded="false" />
-            <element signature="e#37371#37372#0" expanded="false" />
-            <element signature="e#37417#37418#0" expanded="false" />
-            <element signature="e#37461#37462#0" expanded="false" />
-            <element signature="e#40511#40512#0" expanded="false" />
-            <element signature="e#40532#40533#0" expanded="false" />
-            <element signature="e#40602#40603#0" expanded="false" />
-            <element signature="e#40652#40653#0" expanded="false" />
-            <element signature="e#40884#40885#0" expanded="false" />
-            <element signature="e#40917#40918#0" expanded="false" />
-            <element signature="e#41013#41014#0" expanded="false" />
-            <element signature="e#41031#41032#0" expanded="false" />
-            <element signature="e#41776#41777#0" expanded="false" />
-            <element signature="e#41820#41821#0" expanded="false" />
-            <element signature="e#42354#42355#0" expanded="false" />
-            <element signature="e#42392#42393#0" expanded="false" />
-            <element signature="e#45361#45362#0" expanded="false" />
-            <element signature="e#45430#45431#0" expanded="false" />
-            <element signature="e#46225#46226#0" expanded="false" />
-            <element signature="e#46273#46274#0" expanded="false" />
-            <element signature="e#46564#46565#0" expanded="false" />
-            <element signature="e#46594#46595#0" expanded="false" />
-            <element signature="e#49111#49112#0" expanded="false" />
-            <element signature="e#49147#49148#0" expanded="false" />
-            <element signature="e#49198#49199#0" expanded="false" />
-            <element signature="e#49230#49231#0" expanded="false" />
-            <element signature="e#52299#52300#0" expanded="false" />
-            <element signature="e#52339#52340#0" expanded="false" />
-            <element signature="e#52389#52390#0" expanded="false" />
-            <element signature="e#52421#52422#0" expanded="false" />
-            <element signature="e#55062#55063#0" expanded="false" />
-            <element signature="e#55101#55102#0" expanded="false" />
-            <element signature="e#57180#57181#0" expanded="false" />
-            <element signature="e#57204#57205#0" expanded="false" />
-            <element signature="e#57561#57562#0" expanded="false" />
-            <element signature="e#57591#57592#0" expanded="false" />
-            <element signature="e#59631#59632#0" expanded="false" />
-            <element signature="e#59669#59670#0" expanded="false" />
-            <element signature="e#59923#59924#0" expanded="false" />
-            <element signature="e#59966#59967#0" expanded="false" />
-            <element signature="e#60017#60018#0" expanded="false" />
-            <element signature="e#60049#60050#0" expanded="false" />
-            <element signature="e#60253#60254#0" expanded="false" />
-            <element signature="e#60315#60316#0" expanded="false" />
-            <element signature="e#61438#61439#0" expanded="false" />
-            <element signature="e#61468#61469#0" expanded="false" />
-            <element signature="e#62210#62211#0" expanded="false" />
-            <element signature="e#62258#62259#0" expanded="false" />
-            <element signature="e#64172#64173#0" expanded="false" />
-            <element signature="e#64197#64198#0" expanded="false" />
-            <element signature="e#66896#66897#0" expanded="false" />
-            <element signature="e#66930#66931#0" expanded="false" />
-            <element signature="e#67698#67699#0" expanded="false" />
-            <element signature="e#67732#67733#0" expanded="false" />
-            <element signature="e#68839#68840#0" expanded="false" />
-            <element signature="e#68892#68893#0" expanded="false" />
-            <element signature="e#69521#69522#0" expanded="false" />
-            <element signature="e#69539#69540#0" expanded="false" />
-            <element signature="e#69757#69758#0" expanded="false" />
-            <element signature="e#69790#69791#0" expanded="false" />
-            <element signature="e#70052#70053#0" expanded="false" />
-            <element signature="e#70070#70071#0" expanded="false" />
-            <element signature="e#70119#70120#0" expanded="false" />
-            <element signature="e#70146#70147#0" expanded="false" />
-            <element signature="e#70328#70329#0" expanded="false" />
-            <element signature="e#70343#70344#0" expanded="false" />
-            <element signature="e#70402#70403#0" expanded="false" />
-            <element signature="e#70420#70421#0" expanded="false" />
-            <element signature="e#70484#70485#0" expanded="false" />
-            <element signature="e#70503#70504#0" expanded="false" />
-            <element signature="e#72677#72678#0" expanded="false" />
-            <element signature="e#72698#72699#0" expanded="false" />
-            <element signature="e#72769#72770#0" expanded="false" />
-            <element signature="e#72823#72824#0" expanded="false" />
-            <element signature="e#74368#74369#0" expanded="false" />
-            <element signature="e#74406#74407#0" expanded="false" />
-            <element signature="e#74942#74943#0" expanded="false" />
-            <element signature="e#75006#75007#0" expanded="false" />
-            <element signature="e#75058#75059#0" expanded="false" />
-            <element signature="e#75092#75093#0" expanded="false" />
-            <element signature="e#75304#75305#0" expanded="false" />
-            <element signature="e#75355#75356#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2327,78 +934,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1477583219844" expanded="true" signature="28:1143" placeholder="..." />
-            <marker date="1477583219844" expanded="true" signature="1354:1398" placeholder="/**...*/" />
-            <marker date="1477583219844" expanded="true" signature="1478:1564" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="1626:1630" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="1650:1653" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="1681:1875" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="1947:2174" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="2254:2730" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="2821:3715" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="3317:3630" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="3436:3625" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="3795:4085" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="4160:4394" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="4470:4773" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="4630:4739" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="4674:4682" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="4723:4734" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="4816:4963" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="4991:5103" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="5193:5532" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="5619:6931" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="5921:6271" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="6103:6266" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="6360:6489" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="6404:6412" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="6473:6484" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="6557:6892" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="6598:6887" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="6682:6872" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="6709:6864" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="7026:7725" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="7809:8285" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="7864:8179" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="7935:7942" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="7961:7966" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="8043:8073" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="8371:8479" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="8618:9115" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="9180:9356" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="9413:9417" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="9446:9449" placeholder=" }" />
-            <marker date="1477583219844" expanded="false" signature="9490:9501" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="9542:9545" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="9547:9622" placeholder="/**...*/" />
-            <marker date="1477583219844" expanded="true" signature="9651:10056" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="9688:10002" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="9710:9998" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="10058:10128" placeholder="/**...*/" />
-            <marker date="1477583219844" expanded="true" signature="10164:10511" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="10203:10453" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="10226:10449" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="10566:10571" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="10610:10613" placeholder=" }" />
-            <marker date="1477583219844" expanded="false" signature="10658:10663" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="10700:10703" placeholder=" }" />
-            <marker date="1477583219844" expanded="false" signature="10761:10766" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="10809:10813" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="10932:10942" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="19444:19564" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="19643:19719" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="19786:19790" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="19803:19806" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="19862:19937" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="47" column="13" selection-start-line="47" selection-start-column="13" selection-end-line="47" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -2407,208 +942,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
-          <folding>
-            <element signature="e#3612#3613#0" expanded="false" />
-            <element signature="e#3630#3631#0" expanded="false" />
-            <element signature="e#3782#3783#0" expanded="false" />
-            <element signature="e#3817#3818#0" expanded="false" />
-            <element signature="e#3905#3906#0" expanded="false" />
-            <element signature="e#3942#3943#0" expanded="false" />
-            <element signature="e#6233#6234#0" expanded="false" />
-            <element signature="e#6257#6258#0" expanded="false" />
-            <element signature="e#8579#8580#0" expanded="false" />
-            <element signature="e#8602#8603#0" expanded="false" />
-            <element signature="e#12576#12577#0" expanded="false" />
-            <element signature="e#12606#12607#0" expanded="false" />
-            <element signature="e#14260#14261#0" expanded="false" />
-            <element signature="e#14340#14341#0" expanded="false" />
-            <element signature="e#14473#14474#0" expanded="false" />
-            <element signature="e#14506#14507#0" expanded="false" />
-            <element signature="e#15240#15241#0" expanded="false" />
-            <element signature="e#15265#15266#0" expanded="false" />
-            <element signature="e#15583#15584#0" expanded="false" />
-            <element signature="e#15603#15604#0" expanded="false" />
-            <element signature="e#15629#15630#0" expanded="false" />
-            <element signature="e#15703#15704#0" expanded="false" />
-            <element signature="e#15731#15732#0" expanded="false" />
-            <element signature="e#15784#15785#0" expanded="false" />
-            <element signature="e#15859#15860#0" expanded="false" />
-            <element signature="e#15912#15913#0" expanded="false" />
-            <element signature="e#16054#16055#0" expanded="false" />
-            <element signature="e#16087#16088#0" expanded="false" />
-            <element signature="e#16210#16211#0" expanded="false" />
-            <element signature="e#16237#16238#0" expanded="false" />
-            <element signature="e#16904#16905#0" expanded="false" />
-            <element signature="e#16929#16930#0" expanded="false" />
-            <element signature="e#17253#17254#0" expanded="false" />
-            <element signature="e#17273#17274#0" expanded="false" />
-            <element signature="e#17302#17303#0" expanded="false" />
-            <element signature="e#17356#17357#0" expanded="false" />
-            <element signature="e#17386#17387#0" expanded="false" />
-            <element signature="e#17452#17453#0" expanded="false" />
-            <element signature="e#17527#17528#0" expanded="false" />
-            <element signature="e#17581#17582#0" expanded="false" />
-            <element signature="e#17725#17726#0" expanded="false" />
-            <element signature="e#17758#17759#0" expanded="false" />
-            <element signature="e#17881#17882#0" expanded="false" />
-            <element signature="e#17908#17909#0" expanded="false" />
-            <element signature="e#18518#18519#0" expanded="false" />
-            <element signature="e#18548#18549#0" expanded="false" />
-            <element signature="e#18690#18691#0" expanded="false" />
-            <element signature="e#18739#18740#0" expanded="false" />
-            <element signature="e#18767#18768#0" expanded="false" />
-            <element signature="e#18819#18820#0" expanded="false" />
-            <element signature="e#18894#18895#0" expanded="false" />
-            <element signature="e#18946#18947#0" expanded="false" />
-            <element signature="e#19085#19086#0" expanded="false" />
-            <element signature="e#19118#19119#0" expanded="false" />
-            <element signature="e#19242#19243#0" expanded="false" />
-            <element signature="e#19269#19270#0" expanded="false" />
-            <element signature="e#19949#19950#0" expanded="false" />
-            <element signature="e#19979#19980#0" expanded="false" />
-            <element signature="e#20123#20124#0" expanded="false" />
-            <element signature="e#20179#20180#0" expanded="false" />
-            <element signature="e#20207#20208#0" expanded="false" />
-            <element signature="e#20261#20262#0" expanded="false" />
-            <element signature="e#20336#20337#0" expanded="false" />
-            <element signature="e#20390#20391#0" expanded="false" />
-            <element signature="e#20534#20535#0" expanded="false" />
-            <element signature="e#20567#20568#0" expanded="false" />
-            <element signature="e#20690#20691#0" expanded="false" />
-            <element signature="e#20717#20718#0" expanded="false" />
-            <element signature="e#21304#21305#0" expanded="false" />
-            <element signature="e#21334#21335#0" expanded="false" />
-            <element signature="e#21455#21456#0" expanded="false" />
-            <element signature="e#21485#21486#0" expanded="false" />
-            <element signature="e#22155#22156#0" expanded="false" />
-            <element signature="e#22180#22181#0" expanded="false" />
-            <element signature="e#22438#22439#0" expanded="false" />
-            <element signature="e#22500#22501#0" expanded="false" />
-            <element signature="e#22576#22577#0" expanded="false" />
-            <element signature="e#22626#22627#0" expanded="false" />
-            <element signature="e#22757#22758#0" expanded="false" />
-            <element signature="e#22790#22791#0" expanded="false" />
-            <element signature="e#22913#22914#0" expanded="false" />
-            <element signature="e#22940#22941#0" expanded="false" />
-            <element signature="e#24207#24208#0" expanded="false" />
-            <element signature="e#24248#24249#0" expanded="false" />
-            <element signature="e#24298#24299#0" expanded="false" />
-            <element signature="e#24346#24347#0" expanded="false" />
-            <element signature="e#24387#24388#0" expanded="false" />
-            <element signature="e#24435#24436#0" expanded="false" />
-            <element signature="e#24524#24525#0" expanded="false" />
-            <element signature="e#24566#24567#0" expanded="false" />
-            <element signature="e#27482#27483#0" expanded="false" />
-            <element signature="e#27512#27513#0" expanded="false" />
-            <element signature="e#27633#27634#0" expanded="false" />
-            <element signature="e#27663#27664#0" expanded="false" />
-            <element signature="e#29377#29378#0" expanded="false" />
-            <element signature="e#29402#29403#0" expanded="false" />
-            <element signature="e#30380#30381#0" expanded="false" />
-            <element signature="e#30426#30427#0" expanded="false" />
-            <element signature="e#30572#30573#0" expanded="false" />
-            <element signature="e#30605#30606#0" expanded="false" />
-            <element signature="e#30728#30729#0" expanded="false" />
-            <element signature="e#30755#30756#0" expanded="false" />
-            <element signature="e#33750#33751#0" expanded="false" />
-            <element signature="e#33781#33782#0" expanded="false" />
-            <element signature="e#34064#34065#0" expanded="false" />
-            <element signature="e#34115#34116#0" expanded="false" />
-            <element signature="e#34299#34300#0" expanded="false" />
-            <element signature="e#34341#34342#0" expanded="false" />
-            <element signature="e#34473#34474#0" expanded="false" />
-            <element signature="e#34506#34507#0" expanded="false" />
-            <element signature="e#34629#34630#0" expanded="false" />
-            <element signature="e#34656#34657#0" expanded="false" />
-            <element signature="e#35600#35601#0" expanded="false" />
-            <element signature="e#35626#35627#0" expanded="false" />
-            <element signature="e#35967#35968#0" expanded="false" />
-            <element signature="e#36000#36001#0" expanded="false" />
-            <element signature="e#37278#37279#0" expanded="false" />
-            <element signature="e#37305#37306#0" expanded="false" />
-            <element signature="e#37335#37336#0" expanded="false" />
-            <element signature="e#37371#37372#0" expanded="false" />
-            <element signature="e#37417#37418#0" expanded="false" />
-            <element signature="e#37461#37462#0" expanded="false" />
-            <element signature="e#40511#40512#0" expanded="false" />
-            <element signature="e#40532#40533#0" expanded="false" />
-            <element signature="e#40602#40603#0" expanded="false" />
-            <element signature="e#40652#40653#0" expanded="false" />
-            <element signature="e#40884#40885#0" expanded="false" />
-            <element signature="e#40917#40918#0" expanded="false" />
-            <element signature="e#41013#41014#0" expanded="false" />
-            <element signature="e#41031#41032#0" expanded="false" />
-            <element signature="e#41776#41777#0" expanded="false" />
-            <element signature="e#41820#41821#0" expanded="false" />
-            <element signature="e#42354#42355#0" expanded="false" />
-            <element signature="e#42392#42393#0" expanded="false" />
-            <element signature="e#45361#45362#0" expanded="false" />
-            <element signature="e#45430#45431#0" expanded="false" />
-            <element signature="e#46225#46226#0" expanded="false" />
-            <element signature="e#46273#46274#0" expanded="false" />
-            <element signature="e#46564#46565#0" expanded="false" />
-            <element signature="e#46594#46595#0" expanded="false" />
-            <element signature="e#49111#49112#0" expanded="false" />
-            <element signature="e#49147#49148#0" expanded="false" />
-            <element signature="e#49198#49199#0" expanded="false" />
-            <element signature="e#49230#49231#0" expanded="false" />
-            <element signature="e#52299#52300#0" expanded="false" />
-            <element signature="e#52339#52340#0" expanded="false" />
-            <element signature="e#52389#52390#0" expanded="false" />
-            <element signature="e#52421#52422#0" expanded="false" />
-            <element signature="e#55062#55063#0" expanded="false" />
-            <element signature="e#55101#55102#0" expanded="false" />
-            <element signature="e#57180#57181#0" expanded="false" />
-            <element signature="e#57204#57205#0" expanded="false" />
-            <element signature="e#57561#57562#0" expanded="false" />
-            <element signature="e#57591#57592#0" expanded="false" />
-            <element signature="e#59631#59632#0" expanded="false" />
-            <element signature="e#59669#59670#0" expanded="false" />
-            <element signature="e#59923#59924#0" expanded="false" />
-            <element signature="e#59966#59967#0" expanded="false" />
-            <element signature="e#60017#60018#0" expanded="false" />
-            <element signature="e#60049#60050#0" expanded="false" />
-            <element signature="e#60253#60254#0" expanded="false" />
-            <element signature="e#60315#60316#0" expanded="false" />
-            <element signature="e#61438#61439#0" expanded="false" />
-            <element signature="e#61468#61469#0" expanded="false" />
-            <element signature="e#62210#62211#0" expanded="false" />
-            <element signature="e#62258#62259#0" expanded="false" />
-            <element signature="e#64172#64173#0" expanded="false" />
-            <element signature="e#64197#64198#0" expanded="false" />
-            <element signature="e#66896#66897#0" expanded="false" />
-            <element signature="e#66930#66931#0" expanded="false" />
-            <element signature="e#67698#67699#0" expanded="false" />
-            <element signature="e#67732#67733#0" expanded="false" />
-            <element signature="e#68839#68840#0" expanded="false" />
-            <element signature="e#68892#68893#0" expanded="false" />
-            <element signature="e#69521#69522#0" expanded="false" />
-            <element signature="e#69539#69540#0" expanded="false" />
-            <element signature="e#69757#69758#0" expanded="false" />
-            <element signature="e#69790#69791#0" expanded="false" />
-            <element signature="e#70052#70053#0" expanded="false" />
-            <element signature="e#70070#70071#0" expanded="false" />
-            <element signature="e#70119#70120#0" expanded="false" />
-            <element signature="e#70146#70147#0" expanded="false" />
-            <element signature="e#70328#70329#0" expanded="false" />
-            <element signature="e#70343#70344#0" expanded="false" />
-            <element signature="e#70402#70403#0" expanded="false" />
-            <element signature="e#70420#70421#0" expanded="false" />
-            <element signature="e#70484#70485#0" expanded="false" />
-            <element signature="e#70503#70504#0" expanded="false" />
-            <element signature="e#72677#72678#0" expanded="false" />
-            <element signature="e#72698#72699#0" expanded="false" />
-            <element signature="e#72769#72770#0" expanded="false" />
-            <element signature="e#72823#72824#0" expanded="false" />
-            <element signature="e#74368#74369#0" expanded="false" />
-            <element signature="e#74406#74407#0" expanded="false" />
-            <element signature="e#74942#74943#0" expanded="false" />
-            <element signature="e#75006#75007#0" expanded="false" />
-            <element signature="e#75058#75059#0" expanded="false" />
-            <element signature="e#75092#75093#0" expanded="false" />
-            <element signature="e#75304#75305#0" expanded="false" />
-            <element signature="e#75355#75356#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2631,149 +965,40 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
           <caret line="62" column="37" selection-start-line="62" selection-start-column="37" selection-end-line="62" selection-end-column="37" />
-          <folding>
-            <marker date="1477583219844" expanded="true" signature="28:1143" placeholder="..." />
-            <marker date="1477583219844" expanded="true" signature="1354:1398" placeholder="/**...*/" />
-            <marker date="1477583219844" expanded="true" signature="1478:1564" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="1626:1630" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="1650:1653" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="1681:1875" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="1947:2174" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="2254:2730" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="2821:3715" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="3317:3630" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="3436:3625" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="3795:4085" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="4160:4394" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="4470:4773" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="4630:4739" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="4674:4682" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="4723:4734" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="4816:4963" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="4991:5103" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="5193:5532" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="5619:6931" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="5921:6271" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="6103:6266" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="6360:6489" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="6404:6412" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="6473:6484" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="6557:6892" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="6598:6887" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="6682:6872" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="6709:6864" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="7026:7725" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="7809:8285" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="7864:8179" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="7935:7942" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="7961:7966" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="8043:8073" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="8371:8479" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="8618:9115" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="9180:9356" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="9413:9417" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="9446:9449" placeholder=" }" />
-            <marker date="1477583219844" expanded="false" signature="9490:9501" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="9542:9545" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="9547:9622" placeholder="/**...*/" />
-            <marker date="1477583219844" expanded="true" signature="9651:10056" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="9688:10002" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="9710:9998" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="10058:10128" placeholder="/**...*/" />
-            <marker date="1477583219844" expanded="true" signature="10164:10511" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="10203:10453" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="10226:10449" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="10566:10571" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="10610:10613" placeholder=" }" />
-            <marker date="1477583219844" expanded="false" signature="10658:10663" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="10700:10703" placeholder=" }" />
-            <marker date="1477583219844" expanded="false" signature="10761:10766" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="10809:10813" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="10932:10942" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="19444:19564" placeholder="{...}" />
-            <marker date="1477583219844" expanded="true" signature="19643:19719" placeholder="{...}" />
-            <marker date="1477583219844" expanded="false" signature="19786:19790" placeholder=" { " />
-            <marker date="1477583219844" expanded="false" signature="19803:19806" placeholder=" }" />
-            <marker date="1477583219844" expanded="true" signature="19862:19937" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/OrderArticleWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2355">
-          <caret line="203" column="44" selection-start-line="203" selection-start-column="44" selection-end-line="203" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/ShopArticleWrapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2190">
-          <caret line="192" column="44" selection-start-line="192" selection-start-column="44" selection-end-line="192" selection-end-column="44" />
+        <state relative-caret-position="2550">
+          <caret line="152" column="44" selection-start-line="152" selection-start-column="44" selection-end-line="152" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/ShoppingCartArticleWrapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1995">
-          <caret line="179" column="45" selection-start-line="179" selection-start-column="45" selection-end-line="179" selection-end-column="45" />
+        <state relative-caret-position="2329">
+          <caret line="139" column="45" selection-start-line="139" selection-start-column="45" selection-end-line="139" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/fae73cb9-9c24-4f27-84e6-a9681f0e763d/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="28" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/persistence/ComponentManagerCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="23" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/viewClient/ConnectionMaster.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="121" column="5" selection-start-line="121" selection-start-column="5" selection-end-line="121" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4056#4086#0" expanded="true" />
-            <element signature="e#5527#5535#0" expanded="true" />
-            <element signature="e#6882#6890#0" expanded="true" />
-            <element signature="e#11401#11409#0" expanded="true" />
-            <element signature="e#11491#11499#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/ComponentManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="69" column="13" selection-start-line="69" selection-start-column="13" selection-end-line="69" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/fae73cb9-9c24-4f27-84e6-a9681f0e763d/console.sql" />
+    <entry file="file://$PROJECT_DIR$/src/persistence/ComponentManagerCommand.java" />
+    <entry file="file://$PROJECT_DIR$/src/model/ComponentManager.java" />
     <entry file="file://$PROJECT_DIR$/src/persistence/PersistentServer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="621">
           <caret line="43" column="16" selection-start-line="43" selection-start-column="16" selection-end-line="43" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/Article.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="362" column="5" selection-start-line="362" selection-start-column="5" selection-end-line="362" selection-end-column="5" />
+        <state relative-caret-position="5457">
+          <caret line="322" column="5" selection-start-line="322" selection-start-column="5" selection-end-line="322" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -2782,58 +1007,175 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="337">
           <caret line="41" column="34" selection-start-line="41" selection-start-column="34" selection-end-line="41" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/viewClient/DetailPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/ProductGroup.java">
+    <entry file="file://$PROJECT_DIR$/src/viewClient/ConnectionMaster.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-165">
-          <caret line="263" column="66" selection-start-line="263" selection-start-column="66" selection-end-line="263" selection-end-column="66" />
+        <state relative-caret-position="160">
+          <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/ServerRootProductGroup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/QuantifiedArticle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="76" selection-start-line="8" selection-start-column="76" selection-end-line="8" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/OrderArticleWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/persistence/ProductGroup4Public.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="49" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="617">
+          <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/persistence/ComponentLst4Public.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="23" column="38" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/persistence/AddSubProductGroupCommandProxi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="58" column="15" selection-start-line="58" selection-start-column="15" selection-end-line="58" selection-end-column="15" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/persistence/ProductGroupCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
+        <state relative-caret-position="153">
           <caret line="9" column="23" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/Server.java">
+    <entry file="file://$PROJECT_DIR$/src/model/ComponentLstCurrentComponents.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="557">
-          <caret line="433" column="0" selection-start-line="433" selection-start-column="0" selection-end-line="433" selection-end-column="0" />
-          <folding>
-            <marker date="1477583579512" expanded="true" signature="185:268" placeholder="/**...*/" />
-            <marker date="1477583579512" expanded="true" signature="354:545" placeholder="{...}" />
-            <marker date="1477583579512" expanded="true" signature="699:776" placeholder="{...}" />
-            <marker date="1477583579512" expanded="true" signature="959:2084" placeholder="{...}" />
-            <marker date="1477583579512" expanded="true" signature="1756:1771" placeholder="&lt;~&gt;" />
-            <marker date="1477583579512" expanded="true" signature="2289:3412" placeholder="{...}" />
-            <marker date="1477583579512" expanded="true" signature="3086:3101" placeholder="&lt;~&gt;" />
-            <marker date="1477583579512" expanded="true" signature="3631:4939" placeholder="{...}" />
-            <marker date="1477583579512" expanded="true" signature="5036:5154" placeholder="{...}" />
-            <marker date="1477583579512" expanded="true" signature="5219:5336" placeholder="{...}" />
-            <marker date="1477583579512" expanded="true" signature="20164:20170" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/ToString$Visitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="83" column="13" selection-start-line="83" selection-start-column="13" selection-end-line="83" selection-end-column="13" />
+        <state relative-caret-position="202">
+          <caret line="13" column="66" selection-start-line="13" selection-start-column="66" selection-end-line="13" selection-end-column="66" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/Subj.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        <state relative-caret-position="136">
+          <caret line="9" column="54" selection-start-line="9" selection-start-column="54" selection-end-line="9" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/ProductGroupComponents.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="9" column="72" selection-start-line="9" selection-start-column="72" selection-end-line="9" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/ProductGroup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="213" column="123" selection-start-line="213" selection-start-column="123" selection-end-line="213" selection-end-column="123" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3710#3711#0" expanded="true" />
+            <element signature="e#3736#3737#0" expanded="true" />
+            <element signature="e#3772#3773#0" expanded="true" />
+            <element signature="e#3806#3807#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/ComponentLst.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="175" column="4" selection-start-line="175" selection-start-column="4" selection-end-line="175" selection-end-column="4" />
+          <folding>
+            <element signature="e#1318#1333#0" expanded="true" />
+            <element signature="e#2087#2102#0" expanded="true" />
+            <element signature="e#4012#4013#0" expanded="true" />
+            <element signature="e#4038#4039#0" expanded="true" />
+            <element signature="e#4074#4075#0" expanded="true" />
+            <element signature="e#4108#4109#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/ProducerLst.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="175" column="71" selection-start-line="175" selection-start-column="71" selection-end-line="175" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="487">
+          <caret line="397" column="0" selection-start-line="397" selection-start-column="0" selection-end-line="397" selection-end-column="0" />
+          <folding>
+            <element signature="e#7495#7496#0" expanded="true" />
+            <element signature="e#7522#7523#0" expanded="true" />
+            <element signature="e#7558#7559#0" expanded="true" />
+            <element signature="e#7592#7593#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/persistence/ComponentLst_CurrentProducerProxi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="49">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/ToString$Visitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
           <folding />
         </state>
       </provider>

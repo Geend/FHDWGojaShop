@@ -5,11 +5,17 @@ import persistence.*;
 
 public abstract class CommandStandardVisitor implements CommandVisitor {
     
-    public void handleCreateSubProductGroupCommand(PersistentCreateSubProductGroupCommand createSubProductGroupCommand) throws PersistenceException{
-        this.standardHandling(createSubProductGroupCommand);
+    public void handleCreateProductGroupCommand(CreateProductGroupCommand4Public createProductGroupCommand) throws PersistenceException{
+        this.standardHandling(createProductGroupCommand);
     }
-    public void handleCreateArticleCommand(PersistentCreateArticleCommand createArticleCommand) throws PersistenceException{
-        this.standardHandling(createArticleCommand);
+    public void handleCreateProducerCommand(CreateProducerCommand4Public createProducerCommand) throws PersistenceException{
+        this.standardHandling(createProducerCommand);
+    }
+    public void handleAddArticleCommand(AddArticleCommand4Public addArticleCommand) throws PersistenceException{
+        this.standardHandling(addArticleCommand);
+    }
+    public void handleAddSubProductGroupCommand(AddSubProductGroupCommand4Public addSubProductGroupCommand) throws PersistenceException{
+        this.standardHandling(addSubProductGroupCommand);
     }
     protected abstract void standardHandling(Command command) throws PersistenceException;
 }

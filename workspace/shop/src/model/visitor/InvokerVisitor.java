@@ -5,6 +5,6 @@ import persistence.*;
 
 public interface InvokerVisitor {
     
-    public void handleServer(PersistentServer server) throws PersistenceException;
+    public void handleServer(Server4Public server) throws PersistenceException;
     
 }

@@ -274,32 +274,24 @@ public class Cache {
 	
 	private void initializeNumber2NameMap() {
 		this.number2NameMap = new Hashtable<Integer,String>();
-		this.number2NameMap.put(123, "Article");
+		this.number2NameMap.put(208, "AddArticleCommand");
+		this.number2NameMap.put(192, "AddSubProductGroupCommand");
+		this.number2NameMap.put(194, "Article");
 		this.number2NameMap.put(-101, "CommandCoordinator");
 		this.number2NameMap.put(-105, "CommandExecuter");
 		this.number2NameMap.put(104, "CommonDate");
-		this.number2NameMap.put(172, "CreateArticleCommand");
-		this.number2NameMap.put(173, "CreateSubProductGroupCommand");
-		this.number2NameMap.put(125, "CustomerAccount");
-		this.number2NameMap.put(150, "CustomerDeliveryTime");
+		this.number2NameMap.put(177, "ComponentLst");
+		this.number2NameMap.put(209, "CreateProducerCommand");
+		this.number2NameMap.put(174, "CreateProductGroupCommand");
 		this.number2NameMap.put(-103, "ErrorDisplay");
-		this.number2NameMap.put(126, "InSale");
-		this.number2NameMap.put(130, "NewCreated");
-		this.number2NameMap.put(124, "NotInSale");
-		this.number2NameMap.put(147, "Order");
-		this.number2NameMap.put(167, "OrderArticleWrapper");
-		this.number2NameMap.put(148, "OrderQuantifiedArticle");
-		this.number2NameMap.put(149, "PreOrder");
-		this.number2NameMap.put(127, "Producer");
+		this.number2NameMap.put(196, "InSale");
+		this.number2NameMap.put(200, "NewCreated");
+		this.number2NameMap.put(195, "NotInSale");
+		this.number2NameMap.put(198, "Producer");
+		this.number2NameMap.put(210, "ProducerLst");
 		this.number2NameMap.put(121, "ProductGroup");
-		this.number2NameMap.put(122, "RemainingStock");
-		this.number2NameMap.put(-102, "Server");
-		this.number2NameMap.put(174, "ServerRootProductGroup");
-		this.number2NameMap.put(161, "ShopArticleWrapper");
-		this.number2NameMap.put(152, "ShoppingCart");
-		this.number2NameMap.put(163, "ShoppingCartArticleWrapper");
-		this.number2NameMap.put(153, "ShoppingCartQuantifiedArticle");
-		this.number2NameMap.put(175, "Subj");	
+		this.number2NameMap.put(193, "RemainingStock");
+		this.number2NameMap.put(-102, "Server");	
 	}
 	
 }

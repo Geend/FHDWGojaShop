@@ -5,7 +5,7 @@ import persistence.*;
 
 public interface ProductGroupCommandVisitor {
     
-    public void handleCreateArticleCommand(PersistentCreateArticleCommand createArticleCommand) throws PersistenceException;
-    public void handleCreateSubProductGroupCommand(PersistentCreateSubProductGroupCommand createSubProductGroupCommand) throws PersistenceException;
+    public void handleAddArticleCommand(AddArticleCommand4Public addArticleCommand) throws PersistenceException;
+    public void handleAddSubProductGroupCommand(AddSubProductGroupCommand4Public addSubProductGroupCommand) throws PersistenceException;
     
 }

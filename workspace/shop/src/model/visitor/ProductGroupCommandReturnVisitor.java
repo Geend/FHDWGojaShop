@@ -5,7 +5,7 @@ import persistence.*;
 
 public interface ProductGroupCommandReturnVisitor<R> {
     
-    public R handleCreateArticleCommand(PersistentCreateArticleCommand createArticleCommand) throws PersistenceException;
-    public R handleCreateSubProductGroupCommand(PersistentCreateSubProductGroupCommand createSubProductGroupCommand) throws PersistenceException;
+    public R handleAddArticleCommand(AddArticleCommand4Public addArticleCommand) throws PersistenceException;
+    public R handleAddSubProductGroupCommand(AddSubProductGroupCommand4Public addSubProductGroupCommand) throws PersistenceException;
     
 }

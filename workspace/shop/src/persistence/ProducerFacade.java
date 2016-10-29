@@ -26,9 +26,9 @@ public class ProducerFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Producer result = new Producer(name,null,null,id);
+            Producer result = new Producer(name,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
-            return (PersistentProducer)PersistentProxi.createProxi(id, 127);
+            return (PersistentProducer)PersistentProxi.createProxi(id, 198);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
@@ -42,9 +42,9 @@ public class ProducerFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Producer result = new Producer(name,null,null,id);
+            Producer result = new Producer(name,null,id);
             Cache.getTheCache().put(result);
-            return (PersistentProducer)PersistentProxi.createProxi(id, 127);
+            return (PersistentProducer)PersistentProxi.createProxi(id, 198);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
@@ -63,14 +63,10 @@ public class ProducerFacade{
                 callable.close();
                 return null;
             }
-            SubjInterface subService = null;
-            if (obj.getLong(3) != 0)
-                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
             PersistentProducer This = null;
-            if (obj.getLong(5) != 0)
-                This = (PersistentProducer)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
+            if (obj.getLong(3) != 0)
+                This = (PersistentProducer)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
             Producer result = new Producer(obj.getString(2) == null ? "" : obj.getString(2) /* In Oracle "" = null !!! */,
-                                           subService,
                                            This,
                                            ProducerId);
             obj.close();
@@ -109,20 +105,7 @@ public class ProducerFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void subServiceSet(long ProducerId, SubjInterface subServiceVal) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".PrdcrFacade.sbSrvcSet(?, ?, ?); end;");
-            callable.setLong(1, ProducerId);
-            callable.setLong(2, subServiceVal.getId());
-            callable.setLong(3, subServiceVal.getClassId());
-            callable.execute();
-            callable.close();
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
-    }
-    public void ThisSet(long ProducerId, PersistentProducer ThisVal) throws PersistenceException {
+    public void ThisSet(long ProducerId, Producer4Public ThisVal) throws PersistenceException {
         try{
             CallableStatement callable;
             callable = this.con.prepareCall("Begin " + this.schemaName + ".PrdcrFacade.ThisSet(?, ?, ?); end;");

@@ -25,9 +25,9 @@ public class NewCreatedFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            NewCreated result = new NewCreated(null,null,id);
+            NewCreated result = new NewCreated(null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
-            return (PersistentNewCreated)PersistentProxi.createProxi(id, 130);
+            return (PersistentNewCreated)PersistentProxi.createProxi(id, 200);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
@@ -41,9 +41,9 @@ public class NewCreatedFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            NewCreated result = new NewCreated(null,null,id);
+            NewCreated result = new NewCreated(null,id);
             Cache.getTheCache().put(result);
-            return (PersistentNewCreated)PersistentProxi.createProxi(id, 130);
+            return (PersistentNewCreated)PersistentProxi.createProxi(id, 200);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
@@ -62,14 +62,10 @@ public class NewCreatedFacade{
                 callable.close();
                 return null;
             }
-            SubjInterface subService = null;
-            if (obj.getLong(2) != 0)
-                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
             PersistentArticleState This = null;
-            if (obj.getLong(4) != 0)
-                This = (PersistentArticleState)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
-            NewCreated result = new NewCreated(subService,
-                                               This,
+            if (obj.getLong(2) != 0)
+                This = (PersistentArticleState)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+            NewCreated result = new NewCreated(This,
                                                NewCreatedId);
             obj.close();
             callable.close();

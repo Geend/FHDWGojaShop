@@ -1,29 +1,12 @@
 package persistence;
 
 
-import model.visitor.*;
-
-public interface PersistentComponent extends Anything, SubjInterface, PartsHIERARCHY, AbstractPersistentProxi {
+public interface PersistentComponent extends Anything, CompHierarchyHIERARCHY, AbstractPersistentProxi, Component4Public {
     
-    public String getName() throws PersistenceException ;
     public void setName(String newValue) throws PersistenceException ;
-    public SubjInterface getSubService() throws PersistenceException ;
-    public void setSubService(SubjInterface newValue) throws PersistenceException ;
     public abstract PersistentComponent getThis() throws PersistenceException ;
     
-    public void accept(ComponentVisitor visitor) throws PersistenceException;
-    public <R> R accept(ComponentReturnVisitor<R>  visitor) throws PersistenceException;
-    public <E extends model.UserException>  void accept(ComponentExceptionVisitor<E> visitor) throws PersistenceException, E;
-    public <R, E extends model.UserException> R accept(ComponentReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
-    public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
-				throws PersistenceException;
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException;
-    public void initializeOnCreation() 
-				throws PersistenceException;
-    public void initializeOnInstantiation() 
-				throws PersistenceException;
 
 }
 

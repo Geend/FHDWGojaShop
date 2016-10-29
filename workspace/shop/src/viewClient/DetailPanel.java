@@ -1188,17 +1188,14 @@ class DetailPanelFactory implements AnythingVisitor {
 	public DetailPanelFactory(ExceptionAndEventHandler handler) {
 		this.handler = handler;
 	}
-    public void handleOrderArticleWrapper(view.OrderArticleWrapperView object){
-        result = new OrderArticleWrapperDefaultDetailPanel(handler, object);
+    public void handleProducerLst(view.ProducerLstView object){
+        result = new ProducerLstDefaultDetailPanel(handler, object);
     }
     public void handleProductGroup(view.ProductGroupView object){
         result = new ProductGroupDefaultDetailPanel(handler, object);
     }
     public void handleRemainingStock(view.RemainingStockView object){
         result = new RemainingStockDefaultDetailPanel(handler, object);
-    }
-    public void handleOrderQuantifiedArticle(view.OrderQuantifiedArticleView object){
-        result = new OrderQuantifiedArticleDefaultDetailPanel(handler, object);
     }
     public void handleServer(view.ServerView object){
         result = new ServerDefaultDetailPanel(handler, object);
@@ -1209,29 +1206,8 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleArticle(view.ArticleView object){
         result = new ArticleDefaultDetailPanel(handler, object);
     }
-    public void handlePreOrder(view.PreOrderView object){
-        result = new PreOrderDefaultDetailPanel(handler, object);
-    }
     public void handleNotInSale(view.NotInSaleView object){
         result = new NotInSaleDefaultDetailPanel(handler, object);
-    }
-    public void handleCustomerDeliveryTime(view.CustomerDeliveryTimeView object){
-        result = new CustomerDeliveryTimeDefaultDetailPanel(handler, object);
-    }
-    public void handleShoppingCartQuantifiedArticle(view.ShoppingCartQuantifiedArticleView object){
-        result = new ShoppingCartQuantifiedArticleDefaultDetailPanel(handler, object);
-    }
-    public void handleNewCreated(view.NewCreatedView object){
-        result = new NewCreatedDefaultDetailPanel(handler, object);
-    }
-    public void handleShopArticleWrapper(view.ShopArticleWrapperView object){
-        result = new ShopArticleWrapperDefaultDetailPanel(handler, object);
-    }
-    public void handleOrder(view.OrderView object){
-        result = new OrderDefaultDetailPanel(handler, object);
-    }
-    public void handleCustomerAccount(view.CustomerAccountView object){
-        result = new CustomerAccountDefaultDetailPanel(handler, object);
     }
     public void handleInSale(view.InSaleView object){
         result = new InSaleDefaultDetailPanel(handler, object);
@@ -1239,45 +1215,29 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleProducer(view.ProducerView object){
         result = new ProducerDefaultDetailPanel(handler, object);
     }
-    public void handleShoppingCart(view.ShoppingCartView object){
-        result = new ShoppingCartDefaultDetailPanel(handler, object);
+    public void handleComponentLst(view.ComponentLstView object){
+        result = new ComponentLstDefaultDetailPanel(handler, object);
     }
-    public void handleShoppingCartArticleWrapper(view.ShoppingCartArticleWrapperView object){
-        result = new ShoppingCartArticleWrapperDefaultDetailPanel(handler, object);
+    public void handleNewCreated(view.NewCreatedView object){
+        result = new NewCreatedDefaultDetailPanel(handler, object);
     }
 
 }
 
 
 
-class OrderArticleWrapperDefaultDetailPanel extends DefaultDetailPanel{
+class ProducerLstDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String ArticleWrapper$$article = "ArticleWrapper$$article";
-    protected static final String ArticleWrapper$$name = "ArticleWrapper$$name";
-    protected static final String OrderArticleWrapper$$priceAtOrder = "OrderArticleWrapper$$priceAtOrder";
+    protected static final String ProducerLst$$currentProducer = "ProducerLst$$currentProducer";
     
-    protected OrderArticleWrapperDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+    protected ProducerLstDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
-        try{
-            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
-            this.getScrollablePane().getChildren().add(panel);
-            this.panels.put(ArticleWrapper$$name, panel);
-        }catch(ModelException e){
-            this.getExceptionAndEventhandler().handleException(e);
-        }
-        try{
-            BaseTypePanel panel = new FractionPanel(this, "priceAtOrder", this.getAnything().getPriceAtOrder());
-            this.getScrollablePane().getChildren().add(panel);
-            this.panels.put(OrderArticleWrapper$$priceAtOrder, panel);
-        }catch(ModelException e){
-            this.getExceptionAndEventhandler().handleException(e);
-        }
         
     }
-    protected view.OrderArticleWrapperView getAnything(){
-        return (view.OrderArticleWrapperView)this.anything;
+    protected view.ProducerLstView getAnything(){
+        return (view.ProducerLstView)this.anything;
     }
 }
 
@@ -1317,32 +1277,10 @@ class RemainingStockDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
-class OrderQuantifiedArticleDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String QuantifiedArticle$$quantity = "QuantifiedArticle$$quantity";
-    protected static final String OrderQuantifiedArticle$$article = "OrderQuantifiedArticle$$article";
-    
-    protected OrderQuantifiedArticleDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        try{
-            BaseTypePanel panel = new IntegerPanel(this, "quantity", this.getAnything().getQuantity());
-            this.getScrollablePane().getChildren().add(panel);
-            this.panels.put(QuantifiedArticle$$quantity, panel);
-        }catch(ModelException e){
-            this.getExceptionAndEventhandler().handleException(e);
-        }
-        
-    }
-    protected view.OrderQuantifiedArticleView getAnything(){
-        return (view.OrderQuantifiedArticleView)this.anything;
-    }
-}
-
 class ServerDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String Server$$rootProductGroup = "Server$$rootProductGroup";
+    protected static final String Server$$manager = "Server$$manager";
+    protected static final String Server$$prmanager = "Server$$prmanager";
     protected static final String Server$$user = "Server$$user";
     
     protected ServerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1449,22 +1387,6 @@ class ArticleDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
-class PreOrderDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String AbstractOrder$$articles = "AbstractOrder$$articles";
-    protected static final String AbstractOrder$$customerDeliveryTime = "AbstractOrder$$customerDeliveryTime";
-    
-    protected PreOrderDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.PreOrderView getAnything(){
-        return (view.PreOrderView)this.anything;
-    }
-}
-
 class NotInSaleDefaultDetailPanel extends DefaultDetailPanel{
     
     protected NotInSaleDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1475,142 +1397,6 @@ class NotInSaleDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.NotInSaleView getAnything(){
         return (view.NotInSaleView)this.anything;
-    }
-}
-
-class CustomerDeliveryTimeDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String CustomerDeliveryTime$$price = "CustomerDeliveryTime$$price";
-    protected static final String CustomerDeliveryTime$$deliveryTime = "CustomerDeliveryTime$$deliveryTime";
-    
-    protected CustomerDeliveryTimeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        try{
-            BaseTypePanel panel = new FractionPanel(this, "price", this.getAnything().getPrice());
-            this.getScrollablePane().getChildren().add(panel);
-            this.panels.put(CustomerDeliveryTime$$price, panel);
-        }catch(ModelException e){
-            this.getExceptionAndEventhandler().handleException(e);
-        }
-        try{
-            BaseTypePanel panel = new IntegerPanel(this, "deliveryTime", this.getAnything().getDeliveryTime());
-            this.getScrollablePane().getChildren().add(panel);
-            this.panels.put(CustomerDeliveryTime$$deliveryTime, panel);
-        }catch(ModelException e){
-            this.getExceptionAndEventhandler().handleException(e);
-        }
-        
-    }
-    protected view.CustomerDeliveryTimeView getAnything(){
-        return (view.CustomerDeliveryTimeView)this.anything;
-    }
-}
-
-class ShoppingCartQuantifiedArticleDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String QuantifiedArticle$$quantity = "QuantifiedArticle$$quantity";
-    protected static final String ShoppingCartQuantifiedArticle$$article = "ShoppingCartQuantifiedArticle$$article";
-    
-    protected ShoppingCartQuantifiedArticleDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        try{
-            BaseTypePanel panel = new IntegerPanel(this, "quantity", this.getAnything().getQuantity());
-            this.getScrollablePane().getChildren().add(panel);
-            this.panels.put(QuantifiedArticle$$quantity, panel);
-        }catch(ModelException e){
-            this.getExceptionAndEventhandler().handleException(e);
-        }
-        
-    }
-    protected view.ShoppingCartQuantifiedArticleView getAnything(){
-        return (view.ShoppingCartQuantifiedArticleView)this.anything;
-    }
-}
-
-class NewCreatedDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected NewCreatedDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.NewCreatedView getAnything(){
-        return (view.NewCreatedView)this.anything;
-    }
-}
-
-class ShopArticleWrapperDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String ArticleWrapper$$article = "ArticleWrapper$$article";
-    protected static final String ArticleWrapper$$name = "ArticleWrapper$$name";
-    
-    protected ShopArticleWrapperDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        try{
-            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
-            this.getScrollablePane().getChildren().add(panel);
-            this.panels.put(ArticleWrapper$$name, panel);
-        }catch(ModelException e){
-            this.getExceptionAndEventhandler().handleException(e);
-        }
-        
-    }
-    protected view.ShopArticleWrapperView getAnything(){
-        return (view.ShopArticleWrapperView)this.anything;
-    }
-}
-
-class OrderDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String AbstractOrder$$articles = "AbstractOrder$$articles";
-    protected static final String AbstractOrder$$customerDeliveryTime = "AbstractOrder$$customerDeliveryTime";
-    
-    protected OrderDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.OrderView getAnything(){
-        return (view.OrderView)this.anything;
-    }
-}
-
-class CustomerAccountDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String CustomerAccount$$balance = "CustomerAccount$$balance";
-    protected static final String CustomerAccount$$limit = "CustomerAccount$$limit";
-    protected static final String CustomerAccount$$shoppingCart = "CustomerAccount$$shoppingCart";
-    
-    protected CustomerAccountDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        try{
-            BaseTypePanel panel = new FractionPanel(this, "balance", this.getAnything().getBalance());
-            this.getScrollablePane().getChildren().add(panel);
-            this.panels.put(CustomerAccount$$balance, panel);
-        }catch(ModelException e){
-            this.getExceptionAndEventhandler().handleException(e);
-        }
-        try{
-            BaseTypePanel panel = new IntegerPanel(this, "limit", this.getAnything().getLimit());
-            this.getScrollablePane().getChildren().add(panel);
-            this.panels.put(CustomerAccount$$limit, panel);
-        }catch(ModelException e){
-            this.getExceptionAndEventhandler().handleException(e);
-        }
-        
-    }
-    protected view.CustomerAccountView getAnything(){
-        return (view.CustomerAccountView)this.anything;
     }
 }
 
@@ -1649,40 +1435,30 @@ class ProducerDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
-class ShoppingCartDefaultDetailPanel extends DefaultDetailPanel{
+class ComponentLstDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String ShoppingCart$$articles = "ShoppingCart$$articles";
+    protected static final String ComponentLst$$currentComponents = "ComponentLst$$currentComponents";
     
-    protected ShoppingCartDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+    protected ComponentLstDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
         
     }
-    protected view.ShoppingCartView getAnything(){
-        return (view.ShoppingCartView)this.anything;
+    protected view.ComponentLstView getAnything(){
+        return (view.ComponentLstView)this.anything;
     }
 }
 
-class ShoppingCartArticleWrapperDefaultDetailPanel extends DefaultDetailPanel{
+class NewCreatedDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String ArticleWrapper$$article = "ArticleWrapper$$article";
-    protected static final String ArticleWrapper$$name = "ArticleWrapper$$name";
-    
-    protected ShoppingCartArticleWrapperDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+    protected NewCreatedDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
-        try{
-            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
-            this.getScrollablePane().getChildren().add(panel);
-            this.panels.put(ArticleWrapper$$name, panel);
-        }catch(ModelException e){
-            this.getExceptionAndEventhandler().handleException(e);
-        }
         
     }
-    protected view.ShoppingCartArticleWrapperView getAnything(){
-        return (view.ShoppingCartArticleWrapperView)this.anything;
+    protected view.NewCreatedView getAnything(){
+        return (view.NewCreatedView)this.anything;
     }
 }

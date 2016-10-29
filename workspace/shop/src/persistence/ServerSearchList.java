@@ -1,25 +1,25 @@
 package persistence;
 
-public class ServerSearchList extends SearchListRoot<PersistentServer> implements Iterable<PersistentServer> {
+public class ServerSearchList extends SearchListRoot<Server4Public> implements Iterable<Server4Public> {
 
-	public ServerSearchList(SearchListRoot<PersistentServer> list){
+	public ServerSearchList(SearchListRoot<Server4Public> list){
 		super(list);
 	}
 	public ServerSearchList(){
 		super();
 	}
 	
-	public void add (PersistentServer entry) {
+	public void add (Server4Public entry) {
 		this.data.add(entry);
 	}
 	
 	public void add(ServerSearchList list) throws PersistenceException{
-		java.util.Iterator<PersistentServer> entries = list.iterator();
+		java.util.Iterator<Server4Public> entries = list.iterator();
 		while (entries.hasNext()){
 			this.add(entries.next());
 		}
 	}
-	public java.util.Iterator<PersistentServer> iterator() {
+	public java.util.Iterator<Server4Public> iterator() {
 		return this.data.iterator();
 	}
   	public ServerSearchList copy() throws PersistenceException {

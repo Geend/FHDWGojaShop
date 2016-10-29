@@ -18,7 +18,7 @@ public class Producer extends ViewObject implements ProducerView{
     }
     
     static public long getTypeId() {
-        return 127;
+        return 198;
     }
     
     public long getClassId() {

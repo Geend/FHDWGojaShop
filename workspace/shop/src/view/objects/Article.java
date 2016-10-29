@@ -30,7 +30,7 @@ public class Article extends view.objects.Component implements ArticleView{
     }
     
     static public long getTypeId() {
-        return 123;
+        return 194;
     }
     
     public long getClassId() {

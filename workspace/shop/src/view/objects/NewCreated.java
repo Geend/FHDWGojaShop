@@ -16,7 +16,7 @@ public class NewCreated extends view.objects.ArticleState implements NewCreatedV
     }
     
     static public long getTypeId() {
-        return 130;
+        return 200;
     }
     
     public long getClassId() {

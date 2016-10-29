@@ -10,11 +10,11 @@ import model.visitor.*;
 public class InSale extends model.ArticleState implements PersistentInSale{
     
     
-    public static PersistentInSale createInSale() throws PersistenceException{
+    public static InSale4Public createInSale() throws PersistenceException{
         return createInSale(false);
     }
     
-    public static PersistentInSale createInSale(boolean delayed$Persistence) throws PersistenceException {
+    public static InSale4Public createInSale(boolean delayed$Persistence) throws PersistenceException {
         PersistentInSale result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theInSaleFacade
@@ -30,7 +30,7 @@ public class InSale extends model.ArticleState implements PersistentInSale{
         return result;
     }
     
-    public static PersistentInSale createInSale(boolean delayed$Persistence,PersistentInSale This) throws PersistenceException {
+    public static InSale4Public createInSale(boolean delayed$Persistence,InSale4Public This) throws PersistenceException {
         PersistentInSale result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theInSaleFacade
@@ -58,8 +58,7 @@ public class InSale extends model.ArticleState implements PersistentInSale{
     
     public InSale provideCopy() throws PersistenceException{
         InSale result = this;
-        result = new InSale(this.subService, 
-                            this.This, 
+        result = new InSale(this.This, 
                             this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -69,13 +68,13 @@ public class InSale extends model.ArticleState implements PersistentInSale{
         return false;
     }
     
-    public InSale(SubjInterface subService,PersistentArticleState This,long id) throws PersistenceException {
+    public InSale(PersistentArticleState This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((SubjInterface)subService,(PersistentArticleState)This,id);        
+        super((PersistentArticleState)This,id);        
     }
     
     static public long getTypeId() {
-        return 126;
+        return 196;
     }
     
     public long getClassId() {
@@ -84,7 +83,7 @@ public class InSale extends model.ArticleState implements PersistentInSale{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 126) ConnectionHandler.getTheConnectionHandler().theInSaleFacade
+        if (this.getClassId() == 196) ConnectionHandler.getTheConnectionHandler().theInSaleFacade
             .newInSale(this.getId());
         super.store();
         
@@ -122,55 +121,16 @@ public class InSale extends model.ArticleState implements PersistentInSale{
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleInSale(this);
     }
-    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
-        visitor.handleInSale(this);
-    }
-    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleInSale(this);
-    }
-    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleInSale(this);
-    }
-    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleInSale(this);
-    }
     public int getLeafInfo() throws PersistenceException{
         return 0;
     }
     
     
-    public synchronized void deregister(final ObsInterface observee) 
-				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
-		}
-		subService.deregister(observee);
-    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentInSale)This);
 		if(this.isTheSameAs(This)){
 		}
-    }
-    public synchronized void register(final ObsInterface observee) 
-				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
-		}
-		subService.register(observee);
-    }
-    public synchronized void updateObservers(final model.meta.Mssgs event) 
-				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
-		}
-		subService.updateObservers(event);
     }
     
     

@@ -1,40 +1,56 @@
 model shop {
 
+// Server relevant classes - region begin
+
 server Server {
-
-   ProductGroup rootProductGroup;
-	void createArticle(ProductGroup parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
-
-	void createProductGroup(ProductGroup parent, String name) throws CycleException;
-
+	one-to-one (server-only myServer) ComponentLst manager; // Symmetrische Beziehung wurde bei Löwe nur benutzt, um signalChanged auf dem Server aufzurufen vom Manager aus...
+	ProducerLst prmanager;
+	void addArticle(ProductGroup parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
+	void addProductGroup(ProductGroup parent, String name) throws CycleException, DoubleDefinition;
+	void createProductGroup@@NeueProduktgruppe(String name) throws DoubleDefinition; // @@ ermöglicht eine Namensvergebung für die GUI.
 }
 
+// Server relevant classes -- region end
 
-hierarchy collapsed Parts;
+// manager relevant classes -- region begin
+
+class ComponentLst {
+	/*observe*/ Component ** currentComponents##currComps;
+	active void createProductGroup(String name) throws DoubleDefinition;
+}
+
+class ProducerLst {
+	/*observe*/ Producer ** currentProducer##currProd;
+	active void createProducer(String name) throws DoubleDefinition;
+}
+
+// manager relevant classes -- region end
+
+// main model classes -- region begin
+
+hierarchy collapsed CompHierarchy;
+
+class ProductGroup extends Component{
+	/*observe*/ Component ** components hierarchy CompHierarchy;
+	active void addSubProductGroup##cspg(String name) throws CycleException, DoubleDefinition;
+	active void addArticle(String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
+}
 
 abstract class Component{
-	prior String name;
+	public prior String name;
 }
 
 class Article extends Component{
-	prior Fraction price;
-	prior Integer minStock;
-	prior Integer maxStock;
-	Integer currentStock;
-	prior Integer producerDeliveryTime;
-	prior Producer producer;
-	ArticleState state;
+	public prior Fraction price;
+	public prior Integer minStock;
+	public prior Integer maxStock;
+	public Integer currentStock;
+	public prior Integer producerDeliveryTime;
+	public prior Producer producer;
+	public ArticleState state;
 }
 
-class ProductGroup extends Component{
-	Component ** components hierarchy Parts;
-	
-	active ProductGroup createSubProductGroup##cspg(String name) throws CycleException;
-
-	active Article createArticle(String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
-
-}
-
+// Article States -- region begin
 
 abstract class ArticleState{
 }
@@ -48,11 +64,13 @@ class RemainingStock extends ArticleState{
 class NotInSale extends ArticleState{
 }
 
-
+// Article States -- region end
+
 class Producer{
-	prior String name;
+	public prior String name;
 }
 
+/*
 abstract class QuantifiedArticle{
 	prior Integer quantity;	
 }
@@ -90,6 +108,7 @@ class PreOrder extends AbstractOrder{
 	void cancel();
 }
 
+// main model classes -- region end
 
 class CustomerDeliveryTime{
 	prior Fraction price;
@@ -114,6 +133,7 @@ class OrderArticleWrapper##oaw extends ArticleWrapper{
 	void accept();
 	void sendBack();
 }
-
+*/
+exception DoubleDefinition{}
 }
 

@@ -41,20 +41,7 @@ public class ComponentFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void subServiceSet(long ComponentId, SubjInterface subServiceVal) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".CmpnntFacade.sbSrvcSet(?, ?, ?); end;");
-            callable.setLong(1, ComponentId);
-            callable.setLong(2, subServiceVal.getId());
-            callable.setLong(3, subServiceVal.getClassId());
-            callable.execute();
-            callable.close();
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
-    }
-    public void ThisSet(long ComponentId, PersistentComponent ThisVal) throws PersistenceException {
+    public void ThisSet(long ComponentId, Component4Public ThisVal) throws PersistenceException {
         try{
             CallableStatement callable;
             callable = this.con.prepareCall("Begin " + this.schemaName + ".CmpnntFacade.ThisSet(?, ?, ?); end;");

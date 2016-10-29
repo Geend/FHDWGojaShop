@@ -42,6 +42,77 @@ create table Association3 (
     constraint FAssociation3Target foreign key (target) references Cls(id) on delete cascade
 );
 
+create sequence SPrdcrLst nocache;
+
+create table PrdcrLst(
+    id number primary key,
+    Cls number not null,
+    constraint FPrdcrLstCls foreign key (Cls) references Cls (id) on delete cascade,
+    PrdcrLstThis number,
+    PrdcrLstThisCls number,
+    constraint FPrdcrLstThis foreign key (PrdcrLstThisCls) references Cls (id)    
+);
+
+create sequence SSrvr nocache;
+
+create table Srvr(
+    id number primary key,
+    Cls number not null,
+    constraint FSrvrCls foreign key (Cls) references Cls (id) on delete cascade,
+    SrvrMngr number,
+    SrvrMngrCls number,
+    constraint FSrvrMngr foreign key (SrvrMngrCls) references Cls (id),
+    SrvrPrmngr number,
+    SrvrPrmngrCls number,
+    constraint FSrvrPrmngr foreign key (SrvrPrmngrCls) references Cls (id),
+    SrvrThis number,
+    SrvrThisCls number,
+    constraint FSrvrThis foreign key (SrvrThisCls) references Cls (id),
+    SrvrPassword varchar2(2000),
+    SrvrUser varchar2(2000),
+    SrvrHackCount number,
+    SrvrHackDelay Timestamp    
+);
+create index IMngrSrvr on Srvr (SrvrMngr, SrvrMngrCls);
+create index IUserSrvr on Srvr (SrvrUser);
+
+
+create sequence SCrtPrdctGrpCMD nocache;
+
+create table CrtPrdctGrpCMD(
+    id number primary key,
+    Cls number not null,
+    constraint FCrtPrdctGrpCMDCls foreign key (Cls) references Cls (id) on delete cascade,
+    CrtPrdctGrpCMDNm varchar2(2000),
+    CrtPrdctGrpCMDInvoker number,
+    CrtPrdctGrpCMDInvokerCls number,
+    constraint FCrtPrdctGrpCMDInvoker foreign key (CrtPrdctGrpCMDInvokerCls) references Cls (id),
+    CrtPrdctGrpCMDCReceiver number,
+    CrtPrdctGrpCMDCReceiverCls number,
+    constraint FCrtPrdctGrpCMDCReceiver foreign key (CrtPrdctGrpCMDCReceiverCls) references Cls (id),
+    CrtPrdctGrpCMDMyCmmnDt number,
+    CrtPrdctGrpCMDMyCmmnDtCls number,
+    constraint FCrtPrdctGrpCMDMyCmmnDt foreign key (CrtPrdctGrpCMDMyCmmnDtCls) references Cls (id)    
+);
+
+create sequence SCrtPrdcrCMD nocache;
+
+create table CrtPrdcrCMD(
+    id number primary key,
+    Cls number not null,
+    constraint FCrtPrdcrCMDCls foreign key (Cls) references Cls (id) on delete cascade,
+    CrtPrdcrCMDNm varchar2(2000),
+    CrtPrdcrCMDInvoker number,
+    CrtPrdcrCMDInvokerCls number,
+    constraint FCrtPrdcrCMDInvoker foreign key (CrtPrdcrCMDInvokerCls) references Cls (id),
+    CrtPrdcrCMDCReceiver number,
+    CrtPrdcrCMDCReceiverCls number,
+    constraint FCrtPrdcrCMDCReceiver foreign key (CrtPrdcrCMDCReceiverCls) references Cls (id),
+    CrtPrdcrCMDMyCmmnDt number,
+    CrtPrdcrCMDMyCmmnDtCls number,
+    constraint FCrtPrdcrCMDMyCmmnDt foreign key (CrtPrdcrCMDMyCmmnDtCls) references Cls (id)    
+);
+
 create sequence SCspgCMD nocache;
 
 create table CspgCMD(
@@ -55,73 +126,9 @@ create table CspgCMD(
     CspgCMDCReceiver number,
     CspgCMDCReceiverCls number,
     constraint FCspgCMDCReceiver foreign key (CspgCMDCReceiverCls) references Cls (id),
-    CspgCMDCResult number,
-    CspgCMDCResultCls number,
-    constraint FCspgCMDCResult foreign key (CspgCMDCResultCls) references Cls (id),
     CspgCMDMyCmmnDt number,
     CspgCMDMyCmmnDtCls number,
     constraint FCspgCMDMyCmmnDt foreign key (CspgCMDMyCmmnDtCls) references Cls (id)    
-);
-
-create sequence SSrvr nocache;
-
-create table Srvr(
-    id number primary key,
-    Cls number not null,
-    constraint FSrvrCls foreign key (Cls) references Cls (id) on delete cascade,
-    SrvrRtPrdctGrp number,
-    SrvrRtPrdctGrpCls number,
-    constraint FSrvrRtPrdctGrp foreign key (SrvrRtPrdctGrpCls) references Cls (id),
-    SrvrThis number,
-    SrvrThisCls number,
-    constraint FSrvrThis foreign key (SrvrThisCls) references Cls (id),
-    SrvrPassword varchar2(2000),
-    SrvrUser varchar2(2000),
-    SrvrHackCount number,
-    SrvrHackDelay Timestamp    
-);
-create index IUserSrvr on Srvr (SrvrUser);
-
-
-create sequence SCrtArtclCMD nocache;
-
-create table CrtArtclCMD(
-    id number primary key,
-    Cls number not null,
-    constraint FCrtArtclCMDCls foreign key (Cls) references Cls (id) on delete cascade,
-    CrtArtclCMDNm varchar2(2000),
-    CrtArtclCMDPrc varchar2(2000),
-    CrtArtclCMDMnStck number,
-    CrtArtclCMDMxStck number,
-    CrtArtclCMDPrdcrDlvrTm number,
-    CrtArtclCMDPrdcr number,
-    CrtArtclCMDPrdcrCls number,
-    constraint FCrtArtclCMDPrdcr foreign key (CrtArtclCMDPrdcrCls) references Cls (id),
-    CrtArtclCMDInvoker number,
-    CrtArtclCMDInvokerCls number,
-    constraint FCrtArtclCMDInvoker foreign key (CrtArtclCMDInvokerCls) references Cls (id),
-    CrtArtclCMDCReceiver number,
-    CrtArtclCMDCReceiverCls number,
-    constraint FCrtArtclCMDCReceiver foreign key (CrtArtclCMDCReceiverCls) references Cls (id),
-    CrtArtclCMDCResult number,
-    CrtArtclCMDCResultCls number,
-    constraint FCrtArtclCMDCResult foreign key (CrtArtclCMDCResultCls) references Cls (id),
-    CrtArtclCMDMyCmmnDt number,
-    CrtArtclCMDMyCmmnDtCls number,
-    constraint FCrtArtclCMDMyCmmnDt foreign key (CrtArtclCMDMyCmmnDtCls) references Cls (id)    
-);
-
-create sequence SCstmrDlvrTm nocache;
-
-create table CstmrDlvrTm(
-    id number primary key,
-    Cls number not null,
-    constraint FCstmrDlvrTmCls foreign key (Cls) references Cls (id) on delete cascade,
-    CstmrDlvrTmPrc varchar2(2000),
-    CstmrDlvrTmDlvrTm number,
-    CstmrDlvrTmThis number,
-    CstmrDlvrTmThisCls number,
-    constraint FCstmrDlvrTmThis foreign key (CstmrDlvrTmThisCls) references Cls (id)    
 );
 
 create sequence SCmmndCrdntr nocache;
@@ -132,22 +139,63 @@ create table CmmndCrdntr(
     constraint FCmmndCrdntrCls foreign key (Cls) references Cls (id) on delete cascade    
 );
 
-create sequence SQntfdArtcl nocache;
+create sequence SPrdcr nocache;
 
-create table QntfdArtcl(
+create table Prdcr(
     id number primary key,
     Cls number not null,
-    constraint FQntfdArtclCls foreign key (Cls) references Cls (id) on delete cascade,
-    QntfdArtclQntt number,
-    QntfdArtclThis number,
-    QntfdArtclThisCls number,
-    constraint FQntfdArtclThis foreign key (QntfdArtclThisCls) references Cls (id),
-    oqaArtcl number,
-    oqaArtclCls number,
-    constraint FoqaArtcl foreign key (oqaArtclCls) references Cls (id),
-    scqaArtcl number,
-    scqaArtclCls number,
-    constraint FscqaArtcl foreign key (scqaArtclCls) references Cls (id)    
+    constraint FPrdcrCls foreign key (Cls) references Cls (id) on delete cascade,
+    PrdcrNm varchar2(2000),
+    PrdcrThis number,
+    PrdcrThisCls number,
+    constraint FPrdcrThis foreign key (PrdcrThisCls) references Cls (id)    
+);
+
+create sequence SAddArtclCMD nocache;
+
+create table AddArtclCMD(
+    id number primary key,
+    Cls number not null,
+    constraint FAddArtclCMDCls foreign key (Cls) references Cls (id) on delete cascade,
+    AddArtclCMDNm varchar2(2000),
+    AddArtclCMDPrc varchar2(2000),
+    AddArtclCMDMnStck number,
+    AddArtclCMDMxStck number,
+    AddArtclCMDPrdcrDlvrTm number,
+    AddArtclCMDPrdcr number,
+    AddArtclCMDPrdcrCls number,
+    constraint FAddArtclCMDPrdcr foreign key (AddArtclCMDPrdcrCls) references Cls (id),
+    AddArtclCMDInvoker number,
+    AddArtclCMDInvokerCls number,
+    constraint FAddArtclCMDInvoker foreign key (AddArtclCMDInvokerCls) references Cls (id),
+    AddArtclCMDCReceiver number,
+    AddArtclCMDCReceiverCls number,
+    constraint FAddArtclCMDCReceiver foreign key (AddArtclCMDCReceiverCls) references Cls (id),
+    AddArtclCMDMyCmmnDt number,
+    AddArtclCMDMyCmmnDtCls number,
+    constraint FAddArtclCMDMyCmmnDt foreign key (AddArtclCMDMyCmmnDtCls) references Cls (id)    
+);
+
+create sequence SArtclStt nocache;
+
+create table ArtclStt(
+    id number primary key,
+    Cls number not null,
+    constraint FArtclSttCls foreign key (Cls) references Cls (id) on delete cascade,
+    ArtclSttThis number,
+    ArtclSttThisCls number,
+    constraint FArtclSttThis foreign key (ArtclSttThisCls) references Cls (id)    
+);
+
+create sequence SCmpnntLst nocache;
+
+create table CmpnntLst(
+    id number primary key,
+    Cls number not null,
+    constraint FCmpnntLstCls foreign key (Cls) references Cls (id) on delete cascade,
+    CmpnntLstThis number,
+    CmpnntLstThisCls number,
+    constraint FCmpnntLstThis foreign key (CmpnntLstThisCls) references Cls (id)    
 );
 
 create sequence SCmpnnt nocache;
@@ -173,70 +221,6 @@ create table Cmpnnt(
     constraint FArtclStt foreign key (ArtclSttCls) references Cls (id)    
 );
 
-create sequence SCstmrAccnt nocache;
-
-create table CstmrAccnt(
-    id number primary key,
-    Cls number not null,
-    constraint FCstmrAccntCls foreign key (Cls) references Cls (id) on delete cascade,
-    CstmrAccntBlnc varchar2(2000),
-    CstmrAccntLmt number,
-    CstmrAccntShppngCrt number,
-    CstmrAccntShppngCrtCls number,
-    constraint FCstmrAccntShppngCrt foreign key (CstmrAccntShppngCrtCls) references Cls (id),
-    CstmrAccntThis number,
-    CstmrAccntThisCls number,
-    constraint FCstmrAccntThis foreign key (CstmrAccntThisCls) references Cls (id)    
-);
-
-create sequence SAbstrctOrdr nocache;
-
-create table AbstrctOrdr(
-    id number primary key,
-    Cls number not null,
-    constraint FAbstrctOrdrCls foreign key (Cls) references Cls (id) on delete cascade,
-    AbstrctOrdrCstmrDlvrTm number,
-    AbstrctOrdrCstmrDlvrTmCls number,
-    constraint FAbstrctOrdrCstmrDlvrTm foreign key (AbstrctOrdrCstmrDlvrTmCls) references Cls (id),
-    AbstrctOrdrThis number,
-    AbstrctOrdrThisCls number,
-    constraint FAbstrctOrdrThis foreign key (AbstrctOrdrThisCls) references Cls (id)    
-);
-
-create sequence SPrdcr nocache;
-
-create table Prdcr(
-    id number primary key,
-    Cls number not null,
-    constraint FPrdcrCls foreign key (Cls) references Cls (id) on delete cascade,
-    PrdcrNm varchar2(2000),
-    PrdcrThis number,
-    PrdcrThisCls number,
-    constraint FPrdcrThis foreign key (PrdcrThisCls) references Cls (id)    
-);
-
-create sequence SShppngCrt nocache;
-
-create table ShppngCrt(
-    id number primary key,
-    Cls number not null,
-    constraint FShppngCrtCls foreign key (Cls) references Cls (id) on delete cascade,
-    ShppngCrtThis number,
-    ShppngCrtThisCls number,
-    constraint FShppngCrtThis foreign key (ShppngCrtThisCls) references Cls (id)    
-);
-
-create sequence SArtclStt nocache;
-
-create table ArtclStt(
-    id number primary key,
-    Cls number not null,
-    constraint FArtclSttCls foreign key (Cls) references Cls (id) on delete cascade,
-    ArtclSttThis number,
-    ArtclSttThisCls number,
-    constraint FArtclSttThis foreign key (ArtclSttThisCls) references Cls (id)    
-);
-
 create sequence SCmmnDt nocache;
 
 create table CmmnDt(
@@ -247,21 +231,6 @@ create table CmmnDt(
     CmmnDtCmmtdt Date    
 );
 
-create sequence SArtclWrppr nocache;
-
-create table ArtclWrppr(
-    id number primary key,
-    Cls number not null,
-    constraint FArtclWrpprCls foreign key (Cls) references Cls (id) on delete cascade,
-    ArtclWrpprArtcl number,
-    ArtclWrpprArtclCls number,
-    constraint FArtclWrpprArtcl foreign key (ArtclWrpprArtclCls) references Cls (id),
-    ArtclWrpprThis number,
-    ArtclWrpprThisCls number,
-    constraint FArtclWrpprThis foreign key (ArtclWrpprThisCls) references Cls (id),
-    oawPrcAtOrdr varchar2(2000)    
-);
-
 create sequence SCmmndExctr nocache;
 
 create table CmmndExctr(
@@ -269,6 +238,18 @@ create table CmmndExctr(
     Cls number not null,
     constraint FCmmndExctrCls foreign key (Cls) references Cls (id) on delete cascade    
 );
+
+create sequence SPrdcrLstCurrProd nocache;
+
+create table PrdcrLstCurrProd(
+    id number primary key,
+    frm number not null,
+    currProd number not null,
+    Cls number not null,
+    constraint FPrdcrLstCurrProdCls foreign key(Cls) references Cls(id) on delete cascade,
+    constraint FPrdcrLstCurrProdfrm foreign key(frm) references PrdcrLst(id)
+);
+create index IFrmPrdcrLstCurrProd on PrdcrLstCurrProd(frm);
 
 create sequence SPrdctGrpCmpnnts nocache;
 
@@ -294,29 +275,17 @@ create table CmmndCrdntrExctr(
 );
 create index IFrmCmmndCrdntrExctr on CmmndCrdntrExctr(frm);
 
-create sequence SAbstrctOrdrArtcls nocache;
+create sequence SCmpnntLstCurrComps nocache;
 
-create table AbstrctOrdrArtcls(
+create table CmpnntLstCurrComps(
     id number primary key,
     frm number not null,
-    artcls number not null,
+    currComps number not null,
     Cls number not null,
-    constraint FAbstrctOrdrArtclsCls foreign key(Cls) references Cls(id) on delete cascade,
-    constraint FAbstrctOrdrArtclsfrm foreign key(frm) references AbstrctOrdr(id)
+    constraint FCmpnntLstCurrCompsCls foreign key(Cls) references Cls(id) on delete cascade,
+    constraint FCmpnntLstCurrCompsfrm foreign key(frm) references CmpnntLst(id)
 );
-create index IFrmAbstrctOrdrArtcls on AbstrctOrdrArtcls(frm);
-
-create sequence SShppngCrtArtcls nocache;
-
-create table ShppngCrtArtcls(
-    id number primary key,
-    frm number not null,
-    artcls number not null,
-    Cls number not null,
-    constraint FShppngCrtArtclsCls foreign key(Cls) references Cls(id) on delete cascade,
-    constraint FShppngCrtArtclsfrm foreign key(frm) references ShppngCrt(id)
-);
-create index IFrmShppngCrtArtcls on ShppngCrtArtcls(frm);
+create index IFrmCmpnntLstCurrComps on CmpnntLstCurrComps(frm);
 
 create sequence SCmmndExctrCommands nocache;
 

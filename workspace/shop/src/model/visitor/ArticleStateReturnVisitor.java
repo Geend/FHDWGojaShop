@@ -5,9 +5,9 @@ import persistence.*;
 
 public interface ArticleStateReturnVisitor<R> {
     
-    public R handleInSale(PersistentInSale inSale) throws PersistenceException;
-    public R handleNewCreated(PersistentNewCreated newCreated) throws PersistenceException;
-    public R handleNotInSale(PersistentNotInSale notInSale) throws PersistenceException;
-    public R handleRemainingStock(PersistentRemainingStock remainingStock) throws PersistenceException;
+    public R handleInSale(InSale4Public inSale) throws PersistenceException;
+    public R handleNewCreated(NewCreated4Public newCreated) throws PersistenceException;
+    public R handleNotInSale(NotInSale4Public notInSale) throws PersistenceException;
+    public R handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException;
     
 }

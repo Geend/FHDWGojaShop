@@ -5,7 +5,7 @@ import persistence.*;
 
 public interface ComponentExceptionVisitor<E extends model.UserException> {
     
-    public void handleArticle(PersistentArticle article) throws PersistenceException, E;
-    public void handleProductGroup(PersistentProductGroup productGroup) throws PersistenceException, E;
+    public void handleArticle(Article4Public article) throws PersistenceException, E;
+    public void handleProductGroup(ProductGroup4Public productGroup) throws PersistenceException, E;
     
 }

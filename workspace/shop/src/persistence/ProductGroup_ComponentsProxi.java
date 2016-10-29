@@ -4,7 +4,7 @@ import model.*;
 
 import java.util.Iterator;
 
-public class ProductGroup_ComponentsProxi extends PersistentListProxi<PersistentComponent> {
+public class ProductGroup_ComponentsProxi extends PersistentListProxi<Component4Public> {
 
   	private ComponentList list;
   	private ProductGroup owner;
@@ -25,15 +25,15 @@ public class ProductGroup_ComponentsProxi extends PersistentListProxi<Persistent
     	}
     	return this.list;
   	}
-  	public Iterator<PersistentComponent> iterator() throws PersistenceException{
+  	public Iterator<Component4Public> iterator() throws PersistenceException{
     	return this.getList().iterator(this);
   	}
   	public long getLength() throws PersistenceException{
 	  	return this.getList().getLength();
   	}
-  	public void add(PersistentComponent entry) throws PersistenceException , model.CycleException{
+  	public void add(Component4Public entry) throws PersistenceException , model.CycleException{
     	if (entry != null) {
-      		if (entry.containsParts(this.owner)) throw new model.CycleException("Cycle in Parts detected!");
+      		if (entry.containsCompHierarchy(this.owner)) throw new model.CycleException("Cycle in CompHierarchy detected!");
 			ComponentList list = this.getList();
       		long entryId = 0;
       		if (!this.owner.isDelayed$Persistence()) {
@@ -41,7 +41,7 @@ public class ProductGroup_ComponentsProxi extends PersistentListProxi<Persistent
         		entryId = ConnectionHandler.getTheConnectionHandler().theProductGroupFacade
         	               	.componentsAdd(owner.getId(), entry);
       		}
-      		list.add((PersistentComponent)PersistentProxi.createListEntryProxi(entry.getId(),
+      		list.add((Component4Public)PersistentProxi.createListEntryProxi(entry.getId(),
             		                   entry.getClassId(),
         	    	                   entryId));
       		
@@ -59,9 +59,9 @@ public class ProductGroup_ComponentsProxi extends PersistentListProxi<Persistent
   		return result;
   	}	 
   	public void store() throws PersistenceException {
-  		java.util.Iterator<PersistentComponent> entries = (this.list == null ? new java.util.Vector<PersistentComponent>().iterator() : this.list.iterator(this));
+  		java.util.Iterator<Component4Public> entries = (this.list == null ? new java.util.Vector<Component4Public>().iterator() : this.list.iterator(this));
   		while (entries.hasNext()){
-  			PersistentComponent current = entries.next();
+  			Component4Public current = entries.next();
   			current.store();
       		long entryId = ConnectionHandler.getTheConnectionHandler().theProductGroupFacade
             	           .componentsAdd(owner.getId(), current);
