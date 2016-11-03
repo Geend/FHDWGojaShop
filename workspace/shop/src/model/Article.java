@@ -319,7 +319,8 @@ public class Article extends model.Component implements PersistentArticle{
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         super.initializeOnInstantiation();
-		//TODO: implement method: initializeOnInstantiation
+		getThis().setState(NewCreated.createNewCreated());
+
     }
     
     

@@ -31,12 +31,12 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException {
-		result = "HERSTELLER"; //TODO! constant
+		result = "HERSTELLER (H)"; //TODO! constant
 	}
 
 	@Override
 	public void handleProductGroup(ProductGroup4Public productGroup) throws PersistenceException {
-		result = productGroup.getName();
+		result = "P: " + productGroup.getName();
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleArticle(Article4Public article) throws PersistenceException {
-		result = article.getName();
+		result = "A: " + article.getName(); //TODO! constant
 	}
 
 	@Override
@@ -66,12 +66,12 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleProducer(Producer4Public producer) throws PersistenceException {
-		result = producer.getName();
+		result = "H: " + producer.getName(); //TODO! constant
 	}
 
 	@Override
 	public void handleComponentLst(ComponentLst4Public componentLst) throws PersistenceException {
-		result = "PRODUKTGRUPPEN"; //TODO! constant
+		result = "PRODUKTGRUPPEN (P)"; //TODO! constant
 	}
 
 	@Override
