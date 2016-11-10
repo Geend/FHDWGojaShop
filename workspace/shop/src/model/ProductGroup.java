@@ -64,6 +64,7 @@ public class ProductGroup extends model.Component implements PersistentProductGr
         result = new ProductGroup(this.name, 
                                   this.This, 
                                   this.getId());
+        result.components = this.components.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

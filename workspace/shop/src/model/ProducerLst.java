@@ -66,6 +66,7 @@ public class ProducerLst extends PersistentObject implements PersistentProducerL
         ProducerLst result = this;
         result = new ProducerLst(this.This, 
                                  this.getId());
+        result.currentProducer = this.currentProducer.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

@@ -2,45 +2,39 @@ package persistence;
 
 
 
-import java.sql.*;
-//import oracle.jdbc.*;
-
 public class ArticleStateFacade{
 
-	private String schemaName;
-	private Connection con;
+	static private Long sequencer = new Long(0);
 
-	public ArticleStateFacade(String schemaName, Connection con) {
-		this.schemaName = schemaName;
-		this.con = con;
+	static protected long getTheNextId(){
+		long result = -1;
+		synchronized (sequencer) { 
+			result = sequencer.longValue() + 1;
+			sequencer = new Long(result);
+		}
+		return result;
+	}
+
+	protected long getNextId(){
+		return getTheNextId();
+	}
+
+	
+
+	public ArticleStateFacade() {
 	}
 
     public long getClass(long objectId) throws PersistenceException{
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".ArtclSttFacade.getClass(?); end;");
-            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
-            callable.setLong(2, objectId);
-            callable.execute();
-            long result = callable.getLong(1);
-            callable.close();
-            return result;
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
+        if(Cache.getTheCache().contains(objectId, 193)) return 193;
+        if(Cache.getTheCache().contains(objectId, 195)) return 195;
+        if(Cache.getTheCache().contains(objectId, 196)) return 196;
+        if(Cache.getTheCache().contains(objectId, 200)) return 200;
+        
+        throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
+        
     }
     public void ThisSet(long ArticleStateId, ArticleState4Public ThisVal) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".ArtclSttFacade.ThisSet(?, ?, ?); end;");
-            callable.setLong(1, ArticleStateId);
-            callable.setLong(2, ThisVal.getId());
-            callable.setLong(3, ThisVal.getClassId());
-            callable.execute();
-            callable.close();
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
+        
     }
 
 }

@@ -66,6 +66,7 @@ public class ComponentLst extends PersistentObject implements PersistentComponen
         ComponentLst result = this;
         result = new ComponentLst(this.This, 
                                   this.getId());
+        result.currentComponents = this.currentComponents.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
