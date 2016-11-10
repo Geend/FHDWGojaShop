@@ -67,13 +67,13 @@ public class Server extends PersistentObject implements PersistentServer{
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            AbstractPersistentRoot manager = (AbstractPersistentRoot)this.getManager();
-            if (manager != null) {
-                result.put("manager", manager.createProxiInformation(false, essentialLevel <= 1));
+            AbstractPersistentRoot rootProductGroup = (AbstractPersistentRoot)this.getRootProductGroup();
+            if (rootProductGroup != null) {
+                result.put("rootProductGroup", rootProductGroup.createProxiInformation(false, essentialLevel <= 1));
                 if(depth > 1) {
-                    manager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                    rootProductGroup.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
                 }else{
-                    if(forGUI && manager.hasEssentialFields())manager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                    if(forGUI && rootProductGroup.hasEssentialFields())rootProductGroup.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
             AbstractPersistentRoot prmanager = (AbstractPersistentRoot)this.getPrmanager();
@@ -100,7 +100,7 @@ public class Server extends PersistentObject implements PersistentServer{
     
     public Server provideCopy() throws PersistenceException{
         Server result = this;
-        result = new Server(this.manager, 
+        result = new Server(this.rootProductGroup, 
                             this.prmanager, 
                             this.This, 
                             this.password, 
@@ -121,7 +121,7 @@ public class Server extends PersistentObject implements PersistentServer{
     protected model.UserException userException = null;
     protected boolean changed = false;
     
-    protected PersistentComponentLst manager;
+    protected PersistentProductGroup rootProductGroup;
     protected PersistentProducerLst prmanager;
     protected PersistentServer This;
     protected Server_ErrorsProxi errors;
@@ -130,10 +130,10 @@ public class Server extends PersistentObject implements PersistentServer{
     protected long hackCount;
     protected java.sql.Timestamp hackDelay;
     
-    public Server(PersistentComponentLst manager,PersistentProducerLst prmanager,PersistentServer This,String password,String user,long hackCount,java.sql.Timestamp hackDelay,long id) throws PersistenceException {
+    public Server(PersistentProductGroup rootProductGroup,PersistentProducerLst prmanager,PersistentServer This,String password,String user,long hackCount,java.sql.Timestamp hackDelay,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.manager = manager;
+        this.rootProductGroup = rootProductGroup;
         this.prmanager = prmanager;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;
         this.errors = new Server_ErrorsProxi(this);
@@ -156,9 +156,9 @@ public class Server extends PersistentObject implements PersistentServer{
         if (this.getClassId() == -102) ConnectionHandler.getTheConnectionHandler().theServerFacade
             .newServer(password,user,hackCount,hackDelay,this.getId());
         super.store();
-        if(this.getManager() != null){
-            this.getManager().store();
-            ConnectionHandler.getTheConnectionHandler().theServerFacade.managerSet(this.getId(), getManager());
+        if(this.getRootProductGroup() != null){
+            this.getRootProductGroup().store();
+            ConnectionHandler.getTheConnectionHandler().theServerFacade.rootProductGroupSet(this.getId(), getRootProductGroup());
         }
         if(this.getPrmanager() != null){
             this.getPrmanager().store();
@@ -171,18 +171,18 @@ public class Server extends PersistentObject implements PersistentServer{
         
     }
     
-    public ComponentLst4Public getManager() throws PersistenceException {
-        return this.manager;
+    public ProductGroup4Public getRootProductGroup() throws PersistenceException {
+        return this.rootProductGroup;
     }
-    public void setManager(ComponentLst4Public newValue) throws PersistenceException {
+    public void setRootProductGroup(ProductGroup4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.manager)) return;
+        if(newValue.isTheSameAs(this.rootProductGroup)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.manager = (PersistentComponentLst)PersistentProxi.createProxi(objectId, classId);
+        this.rootProductGroup = (PersistentProductGroup)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theServerFacade.managerSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theServerFacade.rootProductGroupSet(this.getId(), newValue);
         }
     }
     public ProducerLst4Public getPrmanager() throws PersistenceException {
@@ -292,7 +292,7 @@ public class Server extends PersistentObject implements PersistentServer{
          return visitor.handleServer(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getManager() != null) return 1;
+        if (this.getRootProductGroup() != null) return 1;
         if (this.getPrmanager() != null) return 1;
         return 0;
     }
@@ -342,8 +342,8 @@ public class Server extends PersistentObject implements PersistentServer{
         
     }
     public void createProductGroup(final String name) 
-				throws model.DoubleDefinition, PersistenceException{
-        getThis().getManager().createProductGroup(name);
+				throws model.DoubleDefinition, model.CycleException, PersistenceException{
+        getThis().getRootProductGroup().addSubProductGroup((name));
         getThis().signalChanged(true);
     }
     public void disconnected() 
@@ -389,10 +389,10 @@ public class Server extends PersistentObject implements PersistentServer{
     public void initializeOnCreation() 
 				throws PersistenceException{
         getThis().setPrmanager(ProducerLst.createProducerLst());
-        getThis().setManager(ComponentLst.createComponentLst());
+        getThis().setRootProductGroup(RootProductGroup.createRootProductGroup("Produkte"));
         try{
-            getThis().getPrmanager().createProducer("OBSTBAUER HERRMANN"); //TODO! constant
-            getThis().getPrmanager().createProducer("OBSTBAUER PETER"); //TODO! constant
+            getThis().getPrmanager().createProducer("Obstbauer Hermann"); //TODO! constant
+            getThis().getPrmanager().createProducer("Obstbauer Peter"); //TODO! constant
         } catch (DoubleDefinition ex) {
             throw new Error(ex);
         }
@@ -402,6 +402,10 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
         
+    }
+    public void moveTo(final SubComponent component, final ProductGroup4Public newParentGroup) 
+				throws model.CycleException, PersistenceException{
+        component.moveTo(newParentGroup, getThis());
     }
     
     

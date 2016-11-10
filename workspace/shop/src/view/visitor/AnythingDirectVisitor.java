@@ -27,15 +27,16 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleNewCreated(NewCreatedView newCreated) throws ModelException{
         this.handleArticleState(newCreated);
     }
-    public abstract void handleComponentLst(ComponentLstView componentLst) throws ModelException;
-    
     public abstract void handleComponent(ComponentView component) throws ModelException;
     
-    public void handleProductGroup(ProductGroupView productGroup) throws ModelException{
-        this.handleComponent(productGroup);
+    public void handleRootProductGroup(RootProductGroupView rootProductGroup) throws ModelException{
+        this.handleComponent(rootProductGroup);
     }
     public void handleArticle(ArticleView article) throws ModelException{
         this.handleComponent(article);
+    }
+    public void handleSubProductGroup(SubProductGroupView subProductGroup) throws ModelException{
+        this.handleComponent(subProductGroup);
     }
     
 }

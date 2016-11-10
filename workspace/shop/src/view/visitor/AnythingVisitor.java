@@ -5,7 +5,6 @@ import view.*;
 
 public interface AnythingVisitor extends ArticleStateVisitor,ComponentVisitor{
     
-    public void handleComponentLst(ComponentLstView componentLst) throws ModelException;
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;
     public void handleProducer(ProducerView producer) throws ModelException;
     public void handleProducerLst(ProducerLstView producerLst) throws ModelException;

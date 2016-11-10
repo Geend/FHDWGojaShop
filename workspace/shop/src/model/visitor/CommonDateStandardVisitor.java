@@ -5,11 +5,11 @@ import persistence.*;
 
 public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     
-    public void handleCreateProductGroupCommand(CreateProductGroupCommand4Public createProductGroupCommand) throws PersistenceException{
-        this.standardHandling(createProductGroupCommand);
-    }
     public void handleCreateProducerCommand(CreateProducerCommand4Public createProducerCommand) throws PersistenceException{
         this.standardHandling(createProducerCommand);
+    }
+    public void handleMoveToCommand(MoveToCommand4Public moveToCommand) throws PersistenceException{
+        this.standardHandling(moveToCommand);
     }
     public void handleAddArticleCommand(AddArticleCommand4Public addArticleCommand) throws PersistenceException{
         this.standardHandling(addArticleCommand);

@@ -3,9 +3,8 @@ package view.visitor;
 
 import view.*;
 
-public interface ComponentReturnVisitor<R> {
+public interface ComponentReturnVisitor<R> extends ProductGroupReturnVisitor<R> {
     
     public R handleArticle(ArticleView article) throws ModelException;
-    public R handleProductGroup(ProductGroupView productGroup) throws ModelException;
     
 }

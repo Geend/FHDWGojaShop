@@ -15,9 +15,11 @@ public class Article extends view.objects.Component implements ArticleView{
     protected long currentStock;
     protected long producerDeliveryTime;
     protected ProducerView producer;
+    protected String producerName;
     protected ArticleStateView state;
+    protected ProductGroupView parentGroup;
     
-    public Article(String name,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,ProducerView producer,ArticleStateView state,long id, long classId) {
+    public Article(String name,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,ProducerView producer,String producerName,ArticleStateView state,ProductGroupView parentGroup,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super((String)name,id, classId);
         this.price = price;
@@ -26,7 +28,9 @@ public class Article extends view.objects.Component implements ArticleView{
         this.currentStock = currentStock;
         this.producerDeliveryTime = producerDeliveryTime;
         this.producer = producer;
-        this.state = state;        
+        this.producerName = producerName;
+        this.state = state;
+        this.parentGroup = parentGroup;        
     }
     
     static public long getTypeId() {
@@ -73,11 +77,20 @@ public class Article extends view.objects.Component implements ArticleView{
     public void setProducer(ProducerView newValue) throws ModelException {
         this.producer = newValue;
     }
+    public String getProducerName()throws ModelException{
+        return this.producerName;
+    }
     public ArticleStateView getState()throws ModelException{
         return this.state;
     }
     public void setState(ArticleStateView newValue) throws ModelException {
         this.state = newValue;
+    }
+    public ProductGroupView getParentGroup()throws ModelException{
+        return this.parentGroup;
+    }
+    public void setParentGroup(ProductGroupView newValue) throws ModelException {
+        this.parentGroup = newValue;
     }
     
     public void accept(ComponentVisitor visitor) throws ModelException {
@@ -104,6 +117,18 @@ public class Article extends view.objects.Component implements ArticleView{
     public <R, E extends view.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleArticle(this);
     }
+    public void accept(SubComponentVisitor visitor) throws ModelException {
+        visitor.handleArticle(this);
+    }
+    public <R> R accept(SubComponentReturnVisitor<R>  visitor) throws ModelException {
+         return visitor.handleArticle(this);
+    }
+    public <E extends view.UserException>  void accept(SubComponentExceptionVisitor<E> visitor) throws ModelException, E {
+         visitor.handleArticle(this);
+    }
+    public <R, E extends view.UserException> R accept(SubComponentReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+         return visitor.handleArticle(this);
+    }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
         ProducerView producer = this.getProducer();
@@ -114,6 +139,10 @@ public class Article extends view.objects.Component implements ArticleView{
         if (state != null) {
             ((ViewProxi)state).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(state.getClassId(), state.getId())));
         }
+        ProductGroupView parentGroup = this.getParentGroup();
+        if (parentGroup != null) {
+            ((ViewProxi)parentGroup).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(parentGroup.getClassId(), parentGroup.getId())));
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {
@@ -121,26 +150,20 @@ public class Article extends view.objects.Component implements ArticleView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
         int index = originalIndex;
-        if(index == 0 && this.getProducer() != null) return new ProducerArticleWrapper(this, originalIndex, (ViewRoot)this.getProducer());
-        if(this.getProducer() != null) index = index - 1;
         if(index == 0 && this.getState() != null) return new StateArticleWrapper(this, originalIndex, (ViewRoot)this.getState());
         if(this.getState() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getProducer() == null ? 0 : 1)
             + (this.getState() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         return true 
-            && (this.getProducer() == null ? true : false)
             && (this.getState() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
-        if(this.getProducer() != null && this.getProducer().equals(child)) return result;
-        if(this.getProducer() != null) result = result + 1;
         if(this.getState() != null && this.getState().equals(child)) return result;
         if(this.getState() != null) result = result + 1;
         return -1;
@@ -163,8 +186,12 @@ public class Article extends view.objects.Component implements ArticleView{
     public int getProducerDeliveryTimeIndex() throws ModelException {
         return 0 + 1 + 1 + 1 + 1 + 1;
     }
+    public int getProducerNameIndex() throws ModelException {
+        return 0 + 1 + 1 + 1 + 1 + 1 + 1;
+    }
     public int getRowCount(){
         return 0 
+            + 1
             + 1
             + 1
             + 1
@@ -187,6 +214,8 @@ public class Article extends view.objects.Component implements ArticleView{
                 rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return "producerDeliveryTime";
                 rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return "producerName";
+                rowIndex = rowIndex - 1;
             } else {
                 if(rowIndex == 0) return this.getName();
                 rowIndex = rowIndex - 1;
@@ -199,6 +228,8 @@ public class Article extends view.objects.Component implements ArticleView{
                 if(rowIndex == 0) return new Long(getCurrentStock());
                 rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return new Long(getProducerDeliveryTime());
+                rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return this.getProducerName();
                 rowIndex = rowIndex - 1;
             }
             throw new ModelException("Table index out of bounds!", -1);
@@ -241,9 +272,10 @@ public class Article extends view.objects.Component implements ArticleView{
             return;
         }
         rowIndex = rowIndex - 1;
+        rowIndex = rowIndex - 1;
     }
     public boolean hasTransientFields(){
-        return false;
+        return true;
     }
     /* Start of protected part that is not overridden by persistence generator */
     

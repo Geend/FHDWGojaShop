@@ -3,22 +3,21 @@ model shop {
 // Server relevant classes - region begin
 
 server Server {
-	one-to-one (server-only myServer) ComponentLst manager; // Symmetrische Beziehung wurde bei Löwe nur benutzt, um signalChanged auf dem Server aufzurufen vom Manager aus...
+	one-to-one (server-only myServer) ProductGroup rootProductGroup; // Symmetrische Beziehung wurde bei Löwe nur benutzt, um signalChanged auf dem Server aufzurufen vom Manager aus...
 	ProducerLst prmanager;
 	void addArticle(ProductGroup parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
 	void addProductGroup(ProductGroup parent, String name) throws CycleException, DoubleDefinition;
-	void createProductGroup@@NeueProduktgruppe(String name) throws DoubleDefinition; // @@ ermöglicht eine Namensvergebung für die GUI.
+	void createProductGroup@@NeueProduktgruppe(String name) throws DoubleDefinition, CycleException;
+	
+	void moveTo(SubComponent component, ProductGroup newParentGroup)throws CycleException;
+
+
 }
 
 // Server relevant classes -- region end
 
 // manager relevant classes -- region begin
 
-class ComponentLst {
-	/*observe*/ Component ** currentComponents##currComps;
-	active void createProductGroup(String name) throws DoubleDefinition;
-
-}
 
 class ProducerLst {
 	/*observe*/ Producer ** currentProducer##currProd;
@@ -31,25 +30,48 @@ class ProducerLst {
 
 hierarchy collapsed CompHierarchy;
 
-class ProductGroup extends Component{
-	/*observe*/ Component ** components hierarchy CompHierarchy;
-	active void addSubProductGroup##cspg(String name) throws CycleException, DoubleDefinition;
-	active void addArticle(String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
-}
+
 
 abstract class Component{
 	public prior String name;
+
 }
 
-class Article extends Component{
+abstract class ProductGroup extends Component{
+	
+	/*observe*/ Component ** components hierarchy CompHierarchy;
+	active void addSubProductGroup##cspg(String name) throws CycleException, DoubleDefinition;
+	active void addArticle(String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
+
+	void addComponent(Component component) throws CycleException;
+	void removeComponent(Component component);
+}
+
+class RootProductGroup extends ProductGroup{
+}
+
+class SubProductGroup extends ProductGroup implements SubComponent {
+}
+
+class Article extends Component  implements SubComponent{
 	public prior Fraction price;
 	public prior Integer minStock;
 	public prior Integer maxStock;
 	public Integer currentStock;
 	public prior Integer producerDeliveryTime;
-	public prior Producer producer;
+	public no-view prior Producer producer;
+	public derived String producerName;
 	public ArticleState state;
+
 }
+
+interface SubComponent{
+
+	no-view prior ProductGroup parentGroup;
+
+	active void moveTo(ProductGroup productGroup) throws CycleException;
+}
+
 
 // Article States -- region begin
 

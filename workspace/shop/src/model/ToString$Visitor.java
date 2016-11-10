@@ -34,10 +34,6 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		result = "HERSTELLER (H)"; //TODO! constant
 	}
 
-	@Override
-	public void handleProductGroup(ProductGroup4Public productGroup) throws PersistenceException {
-		result = "P: " + productGroup.getName();
-	}
 
 	@Override
 	public void handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException {
@@ -47,6 +43,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleServer(Server4Public server) throws PersistenceException {
 
+	}
+
+	@Override
+	public void handleRootProductGroup(RootProductGroup4Public rootProductGroup) throws PersistenceException {
+		result = "RootProductGroup (" + rootProductGroup.getName() + ")";
 	}
 
 	@Override
@@ -60,6 +61,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
+	public void handleSubProductGroup(SubProductGroup4Public subProductGroup) throws PersistenceException {
+		result = "P: " + subProductGroup.getName();
+	}
+
+	@Override
 	public void handleInSale(InSale4Public inSale) throws PersistenceException {
 		result = "VERFÜGBAR"; //TODO! constant
 	}
@@ -69,10 +75,6 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		result = "H: " + producer.getName(); //TODO! constant
 	}
 
-	@Override
-	public void handleComponentLst(ComponentLst4Public componentLst) throws PersistenceException {
-		result = "PRODUKTGRUPPEN (P)"; //TODO! constant
-	}
 
 	@Override
 	public void handleNewCreated(NewCreated4Public newCreated) throws PersistenceException {

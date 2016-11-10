@@ -2,7 +2,7 @@ package view;
 
 import view.visitor.*;
 
-public interface ArticleView extends ComponentView {
+public interface ArticleView extends SubComponent, ComponentView {
     
     public common.Fraction getPrice()throws ModelException;
     public void setPrice(common.Fraction newValue) throws ModelException ;
@@ -16,8 +16,11 @@ public interface ArticleView extends ComponentView {
     public void setProducerDeliveryTime(long newValue) throws ModelException ;
     public ProducerView getProducer()throws ModelException;
     public void setProducer(ProducerView newValue) throws ModelException ;
+    public String getProducerName()throws ModelException;
     public ArticleStateView getState()throws ModelException;
     public void setState(ArticleStateView newValue) throws ModelException ;
+    public ProductGroupView getParentGroup()throws ModelException;
+    public void setParentGroup(ProductGroupView newValue) throws ModelException ;
     
     public void accept(ComponentVisitor visitor) throws ModelException;
     public <R> R accept(ComponentReturnVisitor<R>  visitor) throws ModelException;
@@ -27,6 +30,10 @@ public interface ArticleView extends ComponentView {
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException;
     public <E extends view.UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws ModelException, E;
     public <R, E extends view.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E;
+    public void accept(SubComponentVisitor visitor) throws ModelException;
+    public <R> R accept(SubComponentReturnVisitor<R>  visitor) throws ModelException;
+    public <E extends view.UserException>  void accept(SubComponentExceptionVisitor<E> visitor) throws ModelException, E;
+    public <R, E extends view.UserException> R accept(SubComponentReturnExceptionVisitor<R, E>  visitor) throws ModelException, E;
     
 }
 

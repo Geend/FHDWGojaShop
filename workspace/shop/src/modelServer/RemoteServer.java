@@ -67,6 +67,21 @@ public  class RemoteServer extends RemoteServerMaster {
             return createExceptionResult(pe);
         }catch(model.DoubleDefinition e0){
             return createExceptionResult(e0, this);
+        }catch(model.CycleException e1){
+            return createExceptionResult(e1, this);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> moveTo(String componentProxiString, String newParentGroupProxiString){
+        try {
+            SubComponent component = (SubComponent)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(componentProxiString));
+            PersistentProductGroup newParentGroup = (PersistentProductGroup)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(newParentGroupProxiString));
+            ((PersistentServer)this.server).moveTo(component, newParentGroup);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.CycleException e0){
+            return createExceptionResult(e0, this);
         }
     }
     

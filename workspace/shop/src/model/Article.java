@@ -10,11 +10,11 @@ import model.visitor.*;
 public class Article extends model.Component implements PersistentArticle{
     
     
-    public static Article4Public createArticle(String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,Producer4Public producer) throws PersistenceException{
-        return createArticle(name,price,minStock,maxStock,producerDeliveryTime,producer,false);
+    public static Article4Public createArticle(String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,Producer4Public producer,ProductGroup4Public parentGroup) throws PersistenceException{
+        return createArticle(name,price,minStock,maxStock,producerDeliveryTime,producer,parentGroup,false);
     }
     
-    public static Article4Public createArticle(String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,Producer4Public producer,boolean delayed$Persistence) throws PersistenceException {
+    public static Article4Public createArticle(String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,Producer4Public producer,ProductGroup4Public parentGroup,boolean delayed$Persistence) throws PersistenceException {
         PersistentArticle result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theArticleFacade
@@ -31,12 +31,13 @@ public class Article extends model.Component implements PersistentArticle{
         final$$Fields.put("maxStock", maxStock);
         final$$Fields.put("producerDeliveryTime", producerDeliveryTime);
         final$$Fields.put("producer", producer);
+        final$$Fields.put("parentGroup", parentGroup);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static Article4Public createArticle(String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,Producer4Public producer,boolean delayed$Persistence,Article4Public This) throws PersistenceException {
+    public static Article4Public createArticle(String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,Producer4Public producer,ProductGroup4Public parentGroup,boolean delayed$Persistence,Article4Public This) throws PersistenceException {
         PersistentArticle result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theArticleFacade
@@ -53,6 +54,7 @@ public class Article extends model.Component implements PersistentArticle{
         final$$Fields.put("maxStock", maxStock);
         final$$Fields.put("producerDeliveryTime", producerDeliveryTime);
         final$$Fields.put("producer", producer);
+        final$$Fields.put("parentGroup", parentGroup);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -76,6 +78,7 @@ public class Article extends model.Component implements PersistentArticle{
                     if(forGUI && producer.hasEssentialFields())producer.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
+            result.put("producerName", this.getProducerName());
             AbstractPersistentRoot state = (AbstractPersistentRoot)this.getState();
             if (state != null) {
                 result.put("state", state.createProxiInformation(false, essentialLevel <= 1));
@@ -83,6 +86,15 @@ public class Article extends model.Component implements PersistentArticle{
                     state.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
                 }else{
                     if(forGUI && state.hasEssentialFields())state.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot parentGroup = (AbstractPersistentRoot)this.getParentGroup();
+            if (parentGroup != null) {
+                result.put("parentGroup", parentGroup.createProxiInformation(false, essentialLevel <= 1));
+                if(depth > 1) {
+                    parentGroup.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && parentGroup.hasEssentialFields())parentGroup.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
@@ -102,6 +114,7 @@ public class Article extends model.Component implements PersistentArticle{
                              this.producerDeliveryTime, 
                              this.producer, 
                              this.state, 
+                             this.parentGroup, 
                              this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -117,8 +130,9 @@ public class Article extends model.Component implements PersistentArticle{
     protected long producerDeliveryTime;
     protected PersistentProducer producer;
     protected PersistentArticleState state;
+    protected PersistentProductGroup parentGroup;
     
-    public Article(String name,PersistentComponent This,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,PersistentProducer producer,PersistentArticleState state,long id) throws PersistenceException {
+    public Article(String name,PersistentComponent This,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,PersistentProducer producer,PersistentArticleState state,PersistentProductGroup parentGroup,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super((String)name,(PersistentComponent)This,id);
         this.price = price;
@@ -127,7 +141,8 @@ public class Article extends model.Component implements PersistentArticle{
         this.currentStock = currentStock;
         this.producerDeliveryTime = producerDeliveryTime;
         this.producer = producer;
-        this.state = state;        
+        this.state = state;
+        this.parentGroup = parentGroup;        
     }
     
     static public long getTypeId() {
@@ -150,6 +165,10 @@ public class Article extends model.Component implements PersistentArticle{
         if(this.getState() != null){
             this.getState().store();
             ConnectionHandler.getTheConnectionHandler().theArticleFacade.stateSet(this.getId(), getState());
+        }
+        if(this.getParentGroup() != null){
+            this.getParentGroup().store();
+            ConnectionHandler.getTheConnectionHandler().theArticleFacade.parentGroupSet(this.getId(), getParentGroup());
         }
         
     }
@@ -217,6 +236,20 @@ public class Article extends model.Component implements PersistentArticle{
             ConnectionHandler.getTheConnectionHandler().theArticleFacade.stateSet(this.getId(), newValue);
         }
     }
+    public ProductGroup4Public getParentGroup() throws PersistenceException {
+        return this.parentGroup;
+    }
+    public void setParentGroup(ProductGroup4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.parentGroup)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.parentGroup = (PersistentProductGroup)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theArticleFacade.parentGroupSet(this.getId(), newValue);
+        }
+    }
     public PersistentArticle getThis() throws PersistenceException {
         if(this.This == null){
             PersistentArticle result = (PersistentArticle)PersistentProxi.createProxi(this.getId(),this.getClassId());
@@ -261,8 +294,19 @@ public class Article extends model.Component implements PersistentArticle{
     public <R, E extends model.UserException> R accept(CompHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleArticle(this);
     }
+    public void accept(SubComponentVisitor visitor) throws PersistenceException {
+        visitor.handleArticle(this);
+    }
+    public <R> R accept(SubComponentReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleArticle(this);
+    }
+    public <E extends model.UserException>  void accept(SubComponentExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleArticle(this);
+    }
+    public <R, E extends model.UserException> R accept(SubComponentReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleArticle(this);
+    }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getProducer() != null) return 1;
         if (this.getState() != null) return 1;
         return 0;
     }
@@ -289,7 +333,17 @@ public class Article extends model.Component implements PersistentArticle{
 			this.setMaxStock((Long)final$$Fields.get("maxStock"));
 			this.setProducerDeliveryTime((Long)final$$Fields.get("producerDeliveryTime"));
 			this.setProducer((PersistentProducer)final$$Fields.get("producer"));
+			this.setParentGroup((PersistentProductGroup)final$$Fields.get("parentGroup"));
 		}
+    }
+    public void moveTo(final ProductGroup4Public productGroup, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		MoveToCommand4Public command = model.meta.MoveToCommand.createMoveToCommand(now, now);
+		command.setProductGroup(productGroup);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
@@ -311,6 +365,10 @@ public class Article extends model.Component implements PersistentArticle{
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
+    public String getProducerName() 
+				throws PersistenceException{
+        return getThis().getProducer().getName();
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         super.initializeOnCreation();
@@ -320,6 +378,14 @@ public class Article extends model.Component implements PersistentArticle{
 				throws PersistenceException{
         super.initializeOnInstantiation();
 		getThis().setState(NewCreated.createNewCreated());
+
+    }
+    public void moveTo(final ProductGroup4Public productGroup) 
+				throws model.CycleException, PersistenceException{
+        //TODO! Make SubComponent a class?
+        getThis().getParentGroup().removeComponent(getThis());
+        productGroup.addComponent(getThis());
+        getThis().setParentGroup(productGroup);
 
     }
     

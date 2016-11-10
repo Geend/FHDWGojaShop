@@ -314,6 +314,7 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         ImageView handle(CreateProductGroupPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(AddArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem menuItem);
         ImageView handle(AddProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(MoveToPRMTRSubComponentPRMTRProductGroupPRMTRMenuItem menuItem);
     }
     private abstract class ServerMenuItem extends MenuItem{
         private ServerMenuItem(){
@@ -332,6 +333,11 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         }
     }
     private class AddProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class MoveToPRMTRSubComponentPRMTRProductGroupPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -389,6 +395,19 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                     public void handle(javafx.event.ActionEvent e) {
                         final ServerAddProductGroupProductGroupStringMssgWizard wizard = new ServerAddProductGroupProductGroupStringMssgWizard("addProductGroup");
                         wizard.setFirstArgument((ProductGroupView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+            }
+            if (selected instanceof SubComponent){
+                item = new MoveToPRMTRSubComponentPRMTRProductGroupPRMTRMenuItem();
+                item.setText("moveTo ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final ServerMoveToSubComponentProductGroupMssgWizard wizard = new ServerMoveToSubComponentProductGroupMssgWizard("moveTo");
+                        wizard.setFirstArgument((SubComponent)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.showAndWait();
                     }
@@ -561,6 +580,9 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 			catch(DoubleDefinition e) {
 				getStatusBar().setText(e.getMessage());
 			}
+			catch(CycleException e) {
+				getStatusBar().setText(e.getMessage());
+			}
 			
 		}
 		protected String checkCompleteParameterSet(){
@@ -573,6 +595,58 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));		
 		}	
 		protected void handleDependencies(int i) {
+		}
+		
+		
+	}
+
+	class ServerMoveToSubComponentProductGroupMssgWizard extends Wizard {
+
+		protected ServerMoveToSubComponentProductGroupMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new MoveToPRMTRSubComponentPRMTRProductGroupPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerMoveToSubComponentProductGroupMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().moveTo(firstArgument, (ProductGroupView)((ObjectSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			catch(CycleException e) {
+				getStatusBar().setText(e.getMessage());
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			final ObjectSelectionPanel panel2 = new ObjectSelectionPanel("newParentGroup", "view.ProductGroupView", null, this);
+			getParametersPanel().getChildren().add(panel2);
+			panel2.setBrowserRoot((ViewRoot) getConnection().getServerView());		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private SubComponent firstArgument; 
+	
+		public void setFirstArgument(SubComponent firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
 		}
 		
 		

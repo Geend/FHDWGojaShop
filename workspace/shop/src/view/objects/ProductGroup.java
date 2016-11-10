@@ -7,7 +7,7 @@ import view.visitor.*;
 
 /* Additional import section end */
 
-public class ProductGroup extends view.objects.Component implements ProductGroupView{
+public abstract class ProductGroup extends view.objects.Component implements ProductGroupView{
     
     protected java.util.Vector<ComponentView> components;
     
@@ -17,14 +17,6 @@ public class ProductGroup extends view.objects.Component implements ProductGroup
         this.components = components;        
     }
     
-    static public long getTypeId() {
-        return 121;
-    }
-    
-    public long getClassId() {
-        return getTypeId();
-    }
-    
     public java.util.Vector<ComponentView> getComponents()throws ModelException{
         return this.components;
     }
@@ -32,30 +24,6 @@ public class ProductGroup extends view.objects.Component implements ProductGroup
         this.components = newValue;
     }
     
-    public void accept(ComponentVisitor visitor) throws ModelException {
-        visitor.handleProductGroup(this);
-    }
-    public <R> R accept(ComponentReturnVisitor<R>  visitor) throws ModelException {
-         return visitor.handleProductGroup(this);
-    }
-    public <E extends view.UserException>  void accept(ComponentExceptionVisitor<E> visitor) throws ModelException, E {
-         visitor.handleProductGroup(this);
-    }
-    public <R, E extends view.UserException> R accept(ComponentReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
-         return visitor.handleProductGroup(this);
-    }
-    public void accept(AnythingVisitor visitor) throws ModelException {
-        visitor.handleProductGroup(this);
-    }
-    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException {
-         return visitor.handleProductGroup(this);
-    }
-    public <E extends view.UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws ModelException, E {
-         visitor.handleProductGroup(this);
-    }
-    public <R, E extends view.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
-         return visitor.handleProductGroup(this);
-    }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
         java.util.Vector<?> components = this.getComponents();
@@ -121,9 +89,6 @@ public class ProductGroup extends view.objects.Component implements ProductGroup
             return;
         }
         rowIndex = rowIndex - 1;
-    }
-    public boolean hasTransientFields(){
-        return false;
     }
     /* Start of protected part that is not overridden by persistence generator */
     

@@ -10,10 +10,9 @@ public interface AnythingExceptionVisitor<E extends model.UserException> extends
     public void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException, E;
     public void handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException, E;
     public void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException, E;
-    public void handleComponentLst(ComponentLst4Public componentLst) throws PersistenceException, E;
     public void handleCreateProducerCommand(CreateProducerCommand4Public createProducerCommand) throws PersistenceException, E;
-    public void handleCreateProductGroupCommand(CreateProductGroupCommand4Public createProductGroupCommand) throws PersistenceException, E;
     public void handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException, E;
+    public void handleMoveToCommand(MoveToCommand4Public moveToCommand) throws PersistenceException, E;
     public void handleProducer(Producer4Public producer) throws PersistenceException, E;
     public void handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException, E;
     public void handleServer(Server4Public server) throws PersistenceException, E;

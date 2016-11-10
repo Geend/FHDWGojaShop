@@ -29,23 +29,24 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleNewCreated(NewCreated4Public newCreated) throws PersistenceException{
         this.handleArticleState(newCreated);
     }
-    public abstract void handleComponentLst(ComponentLst4Public componentLst) throws PersistenceException;
-    
     public abstract void handleComponent(Component4Public component) throws PersistenceException;
     
-    public void handleProductGroup(ProductGroup4Public productGroup) throws PersistenceException{
-        this.handleComponent(productGroup);
+    public void handleRootProductGroup(RootProductGroup4Public rootProductGroup) throws PersistenceException{
+        this.handleComponent(rootProductGroup);
     }
     public void handleArticle(Article4Public article) throws PersistenceException{
         this.handleComponent(article);
     }
+    public void handleSubProductGroup(SubProductGroup4Public subProductGroup) throws PersistenceException{
+        this.handleComponent(subProductGroup);
+    }
     public abstract void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException;
     
-    public void handleCreateProductGroupCommand(CreateProductGroupCommand4Public createProductGroupCommand) throws PersistenceException{
-        this.handleCommonDate(createProductGroupCommand);
-    }
     public void handleCreateProducerCommand(CreateProducerCommand4Public createProducerCommand) throws PersistenceException{
         this.handleCommonDate(createProducerCommand);
+    }
+    public void handleMoveToCommand(MoveToCommand4Public moveToCommand) throws PersistenceException{
+        this.handleCommonDate(moveToCommand);
     }
     public void handleAddArticleCommand(AddArticleCommand4Public addArticleCommand) throws PersistenceException{
         this.handleCommonDate(addArticleCommand);
