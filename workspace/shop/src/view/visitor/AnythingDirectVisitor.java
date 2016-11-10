@@ -13,6 +13,17 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;
     
+    public abstract void handleService(ServiceView service) throws ModelException;
+    
+    public void handleOwner(OwnerView owner) throws ModelException{
+        this.handleService(owner);
+    }
+    public void handleCustomer(CustomerView customer) throws ModelException{
+        this.handleService(customer);
+    }
+    public void handleCustomerRegisterService(CustomerRegisterServiceView customerRegisterService) throws ModelException{
+        this.handleService(customerRegisterService);
+    }
     public abstract void handleArticleState(ArticleStateView articleState) throws ModelException;
     
     public void handleRemainingStock(RemainingStockView remainingStock) throws ModelException{

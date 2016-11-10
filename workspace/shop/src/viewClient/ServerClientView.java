@@ -1,11 +1,14 @@
 package viewClient;
 
+import model.CustomerRegisterService;
 import view.*;
+import view.objects.Customer;
 import view.objects.ViewRoot;
 import view.objects.ViewObjectInTree;
 
 import view.visitor.AnythingStandardVisitor;
 
+import java.awt.*;
 import java.util.Optional;
 
 import javafx.application.Platform;
@@ -34,6 +37,7 @@ import javafx.scene.layout.BorderPane;
 
 
 import com.sun.javafx.geom.Point2D;
+import view.visitor.ServiceVisitor;
 
 import javax.swing.tree.TreeModel;
 
@@ -58,7 +62,8 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 		return this.service;
 	}
 	private void initialize() {
-        this.setCenter( this.getMainSplitPane());
+
+     this.setCenter( this.getMainSplitPane());
         if( !WithStaticOperations && this.getMainToolBar().getItems().size() > 0){
         	this.setTop( this.getMainToolBar() );
         }
@@ -286,14 +291,48 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 	/** Is called only once after the connection has been established
 	**/
 	public void initializeConnection(){
-		Platform.runLater( new  Runnable() {
+		/*Platform.runLater( new  Runnable() {
 			public void run() {
 				getNavigationTree().setModel((TreeModel) getConnection().getServerView());	
 				getNavigationTree().getRoot().setExpanded(true);
 				getNavigationTree().getSelectionModel().select( getNavigationTree().getRoot());
 			}
-		});
+		});*/
+
+
 		//TODO adjust implementation: initializeConnection
+
+
+		try {
+			this.getService().getService().accept(new ServiceVisitor() {
+                @Override
+                public void handleCustomer(CustomerView customer) throws ModelException {
+					CustomerClientView view = new CustomerClientView(ServerClientView.this, customer);
+					customer.connectCustomer(ServerClientView.this.getConnection(), view);
+					ServerClientView.this.setCenter(view);
+
+                }
+
+                @Override
+                public void handleCustomerRegisterService(CustomerRegisterServiceView customerRegisterService) throws ModelException {
+					CustomerRegisterServiceClientView view = new CustomerRegisterServiceClientView(ServerClientView.this, customerRegisterService);
+					customerRegisterService.connectCustomerRegisterService(ServerClientView.this.getConnection(), view);
+					ServerClientView.this.setCenter(view);
+
+				}
+
+                @Override
+                public void handleOwner(OwnerView owner) throws ModelException {
+					OwnerClientView view = new OwnerClientView(ServerClientView.this, owner);
+					owner.connectOwner(ServerClientView.this.getConnection(), view);
+					ServerClientView.this.setCenter(view);
+
+				}
+            });
+			getConnection().refresherStop();
+		} catch (ModelException e) {
+			this.handleException(e);
+		}
 	}
 	public void handleException(ModelException exception) {
 		this.parent.handleException(exception);
@@ -311,18 +350,7 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 
 
     interface MenuItemVisitor{
-        ImageView handle(CreateProductGroupPRMTRStringPRMTRMenuItem menuItem);
-        ImageView handle(AddArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem menuItem);
-        ImageView handle(AddProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem menuItem);
-        ImageView handle(ChangeArticleMaxStockPRMTRArticlePRMTRIntegerPRMTRMenuItem menuItem);
-        ImageView handle(ChangeArticleMinStockPRMTRArticlePRMTRIntegerPRMTRMenuItem menuItem);
-        ImageView handle(ChangeArticleNamePRMTRArticlePRMTRStringPRMTRMenuItem menuItem);
-        ImageView handle(ChangeArticlePricePRMTRArticlePRMTRFractionPRMTRMenuItem menuItem);
-        ImageView handle(CreateProducerPRMTRStringPRMTRMenuItem menuItem);
-        ImageView handle(IncreaseArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem menuItem);
-        ImageView handle(MoveToPRMTRSubComponentPRMTRProductGroupPRMTRMenuItem menuItem);
-        ImageView handle(NextArticleStatePRMTRArticlePRMTRMenuItem menuItem);
-        ImageView handle(ReduceArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem menuItem);
+        
     }
     private abstract class ServerMenuItem extends MenuItem{
         private ServerMenuItem(){
@@ -330,246 +358,19 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         }
         abstract protected ImageView accept(MenuItemVisitor visitor);
     }
-    private class CreateProductGroupPRMTRStringPRMTRMenuItem extends ServerMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class AddArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem extends ServerMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class AddProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem extends ServerMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class ChangeArticleMaxStockPRMTRArticlePRMTRIntegerPRMTRMenuItem extends ServerMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class ChangeArticleMinStockPRMTRArticlePRMTRIntegerPRMTRMenuItem extends ServerMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class ChangeArticleNamePRMTRArticlePRMTRStringPRMTRMenuItem extends ServerMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class ChangeArticlePricePRMTRArticlePRMTRFractionPRMTRMenuItem extends ServerMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class CreateProducerPRMTRStringPRMTRMenuItem extends ServerMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class IncreaseArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem extends ServerMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class MoveToPRMTRSubComponentPRMTRProductGroupPRMTRMenuItem extends ServerMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class NextArticleStatePRMTRArticlePRMTRMenuItem extends ServerMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class ReduceArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem extends ServerMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
     private java.util.Vector<javafx.scene.control.Button> getToolButtonsForStaticOperations() {
         java.util.Vector<javafx.scene.control.Button> result = new java.util.Vector<javafx.scene.control.Button>();
-        javafx.scene.control.Button currentButton = null;
-        currentButton = new javafx.scene.control.Button("NeueProduktgruppe ... ");
-        currentButton.setGraphic(new CreateProductGroupPRMTRStringPRMTRMenuItem().getGraphic());
-        currentButton.setOnAction(new EventHandler<ActionEvent>(){
-            public void handle(javafx.event.ActionEvent e) {
-                final ServerCreateProductGroupStringMssgWizard wizard = new ServerCreateProductGroupStringMssgWizard("NeueProduktgruppe");
-                wizard.setWidth(getNavigationPanel().getWidth());
-                wizard.showAndWait();
-            }
-        });
-        result.add(currentButton);
-        currentButton = new javafx.scene.control.Button("createProducer ... ");
-        currentButton.setGraphic(new CreateProducerPRMTRStringPRMTRMenuItem().getGraphic());
-        currentButton.setOnAction(new EventHandler<ActionEvent>(){
-            public void handle(javafx.event.ActionEvent e) {
-                final ServerCreateProducerStringMssgWizard wizard = new ServerCreateProducerStringMssgWizard("createProducer");
-                wizard.setWidth(getNavigationPanel().getWidth());
-                wizard.showAndWait();
-            }
-        });
-        result.add(currentButton);
         return result;
     }
     private ContextMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations, final Point2D menuPos) {
         final ContextMenu result = new ContextMenu();
         MenuItem item = null;
-        item = new CreateProductGroupPRMTRStringPRMTRMenuItem();
-        item.setText("(S) NeueProduktgruppe ... ");
-        item.setOnAction(new EventHandler<ActionEvent>(){
-            public void handle(javafx.event.ActionEvent e) {
-                final ServerCreateProductGroupStringMssgWizard wizard = new ServerCreateProductGroupStringMssgWizard("NeueProduktgruppe");
-                wizard.setWidth(getNavigationPanel().getWidth());
-                wizard.showAndWait();
-            }
-        });
-        if (withStaticOperations) result.getItems().add(item);
-        item = new CreateProducerPRMTRStringPRMTRMenuItem();
-        item.setText("(S) createProducer ... ");
-        item.setOnAction(new EventHandler<ActionEvent>(){
-            public void handle(javafx.event.ActionEvent e) {
-                final ServerCreateProducerStringMssgWizard wizard = new ServerCreateProducerStringMssgWizard("createProducer");
-                wizard.setWidth(getNavigationPanel().getWidth());
-                wizard.showAndWait();
-            }
-        });
-        if (withStaticOperations) result.getItems().add(item);
         if (selected != null){
             try {
                 this.setPreCalculatedFilters(this.getConnection().server_Menu_Filter((Anything)selected));
             } catch (ModelException me){
                 this.handleException(me);
                 return result;
-            }
-            if (selected instanceof ProductGroupView){
-                item = new AddArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem();
-                item.setText("addArticle ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final ServerAddArticleProductGroupStringFractionIntegerIntegerIntegerProducerMssgWizard wizard = new ServerAddArticleProductGroupStringFractionIntegerIntegerIntegerProducerMssgWizard("addArticle");
-                        wizard.setFirstArgument((ProductGroupView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-                item = new AddProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem();
-                item.setText("addProductGroup ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final ServerAddProductGroupProductGroupStringMssgWizard wizard = new ServerAddProductGroupProductGroupStringMssgWizard("addProductGroup");
-                        wizard.setFirstArgument((ProductGroupView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-            }
-            if (selected instanceof SubComponent){
-                item = new MoveToPRMTRSubComponentPRMTRProductGroupPRMTRMenuItem();
-                item.setText("moveTo ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final ServerMoveToSubComponentProductGroupMssgWizard wizard = new ServerMoveToSubComponentProductGroupMssgWizard("moveTo");
-                        wizard.setFirstArgument((SubComponent)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-            }
-            if (selected instanceof ArticleView){
-                item = new ChangeArticleMaxStockPRMTRArticlePRMTRIntegerPRMTRMenuItem();
-                item.setText("changeArticleMaxStock ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final ServerChangeArticleMaxStockArticleIntegerMssgWizard wizard = new ServerChangeArticleMaxStockArticleIntegerMssgWizard("changeArticleMaxStock");
-                        wizard.setFirstArgument((ArticleView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-                item = new ChangeArticleMinStockPRMTRArticlePRMTRIntegerPRMTRMenuItem();
-                item.setText("changeArticleMinStock ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final ServerChangeArticleMinStockArticleIntegerMssgWizard wizard = new ServerChangeArticleMinStockArticleIntegerMssgWizard("changeArticleMinStock");
-                        wizard.setFirstArgument((ArticleView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-                item = new ChangeArticleNamePRMTRArticlePRMTRStringPRMTRMenuItem();
-                item.setText("changeArticleName ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final ServerChangeArticleNameArticleStringMssgWizard wizard = new ServerChangeArticleNameArticleStringMssgWizard("changeArticleName");
-                        wizard.setFirstArgument((ArticleView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-                item = new ChangeArticlePricePRMTRArticlePRMTRFractionPRMTRMenuItem();
-                item.setText("changeArticlePrice ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final ServerChangeArticlePriceArticleFractionMssgWizard wizard = new ServerChangeArticlePriceArticleFractionMssgWizard("changeArticlePrice");
-                        wizard.setFirstArgument((ArticleView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-                item = new IncreaseArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem();
-                item.setText("increaseArticleStock ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final ServerIncreaseArticleStockArticleIntegerMssgWizard wizard = new ServerIncreaseArticleStockArticleIntegerMssgWizard("increaseArticleStock");
-                        wizard.setFirstArgument((ArticleView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-                item = new NextArticleStatePRMTRArticlePRMTRMenuItem();
-                item.setText("nextArticleState");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        Alert confirm = new Alert(AlertType.CONFIRMATION);
-                        confirm.setTitle(GUIConstants.ConfirmButtonText);
-                        confirm.setHeaderText(null);
-                        confirm.setContentText("nextArticleState" + GUIConstants.ConfirmQuestionMark);
-                        Optional<ButtonType> buttonResult = confirm.showAndWait();
-                        if (buttonResult.get() == ButtonType.OK) {
-                            try {
-                                getConnection().nextArticleState((ArticleView)selected);
-                                getConnection().setEagerRefresh();
-                                
-                            }catch(ModelException me){
-                                handleException(me);
-                            }
-                        }
-                    }
-                });
-                result.getItems().add(item);
-                item = new ReduceArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem();
-                item.setText("reduceArticleStock ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final ServerReduceArticleStockArticleIntegerMssgWizard wizard = new ServerReduceArticleStockArticleIntegerMssgWizard("reduceArticleStock");
-                        wizard.setFirstArgument((ArticleView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
             }
             
         }
@@ -584,554 +385,6 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         this.preCalculatedFilters = switchOff;
     }
     
-	class ServerAddArticleProductGroupStringFractionIntegerIntegerIntegerProducerMssgWizard extends Wizard {
-
-		protected ServerAddArticleProductGroupStringFractionIntegerIntegerIntegerProducerMssgWizard(String operationName){
-			super(ServerClientView.this);
-			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new AddArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem ().getGraphic());
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerAddArticleProductGroupStringFractionIntegerIntegerIntegerProducerMssgWizard.help";
-			super.initialize();		
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().addArticle(firstArgument, ((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult(),
-									((FractionSelectionPanel)getParametersPanel().getChildren().get(1)).getResult(),
-									((IntegerSelectionPanel)getParametersPanel().getChildren().get(2)).getResult().longValue(),
-									((IntegerSelectionPanel)getParametersPanel().getChildren().get(3)).getResult().longValue(),
-									((IntegerSelectionPanel)getParametersPanel().getChildren().get(4)).getResult().longValue(),
-									(ProducerView)((ObjectSelectionPanel)getParametersPanel().getChildren().get(5)).getResult());
-				getConnection().setEagerRefresh();
-				this.close();	
-			} catch(ModelException me){
-				handleException(me);
-				this.close();
-			}
-			catch(CycleException e) {
-				getStatusBar().setText(e.getMessage());
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		protected boolean isModifying () {
-			return false;
-		}
-		protected void addParameters(){
-			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));
-			getParametersPanel().getChildren().add(new FractionSelectionPanel("price", this));
-			getParametersPanel().getChildren().add(new IntegerSelectionPanel("minStock", this));
-			getParametersPanel().getChildren().add(new IntegerSelectionPanel("maxStock", this));
-			getParametersPanel().getChildren().add(new IntegerSelectionPanel("producerDeliveryTime", this));
-			final ObjectSelectionPanel panel1 = new ObjectSelectionPanel("producer", "view.ProducerView", null, this);
-			getParametersPanel().getChildren().add(panel1);
-			panel1.setBrowserRoot((ViewRoot) getConnection().getServerView());		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private ProductGroupView firstArgument; 
-	
-		public void setFirstArgument(ProductGroupView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			try{
-				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
-				selectionPanel0.preset(firstArgument.getName());
-				if (!selectionPanel0.check()) selectionPanel0.preset("");
-			}catch(ModelException me){
-				 handleException(me);
-			}
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerAddProductGroupProductGroupStringMssgWizard extends Wizard {
-
-		protected ServerAddProductGroupProductGroupStringMssgWizard(String operationName){
-			super(ServerClientView.this);
-			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new AddProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem ().getGraphic());
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerAddProductGroupProductGroupStringMssgWizard.help";
-			super.initialize();		
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().addProductGroup(firstArgument, ((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
-				getConnection().setEagerRefresh();
-				this.close();	
-			} catch(ModelException me){
-				handleException(me);
-				this.close();
-			}
-			catch(DoubleDefinition e) {
-				getStatusBar().setText(e.getMessage());
-			}
-			catch(CycleException e) {
-				getStatusBar().setText(e.getMessage());
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		protected boolean isModifying () {
-			return false;
-		}
-		protected void addParameters(){
-			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private ProductGroupView firstArgument; 
-	
-		public void setFirstArgument(ProductGroupView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			try{
-				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
-				selectionPanel0.preset(firstArgument.getName());
-				if (!selectionPanel0.check()) selectionPanel0.preset("");
-			}catch(ModelException me){
-				 handleException(me);
-			}
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerChangeArticleMaxStockArticleIntegerMssgWizard extends Wizard {
-
-		protected ServerChangeArticleMaxStockArticleIntegerMssgWizard(String operationName){
-			super(ServerClientView.this);
-			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new ChangeArticleMaxStockPRMTRArticlePRMTRIntegerPRMTRMenuItem ().getGraphic());
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerChangeArticleMaxStockArticleIntegerMssgWizard.help";
-			super.initialize();		
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().changeArticleMaxStock(firstArgument, ((IntegerSelectionPanel)getParametersPanel().getChildren().get(0)).getResult().longValue());
-				getConnection().setEagerRefresh();
-				this.close();	
-			} catch(ModelException me){
-				handleException(me);
-				this.close();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		protected boolean isModifying () {
-			return false;
-		}
-		protected void addParameters(){
-			getParametersPanel().getChildren().add(new IntegerSelectionPanel("newArticleMaxStock", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private ArticleView firstArgument; 
-	
-		public void setFirstArgument(ArticleView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerChangeArticleMinStockArticleIntegerMssgWizard extends Wizard {
-
-		protected ServerChangeArticleMinStockArticleIntegerMssgWizard(String operationName){
-			super(ServerClientView.this);
-			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new ChangeArticleMinStockPRMTRArticlePRMTRIntegerPRMTRMenuItem ().getGraphic());
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerChangeArticleMinStockArticleIntegerMssgWizard.help";
-			super.initialize();		
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().changeArticleMinStock(firstArgument, ((IntegerSelectionPanel)getParametersPanel().getChildren().get(0)).getResult().longValue());
-				getConnection().setEagerRefresh();
-				this.close();	
-			} catch(ModelException me){
-				handleException(me);
-				this.close();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		protected boolean isModifying () {
-			return false;
-		}
-		protected void addParameters(){
-			getParametersPanel().getChildren().add(new IntegerSelectionPanel("newArticleMinStock", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private ArticleView firstArgument; 
-	
-		public void setFirstArgument(ArticleView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerChangeArticleNameArticleStringMssgWizard extends Wizard {
-
-		protected ServerChangeArticleNameArticleStringMssgWizard(String operationName){
-			super(ServerClientView.this);
-			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new ChangeArticleNamePRMTRArticlePRMTRStringPRMTRMenuItem ().getGraphic());
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerChangeArticleNameArticleStringMssgWizard.help";
-			super.initialize();		
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().changeArticleName(firstArgument, ((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
-				getConnection().setEagerRefresh();
-				this.close();	
-			} catch(ModelException me){
-				handleException(me);
-				this.close();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		protected boolean isModifying () {
-			return false;
-		}
-		protected void addParameters(){
-			getParametersPanel().getChildren().add(new StringSelectionPanel("newName", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private ArticleView firstArgument; 
-	
-		public void setFirstArgument(ArticleView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerChangeArticlePriceArticleFractionMssgWizard extends Wizard {
-
-		protected ServerChangeArticlePriceArticleFractionMssgWizard(String operationName){
-			super(ServerClientView.this);
-			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new ChangeArticlePricePRMTRArticlePRMTRFractionPRMTRMenuItem ().getGraphic());
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerChangeArticlePriceArticleFractionMssgWizard.help";
-			super.initialize();		
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().changeArticlePrice(firstArgument, ((FractionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
-				getConnection().setEagerRefresh();
-				this.close();	
-			} catch(ModelException me){
-				handleException(me);
-				this.close();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		protected boolean isModifying () {
-			return false;
-		}
-		protected void addParameters(){
-			getParametersPanel().getChildren().add(new FractionSelectionPanel("newPrice", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private ArticleView firstArgument; 
-	
-		public void setFirstArgument(ArticleView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerCreateProducerStringMssgWizard extends Wizard {
-
-		protected ServerCreateProducerStringMssgWizard(String operationName){
-			super(ServerClientView.this);
-			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new CreateProducerPRMTRStringPRMTRMenuItem ().getGraphic());
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerCreateProducerStringMssgWizard.help";
-			super.initialize();		
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().createProducer(((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
-				getConnection().setEagerRefresh();
-				this.close();	
-			} catch(ModelException me){
-				handleException(me);
-				this.close();
-			}
-			catch(DoubleDefinition e) {
-				getStatusBar().setText(e.getMessage());
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		protected boolean isModifying () {
-			return false;
-		}
-		protected void addParameters(){
-			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-	}
-
-	class ServerCreateProductGroupStringMssgWizard extends Wizard {
-
-		protected ServerCreateProductGroupStringMssgWizard(String operationName){
-			super(ServerClientView.this);
-			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new CreateProductGroupPRMTRStringPRMTRMenuItem ().getGraphic());
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerCreateProductGroupStringMssgWizard.help";
-			super.initialize();		
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().createProductGroup(((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
-				getConnection().setEagerRefresh();
-				this.close();	
-			} catch(ModelException me){
-				handleException(me);
-				this.close();
-			}
-			catch(DoubleDefinition e) {
-				getStatusBar().setText(e.getMessage());
-			}
-			catch(CycleException e) {
-				getStatusBar().setText(e.getMessage());
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		protected boolean isModifying () {
-			return false;
-		}
-		protected void addParameters(){
-			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-	}
-
-	class ServerIncreaseArticleStockArticleIntegerMssgWizard extends Wizard {
-
-		protected ServerIncreaseArticleStockArticleIntegerMssgWizard(String operationName){
-			super(ServerClientView.this);
-			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new IncreaseArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem ().getGraphic());
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerIncreaseArticleStockArticleIntegerMssgWizard.help";
-			super.initialize();		
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().increaseArticleStock(firstArgument, ((IntegerSelectionPanel)getParametersPanel().getChildren().get(0)).getResult().longValue());
-				getConnection().setEagerRefresh();
-				this.close();	
-			} catch(ModelException me){
-				handleException(me);
-				this.close();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		protected boolean isModifying () {
-			return false;
-		}
-		protected void addParameters(){
-			getParametersPanel().getChildren().add(new IntegerSelectionPanel("quantity", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private ArticleView firstArgument; 
-	
-		public void setFirstArgument(ArticleView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerMoveToSubComponentProductGroupMssgWizard extends Wizard {
-
-		protected ServerMoveToSubComponentProductGroupMssgWizard(String operationName){
-			super(ServerClientView.this);
-			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new MoveToPRMTRSubComponentPRMTRProductGroupPRMTRMenuItem ().getGraphic());
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerMoveToSubComponentProductGroupMssgWizard.help";
-			super.initialize();		
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().moveTo(firstArgument, (ProductGroupView)((ObjectSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
-				getConnection().setEagerRefresh();
-				this.close();	
-			} catch(ModelException me){
-				handleException(me);
-				this.close();
-			}
-			catch(CycleException e) {
-				getStatusBar().setText(e.getMessage());
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		protected boolean isModifying () {
-			return false;
-		}
-		protected void addParameters(){
-			final ObjectSelectionPanel panel2 = new ObjectSelectionPanel("newParentGroup", "view.ProductGroupView", null, this);
-			getParametersPanel().getChildren().add(panel2);
-			panel2.setBrowserRoot((ViewRoot) getConnection().getServerView());		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private SubComponent firstArgument; 
-	
-		public void setFirstArgument(SubComponent firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerReduceArticleStockArticleIntegerMssgWizard extends Wizard {
-
-		protected ServerReduceArticleStockArticleIntegerMssgWizard(String operationName){
-			super(ServerClientView.this);
-			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new ReduceArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem ().getGraphic());
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerReduceArticleStockArticleIntegerMssgWizard.help";
-			super.initialize();		
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().reduceArticleStock(firstArgument, ((IntegerSelectionPanel)getParametersPanel().getChildren().get(0)).getResult().longValue());
-				getConnection().setEagerRefresh();
-				this.close();	
-			} catch(ModelException me){
-				handleException(me);
-				this.close();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		protected boolean isModifying () {
-			return false;
-		}
-		protected void addParameters(){
-			getParametersPanel().getChildren().add(new IntegerSelectionPanel("quantity", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private ArticleView firstArgument; 
-	
-		public void setFirstArgument(ArticleView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
 	/* Menu and wizard section end */
 	
 	private ImageView getIconForMenuItem(ServerMenuItem menuItem){

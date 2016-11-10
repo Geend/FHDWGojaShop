@@ -3,7 +3,7 @@ package model.visitor;
 
 import persistence.*;
 
-public interface AnythingReturnVisitor<R> extends ArticleStateReturnVisitor<R> ,CommonDateReturnVisitor<R> ,ComponentReturnVisitor<R> {
+public interface AnythingReturnVisitor<R> extends ArticleStateReturnVisitor<R> ,CommonDateReturnVisitor<R> ,ComponentReturnVisitor<R> ,ServiceReturnVisitor<R> {
     
     public R handleAddArticleCommand(AddArticleCommand4Public addArticleCommand) throws PersistenceException;
     public R handleAddSubProductGroupCommand(AddSubProductGroupCommand4Public addSubProductGroupCommand) throws PersistenceException;

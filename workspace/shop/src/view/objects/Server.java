@@ -10,16 +10,14 @@ import view.visitor.*;
 
 public class Server extends ViewObject implements ServerView{
     
-    protected ProductGroupView rootProductGroup;
-    protected ProducerLstView prmanager;
+    protected ServiceView service;
     protected java.util.Vector<ErrorDisplayView> errors;
     protected String user;
     
-    public Server(ProductGroupView rootProductGroup,ProducerLstView prmanager,java.util.Vector<ErrorDisplayView> errors,String user,long id, long classId) {
+    public Server(ServiceView service,java.util.Vector<ErrorDisplayView> errors,String user,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
-        this.rootProductGroup = rootProductGroup;
-        this.prmanager = prmanager;
+        this.service = service;
         this.errors = errors;
         this.user = user;        
     }
@@ -32,17 +30,11 @@ public class Server extends ViewObject implements ServerView{
         return getTypeId();
     }
     
-    public ProductGroupView getRootProductGroup()throws ModelException{
-        return this.rootProductGroup;
+    public ServiceView getService()throws ModelException{
+        return this.service;
     }
-    public void setRootProductGroup(ProductGroupView newValue) throws ModelException {
-        this.rootProductGroup = newValue;
-    }
-    public ProducerLstView getPrmanager()throws ModelException{
-        return this.prmanager;
-    }
-    public void setPrmanager(ProducerLstView newValue) throws ModelException {
-        this.prmanager = newValue;
+    public void setService(ServiceView newValue) throws ModelException {
+        this.service = newValue;
     }
     public java.util.Vector<ErrorDisplayView> getErrors()throws ModelException{
         return this.errors;
@@ -83,13 +75,9 @@ public class Server extends ViewObject implements ServerView{
     }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
-        ProductGroupView rootProductGroup = this.getRootProductGroup();
-        if (rootProductGroup != null) {
-            ((ViewProxi)rootProductGroup).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(rootProductGroup.getClassId(), rootProductGroup.getId())));
-        }
-        ProducerLstView prmanager = this.getPrmanager();
-        if (prmanager != null) {
-            ((ViewProxi)prmanager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(prmanager.getClassId(), prmanager.getId())));
+        ServiceView service = this.getService();
+        if (service != null) {
+            ((ViewProxi)service).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(service.getClassId(), service.getId())));
         }
         java.util.Vector<?> errors = this.getErrors();
         if (errors != null) {
@@ -102,32 +90,26 @@ public class Server extends ViewObject implements ServerView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
         int index = originalIndex;
-        if(index == 0 && this.getRootProductGroup() != null) return new RootProductGroupServerWrapper(this, originalIndex, (ViewRoot)this.getRootProductGroup());
-        if(this.getRootProductGroup() != null) index = index - 1;
-        if(index == 0 && this.getPrmanager() != null) return new PrmanagerServerWrapper(this, originalIndex, (ViewRoot)this.getPrmanager());
-        if(this.getPrmanager() != null) index = index - 1;
+        if(index == 0 && this.getService() != null) return new ServiceServerWrapper(this, originalIndex, (ViewRoot)this.getService());
+        if(this.getService() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getRootProductGroup() == null ? 0 : 1)
-            + (this.getPrmanager() == null ? 0 : 1);
+            + (this.getService() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         return true 
-            && (this.getRootProductGroup() == null ? true : false)
-            && (this.getPrmanager() == null ? true : false);
+            && (this.getService() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
-        if(this.getRootProductGroup() != null && this.getRootProductGroup().equals(child)) return result;
-        if(this.getRootProductGroup() != null) result = result + 1;
-        if(this.getPrmanager() != null && this.getPrmanager().equals(child)) return result;
-        if(this.getPrmanager() != null) result = result + 1;
+        if(this.getService() != null && this.getService().equals(child)) return result;
+        if(this.getService() != null) result = result + 1;
         return -1;
     }
     public int getUserIndex() throws ModelException {
-        return 0 + (this.getRootProductGroup() == null ? 0 : 1) + (this.getPrmanager() == null ? 0 : 1);
+        return 0 + (this.getService() == null ? 0 : 1);
     }
     public int getRowCount(){
         return 0 

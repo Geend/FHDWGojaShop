@@ -13,24 +13,17 @@ public class ServerProxi extends ViewProxi implements ServerView{
     
     @SuppressWarnings("unchecked")
     public ServerView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
-        ViewProxi rootProductGroup = null;
-        String rootProductGroup$String = (String)resultTable.get("rootProductGroup");
-        if (rootProductGroup$String != null) {
-            common.ProxiInformation rootProductGroup$Info = common.RPCConstantsAndServices.createProxiInformation(rootProductGroup$String);
-            rootProductGroup = view.objects.ViewProxi.createProxi(rootProductGroup$Info,connectionKey);
-            rootProductGroup.setToString(rootProductGroup$Info.getToString());
-        }
-        ViewProxi prmanager = null;
-        String prmanager$String = (String)resultTable.get("prmanager");
-        if (prmanager$String != null) {
-            common.ProxiInformation prmanager$Info = common.RPCConstantsAndServices.createProxiInformation(prmanager$String);
-            prmanager = view.objects.ViewProxi.createProxi(prmanager$Info,connectionKey);
-            prmanager.setToString(prmanager$Info.getToString());
+        ViewProxi service = null;
+        String service$String = (String)resultTable.get("service");
+        if (service$String != null) {
+            common.ProxiInformation service$Info = common.RPCConstantsAndServices.createProxiInformation(service$String);
+            service = view.objects.ViewProxi.createProxi(service$Info,connectionKey);
+            service.setToString(service$Info.getToString());
         }
         java.util.Vector<String> errors_string = (java.util.Vector<String>)resultTable.get("errors");
         java.util.Vector<ErrorDisplayView> errors = ViewProxi.getProxiVector(errors_string, connectionKey);
         String user = (String)resultTable.get("user");
-        ServerView result$$ = new Server((ProductGroupView)rootProductGroup,(ProducerLstView)prmanager,errors,(String)user, this.getId(), this.getClassId());
+        ServerView result$$ = new Server((ServiceView)service,errors,(String)user, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -40,43 +33,31 @@ public class ServerProxi extends ViewProxi implements ServerView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
         int index = originalIndex;
-        if(index == 0 && this.getRootProductGroup() != null) return new RootProductGroupServerWrapper(this, originalIndex, (ViewRoot)this.getRootProductGroup());
-        if(this.getRootProductGroup() != null) index = index - 1;
-        if(index == 0 && this.getPrmanager() != null) return new PrmanagerServerWrapper(this, originalIndex, (ViewRoot)this.getPrmanager());
-        if(this.getPrmanager() != null) index = index - 1;
+        if(index == 0 && this.getService() != null) return new ServiceServerWrapper(this, originalIndex, (ViewRoot)this.getService());
+        if(this.getService() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getRootProductGroup() == null ? 0 : 1)
-            + (this.getPrmanager() == null ? 0 : 1);
+            + (this.getService() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
-            && (this.getRootProductGroup() == null ? true : false)
-            && (this.getPrmanager() == null ? true : false);
+            && (this.getService() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
-        if(this.getRootProductGroup() != null && this.getRootProductGroup().equals(child)) return result;
-        if(this.getRootProductGroup() != null) result = result + 1;
-        if(this.getPrmanager() != null && this.getPrmanager().equals(child)) return result;
-        if(this.getPrmanager() != null) result = result + 1;
+        if(this.getService() != null && this.getService().equals(child)) return result;
+        if(this.getService() != null) result = result + 1;
         return -1;
     }
     
-    public ProductGroupView getRootProductGroup()throws ModelException{
-        return ((Server)this.getTheObject()).getRootProductGroup();
+    public ServiceView getService()throws ModelException{
+        return ((Server)this.getTheObject()).getService();
     }
-    public void setRootProductGroup(ProductGroupView newValue) throws ModelException {
-        ((Server)this.getTheObject()).setRootProductGroup(newValue);
-    }
-    public ProducerLstView getPrmanager()throws ModelException{
-        return ((Server)this.getTheObject()).getPrmanager();
-    }
-    public void setPrmanager(ProducerLstView newValue) throws ModelException {
-        ((Server)this.getTheObject()).setPrmanager(newValue);
+    public void setService(ServiceView newValue) throws ModelException {
+        ((Server)this.getTheObject()).setService(newValue);
     }
     public java.util.Vector<ErrorDisplayView> getErrors()throws ModelException{
         return ((Server)this.getTheObject()).getErrors();

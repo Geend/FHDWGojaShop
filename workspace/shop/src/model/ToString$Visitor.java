@@ -34,6 +34,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		result = "HERSTELLER (H)"; //TODO! constant
 	}
 
+	@Override
+	public void handleOwner(Owner4Public owner) throws PersistenceException {
+
+	}
+
 
 	@Override
 	public void handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException {
@@ -51,6 +56,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
+	public void handleCustomer(Customer4Public customer) throws PersistenceException {
+
+	}
+
+	@Override
 	public void handleArticle(Article4Public article) throws PersistenceException {
 		result = "A: " + article.getName(); //TODO! constant
 	}
@@ -63,6 +73,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleSubProductGroup(SubProductGroup4Public subProductGroup) throws PersistenceException {
 		result = "P: " + subProductGroup.getName();
+	}
+
+	@Override
+	public void handleCustomerRegisterService(CustomerRegisterService4Public customerRegisterService) throws PersistenceException {
+
 	}
 
 	@Override

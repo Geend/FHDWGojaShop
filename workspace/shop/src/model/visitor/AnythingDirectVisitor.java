@@ -15,6 +15,17 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException;
     
+    public abstract void handleService(Service4Public service) throws PersistenceException;
+    
+    public void handleOwner(Owner4Public owner) throws PersistenceException{
+        this.handleService(owner);
+    }
+    public void handleCustomer(Customer4Public customer) throws PersistenceException{
+        this.handleService(customer);
+    }
+    public void handleCustomerRegisterService(CustomerRegisterService4Public customerRegisterService) throws PersistenceException{
+        this.handleService(customerRegisterService);
+    }
     public abstract void handleArticleState(ArticleState4Public articleState) throws PersistenceException;
     
     public void handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException{

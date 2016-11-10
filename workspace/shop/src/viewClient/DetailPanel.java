@@ -1191,14 +1191,17 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleProducerLst(view.ProducerLstView object){
         result = new ProducerLstDefaultDetailPanel(handler, object);
     }
+    public void handleOwner(view.OwnerView object){
+        result = new OwnerDefaultDetailPanel(handler, object);
+    }
     public void handleRemainingStock(view.RemainingStockView object){
         result = new RemainingStockDefaultDetailPanel(handler, object);
     }
     public void handleServer(view.ServerView object){
         result = new ServerDefaultDetailPanel(handler, object);
     }
-    public void handleRootProductGroup(view.RootProductGroupView object){
-        result = new RootProductGroupDefaultDetailPanel(handler, object);
+    public void handleCustomer(view.CustomerView object){
+        result = new CustomerDefaultDetailPanel(handler, object);
     }
     public void handleErrorDisplay(view.ErrorDisplayView object){
         result = new ErrorDisplayDefaultDetailPanel(handler, object);
@@ -1209,17 +1212,23 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleNotInSale(view.NotInSaleView object){
         result = new NotInSaleDefaultDetailPanel(handler, object);
     }
+    public void handleCustomerRegisterService(view.CustomerRegisterServiceView object){
+        result = new CustomerRegisterServiceDefaultDetailPanel(handler, object);
+    }
     public void handleSubProductGroup(view.SubProductGroupView object){
         result = new SubProductGroupDefaultDetailPanel(handler, object);
+    }
+    public void handleNewCreated(view.NewCreatedView object){
+        result = new NewCreatedDefaultDetailPanel(handler, object);
+    }
+    public void handleRootProductGroup(view.RootProductGroupView object){
+        result = new RootProductGroupDefaultDetailPanel(handler, object);
     }
     public void handleInSale(view.InSaleView object){
         result = new InSaleDefaultDetailPanel(handler, object);
     }
     public void handleProducer(view.ProducerView object){
         result = new ProducerDefaultDetailPanel(handler, object);
-    }
-    public void handleNewCreated(view.NewCreatedView object){
-        result = new NewCreatedDefaultDetailPanel(handler, object);
     }
 
 }
@@ -1241,6 +1250,22 @@ class ProducerLstDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class OwnerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String Owner$$rootProductGroup = "Owner$$rootProductGroup";
+    protected static final String Owner$$prmanager = "Owner$$prmanager";
+    
+    protected OwnerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.OwnerView getAnything(){
+        return (view.OwnerView)this.anything;
+    }
+}
+
 class RemainingStockDefaultDetailPanel extends DefaultDetailPanel{
     
     protected RemainingStockDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1256,8 +1281,7 @@ class RemainingStockDefaultDetailPanel extends DefaultDetailPanel{
 
 class ServerDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String Server$$rootProductGroup = "Server$$rootProductGroup";
-    protected static final String Server$$prmanager = "Server$$prmanager";
+    protected static final String Server$$service = "Server$$service";
     protected static final String Server$$user = "Server$$user";
     
     protected ServerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1278,26 +1302,16 @@ class ServerDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
-class RootProductGroupDefaultDetailPanel extends DefaultDetailPanel{
+class CustomerDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String Component$$name = "Component$$name";
-    protected static final String ProductGroup$$components = "ProductGroup$$components";
-    
-    protected RootProductGroupDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+    protected CustomerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
-        try{
-            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
-            this.getScrollablePane().getChildren().add(panel);
-            this.panels.put(Component$$name, panel);
-        }catch(ModelException e){
-            this.getExceptionAndEventhandler().handleException(e);
-        }
         
     }
-    protected view.RootProductGroupView getAnything(){
-        return (view.RootProductGroupView)this.anything;
+    protected view.CustomerView getAnything(){
+        return (view.CustomerView)this.anything;
     }
 }
 
@@ -1414,6 +1428,19 @@ class NotInSaleDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class CustomerRegisterServiceDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected CustomerRegisterServiceDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.CustomerRegisterServiceView getAnything(){
+        return (view.CustomerRegisterServiceView)this.anything;
+    }
+}
+
 class SubProductGroupDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Component$$name = "Component$$name";
@@ -1434,6 +1461,42 @@ class SubProductGroupDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.SubProductGroupView getAnything(){
         return (view.SubProductGroupView)this.anything;
+    }
+}
+
+class NewCreatedDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected NewCreatedDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.NewCreatedView getAnything(){
+        return (view.NewCreatedView)this.anything;
+    }
+}
+
+class RootProductGroupDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String Component$$name = "Component$$name";
+    protected static final String ProductGroup$$components = "ProductGroup$$components";
+    
+    protected RootProductGroupDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(Component$$name, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.RootProductGroupView getAnything(){
+        return (view.RootProductGroupView)this.anything;
     }
 }
 
@@ -1469,18 +1532,5 @@ class ProducerDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ProducerView getAnything(){
         return (view.ProducerView)this.anything;
-    }
-}
-
-class NewCreatedDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected NewCreatedDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.NewCreatedView getAnything(){
-        return (view.NewCreatedView)this.anything;
     }
 }

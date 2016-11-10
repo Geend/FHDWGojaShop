@@ -3,7 +3,7 @@ package view.visitor;
 
 import view.*;
 
-public interface AnythingVisitor extends ArticleStateVisitor,ComponentVisitor{
+public interface AnythingVisitor extends ArticleStateVisitor,ComponentVisitor,ServiceVisitor{
     
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;
     public void handleProducer(ProducerView producer) throws ModelException;

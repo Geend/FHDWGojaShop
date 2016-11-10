@@ -8,6 +8,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleProducerLst(ProducerLstView producerLst) throws ModelException{
         this.standardHandling(producerLst);
     }
+    public void handleOwner(OwnerView owner) throws ModelException{
+        this.standardHandling(owner);
+    }
     public void handleRemainingStock(RemainingStockView remainingStock) throws ModelException{
         this.standardHandling(remainingStock);
     }
@@ -16,6 +19,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleRootProductGroup(RootProductGroupView rootProductGroup) throws ModelException{
         this.standardHandling(rootProductGroup);
+    }
+    public void handleCustomer(CustomerView customer) throws ModelException{
+        this.standardHandling(customer);
     }
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException{
         this.standardHandling(errorDisplay);
@@ -28,6 +34,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleSubProductGroup(SubProductGroupView subProductGroup) throws ModelException{
         this.standardHandling(subProductGroup);
+    }
+    public void handleCustomerRegisterService(CustomerRegisterServiceView customerRegisterService) throws ModelException{
+        this.standardHandling(customerRegisterService);
     }
     public void handleInSale(InSaleView inSale) throws ModelException{
         this.standardHandling(inSale);

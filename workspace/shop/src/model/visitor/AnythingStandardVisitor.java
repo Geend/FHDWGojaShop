@@ -8,20 +8,26 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException{
         this.standardHandling(producerLst);
     }
+    public void handleOwner(Owner4Public owner) throws PersistenceException{
+        this.standardHandling(owner);
+    }
     public void handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException{
         this.standardHandling(remainingStock);
     }
     public void handleServer(Server4Public server) throws PersistenceException{
         this.standardHandling(server);
     }
-    public void handleIncreaseStockCommand(IncreaseStockCommand4Public increaseStockCommand) throws PersistenceException{
-        this.standardHandling(increaseStockCommand);
-    }
     public void handleRootProductGroup(RootProductGroup4Public rootProductGroup) throws PersistenceException{
         this.standardHandling(rootProductGroup);
     }
+    public void handleIncreaseStockCommand(IncreaseStockCommand4Public increaseStockCommand) throws PersistenceException{
+        this.standardHandling(increaseStockCommand);
+    }
     public void handleCreateProducerCommand(CreateProducerCommand4Public createProducerCommand) throws PersistenceException{
         this.standardHandling(createProducerCommand);
+    }
+    public void handleCustomer(Customer4Public customer) throws PersistenceException{
+        this.standardHandling(customer);
     }
     public void handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException{
         this.standardHandling(errorDisplay);
@@ -40,6 +46,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleSubProductGroup(SubProductGroup4Public subProductGroup) throws PersistenceException{
         this.standardHandling(subProductGroup);
+    }
+    public void handleCustomerRegisterService(CustomerRegisterService4Public customerRegisterService) throws PersistenceException{
+        this.standardHandling(customerRegisterService);
     }
     public void handleInSale(InSale4Public inSale) throws PersistenceException{
         this.standardHandling(inSale);

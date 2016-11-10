@@ -3,6 +3,11 @@ model shop {
 // Server relevant classes - region begin
 
 server Server {
+	Service service;
+}
+abstract server Service {}
+
+server Owner extends Service {
 	one-to-one (server-only myServer) ProductGroup rootProductGroup; // Symmetrische Beziehung wurde bei Löwe nur benutzt, um signalChanged auf dem Server aufzurufen vom Manager aus...
 	ProducerLst prmanager;
 
@@ -24,6 +29,12 @@ server Server {
 	void reduceArticleStock(Article article, Integer quantity); //Only for testing
 	void increaseArticleStock(Article article, Integer quantity);//Only for testing
 }
+server Customer extends Service {
+}
+server CustomerRegisterService##crs extends Service {
+	void register(String accountName, String password PASSWORD);
+}
+
 
 // Server relevant classes -- region end
 
