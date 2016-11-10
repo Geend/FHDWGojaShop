@@ -17,6 +17,7 @@ server Server {
 class ComponentLst {
 	/*observe*/ Component ** currentComponents##currComps;
 	active void createProductGroup(String name) throws DoubleDefinition;
+
 }
 
 class ProducerLst {

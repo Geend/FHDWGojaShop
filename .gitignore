@@ -13,3 +13,10 @@ hs_err_pid*
 
 goja_backup/*
 db_scripts/*
+
+model/.PersistenceGeneratorConfiguration.xml
+
+
+workspace/shop/*
+!workspace/shop/lib/
+!workspace/shop/src/model/
