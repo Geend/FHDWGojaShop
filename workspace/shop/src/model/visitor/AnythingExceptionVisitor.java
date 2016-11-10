@@ -12,9 +12,11 @@ public interface AnythingExceptionVisitor<E extends model.UserException> extends
     public void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException, E;
     public void handleCreateProducerCommand(CreateProducerCommand4Public createProducerCommand) throws PersistenceException, E;
     public void handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException, E;
+    public void handleIncreaseStockCommand(IncreaseStockCommand4Public increaseStockCommand) throws PersistenceException, E;
     public void handleMoveToCommand(MoveToCommand4Public moveToCommand) throws PersistenceException, E;
     public void handleProducer(Producer4Public producer) throws PersistenceException, E;
     public void handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException, E;
+    public void handleReduceStockCommand(ReduceStockCommand4Public reduceStockCommand) throws PersistenceException, E;
     public void handleServer(Server4Public server) throws PersistenceException, E;
     
 }

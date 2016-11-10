@@ -5,16 +5,24 @@ model shop {
 server Server {
 	one-to-one (server-only myServer) ProductGroup rootProductGroup; // Symmetrische Beziehung wurde bei Löwe nur benutzt, um signalChanged auf dem Server aufzurufen vom Manager aus...
 	ProducerLst prmanager;
+
 	void addArticle(ProductGroup parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
 	void addProductGroup(ProductGroup parent, String name) throws CycleException, DoubleDefinition;
+
 	void createProductGroup@@NeueProduktgruppe(String name) throws DoubleDefinition, CycleException;
 	
 	void moveTo(SubComponent component, ProductGroup newParentGroup)throws CycleException;
 
-
 	void createProducer(String name) throws DoubleDefinition;
 
 	void nextArticleState(Article article);
+	void changeArticleName(Article article, String newName);
+	void changeArticlePrice(Article article, Fraction newPrice); 
+	void changeArticleMinStock(Article article, Integer newArticleMinStock);
+	void changeArticleMaxStock(Article article, Integer newArticleMaxStock);
+
+	void reduceArticleStock(Article article, Integer quantity); //Only for testing
+	void increaseArticleStock(Article article, Integer quantity);//Only for testing
 }
 
 // Server relevant classes -- region end
@@ -33,11 +41,8 @@ class ProducerLst {
 
 hierarchy collapsed CompHierarchy;
 
-
-
 abstract class Component{
 	public-write prior String name;
-
 }
 
 abstract class ProductGroup extends Component{
@@ -62,19 +67,20 @@ class Article extends Component  implements SubComponent{
 	public-write prior Integer maxStock;
 	public Integer currentStock;
 	public prior Integer producerDeliveryTime;
+
 	public no-view prior Producer producer;
 	public derived String producerName;
+
 	public-write no-view ArticleState state;
 	public derived String currentState;
 
-	
 
+	active void reduceStock(Integer quantity) throws NotEnoughStockException;
+	active void increaseStock(Integer quantity);
 }
 
 interface SubComponent{
-
 	no-view prior ProductGroup parentGroup;
-
 	active void moveTo(ProductGroup productGroup) throws CycleException;
 }
 
@@ -165,5 +171,8 @@ class OrderArticleWrapper##oaw extends ArticleWrapper{
 }
 */
 exception DoubleDefinition{}
+
+exception NotEnoughStockException{}
 }
+
 

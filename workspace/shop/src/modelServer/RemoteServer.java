@@ -59,6 +59,49 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.HashMap<?,?> changeArticleMaxStock(String articleProxiString, String newArticleMaxStockAsString){
+        try {
+            PersistentArticle article = (PersistentArticle)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
+            long newArticleMaxStock = new Long(newArticleMaxStockAsString).longValue();
+            ((PersistentServer)this.server).changeArticleMaxStock(article, newArticleMaxStock);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> changeArticleMinStock(String articleProxiString, String newArticleMinStockAsString){
+        try {
+            PersistentArticle article = (PersistentArticle)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
+            long newArticleMinStock = new Long(newArticleMinStockAsString).longValue();
+            ((PersistentServer)this.server).changeArticleMinStock(article, newArticleMinStock);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> changeArticleName(String articleProxiString, String newName){
+        try {
+            PersistentArticle article = (PersistentArticle)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
+            ((PersistentServer)this.server).changeArticleName(article, newName);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> changeArticlePrice(String articleProxiString, String newPriceAsString){
+        try {
+            PersistentArticle article = (PersistentArticle)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
+            common.Fraction newPrice = common.Fraction.parse(newPriceAsString);
+            ((PersistentServer)this.server).changeArticlePrice(article, newPrice);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.HashMap<?,?> createProducer(String name){
         try {
             ((PersistentServer)this.server).createProducer(name);
@@ -83,6 +126,17 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.HashMap<?,?> increaseArticleStock(String articleProxiString, String quantityAsString){
+        try {
+            PersistentArticle article = (PersistentArticle)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
+            long quantity = new Long(quantityAsString).longValue();
+            ((PersistentServer)this.server).increaseArticleStock(article, quantity);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.HashMap<?,?> moveTo(String componentProxiString, String newParentGroupProxiString){
         try {
             SubComponent component = (SubComponent)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(componentProxiString));
@@ -100,6 +154,17 @@ public  class RemoteServer extends RemoteServerMaster {
         try {
             PersistentArticle article = (PersistentArticle)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
             ((PersistentServer)this.server).nextArticleState(article);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> reduceArticleStock(String articleProxiString, String quantityAsString){
+        try {
+            PersistentArticle article = (PersistentArticle)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
+            long quantity = new Long(quantityAsString).longValue();
+            ((PersistentServer)this.server).reduceArticleStock(article, quantity);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

@@ -12,9 +12,11 @@ public interface AnythingReturnExceptionVisitor<R, E extends model.UserException
     public R handleCommonDate(CommonDate4Public commonDate) throws PersistenceException, E;
     public R handleCreateProducerCommand(CreateProducerCommand4Public createProducerCommand) throws PersistenceException, E;
     public R handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException, E;
+    public R handleIncreaseStockCommand(IncreaseStockCommand4Public increaseStockCommand) throws PersistenceException, E;
     public R handleMoveToCommand(MoveToCommand4Public moveToCommand) throws PersistenceException, E;
     public R handleProducer(Producer4Public producer) throws PersistenceException, E;
     public R handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException, E;
+    public R handleReduceStockCommand(ReduceStockCommand4Public reduceStockCommand) throws PersistenceException, E;
     public R handleServer(Server4Public server) throws PersistenceException, E;
     
 }

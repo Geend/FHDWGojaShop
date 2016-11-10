@@ -14,6 +14,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleServer(Server4Public server) throws PersistenceException{
         this.standardHandling(server);
     }
+    public void handleIncreaseStockCommand(IncreaseStockCommand4Public increaseStockCommand) throws PersistenceException{
+        this.standardHandling(increaseStockCommand);
+    }
     public void handleRootProductGroup(RootProductGroup4Public rootProductGroup) throws PersistenceException{
         this.standardHandling(rootProductGroup);
     }
@@ -22,6 +25,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException{
         this.standardHandling(errorDisplay);
+    }
+    public void handleReduceStockCommand(ReduceStockCommand4Public reduceStockCommand) throws PersistenceException{
+        this.standardHandling(reduceStockCommand);
     }
     public void handleArticle(Article4Public article) throws PersistenceException{
         this.standardHandling(article);

@@ -4,6 +4,8 @@ package model;
 import persistence.*;
 import model.visitor.*;
 
+import java.text.MessageFormat;
+
 
 /* Additional import section end */
 
@@ -323,6 +325,14 @@ public class Article extends model.Component implements PersistentArticle{
 		visited.add(getThis());
 		return false;
     }
+    public void increaseStock(final long quantity, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		IncreaseStockCommand4Public command = model.meta.IncreaseStockCommand.createIncreaseStockCommand(quantity, now, now);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentArticle)This);
@@ -345,6 +355,14 @@ public class Article extends model.Component implements PersistentArticle{
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    public void reduceStock(final long quantity, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		ReduceStockCommand4Public command = model.meta.ReduceStockCommand.createReduceStockCommand(quantity, now, now);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         return getThis().strategyCompHierarchy(strategy, new java.util.HashMap<CompHierarchyHIERARCHY,T>());
@@ -362,8 +380,6 @@ public class Article extends model.Component implements PersistentArticle{
     
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
     }
     public String getCurrentState() 
 				throws PersistenceException{
@@ -372,6 +388,33 @@ public class Article extends model.Component implements PersistentArticle{
     public String getProducerName() 
 				throws PersistenceException{
         return getThis().getProducer().getName();
+    }
+    public void increaseStock(final long quantity) 
+				throws PersistenceException{
+        getThis().setCurrentStock(getThis().getCurrentStock() + quantity);
+
+        getThis().getState().accept(new ArticleStateVisitor() {
+            @Override
+            public void handleInSale(InSale4Public inSale) throws PersistenceException {
+                //Nothing special
+            }
+
+            @Override
+            public void handleNewCreated(NewCreated4Public newCreated) throws PersistenceException {
+                //Should not happen
+            }
+
+            @Override
+            public void handleNotInSale(NotInSale4Public notInSale) throws PersistenceException {
+                getThis().setState(RemainingStock.createRemainingStock());
+            }
+
+            @Override
+            public void handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException {
+                //Should not happen
+            }
+        });
+        
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -391,6 +434,46 @@ public class Article extends model.Component implements PersistentArticle{
         productGroup.addComponent(getThis());
         getThis().setParentGroup(productGroup);
 
+    }
+    public void reduceStock(final long quantity) 
+				throws model.NotEnoughStockException, PersistenceException{
+
+        if(getThis().getCurrentStock() >= quantity){
+            getThis().setCurrentStock(getThis().getCurrentStock() - quantity);
+
+            if(getThis().getCurrentStock() < getThis().getMinStock()){
+
+                getThis().getState().accept(new ArticleStateVisitor() {
+                    @Override
+                    public void handleInSale(InSale4Public inSale) throws PersistenceException {
+                        //TODO! Nachbestellen
+                    }
+
+                    @Override
+                    public void handleNewCreated(NewCreated4Public newCreated) throws PersistenceException {
+                        //TODO! Call not possible
+                    }
+
+                    @Override
+                    public void handleNotInSale(NotInSale4Public notInSale) throws PersistenceException {
+                        //TODO! Call not possible
+                    }
+
+                    @Override
+                    public void handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException {
+                        if(getThis().getCurrentStock() == 0){
+                            getThis().setState(NotInSale.createNotInSale());
+                        }
+                    }
+                });
+
+            }
+        }
+        else
+        {
+            throw new NotEnoughStockException(MessageFormat.format("Tried to reduce stock by {0}, but only {1} in stock", quantity, getThis().getCurrentStock()));
+        }
+        
     }
     
     

@@ -8,6 +8,9 @@ public abstract class UserExceptionStandardVisitor implements UserExceptionVisit
     public void handleCycleException(model.CycleException cycleException) throws PersistenceException{
         this.standardHandling(cycleException);
     }
+    public void handleNotEnoughStockException(model.NotEnoughStockException notEnoughStockException) throws PersistenceException{
+        this.standardHandling(notEnoughStockException);
+    }
     public void handleDoubleDefinition(model.DoubleDefinition doubleDefinition) throws PersistenceException{
         this.standardHandling(doubleDefinition);
     }

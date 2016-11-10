@@ -314,9 +314,15 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         ImageView handle(CreateProductGroupPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(AddArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem menuItem);
         ImageView handle(AddProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(ChangeArticleMaxStockPRMTRArticlePRMTRIntegerPRMTRMenuItem menuItem);
+        ImageView handle(ChangeArticleMinStockPRMTRArticlePRMTRIntegerPRMTRMenuItem menuItem);
+        ImageView handle(ChangeArticleNamePRMTRArticlePRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(ChangeArticlePricePRMTRArticlePRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(CreateProducerPRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(IncreaseArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem menuItem);
         ImageView handle(MoveToPRMTRSubComponentPRMTRProductGroupPRMTRMenuItem menuItem);
         ImageView handle(NextArticleStatePRMTRArticlePRMTRMenuItem menuItem);
+        ImageView handle(ReduceArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem menuItem);
     }
     private abstract class ServerMenuItem extends MenuItem{
         private ServerMenuItem(){
@@ -339,7 +345,32 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
             return visitor.handle(this);
         }
     }
+    private class ChangeArticleMaxStockPRMTRArticlePRMTRIntegerPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class ChangeArticleMinStockPRMTRArticlePRMTRIntegerPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class ChangeArticleNamePRMTRArticlePRMTRStringPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class ChangeArticlePricePRMTRArticlePRMTRFractionPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
     private class CreateProducerPRMTRStringPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class IncreaseArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -350,6 +381,11 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         }
     }
     private class NextArticleStatePRMTRArticlePRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class ReduceArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -447,6 +483,61 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                 result.getItems().add(item);
             }
             if (selected instanceof ArticleView){
+                item = new ChangeArticleMaxStockPRMTRArticlePRMTRIntegerPRMTRMenuItem();
+                item.setText("changeArticleMaxStock ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final ServerChangeArticleMaxStockArticleIntegerMssgWizard wizard = new ServerChangeArticleMaxStockArticleIntegerMssgWizard("changeArticleMaxStock");
+                        wizard.setFirstArgument((ArticleView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+                item = new ChangeArticleMinStockPRMTRArticlePRMTRIntegerPRMTRMenuItem();
+                item.setText("changeArticleMinStock ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final ServerChangeArticleMinStockArticleIntegerMssgWizard wizard = new ServerChangeArticleMinStockArticleIntegerMssgWizard("changeArticleMinStock");
+                        wizard.setFirstArgument((ArticleView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+                item = new ChangeArticleNamePRMTRArticlePRMTRStringPRMTRMenuItem();
+                item.setText("changeArticleName ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final ServerChangeArticleNameArticleStringMssgWizard wizard = new ServerChangeArticleNameArticleStringMssgWizard("changeArticleName");
+                        wizard.setFirstArgument((ArticleView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+                item = new ChangeArticlePricePRMTRArticlePRMTRFractionPRMTRMenuItem();
+                item.setText("changeArticlePrice ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final ServerChangeArticlePriceArticleFractionMssgWizard wizard = new ServerChangeArticlePriceArticleFractionMssgWizard("changeArticlePrice");
+                        wizard.setFirstArgument((ArticleView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+                item = new IncreaseArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem();
+                item.setText("increaseArticleStock ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final ServerIncreaseArticleStockArticleIntegerMssgWizard wizard = new ServerIncreaseArticleStockArticleIntegerMssgWizard("increaseArticleStock");
+                        wizard.setFirstArgument((ArticleView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
                 item = new NextArticleStatePRMTRArticlePRMTRMenuItem();
                 item.setText("nextArticleState");
                 item.setOnAction(new EventHandler<ActionEvent>(){
@@ -465,6 +556,17 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                                 handleException(me);
                             }
                         }
+                    }
+                });
+                result.getItems().add(item);
+                item = new ReduceArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem();
+                item.setText("reduceArticleStock ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final ServerReduceArticleStockArticleIntegerMssgWizard wizard = new ServerReduceArticleStockArticleIntegerMssgWizard("reduceArticleStock");
+                        wizard.setFirstArgument((ArticleView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.showAndWait();
                     }
                 });
                 result.getItems().add(item);
@@ -611,6 +713,194 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 		
 	}
 
+	class ServerChangeArticleMaxStockArticleIntegerMssgWizard extends Wizard {
+
+		protected ServerChangeArticleMaxStockArticleIntegerMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new ChangeArticleMaxStockPRMTRArticlePRMTRIntegerPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerChangeArticleMaxStockArticleIntegerMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().changeArticleMaxStock(firstArgument, ((IntegerSelectionPanel)getParametersPanel().getChildren().get(0)).getResult().longValue());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new IntegerSelectionPanel("newArticleMaxStock", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private ArticleView firstArgument; 
+	
+		public void setFirstArgument(ArticleView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerChangeArticleMinStockArticleIntegerMssgWizard extends Wizard {
+
+		protected ServerChangeArticleMinStockArticleIntegerMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new ChangeArticleMinStockPRMTRArticlePRMTRIntegerPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerChangeArticleMinStockArticleIntegerMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().changeArticleMinStock(firstArgument, ((IntegerSelectionPanel)getParametersPanel().getChildren().get(0)).getResult().longValue());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new IntegerSelectionPanel("newArticleMinStock", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private ArticleView firstArgument; 
+	
+		public void setFirstArgument(ArticleView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerChangeArticleNameArticleStringMssgWizard extends Wizard {
+
+		protected ServerChangeArticleNameArticleStringMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new ChangeArticleNamePRMTRArticlePRMTRStringPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerChangeArticleNameArticleStringMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().changeArticleName(firstArgument, ((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new StringSelectionPanel("newName", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private ArticleView firstArgument; 
+	
+		public void setFirstArgument(ArticleView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerChangeArticlePriceArticleFractionMssgWizard extends Wizard {
+
+		protected ServerChangeArticlePriceArticleFractionMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new ChangeArticlePricePRMTRArticlePRMTRFractionPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerChangeArticlePriceArticleFractionMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().changeArticlePrice(firstArgument, ((FractionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new FractionSelectionPanel("newPrice", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private ArticleView firstArgument; 
+	
+		public void setFirstArgument(ArticleView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
 	class ServerCreateProducerStringMssgWizard extends Wizard {
 
 		protected ServerCreateProducerStringMssgWizard(String operationName){
@@ -696,6 +986,53 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 		
 	}
 
+	class ServerIncreaseArticleStockArticleIntegerMssgWizard extends Wizard {
+
+		protected ServerIncreaseArticleStockArticleIntegerMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new IncreaseArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerIncreaseArticleStockArticleIntegerMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().increaseArticleStock(firstArgument, ((IntegerSelectionPanel)getParametersPanel().getChildren().get(0)).getResult().longValue());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new IntegerSelectionPanel("quantity", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private ArticleView firstArgument; 
+	
+		public void setFirstArgument(ArticleView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
 	class ServerMoveToSubComponentProductGroupMssgWizard extends Wizard {
 
 		protected ServerMoveToSubComponentProductGroupMssgWizard(String operationName){
@@ -740,6 +1077,53 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 		private SubComponent firstArgument; 
 	
 		public void setFirstArgument(SubComponent firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerReduceArticleStockArticleIntegerMssgWizard extends Wizard {
+
+		protected ServerReduceArticleStockArticleIntegerMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new ReduceArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerReduceArticleStockArticleIntegerMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().reduceArticleStock(firstArgument, ((IntegerSelectionPanel)getParametersPanel().getChildren().get(0)).getResult().longValue());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new IntegerSelectionPanel("quantity", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private ArticleView firstArgument; 
+	
+		public void setFirstArgument(ArticleView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();

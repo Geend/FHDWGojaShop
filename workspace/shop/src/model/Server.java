@@ -7,7 +7,6 @@ import model.visitor.*;
 
 import java.math.BigInteger;
 
-
 /* Additional import section end */
 
 public class Server extends PersistentObject implements PersistentServer{
@@ -334,15 +333,38 @@ public class Server extends PersistentObject implements PersistentServer{
         parent.addSubProductGroup(name);
         getThis().signalChanged(true);
     }
+    public void changeArticleMaxStock(final Article4Public article, final long newArticleMaxStock) 
+				throws PersistenceException{
+        article.setMaxStock(newArticleMaxStock);
+        getThis().signalChanged(true);
+    }
+    public void changeArticleMinStock(final Article4Public article, final long newArticleMinStock) 
+				throws PersistenceException{
+        article.setMinStock(newArticleMinStock);
+        getThis().signalChanged(true);
+
+    }
+    public void changeArticleName(final Article4Public article, final String newName) 
+				throws PersistenceException{
+        article.setName(newName);
+        getThis().signalChanged(true);
+
+    }
+    public void changeArticlePrice(final Article4Public article, final common.Fraction newPrice) 
+				throws PersistenceException{
+        article.setPrice(newPrice);
+        getThis().signalChanged(true);
+
+    }
     public void connected(final String user) 
 				throws PersistenceException{
-        //TODO: implement method: connected
-        
+        // TODO: implement method: connected
+
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
+        // TODO: implement method: copyingPrivateUserAttributes
+
     }
     public void createProducer(final String name) 
 				throws model.DoubleDefinition, PersistenceException{
@@ -355,43 +377,47 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void disconnected() 
 				throws PersistenceException{
-        //TODO: implement method: disconnected
-        
+        // TODO: implement method: disconnected
+
     }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{
-        new Thread(new Runnable(){
-			public /*INTERNAL*/ void run() {
-				//Handle exception!
-			}
-		}).start();
+        new Thread(new Runnable() {
+            public /* INTERNAL */ void run() {
+                // Handle exception!
+            }
+        }).start();
     }
     public void handleResult(final Command command) 
 				throws PersistenceException{
-        new Thread(new Runnable(){
-			public void  /*INTERNAL*/  run() {
-				try {
-					try {
-						command.checkException();
-						//Handle result!
-						signalChanged(true);
-					} catch (model.UserException e) {
-						model.UserExceptionToDisplayVisitor visitor = new model.UserExceptionToDisplayVisitor();
-						e.accept(visitor);
-						getErrors().add(visitor.getResult());
-						signalChanged(true);
-					}
-				} catch (PersistenceException e) {
-					//Handle fatal exception!
-				}
-			}
-		}).start();
+        new Thread(new Runnable() {
+            public void /* INTERNAL */ run() {
+                try {
+                    try {
+                        command.checkException();
+                        // Handle result!
+                        signalChanged(true);
+                    } catch (model.UserException e) {
+                        model.UserExceptionToDisplayVisitor visitor = new model.UserExceptionToDisplayVisitor();
+                        e.accept(visitor);
+                        getErrors().add(visitor.getResult());
+                        signalChanged(true);
+                    }
+                } catch (PersistenceException e) {
+                    // Handle fatal exception!
+                }
+            }
+        }).start();
     }
     public boolean hasChanged() 
 				throws PersistenceException{
         boolean result = this.changed;
-		this.changed = false;
-		return result;
+        this.changed = false;
+        return result;
+    }
+    public void increaseArticleStock(final Article4Public article, final long quantity) 
+				throws PersistenceException{
+        article.increaseStock(quantity, getThis());
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -400,24 +426,21 @@ public class Server extends PersistentObject implements PersistentServer{
         RootProductGroup4Public rootProductGroup = RootProductGroup.createRootProductGroup("Obst");
         getThis().setRootProductGroup(rootProductGroup);
 
-
-        try{
+        try {
             Producer4Public producer4PublicHermann = getThis().getPrmanager().createProducer("Obstbauer Hermann");
             Producer4Public producer4PublicPeter = getThis().getPrmanager().createProducer("Obstbauer Peter");
 
-            SubProductGroup4Public groupKernobst = SubProductGroup.createSubProductGroup("Kernobst",rootProductGroup);
+            SubProductGroup4Public groupKernobst = SubProductGroup.createSubProductGroup("Kernobst", rootProductGroup);
             rootProductGroup.addComponent(groupKernobst);
-            SubProductGroup4Public groupKernobstBirnen = SubProductGroup.createSubProductGroup("Birnen",groupKernobst);
+            SubProductGroup4Public groupKernobstBirnen = SubProductGroup.createSubProductGroup("Birnen", groupKernobst);
             groupKernobst.addComponent(groupKernobstBirnen);
-
 
             groupKernobstBirnen.addArticle("Europäische Birne", new Fraction(10), 10, 100, 2, producer4PublicPeter);
 
             groupKernobstBirnen.addArticle("Nashi-Birne", new Fraction(12), 4, 40, 5, producer4PublicHermann);
 
-            SubProductGroup4Public groupSteinobst = SubProductGroup.createSubProductGroup("Steinobst",rootProductGroup);
+            SubProductGroup4Public groupSteinobst = SubProductGroup.createSubProductGroup("Steinobst", rootProductGroup);
             rootProductGroup.addComponent(groupSteinobst);
-
 
         } catch (DoubleDefinition ex) {
             throw new Error(ex);
@@ -428,8 +451,8 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
+        // TODO: implement method: initializeOnInstantiation
+
     }
     public void moveTo(final SubComponent component, final ProductGroup4Public newParentGroup) 
 				throws model.CycleException, PersistenceException{
@@ -440,13 +463,17 @@ public class Server extends PersistentObject implements PersistentServer{
         article.setState(article.getState().nextState());
         getThis().signalChanged(true);
     }
+    public void reduceArticleStock(final Article4Public article, final long quantity) 
+				throws PersistenceException{
+        article.reduceStock(quantity, getThis());
+    }
     
     
     // Start of section that contains overridden operations only.
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
+
     /* End of protected part that is not overridden by persistence generator */
     
 }
