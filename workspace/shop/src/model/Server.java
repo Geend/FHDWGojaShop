@@ -1,8 +1,11 @@
 
 package model;
 
+import common.Fraction;
 import persistence.*;
 import model.visitor.*;
+
+import java.math.BigInteger;
 
 
 /* Additional import section end */
@@ -341,6 +344,10 @@ public class Server extends PersistentObject implements PersistentServer{
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
+    public void createProducer(final String name) 
+				throws model.DoubleDefinition, PersistenceException{
+        getThis().getPrmanager().createProducer(name, getThis());
+    }
     public void createProductGroup(final String name) 
 				throws model.DoubleDefinition, model.CycleException, PersistenceException{
         getThis().getRootProductGroup().addSubProductGroup((name));
@@ -389,12 +396,33 @@ public class Server extends PersistentObject implements PersistentServer{
     public void initializeOnCreation() 
 				throws PersistenceException{
         getThis().setPrmanager(ProducerLst.createProducerLst());
-        getThis().setRootProductGroup(RootProductGroup.createRootProductGroup("Produkte"));
+
+        RootProductGroup4Public rootProductGroup = RootProductGroup.createRootProductGroup("Obst");
+        getThis().setRootProductGroup(rootProductGroup);
+
+
         try{
-            getThis().getPrmanager().createProducer("Obstbauer Hermann"); //TODO! constant
-            getThis().getPrmanager().createProducer("Obstbauer Peter"); //TODO! constant
+            Producer4Public producer4PublicHermann = getThis().getPrmanager().createProducer("Obstbauer Hermann");
+            Producer4Public producer4PublicPeter = getThis().getPrmanager().createProducer("Obstbauer Peter");
+
+            SubProductGroup4Public groupKernobst = SubProductGroup.createSubProductGroup("Kernobst",rootProductGroup);
+            rootProductGroup.addComponent(groupKernobst);
+            SubProductGroup4Public groupKernobstBirnen = SubProductGroup.createSubProductGroup("Birnen",groupKernobst);
+            groupKernobst.addComponent(groupKernobstBirnen);
+
+
+            groupKernobstBirnen.addArticle("Europäische Birne", new Fraction(10), 10, 100, 2, producer4PublicPeter);
+
+            groupKernobstBirnen.addArticle("Nashi-Birne", new Fraction(12), 4, 40, 5, producer4PublicHermann);
+
+            SubProductGroup4Public groupSteinobst = SubProductGroup.createSubProductGroup("Steinobst",rootProductGroup);
+            rootProductGroup.addComponent(groupSteinobst);
+
+
         } catch (DoubleDefinition ex) {
             throw new Error(ex);
+        } catch (CycleException e) {
+            e.printStackTrace();
         }
 
     }
@@ -406,6 +434,11 @@ public class Server extends PersistentObject implements PersistentServer{
     public void moveTo(final SubComponent component, final ProductGroup4Public newParentGroup) 
 				throws model.CycleException, PersistenceException{
         component.moveTo(newParentGroup, getThis());
+    }
+    public void nextArticleState(final Article4Public article) 
+				throws PersistenceException{
+        article.setState(article.getState().nextState());
+        getThis().signalChanged(true);
     }
     
     

@@ -172,9 +172,11 @@ public class ProducerLst extends PersistentObject implements PersistentProducerL
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
-    public void createProducer(final String name) 
+    public Producer4Public createProducer(final String name) 
 				throws model.DoubleDefinition, PersistenceException{
-        getThis().getCurrentProducer().add(Producer.createProducer(name));
+        Producer4Public producer4Public = Producer.createProducer(name);
+        getThis().getCurrentProducer().add(producer4Public);
+        return producer4Public;
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

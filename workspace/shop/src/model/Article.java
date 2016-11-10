@@ -88,6 +88,7 @@ public class Article extends model.Component implements PersistentArticle{
                     if(forGUI && state.hasEssentialFields())state.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
+            result.put("currentState", this.getCurrentState());
             AbstractPersistentRoot parentGroup = (AbstractPersistentRoot)this.getParentGroup();
             if (parentGroup != null) {
                 result.put("parentGroup", parentGroup.createProxiInformation(false, essentialLevel <= 1));
@@ -307,7 +308,6 @@ public class Article extends model.Component implements PersistentArticle{
          return visitor.handleArticle(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getState() != null) return 1;
         return 0;
     }
     
@@ -365,6 +365,10 @@ public class Article extends model.Component implements PersistentArticle{
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
+    public String getCurrentState() 
+				throws PersistenceException{
+        return getThis().getState().toString();
+    }
     public String getProducerName() 
 				throws PersistenceException{
         return getThis().getProducer().getName();
@@ -372,7 +376,7 @@ public class Article extends model.Component implements PersistentArticle{
     public void initializeOnCreation() 
 				throws PersistenceException{
         super.initializeOnCreation();
-		//TODO: implement method: initializeOnCreation
+        getThis().setState(NewCreated.createNewCreated());
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{

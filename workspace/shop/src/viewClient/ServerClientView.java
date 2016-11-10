@@ -314,7 +314,9 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         ImageView handle(CreateProductGroupPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(AddArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem menuItem);
         ImageView handle(AddProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(CreateProducerPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(MoveToPRMTRSubComponentPRMTRProductGroupPRMTRMenuItem menuItem);
+        ImageView handle(NextArticleStatePRMTRArticlePRMTRMenuItem menuItem);
     }
     private abstract class ServerMenuItem extends MenuItem{
         private ServerMenuItem(){
@@ -337,7 +339,17 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
             return visitor.handle(this);
         }
     }
+    private class CreateProducerPRMTRStringPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
     private class MoveToPRMTRSubComponentPRMTRProductGroupPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class NextArticleStatePRMTRArticlePRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -355,6 +367,16 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
             }
         });
         result.add(currentButton);
+        currentButton = new javafx.scene.control.Button("createProducer ... ");
+        currentButton.setGraphic(new CreateProducerPRMTRStringPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final ServerCreateProducerStringMssgWizard wizard = new ServerCreateProducerStringMssgWizard("createProducer");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.showAndWait();
+            }
+        });
+        result.add(currentButton);
         return result;
     }
     private ContextMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations, final Point2D menuPos) {
@@ -365,6 +387,16 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         item.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
                 final ServerCreateProductGroupStringMssgWizard wizard = new ServerCreateProductGroupStringMssgWizard("NeueProduktgruppe");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.showAndWait();
+            }
+        });
+        if (withStaticOperations) result.getItems().add(item);
+        item = new CreateProducerPRMTRStringPRMTRMenuItem();
+        item.setText("(S) createProducer ... ");
+        item.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final ServerCreateProducerStringMssgWizard wizard = new ServerCreateProducerStringMssgWizard("createProducer");
                 wizard.setWidth(getNavigationPanel().getWidth());
                 wizard.showAndWait();
             }
@@ -410,6 +442,29 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                         wizard.setFirstArgument((SubComponent)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+            }
+            if (selected instanceof ArticleView){
+                item = new NextArticleStatePRMTRArticlePRMTRMenuItem();
+                item.setText("nextArticleState");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        Alert confirm = new Alert(AlertType.CONFIRMATION);
+                        confirm.setTitle(GUIConstants.ConfirmButtonText);
+                        confirm.setHeaderText(null);
+                        confirm.setContentText("nextArticleState" + GUIConstants.ConfirmQuestionMark);
+                        Optional<ButtonType> buttonResult = confirm.showAndWait();
+                        if (buttonResult.get() == ButtonType.OK) {
+                            try {
+                                getConnection().nextArticleState((ArticleView)selected);
+                                getConnection().setEagerRefresh();
+                                
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
                     }
                 });
                 result.getItems().add(item);
@@ -551,6 +606,47 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 				 handleException(me);
 			}
 			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateProducerStringMssgWizard extends Wizard {
+
+		protected ServerCreateProducerStringMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new CreateProducerPRMTRStringPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateProducerStringMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createProducer(((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			catch(DoubleDefinition e) {
+				getStatusBar().setText(e.getMessage());
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
 		}
 		
 		

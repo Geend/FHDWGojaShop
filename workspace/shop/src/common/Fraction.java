@@ -49,6 +49,10 @@ public class Fraction {
 
 	private BigInteger denominator;
 
+	public Fraction(Integer integer){
+		this.denominator = BigInteger.ONE;
+		this.enumerator = BigInteger.valueOf(integer);
+	}
 	public Fraction(BigInteger enumerator, BigInteger denominator) {
 		BigInteger gcd = enumerator.gcd(denominator);
 		boolean negativeDenominator = denominator.compareTo(BIZero) < 0;

@@ -12,6 +12,9 @@ server Server {
 	void moveTo(SubComponent component, ProductGroup newParentGroup)throws CycleException;
 
 
+	void createProducer(String name) throws DoubleDefinition;
+
+	void nextArticleState(Article article);
 }
 
 // Server relevant classes -- region end
@@ -21,7 +24,7 @@ server Server {
 
 class ProducerLst {
 	/*observe*/ Producer ** currentProducer##currProd;
-	active void createProducer(String name) throws DoubleDefinition;
+	active Producer createProducer(String name) throws DoubleDefinition;
 }
 
 // manager relevant classes -- region end
@@ -33,7 +36,7 @@ hierarchy collapsed CompHierarchy;
 
 
 abstract class Component{
-	public prior String name;
+	public-write prior String name;
 
 }
 
@@ -54,14 +57,17 @@ class SubProductGroup extends ProductGroup implements SubComponent {
 }
 
 class Article extends Component  implements SubComponent{
-	public prior Fraction price;
-	public prior Integer minStock;
-	public prior Integer maxStock;
+	public-write prior Fraction price;
+	public-write prior Integer minStock;
+	public-write prior Integer maxStock;
 	public Integer currentStock;
 	public prior Integer producerDeliveryTime;
 	public no-view prior Producer producer;
 	public derived String producerName;
-	public ArticleState state;
+	public-write no-view ArticleState state;
+	public derived String currentState;
+
+	
 
 }
 
@@ -76,6 +82,7 @@ interface SubComponent{
 // Article States -- region begin
 
 abstract class ArticleState{
+	abstract ArticleState nextState();
 }
 
 class NewCreated extends ArticleState{

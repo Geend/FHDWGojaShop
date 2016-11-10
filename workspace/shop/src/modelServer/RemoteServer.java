@@ -59,6 +59,17 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.HashMap<?,?> createProducer(String name){
+        try {
+            ((PersistentServer)this.server).createProducer(name);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.DoubleDefinition e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
     public synchronized java.util.HashMap<?,?> createProductGroup(String name){
         try {
             ((PersistentServer)this.server).createProductGroup(name);
@@ -82,6 +93,16 @@ public  class RemoteServer extends RemoteServerMaster {
             return createExceptionResult(pe);
         }catch(model.CycleException e0){
             return createExceptionResult(e0, this);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> nextArticleState(String articleProxiString){
+        try {
+            PersistentArticle article = (PersistentArticle)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
+            ((PersistentServer)this.server).nextArticleState(article);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
         }
     }
     

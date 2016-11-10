@@ -151,6 +151,10 @@ public class NewCreated extends model.ArticleState implements PersistentNewCreat
         super.initializeOnInstantiation();
 		//TODO: implement method: initializeOnInstantiation
     }
+    public ArticleState4Public nextState() 
+				throws PersistenceException{
+      return InSale.createInSale();
+    }
     
     
     // Start of section that contains overridden operations only.

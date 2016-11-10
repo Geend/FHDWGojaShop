@@ -1332,7 +1332,7 @@ class ArticleDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String Article$$currentStock = "Article$$currentStock";
     protected static final String Article$$producerDeliveryTime = "Article$$producerDeliveryTime";
     protected static final String Article$$producerName = "Article$$producerName";
-    protected static final String Article$$state = "Article$$state";
+    protected static final String Article$$currentState = "Article$$currentState";
     
     protected ArticleDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1384,6 +1384,13 @@ class ArticleDefaultDetailPanel extends DefaultDetailPanel{
             BaseTypePanel panel = new StringPanel(this, "producerName", this.getAnything().getProducerName());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(Article$$producerName, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new StringPanel(this, "currentState", this.getAnything().getCurrentState());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(Article$$currentState, panel);
         }catch(ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }

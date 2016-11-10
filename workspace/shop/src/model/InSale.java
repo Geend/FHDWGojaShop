@@ -151,6 +151,10 @@ public class InSale extends model.ArticleState implements PersistentInSale{
         super.initializeOnInstantiation();
 		//TODO: implement method: initializeOnInstantiation
     }
+    public ArticleState4Public nextState() 
+				throws PersistenceException{
+       return RemainingStock.createRemainingStock();
+    }
     
     
     // Start of section that contains overridden operations only.

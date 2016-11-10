@@ -151,6 +151,10 @@ public class NotInSale extends model.ArticleState implements PersistentNotInSale
         super.initializeOnInstantiation();
 		//TODO: implement method: initializeOnInstantiation
     }
+    public ArticleState4Public nextState() 
+				throws PersistenceException{
+        return InSale.createInSale();
+    }
     
     
     // Start of section that contains overridden operations only.

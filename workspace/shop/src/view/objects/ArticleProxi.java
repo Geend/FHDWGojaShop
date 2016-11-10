@@ -33,6 +33,7 @@ public class ArticleProxi extends ComponentProxi implements ArticleView{
             state = view.objects.ViewProxi.createProxi(state$Info,connectionKey);
             state.setToString(state$Info.getToString());
         }
+        String currentState = (String)resultTable.get("currentState");
         ViewProxi parentGroup = null;
         String parentGroup$String = (String)resultTable.get("parentGroup");
         if (parentGroup$String != null) {
@@ -40,7 +41,7 @@ public class ArticleProxi extends ComponentProxi implements ArticleView{
             parentGroup = view.objects.ViewProxi.createProxi(parentGroup$Info,connectionKey);
             parentGroup.setToString(parentGroup$Info.getToString());
         }
-        ArticleView result$$ = new Article((String)name,(common.Fraction)price,(long)minStock,(long)maxStock,(long)currentStock,(long)producerDeliveryTime,(ProducerView)producer,(String)producerName,(ArticleStateView)state,(ProductGroupView)parentGroup, this.getId(), this.getClassId());
+        ArticleView result$$ = new Article((String)name,(common.Fraction)price,(long)minStock,(long)maxStock,(long)currentStock,(long)producerDeliveryTime,(ProducerView)producer,(String)producerName,(ArticleStateView)state,(String)currentState,(ProductGroupView)parentGroup, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -49,24 +50,17 @@ public class ArticleProxi extends ComponentProxi implements ArticleView{
         return RemoteDepth;
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        int index = originalIndex;
-        if(index == 0 && this.getState() != null) return new StateArticleWrapper(this, originalIndex, (ViewRoot)this.getState());
-        if(this.getState() != null) index = index - 1;
+        
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 
-            + (this.getState() == null ? 0 : 1);
+        return 0 ;
     }
     public boolean isLeaf() throws ModelException {
-        if (this.object == null) return this.getLeafInfo() == 0;
-        return true 
-            && (this.getState() == null ? true : false);
+        return true;
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        int result = 0;
-        if(this.getState() != null && this.getState().equals(child)) return result;
-        if(this.getState() != null) result = result + 1;
+        
         return -1;
     }
     
@@ -114,6 +108,9 @@ public class ArticleProxi extends ComponentProxi implements ArticleView{
     }
     public void setState(ArticleStateView newValue) throws ModelException {
         ((Article)this.getTheObject()).setState(newValue);
+    }
+    public String getCurrentState()throws ModelException{
+        return ((Article)this.getTheObject()).getCurrentState();
     }
     public ProductGroupView getParentGroup()throws ModelException{
         return ((Article)this.getTheObject()).getParentGroup();

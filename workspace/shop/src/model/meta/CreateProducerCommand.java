@@ -40,16 +40,18 @@ public class CreateProducerCommand extends PersistentObject implements Persisten
     protected String name;
     protected Invoker invoker;
     protected PersistentProducerLst commandReceiver;
+    protected PersistentProducer commandResult;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateProducerCommand(String name,Invoker invoker,PersistentProducerLst commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
+    public CreateProducerCommand(String name,Invoker invoker,PersistentProducerLst commandReceiver,PersistentProducer commandResult,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
+        this.commandResult = commandResult;
         this.myCommonDate = myCommonDate;        
     }
     
@@ -73,6 +75,10 @@ public class CreateProducerCommand extends PersistentObject implements Persisten
         if(this.getCommandReceiver() != null){
             this.getCommandReceiver().store();
             ConnectionHandler.getTheConnectionHandler().theCreateProducerCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
+        }
+        if(this.getCommandResult() != null){
+            this.getCommandResult().store();
+            ConnectionHandler.getTheConnectionHandler().theCreateProducerCommandFacade.commandResultSet(this.getId(), getCommandResult());
         }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
@@ -115,6 +121,20 @@ public class CreateProducerCommand extends PersistentObject implements Persisten
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateProducerCommandFacade.commandReceiverSet(this.getId(), newValue);
+        }
+    }
+    public Producer4Public getCommandResult() throws PersistenceException {
+        return this.commandResult;
+    }
+    public void setCommandResult(Producer4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.commandResult)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.commandResult = (PersistentProducer)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theCreateProducerCommandFacade.commandResultSet(this.getId(), newValue);
         }
     }
     public CommonDate4Public getMyCommonDate() throws PersistenceException {
@@ -198,6 +218,7 @@ public class CreateProducerCommand extends PersistentObject implements Persisten
     }
     public int getLeafInfo() throws PersistenceException{
         if (this.getCommandReceiver() != null) return 1;
+        if (this.getCommandResult() != null) return 1;
         return 0;
     }
     
@@ -213,7 +234,7 @@ public class CreateProducerCommand extends PersistentObject implements Persisten
     public void execute() 
 				throws PersistenceException{
         try{
-			this.commandReceiver.createProducer(this.getName());
+			this.setCommandResult(this.commandReceiver.createProducer(this.getName()));
 		}
 		catch(model.DoubleDefinition e){
 			this.commandException = e;
