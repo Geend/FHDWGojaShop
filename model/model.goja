@@ -35,7 +35,7 @@ server OwnerService extends Service {
 	void increaseArticleStock(Article article, Integer quantity);//Only for testing
 }
 
-server Customer extends Service {
+server CustomerService extends Service {
 	ShoppingCart cart;
 }
 

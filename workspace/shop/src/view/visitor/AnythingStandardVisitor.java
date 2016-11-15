@@ -11,6 +11,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleOrderArticleWrapper(OrderArticleWrapperView orderArticleWrapper) throws ModelException{
         this.standardHandling(orderArticleWrapper);
     }
+    public void handleCustomerService(CustomerServiceView customerService) throws ModelException{
+        this.standardHandling(customerService);
+    }
     public void handleRemainingStock(RemainingStockView remainingStock) throws ModelException{
         this.standardHandling(remainingStock);
     }
@@ -19,9 +22,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleServer(ServerView server) throws ModelException{
         this.standardHandling(server);
-    }
-    public void handleCustomer(CustomerView customer) throws ModelException{
-        this.standardHandling(customer);
     }
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException{
         this.standardHandling(errorDisplay);

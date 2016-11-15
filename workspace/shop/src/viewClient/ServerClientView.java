@@ -1,27 +1,15 @@
 package viewClient;
 
-import model.CustomerRegisterService;
-import model.OwnerService;
-import view.*;
-import view.objects.Customer;
-import view.objects.ViewRoot;
-import view.objects.ViewObjectInTree;
+import javax.swing.tree.TreeModel;
 
-import view.visitor.AnythingStandardVisitor;
-
-import java.awt.*;
-import java.util.Optional;
+import com.sun.javafx.geom.Point2D;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SelectionMode;
@@ -35,12 +23,17 @@ import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
-
-
-import com.sun.javafx.geom.Point2D;
+import view.Anything;
+import view.CustomerRegisterServiceView;
+import view.CustomerServiceView;
+import view.ModelException;
+import view.OwnerServiceView;
+import view.ServerView;
+import view.UserException;
+import view.objects.ViewObjectInTree;
+import view.objects.ViewRoot;
+import view.visitor.AnythingStandardVisitor;
 import view.visitor.ServiceVisitor;
-
-import javax.swing.tree.TreeModel;
 
 
 public class ServerClientView extends BorderPane implements ExceptionAndEventHandler{
@@ -296,9 +289,9 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 		try {
 			this.getService().getService().accept(new ServiceVisitor() {
                 @Override
-                public void handleCustomer(CustomerView customer) throws ModelException {
-					CustomerClientView view = new CustomerClientView(ServerClientView.this, customer);
-					customer.connectCustomer(ServerClientView.this.getConnection(), view);
+                public void handleCustomerService(CustomerServiceView customer) throws ModelException {
+					CustomerServiceClientView view = new CustomerServiceClientView(ServerClientView.this, customer);
+					customer.connectCustomerService(ServerClientView.this.getConnection(), view);
 					ServerClientView.this.setCenter(view);
 
                 }

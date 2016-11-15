@@ -12,12 +12,12 @@ import persistence.PersistenceException;
 import persistence.AbstractPersistentRoot;
 import persistence.Remote;
 
+import persistence.PersistentCustomerService;
+import persistence.CustomerService4Public;
 import persistence.PersistentOwnerService;
 import persistence.OwnerService4Public;
 import persistence.PersistentServer;
 import persistence.Server4Public;
-import persistence.PersistentCustomer;
-import persistence.Customer4Public;
 import persistence.PersistentCustomerRegisterService;
 import persistence.CustomerRegisterService4Public;
 
@@ -59,9 +59,9 @@ public class ConnectionServer extends RemoteServerMaster {
 
 	public RemoteServerMaster createRemoteServer(String connectionName, String userName, long objectId, long classId){
 		try {
+			if(classId == -278)return new RemoteCustomerService(connectionName, userName, (PersistentCustomerService)PersistentProxi.createProxi(objectId, classId));
 			if(classId == -276)return new RemoteOwnerService(connectionName, userName, (PersistentOwnerService)PersistentProxi.createProxi(objectId, classId));
 			if(classId == -102)return new RemoteServer(connectionName, userName, (PersistentServer)PersistentProxi.createProxi(objectId, classId));
-			if(classId == -224)return new RemoteCustomer(connectionName, userName, (PersistentCustomer)PersistentProxi.createProxi(objectId, classId));
 			if(classId == -225)return new RemoteCustomerRegisterService(connectionName, userName, (PersistentCustomerRegisterService)PersistentProxi.createProxi(objectId, classId));
 			
 		}catch(PersistenceException pe){

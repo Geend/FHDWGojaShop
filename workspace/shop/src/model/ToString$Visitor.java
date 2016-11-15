@@ -39,7 +39,10 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	}
 
+	@Override
+	public void handleCustomerService(CustomerService4Public customerService) throws PersistenceException {
 
+	}
 
 
 	@Override
@@ -67,10 +70,6 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	}
 
-	@Override
-	public void handleCustomer(Customer4Public customer) throws PersistenceException {
-
-	}
 
 	@Override
 	public void handleArticle(Article4Public article) throws PersistenceException {

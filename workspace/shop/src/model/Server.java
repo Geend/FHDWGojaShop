@@ -414,7 +414,7 @@ public class Server extends PersistentObject implements PersistentServer{
             return;
         }
 
-        getThis().setService(Customer.createCustomer());
+        getThis().setService(CustomerService.createCustomerService());
 
     }
     public void initializeOnInstantiation() 

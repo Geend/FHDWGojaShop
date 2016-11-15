@@ -7,10 +7,10 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     
     public abstract void handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException;
     public abstract void handleOrderArticleWrapper(OrderArticleWrapper4Public orderArticleWrapper) throws PersistenceException;
+    public abstract void handleCustomerService(CustomerService4Public customerService) throws PersistenceException;
     public abstract void handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException;
     public abstract void handleOrderQuantifiedArticle(OrderQuantifiedArticle4Public orderQuantifiedArticle) throws PersistenceException;
     public abstract void handleServer(Server4Public server) throws PersistenceException;
-    public abstract void handleCustomer(Customer4Public customer) throws PersistenceException;
     public abstract void handleArticle(Article4Public article) throws PersistenceException;
     public abstract void handlePreOrder(PreOrder4Public preOrder) throws PersistenceException;
     public abstract void handleNotInSale(NotInSale4Public notInSale) throws PersistenceException;

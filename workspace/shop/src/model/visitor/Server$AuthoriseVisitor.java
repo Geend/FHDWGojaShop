@@ -7,9 +7,9 @@ public abstract class Server$AuthoriseVisitor extends AnythingStandardVisitor{
     
     public abstract void handleProducerLst(PersistentProducerLst producerLst) throws PersistenceException;
     public abstract void handleRemainingStock(PersistentRemainingStock remainingStock) throws PersistenceException;
+    public abstract void handleCustomerService(PersistentCustomerService customerService) throws PersistenceException;
     public abstract void handleServer(PersistentServer server) throws PersistenceException;
     public abstract void handleRootProductGroup(PersistentRootProductGroup rootProductGroup) throws PersistenceException;
-    public abstract void handleCustomer(PersistentCustomer customer) throws PersistenceException;
     public abstract void handleArticle(PersistentArticle article) throws PersistenceException;
     public abstract void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException;
     public abstract void handleNotInSale(PersistentNotInSale notInSale) throws PersistenceException;

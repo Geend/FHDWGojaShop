@@ -1194,6 +1194,9 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleOrderArticleWrapper(view.OrderArticleWrapperView object){
         result = new OrderArticleWrapperDefaultDetailPanel(handler, object);
     }
+    public void handleCustomerService(view.CustomerServiceView object){
+        result = new CustomerServiceDefaultDetailPanel(handler, object);
+    }
     public void handleRemainingStock(view.RemainingStockView object){
         result = new RemainingStockDefaultDetailPanel(handler, object);
     }
@@ -1202,9 +1205,6 @@ class DetailPanelFactory implements AnythingVisitor {
     }
     public void handleServer(view.ServerView object){
         result = new ServerDefaultDetailPanel(handler, object);
-    }
-    public void handleCustomer(view.CustomerView object){
-        result = new CustomerDefaultDetailPanel(handler, object);
     }
     public void handleErrorDisplay(view.ErrorDisplayView object){
         result = new ErrorDisplayDefaultDetailPanel(handler, object);
@@ -1311,6 +1311,22 @@ class OrderArticleWrapperDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class CustomerServiceDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String Service$$rootProductGroup = "Service$$rootProductGroup";
+    protected static final String CustomerService$$cart = "CustomerService$$cart";
+    
+    protected CustomerServiceDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.CustomerServiceView getAnything(){
+        return (view.CustomerServiceView)this.anything;
+    }
+}
+
 class RemainingStockDefaultDetailPanel extends DefaultDetailPanel{
     
     protected RemainingStockDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1367,22 +1383,6 @@ class ServerDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ServerView getAnything(){
         return (view.ServerView)this.anything;
-    }
-}
-
-class CustomerDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String Service$$rootProductGroup = "Service$$rootProductGroup";
-    protected static final String Customer$$cart = "Customer$$cart";
-    
-    protected CustomerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.CustomerView getAnything(){
-        return (view.CustomerView)this.anything;
     }
 }
 
