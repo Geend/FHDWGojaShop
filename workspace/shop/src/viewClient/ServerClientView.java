@@ -291,17 +291,6 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 	/** Is called only once after the connection has been established
 	**/
 	public void initializeConnection(){
-		/*Platform.runLater( new  Runnable() {
-			public void run() {
-				getNavigationTree().setModel((TreeModel) getConnection().getServerView());	
-				getNavigationTree().getRoot().setExpanded(true);
-				getNavigationTree().getSelectionModel().select( getNavigationTree().getRoot());
-			}
-		});*/
-
-
-		//TODO adjust implementation: initializeConnection
-
 
 		try {
 			this.getService().getService().accept(new ServiceVisitor() {

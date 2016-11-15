@@ -5,4 +5,4 @@ public interface ProductGroupMssgs {
 }
 
 interface ProductGroupDOWNMssgs extends ComponentDOWNMssgs, ProductGroupMssgs{}
-interface ProductGroupUPMssgs extends RootProductGroupUPMssgs, SubProductGroupUPMssgs, ProductGroupMssgs{}
+interface ProductGroupUPMssgs extends SubProductGroupUPMssgs, RootProductGroupUPMssgs, ProductGroupMssgs{}

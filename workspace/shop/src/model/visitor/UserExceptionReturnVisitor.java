@@ -9,5 +9,6 @@ public interface UserExceptionReturnVisitor<R> {
     public R handleDoubleDefinition(model.DoubleDefinition doubleDefinition) throws PersistenceException;
     public R handleNotEnoughStockException(model.NotEnoughStockException notEnoughStockException) throws PersistenceException;
     public R handleRestrictionException(model.RestrictionException restrictionException) throws PersistenceException;
+    public R handleUserAlreadyExistsException(model.UserAlreadyExistsException userAlreadyExistsException) throws PersistenceException;
     
 }

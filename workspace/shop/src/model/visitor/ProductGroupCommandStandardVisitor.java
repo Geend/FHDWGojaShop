@@ -5,11 +5,11 @@ import persistence.*;
 
 public abstract class ProductGroupCommandStandardVisitor implements ProductGroupCommandVisitor {
     
-    public void handleAddArticleCommand(AddArticleCommand4Public addArticleCommand) throws PersistenceException{
-        this.standardHandling(addArticleCommand);
+    public void handleNewSubProductGroupCommand(NewSubProductGroupCommand4Public newSubProductGroupCommand) throws PersistenceException{
+        this.standardHandling(newSubProductGroupCommand);
     }
-    public void handleAddSubProductGroupCommand(AddSubProductGroupCommand4Public addSubProductGroupCommand) throws PersistenceException{
-        this.standardHandling(addSubProductGroupCommand);
+    public void handleNewArticleCommand(NewArticleCommand4Public newArticleCommand) throws PersistenceException{
+        this.standardHandling(newArticleCommand);
     }
     protected abstract void standardHandling(ProductGroupCommand productGroupCommand) throws PersistenceException;
 }

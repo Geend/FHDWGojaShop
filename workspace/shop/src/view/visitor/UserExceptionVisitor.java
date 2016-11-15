@@ -9,5 +9,6 @@ public interface UserExceptionVisitor {
     public void handleDoubleDefinition(DoubleDefinition doubleDefinition) throws ModelException;
     public void handleNotEnoughStockException(NotEnoughStockException notEnoughStockException) throws ModelException;
     public void handleRestrictionException(RestrictionException restrictionException) throws ModelException;
+    public void handleUserAlreadyExistsException(UserAlreadyExistsException userAlreadyExistsException) throws ModelException;
     
 }

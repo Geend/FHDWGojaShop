@@ -69,6 +69,7 @@ public class Producer extends PersistentObject implements PersistentProducer{
     public Producer provideCopy() throws PersistenceException{
         Producer result = this;
         result = new Producer(this.name, 
+                              this.subService, 
                               this.This, 
                               this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -79,12 +80,14 @@ public class Producer extends PersistentObject implements PersistentProducer{
         return false;
     }
     protected String name;
+    protected SubjInterface subService;
     protected PersistentProducer This;
     
-    public Producer(String name,PersistentProducer This,long id) throws PersistenceException {
+    public Producer(String name,SubjInterface subService,PersistentProducer This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
+        this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -101,6 +104,10 @@ public class Producer extends PersistentObject implements PersistentProducer{
         if (this.getClassId() == 198) ConnectionHandler.getTheConnectionHandler().theProducerFacade
             .newProducer(name,this.getId());
         super.store();
+        if(this.getSubService() != null){
+            this.getSubService().store();
+            ConnectionHandler.getTheConnectionHandler().theProducerFacade.subServiceSet(this.getId(), getSubService());
+        }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theProducerFacade.ThisSet(this.getId(), getThis());
@@ -115,6 +122,20 @@ public class Producer extends PersistentObject implements PersistentProducer{
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theProducerFacade.nameSet(this.getId(), newValue);
         this.name = newValue;
+    }
+    public SubjInterface getSubService() throws PersistenceException {
+        return this.subService;
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.subService)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.subService = (SubjInterface)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theProducerFacade.subServiceSet(this.getId(), newValue);
+        }
     }
     protected void setThis(PersistentProducer newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -151,17 +172,56 @@ public class Producer extends PersistentObject implements PersistentProducer{
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleProducer(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleProducer(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleProducer(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleProducer(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleProducer(this);
+    }
     public int getLeafInfo() throws PersistenceException{
         return 0;
     }
     
     
+    public synchronized void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentProducer)This);
 		if(this.isTheSameAs(This)){
 			this.setName((String)final$$Fields.get("name"));
 		}
+    }
+    public synchronized void register(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.register(observee);
+    }
+    public synchronized void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.updateObservers(event);
     }
     
     

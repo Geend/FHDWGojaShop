@@ -58,7 +58,8 @@ public class RemainingStock extends model.ArticleState implements PersistentRema
     
     public RemainingStock provideCopy() throws PersistenceException{
         RemainingStock result = this;
-        result = new RemainingStock(this.This, 
+        result = new RemainingStock(this.subService, 
+                                    this.This, 
                                     this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -68,9 +69,9 @@ public class RemainingStock extends model.ArticleState implements PersistentRema
         return false;
     }
     
-    public RemainingStock(PersistentArticleState This,long id) throws PersistenceException {
+    public RemainingStock(SubjInterface subService,PersistentArticleState This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentArticleState)This,id);        
+        super((SubjInterface)subService,(PersistentArticleState)This,id);        
     }
     
     static public long getTypeId() {
@@ -121,16 +122,55 @@ public class RemainingStock extends model.ArticleState implements PersistentRema
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleRemainingStock(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleRemainingStock(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleRemainingStock(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleRemainingStock(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleRemainingStock(this);
+    }
     public int getLeafInfo() throws PersistenceException{
         return 0;
     }
     
     
+    public synchronized void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentRemainingStock)This);
 		if(this.isTheSameAs(This)){
 		}
+    }
+    public synchronized void register(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.register(observee);
+    }
+    public synchronized void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.updateObservers(event);
     }
     
     
@@ -150,10 +190,6 @@ public class RemainingStock extends model.ArticleState implements PersistentRema
 				throws PersistenceException{
         super.initializeOnInstantiation();
 		//TODO: implement method: initializeOnInstantiation
-    }
-    public ArticleState4Public nextState() 
-				throws PersistenceException{
-        return InSale.createInSale();
     }
     
     

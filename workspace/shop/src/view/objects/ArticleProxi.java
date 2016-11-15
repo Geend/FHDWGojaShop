@@ -34,14 +34,14 @@ public class ArticleProxi extends ComponentProxi implements ArticleView{
             state.setToString(state$Info.getToString());
         }
         String currentState = (String)resultTable.get("currentState");
-        ViewProxi parentGroup = null;
-        String parentGroup$String = (String)resultTable.get("parentGroup");
-        if (parentGroup$String != null) {
-            common.ProxiInformation parentGroup$Info = common.RPCConstantsAndServices.createProxiInformation(parentGroup$String);
-            parentGroup = view.objects.ViewProxi.createProxi(parentGroup$Info,connectionKey);
-            parentGroup.setToString(parentGroup$Info.getToString());
+        ViewProxi parent = null;
+        String parent$String = (String)resultTable.get("parent");
+        if (parent$String != null) {
+            common.ProxiInformation parent$Info = common.RPCConstantsAndServices.createProxiInformation(parent$String);
+            parent = view.objects.ViewProxi.createProxi(parent$Info,connectionKey);
+            parent.setToString(parent$Info.getToString());
         }
-        ArticleView result$$ = new Article((String)name,(common.Fraction)price,(long)minStock,(long)maxStock,(long)currentStock,(long)producerDeliveryTime,(ProducerView)producer,(String)producerName,(ArticleStateView)state,(String)currentState,(ProductGroupView)parentGroup, this.getId(), this.getClassId());
+        ArticleView result$$ = new Article((String)name,(common.Fraction)price,(long)minStock,(long)maxStock,(long)currentStock,(long)producerDeliveryTime,(ProducerView)producer,(String)producerName,(ArticleStateView)state,(String)currentState,(ProductGroupView)parent, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -112,11 +112,11 @@ public class ArticleProxi extends ComponentProxi implements ArticleView{
     public String getCurrentState()throws ModelException{
         return ((Article)this.getTheObject()).getCurrentState();
     }
-    public ProductGroupView getParentGroup()throws ModelException{
-        return ((Article)this.getTheObject()).getParentGroup();
+    public ProductGroupView getParent()throws ModelException{
+        return ((Article)this.getTheObject()).getParent();
     }
-    public void setParentGroup(ProductGroupView newValue) throws ModelException {
-        ((Article)this.getTheObject()).setParentGroup(newValue);
+    public void setParent(ProductGroupView newValue) throws ModelException {
+        ((Article)this.getTheObject()).setParent(newValue);
     }
     
     public void accept(ComponentVisitor visitor) throws ModelException {

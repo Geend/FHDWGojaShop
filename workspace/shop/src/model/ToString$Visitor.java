@@ -31,7 +31,12 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException {
-		result = "HERSTELLER (H)"; //TODO! constant
+		result = "Hersteller (H)";
+	}
+
+	@Override
+	public void handleOrderArticleWrapper(OrderArticleWrapper4Public orderArticleWrapper) throws PersistenceException {
+
 	}
 
 	@Override
@@ -42,7 +47,12 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException {
-		result = "RESTPOSTENVERKAUF"; //TODO! constant
+		result = "Restposten";
+	}
+
+	@Override
+	public void handleOrderQuantifiedArticle(OrderQuantifiedArticle4Public orderQuantifiedArticle) throws PersistenceException {
+
 	}
 
 	@Override
@@ -56,18 +66,28 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
+	public void handleCustomerAccount(CustomerAccount4Public customerAccount) throws PersistenceException {
+
+	}
+
+	@Override
 	public void handleCustomer(Customer4Public customer) throws PersistenceException {
 
 	}
 
 	@Override
 	public void handleArticle(Article4Public article) throws PersistenceException {
-		result = "A: " + article.getName(); //TODO! constant
+		result = "A: " + article.getName();
+	}
+
+	@Override
+	public void handlePreOrder(PreOrder4Public preOrder) throws PersistenceException {
+
 	}
 
 	@Override
 	public void handleNotInSale(NotInSale4Public notInSale) throws PersistenceException {
-		result = "NICHT VERFÜGBAR"; //TODO! constant
+		result = "Nicht im Verkauf";
 	}
 
 	@Override
@@ -81,18 +101,48 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
+	public void handleCustomerDeliveryTime(CustomerDeliveryTime4Public customerDeliveryTime) throws PersistenceException {
+
+	}
+
+	@Override
+	public void handleShoppingCartQuantifiedArticle(ShoppingCartQuantifiedArticle4Public shoppingCartQuantifiedArticle) throws PersistenceException {
+
+	}
+
+	@Override
 	public void handleInSale(InSale4Public inSale) throws PersistenceException {
-		result = "VERFÜGBAR"; //TODO! constant
+		result = "Im Verkauf";
 	}
 
 	@Override
 	public void handleProducer(Producer4Public producer) throws PersistenceException {
-		result = "H: " + producer.getName(); //TODO! constant
+		result = producer.getName();
+	}
+
+	@Override
+	public void handleShoppingCart(ShoppingCart4Public shoppingCart) throws PersistenceException {
+		result = "Warenkorb";
+	}
+
+	@Override
+	public void handleShoppingCartArticleWrapper(ShoppingCartArticleWrapper4Public shoppingCartArticleWrapper) throws PersistenceException {
+		result = shoppingCartArticleWrapper.getName();
 	}
 
 
 	@Override
 	public void handleNewCreated(NewCreated4Public newCreated) throws PersistenceException {
-		result = "NEUER ARTIKEL, NICHT IM VERKAUF"; //TODO! constant
+		result = "Neuer Artikel, nicht im Verkauf";
+	}
+
+	@Override
+	public void handleShopArticleWrapper(ShopArticleWrapper4Public shopArticleWrapper) throws PersistenceException {
+
+	}
+
+	@Override
+	public void handleOrder(Order4Public order) throws PersistenceException {
+		result = "Bestellung";
 	}
 }

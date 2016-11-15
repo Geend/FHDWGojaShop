@@ -5,22 +5,27 @@ model shop {
 server Server {
 	Service service;
 }
-abstract server Service {}
+
+abstract server Service {
+  	observe RootProductGroup rootProductGroup;
+}
 
 server Owner extends Service {
-	one-to-one (server-only myServer) ProductGroup rootProductGroup; // Symmetrische Beziehung wurde bei Löwe nur benutzt, um signalChanged auf dem Server aufzurufen vom Manager aus...
+
 	ProducerLst prmanager;
+	void createProducer(String name) throws DoubleDefinition;
 
-	void addArticle(ProductGroup parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
-	void addProductGroup(ProductGroup parent, String name) throws CycleException, DoubleDefinition;
 
-	void createProductGroup@@NeueProduktgruppe(String name) throws DoubleDefinition, CycleException;
+	void newArticle(ProductGroup parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
+	void newProductGroup(ProductGroup parent, String name) throws CycleException, DoubleDefinition;
+	void newProductGroup@@NeueProduktgruppe(String name) throws DoubleDefinition, CycleException;
 	
 	void moveTo(SubComponent component, ProductGroup newParentGroup)throws CycleException;
 
-	void createProducer(String name) throws DoubleDefinition;
 
-	void nextArticleState(Article article);
+
+	void startSelling(Article article checked);
+	void stopSelling(Article article checked);
 	void changeArticleName(Article article, String newName);
 	void changeArticlePrice(Article article, Fraction newPrice); 
 	void changeArticleMinStock(Article article, Integer newArticleMinStock);
@@ -29,10 +34,13 @@ server Owner extends Service {
 	void reduceArticleStock(Article article, Integer quantity); //Only for testing
 	void increaseArticleStock(Article article, Integer quantity);//Only for testing
 }
+
 server Customer extends Service {
+	ShoppingCart cart;
 }
+
 server CustomerRegisterService##crs extends Service {
-	void register(String accountName, String password PASSWORD);
+	active void register(String accountName, String password PASSWORD) throws UserAlreadyExistsException;
 }
 
 
@@ -41,8 +49,8 @@ server CustomerRegisterService##crs extends Service {
 // manager relevant classes -- region begin
 
 
-class ProducerLst {
-	/*observe*/ Producer ** currentProducer##currProd;
+singleton ProducerLst {
+	public Producer ** currentProducer##currProd;
 	active Producer createProducer(String name) throws DoubleDefinition;
 }
 
@@ -56,23 +64,30 @@ abstract class Component{
 	public-write prior String name;
 }
 
+interface SubComponent{	
+	prior no-view ProductGroup parent;	
+	event active void moveTo(ProductGroup productGroup) throws CycleException;
+}
+
 abstract class ProductGroup extends Component{
 	
-	/*observe*/ Component ** components hierarchy CompHierarchy;
-	active void addSubProductGroup##cspg(String name) throws CycleException, DoubleDefinition;
-	active void addArticle(String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
+   Component ** components hierarchy CompHierarchy;
+	active void newSubProductGroup##cspg(String name) throws CycleException, DoubleDefinition;
+	active void newArticle(String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
 
 	void addComponent(Component component) throws CycleException;
 	void removeComponent(Component component);
 }
 
-class RootProductGroup extends ProductGroup{
+
+singleton RootProductGroup extends ProductGroup{
 }
 
 class SubProductGroup extends ProductGroup implements SubComponent {
+	
 }
 
-class Article extends Component  implements SubComponent{
+class Article extends Component implements SubComponent{
 	public-write prior Fraction price;
 	public-write prior Integer minStock;
 	public-write prior Integer maxStock;
@@ -82,24 +97,21 @@ class Article extends Component  implements SubComponent{
 	public no-view prior Producer producer;
 	public derived String producerName;
 
-	public-write no-view ArticleState state;
+	public no-view ArticleState state;
 	public derived String currentState;
-
-
+	
 	active void reduceStock(Integer quantity) throws NotEnoughStockException;
 	active void increaseStock(Integer quantity);
+
+	active void startSelling();
+	active void stopSelling();
 }
 
-interface SubComponent{
-	no-view prior ProductGroup parentGroup;
-	active void moveTo(ProductGroup productGroup) throws CycleException;
-}
 
 
 // Article States -- region begin
 
 abstract class ArticleState{
-	abstract ArticleState nextState();
 }
 
 class NewCreated extends ArticleState{
@@ -117,7 +129,7 @@ class Producer{
 	public prior String name;
 }
 
-/*
+
 abstract class QuantifiedArticle{
 	prior Integer quantity;	
 }
@@ -180,8 +192,9 @@ class OrderArticleWrapper##oaw extends ArticleWrapper{
 	void accept();
 	void sendBack();
 }
-*/
+
 exception DoubleDefinition{}
+exception UserAlreadyExistsException{}
 
 exception NotEnoughStockException{}
 }

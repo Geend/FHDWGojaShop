@@ -18,9 +18,9 @@ public class Article extends view.objects.Component implements ArticleView{
     protected String producerName;
     protected ArticleStateView state;
     protected String currentState;
-    protected ProductGroupView parentGroup;
+    protected ProductGroupView parent;
     
-    public Article(String name,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,ProducerView producer,String producerName,ArticleStateView state,String currentState,ProductGroupView parentGroup,long id, long classId) {
+    public Article(String name,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,ProducerView producer,String producerName,ArticleStateView state,String currentState,ProductGroupView parent,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super((String)name,id, classId);
         this.price = price;
@@ -32,7 +32,7 @@ public class Article extends view.objects.Component implements ArticleView{
         this.producerName = producerName;
         this.state = state;
         this.currentState = currentState;
-        this.parentGroup = parentGroup;        
+        this.parent = parent;        
     }
     
     static public long getTypeId() {
@@ -91,11 +91,11 @@ public class Article extends view.objects.Component implements ArticleView{
     public String getCurrentState()throws ModelException{
         return this.currentState;
     }
-    public ProductGroupView getParentGroup()throws ModelException{
-        return this.parentGroup;
+    public ProductGroupView getParent()throws ModelException{
+        return this.parent;
     }
-    public void setParentGroup(ProductGroupView newValue) throws ModelException {
-        this.parentGroup = newValue;
+    public void setParent(ProductGroupView newValue) throws ModelException {
+        this.parent = newValue;
     }
     
     public void accept(ComponentVisitor visitor) throws ModelException {
@@ -144,9 +144,9 @@ public class Article extends view.objects.Component implements ArticleView{
         if (state != null) {
             ((ViewProxi)state).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(state.getClassId(), state.getId())));
         }
-        ProductGroupView parentGroup = this.getParentGroup();
-        if (parentGroup != null) {
-            ((ViewProxi)parentGroup).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(parentGroup.getClassId(), parentGroup.getId())));
+        ProductGroupView parent = this.getParent();
+        if (parent != null) {
+            ((ViewProxi)parent).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(parent.getClassId(), parent.getId())));
         }
         
     }
