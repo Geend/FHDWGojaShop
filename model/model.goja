@@ -13,12 +13,12 @@ abstract server Service {
 server Owner extends Service {
 
 	ProducerLst prmanager;
-	void createProducer(String name) throws DoubleDefinition;
+	void createProducer(String name) throws DoubleDefinitionException;
 
 
 	void newArticle(ProductGroup parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
-	void newProductGroup(ProductGroup parent, String name) throws CycleException, DoubleDefinition;
-	void newProductGroup@@NeueProduktgruppe(String name) throws DoubleDefinition, CycleException;
+	void newProductGroup(ProductGroup parent, String name) throws CycleException, DoubleDefinitionException;
+	void newProductGroup@@NeueProduktgruppe(String name) throws DoubleDefinitionException, CycleException;
 	
 	void moveTo(SubComponent component, ProductGroup newParentGroup)throws CycleException;
 
@@ -51,7 +51,7 @@ server CustomerRegisterService##crs extends Service {
 
 singleton ProducerLst {
 	public Producer ** currentProducer##currProd;
-	active Producer createProducer(String name) throws DoubleDefinition;
+	active Producer createProducer(String name) throws DoubleDefinitionException;
 }
 
 // manager relevant classes -- region end
@@ -72,7 +72,7 @@ interface SubComponent{
 abstract class ProductGroup extends Component{
 	
    Component ** components hierarchy CompHierarchy;
-	active void newSubProductGroup##cspg(String name) throws CycleException, DoubleDefinition;
+	active void newSubProductGroup##cspg(String name) throws CycleException, DoubleDefinitionException;
 	active void newArticle(String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
 
 	void addComponent(Component component) throws CycleException;
@@ -112,8 +112,7 @@ class Article extends Component implements SubComponent{
 // Article States -- region begin
 
 abstract class ArticleState{
-}
-
+}
 class NewCreated extends ArticleState{
 }
 class InSale extends ArticleState{
@@ -193,7 +192,7 @@ class OrderArticleWrapper##oaw extends ArticleWrapper{
 	void sendBack();
 }
 
-exception DoubleDefinition{}
+exception DoubleDefinitionException{}
 exception UserAlreadyExistsException{}
 
 exception NotEnoughStockException{}

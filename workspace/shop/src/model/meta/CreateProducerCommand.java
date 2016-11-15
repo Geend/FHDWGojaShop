@@ -236,7 +236,7 @@ public class CreateProducerCommand extends PersistentObject implements Persisten
         try{
 			this.setCommandResult(this.commandReceiver.createProducer(this.getName()));
 		}
-		catch(model.DoubleDefinition e){
+		catch(model.DoubleDefinitionException e){
 			this.commandException = e;
 		}
     }

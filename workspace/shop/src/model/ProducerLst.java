@@ -224,7 +224,7 @@ public class ProducerLst extends PersistentObject implements PersistentProducerL
         
     }
     public Producer4Public createProducer(final String name) 
-				throws model.DoubleDefinition, PersistenceException{
+				throws model.DoubleDefinitionException, PersistenceException{
         Producer4Public producer4Public = Producer.createProducer(name);
         getThis().getCurrentProducer().add(producer4Public);
         return producer4Public;
