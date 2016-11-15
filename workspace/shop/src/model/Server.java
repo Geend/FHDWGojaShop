@@ -354,18 +354,12 @@ public class Server extends PersistentObject implements PersistentServer{
     
     public void connected(final String user) 
 				throws PersistenceException{
-        // TODO: implement method: connected
-
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        // TODO: implement method: copyingPrivateUserAttributes
-
     }
     public void disconnected() 
 				throws PersistenceException{
-        // TODO: implement method: disconnected
-
     }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{
@@ -419,8 +413,6 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        // TODO: implement method: initializeOnInstantiation
-
     }
     
     

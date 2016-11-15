@@ -1,5 +1,6 @@
 package model;
 
+import model.visitor.ArticleStateReturnVisitor;
 import persistence.*;
 
 public class ToString$Visitor extends model.visitor.ToString$Visitor {
@@ -73,7 +74,30 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleArticle(Article4Public article) throws PersistenceException {
-		result = "A: " + article.getName();
+		result = article.getName();
+
+		result += article.getState().accept(new ArticleStateReturnVisitor<String>() {
+			@Override
+			public String handleInSale(InSale4Public inSale) throws PersistenceException {
+				return "";
+			}
+
+			@Override
+			public String handleNewCreated(NewCreated4Public newCreated) throws PersistenceException {
+				return " (Neu)";
+			}
+
+			@Override
+			public String handleNotInSale(NotInSale4Public notInSale) throws PersistenceException {
+				return " (Nicht im Verkauf)";
+			}
+
+			@Override
+			public String handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException {
+				return " (Restposten)";
+			}
+		});
+
 	}
 
 	@Override
@@ -88,7 +112,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleSubProductGroup(SubProductGroup4Public subProductGroup) throws PersistenceException {
-		result = "P: " + subProductGroup.getName();
+		result = subProductGroup.getName();
 	}
 
 	@Override
