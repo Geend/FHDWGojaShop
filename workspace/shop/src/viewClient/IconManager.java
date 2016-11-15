@@ -1,7 +1,6 @@
 package viewClient;
 
 import javafx.scene.image.Image;
-import sun.net.www.content.image.png;
 
 public class IconManager {
 
