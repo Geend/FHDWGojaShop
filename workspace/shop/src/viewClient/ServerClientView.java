@@ -1,6 +1,7 @@
 package viewClient;
 
 import model.CustomerRegisterService;
+import model.OwnerService;
 import view.*;
 import view.objects.Customer;
 import view.objects.ViewRoot;
@@ -311,9 +312,9 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 				}
 
                 @Override
-                public void handleOwner(OwnerView owner) throws ModelException {
-					OwnerClientView view = new OwnerClientView(ServerClientView.this, owner);
-					owner.connectOwner(ServerClientView.this.getConnection(), view);
+                public void handleOwnerService(OwnerServiceView owner) throws ModelException {
+					OwnerServiceClientView view = new OwnerServiceClientView(ServerClientView.this, owner);
+					owner.connectOwnerService(ServerClientView.this.getConnection(), view);
 					ServerClientView.this.setCenter(view);
 
 				}

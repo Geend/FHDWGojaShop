@@ -11,9 +11,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleOrderArticleWrapper(OrderArticleWrapperView orderArticleWrapper) throws ModelException{
         this.standardHandling(orderArticleWrapper);
     }
-    public void handleOwner(OwnerView owner) throws ModelException{
-        this.standardHandling(owner);
-    }
     public void handleRemainingStock(RemainingStockView remainingStock) throws ModelException{
         this.standardHandling(remainingStock);
     }
@@ -46,6 +43,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleCustomerDeliveryTime(CustomerDeliveryTimeView customerDeliveryTime) throws ModelException{
         this.standardHandling(customerDeliveryTime);
+    }
+    public void handleOwnerService(OwnerServiceView ownerService) throws ModelException{
+        this.standardHandling(ownerService);
     }
     public void handleShoppingCartQuantifiedArticle(ShoppingCartQuantifiedArticleView shoppingCartQuantifiedArticle) throws ModelException{
         this.standardHandling(shoppingCartQuantifiedArticle);

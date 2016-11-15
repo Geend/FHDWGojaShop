@@ -13,8 +13,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleService(Service4Public service) throws PersistenceException;
     
-    public void handleOwner(Owner4Public owner) throws PersistenceException{
-        this.handleService(owner);
+    public void handleOwnerService(OwnerService4Public ownerService) throws PersistenceException{
+        this.handleService(ownerService);
     }
     public void handleCustomer(Customer4Public customer) throws PersistenceException{
         this.handleService(customer);

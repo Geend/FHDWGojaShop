@@ -7,7 +7,6 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     
     public abstract void handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException;
     public abstract void handleOrderArticleWrapper(OrderArticleWrapper4Public orderArticleWrapper) throws PersistenceException;
-    public abstract void handleOwner(Owner4Public owner) throws PersistenceException;
     public abstract void handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException;
     public abstract void handleOrderQuantifiedArticle(OrderQuantifiedArticle4Public orderQuantifiedArticle) throws PersistenceException;
     public abstract void handleServer(Server4Public server) throws PersistenceException;
@@ -18,6 +17,7 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleSubProductGroup(SubProductGroup4Public subProductGroup) throws PersistenceException;
     public abstract void handleCustomerRegisterService(CustomerRegisterService4Public customerRegisterService) throws PersistenceException;
     public abstract void handleCustomerDeliveryTime(CustomerDeliveryTime4Public customerDeliveryTime) throws PersistenceException;
+    public abstract void handleOwnerService(OwnerService4Public ownerService) throws PersistenceException;
     public abstract void handleShoppingCartQuantifiedArticle(ShoppingCartQuantifiedArticle4Public shoppingCartQuantifiedArticle) throws PersistenceException;
     public abstract void handleNewCreated(NewCreated4Public newCreated) throws PersistenceException;
     public abstract void handleShopArticleWrapper(ShopArticleWrapper4Public shopArticleWrapper) throws PersistenceException;

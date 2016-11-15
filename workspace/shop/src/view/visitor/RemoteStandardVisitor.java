@@ -5,8 +5,8 @@ import view.*;
 
 public abstract class RemoteStandardVisitor implements RemoteVisitor {
     
-    public void handleOwner(OwnerView owner) throws ModelException{
-        this.standardHandling(owner);
+    public void handleOwnerService(OwnerServiceView ownerService) throws ModelException{
+        this.standardHandling(ownerService);
     }
     public void handleServer(ServerView server) throws ModelException{
         this.standardHandling(server);

@@ -1194,9 +1194,6 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleOrderArticleWrapper(view.OrderArticleWrapperView object){
         result = new OrderArticleWrapperDefaultDetailPanel(handler, object);
     }
-    public void handleOwner(view.OwnerView object){
-        result = new OwnerDefaultDetailPanel(handler, object);
-    }
     public void handleRemainingStock(view.RemainingStockView object){
         result = new RemainingStockDefaultDetailPanel(handler, object);
     }
@@ -1229,6 +1226,9 @@ class DetailPanelFactory implements AnythingVisitor {
     }
     public void handleCustomerDeliveryTime(view.CustomerDeliveryTimeView object){
         result = new CustomerDeliveryTimeDefaultDetailPanel(handler, object);
+    }
+    public void handleOwnerService(view.OwnerServiceView object){
+        result = new OwnerServiceDefaultDetailPanel(handler, object);
     }
     public void handleShoppingCartQuantifiedArticle(view.ShoppingCartQuantifiedArticleView object){
         result = new ShoppingCartQuantifiedArticleDefaultDetailPanel(handler, object);
@@ -1308,22 +1308,6 @@ class OrderArticleWrapperDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.OrderArticleWrapperView getAnything(){
         return (view.OrderArticleWrapperView)this.anything;
-    }
-}
-
-class OwnerDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String Service$$rootProductGroup = "Service$$rootProductGroup";
-    protected static final String Owner$$prmanager = "Owner$$prmanager";
-    
-    protected OwnerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.OwnerView getAnything(){
-        return (view.OwnerView)this.anything;
     }
 }
 
@@ -1596,6 +1580,22 @@ class CustomerDeliveryTimeDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.CustomerDeliveryTimeView getAnything(){
         return (view.CustomerDeliveryTimeView)this.anything;
+    }
+}
+
+class OwnerServiceDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String Service$$rootProductGroup = "Service$$rootProductGroup";
+    protected static final String OwnerService$$prmanager = "OwnerService$$prmanager";
+    
+    protected OwnerServiceDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.OwnerServiceView getAnything(){
+        return (view.OwnerServiceView)this.anything;
     }
 }
 

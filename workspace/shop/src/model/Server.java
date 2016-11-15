@@ -405,7 +405,7 @@ public class Server extends PersistentObject implements PersistentServer{
     public void initializeOnCreation() 
 				throws PersistenceException{
         if (getThis().getUser().equals(common.RPCConstantsAndServices.AdministratorName)){
-            getThis().setService(Owner.createOwner());
+            getThis().setService(OwnerService.createOwnerService());
             return;
         }
         if (getThis().getUser().startsWith(common.RPCConstantsAndServices.Public) &&

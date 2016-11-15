@@ -10,7 +10,7 @@ abstract server Service {
   	observe RootProductGroup rootProductGroup;
 }
 
-server Owner extends Service {
+server OwnerService extends Service {
 
 	ProducerLst prmanager;
 	void createProducer(String name) throws DoubleDefinitionException;

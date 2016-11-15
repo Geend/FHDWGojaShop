@@ -39,10 +39,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	}
 
-	@Override
-	public void handleOwner(Owner4Public owner) throws PersistenceException {
 
-	}
 
 
 	@Override
@@ -102,6 +99,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleCustomerDeliveryTime(CustomerDeliveryTime4Public customerDeliveryTime) throws PersistenceException {
+
+	}
+
+	@Override
+	public void handleOwnerService(OwnerService4Public ownerService) throws PersistenceException {
 
 	}
 

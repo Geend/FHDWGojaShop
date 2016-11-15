@@ -12,8 +12,8 @@ import persistence.PersistenceException;
 import persistence.AbstractPersistentRoot;
 import persistence.Remote;
 
-import persistence.PersistentOwner;
-import persistence.Owner4Public;
+import persistence.PersistentOwnerService;
+import persistence.OwnerService4Public;
 import persistence.PersistentServer;
 import persistence.Server4Public;
 import persistence.PersistentCustomer;
@@ -59,7 +59,7 @@ public class ConnectionServer extends RemoteServerMaster {
 
 	public RemoteServerMaster createRemoteServer(String connectionName, String userName, long objectId, long classId){
 		try {
-			if(classId == -223)return new RemoteOwner(connectionName, userName, (PersistentOwner)PersistentProxi.createProxi(objectId, classId));
+			if(classId == -276)return new RemoteOwnerService(connectionName, userName, (PersistentOwnerService)PersistentProxi.createProxi(objectId, classId));
 			if(classId == -102)return new RemoteServer(connectionName, userName, (PersistentServer)PersistentProxi.createProxi(objectId, classId));
 			if(classId == -224)return new RemoteCustomer(connectionName, userName, (PersistentCustomer)PersistentProxi.createProxi(objectId, classId));
 			if(classId == -225)return new RemoteCustomerRegisterService(connectionName, userName, (PersistentCustomerRegisterService)PersistentProxi.createProxi(objectId, classId));

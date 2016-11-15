@@ -11,9 +11,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleOrderArticleWrapper(OrderArticleWrapper4Public orderArticleWrapper) throws PersistenceException{
         this.standardHandling(orderArticleWrapper);
     }
-    public void handleOwner(Owner4Public owner) throws PersistenceException{
-        this.standardHandling(owner);
-    }
     public void handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException{
         this.standardHandling(remainingStock);
     }
@@ -55,6 +52,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException{
         this.standardHandling(commandCoordinator);
+    }
+    public void handleOwnerService(OwnerService4Public ownerService) throws PersistenceException{
+        this.standardHandling(ownerService);
     }
     public void handleStopSellingCommand(StopSellingCommand4Public stopSellingCommand) throws PersistenceException{
         this.standardHandling(stopSellingCommand);

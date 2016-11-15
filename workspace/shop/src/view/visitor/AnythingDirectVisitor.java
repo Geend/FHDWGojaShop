@@ -13,8 +13,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleService(ServiceView service) throws ModelException;
     
-    public void handleOwner(OwnerView owner) throws ModelException{
-        this.handleService(owner);
+    public void handleOwnerService(OwnerServiceView ownerService) throws ModelException{
+        this.handleService(ownerService);
     }
     public void handleCustomer(CustomerView customer) throws ModelException{
         this.handleService(customer);

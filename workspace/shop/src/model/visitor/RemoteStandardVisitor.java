@@ -5,8 +5,8 @@ import persistence.*;
 
 public abstract class RemoteStandardVisitor implements RemoteVisitor {
     
-    public void handleOwner(Owner4Public owner) throws PersistenceException{
-        this.standardHandling(owner);
+    public void handleOwnerService(OwnerService4Public ownerService) throws PersistenceException{
+        this.standardHandling(ownerService);
     }
     public void handleServer(Server4Public server) throws PersistenceException{
         this.standardHandling(server);
