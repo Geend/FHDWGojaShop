@@ -17,11 +17,11 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleStopSellingCommand(StopSellingCommand4Public stopSellingCommand) throws PersistenceException{
         this.standardHandling(stopSellingCommand);
     }
-    public void handleMoveToCommand(MoveToCommand4Public moveToCommand) throws PersistenceException{
-        this.standardHandling(moveToCommand);
-    }
     public void handleStartSellingCommand(StartSellingCommand4Public startSellingCommand) throws PersistenceException{
         this.standardHandling(startSellingCommand);
+    }
+    public void handleMoveToCommand(MoveToCommand4Public moveToCommand) throws PersistenceException{
+        this.standardHandling(moveToCommand);
     }
     public void handleReduceStockCommand(ReduceStockCommand4Public reduceStockCommand) throws PersistenceException{
         this.standardHandling(reduceStockCommand);

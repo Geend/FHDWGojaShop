@@ -1,6 +1,8 @@
 
 package model;
 
+import model.meta.ComponentMssgs;
+import model.meta.ComponentWrapperMssgs;
 import persistence.*;
 import model.visitor.*;
 
@@ -74,9 +76,9 @@ public class SubProductGroup extends model.ProductGroup implements PersistentSub
         result = new SubProductGroup(this.name, 
                                      this.subService, 
                                      this.This, 
+                                     this.components, 
                                      this.parent, 
                                      this.getId());
-        result.components = this.components.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -86,9 +88,9 @@ public class SubProductGroup extends model.ProductGroup implements PersistentSub
     }
     protected PersistentProductGroup parent;
     
-    public SubProductGroup(String name,SubjInterface subService,PersistentComponent This,PersistentProductGroup parent,long id) throws PersistenceException {
+    public SubProductGroup(String name,SubjInterface subService,PersistentComponent This,PersistentProductGroupComponents components,PersistentProductGroup parent,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((String)name,(SubjInterface)subService,(PersistentComponent)This,id);
+        super((String)name,(SubjInterface)subService,(PersistentComponent)This,components,id);
         this.parent = parent;        
     }
     
@@ -207,7 +209,7 @@ public class SubProductGroup extends model.ProductGroup implements PersistentSub
          return visitor.handleSubProductGroup(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getComponents().getLength() > 0) return 1;
+        if (this.getComponents().getObservee().getLength() > 0) return 1;
         return 0;
     }
     
@@ -220,9 +222,7 @@ public class SubProductGroup extends model.ProductGroup implements PersistentSub
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
 		if(visited.contains(getThis())) return false;
-		java.util.Iterator<Component4Public> iterator0 = getThis().getComponents().iterator();
-		while(iterator0.hasNext())
-			if(((CompHierarchyHIERARCHY)iterator0.next()).containsCompHierarchy(part, visited)) return true; 
+		if(getThis().getComponents() != null && getThis().getComponents().containsCompHierarchy(part, visited)) return true;
 		visited.add(getThis());
 		return false;
     }
@@ -275,13 +275,7 @@ public class SubProductGroup extends model.ProductGroup implements PersistentSub
     public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy, final java.util.HashMap<CompHierarchyHIERARCHY,T> visited) 
 				throws PersistenceException{
         if (visited.containsKey(getThis())) return visited.get(getThis());
-		T result$$components$$SubProductGroup = strategy.SubProductGroup$$components$$$initialize(getThis());
-		java.util.Iterator<?> iterator$$ = getThis().getComponents().iterator();
-		while (iterator$$.hasNext()){
-			Component4Public current$$Field = (Component4Public)iterator$$.next();
-			T current$$ = current$$Field.strategyCompHierarchy(strategy, visited);
-			result$$components$$SubProductGroup = strategy.SubProductGroup$$components$$consolidate(getThis(), result$$components$$SubProductGroup, current$$);
-		}
+		T result$$components$$SubProductGroup = this.getComponents().strategyCompHierarchy(strategy, visited);
 		T result = strategy.SubProductGroup$$finalize(getThis() ,result$$components$$SubProductGroup);
 		visited.put(getThis(),result);
 		return result;
@@ -318,7 +312,7 @@ public class SubProductGroup extends model.ProductGroup implements PersistentSub
 				throws model.CycleException, PersistenceException{
 
         getThis().getParent().removeComponent(getThis());
-        productGroup.addComponent(getThis());
+        productGroup.addComponentWrapper(DefaultProductGroupWrapper.createDefaultProductGroupWrapper(getThis()));
         getThis().setParent(productGroup);
     }
     

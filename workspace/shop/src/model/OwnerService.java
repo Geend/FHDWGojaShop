@@ -5,6 +5,8 @@ import common.Fraction;
 import persistence.*;
 import model.visitor.*;
 
+import java.security.acl.Owner;
+
 
 /* Additional import section end */
 
@@ -217,13 +219,17 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
     public String ownerService_Menu_Filter(final Anything anything) 
 				throws PersistenceException{
         String result = "+++";
-		if(anything instanceof Article4Public) {
-			if(this.filter_startSelling((Article4Public)anything)) result = result + "startSellingPRMTRArticlePRMTR+++";
-			if(this.filter_stopSelling((Article4Public)anything)) result = result + "stopSellingPRMTRArticlePRMTR+++";
+		if(anything instanceof StandardArticleWrapper4Public) {
+			if(this.filter_loadOwnerServiceArticleWrapper((StandardArticleWrapper4Public)anything)) result = result + "loadOwnerServiceArticleWrapperPRMTRStandardArticleWrapperPRMTR+++";
+			if(this.filter_startSelling((StandardArticleWrapper4Public)anything)) result = result + "startSellingPRMTRStandardArticleWrapperPRMTR+++";
+			if(this.filter_stopSelling((StandardArticleWrapper4Public)anything)) result = result + "stopSellingPRMTRStandardArticleWrapperPRMTR+++";
 		}
 		return result;
     }
-    public synchronized void register(final ObsInterface observee) 
+
+
+
+    public synchronized void register(final ObsInterface observee)
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
 		if (subService == null) {
@@ -245,28 +251,9 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
     
     // Start of section that contains operations that must be implemented.
     
-    public void changeArticleMaxStock(final Article4Public article, final long newArticleMaxStock) 
+    public void changeArticleName(final OwnerArticleWrapper4Public article, final String newName) 
 				throws PersistenceException{
-        article.setMaxStock(newArticleMaxStock);
-        getThis().signalChanged(true);
-    }
-    public void changeArticleMinStock(final Article4Public article, final long newArticleMinStock) 
-				throws PersistenceException{
-        article.setMinStock(newArticleMinStock);
-        getThis().signalChanged(true);
-
-    }
-    public void changeArticleName(final Article4Public article, final String newName) 
-				throws PersistenceException{
-        article.setName(newName);
-        getThis().signalChanged(true);
-
-    }
-    public void changeArticlePrice(final Article4Public article, final common.Fraction newPrice) 
-				throws PersistenceException{
-        article.setPrice(newPrice);
-        getThis().signalChanged(true);
-
+        article.getArticle().setName(newName);
     }
     public void connected(final String user) 
 				throws PersistenceException{
@@ -281,9 +268,9 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
     public void disconnected() 
 				throws PersistenceException{
     }
-    public void increaseArticleStock(final Article4Public article, final long quantity) 
+    public void increaseArticleStock(final StandardArticleWrapper4Public article, final long quantity) 
 				throws PersistenceException{
-        article.increaseStock(quantity, getThis());
+        loadOwnerServiceArticleWrapper(article).increaseStock(quantity,getThis());
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -302,15 +289,15 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
             getRootProductGroup().setName("Obst");
             SubProductGroup4Public groupKernobst = SubProductGroup.createSubProductGroup("Kernobst", getRootProductGroup());
             try {
-                getRootProductGroup().addComponent(groupKernobst);
+                getRootProductGroup().addComponentWrapper(DefaultProductGroupWrapper.createDefaultProductGroupWrapper(groupKernobst));
                 SubProductGroup4Public groupKernobstBirnen = SubProductGroup.createSubProductGroup("Birnen", groupKernobst);
-                groupKernobst.addComponent(groupKernobstBirnen);
+                groupKernobst.addComponentWrapper(DefaultProductGroupWrapper.createDefaultProductGroupWrapper(groupKernobstBirnen));
 
                 groupKernobstBirnen.newArticle("Europäische Birne", new Fraction(10), 10, 100, 2,producer4PublicPeter);
                 groupKernobstBirnen.newArticle("Nashi-Birne", new Fraction(12), 4, 40, 5, producer4PublicHermann);
 
                 SubProductGroup4Public groupSteinobst = SubProductGroup.createSubProductGroup("Steinobst", getRootProductGroup());
-                getRootProductGroup().addComponent(groupSteinobst);
+                getRootProductGroup().addComponentWrapper(DefaultProductGroupWrapper.createDefaultProductGroupWrapper(groupSteinobst));
             } catch (CycleException e) {
                 e.printStackTrace();
             }
@@ -323,6 +310,18 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         super.initializeOnInstantiation();
+    }
+    public OwnerArticleWrapper4Public loadOwnerServiceArticleWrapper(final StandardArticleWrapper4Public wrapper) 
+				throws PersistenceException{
+
+        try {
+            return OwnerArticleWrapper.createOwnerArticleWrapper(wrapper.gArticle());
+        } catch (CycleException e) {
+            e.printStackTrace();
+        }
+        return null;
+
+
     }
     public void moveTo(final SubComponent component, final ProductGroup4Public newParentGroup) 
 				throws model.CycleException, PersistenceException{
@@ -341,17 +340,18 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
         getThis().getRootProductGroup().newSubProductGroup(name, getThis());
     }
-    public void reduceArticleStock(final Article4Public article, final long quantity) 
-				throws PersistenceException{
-        article.reduceStock(quantity, getThis());
+    public void reduceArticleStock(final StandardArticleWrapper4Public article, final long quantity) 
+				throws model.NotEnoughStockException, PersistenceException{
+        loadOwnerServiceArticleWrapper(article).reduceStock(quantity,getThis());
     }
-    public void startSelling(final Article4Public article) 
+    public void startSelling(final StandardArticleWrapper4Public article) 
 				throws PersistenceException{
-        article.startSelling(getThis());
+        loadOwnerServiceArticleWrapper(article).startSelling(getThis());
     }
-    public void stopSelling(final Article4Public article) 
+    public void stopSelling(final StandardArticleWrapper4Public article) 
 				throws PersistenceException{
-        article.stopSelling(getThis());
+        loadOwnerServiceArticleWrapper(article).stopSelling(getThis());
+
     }
     
     
@@ -359,8 +359,12 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    private boolean filter_startSelling(Article4Public anything) throws PersistenceException {
-        return anything.getState().accept(new ArticleStateReturnVisitor<Boolean>() {
+
+
+
+
+    private boolean filter_startSelling(StandardArticleWrapper4Public anything) throws PersistenceException {
+        return loadOwnerServiceArticleWrapper(anything).getState().accept(new ArticleStateReturnVisitor<Boolean>() {
             @Override
             public Boolean handleInSale(InSale4Public inSale) throws PersistenceException {
                 return Boolean.FALSE;
@@ -383,8 +387,8 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
         });
     }
 
-    private boolean filter_stopSelling(Article4Public anything) throws PersistenceException {
-        return anything.getState().accept(new ArticleStateReturnVisitor<Boolean>() {
+    private boolean filter_stopSelling(StandardArticleWrapper4Public anything) throws PersistenceException {
+        return loadOwnerServiceArticleWrapper(anything).getState().accept(new ArticleStateReturnVisitor<Boolean>() {
             @Override
             public Boolean handleInSale(InSale4Public inSale) throws PersistenceException {
                 return Boolean.TRUE;
@@ -406,7 +410,9 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
             }
         });
     }
-
+    private boolean filter_loadOwnerServiceArticleWrapper(StandardArticleWrapper4Public anything) {
+        return false;
+    }
 
     /* End of protected part that is not overridden by persistence generator */
     

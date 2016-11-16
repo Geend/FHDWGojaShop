@@ -3,7 +3,7 @@ package model.visitor;
 
 import persistence.*;
 
-public interface AnythingReturnExceptionVisitor<R, E extends model.UserException> extends AbstractOrderReturnExceptionVisitor<R, E> ,ArticleStateReturnExceptionVisitor<R, E> ,ArticleWrapperReturnExceptionVisitor<R, E> ,CommonDateReturnExceptionVisitor<R, E> ,ComponentReturnExceptionVisitor<R, E> ,QuantifiedArticleReturnExceptionVisitor<R, E> ,ServiceReturnExceptionVisitor<R, E> {
+public interface AnythingReturnExceptionVisitor<R, E extends model.UserException> extends AbstractOrderReturnExceptionVisitor<R, E> ,ArticleStateReturnExceptionVisitor<R, E> ,CommonDateReturnExceptionVisitor<R, E> ,ComponentReturnExceptionVisitor<R, E> ,ComponentWrapperReturnExceptionVisitor<R, E> ,QuantifiedArticleReturnExceptionVisitor<R, E> ,ServiceReturnExceptionVisitor<R, E> {
     
     public R handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException, E;
     public R handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException, E;
@@ -18,6 +18,7 @@ public interface AnythingReturnExceptionVisitor<R, E extends model.UserException
     public R handleNewSubProductGroupCommand(NewSubProductGroupCommand4Public newSubProductGroupCommand) throws PersistenceException, E;
     public R handleProducer(Producer4Public producer) throws PersistenceException, E;
     public R handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException, E;
+    public R handleProductGroupComponents(ProductGroupComponents4Public productGroupComponents) throws PersistenceException, E;
     public R handleReduceStockCommand(ReduceStockCommand4Public reduceStockCommand) throws PersistenceException, E;
     public R handleRegisterCommand(RegisterCommand4Public registerCommand) throws PersistenceException, E;
     public R handleServer(Server4Public server) throws PersistenceException, E;

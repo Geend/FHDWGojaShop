@@ -15,12 +15,10 @@ public class Article extends view.objects.Component implements ArticleView{
     protected long currentStock;
     protected long producerDeliveryTime;
     protected ProducerView producer;
-    protected String producerName;
     protected ArticleStateView state;
-    protected String currentState;
     protected ProductGroupView parent;
     
-    public Article(String name,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,ProducerView producer,String producerName,ArticleStateView state,String currentState,ProductGroupView parent,long id, long classId) {
+    public Article(String name,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,ProducerView producer,ArticleStateView state,ProductGroupView parent,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super((String)name,id, classId);
         this.price = price;
@@ -29,9 +27,7 @@ public class Article extends view.objects.Component implements ArticleView{
         this.currentStock = currentStock;
         this.producerDeliveryTime = producerDeliveryTime;
         this.producer = producer;
-        this.producerName = producerName;
         this.state = state;
-        this.currentState = currentState;
         this.parent = parent;        
     }
     
@@ -79,17 +75,11 @@ public class Article extends view.objects.Component implements ArticleView{
     public void setProducer(ProducerView newValue) throws ModelException {
         this.producer = newValue;
     }
-    public String getProducerName()throws ModelException{
-        return this.producerName;
-    }
     public ArticleStateView getState()throws ModelException{
         return this.state;
     }
     public void setState(ArticleStateView newValue) throws ModelException {
         this.state = newValue;
-    }
-    public String getCurrentState()throws ModelException{
-        return this.currentState;
     }
     public ProductGroupView getParent()throws ModelException{
         return this.parent;
@@ -185,16 +175,8 @@ public class Article extends view.objects.Component implements ArticleView{
     public int getProducerDeliveryTimeIndex() throws ModelException {
         return 0 + 1 + 1 + 1 + 1 + 1;
     }
-    public int getProducerNameIndex() throws ModelException {
-        return 0 + 1 + 1 + 1 + 1 + 1 + 1;
-    }
-    public int getCurrentStateIndex() throws ModelException {
-        return 0 + 1 + 1 + 1 + 1 + 1 + 1 + 1;
-    }
     public int getRowCount(){
         return 0 
-            + 1
-            + 1
             + 1
             + 1
             + 1
@@ -217,10 +199,6 @@ public class Article extends view.objects.Component implements ArticleView{
                 rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return "producerDeliveryTime";
                 rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return "producerName";
-                rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return "currentState";
-                rowIndex = rowIndex - 1;
             } else {
                 if(rowIndex == 0) return this.getName();
                 rowIndex = rowIndex - 1;
@@ -233,10 +211,6 @@ public class Article extends view.objects.Component implements ArticleView{
                 if(rowIndex == 0) return new Long(getCurrentStock());
                 rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return new Long(getProducerDeliveryTime());
-                rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return this.getProducerName();
-                rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return this.getCurrentState();
                 rowIndex = rowIndex - 1;
             }
             throw new ModelException("Table index out of bounds!", -1);
@@ -279,11 +253,9 @@ public class Article extends view.objects.Component implements ArticleView{
             return;
         }
         rowIndex = rowIndex - 1;
-        rowIndex = rowIndex - 1;
-        rowIndex = rowIndex - 1;
     }
     public boolean hasTransientFields(){
-        return true;
+        return false;
     }
     /* Start of protected part that is not overridden by persistence generator */
     

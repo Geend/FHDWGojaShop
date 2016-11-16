@@ -57,6 +57,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
+	public void handleDefaultProductGroupWrapper(DefaultProductGroupWrapper4Public defaultProductGroupWrapper) throws PersistenceException {
+		result = defaultProductGroupWrapper.getName();
+	}
+
+	@Override
 	public void handleServer(Server4Public server) throws PersistenceException {
 
 	}
@@ -74,29 +79,6 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleArticle(Article4Public article) throws PersistenceException {
-		result = article.getName();
-
-		result += article.getState().accept(new ArticleStateReturnVisitor<String>() {
-			@Override
-			public String handleInSale(InSale4Public inSale) throws PersistenceException {
-				return "";
-			}
-
-			@Override
-			public String handleNewCreated(NewCreated4Public newCreated) throws PersistenceException {
-				return " (Neu)";
-			}
-
-			@Override
-			public String handleNotInSale(NotInSale4Public notInSale) throws PersistenceException {
-				return " (Nicht im Verkauf)";
-			}
-
-			@Override
-			public String handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException {
-				return " (Restposten)";
-			}
-		});
 
 	}
 
@@ -131,6 +113,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
+	public void handleCustomerShopArticleWrapper(CustomerShopArticleWrapper4Public customerShopArticleWrapper) throws PersistenceException {
+
+	}
+
+	@Override
 	public void handleShoppingCartQuantifiedArticle(ShoppingCartQuantifiedArticle4Public shoppingCartQuantifiedArticle) throws PersistenceException {
 
 	}
@@ -139,6 +126,8 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	public void handleInSale(InSale4Public inSale) throws PersistenceException {
 		result = "Im Verkauf";
 	}
+
+
 
 	@Override
 	public void handleProducer(Producer4Public producer) throws PersistenceException {
@@ -151,8 +140,13 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
+	public void handleOwnerArticleWrapper(OwnerArticleWrapper4Public ownerArticleWrapper) throws PersistenceException {
+	}
+
+
+	@Override
 	public void handleShoppingCartArticleWrapper(ShoppingCartArticleWrapper4Public shoppingCartArticleWrapper) throws PersistenceException {
-		result = shoppingCartArticleWrapper.getName();
+		///result = shoppingCartArticleWrapper.getName();
 	}
 
 
@@ -166,8 +160,37 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	}
 
+
 	@Override
 	public void handleOrder(Order4Public order) throws PersistenceException {
 		result = "Bestellung";
+	}
+
+	@Override
+	public void handleStandardArticleWrapper(StandardArticleWrapper4Public standardArticleWrapper) throws PersistenceException {
+		result = standardArticleWrapper.getName();
+
+		result += standardArticleWrapper.gArticle().getState().accept(new ArticleStateReturnVisitor<String>() {
+			@Override
+			public String handleInSale(InSale4Public inSale) throws PersistenceException {
+				return "";
+			}
+
+			@Override
+			public String handleNewCreated(NewCreated4Public newCreated) throws PersistenceException {
+				return " (Neu)";
+			}
+
+			@Override
+			public String handleNotInSale(NotInSale4Public notInSale) throws PersistenceException {
+				return " (Nicht im Verkauf)";
+			}
+
+			@Override
+			public String handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException {
+				return " (Restposten)";
+			}
+		});
+
 	}
 }

@@ -4,8 +4,8 @@ import view.visitor.*;
 
 public interface ProductGroupView extends ComponentView {
     
-    public java.util.Vector<ComponentView> getComponents()throws ModelException;
-    public void setComponents(java.util.Vector<ComponentView> newValue) throws ModelException ;
+    public java.util.Vector<ComponentWrapperView> getComponents()throws ModelException;
+    public void setComponents(java.util.Vector<ComponentWrapperView> newValue) throws ModelException ;
     
     public void accept(ProductGroupVisitor visitor) throws ModelException;
     public <R> R accept(ProductGroupReturnVisitor<R>  visitor) throws ModelException;

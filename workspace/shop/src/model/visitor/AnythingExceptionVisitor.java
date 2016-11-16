@@ -3,7 +3,7 @@ package model.visitor;
 
 import persistence.*;
 
-public interface AnythingExceptionVisitor<E extends model.UserException> extends AbstractOrderExceptionVisitor<E>,ArticleStateExceptionVisitor<E>,ArticleWrapperExceptionVisitor<E>,CommonDateExceptionVisitor<E>,ComponentExceptionVisitor<E>,QuantifiedArticleExceptionVisitor<E>,ServiceExceptionVisitor<E>{
+public interface AnythingExceptionVisitor<E extends model.UserException> extends AbstractOrderExceptionVisitor<E>,ArticleStateExceptionVisitor<E>,CommonDateExceptionVisitor<E>,ComponentExceptionVisitor<E>,ComponentWrapperExceptionVisitor<E>,QuantifiedArticleExceptionVisitor<E>,ServiceExceptionVisitor<E>{
     
     public void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException, E;
     public void handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException, E;
@@ -18,6 +18,7 @@ public interface AnythingExceptionVisitor<E extends model.UserException> extends
     public void handleNewSubProductGroupCommand(NewSubProductGroupCommand4Public newSubProductGroupCommand) throws PersistenceException, E;
     public void handleProducer(Producer4Public producer) throws PersistenceException, E;
     public void handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException, E;
+    public void handleProductGroupComponents(ProductGroupComponents4Public productGroupComponents) throws PersistenceException, E;
     public void handleReduceStockCommand(ReduceStockCommand4Public reduceStockCommand) throws PersistenceException, E;
     public void handleRegisterCommand(RegisterCommand4Public registerCommand) throws PersistenceException, E;
     public void handleServer(Server4Public server) throws PersistenceException, E;

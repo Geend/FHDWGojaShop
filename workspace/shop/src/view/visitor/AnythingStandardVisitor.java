@@ -20,17 +20,20 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleOrderQuantifiedArticle(OrderQuantifiedArticleView orderQuantifiedArticle) throws ModelException{
         this.standardHandling(orderQuantifiedArticle);
     }
+    public void handleDefaultProductGroupWrapper(DefaultProductGroupWrapperView defaultProductGroupWrapper) throws ModelException{
+        this.standardHandling(defaultProductGroupWrapper);
+    }
     public void handleServer(ServerView server) throws ModelException{
         this.standardHandling(server);
     }
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException{
         this.standardHandling(errorDisplay);
     }
-    public void handleArticle(ArticleView article) throws ModelException{
-        this.standardHandling(article);
-    }
     public void handlePreOrder(PreOrderView preOrder) throws ModelException{
         this.standardHandling(preOrder);
+    }
+    public void handleArticle(ArticleView article) throws ModelException{
+        this.standardHandling(article);
     }
     public void handleNotInSale(NotInSaleView notInSale) throws ModelException{
         this.standardHandling(notInSale);
@@ -47,6 +50,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleOwnerService(OwnerServiceView ownerService) throws ModelException{
         this.standardHandling(ownerService);
     }
+    public void handleCustomerShopArticleWrapper(CustomerShopArticleWrapperView customerShopArticleWrapper) throws ModelException{
+        this.standardHandling(customerShopArticleWrapper);
+    }
     public void handleShoppingCartQuantifiedArticle(ShoppingCartQuantifiedArticleView shoppingCartQuantifiedArticle) throws ModelException{
         this.standardHandling(shoppingCartQuantifiedArticle);
     }
@@ -58,6 +64,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleOrder(OrderView order) throws ModelException{
         this.standardHandling(order);
+    }
+    public void handleStandardArticleWrapper(StandardArticleWrapperView standardArticleWrapper) throws ModelException{
+        this.standardHandling(standardArticleWrapper);
     }
     public void handleRootProductGroup(RootProductGroupView rootProductGroup) throws ModelException{
         this.standardHandling(rootProductGroup);
@@ -73,6 +82,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleShoppingCart(ShoppingCartView shoppingCart) throws ModelException{
         this.standardHandling(shoppingCart);
+    }
+    public void handleOwnerArticleWrapper(OwnerArticleWrapperView ownerArticleWrapper) throws ModelException{
+        this.standardHandling(ownerArticleWrapper);
     }
     public void handleShoppingCartArticleWrapper(ShoppingCartArticleWrapperView shoppingCartArticleWrapper) throws ModelException{
         this.standardHandling(shoppingCartArticleWrapper);

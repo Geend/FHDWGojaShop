@@ -20,9 +20,5 @@ model/.PersistenceGeneratorConfiguration.xml
 workspace/shop/out
 workspace/shop/shop.iml
 workspace/shop/.idea
-workspace/shop/src/view/*
-workspace/shop/src/persistence/*
-workspace/shop/src/model/meta/*
-workspace/shop/src/model/visitor/*
 
 

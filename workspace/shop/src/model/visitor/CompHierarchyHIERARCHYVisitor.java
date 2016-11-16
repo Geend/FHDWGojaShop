@@ -1,7 +1,10 @@
 
 package model.visitor;
 
-public interface CompHierarchyHIERARCHYVisitor extends ComponentVisitor{
+import persistence.*;
+
+public interface CompHierarchyHIERARCHYVisitor extends ComponentVisitor,ComponentWrapperVisitor{
     
+    public void handleProductGroupComponents(ProductGroupComponents4Public productGroupComponents) throws PersistenceException;
     
 }

@@ -259,6 +259,15 @@ public class CustomerService extends model.Service implements PersistentCustomer
 				throws PersistenceException{
         super.initializeOnInstantiation();
     }
+    public CustomerShopArticleWrapper4Public loadArticleWrapper(final StandardArticleWrapper4Public wrapper) 
+				throws PersistenceException{
+        try {
+            return CustomerShopArticleWrapper.createCustomerShopArticleWrapper(wrapper.gArticle());
+        } catch (CycleException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     
     
     // Start of section that contains overridden operations only.

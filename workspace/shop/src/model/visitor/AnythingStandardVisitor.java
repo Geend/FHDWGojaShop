@@ -20,6 +20,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleOrderQuantifiedArticle(OrderQuantifiedArticle4Public orderQuantifiedArticle) throws PersistenceException{
         this.standardHandling(orderQuantifiedArticle);
     }
+    public void handleDefaultProductGroupWrapper(DefaultProductGroupWrapper4Public defaultProductGroupWrapper) throws PersistenceException{
+        this.standardHandling(defaultProductGroupWrapper);
+    }
     public void handleServer(Server4Public server) throws PersistenceException{
         this.standardHandling(server);
     }
@@ -29,11 +32,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleReduceStockCommand(ReduceStockCommand4Public reduceStockCommand) throws PersistenceException{
         this.standardHandling(reduceStockCommand);
     }
-    public void handleArticle(Article4Public article) throws PersistenceException{
-        this.standardHandling(article);
-    }
     public void handlePreOrder(PreOrder4Public preOrder) throws PersistenceException{
         this.standardHandling(preOrder);
+    }
+    public void handleArticle(Article4Public article) throws PersistenceException{
+        this.standardHandling(article);
     }
     public void handleNotInSale(NotInSale4Public notInSale) throws PersistenceException{
         this.standardHandling(notInSale);
@@ -46,6 +49,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleRegisterCommand(RegisterCommand4Public registerCommand) throws PersistenceException{
         this.standardHandling(registerCommand);
+    }
+    public void handleProductGroupComponents(ProductGroupComponents4Public productGroupComponents) throws PersistenceException{
+        this.standardHandling(productGroupComponents);
     }
     public void handleCustomerDeliveryTime(CustomerDeliveryTime4Public customerDeliveryTime) throws PersistenceException{
         this.standardHandling(customerDeliveryTime);
@@ -62,6 +68,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleMoveToCommand(MoveToCommand4Public moveToCommand) throws PersistenceException{
         this.standardHandling(moveToCommand);
     }
+    public void handleCustomerShopArticleWrapper(CustomerShopArticleWrapper4Public customerShopArticleWrapper) throws PersistenceException{
+        this.standardHandling(customerShopArticleWrapper);
+    }
     public void handleShoppingCartQuantifiedArticle(ShoppingCartQuantifiedArticle4Public shoppingCartQuantifiedArticle) throws PersistenceException{
         this.standardHandling(shoppingCartQuantifiedArticle);
     }
@@ -74,14 +83,17 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleOrder(Order4Public order) throws PersistenceException{
         this.standardHandling(order);
     }
+    public void handleStandardArticleWrapper(StandardArticleWrapper4Public standardArticleWrapper) throws PersistenceException{
+        this.standardHandling(standardArticleWrapper);
+    }
     public void handleNewSubProductGroupCommand(NewSubProductGroupCommand4Public newSubProductGroupCommand) throws PersistenceException{
         this.standardHandling(newSubProductGroupCommand);
     }
-    public void handleRootProductGroup(RootProductGroup4Public rootProductGroup) throws PersistenceException{
-        this.standardHandling(rootProductGroup);
-    }
     public void handleIncreaseStockCommand(IncreaseStockCommand4Public increaseStockCommand) throws PersistenceException{
         this.standardHandling(increaseStockCommand);
+    }
+    public void handleRootProductGroup(RootProductGroup4Public rootProductGroup) throws PersistenceException{
+        this.standardHandling(rootProductGroup);
     }
     public void handleCreateProducerCommand(CreateProducerCommand4Public createProducerCommand) throws PersistenceException{
         this.standardHandling(createProducerCommand);
@@ -109,6 +121,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleShoppingCart(ShoppingCart4Public shoppingCart) throws PersistenceException{
         this.standardHandling(shoppingCart);
+    }
+    public void handleOwnerArticleWrapper(OwnerArticleWrapper4Public ownerArticleWrapper) throws PersistenceException{
+        this.standardHandling(ownerArticleWrapper);
     }
     public void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException{
         this.standardHandling(commonDate);

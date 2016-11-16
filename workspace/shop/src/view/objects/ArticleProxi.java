@@ -25,7 +25,6 @@ public class ArticleProxi extends ComponentProxi implements ArticleView{
             producer = view.objects.ViewProxi.createProxi(producer$Info,connectionKey);
             producer.setToString(producer$Info.getToString());
         }
-        String producerName = (String)resultTable.get("producerName");
         ViewProxi state = null;
         String state$String = (String)resultTable.get("state");
         if (state$String != null) {
@@ -33,7 +32,6 @@ public class ArticleProxi extends ComponentProxi implements ArticleView{
             state = view.objects.ViewProxi.createProxi(state$Info,connectionKey);
             state.setToString(state$Info.getToString());
         }
-        String currentState = (String)resultTable.get("currentState");
         ViewProxi parent = null;
         String parent$String = (String)resultTable.get("parent");
         if (parent$String != null) {
@@ -41,7 +39,7 @@ public class ArticleProxi extends ComponentProxi implements ArticleView{
             parent = view.objects.ViewProxi.createProxi(parent$Info,connectionKey);
             parent.setToString(parent$Info.getToString());
         }
-        ArticleView result$$ = new Article((String)name,(common.Fraction)price,(long)minStock,(long)maxStock,(long)currentStock,(long)producerDeliveryTime,(ProducerView)producer,(String)producerName,(ArticleStateView)state,(String)currentState,(ProductGroupView)parent, this.getId(), this.getClassId());
+        ArticleView result$$ = new Article((String)name,(common.Fraction)price,(long)minStock,(long)maxStock,(long)currentStock,(long)producerDeliveryTime,(ProducerView)producer,(ArticleStateView)state,(ProductGroupView)parent, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -100,17 +98,11 @@ public class ArticleProxi extends ComponentProxi implements ArticleView{
     public void setProducer(ProducerView newValue) throws ModelException {
         ((Article)this.getTheObject()).setProducer(newValue);
     }
-    public String getProducerName()throws ModelException{
-        return ((Article)this.getTheObject()).getProducerName();
-    }
     public ArticleStateView getState()throws ModelException{
         return ((Article)this.getTheObject()).getState();
     }
     public void setState(ArticleStateView newValue) throws ModelException {
         ((Article)this.getTheObject()).setState(newValue);
-    }
-    public String getCurrentState()throws ModelException{
-        return ((Article)this.getTheObject()).getCurrentState();
     }
     public ProductGroupView getParent()throws ModelException{
         return ((Article)this.getTheObject()).getParent();
@@ -157,7 +149,7 @@ public class ArticleProxi extends ComponentProxi implements ArticleView{
     }
     
     public boolean hasTransientFields(){
-        return true;
+        return false;
     }
     
     public javafx.scene.image.Image getImage(){

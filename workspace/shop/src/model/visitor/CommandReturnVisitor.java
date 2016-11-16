@@ -1,7 +1,7 @@
 
 package model.visitor;
 
-public interface CommandReturnVisitor<R> extends ArticleCommandReturnVisitor<R> ,CustomerRegisterServiceCommandReturnVisitor<R> ,ProducerLstCommandReturnVisitor<R> ,ProductGroupCommandReturnVisitor<R> ,SubComponentCommandReturnVisitor<R> {
+public interface CommandReturnVisitor<R> extends CustomerRegisterServiceCommandReturnVisitor<R> ,OwnerArticleWrapperCommandReturnVisitor<R> ,ProducerLstCommandReturnVisitor<R> ,ProductGroupCommandReturnVisitor<R> ,SubComponentCommandReturnVisitor<R> {
     
     
 }

@@ -16,10 +16,8 @@ public interface ArticleView extends SubComponent, ComponentView {
     public void setProducerDeliveryTime(long newValue) throws ModelException ;
     public ProducerView getProducer()throws ModelException;
     public void setProducer(ProducerView newValue) throws ModelException ;
-    public String getProducerName()throws ModelException;
     public ArticleStateView getState()throws ModelException;
     public void setState(ArticleStateView newValue) throws ModelException ;
-    public String getCurrentState()throws ModelException;
     public ProductGroupView getParent()throws ModelException;
     public void setParent(ProductGroupView newValue) throws ModelException ;
     

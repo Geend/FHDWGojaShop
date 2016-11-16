@@ -1,7 +1,7 @@
 
 package model.visitor;
 
-public interface CommandVisitor extends ArticleCommandVisitor,CustomerRegisterServiceCommandVisitor,ProducerLstCommandVisitor,ProductGroupCommandVisitor,SubComponentCommandVisitor{
+public interface CommandVisitor extends CustomerRegisterServiceCommandVisitor,OwnerArticleWrapperCommandVisitor,ProducerLstCommandVisitor,ProductGroupCommandVisitor,SubComponentCommandVisitor{
     
     
 }

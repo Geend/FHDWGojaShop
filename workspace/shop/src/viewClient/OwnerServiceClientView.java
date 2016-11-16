@@ -1,11 +1,17 @@
 package viewClient;
 
+
+import model.OwnerArticleWrapper;
+import model.OwnerService;
+import model.StandardArticleWrapper;
+import persistence.PersistenceException;
 import view.*;
 import view.objects.ViewRoot;
 import view.objects.ViewObjectInTree;
 
 import view.visitor.AnythingStandardVisitor;
 
+import java.security.acl.Owner;
 import java.util.Optional;
 
 import javafx.application.Platform;
@@ -32,298 +38,355 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
-
 import com.sun.javafx.geom.Point2D;
+import view.visitor.ArticleWrapperVisitor;
+import view.visitor.ComponentWrapperDirectVisitor;
 
 import javax.swing.tree.TreeModel;
 
+public class OwnerServiceClientView extends BorderPane implements ExceptionAndEventHandler {
 
-public class OwnerServiceClientView extends BorderPane implements ExceptionAndEventHandler{
+    private ConnectionMaster connection;
+    private ExceptionAndEventHandler parent;
+    private OwnerServiceView service;
 
-	private ConnectionMaster 		 connection;
-	private ExceptionAndEventHandler parent;	
-	private OwnerServiceView 		 		 service;
+    /**
+     * This is the default constructor
+     */
+    public OwnerServiceClientView(ExceptionAndEventHandler parent, OwnerServiceView service) {
+        super();
+        this.parent = parent;
+        this.service = service;
+        this.initialize();
+    }
 
-	/**
-	 * This is the default constructor
-	 */
-	public OwnerServiceClientView( ExceptionAndEventHandler parent, OwnerServiceView service) {
-		super();
-		this.parent = parent;
-		this.service = service;
-		this.initialize();
-	}
-	@SuppressWarnings("unused")
-	private OwnerServiceView getService(){
-		return this.service;
-	}
-	private void initialize() {
-        this.setCenter( this.getMainSplitPane());
-        if( !WithStaticOperations && this.getMainToolBar().getItems().size() > 0){
-        	this.setTop( this.getMainToolBar() );
+    @SuppressWarnings("unused")
+    private OwnerServiceView getService() {
+        return this.service;
+    }
+
+    private void initialize() {
+        this.setCenter(this.getMainSplitPane());
+        if (!WithStaticOperations && this.getMainToolBar().getItems().size() > 0) {
+            this.setTop(this.getMainToolBar());
         }
-	}
-	private ToolBar mainToolBar = null;
-	private ToolBar getMainToolBar() {
-		if( this.mainToolBar == null){
-			this.mainToolBar = new ToolBar();
-			for( Button current : this.getToolButtonsForStaticOperations()) {
-				this.mainToolBar.getItems().add( current );
-			}
-		}
-		return this.mainToolBar;
-	}
-	private SplitPane mainSplitPane = null;
-	private SplitPane getMainSplitPane() {
-		if( this.mainSplitPane == null) {
-			this.mainSplitPane = new SplitPane();
-			this.mainSplitPane.setOrientation( Orientation.HORIZONTAL);
-			this.mainSplitPane.getItems().addAll( this.getNavigationSplitPane(), this.getTitledDetailsPane() );	
-			this.mainSplitPane.setDividerPosition( 0, 0.5);
-			this.mainSplitPane.prefHeightProperty().bind( this.heightProperty());
-			this.mainSplitPane.prefWidthProperty().bind( this.widthProperty());
-		}
-		return this.mainSplitPane;
-	}
-	private SplitPane navigationSplitPane = null;
-	private SplitPane getNavigationSplitPane(){
-		if( this.navigationSplitPane == null ){
-			this.navigationSplitPane = new SplitPane();
-			this.navigationSplitPane.setOrientation( Orientation.VERTICAL);
-			this.navigationSplitPane.getItems().addAll( this.getNavigationPanel(), this.getErrorPanel());
-			this.navigationSplitPane.prefHeightProperty().bind( this.getMainSplitPane().heightProperty());
-			this.navigationSplitPane.setDividerPosition( 0, 1.0);
-			this.navigationSplitPane.heightProperty().addListener(new ChangeListener<Number>() {
-				public void changed(
-						ObservableValue<? extends Number> observable,
-						Number oldValue, Number newValue) {
-					if(! getErrorPanel().isVisible()) {						
-						navigationSplitPane.setDividerPosition(0, 1.0);
-					} else {						
-						navigationSplitPane.setDividerPosition(0, 0.7);
-					}
-				}
-			});
-			this.getErrorPanel().setMinHeight(0);
-		}
-		return this.navigationSplitPane;
-	}
-	private TitledPane treePanel = null;
-	private TitledPane getNavigationPanel() {
-		if( this.treePanel == null) {
-			this.treePanel = new TitledPane( GUIConstants.NaviationTitle, this.getNavigationTree() );
-			this.treePanel.setCollapsible( false );
-			this.treePanel.prefHeightProperty().bind( this.getNavigationSplitPane().heightProperty());
-		}
-		return treePanel;
-	}
-	private TitledPane errorPanel = null;
-	private TitledPane getErrorPanel(){
-		if( this.errorPanel == null){
-			this.errorPanel = new TitledPane( GUIConstants.ErrorTitle, this.getErrorTree());
-			this.errorPanel.setCollapsible( false );
-			this.errorPanel.setVisible( false );
-		}
-		return this.errorPanel;
-	}
+    }
 
-	private TreeRefresh errorTree = null;
-	private TreeRefresh getErrorTree(){
-		if( this.errorTree == null){
-			this.errorTree = new TreeRefresh(parent);
-			this.errorTree.setOnContextMenuRequested( new EventHandler<ContextMenuEvent>() {
-				public void handle(ContextMenuEvent e) {
-					tryShowContextMenu( e, errorTree, false);					
-				}
-			});
-		}
-		return this.errorTree;
-	}
-	private void setErrors( TreeModel errors){
-		this.getErrorPanel().setVisible(true);
-		this.getErrorTree().setModel( errors );
-		this.getNavigationSplitPane().setDividerPosition(0, 0.7);
-	}
-	private void setNoErrors(){
-		this.getErrorPanel().setVisible(false);
+    private ToolBar mainToolBar = null;
+
+    private ToolBar getMainToolBar() {
+        if (this.mainToolBar == null) {
+            this.mainToolBar = new ToolBar();
+            for (Button current : this.getToolButtonsForStaticOperations()) {
+                this.mainToolBar.getItems().add(current);
+            }
+        }
+        return this.mainToolBar;
+    }
+
+    private SplitPane mainSplitPane = null;
+
+    private SplitPane getMainSplitPane() {
+        if (this.mainSplitPane == null) {
+            this.mainSplitPane = new SplitPane();
+            this.mainSplitPane.setOrientation(Orientation.HORIZONTAL);
+            this.mainSplitPane.getItems().addAll(this.getNavigationSplitPane(), this.getTitledDetailsPane());
+            this.mainSplitPane.setDividerPosition(0, 0.5);
+            this.mainSplitPane.prefHeightProperty().bind(this.heightProperty());
+            this.mainSplitPane.prefWidthProperty().bind(this.widthProperty());
+        }
+        return this.mainSplitPane;
+    }
+
+    private SplitPane navigationSplitPane = null;
+
+    private SplitPane getNavigationSplitPane() {
+        if (this.navigationSplitPane == null) {
+            this.navigationSplitPane = new SplitPane();
+            this.navigationSplitPane.setOrientation(Orientation.VERTICAL);
+            this.navigationSplitPane.getItems().addAll(this.getNavigationPanel(), this.getErrorPanel());
+            this.navigationSplitPane.prefHeightProperty().bind(this.getMainSplitPane().heightProperty());
+            this.navigationSplitPane.setDividerPosition(0, 1.0);
+            this.navigationSplitPane.heightProperty().addListener(new ChangeListener<Number>() {
+                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                    if (!getErrorPanel().isVisible()) {
+                        navigationSplitPane.setDividerPosition(0, 1.0);
+                    } else {
+                        navigationSplitPane.setDividerPosition(0, 0.7);
+                    }
+                }
+            });
+            this.getErrorPanel().setMinHeight(0);
+        }
+        return this.navigationSplitPane;
+    }
+
+    private TitledPane treePanel = null;
+
+    private TitledPane getNavigationPanel() {
+        if (this.treePanel == null) {
+            this.treePanel = new TitledPane(GUIConstants.NaviationTitle, this.getNavigationTree());
+            this.treePanel.setCollapsible(false);
+            this.treePanel.prefHeightProperty().bind(this.getNavigationSplitPane().heightProperty());
+        }
+        return treePanel;
+    }
+
+    private TitledPane errorPanel = null;
+
+    private TitledPane getErrorPanel() {
+        if (this.errorPanel == null) {
+            this.errorPanel = new TitledPane(GUIConstants.ErrorTitle, this.getErrorTree());
+            this.errorPanel.setCollapsible(false);
+            this.errorPanel.setVisible(false);
+        }
+        return this.errorPanel;
+    }
+
+    private TreeRefresh errorTree = null;
+
+    private TreeRefresh getErrorTree() {
+        if (this.errorTree == null) {
+            this.errorTree = new TreeRefresh(parent);
+            this.errorTree.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+                public void handle(ContextMenuEvent e) {
+                    tryShowContextMenu(e, errorTree, false);
+                }
+            });
+        }
+        return this.errorTree;
+    }
+
+    private void setErrors(TreeModel errors) {
+        this.getErrorPanel().setVisible(true);
+        this.getErrorTree().setModel(errors);
+        this.getNavigationSplitPane().setDividerPosition(0, 0.7);
+    }
+
+    private void setNoErrors() {
+        this.getErrorPanel().setVisible(false);
         this.getNavigationSplitPane().setDividerPosition(0, 1.0);
-	}
-	private TitledPane titledDetailsPane = null;
-	private TitledPane getTitledDetailsPane() {
-		if( this.titledDetailsPane == null ){
-			this.titledDetailsPane = new TitledPane();
-			this.titledDetailsPane.setText( GUIConstants.DetailsTitle);
-			this.titledDetailsPane.setCollapsible(false);			
-			this.titledDetailsPane.prefHeightProperty().bind(this.getMainSplitPane().heightProperty());
-		}
-		return this.titledDetailsPane;		
-	}	
-	private TreeRefresh navigationTree = null;
-	private TreeRefresh getNavigationTree() {
-		if( this.navigationTree == null) {
-			this.navigationTree = new TreeRefresh( parent );
-			this.navigationTree.getSelectionModel().setSelectionMode( SelectionMode.SINGLE);
-			this.navigationTree.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<ViewObjectInTree>>() {
-				public void changed(
-					ObservableValue<? extends TreeItem<ViewObjectInTree>> observable,
-					TreeItem<ViewObjectInTree> oldValue,
-					TreeItem<ViewObjectInTree> newValue) {
-					if( menu !=null) menu.hide();
-					if( newValue != null ){						
-						setDetailsTable( (Anything) newValue.getValue().getWrappedObject());				
-					}
-				}
-			});
-			this.navigationTree.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
-				public void handle(ContextMenuEvent e) {
-					tryShowContextMenu( e, navigationTree, WithStaticOperations);					
-				}
-			});
-			navigationTree.setOnKeyReleased( new EventHandler<KeyEvent>() {
-				public void handle(KeyEvent event) {
-					if( event.getCode() == KeyCode.F5 ){
-						Platform.runLater( new Runnable() {
-							public void run() {								
-								try {
-									getNavigationTree().refreshTree();
-								} catch (ModelException e) {
-									handleException(e);
-								}			
-							}
-						});
-					}
-				}
-			});
-		}
-		return this.navigationTree;
-	}
-	private DetailPanel currentDetails = null;
-	protected void setDetailsTable( Anything object) {
-		this.getTitledDetailsPane().setVisible( false );
-		if (object == null && this.getConnection() != null) object = this.getConnection().getOwnerServiceView();
-		if (object == null){
-			this.currentDetails = getNoDetailsPanel();
-		}else{
-			try {
-				this.currentDetails = this.getDetailView(object);
-			} catch (ModelException e) {
-				this.handleException(e);
-				this.currentDetails = null;
-			}
-			if(this.currentDetails == null) this.currentDetails = getStandardDetailsTable(object);
-		}
-		this.getTitledDetailsPane().setContent( this.currentDetails );
-		this.getTitledDetailsPane().setVisible( true );
-		this.currentDetails.prefWidthProperty().bind( this.getTitledDetailsPane().widthProperty() );
-	}
+    }
 
-	private DetailPanel getDetailView(final Anything anything) throws ModelException {
-		class PanelDecider extends AnythingStandardVisitor {
+    private TitledPane titledDetailsPane = null;
 
-			private DetailPanel result;
-			
-			public DetailPanel getResult() {
-				return this.result;
-			}
-			protected void standardHandling(Anything Anything) throws ModelException {
-				this.result = null;
-			}
-			//TODO Overwrite all handle methods for the types for which you intend to provide a special panel!
-		}
-		PanelDecider decider = new PanelDecider();
-		anything.accept(decider);
-		return decider.getResult();
-	}
-	private NoDetailPanel noDetailPanel = null;
-	public DetailPanel getNoDetailsPanel() {
-		if( this.noDetailPanel == null) this.noDetailPanel = new NoDetailPanel(this);
-		return noDetailPanel;
-	}
-	private ContextMenu menu = null;
-	protected void tryShowContextMenu( ContextMenuEvent e, TreeRefresh tree, boolean withStaticOperations) {
-		if( this.menu !=null ) this.menu.hide();
-		SelectionModel<TreeItem<ViewObjectInTree>> selMod = tree.getSelectionModel();
-		ViewObjectInTree selVal = selMod.getSelectedItem().getValue();
-		ViewRoot selected = selVal.getWrappedObject();
-		this.menu = this.getContextMenu( selected, withStaticOperations , new Point2D((float)e.getScreenX(), (float)e.getScreenY() ) );
-		if( this.menu.getItems().size() > 0) {
-			this.menu.show( this.getNavigationPanel(),  e.getScreenX(), e.getScreenY() );
-		}
-	}
-	
-	private DetailPanel getStandardDetailsTable(Anything object) {
-		try {
-			return DefaultDetailPanel.getStandardDetailPanel(object,this);
-		} catch (ModelException e) {
-			this.handleException(e);
-			return new NoDetailPanel(this);
-		}
-	}
+    private TitledPane getTitledDetailsPane() {
+        if (this.titledDetailsPane == null) {
+            this.titledDetailsPane = new TitledPane();
+            this.titledDetailsPane.setText(GUIConstants.DetailsTitle);
+            this.titledDetailsPane.setCollapsible(false);
+            this.titledDetailsPane.prefHeightProperty().bind(this.getMainSplitPane().heightProperty());
+        }
+        return this.titledDetailsPane;
+    }
 
-	public void setConnection(ConnectionMaster connection){
-		this.connection = connection;
-	}
-	public OwnerServiceConnection getConnection(){
-        	return (OwnerServiceConnection)this.connection;
-	}
-	/** Is called by the refresher thread if the server object has changed
-	**/
-	public void handleRefresh(){
-		Platform.runLater(new Runnable() {
-			public void run(){
-				try {
-					getNavigationTree().refreshTree();
-					java.util.Vector<?> errors = getConnection().getOwnerServiceView().getErrors();
-					if (errors.size() >0 )setErrors( new ListRoot(errors));
-					else setNoErrors();
-				} catch (ModelException e) {
-					handleException(e);
-				}			
-			}
-		});
-		//TODO adjust implementation: handleRefresh()!
-	}
-	/** Is called only once after the connection has been established
-	**/
-	public void initializeConnection(){
-		Platform.runLater( new  Runnable() {
-			public void run() {
-				getNavigationTree().setModel((TreeModel) getConnection().getOwnerServiceView());	
-				getNavigationTree().getRoot().setExpanded(true);
-				getNavigationTree().getSelectionModel().select( getNavigationTree().getRoot());
-			}
-		});
-		//TODO adjust implementation: initializeConnection
-	}
-	public void handleException(ModelException exception) {
-		this.parent.handleException(exception);
-	}
-	public void handleOKMessage(String message) {
-		this.parent.handleOKMessage(message);
-	}
-	public void handleUserException(UserException exception) {
-		this.parent.handleUserException(exception);	
-	}	
-	
-	/* Menu and wizard section start */
+    private TreeRefresh navigationTree = null;
+
+    private TreeRefresh getNavigationTree() {
+        if (this.navigationTree == null) {
+            this.navigationTree = new TreeRefresh(parent);
+            this.navigationTree.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+            this.navigationTree.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<ViewObjectInTree>>() {
+                public void changed(ObservableValue<? extends TreeItem<ViewObjectInTree>> observable, TreeItem<ViewObjectInTree> oldValue, TreeItem<ViewObjectInTree> newValue) {
+                    if (menu != null)
+                        menu.hide();
+                    if (newValue != null) {
+                        setDetailsTable((Anything) newValue.getValue().getWrappedObject());
+                    }
+                }
+            });
+            this.navigationTree.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+                public void handle(ContextMenuEvent e) {
+                    tryShowContextMenu(e, navigationTree, WithStaticOperations);
+                }
+            });
+            navigationTree.setOnKeyReleased(new EventHandler<KeyEvent>() {
+                public void handle(KeyEvent event) {
+                    if (event.getCode() == KeyCode.F5) {
+                        Platform.runLater(new Runnable() {
+                            public void run() {
+                                try {
+                                    getNavigationTree().refreshTree();
+                                } catch (ModelException e) {
+                                    handleException(e);
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        return this.navigationTree;
+    }
+
+    private DetailPanel currentDetails = null;
+
+    protected void setDetailsTable(Anything object) {
+        this.getTitledDetailsPane().setVisible(false);
+        if (object == null && this.getConnection() != null)
+            object = this.getConnection().getOwnerServiceView();
+        if (object == null) {
+            this.currentDetails = getNoDetailsPanel();
+        } else {
+            try {
+                this.currentDetails = this.getDetailView(object);
+            } catch (ModelException e) {
+                this.handleException(e);
+                this.currentDetails = null;
+            }
+            if (this.currentDetails == null)
+                this.currentDetails = getStandardDetailsTable(object);
+        }
+        this.getTitledDetailsPane().setContent(this.currentDetails);
+        this.getTitledDetailsPane().setVisible(true);
+        this.currentDetails.prefWidthProperty().bind(this.getTitledDetailsPane().widthProperty());
+    }
+
+    private DetailPanel getDetailView(final Anything anything) throws ModelException {
+        class PanelDecider extends AnythingStandardVisitor {
+
+            private DetailPanel result;
+
+            public DetailPanel getResult() {
+                return this.result;
+            }
+
+            protected void standardHandling(Anything Anything) throws ModelException {
+                this.result = null;
+            }
+
+            @Override
+            public void handleStandardArticleWrapper(StandardArticleWrapperView standardArticleWrapper) throws ModelException {
+
+                OwnerArticleWrapperView wrapper = getConnection().loadOwnerServiceArticleWrapper(standardArticleWrapper);
+
+                OwnerArticleWrapperDefaultDetailPanel panel = new OwnerArticleWrapperDefaultDetailPanel(OwnerServiceClientView.this, wrapper);
+                panel.registerUpdater(OwnerArticleWrapperDefaultDetailPanel.OwnerArticleWrapper$$name, new UpdaterForString() {
+                    @Override
+                    public void update(String text) throws ModelException {
+                        getConnection().changeArticleName(wrapper, text);
+                    }
+                });
+
+                result = panel;
+
+            }
+
+            // TODO Overwrite all handle methods for the types for which you intend to provide a special panel!
+        }
+        PanelDecider decider = new PanelDecider();
+        anything.accept(decider);
+        return decider.getResult();
+    }
+
+    private NoDetailPanel noDetailPanel = null;
+
+    public DetailPanel getNoDetailsPanel() {
+        if (this.noDetailPanel == null)
+            this.noDetailPanel = new NoDetailPanel(this);
+        return noDetailPanel;
+    }
+
+    private ContextMenu menu = null;
+
+    protected void tryShowContextMenu(ContextMenuEvent e, TreeRefresh tree, boolean withStaticOperations) {
+        if (this.menu != null)
+            this.menu.hide();
+        SelectionModel<TreeItem<ViewObjectInTree>> selMod = tree.getSelectionModel();
+        ViewObjectInTree selVal = selMod.getSelectedItem().getValue();
+        ViewRoot selected = selVal.getWrappedObject();
+        this.menu = this.getContextMenu(selected, withStaticOperations, new Point2D((float) e.getScreenX(), (float) e.getScreenY()));
+        if (this.menu.getItems().size() > 0) {
+            this.menu.show(this.getNavigationPanel(), e.getScreenX(), e.getScreenY());
+        }
+    }
+
+    private DetailPanel getStandardDetailsTable(Anything object) {
+        try {
+            return DefaultDetailPanel.getStandardDetailPanel(object, this);
+        } catch (ModelException e) {
+            this.handleException(e);
+            return new NoDetailPanel(this);
+        }
+    }
+
+    public void setConnection(ConnectionMaster connection) {
+        this.connection = connection;
+    }
+
+    public OwnerServiceConnection getConnection() {
+        return (OwnerServiceConnection) this.connection;
+    }
+
+    /**
+     * Is called by the refresher thread if the server object has changed
+     **/
+    public void handleRefresh() {
+        Platform.runLater(new Runnable() {
+            public void run() {
+                try {
+                    getNavigationTree().refreshTree();
+
+
+
+                    java.util.Vector<?> errors = getConnection().getOwnerServiceView().getErrors();
+                    if (errors.size() > 0)
+                        setErrors(new ListRoot(errors));
+                    else
+                        setNoErrors();
+                } catch (ModelException e) {
+                    handleException(e);
+                }
+            }
+        });
+
+        // TODO adjust implementation: handleRefresh()!
+    }
+
+    /**
+     * Is called only once after the connection has been established
+     **/
+    public void initializeConnection() {
+        Platform.runLater(new Runnable() {
+            public void run() {
+                getNavigationTree().setModel((TreeModel) getConnection().getOwnerServiceView());
+                getNavigationTree().getRoot().setExpanded(true);
+                getNavigationTree().getSelectionModel().select(getNavigationTree().getRoot());
+            }
+        });
+
+        // TODO adjust implementation: initializeConnection
+    }
+
+    public void handleException(ModelException exception) {
+        this.parent.handleException(exception);
+    }
+
+    public void handleOKMessage(String message) {
+        this.parent.handleOKMessage(message);
+    }
+
+    public void handleUserException(UserException exception) {
+        this.parent.handleUserException(exception);
+    }
+
+    /* Menu and wizard section start */
 
 	static boolean WithStaticOperations = false;
 
 
     interface MenuItemVisitor{
         ImageView handle(NewProductGroupPRMTRStringPRMTRMenuItem menuItem);
-        ImageView handle(ChangeArticleMaxStockPRMTRArticlePRMTRIntegerPRMTRMenuItem menuItem);
-        ImageView handle(ChangeArticleMinStockPRMTRArticlePRMTRIntegerPRMTRMenuItem menuItem);
-        ImageView handle(ChangeArticleNamePRMTRArticlePRMTRStringPRMTRMenuItem menuItem);
-        ImageView handle(ChangeArticlePricePRMTRArticlePRMTRFractionPRMTRMenuItem menuItem);
+        ImageView handle(ChangeArticleNamePRMTROwnerArticleWrapperPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(CreateProducerPRMTRStringPRMTRMenuItem menuItem);
-        ImageView handle(IncreaseArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem menuItem);
+        ImageView handle(IncreaseArticleStockPRMTRStandardArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem);
+        ImageView handle(LoadOwnerServiceArticleWrapperPRMTRStandardArticleWrapperPRMTRMenuItem menuItem);
         ImageView handle(MoveToPRMTRSubComponentPRMTRProductGroupPRMTRMenuItem menuItem);
         ImageView handle(NewArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem menuItem);
         ImageView handle(NewProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem menuItem);
-        ImageView handle(ReduceArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem menuItem);
-        ImageView handle(StartSellingPRMTRArticlePRMTRMenuItem menuItem);
-        ImageView handle(StopSellingPRMTRArticlePRMTRMenuItem menuItem);
+        ImageView handle(ReduceArticleStockPRMTRStandardArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem);
+        ImageView handle(StartSellingPRMTRStandardArticleWrapperPRMTRMenuItem menuItem);
+        ImageView handle(StopSellingPRMTRStandardArticleWrapperPRMTRMenuItem menuItem);
     }
     private abstract class OwnerServiceMenuItem extends MenuItem{
         private OwnerServiceMenuItem(){
@@ -336,22 +399,7 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
             return visitor.handle(this);
         }
     }
-    private class ChangeArticleMaxStockPRMTRArticlePRMTRIntegerPRMTRMenuItem extends OwnerServiceMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class ChangeArticleMinStockPRMTRArticlePRMTRIntegerPRMTRMenuItem extends OwnerServiceMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class ChangeArticleNamePRMTRArticlePRMTRStringPRMTRMenuItem extends OwnerServiceMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class ChangeArticlePricePRMTRArticlePRMTRFractionPRMTRMenuItem extends OwnerServiceMenuItem{
+    private class ChangeArticleNamePRMTROwnerArticleWrapperPRMTRStringPRMTRMenuItem extends OwnerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -361,7 +409,12 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
             return visitor.handle(this);
         }
     }
-    private class IncreaseArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem extends OwnerServiceMenuItem{
+    private class IncreaseArticleStockPRMTRStandardArticleWrapperPRMTRIntegerPRMTRMenuItem extends OwnerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class LoadOwnerServiceArticleWrapperPRMTRStandardArticleWrapperPRMTRMenuItem extends OwnerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -381,17 +434,17 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
             return visitor.handle(this);
         }
     }
-    private class ReduceArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem extends OwnerServiceMenuItem{
+    private class ReduceArticleStockPRMTRStandardArticleWrapperPRMTRIntegerPRMTRMenuItem extends OwnerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
     }
-    private class StartSellingPRMTRArticlePRMTRMenuItem extends OwnerServiceMenuItem{
+    private class StartSellingPRMTRStandardArticleWrapperPRMTRMenuItem extends OwnerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
     }
-    private class StopSellingPRMTRArticlePRMTRMenuItem extends OwnerServiceMenuItem{
+    private class StopSellingPRMTRStandardArticleWrapperPRMTRMenuItem extends OwnerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -451,6 +504,101 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
                 this.handleException(me);
                 return result;
             }
+            if (selected instanceof StandardArticleWrapperView){
+                item = new IncreaseArticleStockPRMTRStandardArticleWrapperPRMTRIntegerPRMTRMenuItem();
+                item.setText("increaseArticleStock ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final OwnerServiceIncreaseArticleStockStandardArticleWrapperIntegerMssgWizard wizard = new OwnerServiceIncreaseArticleStockStandardArticleWrapperIntegerMssgWizard("increaseArticleStock");
+                        wizard.setFirstArgument((StandardArticleWrapperView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+                if (filter_loadOwnerServiceArticleWrapper((StandardArticleWrapperView) selected)) {
+                    item = new LoadOwnerServiceArticleWrapperPRMTRStandardArticleWrapperPRMTRMenuItem();
+                    item.setText("loadOwnerServiceArticleWrapper");
+                    item.setOnAction(new EventHandler<ActionEvent>(){
+                        public void handle(javafx.event.ActionEvent e) {
+                            Alert confirm = new Alert(AlertType.CONFIRMATION);
+                            confirm.setTitle(GUIConstants.ConfirmButtonText);
+                            confirm.setHeaderText(null);
+                            confirm.setContentText("loadOwnerServiceArticleWrapper" + GUIConstants.ConfirmQuestionMark);
+                            Optional<ButtonType> buttonResult = confirm.showAndWait();
+                            if (buttonResult.get() == ButtonType.OK) {
+                                try {
+                                    ViewRoot result = (ViewRoot)getConnection().loadOwnerServiceArticleWrapper((StandardArticleWrapperView)selected);
+                                    getConnection().setEagerRefresh();
+                                    ReturnValueView view = new ReturnValueView(result, new javafx.geometry.Dimension2D(getNavigationPanel().getWidth()*8/9,getNavigationPanel().getHeight()*8/9), OwnerServiceClientView.this);
+                                    view.centerOnScreen();
+                                    view.showAndWait();
+                                }catch(ModelException me){
+                                    handleException(me);
+                                }
+                            }
+                        }
+                    });
+                    result.getItems().add(item);
+                }
+                item = new ReduceArticleStockPRMTRStandardArticleWrapperPRMTRIntegerPRMTRMenuItem();
+                item.setText("reduceArticleStock ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final OwnerServiceReduceArticleStockStandardArticleWrapperIntegerMssgWizard wizard = new OwnerServiceReduceArticleStockStandardArticleWrapperIntegerMssgWizard("reduceArticleStock");
+                        wizard.setFirstArgument((StandardArticleWrapperView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+                if (filter_startSelling((StandardArticleWrapperView) selected)) {
+                    item = new StartSellingPRMTRStandardArticleWrapperPRMTRMenuItem();
+                    item.setText("startSelling");
+                    item.setOnAction(new EventHandler<ActionEvent>(){
+                        public void handle(javafx.event.ActionEvent e) {
+                            Alert confirm = new Alert(AlertType.CONFIRMATION);
+                            confirm.setTitle(GUIConstants.ConfirmButtonText);
+                            confirm.setHeaderText(null);
+                            confirm.setContentText("startSelling" + GUIConstants.ConfirmQuestionMark);
+                            Optional<ButtonType> buttonResult = confirm.showAndWait();
+                            if (buttonResult.get() == ButtonType.OK) {
+                                try {
+                                    getConnection().startSelling((StandardArticleWrapperView)selected);
+                                    getConnection().setEagerRefresh();
+                                    
+                                }catch(ModelException me){
+                                    handleException(me);
+                                }
+                            }
+                        }
+                    });
+                    result.getItems().add(item);
+                }
+                if (filter_stopSelling((StandardArticleWrapperView) selected)) {
+                    item = new StopSellingPRMTRStandardArticleWrapperPRMTRMenuItem();
+                    item.setText("stopSelling");
+                    item.setOnAction(new EventHandler<ActionEvent>(){
+                        public void handle(javafx.event.ActionEvent e) {
+                            Alert confirm = new Alert(AlertType.CONFIRMATION);
+                            confirm.setTitle(GUIConstants.ConfirmButtonText);
+                            confirm.setHeaderText(null);
+                            confirm.setContentText("stopSelling" + GUIConstants.ConfirmQuestionMark);
+                            Optional<ButtonType> buttonResult = confirm.showAndWait();
+                            if (buttonResult.get() == ButtonType.OK) {
+                                try {
+                                    getConnection().stopSelling((StandardArticleWrapperView)selected);
+                                    getConnection().setEagerRefresh();
+                                    
+                                }catch(ModelException me){
+                                    handleException(me);
+                                }
+                            }
+                        }
+                    });
+                    result.getItems().add(item);
+                }
+            }
             if (selected instanceof SubComponent){
                 item = new MoveToPRMTRSubComponentPRMTRProductGroupPRMTRMenuItem();
                 item.setText("moveTo ... ");
@@ -488,119 +636,18 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
                 });
                 result.getItems().add(item);
             }
-            if (selected instanceof ArticleView){
-                item = new ChangeArticleMaxStockPRMTRArticlePRMTRIntegerPRMTRMenuItem();
-                item.setText("changeArticleMaxStock ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final OwnerServiceChangeArticleMaxStockArticleIntegerMssgWizard wizard = new OwnerServiceChangeArticleMaxStockArticleIntegerMssgWizard("changeArticleMaxStock");
-                        wizard.setFirstArgument((ArticleView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-                item = new ChangeArticleMinStockPRMTRArticlePRMTRIntegerPRMTRMenuItem();
-                item.setText("changeArticleMinStock ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final OwnerServiceChangeArticleMinStockArticleIntegerMssgWizard wizard = new OwnerServiceChangeArticleMinStockArticleIntegerMssgWizard("changeArticleMinStock");
-                        wizard.setFirstArgument((ArticleView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-                item = new ChangeArticleNamePRMTRArticlePRMTRStringPRMTRMenuItem();
+            if (selected instanceof OwnerArticleWrapperView){
+                item = new ChangeArticleNamePRMTROwnerArticleWrapperPRMTRStringPRMTRMenuItem();
                 item.setText("changeArticleName ... ");
                 item.setOnAction(new EventHandler<ActionEvent>(){
                     public void handle(javafx.event.ActionEvent e) {
-                        final OwnerServiceChangeArticleNameArticleStringMssgWizard wizard = new OwnerServiceChangeArticleNameArticleStringMssgWizard("changeArticleName");
-                        wizard.setFirstArgument((ArticleView)selected);
+                        final OwnerServiceChangeArticleNameOwnerArticleWrapperStringMssgWizard wizard = new OwnerServiceChangeArticleNameOwnerArticleWrapperStringMssgWizard("changeArticleName");
+                        wizard.setFirstArgument((OwnerArticleWrapperView)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.showAndWait();
                     }
                 });
                 result.getItems().add(item);
-                item = new ChangeArticlePricePRMTRArticlePRMTRFractionPRMTRMenuItem();
-                item.setText("changeArticlePrice ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final OwnerServiceChangeArticlePriceArticleFractionMssgWizard wizard = new OwnerServiceChangeArticlePriceArticleFractionMssgWizard("changeArticlePrice");
-                        wizard.setFirstArgument((ArticleView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-                item = new IncreaseArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem();
-                item.setText("increaseArticleStock ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final OwnerServiceIncreaseArticleStockArticleIntegerMssgWizard wizard = new OwnerServiceIncreaseArticleStockArticleIntegerMssgWizard("increaseArticleStock");
-                        wizard.setFirstArgument((ArticleView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-                item = new ReduceArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem();
-                item.setText("reduceArticleStock ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final OwnerServiceReduceArticleStockArticleIntegerMssgWizard wizard = new OwnerServiceReduceArticleStockArticleIntegerMssgWizard("reduceArticleStock");
-                        wizard.setFirstArgument((ArticleView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-                if (filter_startSelling((ArticleView) selected)) {
-                    item = new StartSellingPRMTRArticlePRMTRMenuItem();
-                    item.setText("startSelling");
-                    item.setOnAction(new EventHandler<ActionEvent>(){
-                        public void handle(javafx.event.ActionEvent e) {
-                            Alert confirm = new Alert(AlertType.CONFIRMATION);
-                            confirm.setTitle(GUIConstants.ConfirmButtonText);
-                            confirm.setHeaderText(null);
-                            confirm.setContentText("startSelling" + GUIConstants.ConfirmQuestionMark);
-                            Optional<ButtonType> buttonResult = confirm.showAndWait();
-                            if (buttonResult.get() == ButtonType.OK) {
-                                try {
-                                    getConnection().startSelling((ArticleView)selected);
-                                    getConnection().setEagerRefresh();
-                                    
-                                }catch(ModelException me){
-                                    handleException(me);
-                                }
-                            }
-                        }
-                    });
-                    result.getItems().add(item);
-                }
-                if (filter_stopSelling((ArticleView) selected)) {
-                    item = new StopSellingPRMTRArticlePRMTRMenuItem();
-                    item.setText("stopSelling");
-                    item.setOnAction(new EventHandler<ActionEvent>(){
-                        public void handle(javafx.event.ActionEvent e) {
-                            Alert confirm = new Alert(AlertType.CONFIRMATION);
-                            confirm.setTitle(GUIConstants.ConfirmButtonText);
-                            confirm.setHeaderText(null);
-                            confirm.setContentText("stopSelling" + GUIConstants.ConfirmQuestionMark);
-                            Optional<ButtonType> buttonResult = confirm.showAndWait();
-                            if (buttonResult.get() == ButtonType.OK) {
-                                try {
-                                    getConnection().stopSelling((ArticleView)selected);
-                                    getConnection().setEagerRefresh();
-                                    
-                                }catch(ModelException me){
-                                    handleException(me);
-                                }
-                            }
-                        }
-                    });
-                    result.getItems().add(item);
-                }
             }
             
         }
@@ -614,116 +661,25 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
     private void setPreCalculatedFilters(String switchOff) {
         this.preCalculatedFilters = switchOff;
     }
-    private boolean filter_startSelling(ArticleView argument){
-        return this.getPreCalculatedFilters().contains("+++startSellingPRMTRArticlePRMTR");
+    private boolean filter_loadOwnerServiceArticleWrapper(StandardArticleWrapperView argument){
+        return this.getPreCalculatedFilters().contains("+++loadOwnerServiceArticleWrapperPRMTRStandardArticleWrapperPRMTR");
     }
-    private boolean filter_stopSelling(ArticleView argument){
-        return this.getPreCalculatedFilters().contains("+++stopSellingPRMTRArticlePRMTR");
+    private boolean filter_startSelling(StandardArticleWrapperView argument){
+        return this.getPreCalculatedFilters().contains("+++startSellingPRMTRStandardArticleWrapperPRMTR");
+    }
+    private boolean filter_stopSelling(StandardArticleWrapperView argument){
+        return this.getPreCalculatedFilters().contains("+++stopSellingPRMTRStandardArticleWrapperPRMTR");
     }
     
-	class OwnerServiceChangeArticleMaxStockArticleIntegerMssgWizard extends Wizard {
+	class OwnerServiceChangeArticleNameOwnerArticleWrapperStringMssgWizard extends Wizard {
 
-		protected OwnerServiceChangeArticleMaxStockArticleIntegerMssgWizard(String operationName){
+		protected OwnerServiceChangeArticleNameOwnerArticleWrapperStringMssgWizard(String operationName){
 			super(OwnerServiceClientView.this);
 			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new ChangeArticleMaxStockPRMTRArticlePRMTRIntegerPRMTRMenuItem ().getGraphic());
+			getOkButton().setGraphic(new ChangeArticleNamePRMTROwnerArticleWrapperPRMTRStringPRMTRMenuItem ().getGraphic());
 		}
 		protected void initialize(){
-			this.helpFileName = "OwnerServiceChangeArticleMaxStockArticleIntegerMssgWizard.help";
-			super.initialize();		
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().changeArticleMaxStock(firstArgument, ((IntegerSelectionPanel)getParametersPanel().getChildren().get(0)).getResult().longValue());
-				getConnection().setEagerRefresh();
-				this.close();	
-			} catch(ModelException me){
-				handleException(me);
-				this.close();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		protected boolean isModifying () {
-			return false;
-		}
-		protected void addParameters(){
-			getParametersPanel().getChildren().add(new IntegerSelectionPanel("newArticleMaxStock", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private ArticleView firstArgument; 
-	
-		public void setFirstArgument(ArticleView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
-	class OwnerServiceChangeArticleMinStockArticleIntegerMssgWizard extends Wizard {
-
-		protected OwnerServiceChangeArticleMinStockArticleIntegerMssgWizard(String operationName){
-			super(OwnerServiceClientView.this);
-			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new ChangeArticleMinStockPRMTRArticlePRMTRIntegerPRMTRMenuItem ().getGraphic());
-		}
-		protected void initialize(){
-			this.helpFileName = "OwnerServiceChangeArticleMinStockArticleIntegerMssgWizard.help";
-			super.initialize();		
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().changeArticleMinStock(firstArgument, ((IntegerSelectionPanel)getParametersPanel().getChildren().get(0)).getResult().longValue());
-				getConnection().setEagerRefresh();
-				this.close();	
-			} catch(ModelException me){
-				handleException(me);
-				this.close();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		protected boolean isModifying () {
-			return false;
-		}
-		protected void addParameters(){
-			getParametersPanel().getChildren().add(new IntegerSelectionPanel("newArticleMinStock", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private ArticleView firstArgument; 
-	
-		public void setFirstArgument(ArticleView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
-	class OwnerServiceChangeArticleNameArticleStringMssgWizard extends Wizard {
-
-		protected OwnerServiceChangeArticleNameArticleStringMssgWizard(String operationName){
-			super(OwnerServiceClientView.this);
-			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new ChangeArticleNamePRMTRArticlePRMTRStringPRMTRMenuItem ().getGraphic());
-		}
-		protected void initialize(){
-			this.helpFileName = "OwnerServiceChangeArticleNameArticleStringMssgWizard.help";
+			this.helpFileName = "OwnerServiceChangeArticleNameOwnerArticleWrapperStringMssgWizard.help";
 			super.initialize();		
 		}
 				
@@ -751,56 +707,9 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 		}
 		
 		
-		private ArticleView firstArgument; 
+		private OwnerArticleWrapperView firstArgument; 
 	
-		public void setFirstArgument(ArticleView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
-	class OwnerServiceChangeArticlePriceArticleFractionMssgWizard extends Wizard {
-
-		protected OwnerServiceChangeArticlePriceArticleFractionMssgWizard(String operationName){
-			super(OwnerServiceClientView.this);
-			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new ChangeArticlePricePRMTRArticlePRMTRFractionPRMTRMenuItem ().getGraphic());
-		}
-		protected void initialize(){
-			this.helpFileName = "OwnerServiceChangeArticlePriceArticleFractionMssgWizard.help";
-			super.initialize();		
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().changeArticlePrice(firstArgument, ((FractionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
-				getConnection().setEagerRefresh();
-				this.close();	
-			} catch(ModelException me){
-				handleException(me);
-				this.close();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		protected boolean isModifying () {
-			return false;
-		}
-		protected void addParameters(){
-			getParametersPanel().getChildren().add(new FractionSelectionPanel("newPrice", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private ArticleView firstArgument; 
-	
-		public void setFirstArgument(ArticleView firstArgument){
+		public void setFirstArgument(OwnerArticleWrapperView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -850,15 +759,15 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 		
 	}
 
-	class OwnerServiceIncreaseArticleStockArticleIntegerMssgWizard extends Wizard {
+	class OwnerServiceIncreaseArticleStockStandardArticleWrapperIntegerMssgWizard extends Wizard {
 
-		protected OwnerServiceIncreaseArticleStockArticleIntegerMssgWizard(String operationName){
+		protected OwnerServiceIncreaseArticleStockStandardArticleWrapperIntegerMssgWizard(String operationName){
 			super(OwnerServiceClientView.this);
 			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new IncreaseArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem ().getGraphic());
+			getOkButton().setGraphic(new IncreaseArticleStockPRMTRStandardArticleWrapperPRMTRIntegerPRMTRMenuItem ().getGraphic());
 		}
 		protected void initialize(){
-			this.helpFileName = "OwnerServiceIncreaseArticleStockArticleIntegerMssgWizard.help";
+			this.helpFileName = "OwnerServiceIncreaseArticleStockStandardArticleWrapperIntegerMssgWizard.help";
 			super.initialize();		
 		}
 				
@@ -886,9 +795,9 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 		}
 		
 		
-		private ArticleView firstArgument; 
+		private StandardArticleWrapperView firstArgument; 
 	
-		public void setFirstArgument(ArticleView firstArgument){
+		public void setFirstArgument(StandardArticleWrapperView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -1122,15 +1031,15 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 		
 	}
 
-	class OwnerServiceReduceArticleStockArticleIntegerMssgWizard extends Wizard {
+	class OwnerServiceReduceArticleStockStandardArticleWrapperIntegerMssgWizard extends Wizard {
 
-		protected OwnerServiceReduceArticleStockArticleIntegerMssgWizard(String operationName){
+		protected OwnerServiceReduceArticleStockStandardArticleWrapperIntegerMssgWizard(String operationName){
 			super(OwnerServiceClientView.this);
 			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new ReduceArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem ().getGraphic());
+			getOkButton().setGraphic(new ReduceArticleStockPRMTRStandardArticleWrapperPRMTRIntegerPRMTRMenuItem ().getGraphic());
 		}
 		protected void initialize(){
-			this.helpFileName = "OwnerServiceReduceArticleStockArticleIntegerMssgWizard.help";
+			this.helpFileName = "OwnerServiceReduceArticleStockStandardArticleWrapperIntegerMssgWizard.help";
 			super.initialize();		
 		}
 				
@@ -1142,6 +1051,9 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 			} catch(ModelException me){
 				handleException(me);
 				this.close();
+			}
+			catch(NotEnoughStockException e) {
+				getStatusBar().setText(e.getMessage());
 			}
 			
 		}
@@ -1158,9 +1070,9 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 		}
 		
 		
-		private ArticleView firstArgument; 
+		private StandardArticleWrapperView firstArgument; 
 	
-		public void setFirstArgument(ArticleView firstArgument){
+		public void setFirstArgument(StandardArticleWrapperView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -1170,88 +1082,82 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 	}
 
 	/* Menu and wizard section end */
-	
-	private ImageView getIconForMenuItem(OwnerServiceMenuItem menuItem){
-		return menuItem.accept(new MenuItemVisitor() {
-			@Override
-			public ImageView handle(NewProductGroupPRMTRStringPRMTRMenuItem menuItem) {
-				return new ImageView(IconManager.getImage(IconManager.NEW_PRODUCT_GROUP));
-			}
 
-			@Override
-			public ImageView handle(ChangeArticleMaxStockPRMTRArticlePRMTRIntegerPRMTRMenuItem menuItem) {
-				return null;
-			}
+    private ImageView getIconForMenuItem(OwnerServiceMenuItem menuItem) {
+        return menuItem.accept(new MenuItemVisitor() {
+            @Override
+            public ImageView handle(NewProductGroupPRMTRStringPRMTRMenuItem menuItem) {
+                return new ImageView(IconManager.getImage(IconManager.NEW_PRODUCT_GROUP));
+            }
 
-			@Override
-			public ImageView handle(ChangeArticleMinStockPRMTRArticlePRMTRIntegerPRMTRMenuItem menuItem) {
-				return null;
-			}
+            @Override
+            public ImageView handle(ChangeArticleNamePRMTROwnerArticleWrapperPRMTRStringPRMTRMenuItem menuItem) {
+                return null;
+            }
 
-			@Override
-			public ImageView handle(ChangeArticleNamePRMTRArticlePRMTRStringPRMTRMenuItem menuItem) {
-				return null;
-			}
 
-			@Override
-			public ImageView handle(ChangeArticlePricePRMTRArticlePRMTRFractionPRMTRMenuItem menuItem) {
-				return null;
-			}
+            @Override
+            public ImageView handle(CreateProducerPRMTRStringPRMTRMenuItem menuItem) {
+                return new ImageView(IconManager.getImage(IconManager.NEW_PRODUCER));
+            }
 
-			@Override
-			public ImageView handle(CreateProducerPRMTRStringPRMTRMenuItem menuItem) {
-				return new ImageView(IconManager.getImage(IconManager.NEW_PRODUCER));
-			}
+            @Override
+            public ImageView handle(IncreaseArticleStockPRMTRStandardArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem) {
+                return null;
+            }
 
-			@Override
-			public ImageView handle(IncreaseArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem menuItem) {
-				return null;
-			}
 
-			@Override
-			public ImageView handle(MoveToPRMTRSubComponentPRMTRProductGroupPRMTRMenuItem menuItem) {
-				return null;
-			}
+            @Override
+            public ImageView handle(LoadOwnerServiceArticleWrapperPRMTRStandardArticleWrapperPRMTRMenuItem menuItem) {
+                return null;
+            }
 
-			@Override
-			public ImageView handle(NewArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem menuItem) {
-				return null;
-			}
 
-			@Override
-			public ImageView handle(NewProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem menuItem) {
-				return new ImageView(IconManager.getImage(IconManager.NEW_PRODUCT_GROUP));
-			}
+            @Override
+            public ImageView handle(MoveToPRMTRSubComponentPRMTRProductGroupPRMTRMenuItem menuItem) {
+                return null;
+            }
 
-			@Override
-			public ImageView handle(ReduceArticleStockPRMTRArticlePRMTRIntegerPRMTRMenuItem menuItem) {
-				return null;
-			}
+            @Override
+            public ImageView handle(NewArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem menuItem) {
+                return null;
+            }
 
-			@Override
-			public ImageView handle(StartSellingPRMTRArticlePRMTRMenuItem menuItem) {
-				return null;
-			}
+            @Override
+            public ImageView handle(NewProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem menuItem) {
+                return new ImageView(IconManager.getImage(IconManager.NEW_PRODUCT_GROUP));
+            }
 
-			@Override
-			public ImageView handle(StopSellingPRMTRArticlePRMTRMenuItem menuItem) {
-				return null;
-			}
-		});
-		//return new ImageView(new javafx.scene.image.Image("/viewResources/default.gif")); //TODO Pimp-up your menu items!
-	}
-	
-	
-	private void addNotGeneratedItems(ContextMenu result, ViewRoot selected) {
-		// TODO Add items to menue if you have not generated service calls!!!
-	}
-	protected boolean getMultiSelectionFor(String parameterInBrowser){
-		return false;
-	}
-	public int getPartsPerHour(String parameterInBrowser) {
-		// divides 60 minutes into the returned number of parts
-		return 59;
-	}
-	
-	
+            @Override
+            public ImageView handle(ReduceArticleStockPRMTRStandardArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem) {
+                return null;
+            }
+
+            @Override
+            public ImageView handle(StartSellingPRMTRStandardArticleWrapperPRMTRMenuItem menuItem) {
+                return null;
+            }
+
+            @Override
+            public ImageView handle(StopSellingPRMTRStandardArticleWrapperPRMTRMenuItem menuItem) {
+                return null;
+            }
+
+
+        });
+    }
+
+    private void addNotGeneratedItems(ContextMenu result, ViewRoot selected) {
+        // TODO Add items to menue if you have not generated service calls!!!
+    }
+
+    protected boolean getMultiSelectionFor(String parameterInBrowser) {
+        return false;
+    }
+
+    public int getPartsPerHour(String parameterInBrowser) {
+        // divides 60 minutes into the returned number of parts
+        return 59;
+    }
+
 }

@@ -10,11 +10,11 @@ import model.visitor.*;
 public class ShoppingCartArticleWrapper extends model.ArticleWrapper implements PersistentShoppingCartArticleWrapper{
     
     
-    public static ShoppingCartArticleWrapper4Public createShoppingCartArticleWrapper() throws PersistenceException{
-        return createShoppingCartArticleWrapper(false);
+    public static ShoppingCartArticleWrapper4Public createShoppingCartArticleWrapper(Article4Public component) throws PersistenceException, CycleException{
+        return createShoppingCartArticleWrapper(component,false);
     }
     
-    public static ShoppingCartArticleWrapper4Public createShoppingCartArticleWrapper(boolean delayed$Persistence) throws PersistenceException {
+    public static ShoppingCartArticleWrapper4Public createShoppingCartArticleWrapper(Article4Public component,boolean delayed$Persistence) throws PersistenceException, CycleException {
         PersistentShoppingCartArticleWrapper result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theShoppingCartArticleWrapperFacade
@@ -25,12 +25,18 @@ public class ShoppingCartArticleWrapper extends model.ArticleWrapper implements 
                 .newShoppingCartArticleWrapper(-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
-        result.initialize(result, final$$Fields);
-        result.initializeOnCreation();
+        final$$Fields.put("component", component);
+        try{
+            result.initialize(result, final$$Fields);
+            result.initializeOnCreation();            
+        }catch(persistence.PersistenceExceptionCycleTunnel ce){
+            throw ce.cycleException;
+        }
+        if(result.getThis().getComponent() == null)throw new PersistenceException("Field component in type ShoppingCartArticleWrapper has not been initialized!",0);
         return result;
     }
     
-    public static ShoppingCartArticleWrapper4Public createShoppingCartArticleWrapper(boolean delayed$Persistence,ShoppingCartArticleWrapper4Public This) throws PersistenceException {
+    public static ShoppingCartArticleWrapper4Public createShoppingCartArticleWrapper(Article4Public component,boolean delayed$Persistence,ShoppingCartArticleWrapper4Public This) throws PersistenceException, CycleException {
         PersistentShoppingCartArticleWrapper result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theShoppingCartArticleWrapperFacade
@@ -41,8 +47,13 @@ public class ShoppingCartArticleWrapper extends model.ArticleWrapper implements 
                 .newShoppingCartArticleWrapper(-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
-        result.initialize(This, final$$Fields);
-        result.initializeOnCreation();
+        final$$Fields.put("component", component);
+        try{
+            result.initialize(This, final$$Fields);
+            result.initializeOnCreation();            
+        }catch(persistence.PersistenceExceptionCycleTunnel ce){
+            throw ce.cycleException;
+        }
         return result;
     }
     
@@ -58,7 +69,7 @@ public class ShoppingCartArticleWrapper extends model.ArticleWrapper implements 
     
     public ShoppingCartArticleWrapper provideCopy() throws PersistenceException{
         ShoppingCartArticleWrapper result = this;
-        result = new ShoppingCartArticleWrapper(this.article, 
+        result = new ShoppingCartArticleWrapper((PersistentArticle)this.component, 
                                                 this.subService, 
                                                 this.This, 
                                                 this.getId());
@@ -70,9 +81,9 @@ public class ShoppingCartArticleWrapper extends model.ArticleWrapper implements 
         return false;
     }
     
-    public ShoppingCartArticleWrapper(PersistentArticle article,SubjInterface subService,PersistentArticleWrapper This,long id) throws PersistenceException {
+    public ShoppingCartArticleWrapper(PersistentArticle component,SubjInterface subService,PersistentComponentWrapper This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentArticle)article,(SubjInterface)subService,(PersistentArticleWrapper)This,id);        
+        super((PersistentArticle)component,(SubjInterface)subService,(PersistentComponentWrapper)This,id);        
     }
     
     static public long getTypeId() {
@@ -111,6 +122,18 @@ public class ShoppingCartArticleWrapper extends model.ArticleWrapper implements 
     public <R, E extends model.UserException> R accept(ArticleWrapperReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleShoppingCartArticleWrapper(this);
     }
+    public void accept(ComponentWrapperVisitor visitor) throws PersistenceException {
+        visitor.handleShoppingCartArticleWrapper(this);
+    }
+    public <R> R accept(ComponentWrapperReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleShoppingCartArticleWrapper(this);
+    }
+    public <E extends model.UserException>  void accept(ComponentWrapperExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleShoppingCartArticleWrapper(this);
+    }
+    public <R, E extends model.UserException> R accept(ComponentWrapperReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleShoppingCartArticleWrapper(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleShoppingCartArticleWrapper(this);
     }
@@ -121,6 +144,18 @@ public class ShoppingCartArticleWrapper extends model.ArticleWrapper implements 
          visitor.handleShoppingCartArticleWrapper(this);
     }
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleShoppingCartArticleWrapper(this);
+    }
+    public void accept(CompHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+        visitor.handleShoppingCartArticleWrapper(this);
+    }
+    public <R> R accept(CompHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleShoppingCartArticleWrapper(this);
+    }
+    public <E extends model.UserException>  void accept(CompHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleShoppingCartArticleWrapper(this);
+    }
+    public <R, E extends model.UserException> R accept(CompHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleShoppingCartArticleWrapper(this);
     }
     public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
@@ -136,11 +171,22 @@ public class ShoppingCartArticleWrapper extends model.ArticleWrapper implements 
          return visitor.handleShoppingCartArticleWrapper(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getArticle() != null) return 1;
         return 0;
     }
     
     
+    public boolean containsCompHierarchy(final CompHierarchyHIERARCHY part) 
+				throws PersistenceException{
+        return getThis().containsCompHierarchy(part, new java.util.HashSet<CompHierarchyHIERARCHY>());
+    }
+    public boolean containsCompHierarchy(final CompHierarchyHIERARCHY part, final java.util.HashSet<CompHierarchyHIERARCHY> visited) 
+				throws PersistenceException{
+        if(getThis().equals(part)) return true;
+		if(visited.contains(getThis())) return false;
+		if(getThis().getComponent() != null && getThis().getComponent().containsCompHierarchy(part, visited)) return true;
+		visited.add(getThis());
+		return false;
+    }
     public synchronized void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
@@ -154,6 +200,7 @@ public class ShoppingCartArticleWrapper extends model.ArticleWrapper implements 
 				throws PersistenceException{
         this.setThis((PersistentShoppingCartArticleWrapper)This);
 		if(this.isTheSameAs(This)){
+			try { this.setComponent((PersistentComponent)final$$Fields.get("component")); } catch (model.CycleException e){throw new persistence.PersistenceExceptionCycleTunnel(e);}
 		}
     }
     public synchronized void register(final ObsInterface observee) 
@@ -164,6 +211,18 @@ public class ShoppingCartArticleWrapper extends model.ArticleWrapper implements 
 			getThis().setSubService(subService);
 		}
 		subService.register(observee);
+    }
+    public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        return getThis().strategyCompHierarchy(strategy, new java.util.HashMap<CompHierarchyHIERARCHY,T>());
+    }
+    public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy, final java.util.HashMap<CompHierarchyHIERARCHY,T> visited) 
+				throws PersistenceException{
+        if (visited.containsKey(getThis())) return visited.get(getThis());
+		T result$$component$$ShoppingCartArticleWrapper = this.getComponent().strategyCompHierarchy(strategy, visited);
+		T result = strategy.ShoppingCartArticleWrapper$$finalize(getThis() ,result$$component$$ShoppingCartArticleWrapper);
+		visited.put(getThis(),result);
+		return result;
     }
     public synchronized void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{

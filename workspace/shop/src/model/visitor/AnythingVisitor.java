@@ -3,7 +3,7 @@ package model.visitor;
 
 import persistence.*;
 
-public interface AnythingVisitor extends AbstractOrderVisitor,ArticleStateVisitor,ArticleWrapperVisitor,CommonDateVisitor,ComponentVisitor,QuantifiedArticleVisitor,ServiceVisitor{
+public interface AnythingVisitor extends AbstractOrderVisitor,ArticleStateVisitor,CommonDateVisitor,ComponentVisitor,ComponentWrapperVisitor,QuantifiedArticleVisitor,ServiceVisitor{
     
     public void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException;
     public void handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException;
@@ -18,6 +18,7 @@ public interface AnythingVisitor extends AbstractOrderVisitor,ArticleStateVisito
     public void handleNewSubProductGroupCommand(NewSubProductGroupCommand4Public newSubProductGroupCommand) throws PersistenceException;
     public void handleProducer(Producer4Public producer) throws PersistenceException;
     public void handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException;
+    public void handleProductGroupComponents(ProductGroupComponents4Public productGroupComponents) throws PersistenceException;
     public void handleReduceStockCommand(ReduceStockCommand4Public reduceStockCommand) throws PersistenceException;
     public void handleRegisterCommand(RegisterCommand4Public registerCommand) throws PersistenceException;
     public void handleServer(Server4Public server) throws PersistenceException;

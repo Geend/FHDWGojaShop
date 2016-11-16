@@ -71,8 +71,8 @@ public class RootProductGroup extends model.ProductGroup implements PersistentRo
         result = new RootProductGroup(this.name, 
                                       this.subService, 
                                       this.This, 
+                                      this.components, 
                                       this.getId());
-        result.components = this.components.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -81,9 +81,9 @@ public class RootProductGroup extends model.ProductGroup implements PersistentRo
         return false;
     }
     
-    public RootProductGroup(String name,SubjInterface subService,PersistentComponent This,long id) throws PersistenceException {
+    public RootProductGroup(String name,SubjInterface subService,PersistentComponent This,PersistentProductGroupComponents components,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((String)name,(SubjInterface)subService,(PersistentComponent)This,id);        
+        super((String)name,(SubjInterface)subService,(PersistentComponent)This,components,id);        
     }
     
     static public long getTypeId() {
@@ -167,7 +167,7 @@ public class RootProductGroup extends model.ProductGroup implements PersistentRo
          return visitor.handleRootProductGroup(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getComponents().getLength() > 0) return 1;
+        if (this.getComponents().getObservee().getLength() > 0) return 1;
         return 0;
     }
     
@@ -180,9 +180,7 @@ public class RootProductGroup extends model.ProductGroup implements PersistentRo
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
 		if(visited.contains(getThis())) return false;
-		java.util.Iterator<Component4Public> iterator0 = getThis().getComponents().iterator();
-		while(iterator0.hasNext())
-			if(((CompHierarchyHIERARCHY)iterator0.next()).containsCompHierarchy(part, visited)) return true; 
+		if(getThis().getComponents() != null && getThis().getComponents().containsCompHierarchy(part, visited)) return true;
 		visited.add(getThis());
 		return false;
     }
@@ -217,13 +215,7 @@ public class RootProductGroup extends model.ProductGroup implements PersistentRo
     public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy, final java.util.HashMap<CompHierarchyHIERARCHY,T> visited) 
 				throws PersistenceException{
         if (visited.containsKey(getThis())) return visited.get(getThis());
-		T result$$components$$RootProductGroup = strategy.RootProductGroup$$components$$$initialize(getThis());
-		java.util.Iterator<?> iterator$$ = getThis().getComponents().iterator();
-		while (iterator$$.hasNext()){
-			Component4Public current$$Field = (Component4Public)iterator$$.next();
-			T current$$ = current$$Field.strategyCompHierarchy(strategy, visited);
-			result$$components$$RootProductGroup = strategy.RootProductGroup$$components$$consolidate(getThis(), result$$components$$RootProductGroup, current$$);
-		}
+		T result$$components$$RootProductGroup = this.getComponents().strategyCompHierarchy(strategy, visited);
 		T result = strategy.RootProductGroup$$finalize(getThis() ,result$$components$$RootProductGroup);
 		visited.put(getThis(),result);
 		return result;

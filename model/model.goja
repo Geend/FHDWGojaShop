@@ -8,6 +8,7 @@ server Server {
 
 abstract server Service {
   	observe RootProductGroup rootProductGroup;
+
 }
 
 server OwnerService extends Service {
@@ -23,20 +24,20 @@ server OwnerService extends Service {
 	void moveTo(SubComponent component, ProductGroup newParentGroup)throws CycleException;
 
 
+	void changeArticleName(OwnerArticleWrapper article, String newName);
+	void startSelling(StandardArticleWrapper article checked);
+	void stopSelling(StandardArticleWrapper article checked);
 
-	void startSelling(Article article checked);
-	void stopSelling(Article article checked);
-	void changeArticleName(Article article, String newName);
-	void changeArticlePrice(Article article, Fraction newPrice); 
-	void changeArticleMinStock(Article article, Integer newArticleMinStock);
-	void changeArticleMaxStock(Article article, Integer newArticleMaxStock);
+	void reduceArticleStock(StandardArticleWrapper article, Integer quantity) throws NotEnoughStockException; //Only for testing
+	void increaseArticleStock(StandardArticleWrapper article, Integer quantity);//Only for testing
 
-	void reduceArticleStock(Article article, Integer quantity); //Only for testing
-	void increaseArticleStock(Article article, Integer quantity);//Only for testing
+	OwnerArticleWrapper loadOwnerServiceArticleWrapper(StandardArticleWrapper wrapper checked);
 }
 
 server CustomerService extends Service {
 	ShoppingCart cart;
+
+	CustomerShopArticleWrapper loadArticleWrapper(StandardArticleWrapper wrapper);
 }
 
 server CustomerRegisterService##crs extends Service {
@@ -66,17 +67,20 @@ abstract class Component{
 
 interface SubComponent{	
 	prior no-view ProductGroup parent;	
-	event active void moveTo(ProductGroup productGroup) throws CycleException;
+	active event void moveTo(ProductGroup productGroup) throws CycleException;
 }
 
 abstract class ProductGroup extends Component{
 	
-   Component ** components hierarchy CompHierarchy;
+   public observe ComponentWrapper ** components hierarchy CompHierarchy;
+	
 	active void newSubProductGroup##cspg(String name) throws CycleException, DoubleDefinitionException;
 	active void newArticle(String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
 
-	void addComponent(Component component) throws CycleException;
-	void removeComponent(Component component);
+//	event	void addComponent(Component component) throws CycleException;
+   event	void removeComponent(Component component);
+
+	event	void addComponentWrapper(ComponentWrapper componentWrapper) throws CycleException;
 }
 
 
@@ -91,22 +95,79 @@ class Article extends Component implements SubComponent{
 	public-write prior Fraction price;
 	public-write prior Integer minStock;
 	public-write prior Integer maxStock;
-	public Integer currentStock;
-	public prior Integer producerDeliveryTime;
+	public-write Integer currentStock;
+	public-write prior Integer producerDeliveryTime;
 
-	public no-view prior Producer producer;
-	public derived String producerName;
-
-	public no-view ArticleState state;
-	public derived String currentState;
-	
-	active void reduceStock(Integer quantity) throws NotEnoughStockException;
-	active void increaseStock(Integer quantity);
-
-	active void startSelling();
-	active void stopSelling();
+	public-write no-view prior Producer producer;
+	public-write no-view ArticleState state;
 }
 
+
+abstract class ComponentWrapper{
+	public server-only prior specializable Component component hierarchy CompHierarchy;
+}
+
+
+abstract class ArticleWrapper extends ComponentWrapper{
+  specializable Article component;
+}
+
+class StandardArticleWrapper##daw extends ArticleWrapper{	
+	derived String name;
+	Article gArticle();
+}
+
+
+class OwnerArticleWrapper##oaw extends ArticleWrapper{
+	derived Article article;	
+	derived String name;
+	derived Fraction price;
+	derived Integer minStock;
+	derived Integer maxStock;
+	derived Integer currentStock;
+	derived Integer producerDeliveryTime;
+
+	derived String currentState;
+	derived String producerName;
+
+
+   derived no-view ArticleState state;
+
+	active event void reduceStock(Integer quantity) throws NotEnoughStockException;
+	active event void increaseStock(Integer quantity);
+
+	active event void startSelling();
+	active event void stopSelling();
+}
+
+class CustomerShopArticleWrapper##csaw extends ArticleWrapper{
+	derived String name;
+	derived Fraction price;	
+}
+
+abstract class ProductGroupWrapper##pgw extends ComponentWrapper{
+  specializable ProductGroup component;
+}
+class DefaultProductGroupWrapper##opgw extends ProductGroupWrapper{
+	derived String name;
+	derived  ComponentWrapper ** components;
+}
+
+
+
+class ShopArticleWrapper##saw extends ArticleWrapper{
+	void addToCart(Integer amount);
+}
+
+class ShoppingCartArticleWrapper##scaw extends ArticleWrapper{
+	void removeFromCart();
+}
+
+class OrderArticleWrapper##oraw extends ArticleWrapper{
+	Fraction priceAtOrder;
+	void accept();
+	void sendBack();
+}
 
 
 // Article States -- region begin
@@ -173,24 +234,6 @@ class CustomerDeliveryTime{
 	prior Integer deliveryTime;
 }
 
-abstract class ArticleWrapper{
-	Article article;
-	derived String name;
-}
-
-class ShopArticleWrapper##saw extends ArticleWrapper{
-	void addToCart(Integer amount);
-}
-
-class ShoppingCartArticleWrapper##scaw extends ArticleWrapper{
-	void removeFromCart();
-}
-
-class OrderArticleWrapper##oaw extends ArticleWrapper{
-	Fraction priceAtOrder;
-	void accept();
-	void sendBack();
-}
 
 exception DoubleDefinitionException{}
 exception UserAlreadyExistsException{}

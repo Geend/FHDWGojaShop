@@ -41,53 +41,7 @@ public class OwnerServiceConnection extends ServiceConnection {
         
     }
     
-    public synchronized void changeArticleMaxStock(ArticleView article, long newArticleMaxStock) throws ModelException{
-        try {
-            Vector<Object> parameters = new Vector<Object>();
-            if (article == null){
-                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
-            } else {
-                parameters.add(((view.objects.ViewProxi)article).createProxiInformation());
-            }
-            parameters.add(new Long(newArticleMaxStock).toString());
-            java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "changeArticleMaxStock", parameters);
-            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
-                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
-                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                throw new ModelException ("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")",0);
-            }
-        }catch(IOException ioe){
-            throw new ModelException(ioe.getMessage(),0);
-        }catch(XmlRpcException xre){
-            throw new ModelException(xre.getMessage(),0);
-        }
-        
-    }
-    
-    public synchronized void changeArticleMinStock(ArticleView article, long newArticleMinStock) throws ModelException{
-        try {
-            Vector<Object> parameters = new Vector<Object>();
-            if (article == null){
-                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
-            } else {
-                parameters.add(((view.objects.ViewProxi)article).createProxiInformation());
-            }
-            parameters.add(new Long(newArticleMinStock).toString());
-            java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "changeArticleMinStock", parameters);
-            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
-                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
-                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                throw new ModelException ("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")",0);
-            }
-        }catch(IOException ioe){
-            throw new ModelException(ioe.getMessage(),0);
-        }catch(XmlRpcException xre){
-            throw new ModelException(xre.getMessage(),0);
-        }
-        
-    }
-    
-    public synchronized void changeArticleName(ArticleView article, String newName) throws ModelException{
+    public synchronized void changeArticleName(OwnerArticleWrapperView article, String newName) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             if (article == null){
@@ -97,29 +51,6 @@ public class OwnerServiceConnection extends ServiceConnection {
             }
             parameters.add(newName);
             java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "changeArticleName", parameters);
-            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
-                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
-                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                throw new ModelException ("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")",0);
-            }
-        }catch(IOException ioe){
-            throw new ModelException(ioe.getMessage(),0);
-        }catch(XmlRpcException xre){
-            throw new ModelException(xre.getMessage(),0);
-        }
-        
-    }
-    
-    public synchronized void changeArticlePrice(ArticleView article, common.Fraction newPrice) throws ModelException{
-        try {
-            Vector<Object> parameters = new Vector<Object>();
-            if (article == null){
-                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
-            } else {
-                parameters.add(((view.objects.ViewProxi)article).createProxiInformation());
-            }
-            parameters.add(newPrice.toString());
-            java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "changeArticlePrice", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
@@ -154,7 +85,7 @@ public class OwnerServiceConnection extends ServiceConnection {
         
     }
     
-    public synchronized void increaseArticleStock(ArticleView article, long quantity) throws ModelException{
+    public synchronized void increaseArticleStock(StandardArticleWrapperView article, long quantity) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             if (article == null){
@@ -168,6 +99,38 @@ public class OwnerServiceConnection extends ServiceConnection {
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
                 throw new ModelException ("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")",0);
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
+    @SuppressWarnings("unchecked")
+    public synchronized OwnerArticleWrapperView loadOwnerServiceArticleWrapper(StandardArticleWrapperView wrapper) throws ModelException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            if (wrapper == null){
+                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
+            } else {
+                parameters.add(((view.objects.ViewProxi)wrapper).createProxiInformation());
+            }
+            java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "loadOwnerServiceArticleWrapper", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                throw new ModelException ("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")",0);
+            }else{
+                java.util.HashMap<String,Object> allResults = (java.util.HashMap<String,Object>) success.get(common.RPCConstantsAndServices.ResultFieldName);
+                view.objects.ViewProxi.resolveReferences(allResults, getHandler());
+                common.ProxiInformation proxiInformation = common.RPCConstantsAndServices.createProxiInformation((String) success.get(common.RPCConstantsAndServices.RootFieldName));
+                OwnerArticleWrapperView result = (OwnerArticleWrapperView) view.objects.ViewProxi.createProxi(proxiInformation, getHandler());
+                if (result != null) ((view.objects.ViewRoot)result).setToString(proxiInformation.getToString());
+                view.objects.ViewObject root = (view.objects.ViewObject) allResults.get(proxiInformation.getHashKey());
+                if (root != null) ((view.objects.ViewProxi)result).setObject(root);
+                return result;
             }
         }catch(IOException ioe){
             throw new ModelException(ioe.getMessage(),0);
@@ -293,7 +256,8 @@ public class OwnerServiceConnection extends ServiceConnection {
         
     }
     
-    public synchronized void reduceArticleStock(ArticleView article, long quantity) throws ModelException{
+    @SuppressWarnings("unchecked")
+    public synchronized void reduceArticleStock(StandardArticleWrapperView article, long quantity) throws ModelException, NotEnoughStockException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             if (article == null){
@@ -306,6 +270,8 @@ public class OwnerServiceConnection extends ServiceConnection {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -221)
+                    throw NotEnoughStockException.fromHashtableToNotEnoughStockException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new ModelException ("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")",0);
             }
         }catch(IOException ioe){
@@ -316,7 +282,7 @@ public class OwnerServiceConnection extends ServiceConnection {
         
     }
     
-    public synchronized void startSelling(ArticleView article) throws ModelException{
+    public synchronized void startSelling(StandardArticleWrapperView article) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             if (article == null){
@@ -338,7 +304,7 @@ public class OwnerServiceConnection extends ServiceConnection {
         
     }
     
-    public synchronized void stopSelling(ArticleView article) throws ModelException{
+    public synchronized void stopSelling(StandardArticleWrapperView article) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             if (article == null){

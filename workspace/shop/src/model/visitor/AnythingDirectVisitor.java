@@ -24,10 +24,35 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleCustomerAccount(CustomerAccount4Public customerAccount) throws PersistenceException;
     
+    public abstract void handleProductGroupComponents(ProductGroupComponents4Public productGroupComponents) throws PersistenceException;
+    
     public abstract void handleSubj(Subj4Public subj) throws PersistenceException;
     
     public abstract void handleCustomerDeliveryTime(CustomerDeliveryTime4Public customerDeliveryTime) throws PersistenceException;
     
+    public abstract void handleComponentWrapper(ComponentWrapper4Public componentWrapper) throws PersistenceException;
+    
+    public void handleOrderArticleWrapper(OrderArticleWrapper4Public orderArticleWrapper) throws PersistenceException{
+        this.handleComponentWrapper(orderArticleWrapper);
+    }
+    public void handleStandardArticleWrapper(StandardArticleWrapper4Public standardArticleWrapper) throws PersistenceException{
+        this.handleComponentWrapper(standardArticleWrapper);
+    }
+    public void handleDefaultProductGroupWrapper(DefaultProductGroupWrapper4Public defaultProductGroupWrapper) throws PersistenceException{
+        this.handleComponentWrapper(defaultProductGroupWrapper);
+    }
+    public void handleCustomerShopArticleWrapper(CustomerShopArticleWrapper4Public customerShopArticleWrapper) throws PersistenceException{
+        this.handleComponentWrapper(customerShopArticleWrapper);
+    }
+    public void handleOwnerArticleWrapper(OwnerArticleWrapper4Public ownerArticleWrapper) throws PersistenceException{
+        this.handleComponentWrapper(ownerArticleWrapper);
+    }
+    public void handleShopArticleWrapper(ShopArticleWrapper4Public shopArticleWrapper) throws PersistenceException{
+        this.handleComponentWrapper(shopArticleWrapper);
+    }
+    public void handleShoppingCartArticleWrapper(ShoppingCartArticleWrapper4Public shoppingCartArticleWrapper) throws PersistenceException{
+        this.handleComponentWrapper(shoppingCartArticleWrapper);
+    }
     public abstract void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException;
     
     public abstract void handleAbstractOrder(AbstractOrder4Public abstractOrder) throws PersistenceException;
@@ -40,6 +65,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleServiceRootProductGroup(ServiceRootProductGroup4Public serviceRootProductGroup) throws PersistenceException;
     
+    public abstract void handleProducer(Producer4Public producer) throws PersistenceException;
+    
     public abstract void handleQuantifiedArticle(QuantifiedArticle4Public quantifiedArticle) throws PersistenceException;
     
     public void handleOrderQuantifiedArticle(OrderQuantifiedArticle4Public orderQuantifiedArticle) throws PersistenceException{
@@ -48,8 +75,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleShoppingCartQuantifiedArticle(ShoppingCartQuantifiedArticle4Public shoppingCartQuantifiedArticle) throws PersistenceException{
         this.handleQuantifiedArticle(shoppingCartQuantifiedArticle);
     }
-    public abstract void handleProducer(Producer4Public producer) throws PersistenceException;
-    
     public abstract void handleShoppingCart(ShoppingCart4Public shoppingCart) throws PersistenceException;
     
     public abstract void handleArticleState(ArticleState4Public articleState) throws PersistenceException;
@@ -108,16 +133,5 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException;
     
-    public abstract void handleArticleWrapper(ArticleWrapper4Public articleWrapper) throws PersistenceException;
-    
-    public void handleOrderArticleWrapper(OrderArticleWrapper4Public orderArticleWrapper) throws PersistenceException{
-        this.handleArticleWrapper(orderArticleWrapper);
-    }
-    public void handleShopArticleWrapper(ShopArticleWrapper4Public shopArticleWrapper) throws PersistenceException{
-        this.handleArticleWrapper(shopArticleWrapper);
-    }
-    public void handleShoppingCartArticleWrapper(ShoppingCartArticleWrapper4Public shoppingCartArticleWrapper) throws PersistenceException{
-        this.handleArticleWrapper(shoppingCartArticleWrapper);
-    }
     
 }

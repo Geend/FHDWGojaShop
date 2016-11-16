@@ -1,6 +1,7 @@
 package viewClient;
 
 import view.*;
+import view.objects.CustomerShopArticleWrapper;
 import view.objects.ViewRoot;
 import view.objects.ViewObjectInTree;
 
@@ -228,6 +229,19 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
 			protected void standardHandling(Anything Anything) throws ModelException {
 				this.result = null;
 			}
+
+
+			@Override
+			public void handleStandardArticleWrapper(StandardArticleWrapperView standardArticleWrapper) throws ModelException {
+
+				CustomerShopArticleWrapperView wrapper = getConnection().loadArticleWrapper(standardArticleWrapper);
+
+				CustomerShopArticleWrapperDefaultDetailPanel panel = new CustomerShopArticleWrapperDefaultDetailPanel(CustomerServiceClientView.this, wrapper);
+
+
+				result = panel;
+
+			}
 			//TODO Overwrite all handle methods for the types for which you intend to provide a special panel!
 		}
 		PanelDecider decider = new PanelDecider();
@@ -311,13 +325,18 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
 
 
     interface MenuItemVisitor{
-        
+        ImageView handle(LoadArticleWrapperPRMTRStandardArticleWrapperPRMTRMenuItem menuItem);
     }
     private abstract class CustomerServiceMenuItem extends MenuItem{
         private CustomerServiceMenuItem(){
             this.setGraphic(getIconForMenuItem(this));
         }
         abstract protected ImageView accept(MenuItemVisitor visitor);
+    }
+    private class LoadArticleWrapperPRMTRStandardArticleWrapperPRMTRMenuItem extends CustomerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
     }
     private java.util.Vector<javafx.scene.control.Button> getToolButtonsForStaticOperations() {
         java.util.Vector<javafx.scene.control.Button> result = new java.util.Vector<javafx.scene.control.Button>();
@@ -332,6 +351,31 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
             } catch (ModelException me){
                 this.handleException(me);
                 return result;
+            }
+            if (selected instanceof StandardArticleWrapperView){
+                item = new LoadArticleWrapperPRMTRStandardArticleWrapperPRMTRMenuItem();
+                item.setText("loadArticleWrapper");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        Alert confirm = new Alert(AlertType.CONFIRMATION);
+                        confirm.setTitle(GUIConstants.ConfirmButtonText);
+                        confirm.setHeaderText(null);
+                        confirm.setContentText("loadArticleWrapper" + GUIConstants.ConfirmQuestionMark);
+                        Optional<ButtonType> buttonResult = confirm.showAndWait();
+                        if (buttonResult.get() == ButtonType.OK) {
+                            try {
+                                ViewRoot result = (ViewRoot)getConnection().loadArticleWrapper((StandardArticleWrapperView)selected);
+                                getConnection().setEagerRefresh();
+                                ReturnValueView view = new ReturnValueView(result, new javafx.geometry.Dimension2D(getNavigationPanel().getWidth()*8/9,getNavigationPanel().getHeight()*8/9), CustomerServiceClientView.this);
+                                view.centerOnScreen();
+                                view.showAndWait();
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
+                    }
+                });
+                result.getItems().add(item);
             }
             
         }

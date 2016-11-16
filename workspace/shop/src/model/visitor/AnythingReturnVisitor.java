@@ -3,7 +3,7 @@ package model.visitor;
 
 import persistence.*;
 
-public interface AnythingReturnVisitor<R> extends AbstractOrderReturnVisitor<R> ,ArticleStateReturnVisitor<R> ,ArticleWrapperReturnVisitor<R> ,CommonDateReturnVisitor<R> ,ComponentReturnVisitor<R> ,QuantifiedArticleReturnVisitor<R> ,ServiceReturnVisitor<R> {
+public interface AnythingReturnVisitor<R> extends AbstractOrderReturnVisitor<R> ,ArticleStateReturnVisitor<R> ,CommonDateReturnVisitor<R> ,ComponentReturnVisitor<R> ,ComponentWrapperReturnVisitor<R> ,QuantifiedArticleReturnVisitor<R> ,ServiceReturnVisitor<R> {
     
     public R handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException;
     public R handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException;
@@ -18,6 +18,7 @@ public interface AnythingReturnVisitor<R> extends AbstractOrderReturnVisitor<R> 
     public R handleNewSubProductGroupCommand(NewSubProductGroupCommand4Public newSubProductGroupCommand) throws PersistenceException;
     public R handleProducer(Producer4Public producer) throws PersistenceException;
     public R handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException;
+    public R handleProductGroupComponents(ProductGroupComponents4Public productGroupComponents) throws PersistenceException;
     public R handleReduceStockCommand(ReduceStockCommand4Public reduceStockCommand) throws PersistenceException;
     public R handleRegisterCommand(RegisterCommand4Public registerCommand) throws PersistenceException;
     public R handleServer(Server4Public server) throws PersistenceException;

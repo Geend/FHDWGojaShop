@@ -24,6 +24,16 @@ public  class RemoteCustomerService extends RemoteService {
         }
     }
     
+    public synchronized java.util.HashMap<?,?> loadArticleWrapper(String wrapperProxiString){
+        try {
+            PersistentStandardArticleWrapper wrapper = (PersistentStandardArticleWrapper)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(wrapperProxiString));
+            CustomerShopArticleWrapper4Public result = ((PersistentCustomerService)this.server).loadArticleWrapper(wrapper);
+            return createOKResult(result, 1, this);
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
 
 
 }

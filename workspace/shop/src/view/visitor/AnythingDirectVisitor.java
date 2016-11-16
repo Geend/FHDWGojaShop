@@ -26,6 +26,29 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleCustomerDeliveryTime(CustomerDeliveryTimeView customerDeliveryTime) throws ModelException;
     
+    public abstract void handleComponentWrapper(ComponentWrapperView componentWrapper) throws ModelException;
+    
+    public void handleOrderArticleWrapper(OrderArticleWrapperView orderArticleWrapper) throws ModelException{
+        this.handleComponentWrapper(orderArticleWrapper);
+    }
+    public void handleStandardArticleWrapper(StandardArticleWrapperView standardArticleWrapper) throws ModelException{
+        this.handleComponentWrapper(standardArticleWrapper);
+    }
+    public void handleDefaultProductGroupWrapper(DefaultProductGroupWrapperView defaultProductGroupWrapper) throws ModelException{
+        this.handleComponentWrapper(defaultProductGroupWrapper);
+    }
+    public void handleCustomerShopArticleWrapper(CustomerShopArticleWrapperView customerShopArticleWrapper) throws ModelException{
+        this.handleComponentWrapper(customerShopArticleWrapper);
+    }
+    public void handleOwnerArticleWrapper(OwnerArticleWrapperView ownerArticleWrapper) throws ModelException{
+        this.handleComponentWrapper(ownerArticleWrapper);
+    }
+    public void handleShopArticleWrapper(ShopArticleWrapperView shopArticleWrapper) throws ModelException{
+        this.handleComponentWrapper(shopArticleWrapper);
+    }
+    public void handleShoppingCartArticleWrapper(ShoppingCartArticleWrapperView shoppingCartArticleWrapper) throws ModelException{
+        this.handleComponentWrapper(shoppingCartArticleWrapper);
+    }
     public abstract void handleAbstractOrder(AbstractOrderView abstractOrder) throws ModelException;
     
     public void handleOrder(OrderView order) throws ModelException{
@@ -34,6 +57,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handlePreOrder(PreOrderView preOrder) throws ModelException{
         this.handleAbstractOrder(preOrder);
     }
+    public abstract void handleProducer(ProducerView producer) throws ModelException;
+    
     public abstract void handleQuantifiedArticle(QuantifiedArticleView quantifiedArticle) throws ModelException;
     
     public void handleOrderQuantifiedArticle(OrderQuantifiedArticleView orderQuantifiedArticle) throws ModelException{
@@ -42,8 +67,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleShoppingCartQuantifiedArticle(ShoppingCartQuantifiedArticleView shoppingCartQuantifiedArticle) throws ModelException{
         this.handleQuantifiedArticle(shoppingCartQuantifiedArticle);
     }
-    public abstract void handleProducer(ProducerView producer) throws ModelException;
-    
     public abstract void handleShoppingCart(ShoppingCartView shoppingCart) throws ModelException;
     
     public abstract void handleArticleState(ArticleStateView articleState) throws ModelException;
@@ -70,17 +93,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public void handleSubProductGroup(SubProductGroupView subProductGroup) throws ModelException{
         this.handleComponent(subProductGroup);
-    }
-    public abstract void handleArticleWrapper(ArticleWrapperView articleWrapper) throws ModelException;
-    
-    public void handleOrderArticleWrapper(OrderArticleWrapperView orderArticleWrapper) throws ModelException{
-        this.handleArticleWrapper(orderArticleWrapper);
-    }
-    public void handleShopArticleWrapper(ShopArticleWrapperView shopArticleWrapper) throws ModelException{
-        this.handleArticleWrapper(shopArticleWrapper);
-    }
-    public void handleShoppingCartArticleWrapper(ShoppingCartArticleWrapperView shoppingCartArticleWrapper) throws ModelException{
-        this.handleArticleWrapper(shoppingCartArticleWrapper);
     }
     
 }
