@@ -19,7 +19,7 @@ public class ProductGroupComponentsICProxi extends PersistentInCacheProxiOptimis
     }
     
     public long getClassId() {
-        return 284;
+        return 320;
     }
     
     public ProductGroup4Public getObserver() throws PersistenceException {
@@ -73,23 +73,23 @@ public class ProductGroupComponentsICProxi extends PersistentInCacheProxiOptimis
     }
     
     
-    public void add(final ComponentWrapper4Public observee) 
+    public void add(final Component4Public observee) 
 				throws model.CycleException, PersistenceException{
         ((PersistentProductGroupComponents)this.getTheObject()).add(observee);
     }
-    public <E extends model.UserException,R> R aggregateException(final persistence.AggregtionException<ComponentWrapper4Public,R,E> aggregtion) 
+    public <E extends model.UserException,R> R aggregateException(final persistence.AggregtionException<Component4Public,R,E> aggregtion) 
 				throws E, PersistenceException{
         return ((PersistentProductGroupComponents)this.getTheObject()).aggregateException(aggregtion);
     }
-    public <R> R aggregate(final persistence.Aggregtion<ComponentWrapper4Public,R> aggregtion) 
+    public <R> R aggregate(final persistence.Aggregtion<Component4Public,R> aggregtion) 
 				throws PersistenceException{
         return ((PersistentProductGroupComponents)this.getTheObject()).aggregate(aggregtion);
     }
-    public <E extends model.UserException> void applyToAllException(final persistence.ProcdureException<ComponentWrapper4Public,E> procdure) 
+    public <E extends model.UserException> void applyToAllException(final persistence.ProcdureException<Component4Public,E> procdure) 
 				throws E, PersistenceException{
         ((PersistentProductGroupComponents)this.getTheObject()).applyToAllException(procdure);
     }
-    public void applyToAll(final persistence.Procdure<ComponentWrapper4Public> procdure) 
+    public void applyToAll(final persistence.Procdure<Component4Public> procdure) 
 				throws PersistenceException{
         ((PersistentProductGroupComponents)this.getTheObject()).applyToAll(procdure);
     }
@@ -101,27 +101,27 @@ public class ProductGroupComponentsICProxi extends PersistentInCacheProxiOptimis
 				throws PersistenceException{
         return ((PersistentProductGroupComponents)this.getTheObject()).containsCompHierarchy(part, visited);
     }
-    public <E extends model.UserException> void filterException(final persistence.PredcateException<ComponentWrapper4Public,E> predcate) 
+    public <E extends model.UserException> void filterException(final persistence.PredcateException<Component4Public,E> predcate) 
 				throws E, PersistenceException{
         ((PersistentProductGroupComponents)this.getTheObject()).filterException(predcate);
     }
-    public void filter(final persistence.Predcate<ComponentWrapper4Public> predcate) 
+    public void filter(final persistence.Predcate<Component4Public> predcate) 
 				throws PersistenceException{
         ((PersistentProductGroupComponents)this.getTheObject()).filter(predcate);
     }
-    public <E extends model.UserException> SearchListRoot<ComponentWrapper4Public> findAllException(final persistence.PredcateException<ComponentWrapper4Public,E> predcate) 
+    public <E extends model.UserException> SearchListRoot<Component4Public> findAllException(final persistence.PredcateException<Component4Public,E> predcate) 
 				throws E, PersistenceException{
         return ((PersistentProductGroupComponents)this.getTheObject()).findAllException(predcate);
     }
-    public SearchListRoot<ComponentWrapper4Public> findAll(final persistence.Predcate<ComponentWrapper4Public> predcate) 
+    public SearchListRoot<Component4Public> findAll(final persistence.Predcate<Component4Public> predcate) 
 				throws PersistenceException{
         return ((PersistentProductGroupComponents)this.getTheObject()).findAll(predcate);
     }
-    public <E extends model.UserException> ComponentWrapper4Public findFirstException(final persistence.PredcateException<ComponentWrapper4Public,E> predcate) 
+    public <E extends model.UserException> Component4Public findFirstException(final persistence.PredcateException<Component4Public,E> predcate) 
 				throws E, PersistenceException{
         return ((PersistentProductGroupComponents)this.getTheObject()).findFirstException(predcate);
     }
-    public ComponentWrapper4Public findFirst(final persistence.Predcate<ComponentWrapper4Public> predcate) 
+    public Component4Public findFirst(final persistence.Predcate<Component4Public> predcate) 
 				throws PersistenceException{
         return ((PersistentProductGroupComponents)this.getTheObject()).findFirst(predcate);
     }
@@ -129,27 +129,27 @@ public class ProductGroupComponentsICProxi extends PersistentInCacheProxiOptimis
 				throws PersistenceException{
         return ((PersistentProductGroupComponents)this.getTheObject()).getLength();
     }
-    public ComponentWrapperSearchList getList() 
+    public ComponentSearchList getList() 
 				throws PersistenceException{
         return ((PersistentProductGroupComponents)this.getTheObject()).getList();
     }
-    public java.util.Iterator<ComponentWrapper4Public> iterator() 
+    public java.util.Iterator<Component4Public> iterator() 
 				throws PersistenceException{
         return ((PersistentProductGroupComponents)this.getTheObject()).iterator();
     }
-    public <E extends model.UserException> void removeFirstFailureException(final persistence.PredcateException<ComponentWrapper4Public,E> predcate) 
+    public <E extends model.UserException> void removeFirstFailureException(final persistence.PredcateException<Component4Public,E> predcate) 
 				throws E, PersistenceException{
         ((PersistentProductGroupComponents)this.getTheObject()).removeFirstFailureException(predcate);
     }
-    public void removeFirstFailure(final persistence.Predcate<ComponentWrapper4Public> predcate) 
+    public void removeFirstFailure(final persistence.Predcate<Component4Public> predcate) 
 				throws PersistenceException{
         ((PersistentProductGroupComponents)this.getTheObject()).removeFirstFailure(predcate);
     }
-    public <E extends model.UserException> void removeFirstSuccessException(final persistence.PredcateException<ComponentWrapper4Public,E> predcate) 
+    public <E extends model.UserException> void removeFirstSuccessException(final persistence.PredcateException<Component4Public,E> predcate) 
 				throws E, PersistenceException{
         ((PersistentProductGroupComponents)this.getTheObject()).removeFirstSuccessException(predcate);
     }
-    public void removeFirstSuccess(final persistence.Predcate<ComponentWrapper4Public> predcate) 
+    public void removeFirstSuccess(final persistence.Predcate<Component4Public> predcate) 
 				throws PersistenceException{
         ((PersistentProductGroupComponents)this.getTheObject()).removeFirstSuccess(predcate);
     }

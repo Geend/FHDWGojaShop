@@ -9,12 +9,10 @@ import view.visitor.*;
 
 public class ShoppingCartQuantifiedArticle extends view.objects.QuantifiedArticle implements ShoppingCartQuantifiedArticleView{
     
-    protected ShoppingCartArticleWrapperView article;
     
-    public ShoppingCartQuantifiedArticle(long quantity,ShoppingCartArticleWrapperView article,long id, long classId) {
+    public ShoppingCartQuantifiedArticle(long quantity,ArticleWrapperView article,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((long)quantity,id, classId);
-        this.article = article;        
+        super((long)quantity,(ArticleWrapperView)article,id, classId);        
     }
     
     static public long getTypeId() {
@@ -25,12 +23,6 @@ public class ShoppingCartQuantifiedArticle extends view.objects.QuantifiedArticl
         return getTypeId();
     }
     
-    public ShoppingCartArticleWrapperView getArticle()throws ModelException{
-        return this.article;
-    }
-    public void setArticle(ShoppingCartArticleWrapperView newValue) throws ModelException {
-        this.article = newValue;
-    }
     
     public void accept(QuantifiedArticleVisitor visitor) throws ModelException {
         visitor.handleShoppingCartQuantifiedArticle(this);
@@ -58,7 +50,7 @@ public class ShoppingCartQuantifiedArticle extends view.objects.QuantifiedArticl
     }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
-        ShoppingCartArticleWrapperView article = this.getArticle();
+        ArticleWrapperView article = this.getArticle();
         if (article != null) {
             ((ViewProxi)article).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(article.getClassId(), article.getId())));
         }
@@ -68,23 +60,17 @@ public class ShoppingCartQuantifiedArticle extends view.objects.QuantifiedArticl
         
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        int index = originalIndex;
-        if(index == 0 && this.getArticle() != null) return new ArticleShoppingCartQuantifiedArticleWrapper(this, originalIndex, (ViewRoot)this.getArticle());
-        if(this.getArticle() != null) index = index - 1;
+        
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 
-            + (this.getArticle() == null ? 0 : 1);
+        return 0 ;
     }
     public boolean isLeaf() throws ModelException {
-        return true 
-            && (this.getArticle() == null ? true : false);
+        return true;
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        int result = 0;
-        if(this.getArticle() != null && this.getArticle().equals(child)) return result;
-        if(this.getArticle() != null) result = result + 1;
+        
         return -1;
     }
     public int getQuantityIndex() throws ModelException {

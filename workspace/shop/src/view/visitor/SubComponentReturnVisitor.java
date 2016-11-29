@@ -5,7 +5,7 @@ import view.*;
 
 public interface SubComponentReturnVisitor<R> {
     
-    public R handleArticle(ArticleView article) throws ModelException;
+    public R handleArticleWrapper(ArticleWrapperView articleWrapper) throws ModelException;
     public R handleSubProductGroup(SubProductGroupView subProductGroup) throws ModelException;
     
 }

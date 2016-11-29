@@ -55,15 +55,10 @@ public abstract class ViewProxi extends ViewRoot {
 	
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [199];
+		proxiFactories = new ProxiFactory [225];
         proxiFactories[109] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ProducerLstProxi(objectId, classId, connectionKey);
-            }
-        };
-        proxiFactories[179] = new ProxiFactory(){
-            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
-                return new OrderArticleWrapperProxi(objectId, classId, connectionKey);
             }
         };
         proxiFactories[177] = new ProxiFactory(){
@@ -96,6 +91,11 @@ public abstract class ViewProxi extends ViewRoot {
                 return new NotInSaleProxi(objectId, classId, connectionKey);
             }
         };
+        proxiFactories[209] = new ProxiFactory(){
+            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
+                return new FinishedOrderProxi(objectId, classId, connectionKey);
+            }
+        };
         proxiFactories[124] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new CustomerRegisterServiceProxi(objectId, classId, connectionKey);
@@ -106,14 +106,19 @@ public abstract class ViewProxi extends ViewRoot {
                 return new SubProductGroupProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[197] = new ProxiFactory(){
+        proxiFactories[210] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
-                return new CustomerShopArticleWrapperProxi(objectId, classId, connectionKey);
+                return new ActiveOrderProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[136] = new ProxiFactory(){
+        proxiFactories[195] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
-                return new ShopArticleWrapperProxi(objectId, classId, connectionKey);
+                return new CustomerDeliveryTimeManagerProxi(objectId, classId, connectionKey);
+            }
+        };
+        proxiFactories[217] = new ProxiFactory(){
+            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
+                return new SettingsProxi(objectId, classId, connectionKey);
             }
         };
         proxiFactories[137] = new ProxiFactory(){
@@ -136,19 +141,9 @@ public abstract class ViewProxi extends ViewRoot {
                 return new ProducerProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[194] = new ProxiFactory(){
+        proxiFactories[141] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
-                return new OwnerArticleWrapperProxi(objectId, classId, connectionKey);
-            }
-        };
-        proxiFactories[142] = new ProxiFactory(){
-            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
-                return new ShoppingCartArticleWrapperProxi(objectId, classId, connectionKey);
-            }
-        };
-        proxiFactories[189] = new ProxiFactory(){
-            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
-                return new DefaultProductGroupWrapperProxi(objectId, classId, connectionKey);
+                return new ArticleWrapperProxi(objectId, classId, connectionKey);
             }
         };
         proxiFactories[93] = new ProxiFactory(){
@@ -171,6 +166,11 @@ public abstract class ViewProxi extends ViewRoot {
                 return new OwnerServiceProxi(objectId, classId, connectionKey);
             }
         };
+        proxiFactories[223] = new ProxiFactory(){
+            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
+                return new CustomerArticleLstProxi(objectId, classId, connectionKey);
+            }
+        };
         proxiFactories[135] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ShoppingCartQuantifiedArticleProxi(objectId, classId, connectionKey);
@@ -181,11 +181,6 @@ public abstract class ViewProxi extends ViewRoot {
                 return new NewCreatedProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[193] = new ProxiFactory(){
-            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
-                return new StandardArticleWrapperProxi(objectId, classId, connectionKey);
-            }
-        };
         proxiFactories[95] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new InSaleProxi(objectId, classId, connectionKey);
@@ -194,6 +189,11 @@ public abstract class ViewProxi extends ViewRoot {
         proxiFactories[140] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ShoppingCartProxi(objectId, classId, connectionKey);
+            }
+        };
+        proxiFactories[207] = new ProxiFactory(){
+            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
+                return new CustomerOrderManagerProxi(objectId, classId, connectionKey);
             }
         };
 	}

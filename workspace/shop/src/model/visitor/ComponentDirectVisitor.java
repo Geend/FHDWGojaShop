@@ -15,5 +15,7 @@ public abstract class ComponentDirectVisitor implements ComponentVisitor {
     }
     public abstract void handleArticle(Article4Public article) throws PersistenceException;
     
+    public abstract void handleArticleWrapper(ArticleWrapper4Public articleWrapper) throws PersistenceException;
+    
     
 }

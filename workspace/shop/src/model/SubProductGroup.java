@@ -2,9 +2,50 @@
 package model;
 
 import model.meta.ComponentMssgs;
-import model.meta.ComponentWrapperMssgs;
-import persistence.*;
-import model.visitor.*;
+import model.meta.Mssgs;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CompHierarchyHIERARCHYExceptionVisitor;
+import model.visitor.CompHierarchyHIERARCHYReturnExceptionVisitor;
+import model.visitor.CompHierarchyHIERARCHYReturnVisitor;
+import model.visitor.CompHierarchyHIERARCHYVisitor;
+import model.visitor.ComponentExceptionVisitor;
+import model.visitor.ComponentReturnExceptionVisitor;
+import model.visitor.ComponentReturnVisitor;
+import model.visitor.ComponentVisitor;
+import model.visitor.ProductGroupExceptionVisitor;
+import model.visitor.ProductGroupReturnExceptionVisitor;
+import model.visitor.ProductGroupReturnVisitor;
+import model.visitor.ProductGroupVisitor;
+import model.visitor.SubComponentExceptionVisitor;
+import model.visitor.SubComponentReturnExceptionVisitor;
+import model.visitor.SubComponentReturnVisitor;
+import model.visitor.SubComponentVisitor;
+import model.visitor.SubjInterfaceExceptionVisitor;
+import model.visitor.SubjInterfaceReturnExceptionVisitor;
+import model.visitor.SubjInterfaceReturnVisitor;
+import model.visitor.SubjInterfaceVisitor;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.CompHierarchyHIERARCHY;
+import persistence.CompHierarchyHIERARCHYStrategy;
+import persistence.Component4Public;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.MoveToCommand4Public;
+import persistence.ObsInterface;
+import persistence.PersistenceException;
+import persistence.PersistentComponent;
+import persistence.PersistentProductGroup;
+import persistence.PersistentProductGroupComponents;
+import persistence.PersistentProxi;
+import persistence.PersistentSubProductGroup;
+import persistence.ProductGroup4Public;
+import persistence.SubProductGroup4Public;
+import persistence.SubjInterface;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -312,16 +353,20 @@ public class SubProductGroup extends model.ProductGroup implements PersistentSub
 				throws model.CycleException, PersistenceException{
 
         getThis().getParent().removeComponent(getThis());
-        productGroup.addComponentWrapper(DefaultProductGroupWrapper.createDefaultProductGroupWrapper(getThis()));
+        productGroup.addComponent(getThis());
         getThis().setParent(productGroup);
     }
     
     
     // Start of section that contains overridden operations only.
     
+    public void addComponentImplementation(final Component4Public component) 
+				throws model.CycleException, PersistenceException{
+        getThis().getComponents().add(component);
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
-    
+
     /* End of protected part that is not overridden by persistence generator */
     
 }

@@ -31,14 +31,32 @@ public interface CustomerService4Public extends Service4Public {
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
+    public void addToCart(final ArticleWrapper4Public article, final long quantity) 
+				throws PersistenceException;
+    public void changeArticleQuantity(final ShoppingCartQuantifiedArticle4Public article, final long newQuantity) 
+				throws PersistenceException;
+    public void clearError(final ErrorDisplay4Public error) 
+				throws PersistenceException;
+    public void clear() 
+				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException;
+    public void deposit(final common.Fraction amount) 
+				throws PersistenceException;
+    public void findArticle(final String name) 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
-    public CustomerShopArticleWrapper4Public loadArticleWrapper(final StandardArticleWrapper4Public wrapper) 
+    public void order(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
+				throws model.NotEnoughStockException, model.NotEnoughMoneyException, PersistenceException;
+    public void preOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
+				throws model.NotEnoughMoneyException, PersistenceException;
+    public void removeFromCart(final ShoppingCartQuantifiedArticle4Public article) 
 				throws PersistenceException;
+    public void withdraw(final common.Fraction amount) 
+				throws model.NotEnoughMoneyException, PersistenceException;
 
 }
 

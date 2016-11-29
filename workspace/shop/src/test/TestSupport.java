@@ -17,10 +17,6 @@ public class TestSupport {
 	private TestSupport(){}	
 	
 	public static void prepareSingletons(){
-        model.ProducerLst.reset$For$Test = true;
-        model.meta.CommandCoordinator.reset$For$Test = true;
-        model.RootProductGroup.reset$For$Test = true;
-
 	}
 
 	public static void prepareDatabase() throws PersistenceException{

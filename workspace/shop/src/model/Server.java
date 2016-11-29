@@ -6,6 +6,8 @@ import persistence.*;
 import model.visitor.*;
 
 import java.math.BigInteger;
+import java.sql.Timestamp;
+import java.time.Instant;
 
 /* Additional import section end */
 
@@ -398,6 +400,10 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
+
+
+
+
         if (getThis().getUser().equals(common.RPCConstantsAndServices.AdministratorName)){
             getThis().setService(OwnerService.createOwnerService());
             return;
@@ -408,7 +414,26 @@ public class Server extends PersistentObject implements PersistentServer{
             return;
         }
 
-        getThis().setService(CustomerService.createCustomerService());
+        CustomerAccountSearchList accounts = CustomerAccount.getCustomerAccountByName(getThis().getUser());
+        if(accounts.getLength() == 0)
+        {
+            getThis().setService(CustomerService.createCustomerService(CustomerAccount.createCustomerAccount(getThis().getUser(), new Fraction(42), new Fraction(0))));
+        }
+        else if(accounts.getLength() == 1)
+        {
+            getThis().setService(CustomerService.createCustomerService(accounts.iterator().next()));
+        }
+        else
+        {
+            //TODO! Remove default test customer
+
+        }
+
+
+
+
+
+
 
     }
     public void initializeOnInstantiation() 

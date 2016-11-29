@@ -12,11 +12,11 @@ import java.text.MessageFormat;
 public class Article extends model.Component implements PersistentArticle{
     
     
-    public static Article4Public createArticle(String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,Producer4Public producer,ProductGroup4Public parent) throws PersistenceException{
-        return createArticle(name,price,minStock,maxStock,producerDeliveryTime,producer,parent,false);
+    public static Article4Public createArticle(String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,Producer4Public producer) throws PersistenceException{
+        return createArticle(name,price,minStock,maxStock,producerDeliveryTime,producer,false);
     }
     
-    public static Article4Public createArticle(String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,Producer4Public producer,ProductGroup4Public parent,boolean delayed$Persistence) throws PersistenceException {
+    public static Article4Public createArticle(String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,Producer4Public producer,boolean delayed$Persistence) throws PersistenceException {
         PersistentArticle result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theArticleFacade
@@ -33,13 +33,12 @@ public class Article extends model.Component implements PersistentArticle{
         final$$Fields.put("maxStock", maxStock);
         final$$Fields.put("producerDeliveryTime", producerDeliveryTime);
         final$$Fields.put("producer", producer);
-        final$$Fields.put("parent", parent);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static Article4Public createArticle(String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,Producer4Public producer,ProductGroup4Public parent,boolean delayed$Persistence,Article4Public This) throws PersistenceException {
+    public static Article4Public createArticle(String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,Producer4Public producer,boolean delayed$Persistence,Article4Public This) throws PersistenceException {
         PersistentArticle result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theArticleFacade
@@ -56,7 +55,6 @@ public class Article extends model.Component implements PersistentArticle{
         final$$Fields.put("maxStock", maxStock);
         final$$Fields.put("producerDeliveryTime", producerDeliveryTime);
         final$$Fields.put("producer", producer);
-        final$$Fields.put("parent", parent);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -89,15 +87,8 @@ public class Article extends model.Component implements PersistentArticle{
                     if(forGUI && state.hasEssentialFields())state.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
-            AbstractPersistentRoot parent = (AbstractPersistentRoot)this.getParent();
-            if (parent != null) {
-                result.put("parent", parent.createProxiInformation(false, essentialLevel <= 1));
-                if(depth > 1) {
-                    parent.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && parent.hasEssentialFields())parent.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
+            result.put("currentState", this.getCurrentState());
+            result.put("producerName", this.getProducerName());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -116,7 +107,6 @@ public class Article extends model.Component implements PersistentArticle{
                              this.producerDeliveryTime, 
                              this.producer, 
                              this.state, 
-                             this.parent, 
                              this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -132,9 +122,8 @@ public class Article extends model.Component implements PersistentArticle{
     protected long producerDeliveryTime;
     protected PersistentProducer producer;
     protected PersistentArticleState state;
-    protected PersistentProductGroup parent;
     
-    public Article(String name,SubjInterface subService,PersistentComponent This,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,PersistentProducer producer,PersistentArticleState state,PersistentProductGroup parent,long id) throws PersistenceException {
+    public Article(String name,SubjInterface subService,PersistentComponent This,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,PersistentProducer producer,PersistentArticleState state,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super((String)name,(SubjInterface)subService,(PersistentComponent)This,id);
         this.price = price;
@@ -143,8 +132,7 @@ public class Article extends model.Component implements PersistentArticle{
         this.currentStock = currentStock;
         this.producerDeliveryTime = producerDeliveryTime;
         this.producer = producer;
-        this.state = state;
-        this.parent = parent;        
+        this.state = state;        
     }
     
     static public long getTypeId() {
@@ -167,10 +155,6 @@ public class Article extends model.Component implements PersistentArticle{
         if(this.getState() != null){
             this.getState().store();
             ConnectionHandler.getTheConnectionHandler().theArticleFacade.stateSet(this.getId(), getState());
-        }
-        if(this.getParent() != null){
-            this.getParent().store();
-            ConnectionHandler.getTheConnectionHandler().theArticleFacade.parentSet(this.getId(), getParent());
         }
         
     }
@@ -238,20 +222,6 @@ public class Article extends model.Component implements PersistentArticle{
             ConnectionHandler.getTheConnectionHandler().theArticleFacade.stateSet(this.getId(), newValue);
         }
     }
-    public ProductGroup4Public getParent() throws PersistenceException {
-        return this.parent;
-    }
-    public void setParent(ProductGroup4Public newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.parent)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.parent = (PersistentProductGroup)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theArticleFacade.parentSet(this.getId(), newValue);
-        }
-    }
     public PersistentArticle getThis() throws PersistenceException {
         if(this.This == null){
             PersistentArticle result = (PersistentArticle)PersistentProxi.createProxi(this.getId(),this.getClassId());
@@ -308,18 +278,6 @@ public class Article extends model.Component implements PersistentArticle{
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleArticle(this);
     }
-    public void accept(SubComponentVisitor visitor) throws PersistenceException {
-        visitor.handleArticle(this);
-    }
-    public <R> R accept(SubComponentReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleArticle(this);
-    }
-    public <E extends model.UserException>  void accept(SubComponentExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleArticle(this);
-    }
-    public <R, E extends model.UserException> R accept(SubComponentReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleArticle(this);
-    }
     public int getLeafInfo() throws PersistenceException{
         return 0;
     }
@@ -345,6 +303,21 @@ public class Article extends model.Component implements PersistentArticle{
 		}
 		subService.deregister(observee);
     }
+    public void increaseStock(final long quantity) 
+				throws PersistenceException{
+        model.meta.ArticleIncreaseStockIntegerMssg event = new model.meta.ArticleIncreaseStockIntegerMssg(quantity, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
+    public void increaseStock(final long quantity, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		IncreaseStockCommand4Public command = model.meta.IncreaseStockCommand.createIncreaseStockCommand(quantity, now, now);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentArticle)This);
@@ -355,21 +328,19 @@ public class Article extends model.Component implements PersistentArticle{
 			this.setMaxStock((Long)final$$Fields.get("maxStock"));
 			this.setProducerDeliveryTime((Long)final$$Fields.get("producerDeliveryTime"));
 			this.setProducer((PersistentProducer)final$$Fields.get("producer"));
-			this.setParent((PersistentProductGroup)final$$Fields.get("parent"));
 		}
     }
-    public void moveTo(final ProductGroup4Public productGroup) 
-				throws model.CycleException, PersistenceException{
-        model.meta.SubComponentMoveToProductGroupMssg event = new model.meta.SubComponentMoveToProductGroupMssg(productGroup, getThis());
+    public void reduceStock(final long quantity) 
+				throws model.NotEnoughStockException, PersistenceException{
+        model.meta.ArticleReduceStockIntegerMssg event = new model.meta.ArticleReduceStockIntegerMssg(quantity, getThis());
 		event.execute();
 		getThis().updateObservers(event);
 		event.getResult();
     }
-    public void moveTo(final ProductGroup4Public productGroup, final Invoker invoker) 
+    public void reduceStock(final long quantity, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		MoveToCommand4Public command = model.meta.MoveToCommand.createMoveToCommand(now, now);
-		command.setProductGroup(productGroup);
+		ReduceStockCommand4Public command = model.meta.ReduceStockCommand.createReduceStockCommand(quantity, now, now);
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
@@ -382,6 +353,36 @@ public class Article extends model.Component implements PersistentArticle{
 			getThis().setSubService(subService);
 		}
 		subService.register(observee);
+    }
+    public void startSelling() 
+				throws PersistenceException{
+        model.meta.ArticleStartSellingMssg event = new model.meta.ArticleStartSellingMssg(getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
+    public void startSelling(final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		StartSellingCommand4Public command = model.meta.StartSellingCommand.createStartSellingCommand(now, now);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void stopSelling() 
+				throws PersistenceException{
+        model.meta.ArticleStopSellingMssg event = new model.meta.ArticleStopSellingMssg(getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
+    public void stopSelling(final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		StopSellingCommand4Public command = model.meta.StopSellingCommand.createStopSellingCommand(now, now);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
@@ -410,6 +411,40 @@ public class Article extends model.Component implements PersistentArticle{
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
     }
+    public String getCurrentState() 
+				throws PersistenceException{
+        return getThis().getState().toString();
+    }
+    public String getProducerName() 
+				throws PersistenceException{
+        return getThis().getProducer().getName();
+    }
+    public void increaseStockImplementation(final long quantity) 
+				throws PersistenceException{
+        getThis().setCurrentStock(getThis().getCurrentStock() + quantity);
+
+        getThis().getState().accept(new ArticleStateVisitor() {
+            @Override
+            public void handleInSale(InSale4Public inSale) throws PersistenceException {
+                // Nothing special
+            }
+
+            @Override
+            public void handleNewCreated(NewCreated4Public newCreated) throws PersistenceException {
+                // Should not happen
+            }
+
+            @Override
+            public void handleNotInSale(NotInSale4Public notInSale) throws PersistenceException {
+                getThis().setState(RemainingStock.createRemainingStock());
+            }
+
+            @Override
+            public void handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException {
+                // Should not happen
+            }
+        });
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         super.initializeOnCreation();
@@ -421,12 +456,100 @@ public class Article extends model.Component implements PersistentArticle{
         getThis().setState(NewCreated.createNewCreated());
 
     }
-    public void moveToImplementation(final ProductGroup4Public productGroup) 
-				throws model.CycleException, PersistenceException{
-        // TODO! Make SubComponent a class?
-        getThis().getParent().removeComponent(getThis());
-        productGroup.addComponentWrapper(StandardArticleWrapper.createStandardArticleWrapper(getThis()));
-        getThis().setParent(productGroup);
+    public void reduceStockImplementation(final long quantity) 
+				throws model.NotEnoughStockException, PersistenceException{
+        if (getThis().getCurrentStock() >= quantity) {
+            getThis().setCurrentStock(getThis().getCurrentStock() - quantity);
+
+            if (getThis().getCurrentStock() < getThis().getMinStock()) {
+
+                getThis().getState().accept(new ArticleStateVisitor() {
+                    @Override
+                    public void handleInSale(InSale4Public inSale) throws PersistenceException {
+                        // TODO! Nachbestellen
+                    }
+
+                    @Override
+                    public void handleNewCreated(NewCreated4Public newCreated) throws PersistenceException {
+                        // TODO! Call not possible
+                    }
+
+                    @Override
+                    public void handleNotInSale(NotInSale4Public notInSale) throws PersistenceException {
+                        // TODO! Call not possible
+                    }
+
+                    @Override
+                    public void handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException {
+                        if (getThis().getCurrentStock() == 0) {
+                            getThis().setState(NotInSale.createNotInSale());
+                        }
+                    }
+                });
+
+            }
+        } else {
+            throw new NotEnoughStockException(MessageFormat.format("Tried to reduce stock by {0}, but only {1} in stock", quantity, getThis().getCurrentStock()));
+        }
+    }
+    public void startSellingImplementation() 
+				throws PersistenceException{
+        getThis().setState(getThis().getState().accept(new ArticleStateReturnVisitor<ArticleState4Public>() {
+            @Override
+            public ArticleState4Public handleInSale(InSale4Public inSale) throws PersistenceException {
+                return null;
+                // Should not happen
+                // TODO! Throw a "ArticleAlreadyInSaleException"?
+            }
+
+            @Override
+            public ArticleState4Public handleNewCreated(NewCreated4Public newCreated) throws PersistenceException {
+                return InSale.createInSale();
+            }
+
+            @Override
+            public ArticleState4Public handleNotInSale(NotInSale4Public notInSale) throws PersistenceException {
+                return InSale.createInSale();
+            }
+
+            @Override
+            public ArticleState4Public handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException {
+                return InSale.createInSale();
+            }
+        }));
+    }
+    public void stopSellingImplementation() 
+				throws PersistenceException{
+        getThis().setState(getThis().getState().accept(new ArticleStateReturnVisitor<ArticleState4Public>() {
+            @Override
+            public ArticleState4Public handleInSale(InSale4Public inSale) throws PersistenceException {
+                if(getThis().getCurrentStock() == 0)
+                    return NotInSale.createNotInSale();
+                else
+                    return RemainingStock.createRemainingStock();
+            }
+
+            @Override
+            public ArticleState4Public handleNewCreated(NewCreated4Public newCreated) throws PersistenceException {
+                // Should not happen
+                // TODO! Throw a "ArticleNotInSaleException"?
+                return null;
+            }
+
+            @Override
+            public ArticleState4Public handleNotInSale(NotInSale4Public notInSale) throws PersistenceException {
+                // Should not happen
+                // TODO! Throw a "ArticleNotInSaleException"?
+                return null;
+            }
+
+            @Override
+            public ArticleState4Public handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException {
+                // Should not happen
+                // TODO! Throw a "ArticleNotInSaleException"?
+                return null;
+            }
+        }));
     }
     
     

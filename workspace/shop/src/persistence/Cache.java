@@ -81,10 +81,10 @@ public class Cache {
 		this.garbageCollector.start();
 	}
 
-	public void reset$For$Test(){
-		this.garbageCollector.interrupt();
-		Cache.theCache = null;
-	}
+//	public void reset$For$Test(){
+//		this.garbageCollector.interrupt();
+//		Cache.theCache = null;
+//	}
 
 	public void finalize(){
 		this.garbageCollector.interrupt();
@@ -274,49 +274,59 @@ public class Cache {
 	
 	private void initializeNumber2NameMap() {
 		this.number2NameMap = new Hashtable<Integer,String>();
+		this.number2NameMap.put(311, "ActiveOrder");
+		this.number2NameMap.put(292, "AddArticleCommand");
 		this.number2NameMap.put(194, "Article");
+		this.number2NameMap.put(242, "ArticleWrapper");
+		this.number2NameMap.put(290, "ChangeArticleNameCommand");
+		this.number2NameMap.put(294, "ChangeArticleQuantityCommand");
+		this.number2NameMap.put(291, "ChangePriceCommand");
 		this.number2NameMap.put(-101, "CommandCoordinator");
 		this.number2NameMap.put(-105, "CommandExecuter");
 		this.number2NameMap.put(104, "CommonDate");
+		this.number2NameMap.put(295, "CreateCustomerDeliveryTimeCommand");
 		this.number2NameMap.put(209, "CreateProducerCommand");
 		this.number2NameMap.put(239, "CustomerAccount");
+		this.number2NameMap.put(324, "CustomerArticleLst");
 		this.number2NameMap.put(234, "CustomerDeliveryTime");
+		this.number2NameMap.put(296, "CustomerDeliveryTimeManager");
+		this.number2NameMap.put(308, "CustomerOrderManager");
 		this.number2NameMap.put(-225, "CustomerRegisterService");
 		this.number2NameMap.put(-278, "CustomerService");
-		this.number2NameMap.put(298, "CustomerShopArticleWrapper");
-		this.number2NameMap.put(290, "DefaultProductGroupWrapper");
+		this.number2NameMap.put(322, "CustomerServiceRootProductGroup");
+		this.number2NameMap.put(300, "DepositCommand");
 		this.number2NameMap.put(-103, "ErrorDisplay");
+		this.number2NameMap.put(310, "FinishedOrder");
 		this.number2NameMap.put(196, "InSale");
-		this.number2NameMap.put(222, "IncreaseStockCommand");
+		this.number2NameMap.put(288, "IncreaseStockCommand");
 		this.number2NameMap.put(269, "MoveToCommand");
 		this.number2NameMap.put(272, "NewArticleCommand");
 		this.number2NameMap.put(200, "NewCreated");
+		this.number2NameMap.put(317, "NewOrderCommand");
+		this.number2NameMap.put(316, "NewPreOrderCommand");
 		this.number2NameMap.put(192, "NewSubProductGroupCommand");
 		this.number2NameMap.put(195, "NotInSale");
 		this.number2NameMap.put(238, "Order");
-		this.number2NameMap.put(280, "OrderArticleWrapper");
 		this.number2NameMap.put(232, "OrderQuantifiedArticle");
-		this.number2NameMap.put(295, "OwnerArticleWrapper");
 		this.number2NameMap.put(-276, "OwnerService");
 		this.number2NameMap.put(233, "PreOrder");
 		this.number2NameMap.put(198, "Producer");
 		this.number2NameMap.put(210, "ProducerLst");
-		this.number2NameMap.put(284, "ProductGroupComponents");
-		this.number2NameMap.put(220, "ReduceStockCommand");
+		this.number2NameMap.put(320, "ProductGroupComponents");
+		this.number2NameMap.put(286, "ReduceStockCommand");
 		this.number2NameMap.put(267, "RegisterCommand");
 		this.number2NameMap.put(193, "RemainingStock");
+		this.number2NameMap.put(293, "RemoveArticleCommand");
 		this.number2NameMap.put(213, "RootProductGroup");
 		this.number2NameMap.put(-102, "Server");
-		this.number2NameMap.put(265, "ServiceRootProductGroup");
-		this.number2NameMap.put(237, "ShopArticleWrapper");
+		this.number2NameMap.put(318, "Settings");
 		this.number2NameMap.put(241, "ShoppingCart");
-		this.number2NameMap.put(243, "ShoppingCartArticleWrapper");
 		this.number2NameMap.put(236, "ShoppingCartQuantifiedArticle");
-		this.number2NameMap.put(294, "StandardArticleWrapper");
-		this.number2NameMap.put(274, "StartSellingCommand");
-		this.number2NameMap.put(273, "StopSellingCommand");
+		this.number2NameMap.put(289, "StartSellingCommand");
+		this.number2NameMap.put(287, "StopSellingCommand");
 		this.number2NameMap.put(214, "SubProductGroup");
-		this.number2NameMap.put(258, "Subj");	
+		this.number2NameMap.put(258, "Subj");
+		this.number2NameMap.put(301, "WithdrawCommand");	
 	}
 	
 }

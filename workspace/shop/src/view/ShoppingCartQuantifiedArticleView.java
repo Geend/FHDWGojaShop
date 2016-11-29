@@ -4,8 +4,6 @@ import view.visitor.*;
 
 public interface ShoppingCartQuantifiedArticleView extends QuantifiedArticleView {
     
-    public ShoppingCartArticleWrapperView getArticle()throws ModelException;
-    public void setArticle(ShoppingCartArticleWrapperView newValue) throws ModelException ;
     
     public void accept(QuantifiedArticleVisitor visitor) throws ModelException;
     public <R> R accept(QuantifiedArticleReturnVisitor<R>  visitor) throws ModelException;

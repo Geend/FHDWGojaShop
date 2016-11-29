@@ -19,7 +19,7 @@ public class ReduceStockCommandICProxi extends PersistentInCacheProxi implements
     }
     
     public long getClassId() {
-        return 220;
+        return 286;
     }
     
     public long getQuantity() throws PersistenceException {
@@ -34,10 +34,10 @@ public class ReduceStockCommandICProxi extends PersistentInCacheProxi implements
     public void setInvoker(Invoker newValue) throws PersistenceException {
         ((PersistentReduceStockCommand)this.getTheObject()).setInvoker(newValue);
     }
-    public OwnerArticleWrapper4Public getCommandReceiver() throws PersistenceException {
+    public Article4Public getCommandReceiver() throws PersistenceException {
         return ((PersistentReduceStockCommand)this.getTheObject()).getCommandReceiver();
     }
-    public void setCommandReceiver(OwnerArticleWrapper4Public newValue) throws PersistenceException {
+    public void setCommandReceiver(Article4Public newValue) throws PersistenceException {
         ((PersistentReduceStockCommand)this.getTheObject()).setCommandReceiver(newValue);
     }
     public CommonDate4Public getMyCommonDate() throws PersistenceException {
@@ -95,16 +95,16 @@ public class ReduceStockCommandICProxi extends PersistentInCacheProxi implements
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleReduceStockCommand(this);
     }
-    public void accept(OwnerArticleWrapperCommandVisitor visitor) throws PersistenceException {
+    public void accept(ArticleCommandVisitor visitor) throws PersistenceException {
         visitor.handleReduceStockCommand(this);
     }
-    public <R> R accept(OwnerArticleWrapperCommandReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(ArticleCommandReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleReduceStockCommand(this);
     }
-    public <E extends model.UserException>  void accept(OwnerArticleWrapperCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(ArticleCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleReduceStockCommand(this);
     }
-    public <R, E extends model.UserException> R accept(OwnerArticleWrapperCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(ArticleCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleReduceStockCommand(this);
     }
     

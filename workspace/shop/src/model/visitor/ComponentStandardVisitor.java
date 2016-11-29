@@ -14,5 +14,8 @@ public abstract class ComponentStandardVisitor implements ComponentVisitor {
     public void handleSubProductGroup(SubProductGroup4Public subProductGroup) throws PersistenceException{
         this.standardHandling(subProductGroup);
     }
+    public void handleArticleWrapper(ArticleWrapper4Public articleWrapper) throws PersistenceException{
+        this.standardHandling(articleWrapper);
+    }
     protected abstract void standardHandling(Component4Public component) throws PersistenceException;
 }

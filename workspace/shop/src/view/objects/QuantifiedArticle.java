@@ -9,11 +9,13 @@ import view.*;
 public abstract class QuantifiedArticle extends ViewObject implements QuantifiedArticleView{
     
     protected long quantity;
+    protected ArticleWrapperView article;
     
-    public QuantifiedArticle(long quantity,long id, long classId) {
+    public QuantifiedArticle(long quantity,ArticleWrapperView article,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
-        this.quantity = quantity;        
+        this.quantity = quantity;
+        this.article = article;        
     }
     
     public long getQuantity()throws ModelException{
@@ -22,9 +24,19 @@ public abstract class QuantifiedArticle extends ViewObject implements Quantified
     public void setQuantity(long newValue) throws ModelException {
         this.quantity = newValue;
     }
+    public ArticleWrapperView getArticle()throws ModelException{
+        return this.article;
+    }
+    public void setArticle(ArticleWrapperView newValue) throws ModelException {
+        this.article = newValue;
+    }
     
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
+        ArticleWrapperView article = this.getArticle();
+        if (article != null) {
+            ((ViewProxi)article).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(article.getClassId(), article.getId())));
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {

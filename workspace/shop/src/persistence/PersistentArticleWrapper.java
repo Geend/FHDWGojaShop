@@ -1,10 +1,12 @@
 package persistence;
 
 
-public interface PersistentArticleWrapper extends PersistentComponentWrapper, ArticleWrapper4Public {
+public interface PersistentArticleWrapper extends SubComponent, PersistentComponent, ArticleWrapper4Public {
     
-    public abstract PersistentArticleWrapper getThis() throws PersistenceException ;
-    public Article4Public getComponent() throws PersistenceException ;
+    public void setArticle(Article4Public newValue) throws PersistenceException ;
+    public ProductGroup4Public getParent() throws PersistenceException ;
+    public void setParent(ProductGroup4Public newValue) throws PersistenceException ;
+    public PersistentArticleWrapper getThis() throws PersistenceException ;
     
     
 

@@ -12,8 +12,9 @@ public class CustomerAccountProxi extends ViewProxi implements CustomerAccountVi
     }
     
     public CustomerAccountView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
+        String name = (String)resultTable.get("name");
         common.Fraction balance = common.Fraction.parse((String)resultTable.get("balance"));
-        long limit = new Long((String)resultTable.get("limit")).longValue();
+        common.Fraction limit = common.Fraction.parse((String)resultTable.get("limit"));
         ViewProxi shoppingCart = null;
         String shoppingCart$String = (String)resultTable.get("shoppingCart");
         if (shoppingCart$String != null) {
@@ -21,7 +22,7 @@ public class CustomerAccountProxi extends ViewProxi implements CustomerAccountVi
             shoppingCart = view.objects.ViewProxi.createProxi(shoppingCart$Info,connectionKey);
             shoppingCart.setToString(shoppingCart$Info.getToString());
         }
-        CustomerAccountView result$$ = new CustomerAccount((common.Fraction)balance,(long)limit,(ShoppingCartView)shoppingCart, this.getId(), this.getClassId());
+        CustomerAccountView result$$ = new CustomerAccount((String)name,(common.Fraction)balance,(common.Fraction)limit,(ShoppingCartView)shoppingCart, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -51,16 +52,22 @@ public class CustomerAccountProxi extends ViewProxi implements CustomerAccountVi
         return -1;
     }
     
+    public String getName()throws ModelException{
+        return ((CustomerAccount)this.getTheObject()).getName();
+    }
+    public void setName(String newValue) throws ModelException {
+        ((CustomerAccount)this.getTheObject()).setName(newValue);
+    }
     public common.Fraction getBalance()throws ModelException{
         return ((CustomerAccount)this.getTheObject()).getBalance();
     }
     public void setBalance(common.Fraction newValue) throws ModelException {
         ((CustomerAccount)this.getTheObject()).setBalance(newValue);
     }
-    public long getLimit()throws ModelException{
+    public common.Fraction getLimit()throws ModelException{
         return ((CustomerAccount)this.getTheObject()).getLimit();
     }
-    public void setLimit(long newValue) throws ModelException {
+    public void setLimit(common.Fraction newValue) throws ModelException {
         ((CustomerAccount)this.getTheObject()).setLimit(newValue);
     }
     public ShoppingCartView getShoppingCart()throws ModelException{

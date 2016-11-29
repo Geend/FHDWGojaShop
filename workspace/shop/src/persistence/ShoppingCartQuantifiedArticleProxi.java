@@ -18,12 +18,6 @@ public class ShoppingCartQuantifiedArticleProxi extends QuantifiedArticleProxi i
         return 236;
     }
     
-    public ShoppingCartArticleWrapper4Public getArticle() throws PersistenceException {
-        return ((PersistentShoppingCartQuantifiedArticle)this.getTheObject()).getArticle();
-    }
-    public void setArticle(ShoppingCartArticleWrapper4Public newValue) throws PersistenceException {
-        ((PersistentShoppingCartQuantifiedArticle)this.getTheObject()).setArticle(newValue);
-    }
     public PersistentShoppingCartQuantifiedArticle getThis() throws PersistenceException {
         return ((PersistentShoppingCartQuantifiedArticle)this.getTheObject()).getThis();
     }
@@ -66,6 +60,10 @@ public class ShoppingCartQuantifiedArticleProxi extends QuantifiedArticleProxi i
     }
     
     
+    public void changeArticleQuantity(final long newQuantity, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentShoppingCartQuantifiedArticle)this.getTheObject()).changeArticleQuantity(newQuantity, invoker);
+    }
     public void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentShoppingCartQuantifiedArticle)this.getTheObject()).deregister(observee);
@@ -82,9 +80,17 @@ public class ShoppingCartQuantifiedArticleProxi extends QuantifiedArticleProxi i
 				throws PersistenceException{
         ((PersistentShoppingCartQuantifiedArticle)this.getTheObject()).updateObservers(event);
     }
+    public void changeArticleQuantity(final long newQuantity) 
+				throws PersistenceException{
+        ((PersistentShoppingCartQuantifiedArticle)this.getTheObject()).changeArticleQuantity(newQuantity);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentShoppingCartQuantifiedArticle)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public void increaseQuantity(final long amount) 
+				throws PersistenceException{
+        ((PersistentShoppingCartQuantifiedArticle)this.getTheObject()).increaseQuantity(amount);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

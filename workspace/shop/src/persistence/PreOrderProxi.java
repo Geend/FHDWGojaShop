@@ -4,7 +4,7 @@ package persistence;
 
 import model.visitor.*;
 
-public class PreOrderProxi extends AbstractOrderProxi implements PersistentPreOrder{
+public class PreOrderProxi extends OrderStateProxi implements PersistentPreOrder{
     
     public PreOrderProxi(long objectId) {
         super(objectId);
@@ -22,16 +22,16 @@ public class PreOrderProxi extends AbstractOrderProxi implements PersistentPreOr
         return ((PersistentPreOrder)this.getTheObject()).getThis();
     }
     
-    public void accept(AbstractOrderVisitor visitor) throws PersistenceException {
+    public void accept(OrderStateVisitor visitor) throws PersistenceException {
         visitor.handlePreOrder(this);
     }
-    public <R> R accept(AbstractOrderReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(OrderStateReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handlePreOrder(this);
     }
-    public <E extends model.UserException>  void accept(AbstractOrderExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(OrderStateExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handlePreOrder(this);
     }
-    public <R, E extends model.UserException> R accept(AbstractOrderReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(OrderStateReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handlePreOrder(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
@@ -75,10 +75,6 @@ public class PreOrderProxi extends AbstractOrderProxi implements PersistentPreOr
     public void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         ((PersistentPreOrder)this.getTheObject()).updateObservers(event);
-    }
-    public void cancel() 
-				throws PersistenceException{
-        ((PersistentPreOrder)this.getTheObject()).cancel();
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

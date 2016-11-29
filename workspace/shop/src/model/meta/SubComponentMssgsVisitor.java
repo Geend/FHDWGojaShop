@@ -3,7 +3,7 @@ package model.meta;
 public interface SubComponentMssgsVisitor extends SubComponentDOWNMssgsVisitor, SubComponentUPMssgsVisitor {}
 
 
-interface SubComponentDOWNMssgsVisitor extends ArticleDOWNMssgsVisitor, SubProductGroupDOWNMssgsVisitor, ProductGroupUPMssgsVisitor {
+interface SubComponentDOWNMssgsVisitor extends SubProductGroupDOWNMssgsVisitor, ArticleWrapperDOWNMssgsVisitor, ProductGroupUPMssgsVisitor {
 
     public void handleSubComponentMoveToProductGroupMssg(SubComponentMoveToProductGroupMssg event) throws persistence.PersistenceException;
     

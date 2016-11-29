@@ -15,37 +15,45 @@ public class CustomerAccount extends PersistentObject implements PersistentCusto
         return (CustomerAccount4Public)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static CustomerAccount4Public createCustomerAccount() throws PersistenceException{
-        return createCustomerAccount(false);
+    public static CustomerAccount4Public createCustomerAccount(String name,common.Fraction balance,common.Fraction limit) throws PersistenceException{
+        return createCustomerAccount(name,balance,limit,false);
     }
     
-    public static CustomerAccount4Public createCustomerAccount(boolean delayed$Persistence) throws PersistenceException {
+    public static CustomerAccount4Public createCustomerAccount(String name,common.Fraction balance,common.Fraction limit,boolean delayed$Persistence) throws PersistenceException {
+        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentCustomerAccount result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theCustomerAccountFacade
-                .newDelayedCustomerAccount(common.Fraction.Null,0);
+                .newDelayedCustomerAccount(name,balance,limit);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theCustomerAccountFacade
-                .newCustomerAccount(common.Fraction.Null,0,-1);
+                .newCustomerAccount(name,balance,limit,-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
+        final$$Fields.put("name", name);
+        final$$Fields.put("balance", balance);
+        final$$Fields.put("limit", limit);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static CustomerAccount4Public createCustomerAccount(boolean delayed$Persistence,CustomerAccount4Public This) throws PersistenceException {
+    public static CustomerAccount4Public createCustomerAccount(String name,common.Fraction balance,common.Fraction limit,boolean delayed$Persistence,CustomerAccount4Public This) throws PersistenceException {
+        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentCustomerAccount result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theCustomerAccountFacade
-                .newDelayedCustomerAccount(common.Fraction.Null,0);
+                .newDelayedCustomerAccount(name,balance,limit);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theCustomerAccountFacade
-                .newCustomerAccount(common.Fraction.Null,0,-1);
+                .newCustomerAccount(name,balance,limit,-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
+        final$$Fields.put("name", name);
+        final$$Fields.put("balance", balance);
+        final$$Fields.put("limit", limit);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -55,8 +63,9 @@ public class CustomerAccount extends PersistentObject implements PersistentCusto
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            result.put("name", this.getName());
             result.put("balance", this.getBalance().toString());
-            result.put("limit", new Long(this.getLimit()).toString());
+            result.put("limit", this.getLimit().toString());
             AbstractPersistentRoot shoppingCart = (AbstractPersistentRoot)this.getShoppingCart();
             if (shoppingCart != null) {
                 result.put("shoppingCart", shoppingCart.createProxiInformation(false, essentialLevel <= 1));
@@ -72,9 +81,15 @@ public class CustomerAccount extends PersistentObject implements PersistentCusto
         return result;
     }
     
+    public static CustomerAccountSearchList getCustomerAccountByName(String name) throws PersistenceException{
+        return ConnectionHandler.getTheConnectionHandler().theCustomerAccountFacade
+            .getCustomerAccountByName(name);
+    }
+    
     public CustomerAccount provideCopy() throws PersistenceException{
         CustomerAccount result = this;
-        result = new CustomerAccount(this.balance, 
+        result = new CustomerAccount(this.name, 
+                                     this.balance, 
                                      this.limit, 
                                      this.shoppingCart, 
                                      this.subService, 
@@ -87,15 +102,17 @@ public class CustomerAccount extends PersistentObject implements PersistentCusto
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
+    protected String name;
     protected common.Fraction balance;
-    protected long limit;
+    protected common.Fraction limit;
     protected PersistentShoppingCart shoppingCart;
     protected SubjInterface subService;
     protected PersistentCustomerAccount This;
     
-    public CustomerAccount(common.Fraction balance,long limit,PersistentShoppingCart shoppingCart,SubjInterface subService,PersistentCustomerAccount This,long id) throws PersistenceException {
+    public CustomerAccount(String name,common.Fraction balance,common.Fraction limit,PersistentShoppingCart shoppingCart,SubjInterface subService,PersistentCustomerAccount This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
+        this.name = name;
         this.balance = balance;
         this.limit = limit;
         this.shoppingCart = shoppingCart;
@@ -114,7 +131,7 @@ public class CustomerAccount extends PersistentObject implements PersistentCusto
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         if (this.getClassId() == 239) ConnectionHandler.getTheConnectionHandler().theCustomerAccountFacade
-            .newCustomerAccount(balance,limit,this.getId());
+            .newCustomerAccount(name,balance,limit,this.getId());
         super.store();
         if(this.getShoppingCart() != null){
             this.getShoppingCart().store();
@@ -131,6 +148,14 @@ public class CustomerAccount extends PersistentObject implements PersistentCusto
         
     }
     
+    public String getName() throws PersistenceException {
+        return this.name;
+    }
+    public void setName(String newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCustomerAccountFacade.nameSet(this.getId(), newValue);
+        this.name = newValue;
+    }
     public common.Fraction getBalance() throws PersistenceException {
         return this.balance;
     }
@@ -138,10 +163,10 @@ public class CustomerAccount extends PersistentObject implements PersistentCusto
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCustomerAccountFacade.balanceSet(this.getId(), newValue);
         this.balance = newValue;
     }
-    public long getLimit() throws PersistenceException {
+    public common.Fraction getLimit() throws PersistenceException {
         return this.limit;
     }
-    public void setLimit(long newValue) throws PersistenceException {
+    public void setLimit(common.Fraction newValue) throws PersistenceException {
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCustomerAccountFacade.limitSet(this.getId(), newValue);
         this.limit = newValue;
     }
@@ -226,6 +251,14 @@ public class CustomerAccount extends PersistentObject implements PersistentCusto
     }
     
     
+    public void deposit(final common.Fraction amount, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		DepositCommand4Public command = model.meta.DepositCommand.createDepositCommand(amount, now, now);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public synchronized void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
@@ -239,6 +272,9 @@ public class CustomerAccount extends PersistentObject implements PersistentCusto
 				throws PersistenceException{
         this.setThis((PersistentCustomerAccount)This);
 		if(this.isTheSameAs(This)){
+			this.setName((String)final$$Fields.get("name"));
+			this.setBalance((common.Fraction)final$$Fields.get("balance"));
+			this.setLimit((common.Fraction)final$$Fields.get("limit"));
 		}
     }
     public synchronized void register(final ObsInterface observee) 
@@ -259,6 +295,14 @@ public class CustomerAccount extends PersistentObject implements PersistentCusto
 		}
 		subService.updateObservers(event);
     }
+    public void withdraw(final common.Fraction amount, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		WithdrawCommand4Public command = model.meta.WithdrawCommand.createWithdrawCommand(amount, now, now);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     
     
     // Start of section that contains operations that must be implemented.
@@ -268,15 +312,9 @@ public class CustomerAccount extends PersistentObject implements PersistentCusto
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
-    public void debit(final common.Fraction amount) 
-				throws PersistenceException{
-        //TODO: implement method: debit
-        
-    }
     public void deposit(final common.Fraction amount) 
 				throws PersistenceException{
-        //TODO: implement method: deposit
-        
+        getThis().setBalance(getThis().getBalance().add(amount));
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -287,6 +325,16 @@ public class CustomerAccount extends PersistentObject implements PersistentCusto
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
         
+    }
+    public void withdraw(final common.Fraction amount) 
+				throws model.NotEnoughMoneyException, PersistenceException{
+
+        if(getThis().getBalance().isLess(amount)){
+            throw new NotEnoughMoneyException("Nicht genug geld");
+        }
+        else{
+            getThis().setBalance(getThis().getBalance().sub(amount));
+        }
     }
     
     

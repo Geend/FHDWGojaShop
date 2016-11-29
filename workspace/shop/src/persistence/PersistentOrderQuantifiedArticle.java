@@ -3,8 +3,8 @@ package persistence;
 
 public interface PersistentOrderQuantifiedArticle extends PersistentQuantifiedArticle, OrderQuantifiedArticle4Public {
     
-    public OrderArticleWrapper4Public getArticle() throws PersistenceException ;
-    public void setArticle(OrderArticleWrapper4Public newValue) throws PersistenceException ;
+    public common.Fraction getArticlePriceAtOrderTime() throws PersistenceException ;
+    public void setArticlePriceAtOrderTime(common.Fraction newValue) throws PersistenceException ;
     public PersistentOrderQuantifiedArticle getThis() throws PersistenceException ;
     
     

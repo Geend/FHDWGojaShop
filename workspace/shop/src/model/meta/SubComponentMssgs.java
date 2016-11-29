@@ -5,4 +5,4 @@ public interface SubComponentMssgs {
 }
 
 interface SubComponentDOWNMssgs extends Mssgs, SubComponentMssgs{}
-interface SubComponentUPMssgs extends ArticleUPMssgs, SubProductGroupUPMssgs, SubComponentMssgs{}
+interface SubComponentUPMssgs extends SubProductGroupUPMssgs, ArticleWrapperUPMssgs, SubComponentMssgs{}

@@ -3,14 +3,18 @@ package view.visitor;
 
 import view.*;
 
-public interface AnythingExceptionVisitor<E extends view.UserException> extends AbstractOrderExceptionVisitor<E>,ArticleStateExceptionVisitor<E>,ComponentExceptionVisitor<E>,ComponentWrapperExceptionVisitor<E>,QuantifiedArticleExceptionVisitor<E>,ServiceExceptionVisitor<E>{
+public interface AnythingExceptionVisitor<E extends view.UserException> extends ArticleStateExceptionVisitor<E>,ComponentExceptionVisitor<E>,OrderManagerExceptionVisitor<E>,OrderStateExceptionVisitor<E>,QuantifiedArticleExceptionVisitor<E>,ServiceExceptionVisitor<E>{
     
     public void handleCustomerAccount(CustomerAccountView customerAccount) throws ModelException, E;
+    public void handleCustomerArticleLst(CustomerArticleLstView customerArticleLst) throws ModelException, E;
     public void handleCustomerDeliveryTime(CustomerDeliveryTimeView customerDeliveryTime) throws ModelException, E;
+    public void handleCustomerDeliveryTimeManager(CustomerDeliveryTimeManagerView customerDeliveryTimeManager) throws ModelException, E;
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException, E;
+    public void handleOrder(OrderView order) throws ModelException, E;
     public void handleProducer(ProducerView producer) throws ModelException, E;
     public void handleProducerLst(ProducerLstView producerLst) throws ModelException, E;
     public void handleServer(ServerView server) throws ModelException, E;
+    public void handleSettings(SettingsView settings) throws ModelException, E;
     public void handleShoppingCart(ShoppingCartView shoppingCart) throws ModelException, E;
     
 }

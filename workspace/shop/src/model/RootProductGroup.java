@@ -3,6 +3,7 @@ package model;
 
 import common.Fraction;
 import model.meta.ComponentMssgs;
+import model.meta.Mssgs;
 import persistence.*;
 import model.visitor.*;
 
@@ -11,7 +12,7 @@ import model.visitor.*;
 public class RootProductGroup extends model.ProductGroup implements PersistentRootProductGroup{
     
     private static RootProductGroup4Public theRootProductGroup = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static RootProductGroup4Public getTheRootProductGroup() throws PersistenceException{
         if (theRootProductGroup == null || reset$For$Test){
@@ -193,6 +194,17 @@ public class RootProductGroup extends model.ProductGroup implements PersistentRo
 		}
 		subService.deregister(observee);
     }
+    public OwnerService4Public getMyServer() 
+				throws PersistenceException{
+        OwnerServiceSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade
+										.inverseGetRootProductGroup(getThis().getId(), getThis().getClassId());
+		try {
+			return result.iterator().next();
+		} catch (java.util.NoSuchElementException nsee){
+			return null;
+		}
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentRootProductGroup)This);
@@ -251,6 +263,10 @@ public class RootProductGroup extends model.ProductGroup implements PersistentRo
     
     // Start of section that contains overridden operations only.
     
+    public void addComponentImplementation(final Component4Public component) 
+				throws model.CycleException, PersistenceException{
+        getThis().getComponents().add(component);
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
 

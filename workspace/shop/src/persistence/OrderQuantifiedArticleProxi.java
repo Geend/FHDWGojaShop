@@ -18,11 +18,11 @@ public class OrderQuantifiedArticleProxi extends QuantifiedArticleProxi implemen
         return 232;
     }
     
-    public OrderArticleWrapper4Public getArticle() throws PersistenceException {
-        return ((PersistentOrderQuantifiedArticle)this.getTheObject()).getArticle();
+    public common.Fraction getArticlePriceAtOrderTime() throws PersistenceException {
+        return ((PersistentOrderQuantifiedArticle)this.getTheObject()).getArticlePriceAtOrderTime();
     }
-    public void setArticle(OrderArticleWrapper4Public newValue) throws PersistenceException {
-        ((PersistentOrderQuantifiedArticle)this.getTheObject()).setArticle(newValue);
+    public void setArticlePriceAtOrderTime(common.Fraction newValue) throws PersistenceException {
+        ((PersistentOrderQuantifiedArticle)this.getTheObject()).setArticlePriceAtOrderTime(newValue);
     }
     public PersistentOrderQuantifiedArticle getThis() throws PersistenceException {
         return ((PersistentOrderQuantifiedArticle)this.getTheObject()).getThis();
@@ -85,6 +85,10 @@ public class OrderQuantifiedArticleProxi extends QuantifiedArticleProxi implemen
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentOrderQuantifiedArticle)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public void increaseQuantity(final long amount) 
+				throws PersistenceException{
+        ((PersistentOrderQuantifiedArticle)this.getTheObject()).increaseQuantity(amount);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

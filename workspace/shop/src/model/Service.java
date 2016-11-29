@@ -2,7 +2,22 @@
 package model;
 
 import model.meta.RootProductGroupMssgs;
-import persistence.*;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.Command;
+import persistence.ConnectionHandler;
+import persistence.PersistenceException;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.PersistentRootProductGroup;
+import persistence.PersistentService;
+import persistence.PersistentServiceRootProductGroup;
+import persistence.RootProductGroup4Public;
+import persistence.Service4Public;
+import persistence.ServiceRootProductGroup4Public;
+import persistence.Service_ErrorsProxi;
+import persistence.SubjInterface;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -19,15 +34,6 @@ public abstract class Service extends PersistentObject implements PersistentServ
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            AbstractPersistentRoot rootProductGroup = (AbstractPersistentRoot)this.getRootProductGroup();
-            if (rootProductGroup != null) {
-                result.put("rootProductGroup", rootProductGroup.createProxiInformation(false, essentialLevel <= 1));
-                if(depth > 1) {
-                    rootProductGroup.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && rootProductGroup.hasEssentialFields())rootProductGroup.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
             result.put("errors", this.getErrors().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
@@ -44,15 +50,13 @@ public abstract class Service extends PersistentObject implements PersistentServ
     protected model.UserException userException = null;
     protected boolean changed = false;
     
-    protected PersistentServiceRootProductGroup rootProductGroup;
     protected SubjInterface subService;
     protected PersistentService This;
     protected Service_ErrorsProxi errors;
     
-    public Service(PersistentServiceRootProductGroup rootProductGroup,SubjInterface subService,PersistentService This,long id) throws PersistenceException {
+    public Service(SubjInterface subService,PersistentService This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.rootProductGroup = rootProductGroup;
         this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;
         this.errors = new Service_ErrorsProxi(this);        
@@ -69,10 +73,6 @@ public abstract class Service extends PersistentObject implements PersistentServ
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         super.store();
-        if(this.rootProductGroup != null){
-            this.rootProductGroup.store();
-            ConnectionHandler.getTheConnectionHandler().theServiceFacade.rootProductGroupSet(this.getId(), rootProductGroup);
-        }
         if(this.getSubService() != null){
             this.getSubService().store();
             ConnectionHandler.getTheConnectionHandler().theServiceFacade.subServiceSet(this.getId(), getSubService());
@@ -84,17 +84,6 @@ public abstract class Service extends PersistentObject implements PersistentServ
         
     }
     
-    public void setRootProductGroup(ServiceRootProductGroup4Public newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.rootProductGroup)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.rootProductGroup = (PersistentServiceRootProductGroup)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theServiceFacade.rootProductGroupSet(this.getId(), newValue);
-        }
-    }
     public SubjInterface getSubService() throws PersistenceException {
         return this.subService;
     }
@@ -131,24 +120,11 @@ public abstract class Service extends PersistentObject implements PersistentServ
     
     
     
-    public RootProductGroup4Public getRootProductGroup() 
-				throws PersistenceException{
-        if (this.rootProductGroup== null) return null;
-		return this.rootProductGroup.getObservee();
-    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentService)This);
 		if(this.isTheSameAs(This)){
 		}
-    }
-    public void setRootProductGroup(final RootProductGroup4Public rootProductGroup) 
-				throws PersistenceException{
-        if (this.rootProductGroup == null) {
-			this.setRootProductGroup(model.ServiceRootProductGroup.createServiceRootProductGroup(this.isDelayed$Persistence()));
-			this.rootProductGroup.setObserver(getThis());
-		}
-		this.rootProductGroup.setObservee(rootProductGroup);
     }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
@@ -208,9 +184,10 @@ public abstract class Service extends PersistentObject implements PersistentServ
     }
 
     /* Start of protected part that is not overridden by persistence generator */
-    @Override
+
+
     public void rootProductGroup_update(RootProductGroupMssgs event) throws PersistenceException {
-        getThis().signalChanged(true);
+
     }
     /* End of protected part that is not overridden by persistence generator */
     

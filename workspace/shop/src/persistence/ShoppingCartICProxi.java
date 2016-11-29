@@ -61,6 +61,10 @@ public class ShoppingCartICProxi extends PersistentInCacheProxiOptimistic implem
     }
     
     
+    public void addArticle(final ShoppingCartQuantifiedArticle4Public article, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentShoppingCart)this.getTheObject()).addArticle(article, invoker);
+    }
     public void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentShoppingCart)this.getTheObject()).deregister(observee);
@@ -73,9 +77,17 @@ public class ShoppingCartICProxi extends PersistentInCacheProxiOptimistic implem
 				throws PersistenceException{
         ((PersistentShoppingCart)this.getTheObject()).register(observee);
     }
+    public void removeArticle(final ShoppingCartQuantifiedArticle4Public article, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentShoppingCart)this.getTheObject()).removeArticle(article, invoker);
+    }
     public void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         ((PersistentShoppingCart)this.getTheObject()).updateObservers(event);
+    }
+    public void addArticle(final ShoppingCartQuantifiedArticle4Public article) 
+				throws PersistenceException{
+        ((PersistentShoppingCart)this.getTheObject()).addArticle(article);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -88,6 +100,10 @@ public class ShoppingCartICProxi extends PersistentInCacheProxiOptimistic implem
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentShoppingCart)this.getTheObject()).initializeOnInstantiation();
+    }
+    public void removeArticle(final ShoppingCartQuantifiedArticle4Public article) 
+				throws PersistenceException{
+        ((PersistentShoppingCart)this.getTheObject()).removeArticle(article);
     }
 
     

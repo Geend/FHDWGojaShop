@@ -1,19 +1,13 @@
 package viewClient;
 
 
-import model.OwnerArticleWrapper;
-import model.OwnerService;
-import model.StandardArticleWrapper;
-import persistence.PersistenceException;
-import view.*;
-import view.objects.ViewRoot;
-import view.objects.ViewObjectInTree;
-
-import view.visitor.AnythingStandardVisitor;
-
-import java.security.acl.Owner;
 import java.util.Optional;
 
+
+import com.sun.javafx.geom.Point2D;
+
+import common.Fraction;
+import constants.IconConstants;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -37,10 +31,23 @@ import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
-
-import com.sun.javafx.geom.Point2D;
-import view.visitor.ArticleWrapperVisitor;
-import view.visitor.ComponentWrapperDirectVisitor;
+import view.Anything;
+import view.ArticleView;
+import view.ArticleWrapperView;
+import view.CycleException;
+import view.DoubleDefinitionException;
+import view.ModelException;
+import view.NotEnoughStockException;
+import view.OwnerServiceView;
+import view.ProducerView;
+import view.ProductGroupView;
+import view.SettingsView;
+import view.SubComponent;
+import view.UserException;
+import view.objects.OwnerService;
+import view.objects.ViewObjectInTree;
+import view.objects.ViewRoot;
+import view.visitor.AnythingStandardVisitor;
 
 import javax.swing.tree.TreeModel;
 
@@ -256,20 +263,84 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
             }
 
             @Override
-            public void handleStandardArticleWrapper(StandardArticleWrapperView standardArticleWrapper) throws ModelException {
+            public void handleArticleWrapper(ArticleWrapperView articleWrapper) throws ModelException {
+                ArticleView articleView = getConnection().getArticle(articleWrapper);
 
-                OwnerArticleWrapperView wrapper = getConnection().loadOwnerServiceArticleWrapper(standardArticleWrapper);
+                ArticleDefaultDetailPanel panel = new ArticleDefaultDetailPanel(OwnerServiceClientView.this, articleView);
 
-                OwnerArticleWrapperDefaultDetailPanel panel = new OwnerArticleWrapperDefaultDetailPanel(OwnerServiceClientView.this, wrapper);
-                panel.registerUpdater(OwnerArticleWrapperDefaultDetailPanel.OwnerArticleWrapper$$name, new UpdaterForString() {
+                panel.registerUpdater(ArticleDefaultDetailPanel.Component$$name, new UpdaterForString() {
                     @Override
                     public void update(String text) throws ModelException {
-                        getConnection().changeArticleName(wrapper, text);
+                        getConnection().changeArticleName(articleWrapper, text);
+                    }
+                });
+
+                panel.registerUpdater(ArticleDefaultDetailPanel.Article$$price, new StandardUpdater() {
+                    @Override
+                    public void update(String text) throws ModelException {
+
+                        getConnection().changeArticlePrice(articleWrapper,
+                                Fraction.parse(text));
+                    }
+
+                    @Override
+                    public boolean check(String text) throws ModelException {
+                       //TODO! Implement checking of string
+                        return true;
+                    }
+                });
+                result = panel;
+
+            }
+
+            @Override
+            public void handleSettings(SettingsView settings) throws ModelException {
+
+                SettingsDefaultDetailPanel panel = new SettingsDefaultDetailPanel(OwnerServiceClientView.this, settings);
+
+                panel.registerUpdater(SettingsDefaultDetailPanel.Settings$$newCustomerDefaultBalance, new StandardUpdater() {
+                    @Override
+                    public void update(String text) throws ModelException {
+
+                        getConnection().changeNewCustomerDefaultBalance(Fraction.parse(text));
+                    }
+
+                    @Override
+                    public boolean check(String text) throws ModelException {
+                        //TODO! Implement checking of string
+                        return true;
+                    }
+                });
+
+                panel.registerUpdater(SettingsDefaultDetailPanel.Settings$$newCustomerDefaultLimit, new StandardUpdater() {
+                    @Override
+                    public void update(String text) throws ModelException {
+
+                        getConnection().changeNewCustomerDefaultLimit(Fraction.parse(text));
+                    }
+
+                    @Override
+                    public boolean check(String text) throws ModelException {
+                        //TODO! Implement checking of string
+                        return true;
+                    }
+                });
+
+                panel.registerUpdater(SettingsDefaultDetailPanel.Settings$$returnPercentage, new StandardUpdater() {
+                    @Override
+                    public void update(String text) throws ModelException {
+
+                        getConnection().changeReturnPercentage(Fraction.parse(text));
+                    }
+
+                    @Override
+                    public boolean check(String text) throws ModelException {
+                        //TODO! Implement checking of string
+                        return true;
                     }
                 });
 
                 result = panel;
-
             }
 
             // TODO Overwrite all handle methods for the types for which you intend to provide a special panel!
@@ -377,16 +448,15 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 
     interface MenuItemVisitor{
         ImageView handle(NewProductGroupPRMTRStringPRMTRMenuItem menuItem);
-        ImageView handle(ChangeArticleNamePRMTROwnerArticleWrapperPRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(CreateCustomerDeliveryTimePRMTRStringPRMTRFractionPRMTRIntegerPRMTRMenuItem menuItem);
         ImageView handle(CreateProducerPRMTRStringPRMTRMenuItem menuItem);
-        ImageView handle(IncreaseArticleStockPRMTRStandardArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem);
-        ImageView handle(LoadOwnerServiceArticleWrapperPRMTRStandardArticleWrapperPRMTRMenuItem menuItem);
+        ImageView handle(IncreaseArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem);
         ImageView handle(MoveToPRMTRSubComponentPRMTRProductGroupPRMTRMenuItem menuItem);
         ImageView handle(NewArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem menuItem);
         ImageView handle(NewProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem menuItem);
-        ImageView handle(ReduceArticleStockPRMTRStandardArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem);
-        ImageView handle(StartSellingPRMTRStandardArticleWrapperPRMTRMenuItem menuItem);
-        ImageView handle(StopSellingPRMTRStandardArticleWrapperPRMTRMenuItem menuItem);
+        ImageView handle(ReduceArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem);
+        ImageView handle(StartSellingPRMTRArticleWrapperPRMTRMenuItem menuItem);
+        ImageView handle(StopSellingPRMTRArticleWrapperPRMTRMenuItem menuItem);
     }
     private abstract class OwnerServiceMenuItem extends MenuItem{
         private OwnerServiceMenuItem(){
@@ -399,7 +469,7 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
             return visitor.handle(this);
         }
     }
-    private class ChangeArticleNamePRMTROwnerArticleWrapperPRMTRStringPRMTRMenuItem extends OwnerServiceMenuItem{
+    private class CreateCustomerDeliveryTimePRMTRStringPRMTRFractionPRMTRIntegerPRMTRMenuItem extends OwnerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -409,12 +479,7 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
             return visitor.handle(this);
         }
     }
-    private class IncreaseArticleStockPRMTRStandardArticleWrapperPRMTRIntegerPRMTRMenuItem extends OwnerServiceMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class LoadOwnerServiceArticleWrapperPRMTRStandardArticleWrapperPRMTRMenuItem extends OwnerServiceMenuItem{
+    private class IncreaseArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem extends OwnerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -434,17 +499,17 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
             return visitor.handle(this);
         }
     }
-    private class ReduceArticleStockPRMTRStandardArticleWrapperPRMTRIntegerPRMTRMenuItem extends OwnerServiceMenuItem{
+    private class ReduceArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem extends OwnerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
     }
-    private class StartSellingPRMTRStandardArticleWrapperPRMTRMenuItem extends OwnerServiceMenuItem{
+    private class StartSellingPRMTRArticleWrapperPRMTRMenuItem extends OwnerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
     }
-    private class StopSellingPRMTRStandardArticleWrapperPRMTRMenuItem extends OwnerServiceMenuItem{
+    private class StopSellingPRMTRArticleWrapperPRMTRMenuItem extends OwnerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -452,11 +517,21 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
     private java.util.Vector<javafx.scene.control.Button> getToolButtonsForStaticOperations() {
         java.util.Vector<javafx.scene.control.Button> result = new java.util.Vector<javafx.scene.control.Button>();
         javafx.scene.control.Button currentButton = null;
-        currentButton = new javafx.scene.control.Button("NeueProduktgruppe ... ");
+        currentButton = new javafx.scene.control.Button("Neue Produktgruppe ... ");
         currentButton.setGraphic(new NewProductGroupPRMTRStringPRMTRMenuItem().getGraphic());
         currentButton.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
-                final OwnerServiceNewProductGroupStringMssgWizard wizard = new OwnerServiceNewProductGroupStringMssgWizard("NeueProduktgruppe");
+                final OwnerServiceNewProductGroupStringMssgWizard wizard = new OwnerServiceNewProductGroupStringMssgWizard("Neue Produktgruppe");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.showAndWait();
+            }
+        });
+        result.add(currentButton);
+        currentButton = new javafx.scene.control.Button("createCustomerDeliveryTime ... ");
+        currentButton.setGraphic(new CreateCustomerDeliveryTimePRMTRStringPRMTRFractionPRMTRIntegerPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final OwnerServiceCreateCustomerDeliveryTimeStringFractionIntegerMssgWizard wizard = new OwnerServiceCreateCustomerDeliveryTimeStringFractionIntegerMssgWizard("createCustomerDeliveryTime");
                 wizard.setWidth(getNavigationPanel().getWidth());
                 wizard.showAndWait();
             }
@@ -478,10 +553,20 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
         final ContextMenu result = new ContextMenu();
         MenuItem item = null;
         item = new NewProductGroupPRMTRStringPRMTRMenuItem();
-        item.setText("(S) NeueProduktgruppe ... ");
+        item.setText("(S) Neue Produktgruppe ... ");
         item.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
-                final OwnerServiceNewProductGroupStringMssgWizard wizard = new OwnerServiceNewProductGroupStringMssgWizard("NeueProduktgruppe");
+                final OwnerServiceNewProductGroupStringMssgWizard wizard = new OwnerServiceNewProductGroupStringMssgWizard("Neue Produktgruppe");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.showAndWait();
+            }
+        });
+        if (withStaticOperations) result.getItems().add(item);
+        item = new CreateCustomerDeliveryTimePRMTRStringPRMTRFractionPRMTRIntegerPRMTRMenuItem();
+        item.setText("(S) createCustomerDeliveryTime ... ");
+        item.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final OwnerServiceCreateCustomerDeliveryTimeStringFractionIntegerMssgWizard wizard = new OwnerServiceCreateCustomerDeliveryTimeStringFractionIntegerMssgWizard("createCustomerDeliveryTime");
                 wizard.setWidth(getNavigationPanel().getWidth());
                 wizard.showAndWait();
             }
@@ -503,101 +588,6 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
             } catch (ModelException me){
                 this.handleException(me);
                 return result;
-            }
-            if (selected instanceof StandardArticleWrapperView){
-                item = new IncreaseArticleStockPRMTRStandardArticleWrapperPRMTRIntegerPRMTRMenuItem();
-                item.setText("increaseArticleStock ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final OwnerServiceIncreaseArticleStockStandardArticleWrapperIntegerMssgWizard wizard = new OwnerServiceIncreaseArticleStockStandardArticleWrapperIntegerMssgWizard("increaseArticleStock");
-                        wizard.setFirstArgument((StandardArticleWrapperView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-                if (filter_loadOwnerServiceArticleWrapper((StandardArticleWrapperView) selected)) {
-                    item = new LoadOwnerServiceArticleWrapperPRMTRStandardArticleWrapperPRMTRMenuItem();
-                    item.setText("loadOwnerServiceArticleWrapper");
-                    item.setOnAction(new EventHandler<ActionEvent>(){
-                        public void handle(javafx.event.ActionEvent e) {
-                            Alert confirm = new Alert(AlertType.CONFIRMATION);
-                            confirm.setTitle(GUIConstants.ConfirmButtonText);
-                            confirm.setHeaderText(null);
-                            confirm.setContentText("loadOwnerServiceArticleWrapper" + GUIConstants.ConfirmQuestionMark);
-                            Optional<ButtonType> buttonResult = confirm.showAndWait();
-                            if (buttonResult.get() == ButtonType.OK) {
-                                try {
-                                    ViewRoot result = (ViewRoot)getConnection().loadOwnerServiceArticleWrapper((StandardArticleWrapperView)selected);
-                                    getConnection().setEagerRefresh();
-                                    ReturnValueView view = new ReturnValueView(result, new javafx.geometry.Dimension2D(getNavigationPanel().getWidth()*8/9,getNavigationPanel().getHeight()*8/9), OwnerServiceClientView.this);
-                                    view.centerOnScreen();
-                                    view.showAndWait();
-                                }catch(ModelException me){
-                                    handleException(me);
-                                }
-                            }
-                        }
-                    });
-                    result.getItems().add(item);
-                }
-                item = new ReduceArticleStockPRMTRStandardArticleWrapperPRMTRIntegerPRMTRMenuItem();
-                item.setText("reduceArticleStock ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final OwnerServiceReduceArticleStockStandardArticleWrapperIntegerMssgWizard wizard = new OwnerServiceReduceArticleStockStandardArticleWrapperIntegerMssgWizard("reduceArticleStock");
-                        wizard.setFirstArgument((StandardArticleWrapperView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-                if (filter_startSelling((StandardArticleWrapperView) selected)) {
-                    item = new StartSellingPRMTRStandardArticleWrapperPRMTRMenuItem();
-                    item.setText("startSelling");
-                    item.setOnAction(new EventHandler<ActionEvent>(){
-                        public void handle(javafx.event.ActionEvent e) {
-                            Alert confirm = new Alert(AlertType.CONFIRMATION);
-                            confirm.setTitle(GUIConstants.ConfirmButtonText);
-                            confirm.setHeaderText(null);
-                            confirm.setContentText("startSelling" + GUIConstants.ConfirmQuestionMark);
-                            Optional<ButtonType> buttonResult = confirm.showAndWait();
-                            if (buttonResult.get() == ButtonType.OK) {
-                                try {
-                                    getConnection().startSelling((StandardArticleWrapperView)selected);
-                                    getConnection().setEagerRefresh();
-                                    
-                                }catch(ModelException me){
-                                    handleException(me);
-                                }
-                            }
-                        }
-                    });
-                    result.getItems().add(item);
-                }
-                if (filter_stopSelling((StandardArticleWrapperView) selected)) {
-                    item = new StopSellingPRMTRStandardArticleWrapperPRMTRMenuItem();
-                    item.setText("stopSelling");
-                    item.setOnAction(new EventHandler<ActionEvent>(){
-                        public void handle(javafx.event.ActionEvent e) {
-                            Alert confirm = new Alert(AlertType.CONFIRMATION);
-                            confirm.setTitle(GUIConstants.ConfirmButtonText);
-                            confirm.setHeaderText(null);
-                            confirm.setContentText("stopSelling" + GUIConstants.ConfirmQuestionMark);
-                            Optional<ButtonType> buttonResult = confirm.showAndWait();
-                            if (buttonResult.get() == ButtonType.OK) {
-                                try {
-                                    getConnection().stopSelling((StandardArticleWrapperView)selected);
-                                    getConnection().setEagerRefresh();
-                                    
-                                }catch(ModelException me){
-                                    handleException(me);
-                                }
-                            }
-                        }
-                    });
-                    result.getItems().add(item);
-                }
             }
             if (selected instanceof SubComponent){
                 item = new MoveToPRMTRSubComponentPRMTRProductGroupPRMTRMenuItem();
@@ -636,18 +626,75 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
                 });
                 result.getItems().add(item);
             }
-            if (selected instanceof OwnerArticleWrapperView){
-                item = new ChangeArticleNamePRMTROwnerArticleWrapperPRMTRStringPRMTRMenuItem();
-                item.setText("changeArticleName ... ");
+            if (selected instanceof ArticleWrapperView){
+                item = new IncreaseArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem();
+                item.setText("increaseArticleStock ... ");
                 item.setOnAction(new EventHandler<ActionEvent>(){
                     public void handle(javafx.event.ActionEvent e) {
-                        final OwnerServiceChangeArticleNameOwnerArticleWrapperStringMssgWizard wizard = new OwnerServiceChangeArticleNameOwnerArticleWrapperStringMssgWizard("changeArticleName");
-                        wizard.setFirstArgument((OwnerArticleWrapperView)selected);
+                        final OwnerServiceIncreaseArticleStockArticleWrapperIntegerMssgWizard wizard = new OwnerServiceIncreaseArticleStockArticleWrapperIntegerMssgWizard("increaseArticleStock");
+                        wizard.setFirstArgument((ArticleWrapperView)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.showAndWait();
                     }
                 });
                 result.getItems().add(item);
+                item = new ReduceArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem();
+                item.setText("reduceArticleStock ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final OwnerServiceReduceArticleStockArticleWrapperIntegerMssgWizard wizard = new OwnerServiceReduceArticleStockArticleWrapperIntegerMssgWizard("reduceArticleStock");
+                        wizard.setFirstArgument((ArticleWrapperView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+                if (filter_startSelling((ArticleWrapperView) selected)) {
+                    item = new StartSellingPRMTRArticleWrapperPRMTRMenuItem();
+                    item.setText("startSelling");
+                    item.setOnAction(new EventHandler<ActionEvent>(){
+                        public void handle(javafx.event.ActionEvent e) {
+                            Alert confirm = new Alert(AlertType.CONFIRMATION);
+                            confirm.setTitle(GUIConstants.ConfirmButtonText);
+                            confirm.setHeaderText(null);
+                            confirm.setContentText("startSelling" + GUIConstants.ConfirmQuestionMark);
+                            Optional<ButtonType> buttonResult = confirm.showAndWait();
+                            if (buttonResult.get() == ButtonType.OK) {
+                                try {
+                                    getConnection().startSelling((ArticleWrapperView)selected);
+                                    getConnection().setEagerRefresh();
+                                    
+                                }catch(ModelException me){
+                                    handleException(me);
+                                }
+                            }
+                        }
+                    });
+                    result.getItems().add(item);
+                }
+                if (filter_stopSelling((ArticleWrapperView) selected)) {
+                    item = new StopSellingPRMTRArticleWrapperPRMTRMenuItem();
+                    item.setText("stopSelling");
+                    item.setOnAction(new EventHandler<ActionEvent>(){
+                        public void handle(javafx.event.ActionEvent e) {
+                            Alert confirm = new Alert(AlertType.CONFIRMATION);
+                            confirm.setTitle(GUIConstants.ConfirmButtonText);
+                            confirm.setHeaderText(null);
+                            confirm.setContentText("stopSelling" + GUIConstants.ConfirmQuestionMark);
+                            Optional<ButtonType> buttonResult = confirm.showAndWait();
+                            if (buttonResult.get() == ButtonType.OK) {
+                                try {
+                                    getConnection().stopSelling((ArticleWrapperView)selected);
+                                    getConnection().setEagerRefresh();
+                                    
+                                }catch(ModelException me){
+                                    handleException(me);
+                                }
+                            }
+                        }
+                    });
+                    result.getItems().add(item);
+                }
             }
             
         }
@@ -661,36 +708,38 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
     private void setPreCalculatedFilters(String switchOff) {
         this.preCalculatedFilters = switchOff;
     }
-    private boolean filter_loadOwnerServiceArticleWrapper(StandardArticleWrapperView argument){
-        return this.getPreCalculatedFilters().contains("+++loadOwnerServiceArticleWrapperPRMTRStandardArticleWrapperPRMTR");
+    private boolean filter_startSelling(ArticleWrapperView argument){
+        return this.getPreCalculatedFilters().contains("+++startSellingPRMTRArticleWrapperPRMTR");
     }
-    private boolean filter_startSelling(StandardArticleWrapperView argument){
-        return this.getPreCalculatedFilters().contains("+++startSellingPRMTRStandardArticleWrapperPRMTR");
-    }
-    private boolean filter_stopSelling(StandardArticleWrapperView argument){
-        return this.getPreCalculatedFilters().contains("+++stopSellingPRMTRStandardArticleWrapperPRMTR");
+    private boolean filter_stopSelling(ArticleWrapperView argument){
+        return this.getPreCalculatedFilters().contains("+++stopSellingPRMTRArticleWrapperPRMTR");
     }
     
-	class OwnerServiceChangeArticleNameOwnerArticleWrapperStringMssgWizard extends Wizard {
+	class OwnerServiceCreateCustomerDeliveryTimeStringFractionIntegerMssgWizard extends Wizard {
 
-		protected OwnerServiceChangeArticleNameOwnerArticleWrapperStringMssgWizard(String operationName){
+		protected OwnerServiceCreateCustomerDeliveryTimeStringFractionIntegerMssgWizard(String operationName){
 			super(OwnerServiceClientView.this);
 			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new ChangeArticleNamePRMTROwnerArticleWrapperPRMTRStringPRMTRMenuItem ().getGraphic());
+			getOkButton().setGraphic(new CreateCustomerDeliveryTimePRMTRStringPRMTRFractionPRMTRIntegerPRMTRMenuItem ().getGraphic());
 		}
 		protected void initialize(){
-			this.helpFileName = "OwnerServiceChangeArticleNameOwnerArticleWrapperStringMssgWizard.help";
+			this.helpFileName = "OwnerServiceCreateCustomerDeliveryTimeStringFractionIntegerMssgWizard.help";
 			super.initialize();		
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().changeArticleName(firstArgument, ((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().createCustomerDeliveryTime(((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult(),
+									((FractionSelectionPanel)getParametersPanel().getChildren().get(1)).getResult(),
+									((IntegerSelectionPanel)getParametersPanel().getChildren().get(2)).getResult().longValue());
 				getConnection().setEagerRefresh();
 				this.close();	
 			} catch(ModelException me){
 				handleException(me);
 				this.close();
+			}
+			catch(DoubleDefinitionException e) {
+				getStatusBar().setText(e.getMessage());
 			}
 			
 		}
@@ -701,18 +750,11 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 			return false;
 		}
 		protected void addParameters(){
-			getParametersPanel().getChildren().add(new StringSelectionPanel("newName", this));		
+			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));
+			getParametersPanel().getChildren().add(new FractionSelectionPanel("price", this));
+			getParametersPanel().getChildren().add(new IntegerSelectionPanel("time", this));		
 		}	
 		protected void handleDependencies(int i) {
-		}
-		
-		
-		private OwnerArticleWrapperView firstArgument; 
-	
-		public void setFirstArgument(OwnerArticleWrapperView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
 		}
 		
 		
@@ -759,15 +801,15 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 		
 	}
 
-	class OwnerServiceIncreaseArticleStockStandardArticleWrapperIntegerMssgWizard extends Wizard {
+	class OwnerServiceIncreaseArticleStockArticleWrapperIntegerMssgWizard extends Wizard {
 
-		protected OwnerServiceIncreaseArticleStockStandardArticleWrapperIntegerMssgWizard(String operationName){
+		protected OwnerServiceIncreaseArticleStockArticleWrapperIntegerMssgWizard(String operationName){
 			super(OwnerServiceClientView.this);
 			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new IncreaseArticleStockPRMTRStandardArticleWrapperPRMTRIntegerPRMTRMenuItem ().getGraphic());
+			getOkButton().setGraphic(new IncreaseArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem ().getGraphic());
 		}
 		protected void initialize(){
-			this.helpFileName = "OwnerServiceIncreaseArticleStockStandardArticleWrapperIntegerMssgWizard.help";
+			this.helpFileName = "OwnerServiceIncreaseArticleStockArticleWrapperIntegerMssgWizard.help";
 			super.initialize();		
 		}
 				
@@ -795,9 +837,9 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 		}
 		
 		
-		private StandardArticleWrapperView firstArgument; 
+		private ArticleWrapperView firstArgument; 
 	
-		public void setFirstArgument(StandardArticleWrapperView firstArgument){
+		public void setFirstArgument(ArticleWrapperView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -1031,15 +1073,15 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 		
 	}
 
-	class OwnerServiceReduceArticleStockStandardArticleWrapperIntegerMssgWizard extends Wizard {
+	class OwnerServiceReduceArticleStockArticleWrapperIntegerMssgWizard extends Wizard {
 
-		protected OwnerServiceReduceArticleStockStandardArticleWrapperIntegerMssgWizard(String operationName){
+		protected OwnerServiceReduceArticleStockArticleWrapperIntegerMssgWizard(String operationName){
 			super(OwnerServiceClientView.this);
 			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new ReduceArticleStockPRMTRStandardArticleWrapperPRMTRIntegerPRMTRMenuItem ().getGraphic());
+			getOkButton().setGraphic(new ReduceArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem ().getGraphic());
 		}
 		protected void initialize(){
-			this.helpFileName = "OwnerServiceReduceArticleStockStandardArticleWrapperIntegerMssgWizard.help";
+			this.helpFileName = "OwnerServiceReduceArticleStockArticleWrapperIntegerMssgWizard.help";
 			super.initialize();		
 		}
 				
@@ -1070,9 +1112,9 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 		}
 		
 		
-		private StandardArticleWrapperView firstArgument; 
+		private ArticleWrapperView firstArgument; 
 	
-		public void setFirstArgument(StandardArticleWrapperView firstArgument){
+		public void setFirstArgument(ArticleWrapperView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -1087,28 +1129,28 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
         return menuItem.accept(new MenuItemVisitor() {
             @Override
             public ImageView handle(NewProductGroupPRMTRStringPRMTRMenuItem menuItem) {
-                return new ImageView(IconManager.getImage(IconManager.NEW_PRODUCT_GROUP));
+                return new ImageView(IconManager.getImage(IconConstants.NEW_PRODUCT_GROUP));
             }
 
+
+
+
+
             @Override
-            public ImageView handle(ChangeArticleNamePRMTROwnerArticleWrapperPRMTRStringPRMTRMenuItem menuItem) {
+            public ImageView handle(CreateCustomerDeliveryTimePRMTRStringPRMTRFractionPRMTRIntegerPRMTRMenuItem menuItem) {
                 return null;
             }
 
 
             @Override
             public ImageView handle(CreateProducerPRMTRStringPRMTRMenuItem menuItem) {
-                return new ImageView(IconManager.getImage(IconManager.NEW_PRODUCER));
+                return new ImageView(IconManager.getImage(IconConstants.NEW_PRODUCER));
             }
 
-            @Override
-            public ImageView handle(IncreaseArticleStockPRMTRStandardArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem) {
-                return null;
-            }
-
+            
 
             @Override
-            public ImageView handle(LoadOwnerServiceArticleWrapperPRMTRStandardArticleWrapperPRMTRMenuItem menuItem) {
+            public ImageView handle(IncreaseArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem) {
                 return null;
             }
 
@@ -1125,21 +1167,21 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 
             @Override
             public ImageView handle(NewProductGroupPRMTRProductGroupPRMTRStringPRMTRMenuItem menuItem) {
-                return new ImageView(IconManager.getImage(IconManager.NEW_PRODUCT_GROUP));
+                return new ImageView(IconManager.getImage(IconConstants.NEW_PRODUCT_GROUP));
             }
 
             @Override
-            public ImageView handle(ReduceArticleStockPRMTRStandardArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem) {
+            public ImageView handle(ReduceArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem) {
                 return null;
             }
 
             @Override
-            public ImageView handle(StartSellingPRMTRStandardArticleWrapperPRMTRMenuItem menuItem) {
+            public ImageView handle(StartSellingPRMTRArticleWrapperPRMTRMenuItem menuItem) {
                 return null;
             }
 
             @Override
-            public ImageView handle(StopSellingPRMTRStandardArticleWrapperPRMTRMenuItem menuItem) {
+            public ImageView handle(StopSellingPRMTRArticleWrapperPRMTRMenuItem menuItem) {
                 return null;
             }
 

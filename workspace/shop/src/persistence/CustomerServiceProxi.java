@@ -18,11 +18,38 @@ public class CustomerServiceProxi extends ServiceProxi implements PersistentCust
         return -278;
     }
     
+    public CustomerArticleLst4Public getArticleLst() throws PersistenceException {
+        return ((PersistentCustomerService)this.getTheObject()).getArticleLst();
+    }
+    public void setArticleLst(CustomerArticleLst4Public newValue) throws PersistenceException {
+        ((PersistentCustomerService)this.getTheObject()).setArticleLst(newValue);
+    }
+    public void setRootProductGroup(CustomerServiceRootProductGroup4Public newValue) throws PersistenceException {
+        ((PersistentCustomerService)this.getTheObject()).setRootProductGroup(newValue);
+    }
+    public CustomerDeliveryTimeManager4Public getCustomerDeliveryTimeManager() throws PersistenceException {
+        return ((PersistentCustomerService)this.getTheObject()).getCustomerDeliveryTimeManager();
+    }
+    public void setCustomerDeliveryTimeManager(CustomerDeliveryTimeManager4Public newValue) throws PersistenceException {
+        ((PersistentCustomerService)this.getTheObject()).setCustomerDeliveryTimeManager(newValue);
+    }
+    public CustomerAccount4Public getAccount() throws PersistenceException {
+        return ((PersistentCustomerService)this.getTheObject()).getAccount();
+    }
+    public void setAccount(CustomerAccount4Public newValue) throws PersistenceException {
+        ((PersistentCustomerService)this.getTheObject()).setAccount(newValue);
+    }
     public ShoppingCart4Public getCart() throws PersistenceException {
         return ((PersistentCustomerService)this.getTheObject()).getCart();
     }
     public void setCart(ShoppingCart4Public newValue) throws PersistenceException {
         ((PersistentCustomerService)this.getTheObject()).setCart(newValue);
+    }
+    public CustomerOrderManager4Public getOrderManager() throws PersistenceException {
+        return ((PersistentCustomerService)this.getTheObject()).getOrderManager();
+    }
+    public void setOrderManager(CustomerOrderManager4Public newValue) throws PersistenceException {
+        ((PersistentCustomerService)this.getTheObject()).setOrderManager(newValue);
     }
     public PersistentCustomerService getThis() throws PersistenceException {
         return ((PersistentCustomerService)this.getTheObject()).getThis();
@@ -122,6 +149,22 @@ public class CustomerServiceProxi extends ServiceProxi implements PersistentCust
 				throws PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).updateObservers(event);
     }
+    public void addToCart(final ArticleWrapper4Public article, final long quantity) 
+				throws PersistenceException{
+        ((PersistentCustomerService)this.getTheObject()).addToCart(article, quantity);
+    }
+    public void changeArticleQuantity(final ShoppingCartQuantifiedArticle4Public article, final long newQuantity) 
+				throws PersistenceException{
+        ((PersistentCustomerService)this.getTheObject()).changeArticleQuantity(article, newQuantity);
+    }
+    public void clearError(final ErrorDisplay4Public error) 
+				throws PersistenceException{
+        ((PersistentCustomerService)this.getTheObject()).clearError(error);
+    }
+    public void clear() 
+				throws PersistenceException{
+        ((PersistentCustomerService)this.getTheObject()).clear();
+    }
     public void connected(final String user) 
 				throws PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).connected(user);
@@ -130,9 +173,17 @@ public class CustomerServiceProxi extends ServiceProxi implements PersistentCust
 				throws PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public void deposit(final common.Fraction amount) 
+				throws PersistenceException{
+        ((PersistentCustomerService)this.getTheObject()).deposit(amount);
+    }
     public void disconnected() 
 				throws PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).disconnected();
+    }
+    public void findArticle(final String name) 
+				throws PersistenceException{
+        ((PersistentCustomerService)this.getTheObject()).findArticle(name);
     }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{
@@ -154,13 +205,25 @@ public class CustomerServiceProxi extends ServiceProxi implements PersistentCust
 				throws PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).initializeOnInstantiation();
     }
-    public CustomerShopArticleWrapper4Public loadArticleWrapper(final StandardArticleWrapper4Public wrapper) 
+    public void order(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
+				throws model.NotEnoughStockException, model.NotEnoughMoneyException, PersistenceException{
+        ((PersistentCustomerService)this.getTheObject()).order(cart, customerDeliveryTime);
+    }
+    public void preOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
+				throws model.NotEnoughMoneyException, PersistenceException{
+        ((PersistentCustomerService)this.getTheObject()).preOrder(cart, customerDeliveryTime);
+    }
+    public void removeFromCart(final ShoppingCartQuantifiedArticle4Public article) 
 				throws PersistenceException{
-        return ((PersistentCustomerService)this.getTheObject()).loadArticleWrapper(wrapper);
+        ((PersistentCustomerService)this.getTheObject()).removeFromCart(article);
     }
     public void rootProductGroup_update(final model.meta.RootProductGroupMssgs event) 
 				throws PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).rootProductGroup_update(event);
+    }
+    public void withdraw(final common.Fraction amount) 
+				throws model.NotEnoughMoneyException, PersistenceException{
+        ((PersistentCustomerService)this.getTheObject()).withdraw(amount);
     }
 
     

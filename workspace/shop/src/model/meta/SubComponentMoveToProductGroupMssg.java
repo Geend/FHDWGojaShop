@@ -17,10 +17,10 @@ public class SubComponentMoveToProductGroupMssg implements SubComponentDOWNMssgs
     public void accept(SubComponentMssgsVisitor visitor) throws PersistenceException{
         visitor.handleSubComponentMoveToProductGroupMssg(this);
     }
-    public void accept(ArticleMssgsVisitor visitor) throws PersistenceException{
+    public void accept(SubProductGroupMssgsVisitor visitor) throws PersistenceException{
         visitor.handleSubComponentMoveToProductGroupMssg(this);
     }
-    public void accept(SubProductGroupMssgsVisitor visitor) throws PersistenceException{
+    public void accept(ArticleWrapperMssgsVisitor visitor) throws PersistenceException{
         visitor.handleSubComponentMoveToProductGroupMssg(this);
     }
     public void accept(ProductGroupMssgsVisitor visitor) throws PersistenceException{

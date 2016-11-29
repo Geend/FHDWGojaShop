@@ -16,6 +16,12 @@ public abstract class QuantifiedArticleProxi extends ViewProxi implements Quanti
     public void setQuantity(long newValue) throws ModelException {
         ((QuantifiedArticle)this.getTheObject()).setQuantity(newValue);
     }
+    public ArticleWrapperView getArticle()throws ModelException{
+        return ((QuantifiedArticle)this.getTheObject()).getArticle();
+    }
+    public void setArticle(ArticleWrapperView newValue) throws ModelException {
+        ((QuantifiedArticle)this.getTheObject()).setArticle(newValue);
+    }
     
     
     

@@ -1,5 +1,0 @@
-package persistence;
-
-public interface PersistentProductGroupWrapperListEntryProxi extends PersistentComponentWrapperListEntryProxi {
-
-}

@@ -10,39 +10,43 @@ import model.visitor.*;
 public class OrderQuantifiedArticle extends model.QuantifiedArticle implements PersistentOrderQuantifiedArticle{
     
     
-    public static OrderQuantifiedArticle4Public createOrderQuantifiedArticle(long quantity) throws PersistenceException{
-        return createOrderQuantifiedArticle(quantity,false);
+    public static OrderQuantifiedArticle4Public createOrderQuantifiedArticle(long quantity,ArticleWrapper4Public article,common.Fraction articlePriceAtOrderTime) throws PersistenceException{
+        return createOrderQuantifiedArticle(quantity,article,articlePriceAtOrderTime,false);
     }
     
-    public static OrderQuantifiedArticle4Public createOrderQuantifiedArticle(long quantity,boolean delayed$Persistence) throws PersistenceException {
+    public static OrderQuantifiedArticle4Public createOrderQuantifiedArticle(long quantity,ArticleWrapper4Public article,common.Fraction articlePriceAtOrderTime,boolean delayed$Persistence) throws PersistenceException {
         PersistentOrderQuantifiedArticle result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theOrderQuantifiedArticleFacade
-                .newDelayedOrderQuantifiedArticle(quantity);
+                .newDelayedOrderQuantifiedArticle(quantity,articlePriceAtOrderTime);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theOrderQuantifiedArticleFacade
-                .newOrderQuantifiedArticle(quantity,-1);
+                .newOrderQuantifiedArticle(quantity,articlePriceAtOrderTime,-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
         final$$Fields.put("quantity", quantity);
+        final$$Fields.put("article", article);
+        final$$Fields.put("articlePriceAtOrderTime", articlePriceAtOrderTime);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static OrderQuantifiedArticle4Public createOrderQuantifiedArticle(long quantity,boolean delayed$Persistence,OrderQuantifiedArticle4Public This) throws PersistenceException {
+    public static OrderQuantifiedArticle4Public createOrderQuantifiedArticle(long quantity,ArticleWrapper4Public article,common.Fraction articlePriceAtOrderTime,boolean delayed$Persistence,OrderQuantifiedArticle4Public This) throws PersistenceException {
         PersistentOrderQuantifiedArticle result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theOrderQuantifiedArticleFacade
-                .newDelayedOrderQuantifiedArticle(quantity);
+                .newDelayedOrderQuantifiedArticle(quantity,articlePriceAtOrderTime);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theOrderQuantifiedArticleFacade
-                .newOrderQuantifiedArticle(quantity,-1);
+                .newOrderQuantifiedArticle(quantity,articlePriceAtOrderTime,-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
         final$$Fields.put("quantity", quantity);
+        final$$Fields.put("article", article);
+        final$$Fields.put("articlePriceAtOrderTime", articlePriceAtOrderTime);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -52,15 +56,7 @@ public class OrderQuantifiedArticle extends model.QuantifiedArticle implements P
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            AbstractPersistentRoot article = (AbstractPersistentRoot)this.getArticle();
-            if (article != null) {
-                result.put("article", article.createProxiInformation(false, essentialLevel <= 1));
-                if(depth > 1) {
-                    article.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && article.hasEssentialFields())article.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
+            result.put("articlePriceAtOrderTime", this.getArticlePriceAtOrderTime().toString());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -70,9 +66,10 @@ public class OrderQuantifiedArticle extends model.QuantifiedArticle implements P
     public OrderQuantifiedArticle provideCopy() throws PersistenceException{
         OrderQuantifiedArticle result = this;
         result = new OrderQuantifiedArticle(this.quantity, 
+                                            this.article, 
                                             this.subService, 
                                             this.This, 
-                                            this.article, 
+                                            this.articlePriceAtOrderTime, 
                                             this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -81,12 +78,12 @@ public class OrderQuantifiedArticle extends model.QuantifiedArticle implements P
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected PersistentOrderArticleWrapper article;
+    protected common.Fraction articlePriceAtOrderTime;
     
-    public OrderQuantifiedArticle(long quantity,SubjInterface subService,PersistentQuantifiedArticle This,PersistentOrderArticleWrapper article,long id) throws PersistenceException {
+    public OrderQuantifiedArticle(long quantity,PersistentArticleWrapper article,SubjInterface subService,PersistentQuantifiedArticle This,common.Fraction articlePriceAtOrderTime,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((long)quantity,(SubjInterface)subService,(PersistentQuantifiedArticle)This,id);
-        this.article = article;        
+        super((long)quantity,(PersistentArticleWrapper)article,(SubjInterface)subService,(PersistentQuantifiedArticle)This,id);
+        this.articlePriceAtOrderTime = articlePriceAtOrderTime;        
     }
     
     static public long getTypeId() {
@@ -100,28 +97,17 @@ public class OrderQuantifiedArticle extends model.QuantifiedArticle implements P
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         if (this.getClassId() == 232) ConnectionHandler.getTheConnectionHandler().theOrderQuantifiedArticleFacade
-            .newOrderQuantifiedArticle(quantity,this.getId());
+            .newOrderQuantifiedArticle(quantity,articlePriceAtOrderTime,this.getId());
         super.store();
-        if(this.getArticle() != null){
-            this.getArticle().store();
-            ConnectionHandler.getTheConnectionHandler().theOrderQuantifiedArticleFacade.articleSet(this.getId(), getArticle());
-        }
         
     }
     
-    public OrderArticleWrapper4Public getArticle() throws PersistenceException {
-        return this.article;
+    public common.Fraction getArticlePriceAtOrderTime() throws PersistenceException {
+        return this.articlePriceAtOrderTime;
     }
-    public void setArticle(OrderArticleWrapper4Public newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.article)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.article = (PersistentOrderArticleWrapper)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theOrderQuantifiedArticleFacade.articleSet(this.getId(), newValue);
-        }
+    public void setArticlePriceAtOrderTime(common.Fraction newValue) throws PersistenceException {
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theOrderQuantifiedArticleFacade.articlePriceAtOrderTimeSet(this.getId(), newValue);
+        this.articlePriceAtOrderTime = newValue;
     }
     public PersistentOrderQuantifiedArticle getThis() throws PersistenceException {
         if(this.This == null){
@@ -168,7 +154,6 @@ public class OrderQuantifiedArticle extends model.QuantifiedArticle implements P
          return visitor.handleOrderQuantifiedArticle(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getArticle() != null) return 1;
         return 0;
     }
     
@@ -187,6 +172,8 @@ public class OrderQuantifiedArticle extends model.QuantifiedArticle implements P
         this.setThis((PersistentOrderQuantifiedArticle)This);
 		if(this.isTheSameAs(This)){
 			this.setQuantity((Long)final$$Fields.get("quantity"));
+			this.setArticle((PersistentArticleWrapper)final$$Fields.get("article"));
+			this.setArticlePriceAtOrderTime((common.Fraction)final$$Fields.get("articlePriceAtOrderTime"));
 		}
     }
     public synchronized void register(final ObsInterface observee) 

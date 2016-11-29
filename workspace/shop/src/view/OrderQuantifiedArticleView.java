@@ -4,8 +4,8 @@ import view.visitor.*;
 
 public interface OrderQuantifiedArticleView extends QuantifiedArticleView {
     
-    public OrderArticleWrapperView getArticle()throws ModelException;
-    public void setArticle(OrderArticleWrapperView newValue) throws ModelException ;
+    public common.Fraction getArticlePriceAtOrderTime()throws ModelException;
+    public void setArticlePriceAtOrderTime(common.Fraction newValue) throws ModelException ;
     
     public void accept(QuantifiedArticleVisitor visitor) throws ModelException;
     public <R> R accept(QuantifiedArticleReturnVisitor<R>  visitor) throws ModelException;

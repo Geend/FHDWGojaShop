@@ -7,7 +7,7 @@ public interface PersistentProductGroup extends PersistentComponent, ProductGrou
     public abstract PersistentProductGroup getThis() throws PersistenceException ;
     
     
-    public void components_update(final model.meta.ComponentWrapperMssgs event) 
+    public void components_update(final model.meta.ComponentMssgs event) 
 				throws PersistenceException;
 
 }

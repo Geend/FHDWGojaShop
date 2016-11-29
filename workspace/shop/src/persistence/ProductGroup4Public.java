@@ -11,7 +11,7 @@ public interface ProductGroup4Public extends Component4Public {
     public <E extends model.UserException>  void accept(ProductGroupExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(ProductGroupReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
-    public void addComponentWrapper(final ComponentWrapper4Public componentWrapper) 
+    public void addComponent(final Component4Public component) 
 				throws model.CycleException, PersistenceException;
     public ProductGroupComponents4Public getComponents() 
 				throws PersistenceException;
@@ -19,11 +19,13 @@ public interface ProductGroup4Public extends Component4Public {
 				throws PersistenceException;
     public void newArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer, final Invoker invoker) 
 				throws PersistenceException;
+    public void newSubProductGroup(final String name) 
+				throws model.DoubleDefinitionException, model.CycleException, PersistenceException;
     public void newSubProductGroup(final String name, final Invoker invoker) 
 				throws PersistenceException;
     public void removeComponent(final Component4Public component) 
 				throws PersistenceException;
-    public void addComponentWrapperImplementation(final ComponentWrapper4Public componentWrapper) 
+    public void addComponentImplementation(final Component4Public component) 
 				throws model.CycleException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
@@ -33,7 +35,7 @@ public interface ProductGroup4Public extends Component4Public {
 				throws PersistenceException;
     public void newArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
 				throws model.CycleException, PersistenceException;
-    public void newSubProductGroup(final String name) 
+    public void newSubProductGroupImplementation(final String name) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException;
     public void removeComponentImplementation(final Component4Public component) 
 				throws PersistenceException;

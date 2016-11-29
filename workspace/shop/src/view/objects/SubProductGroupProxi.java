@@ -15,7 +15,7 @@ public class SubProductGroupProxi extends ProductGroupProxi implements SubProduc
     public SubProductGroupView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         String name = (String)resultTable.get("name");
         java.util.Vector<String> components_string = (java.util.Vector<String>)resultTable.get("components");
-        java.util.Vector<ComponentWrapperView> components = ViewProxi.getProxiVector(components_string, connectionKey);
+        java.util.Vector<ComponentView> components = ViewProxi.getProxiVector(components_string, connectionKey);
         ViewProxi parent = null;
         String parent$String = (String)resultTable.get("parent");
         if (parent$String != null) {

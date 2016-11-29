@@ -1,29 +1,34 @@
 package viewClient;
 
+import constants.IconConstants;
 import javafx.scene.image.Image;
 
 public class IconManager {
-
-	public static final int ARTICLE = 1;
-	public static final int PRODUCT_GROUP = 2;
-	public static final int NEW_PRODUCT_GROUP = 3;
-	public static final int PRODUCER = 4;
-	public static final int NEW_PRODUCER = 5;
 
 	private IconManager(){}
 
 	public static Image getImage(int iconInfo) {
 		switch (iconInfo) {
-			case ARTICLE:
+			case IconConstants.ARTICLE:
 				return getImage("Ecommerce/product-48.png");
-			case PRODUCT_GROUP:
+			case IconConstants.PRODUCT_GROUP:
 				return  getImage("Very_Basic/folder-48.png");
-			case NEW_PRODUCT_GROUP:
+			case IconConstants.NEW_PRODUCT_GROUP:
 				return getImage("Folders/add_folder-48.png");
-			case PRODUCER:
+			case IconConstants.PRODUCER:
 				return getImage("Industry/factory-48.png");
-			case NEW_PRODUCER:
+			case IconConstants.NEW_PRODUCER:
 				return getImage("Very_Basic/plus-48.png");
+			case IconConstants.USER:
+				return getImage("Users/gender_neutral_user-48.png");
+			case IconConstants.CHECKOUT:
+				return getImage("Ecommerce/checkout-48.png");
+			case IconConstants.CART:
+				return getImage("Ecommerce/shopping_cart-48.png");
+			case IconConstants.DELIVERY_TIME:
+				return getImage("Ecommerce/delivery-48.png");
+			case IconConstants.SETTINGS:
+				return getImage("Programming/settings_3-48.png");
 		default:
 			return new Image("/viewResources/default.gif");
 		}

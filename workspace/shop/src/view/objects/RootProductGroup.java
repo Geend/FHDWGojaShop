@@ -10,7 +10,7 @@ import view.visitor.*;
 public class RootProductGroup extends view.objects.ProductGroup implements RootProductGroupView{
     
     
-    public RootProductGroup(String name,java.util.Vector<ComponentWrapperView> components,long id, long classId) {
+    public RootProductGroup(String name,java.util.Vector<ComponentView> components,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super((String)name,components,id, classId);        
     }

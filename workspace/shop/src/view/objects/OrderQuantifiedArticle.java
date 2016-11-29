@@ -9,12 +9,12 @@ import view.visitor.*;
 
 public class OrderQuantifiedArticle extends view.objects.QuantifiedArticle implements OrderQuantifiedArticleView{
     
-    protected OrderArticleWrapperView article;
+    protected common.Fraction articlePriceAtOrderTime;
     
-    public OrderQuantifiedArticle(long quantity,OrderArticleWrapperView article,long id, long classId) {
+    public OrderQuantifiedArticle(long quantity,ArticleWrapperView article,common.Fraction articlePriceAtOrderTime,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((long)quantity,id, classId);
-        this.article = article;        
+        super((long)quantity,(ArticleWrapperView)article,id, classId);
+        this.articlePriceAtOrderTime = articlePriceAtOrderTime;        
     }
     
     static public long getTypeId() {
@@ -25,11 +25,11 @@ public class OrderQuantifiedArticle extends view.objects.QuantifiedArticle imple
         return getTypeId();
     }
     
-    public OrderArticleWrapperView getArticle()throws ModelException{
-        return this.article;
+    public common.Fraction getArticlePriceAtOrderTime()throws ModelException{
+        return this.articlePriceAtOrderTime;
     }
-    public void setArticle(OrderArticleWrapperView newValue) throws ModelException {
-        this.article = newValue;
+    public void setArticlePriceAtOrderTime(common.Fraction newValue) throws ModelException {
+        this.articlePriceAtOrderTime = newValue;
     }
     
     public void accept(QuantifiedArticleVisitor visitor) throws ModelException {
@@ -58,7 +58,7 @@ public class OrderQuantifiedArticle extends view.objects.QuantifiedArticle imple
     }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
-        OrderArticleWrapperView article = this.getArticle();
+        ArticleWrapperView article = this.getArticle();
         if (article != null) {
             ((ViewProxi)article).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(article.getClassId(), article.getId())));
         }
@@ -68,30 +68,28 @@ public class OrderQuantifiedArticle extends view.objects.QuantifiedArticle imple
         
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        int index = originalIndex;
-        if(index == 0 && this.getArticle() != null) return new ArticleOrderQuantifiedArticleWrapper(this, originalIndex, (ViewRoot)this.getArticle());
-        if(this.getArticle() != null) index = index - 1;
+        
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 
-            + (this.getArticle() == null ? 0 : 1);
+        return 0 ;
     }
     public boolean isLeaf() throws ModelException {
-        return true 
-            && (this.getArticle() == null ? true : false);
+        return true;
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        int result = 0;
-        if(this.getArticle() != null && this.getArticle().equals(child)) return result;
-        if(this.getArticle() != null) result = result + 1;
+        
         return -1;
     }
     public int getQuantityIndex() throws ModelException {
         return 0;
     }
+    public int getArticlePriceAtOrderTimeIndex() throws ModelException {
+        return 0 + 1;
+    }
     public int getRowCount(){
         return 0 
+            + 1
             + 1;
     }
     public Object getValueAt(int rowIndex, int columnIndex){
@@ -99,8 +97,12 @@ public class OrderQuantifiedArticle extends view.objects.QuantifiedArticle imple
             if(columnIndex == 0){
                 if(rowIndex == 0) return "quantity";
                 rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return "articlePriceAtOrderTime";
+                rowIndex = rowIndex - 1;
             } else {
                 if(rowIndex == 0) return new Long(getQuantity());
+                rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return this.getArticlePriceAtOrderTime();
                 rowIndex = rowIndex - 1;
             }
             throw new ModelException("Table index out of bounds!", -1);
@@ -115,6 +117,11 @@ public class OrderQuantifiedArticle extends view.objects.QuantifiedArticle imple
     public void setValueAt(String newValue, int rowIndex) throws Exception {
         if(rowIndex == 0){
             this.setQuantity(Long.parseLong(newValue));
+            return;
+        }
+        rowIndex = rowIndex - 1;
+        if(rowIndex == 0){
+            this.setArticlePriceAtOrderTime(common.Fraction.parse(newValue));
             return;
         }
         rowIndex = rowIndex - 1;

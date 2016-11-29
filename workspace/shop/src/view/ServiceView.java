@@ -8,8 +8,6 @@ import view.visitor.*;
 
 public interface ServiceView extends Anything, Remote, AbstractViewRoot {
     
-    public RootProductGroupView getRootProductGroup()throws ModelException;
-    public void setRootProductGroup(RootProductGroupView newValue) throws ModelException ;
     public java.util.Vector<ErrorDisplayView> getErrors()throws ModelException;
     public void setErrors(java.util.Vector<ErrorDisplayView> newValue) throws ModelException ;
     

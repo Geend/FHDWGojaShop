@@ -9,7 +9,7 @@ interface OrderDOWNMssgsVisitor  {
 }
 
 
-interface OrderUPMssgsVisitor extends AbstractOrderUPMssgsVisitor {
+interface OrderUPMssgsVisitor  {
 
     
 }

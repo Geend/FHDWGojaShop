@@ -5,7 +5,7 @@ import viewClient.*;
 
 import view.visitor.*;
 
-public class OrderProxi extends AbstractOrderProxi implements OrderView{
+public class OrderProxi extends ViewProxi implements OrderView{
     
     public OrderProxi(long objectId, long classId, ExceptionAndEventHandler connectionKey) {
         super(objectId, classId, connectionKey);
@@ -22,7 +22,14 @@ public class OrderProxi extends AbstractOrderProxi implements OrderView{
             customerDeliveryTime = view.objects.ViewProxi.createProxi(customerDeliveryTime$Info,connectionKey);
             customerDeliveryTime.setToString(customerDeliveryTime$Info.getToString());
         }
-        OrderView result$$ = new Order(articles,(CustomerDeliveryTimeView)customerDeliveryTime, this.getId(), this.getClassId());
+        ViewProxi state = null;
+        String state$String = (String)resultTable.get("state");
+        if (state$String != null) {
+            common.ProxiInformation state$Info = common.RPCConstantsAndServices.createProxiInformation(state$String);
+            state = view.objects.ViewProxi.createProxi(state$Info,connectionKey);
+            state.setToString(state$Info.getToString());
+        }
+        OrderView result$$ = new Order(articles,(CustomerDeliveryTimeView)customerDeliveryTime,(OrderStateView)state, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -32,22 +39,26 @@ public class OrderProxi extends AbstractOrderProxi implements OrderView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
         int index = originalIndex;
-        if(index < this.getArticles().size()) return new ArticlesAbstractOrderWrapper(this, originalIndex, (ViewRoot)this.getArticles().get(index));
+        if(index < this.getArticles().size()) return new ArticlesOrderWrapper(this, originalIndex, (ViewRoot)this.getArticles().get(index));
         index = index - this.getArticles().size();
-        if(index == 0 && this.getCustomerDeliveryTime() != null) return new CustomerDeliveryTimeAbstractOrderWrapper(this, originalIndex, (ViewRoot)this.getCustomerDeliveryTime());
+        if(index == 0 && this.getCustomerDeliveryTime() != null) return new CustomerDeliveryTimeOrderWrapper(this, originalIndex, (ViewRoot)this.getCustomerDeliveryTime());
         if(this.getCustomerDeliveryTime() != null) index = index - 1;
+        if(index == 0 && this.getState() != null) return new StateOrderWrapper(this, originalIndex, (ViewRoot)this.getState());
+        if(this.getState() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getArticles().size())
-            + (this.getCustomerDeliveryTime() == null ? 0 : 1);
+            + (this.getCustomerDeliveryTime() == null ? 0 : 1)
+            + (this.getState() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
             && (this.getArticles().size() == 0)
-            && (this.getCustomerDeliveryTime() == null ? true : false);
+            && (this.getCustomerDeliveryTime() == null ? true : false)
+            && (this.getState() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -58,22 +69,30 @@ public class OrderProxi extends AbstractOrderProxi implements OrderView{
         }
         if(this.getCustomerDeliveryTime() != null && this.getCustomerDeliveryTime().equals(child)) return result;
         if(this.getCustomerDeliveryTime() != null) result = result + 1;
+        if(this.getState() != null && this.getState().equals(child)) return result;
+        if(this.getState() != null) result = result + 1;
         return -1;
     }
     
+    public java.util.Vector<OrderQuantifiedArticleView> getArticles()throws ModelException{
+        return ((Order)this.getTheObject()).getArticles();
+    }
+    public void setArticles(java.util.Vector<OrderQuantifiedArticleView> newValue) throws ModelException {
+        ((Order)this.getTheObject()).setArticles(newValue);
+    }
+    public CustomerDeliveryTimeView getCustomerDeliveryTime()throws ModelException{
+        return ((Order)this.getTheObject()).getCustomerDeliveryTime();
+    }
+    public void setCustomerDeliveryTime(CustomerDeliveryTimeView newValue) throws ModelException {
+        ((Order)this.getTheObject()).setCustomerDeliveryTime(newValue);
+    }
+    public OrderStateView getState()throws ModelException{
+        return ((Order)this.getTheObject()).getState();
+    }
+    public void setState(OrderStateView newValue) throws ModelException {
+        ((Order)this.getTheObject()).setState(newValue);
+    }
     
-    public void accept(AbstractOrderVisitor visitor) throws ModelException {
-        visitor.handleOrder(this);
-    }
-    public <R> R accept(AbstractOrderReturnVisitor<R>  visitor) throws ModelException {
-         return visitor.handleOrder(this);
-    }
-    public <E extends view.UserException>  void accept(AbstractOrderExceptionVisitor<E> visitor) throws ModelException, E {
-         visitor.handleOrder(this);
-    }
-    public <R, E extends view.UserException> R accept(AbstractOrderReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
-         return visitor.handleOrder(this);
-    }
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleOrder(this);
     }

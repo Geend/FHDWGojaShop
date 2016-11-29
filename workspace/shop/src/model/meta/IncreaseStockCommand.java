@@ -38,12 +38,12 @@ public class IncreaseStockCommand extends PersistentObject implements Persistent
     }
     protected long quantity;
     protected Invoker invoker;
-    protected PersistentOwnerArticleWrapper commandReceiver;
+    protected PersistentArticle commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public IncreaseStockCommand(long quantity,Invoker invoker,PersistentOwnerArticleWrapper commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
+    public IncreaseStockCommand(long quantity,Invoker invoker,PersistentArticle commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.quantity = quantity;
@@ -53,7 +53,7 @@ public class IncreaseStockCommand extends PersistentObject implements Persistent
     }
     
     static public long getTypeId() {
-        return 222;
+        return 288;
     }
     
     public long getClassId() {
@@ -62,7 +62,7 @@ public class IncreaseStockCommand extends PersistentObject implements Persistent
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 222) ConnectionHandler.getTheConnectionHandler().theIncreaseStockCommandFacade
+        if (this.getClassId() == 288) ConnectionHandler.getTheConnectionHandler().theIncreaseStockCommandFacade
             .newIncreaseStockCommand(quantity,this.getId());
         super.store();
         if(this.getInvoker() != null){
@@ -101,15 +101,15 @@ public class IncreaseStockCommand extends PersistentObject implements Persistent
             ConnectionHandler.getTheConnectionHandler().theIncreaseStockCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
-    public OwnerArticleWrapper4Public getCommandReceiver() throws PersistenceException {
+    public Article4Public getCommandReceiver() throws PersistenceException {
         return this.commandReceiver;
     }
-    public void setCommandReceiver(OwnerArticleWrapper4Public newValue) throws PersistenceException {
+    public void setCommandReceiver(Article4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.commandReceiver)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.commandReceiver = (PersistentOwnerArticleWrapper)PersistentProxi.createProxi(objectId, classId);
+        this.commandReceiver = (PersistentArticle)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theIncreaseStockCommandFacade.commandReceiverSet(this.getId(), newValue);
@@ -182,16 +182,16 @@ public class IncreaseStockCommand extends PersistentObject implements Persistent
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleIncreaseStockCommand(this);
     }
-    public void accept(OwnerArticleWrapperCommandVisitor visitor) throws PersistenceException {
+    public void accept(ArticleCommandVisitor visitor) throws PersistenceException {
         visitor.handleIncreaseStockCommand(this);
     }
-    public <R> R accept(OwnerArticleWrapperCommandReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(ArticleCommandReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleIncreaseStockCommand(this);
     }
-    public <E extends model.UserException>  void accept(OwnerArticleWrapperCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(ArticleCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleIncreaseStockCommand(this);
     }
-    public <R, E extends model.UserException> R accept(OwnerArticleWrapperCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(ArticleCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleIncreaseStockCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{

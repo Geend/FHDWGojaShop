@@ -1,5 +1,5 @@
 package persistence;
 
-public interface PersistentPreOrderListEntryProxi extends PersistentAbstractOrderListEntryProxi {
+public interface PersistentPreOrderListEntryProxi extends PersistentOrderStateListEntryProxi {
 
 }

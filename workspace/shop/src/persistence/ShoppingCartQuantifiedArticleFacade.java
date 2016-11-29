@@ -28,9 +28,6 @@ public class ShoppingCartQuantifiedArticleFacade{
     public ShoppingCartQuantifiedArticle getShoppingCartQuantifiedArticle(long ShoppingCartQuantifiedArticleId) throws PersistenceException{
         return null; //All data is in the cache!
     }
-    public void articleSet(long ShoppingCartQuantifiedArticleId, ShoppingCartArticleWrapper4Public articleVal) throws PersistenceException {
-        
-    }
 
 }
 

@@ -6,8 +6,18 @@ import view.visitor.*;
 
 public interface CustomerServiceView extends ServiceView {
     
+    public CustomerArticleLstView getArticleLst()throws ModelException;
+    public void setArticleLst(CustomerArticleLstView newValue) throws ModelException ;
+    public RootProductGroupView getRootProductGroup()throws ModelException;
+    public void setRootProductGroup(RootProductGroupView newValue) throws ModelException ;
+    public CustomerDeliveryTimeManagerView getCustomerDeliveryTimeManager()throws ModelException;
+    public void setCustomerDeliveryTimeManager(CustomerDeliveryTimeManagerView newValue) throws ModelException ;
+    public CustomerAccountView getAccount()throws ModelException;
+    public void setAccount(CustomerAccountView newValue) throws ModelException ;
     public ShoppingCartView getCart()throws ModelException;
     public void setCart(ShoppingCartView newValue) throws ModelException ;
+    public CustomerOrderManagerView getOrderManager()throws ModelException;
+    public void setOrderManager(CustomerOrderManagerView newValue) throws ModelException ;
     
     public void accept(ServiceVisitor visitor) throws ModelException;
     public <R> R accept(ServiceReturnVisitor<R>  visitor) throws ModelException;

@@ -4,7 +4,7 @@ package persistence;
 
 import model.visitor.*;
 
-public class OrderICProxi extends AbstractOrderICProxi implements PersistentOrder{
+public class OrderICProxi extends PersistentInCacheProxiOptimistic implements PersistentOrder{
     
     public OrderICProxi(long objectId) {
         super(objectId);
@@ -22,22 +22,31 @@ public class OrderICProxi extends AbstractOrderICProxi implements PersistentOrde
         return 238;
     }
     
+    public Order_ArticlesProxi getArticles() throws PersistenceException {
+        return ((PersistentOrder)this.getTheObject()).getArticles();
+    }
+    public CustomerDeliveryTime4Public getCustomerDeliveryTime() throws PersistenceException {
+        return ((PersistentOrder)this.getTheObject()).getCustomerDeliveryTime();
+    }
+    public void setCustomerDeliveryTime(CustomerDeliveryTime4Public newValue) throws PersistenceException {
+        ((PersistentOrder)this.getTheObject()).setCustomerDeliveryTime(newValue);
+    }
+    public OrderState4Public getState() throws PersistenceException {
+        return ((PersistentOrder)this.getTheObject()).getState();
+    }
+    public void setState(OrderState4Public newValue) throws PersistenceException {
+        ((PersistentOrder)this.getTheObject()).setState(newValue);
+    }
+    public SubjInterface getSubService() throws PersistenceException {
+        return ((PersistentOrder)this.getTheObject()).getSubService();
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        ((PersistentOrder)this.getTheObject()).setSubService(newValue);
+    }
     public PersistentOrder getThis() throws PersistenceException {
         return ((PersistentOrder)this.getTheObject()).getThis();
     }
     
-    public void accept(AbstractOrderVisitor visitor) throws PersistenceException {
-        visitor.handleOrder(this);
-    }
-    public <R> R accept(AbstractOrderReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleOrder(this);
-    }
-    public <E extends model.UserException>  void accept(AbstractOrderExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleOrder(this);
-    }
-    public <R, E extends model.UserException> R accept(AbstractOrderReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleOrder(this);
-    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleOrder(this);
     }
@@ -79,6 +88,10 @@ public class OrderICProxi extends AbstractOrderICProxi implements PersistentOrde
     public void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         ((PersistentOrder)this.getTheObject()).updateObservers(event);
+    }
+    public void addArticle(final OrderQuantifiedArticle4Public orderQuantifiedArticle) 
+				throws PersistenceException{
+        ((PersistentOrder)this.getTheObject()).addArticle(orderQuantifiedArticle);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

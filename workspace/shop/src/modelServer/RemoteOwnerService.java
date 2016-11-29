@@ -26,11 +26,65 @@ public  class RemoteOwnerService extends RemoteService {
     
     public synchronized java.util.HashMap<?,?> changeArticleName(String articleProxiString, String newName){
         try {
-            PersistentOwnerArticleWrapper article = (PersistentOwnerArticleWrapper)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
+            PersistentArticleWrapper article = (PersistentArticleWrapper)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
             ((PersistentOwnerService)this.server).changeArticleName(article, newName);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> changeArticlePrice(String articleProxiString, String newPriceAsString){
+        try {
+            PersistentArticleWrapper article = (PersistentArticleWrapper)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
+            common.Fraction newPrice = common.Fraction.parse(newPriceAsString);
+            ((PersistentOwnerService)this.server).changeArticlePrice(article, newPrice);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> changeNewCustomerDefaultBalance(String newValueAsString){
+        try {
+            common.Fraction newValue = common.Fraction.parse(newValueAsString);
+            ((PersistentOwnerService)this.server).changeNewCustomerDefaultBalance(newValue);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> changeNewCustomerDefaultLimit(String newValueAsString){
+        try {
+            common.Fraction newValue = common.Fraction.parse(newValueAsString);
+            ((PersistentOwnerService)this.server).changeNewCustomerDefaultLimit(newValue);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> changeReturnPercentage(String newValueAsString){
+        try {
+            common.Fraction newValue = common.Fraction.parse(newValueAsString);
+            ((PersistentOwnerService)this.server).changeReturnPercentage(newValue);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> createCustomerDeliveryTime(String name, String priceAsString, String timeAsString){
+        try {
+            common.Fraction price = common.Fraction.parse(priceAsString);
+            long time = new Long(timeAsString).longValue();
+            ((PersistentOwnerService)this.server).createCustomerDeliveryTime(name, price, time);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.DoubleDefinitionException e0){
+            return createExceptionResult(e0, this);
         }
     }
     
@@ -45,22 +99,22 @@ public  class RemoteOwnerService extends RemoteService {
         }
     }
     
-    public synchronized java.util.HashMap<?,?> increaseArticleStock(String articleProxiString, String quantityAsString){
+    public synchronized java.util.HashMap<?,?> getArticle(String wrapperProxiString){
         try {
-            PersistentStandardArticleWrapper article = (PersistentStandardArticleWrapper)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
-            long quantity = new Long(quantityAsString).longValue();
-            ((PersistentOwnerService)this.server).increaseArticleStock(article, quantity);
-            return createOKResult();
+            PersistentArticleWrapper wrapper = (PersistentArticleWrapper)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(wrapperProxiString));
+            Article4Public result = ((PersistentOwnerService)this.server).getArticle(wrapper);
+            return createOKResult(result, 1, this);
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
         }
     }
     
-    public synchronized java.util.HashMap<?,?> loadOwnerServiceArticleWrapper(String wrapperProxiString){
+    public synchronized java.util.HashMap<?,?> increaseArticleStock(String articleProxiString, String quantityAsString){
         try {
-            PersistentStandardArticleWrapper wrapper = (PersistentStandardArticleWrapper)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(wrapperProxiString));
-            OwnerArticleWrapper4Public result = ((PersistentOwnerService)this.server).loadOwnerServiceArticleWrapper(wrapper);
-            return createOKResult(result, 1, this);
+            PersistentArticleWrapper article = (PersistentArticleWrapper)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
+            long quantity = new Long(quantityAsString).longValue();
+            ((PersistentOwnerService)this.server).increaseArticleStock(article, quantity);
+            return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
         }
@@ -125,7 +179,7 @@ public  class RemoteOwnerService extends RemoteService {
     
     public synchronized java.util.HashMap<?,?> reduceArticleStock(String articleProxiString, String quantityAsString){
         try {
-            PersistentStandardArticleWrapper article = (PersistentStandardArticleWrapper)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
+            PersistentArticleWrapper article = (PersistentArticleWrapper)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
             long quantity = new Long(quantityAsString).longValue();
             ((PersistentOwnerService)this.server).reduceArticleStock(article, quantity);
             return createOKResult();
@@ -138,7 +192,7 @@ public  class RemoteOwnerService extends RemoteService {
     
     public synchronized java.util.HashMap<?,?> startSelling(String articleProxiString){
         try {
-            PersistentStandardArticleWrapper article = (PersistentStandardArticleWrapper)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
+            PersistentArticleWrapper article = (PersistentArticleWrapper)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
             ((PersistentOwnerService)this.server).startSelling(article);
             return createOKResult();
         }catch(PersistenceException pe){
@@ -148,7 +202,7 @@ public  class RemoteOwnerService extends RemoteService {
     
     public synchronized java.util.HashMap<?,?> stopSelling(String articleProxiString){
         try {
-            PersistentStandardArticleWrapper article = (PersistentStandardArticleWrapper)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
+            PersistentArticleWrapper article = (PersistentArticleWrapper)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
             ((PersistentOwnerService)this.server).stopSelling(article);
             return createOKResult();
         }catch(PersistenceException pe){

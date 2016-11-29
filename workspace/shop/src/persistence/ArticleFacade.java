@@ -13,14 +13,14 @@ public class ArticleFacade{
     public PersistentArticle newArticle(String name,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,long idCreateIfLessZero) throws PersistenceException {
         if(idCreateIfLessZero > 0) return (PersistentArticle)PersistentProxi.createProxi(idCreateIfLessZero, 194);
         long id = ConnectionHandler.getTheConnectionHandler().theComponentFacade.getNextId();
-        Article result = new Article(name,null,null,price,minStock,maxStock,currentStock,producerDeliveryTime,null,null,null,id);
+        Article result = new Article(name,null,null,price,minStock,maxStock,currentStock,producerDeliveryTime,null,null,id);
         Cache.getTheCache().put(result);
         return (PersistentArticle)PersistentProxi.createProxi(id, 194);
     }
     
     public PersistentArticle newDelayedArticle(String name,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theComponentFacade.getNextId();
-        Article result = new Article(name,null,null,price,minStock,maxStock,currentStock,producerDeliveryTime,null,null,null,id);
+        Article result = new Article(name,null,null,price,minStock,maxStock,currentStock,producerDeliveryTime,null,null,id);
         Cache.getTheCache().put(result);
         return (PersistentArticle)PersistentProxi.createProxi(id, 194);
     }
@@ -47,9 +47,6 @@ public class ArticleFacade{
         
     }
     public void stateSet(long ArticleId, ArticleState4Public stateVal) throws PersistenceException {
-        
-    }
-    public void parentSet(long ArticleId, ProductGroup4Public parentVal) throws PersistenceException {
         
     }
 

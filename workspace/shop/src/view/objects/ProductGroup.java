@@ -8,18 +8,18 @@ import view.*;
 
 public abstract class ProductGroup extends view.objects.Component implements ProductGroupView{
     
-    protected java.util.Vector<ComponentWrapperView> components;
+    protected java.util.Vector<ComponentView> components;
     
-    public ProductGroup(String name,java.util.Vector<ComponentWrapperView> components,long id, long classId) {
+    public ProductGroup(String name,java.util.Vector<ComponentView> components,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super((String)name,id, classId);
         this.components = components;        
     }
     
-    public java.util.Vector<ComponentWrapperView> getComponents()throws ModelException{
+    public java.util.Vector<ComponentView> getComponents()throws ModelException{
         return this.components;
     }
-    public void setComponents(java.util.Vector<ComponentWrapperView> newValue) throws ModelException {
+    public void setComponents(java.util.Vector<ComponentView> newValue) throws ModelException {
         this.components = newValue;
     }
     

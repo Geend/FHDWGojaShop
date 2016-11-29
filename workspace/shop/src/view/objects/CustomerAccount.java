@@ -9,13 +9,15 @@ import view.visitor.*;
 
 public class CustomerAccount extends ViewObject implements CustomerAccountView{
     
+    protected String name;
     protected common.Fraction balance;
-    protected long limit;
+    protected common.Fraction limit;
     protected ShoppingCartView shoppingCart;
     
-    public CustomerAccount(common.Fraction balance,long limit,ShoppingCartView shoppingCart,long id, long classId) {
+    public CustomerAccount(String name,common.Fraction balance,common.Fraction limit,ShoppingCartView shoppingCart,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
+        this.name = name;
         this.balance = balance;
         this.limit = limit;
         this.shoppingCart = shoppingCart;        
@@ -29,16 +31,22 @@ public class CustomerAccount extends ViewObject implements CustomerAccountView{
         return getTypeId();
     }
     
+    public String getName()throws ModelException{
+        return this.name;
+    }
+    public void setName(String newValue) throws ModelException {
+        this.name = newValue;
+    }
     public common.Fraction getBalance()throws ModelException{
         return this.balance;
     }
     public void setBalance(common.Fraction newValue) throws ModelException {
         this.balance = newValue;
     }
-    public long getLimit()throws ModelException{
+    public common.Fraction getLimit()throws ModelException{
         return this.limit;
     }
-    public void setLimit(long newValue) throws ModelException {
+    public void setLimit(common.Fraction newValue) throws ModelException {
         this.limit = newValue;
     }
     public ShoppingCartView getShoppingCart()throws ModelException{
@@ -91,28 +99,36 @@ public class CustomerAccount extends ViewObject implements CustomerAccountView{
         if(this.getShoppingCart() != null) result = result + 1;
         return -1;
     }
-    public int getBalanceIndex() throws ModelException {
+    public int getNameIndex() throws ModelException {
         return 0;
     }
-    public int getLimitIndex() throws ModelException {
+    public int getBalanceIndex() throws ModelException {
         return 0 + 1;
+    }
+    public int getLimitIndex() throws ModelException {
+        return 0 + 1 + 1;
     }
     public int getRowCount(){
         return 0 
+            + 1
             + 1
             + 1;
     }
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
+                if(rowIndex == 0) return "name";
+                rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return "balance";
                 rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return "limit";
                 rowIndex = rowIndex - 1;
             } else {
+                if(rowIndex == 0) return this.getName();
+                rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return this.getBalance();
                 rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return new Long(getLimit());
+                if(rowIndex == 0) return this.getLimit();
                 rowIndex = rowIndex - 1;
             }
             throw new ModelException("Table index out of bounds!", -1);
@@ -126,12 +142,17 @@ public class CustomerAccount extends ViewObject implements CustomerAccountView{
     }
     public void setValueAt(String newValue, int rowIndex) throws Exception {
         if(rowIndex == 0){
+            this.setName(newValue);
+            return;
+        }
+        rowIndex = rowIndex - 1;
+        if(rowIndex == 0){
             this.setBalance(common.Fraction.parse(newValue));
             return;
         }
         rowIndex = rowIndex - 1;
         if(rowIndex == 0){
-            this.setLimit(Long.parseLong(newValue));
+            this.setLimit(common.Fraction.parse(newValue));
             return;
         }
         rowIndex = rowIndex - 1;

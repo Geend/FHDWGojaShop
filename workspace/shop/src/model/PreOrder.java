@@ -7,7 +7,7 @@ import model.visitor.*;
 
 /* Additional import section end */
 
-public class PreOrder extends model.AbstractOrder implements PersistentPreOrder{
+public class PreOrder extends model.OrderState implements PersistentPreOrder{
     
     
     public static PreOrder4Public createPreOrder() throws PersistenceException{
@@ -58,11 +58,9 @@ public class PreOrder extends model.AbstractOrder implements PersistentPreOrder{
     
     public PreOrder provideCopy() throws PersistenceException{
         PreOrder result = this;
-        result = new PreOrder(this.customerDeliveryTime, 
-                              this.subService, 
+        result = new PreOrder(this.subService, 
                               this.This, 
                               this.getId());
-        result.articles = this.articles.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -71,9 +69,9 @@ public class PreOrder extends model.AbstractOrder implements PersistentPreOrder{
         return false;
     }
     
-    public PreOrder(PersistentCustomerDeliveryTime customerDeliveryTime,SubjInterface subService,PersistentAbstractOrder This,long id) throws PersistenceException {
+    public PreOrder(SubjInterface subService,PersistentOrderState This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentCustomerDeliveryTime)customerDeliveryTime,(SubjInterface)subService,(PersistentAbstractOrder)This,id);        
+        super((SubjInterface)subService,(PersistentOrderState)This,id);        
     }
     
     static public long getTypeId() {
@@ -100,16 +98,16 @@ public class PreOrder extends model.AbstractOrder implements PersistentPreOrder{
         }return (PersistentPreOrder)this.This;
     }
     
-    public void accept(AbstractOrderVisitor visitor) throws PersistenceException {
+    public void accept(OrderStateVisitor visitor) throws PersistenceException {
         visitor.handlePreOrder(this);
     }
-    public <R> R accept(AbstractOrderReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(OrderStateReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handlePreOrder(this);
     }
-    public <E extends model.UserException>  void accept(AbstractOrderExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(OrderStateExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handlePreOrder(this);
     }
-    public <R, E extends model.UserException> R accept(AbstractOrderReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(OrderStateReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handlePreOrder(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
@@ -137,8 +135,6 @@ public class PreOrder extends model.AbstractOrder implements PersistentPreOrder{
          return visitor.handlePreOrder(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getCustomerDeliveryTime() != null) return 1;
-        if (this.getArticles().getLength() > 0) return 1;
         return 0;
     }
     
@@ -180,11 +176,6 @@ public class PreOrder extends model.AbstractOrder implements PersistentPreOrder{
     
     // Start of section that contains operations that must be implemented.
     
-    public void cancel() 
-				throws PersistenceException{
-        //TODO: implement method: cancel
-        
-    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes

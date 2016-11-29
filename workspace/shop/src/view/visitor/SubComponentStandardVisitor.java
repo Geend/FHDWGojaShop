@@ -5,11 +5,11 @@ import view.*;
 
 public abstract class SubComponentStandardVisitor implements SubComponentVisitor {
     
-    public void handleArticle(ArticleView article) throws ModelException{
-        this.standardHandling(article);
-    }
     public void handleSubProductGroup(SubProductGroupView subProductGroup) throws ModelException{
         this.standardHandling(subProductGroup);
+    }
+    public void handleArticleWrapper(ArticleWrapperView articleWrapper) throws ModelException{
+        this.standardHandling(articleWrapper);
     }
     protected abstract void standardHandling(SubComponent subComponent) throws ModelException;
 }

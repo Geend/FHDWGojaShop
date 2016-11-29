@@ -9,12 +9,14 @@ import view.visitor.*;
 
 public class CustomerDeliveryTime extends ViewObject implements CustomerDeliveryTimeView{
     
+    protected String name;
     protected common.Fraction price;
     protected long deliveryTime;
     
-    public CustomerDeliveryTime(common.Fraction price,long deliveryTime,long id, long classId) {
+    public CustomerDeliveryTime(String name,common.Fraction price,long deliveryTime,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
+        this.name = name;
         this.price = price;
         this.deliveryTime = deliveryTime;        
     }
@@ -27,6 +29,12 @@ public class CustomerDeliveryTime extends ViewObject implements CustomerDelivery
         return getTypeId();
     }
     
+    public String getName()throws ModelException{
+        return this.name;
+    }
+    public void setName(String newValue) throws ModelException {
+        this.name = newValue;
+    }
     public common.Fraction getPrice()throws ModelException{
         return this.price;
     }
@@ -73,25 +81,33 @@ public class CustomerDeliveryTime extends ViewObject implements CustomerDelivery
         
         return -1;
     }
-    public int getPriceIndex() throws ModelException {
+    public int getNameIndex() throws ModelException {
         return 0;
     }
-    public int getDeliveryTimeIndex() throws ModelException {
+    public int getPriceIndex() throws ModelException {
         return 0 + 1;
+    }
+    public int getDeliveryTimeIndex() throws ModelException {
+        return 0 + 1 + 1;
     }
     public int getRowCount(){
         return 0 
+            + 1
             + 1
             + 1;
     }
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
+                if(rowIndex == 0) return "name";
+                rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return "price";
                 rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return "deliveryTime";
                 rowIndex = rowIndex - 1;
             } else {
+                if(rowIndex == 0) return this.getName();
+                rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return this.getPrice();
                 rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return new Long(getDeliveryTime());
@@ -107,6 +123,11 @@ public class CustomerDeliveryTime extends ViewObject implements CustomerDelivery
         return true;
     }
     public void setValueAt(String newValue, int rowIndex) throws Exception {
+        if(rowIndex == 0){
+            this.setName(newValue);
+            return;
+        }
+        rowIndex = rowIndex - 1;
         if(rowIndex == 0){
             this.setPrice(common.Fraction.parse(newValue));
             return;

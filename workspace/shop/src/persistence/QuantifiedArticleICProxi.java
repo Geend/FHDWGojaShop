@@ -18,6 +18,12 @@ public abstract class QuantifiedArticleICProxi extends PersistentInCacheProxiOpt
     public void setQuantity(long newValue) throws PersistenceException {
         ((PersistentQuantifiedArticle)this.getTheObject()).setQuantity(newValue);
     }
+    public ArticleWrapper4Public getArticle() throws PersistenceException {
+        return ((PersistentQuantifiedArticle)this.getTheObject()).getArticle();
+    }
+    public void setArticle(ArticleWrapper4Public newValue) throws PersistenceException {
+        ((PersistentQuantifiedArticle)this.getTheObject()).setArticle(newValue);
+    }
     public SubjInterface getSubService() throws PersistenceException {
         return ((PersistentQuantifiedArticle)this.getTheObject()).getSubService();
     }
@@ -47,6 +53,10 @@ public abstract class QuantifiedArticleICProxi extends PersistentInCacheProxiOpt
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentQuantifiedArticle)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public void increaseQuantity(final long amount) 
+				throws PersistenceException{
+        ((PersistentQuantifiedArticle)this.getTheObject()).increaseQuantity(amount);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

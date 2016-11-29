@@ -11,7 +11,7 @@ public class SubProductGroup extends view.objects.ProductGroup implements SubPro
     
     protected ProductGroupView parent;
     
-    public SubProductGroup(String name,java.util.Vector<ComponentWrapperView> components,ProductGroupView parent,long id, long classId) {
+    public SubProductGroup(String name,java.util.Vector<ComponentView> components,ProductGroupView parent,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super((String)name,components,id, classId);
         this.parent = parent;        

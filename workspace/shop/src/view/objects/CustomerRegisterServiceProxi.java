@@ -13,16 +13,9 @@ public class CustomerRegisterServiceProxi extends ServiceProxi implements Custom
     
     @SuppressWarnings("unchecked")
     public CustomerRegisterServiceView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
-        ViewProxi rootProductGroup = null;
-        String rootProductGroup$String = (String)resultTable.get("rootProductGroup");
-        if (rootProductGroup$String != null) {
-            common.ProxiInformation rootProductGroup$Info = common.RPCConstantsAndServices.createProxiInformation(rootProductGroup$String);
-            rootProductGroup = view.objects.ViewProxi.createProxi(rootProductGroup$Info,connectionKey);
-            rootProductGroup.setToString(rootProductGroup$Info.getToString());
-        }
         java.util.Vector<String> errors_string = (java.util.Vector<String>)resultTable.get("errors");
         java.util.Vector<ErrorDisplayView> errors = ViewProxi.getProxiVector(errors_string, connectionKey);
-        CustomerRegisterServiceView result$$ = new CustomerRegisterService((RootProductGroupView)rootProductGroup,errors, this.getId(), this.getClassId());
+        CustomerRegisterServiceView result$$ = new CustomerRegisterService(errors, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -31,24 +24,17 @@ public class CustomerRegisterServiceProxi extends ServiceProxi implements Custom
         return RemoteDepth;
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        int index = originalIndex;
-        if(index == 0 && this.getRootProductGroup() != null) return new RootProductGroupServiceWrapper(this, originalIndex, (ViewRoot)this.getRootProductGroup());
-        if(this.getRootProductGroup() != null) index = index - 1;
+        
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 
-            + (this.getRootProductGroup() == null ? 0 : 1);
+        return 0 ;
     }
     public boolean isLeaf() throws ModelException {
-        if (this.object == null) return this.getLeafInfo() == 0;
-        return true 
-            && (this.getRootProductGroup() == null ? true : false);
+        return true;
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        int result = 0;
-        if(this.getRootProductGroup() != null && this.getRootProductGroup().equals(child)) return result;
-        if(this.getRootProductGroup() != null) result = result + 1;
+        
         return -1;
     }
     

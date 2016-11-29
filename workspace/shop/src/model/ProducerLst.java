@@ -10,7 +10,7 @@ import model.visitor.*;
 public class ProducerLst extends PersistentObject implements PersistentProducerLst{
     
     private static ProducerLst4Public theProducerLst = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static ProducerLst4Public getTheProducerLst() throws PersistenceException{
         if (theProducerLst == null || reset$For$Test){

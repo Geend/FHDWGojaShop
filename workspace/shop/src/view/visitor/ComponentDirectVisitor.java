@@ -15,5 +15,7 @@ public abstract class ComponentDirectVisitor implements ComponentVisitor {
     }
     public abstract void handleArticle(ArticleView article) throws ModelException;
     
+    public abstract void handleArticleWrapper(ArticleWrapperView articleWrapper) throws ModelException;
+    
     
 }

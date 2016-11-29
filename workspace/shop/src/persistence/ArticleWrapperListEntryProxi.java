@@ -1,6 +1,6 @@
 package persistence;
 
-public abstract class ArticleWrapperListEntryProxi extends ArticleWrapperProxi implements PersistentArticleWrapperListEntryProxi {
+public class ArticleWrapperListEntryProxi extends ArticleWrapperProxi implements PersistentArticleWrapperListEntryProxi {
 
   long entryId;
 

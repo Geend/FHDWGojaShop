@@ -20,7 +20,7 @@ public class ShoppingCartQuantifiedArticleProxi extends QuantifiedArticleProxi i
             article = view.objects.ViewProxi.createProxi(article$Info,connectionKey);
             article.setToString(article$Info.getToString());
         }
-        ShoppingCartQuantifiedArticleView result$$ = new ShoppingCartQuantifiedArticle((long)quantity,(ShoppingCartArticleWrapperView)article, this.getId(), this.getClassId());
+        ShoppingCartQuantifiedArticleView result$$ = new ShoppingCartQuantifiedArticle((long)quantity,(ArticleWrapperView)article, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -29,33 +29,20 @@ public class ShoppingCartQuantifiedArticleProxi extends QuantifiedArticleProxi i
         return RemoteDepth;
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        int index = originalIndex;
-        if(index == 0 && this.getArticle() != null) return new ArticleShoppingCartQuantifiedArticleWrapper(this, originalIndex, (ViewRoot)this.getArticle());
-        if(this.getArticle() != null) index = index - 1;
+        
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 
-            + (this.getArticle() == null ? 0 : 1);
+        return 0 ;
     }
     public boolean isLeaf() throws ModelException {
-        if (this.object == null) return this.getLeafInfo() == 0;
-        return true 
-            && (this.getArticle() == null ? true : false);
+        return true;
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        int result = 0;
-        if(this.getArticle() != null && this.getArticle().equals(child)) return result;
-        if(this.getArticle() != null) result = result + 1;
+        
         return -1;
     }
     
-    public ShoppingCartArticleWrapperView getArticle()throws ModelException{
-        return ((ShoppingCartQuantifiedArticle)this.getTheObject()).getArticle();
-    }
-    public void setArticle(ShoppingCartArticleWrapperView newValue) throws ModelException {
-        ((ShoppingCartQuantifiedArticle)this.getTheObject()).setArticle(newValue);
-    }
     
     public void accept(QuantifiedArticleVisitor visitor) throws ModelException {
         visitor.handleShoppingCartQuantifiedArticle(this);

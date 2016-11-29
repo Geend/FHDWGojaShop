@@ -1,5 +1,5 @@
 package persistence;
 
-public interface PersistentArticleWrapperListEntryProxi extends PersistentComponentWrapperListEntryProxi {
+public interface PersistentArticleWrapperListEntryProxi extends PersistentComponentListEntryProxi {
 
 }

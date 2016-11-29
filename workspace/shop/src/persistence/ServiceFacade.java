@@ -32,9 +32,6 @@ public class ServiceFacade{
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
     }
-    public void rootProductGroupSet(long ServiceId, ServiceRootProductGroup4Public rootProductGroupVal) throws PersistenceException {
-        
-    }
     public void subServiceSet(long ServiceId, SubjInterface subServiceVal) throws PersistenceException {
         
     }

@@ -14,5 +14,8 @@ public abstract class ComponentStandardVisitor implements ComponentVisitor {
     public void handleSubProductGroup(SubProductGroupView subProductGroup) throws ModelException{
         this.standardHandling(subProductGroup);
     }
+    public void handleArticleWrapper(ArticleWrapperView articleWrapper) throws ModelException{
+        this.standardHandling(articleWrapper);
+    }
     protected abstract void standardHandling(ComponentView component) throws ModelException;
 }

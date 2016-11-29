@@ -10,12 +10,6 @@ public abstract class ServiceProxi extends ViewProxi implements ServiceView{
     }
     
     
-    public RootProductGroupView getRootProductGroup()throws ModelException{
-        return ((Service)this.getTheObject()).getRootProductGroup();
-    }
-    public void setRootProductGroup(RootProductGroupView newValue) throws ModelException {
-        ((Service)this.getTheObject()).setRootProductGroup(newValue);
-    }
     public java.util.Vector<ErrorDisplayView> getErrors()throws ModelException{
         return ((Service)this.getTheObject()).getErrors();
     }

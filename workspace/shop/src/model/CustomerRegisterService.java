@@ -1,12 +1,44 @@
 
 package model;
 
-import persistence.*;
-import model.visitor.*;
-
 import java.sql.Timestamp;
 import java.text.MessageFormat;
 import java.time.Instant;
+
+import model.meta.RootProductGroupMssgs;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.InvokerExceptionVisitor;
+import model.visitor.InvokerReturnExceptionVisitor;
+import model.visitor.InvokerReturnVisitor;
+import model.visitor.InvokerVisitor;
+import model.visitor.RemoteExceptionVisitor;
+import model.visitor.RemoteReturnExceptionVisitor;
+import model.visitor.RemoteReturnVisitor;
+import model.visitor.RemoteVisitor;
+import model.visitor.ServiceExceptionVisitor;
+import model.visitor.ServiceReturnExceptionVisitor;
+import model.visitor.ServiceReturnVisitor;
+import model.visitor.ServiceVisitor;
+import model.visitor.SubjInterfaceExceptionVisitor;
+import model.visitor.SubjInterfaceReturnExceptionVisitor;
+import model.visitor.SubjInterfaceReturnVisitor;
+import model.visitor.SubjInterfaceVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.CustomerRegisterService4Public;
+import persistence.Invoker;
+import persistence.ObsInterface;
+import persistence.PersistenceException;
+import persistence.PersistentCustomerRegisterService;
+import persistence.PersistentProxi;
+import persistence.PersistentRootProductGroup;
+import persistence.PersistentService;
+import persistence.RegisterCommand4Public;
+import persistence.SubjInterface;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -62,8 +94,7 @@ public class CustomerRegisterService extends model.Service implements Persistent
     
     public CustomerRegisterService provideCopy() throws PersistenceException{
         CustomerRegisterService result = this;
-        result = new CustomerRegisterService(this.rootProductGroup, 
-                                             this.subService, 
+        result = new CustomerRegisterService(this.subService, 
                                              this.This, 
                                              this.getId());
         result.errors = this.errors.copy(result);
@@ -76,9 +107,9 @@ public class CustomerRegisterService extends model.Service implements Persistent
         return false;
     }
     
-    public CustomerRegisterService(PersistentServiceRootProductGroup rootProductGroup,SubjInterface subService,PersistentService This,long id) throws PersistenceException {
+    public CustomerRegisterService(SubjInterface subService,PersistentService This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentServiceRootProductGroup)rootProductGroup,(SubjInterface)subService,(PersistentService)This,id);        
+        super((SubjInterface)subService,(PersistentService)This,id);        
     }
     
     static public long getTypeId() {
@@ -166,7 +197,6 @@ public class CustomerRegisterService extends model.Service implements Persistent
          return visitor.handleCustomerRegisterService(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getRootProductGroup() != null) return 1;
         return 0;
     }
     
@@ -242,7 +272,11 @@ public class CustomerRegisterService extends model.Service implements Persistent
 				throws model.UserAlreadyExistsException, PersistenceException{
 
         if(Server.getServerByUser(accountName).getLength() == 0){
-            Server.createServer(password,accountName,0l, Timestamp.from(Instant.now()));
+            Server.createServer(password, accountName,0l, Timestamp.from(Instant.now()));
+
+            CustomerAccount.createCustomerAccount(accountName,
+                    Settings.getTheSettings().getNewCustomerDefaultBalance(),
+                    Settings.getTheSettings().getNewCustomerDefaultLimit());
         }
         else {
             throw new UserAlreadyExistsException(MessageFormat.format("User with name {0} already exists", accountName));
@@ -254,7 +288,7 @@ public class CustomerRegisterService extends model.Service implements Persistent
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
+
     /* End of protected part that is not overridden by persistence generator */
     
 }

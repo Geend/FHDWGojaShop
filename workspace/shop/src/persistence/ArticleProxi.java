@@ -60,12 +60,6 @@ public class ArticleProxi extends ComponentProxi implements PersistentArticle{
     public void setState(ArticleState4Public newValue) throws PersistenceException {
         ((PersistentArticle)this.getTheObject()).setState(newValue);
     }
-    public ProductGroup4Public getParent() throws PersistenceException {
-        return ((PersistentArticle)this.getTheObject()).getParent();
-    }
-    public void setParent(ProductGroup4Public newValue) throws PersistenceException {
-        ((PersistentArticle)this.getTheObject()).setParent(newValue);
-    }
     public PersistentArticle getThis() throws PersistenceException {
         return ((PersistentArticle)this.getTheObject()).getThis();
     }
@@ -118,18 +112,6 @@ public class ArticleProxi extends ComponentProxi implements PersistentArticle{
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleArticle(this);
     }
-    public void accept(SubComponentVisitor visitor) throws PersistenceException {
-        visitor.handleArticle(this);
-    }
-    public <R> R accept(SubComponentReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleArticle(this);
-    }
-    public <E extends model.UserException>  void accept(SubComponentExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleArticle(this);
-    }
-    public <R, E extends model.UserException> R accept(SubComponentReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleArticle(this);
-    }
     
     
     public boolean containsCompHierarchy(final CompHierarchyHIERARCHY part) 
@@ -144,21 +126,45 @@ public class ArticleProxi extends ComponentProxi implements PersistentArticle{
 				throws PersistenceException{
         ((PersistentArticle)this.getTheObject()).deregister(observee);
     }
+    public void increaseStock(final long quantity) 
+				throws PersistenceException{
+        ((PersistentArticle)this.getTheObject()).increaseStock(quantity);
+    }
+    public void increaseStock(final long quantity, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentArticle)this.getTheObject()).increaseStock(quantity, invoker);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentArticle)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void moveTo(final ProductGroup4Public productGroup) 
-				throws model.CycleException, PersistenceException{
-        ((PersistentArticle)this.getTheObject()).moveTo(productGroup);
+    public void reduceStock(final long quantity) 
+				throws model.NotEnoughStockException, PersistenceException{
+        ((PersistentArticle)this.getTheObject()).reduceStock(quantity);
     }
-    public void moveTo(final ProductGroup4Public productGroup, final Invoker invoker) 
+    public void reduceStock(final long quantity, final Invoker invoker) 
 				throws PersistenceException{
-        ((PersistentArticle)this.getTheObject()).moveTo(productGroup, invoker);
+        ((PersistentArticle)this.getTheObject()).reduceStock(quantity, invoker);
     }
     public void register(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentArticle)this.getTheObject()).register(observee);
+    }
+    public void startSelling() 
+				throws PersistenceException{
+        ((PersistentArticle)this.getTheObject()).startSelling();
+    }
+    public void startSelling(final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentArticle)this.getTheObject()).startSelling(invoker);
+    }
+    public void stopSelling() 
+				throws PersistenceException{
+        ((PersistentArticle)this.getTheObject()).stopSelling();
+    }
+    public void stopSelling(final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentArticle)this.getTheObject()).stopSelling(invoker);
     }
     public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
@@ -176,6 +182,18 @@ public class ArticleProxi extends ComponentProxi implements PersistentArticle{
 				throws PersistenceException{
         ((PersistentArticle)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public String getCurrentState() 
+				throws PersistenceException{
+        return ((PersistentArticle)this.getTheObject()).getCurrentState();
+    }
+    public String getProducerName() 
+				throws PersistenceException{
+        return ((PersistentArticle)this.getTheObject()).getProducerName();
+    }
+    public void increaseStockImplementation(final long quantity) 
+				throws PersistenceException{
+        ((PersistentArticle)this.getTheObject()).increaseStockImplementation(quantity);
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentArticle)this.getTheObject()).initializeOnCreation();
@@ -184,9 +202,17 @@ public class ArticleProxi extends ComponentProxi implements PersistentArticle{
 				throws PersistenceException{
         ((PersistentArticle)this.getTheObject()).initializeOnInstantiation();
     }
-    public void moveToImplementation(final ProductGroup4Public productGroup) 
-				throws model.CycleException, PersistenceException{
-        ((PersistentArticle)this.getTheObject()).moveToImplementation(productGroup);
+    public void reduceStockImplementation(final long quantity) 
+				throws model.NotEnoughStockException, PersistenceException{
+        ((PersistentArticle)this.getTheObject()).reduceStockImplementation(quantity);
+    }
+    public void startSellingImplementation() 
+				throws PersistenceException{
+        ((PersistentArticle)this.getTheObject()).startSellingImplementation();
+    }
+    public void stopSellingImplementation() 
+				throws PersistenceException{
+        ((PersistentArticle)this.getTheObject()).stopSellingImplementation();
     }
 
     

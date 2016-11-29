@@ -25,17 +25,17 @@ public class CustomerDeliveryTimeFacade{
 	}
 
     /* If idCreateIfLessZero is negative, a new id is generated. */
-    public PersistentCustomerDeliveryTime newCustomerDeliveryTime(common.Fraction price,long deliveryTime,long idCreateIfLessZero) throws PersistenceException {
+    public PersistentCustomerDeliveryTime newCustomerDeliveryTime(String name,common.Fraction price,long deliveryTime,long idCreateIfLessZero) throws PersistenceException {
         if(idCreateIfLessZero > 0) return (PersistentCustomerDeliveryTime)PersistentProxi.createProxi(idCreateIfLessZero, 234);
         long id = ConnectionHandler.getTheConnectionHandler().theCustomerDeliveryTimeFacade.getNextId();
-        CustomerDeliveryTime result = new CustomerDeliveryTime(price,deliveryTime,null,null,id);
+        CustomerDeliveryTime result = new CustomerDeliveryTime(name,price,deliveryTime,null,null,id);
         Cache.getTheCache().put(result);
         return (PersistentCustomerDeliveryTime)PersistentProxi.createProxi(id, 234);
     }
     
-    public PersistentCustomerDeliveryTime newDelayedCustomerDeliveryTime(common.Fraction price,long deliveryTime) throws PersistenceException {
+    public PersistentCustomerDeliveryTime newDelayedCustomerDeliveryTime(String name,common.Fraction price,long deliveryTime) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theCustomerDeliveryTimeFacade.getNextId();
-        CustomerDeliveryTime result = new CustomerDeliveryTime(price,deliveryTime,null,null,id);
+        CustomerDeliveryTime result = new CustomerDeliveryTime(name,price,deliveryTime,null,null,id);
         Cache.getTheCache().put(result);
         return (PersistentCustomerDeliveryTime)PersistentProxi.createProxi(id, 234);
     }
@@ -47,6 +47,9 @@ public class CustomerDeliveryTimeFacade{
         if(Cache.getTheCache().contains(objectId, 234)) return 234;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
+        
+    }
+    public void nameSet(long CustomerDeliveryTimeId, String nameVal) throws PersistenceException {
         
     }
     public void priceSet(long CustomerDeliveryTimeId, common.Fraction priceVal) throws PersistenceException {

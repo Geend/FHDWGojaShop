@@ -37,12 +37,12 @@ public class StartSellingCommand extends PersistentObject implements PersistentS
         return true;
     }
     protected Invoker invoker;
-    protected PersistentOwnerArticleWrapper commandReceiver;
+    protected PersistentArticle commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public StartSellingCommand(Invoker invoker,PersistentOwnerArticleWrapper commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
+    public StartSellingCommand(Invoker invoker,PersistentArticle commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.invoker = invoker;
@@ -51,7 +51,7 @@ public class StartSellingCommand extends PersistentObject implements PersistentS
     }
     
     static public long getTypeId() {
-        return 274;
+        return 289;
     }
     
     public long getClassId() {
@@ -60,7 +60,7 @@ public class StartSellingCommand extends PersistentObject implements PersistentS
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 274) ConnectionHandler.getTheConnectionHandler().theStartSellingCommandFacade
+        if (this.getClassId() == 289) ConnectionHandler.getTheConnectionHandler().theStartSellingCommandFacade
             .newStartSellingCommand(this.getId());
         super.store();
         if(this.getInvoker() != null){
@@ -92,15 +92,15 @@ public class StartSellingCommand extends PersistentObject implements PersistentS
             ConnectionHandler.getTheConnectionHandler().theStartSellingCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
-    public OwnerArticleWrapper4Public getCommandReceiver() throws PersistenceException {
+    public Article4Public getCommandReceiver() throws PersistenceException {
         return this.commandReceiver;
     }
-    public void setCommandReceiver(OwnerArticleWrapper4Public newValue) throws PersistenceException {
+    public void setCommandReceiver(Article4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.commandReceiver)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.commandReceiver = (PersistentOwnerArticleWrapper)PersistentProxi.createProxi(objectId, classId);
+        this.commandReceiver = (PersistentArticle)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theStartSellingCommandFacade.commandReceiverSet(this.getId(), newValue);
@@ -173,16 +173,16 @@ public class StartSellingCommand extends PersistentObject implements PersistentS
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleStartSellingCommand(this);
     }
-    public void accept(OwnerArticleWrapperCommandVisitor visitor) throws PersistenceException {
+    public void accept(ArticleCommandVisitor visitor) throws PersistenceException {
         visitor.handleStartSellingCommand(this);
     }
-    public <R> R accept(OwnerArticleWrapperCommandReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(ArticleCommandReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleStartSellingCommand(this);
     }
-    public <E extends model.UserException>  void accept(OwnerArticleWrapperCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(ArticleCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleStartSellingCommand(this);
     }
-    public <R, E extends model.UserException> R accept(OwnerArticleWrapperCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(ArticleCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleStartSellingCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{

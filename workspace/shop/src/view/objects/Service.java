@@ -9,22 +9,14 @@ import viewClient.*;
 
 public abstract class Service extends ViewObject implements ServiceView{
     
-    protected RootProductGroupView rootProductGroup;
     protected java.util.Vector<ErrorDisplayView> errors;
     
-    public Service(RootProductGroupView rootProductGroup,java.util.Vector<ErrorDisplayView> errors,long id, long classId) {
+    public Service(java.util.Vector<ErrorDisplayView> errors,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
-        this.rootProductGroup = rootProductGroup;
         this.errors = errors;        
     }
     
-    public RootProductGroupView getRootProductGroup()throws ModelException{
-        return this.rootProductGroup;
-    }
-    public void setRootProductGroup(RootProductGroupView newValue) throws ModelException {
-        this.rootProductGroup = newValue;
-    }
     public java.util.Vector<ErrorDisplayView> getErrors()throws ModelException{
         return this.errors;
     }
@@ -34,10 +26,6 @@ public abstract class Service extends ViewObject implements ServiceView{
     
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
-        RootProductGroupView rootProductGroup = this.getRootProductGroup();
-        if (rootProductGroup != null) {
-            ((ViewProxi)rootProductGroup).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(rootProductGroup.getClassId(), rootProductGroup.getId())));
-        }
         java.util.Vector<?> errors = this.getErrors();
         if (errors != null) {
             ViewObject.resolveVectorProxies(errors, resultTable);
@@ -48,23 +36,17 @@ public abstract class Service extends ViewObject implements ServiceView{
         
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        int index = originalIndex;
-        if(index == 0 && this.getRootProductGroup() != null) return new RootProductGroupServiceWrapper(this, originalIndex, (ViewRoot)this.getRootProductGroup());
-        if(this.getRootProductGroup() != null) index = index - 1;
+        
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 
-            + (this.getRootProductGroup() == null ? 0 : 1);
+        return 0 ;
     }
     public boolean isLeaf() throws ModelException {
-        return true 
-            && (this.getRootProductGroup() == null ? true : false);
+        return true;
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        int result = 0;
-        if(this.getRootProductGroup() != null && this.getRootProductGroup().equals(child)) return result;
-        if(this.getRootProductGroup() != null) result = result + 1;
+        
         return -1;
     }
     public int getRowCount(){

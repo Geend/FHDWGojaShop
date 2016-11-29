@@ -4,6 +4,7 @@ package model;
 import persistence.*;
 import model.visitor.*;
 
+import java.util.Iterator;
 
 /* Additional import section end */
 
@@ -182,6 +183,15 @@ public class ShoppingCart extends PersistentObject implements PersistentShopping
     }
     
     
+    public void addArticle(final ShoppingCartQuantifiedArticle4Public article, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		AddArticleCommand4Public command = model.meta.AddArticleCommand.createAddArticleCommand(now, now);
+		command.setArticle(article);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public synchronized void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
@@ -206,6 +216,15 @@ public class ShoppingCart extends PersistentObject implements PersistentShopping
 		}
 		subService.register(observee);
     }
+    public void removeArticle(final ShoppingCartQuantifiedArticle4Public article, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		RemoveArticleCommand4Public command = model.meta.RemoveArticleCommand.createRemoveArticleCommand(now, now);
+		command.setArticle(article);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public synchronized void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
@@ -219,20 +238,31 @@ public class ShoppingCart extends PersistentObject implements PersistentShopping
     
     // Start of section that contains operations that must be implemented.
     
+    public void addArticle(final ShoppingCartQuantifiedArticle4Public article) 
+				throws PersistenceException{
+        if (article.getQuantity() > 0) {
+            SearchListRoot<ShoppingCartQuantifiedArticle4Public> all = getThis().getArticles().findAll(x -> x.getArticle().equals(article.getArticle()));
+
+            if(all.iterator().hasNext()) {
+                all.iterator().next().increaseQuantity(article.getQuantity());
+            }
+            else {
+                getThis().getArticles().add(article);
+            }
+        }
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
+    }
+    public void removeArticle(final ShoppingCartQuantifiedArticle4Public article) 
+				throws PersistenceException{
+        getThis().getArticles().removeAll(article);
     }
     
     
@@ -240,7 +270,7 @@ public class ShoppingCart extends PersistentObject implements PersistentShopping
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
+
     /* End of protected part that is not overridden by persistence generator */
     
 }

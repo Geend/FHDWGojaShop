@@ -5,6 +5,9 @@ import model.visitor.*;
 
 public interface CustomerDeliveryTime4Public extends Anything, SubjInterface, AbstractPersistentProxi {
     
+    public String getName() throws PersistenceException ;
+    public common.Fraction getPrice() throws PersistenceException ;
+    public long getDeliveryTime() throws PersistenceException ;
     
     public void accept(AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;

@@ -3,13 +3,13 @@ package persistence;
 
 import model.visitor.*;
 
-public interface PreOrder4Public extends AbstractOrder4Public {
+public interface PreOrder4Public extends OrderState4Public {
     
     
-    public void accept(AbstractOrderVisitor visitor) throws PersistenceException;
-    public <R> R accept(AbstractOrderReturnVisitor<R>  visitor) throws PersistenceException;
-    public <E extends model.UserException>  void accept(AbstractOrderExceptionVisitor<E> visitor) throws PersistenceException, E;
-    public <R, E extends model.UserException> R accept(AbstractOrderReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
+    public void accept(OrderStateVisitor visitor) throws PersistenceException;
+    public <R> R accept(OrderStateReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends model.UserException>  void accept(OrderStateExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends model.UserException> R accept(OrderStateReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     public void accept(AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends model.UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;
@@ -20,8 +20,6 @@ public interface PreOrder4Public extends AbstractOrder4Public {
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
-				throws PersistenceException;
-    public void cancel() 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;

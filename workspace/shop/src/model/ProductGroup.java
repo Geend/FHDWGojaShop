@@ -4,7 +4,8 @@ package model;
 import common.Fraction;
 import model.meta.ComponentMssgs;
 import model.meta.ComponentMssgsVisitor;
-import model.meta.ComponentWrapperMssgs;
+import model.meta.Mssgs;
+import model.meta.RootProductGroupMssgs;
 import model.meta.SubComponentMoveToProductGroupMssg;
 import persistence.*;
 
@@ -72,9 +73,9 @@ public abstract class ProductGroup extends model.Component implements Persistent
     
     
     
-    public void addComponentWrapper(final ComponentWrapper4Public componentWrapper) 
+    public void addComponent(final Component4Public component) 
 				throws model.CycleException, PersistenceException{
-        model.meta.ProductGroupAddComponentWrapperComponentWrapperMssg event = new model.meta.ProductGroupAddComponentWrapperComponentWrapperMssg(componentWrapper, getThis());
+        model.meta.ProductGroupAddComponentComponentMssg event = new model.meta.ProductGroupAddComponentComponentMssg(component, getThis());
 		event.execute();
 		getThis().updateObservers(event);
 		event.getResult();
@@ -102,6 +103,13 @@ public abstract class ProductGroup extends model.Component implements Persistent
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void newSubProductGroup(final String name) 
+				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
+        model.meta.ProductGroupNewSubProductGroupStringMssg event = new model.meta.ProductGroupNewSubProductGroupStringMssg(name, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
     }
     public void newSubProductGroup(final String name, final Invoker invoker) 
 				throws PersistenceException{
@@ -137,18 +145,10 @@ public abstract class ProductGroup extends model.Component implements Persistent
     
     // Start of section that contains overridden operations only.
     
-    public void addComponentWrapperImplementation(final ComponentWrapper4Public componentWrapper) 
-				throws model.CycleException, PersistenceException{
-        getThis().getComponents().add(componentWrapper);
-    }
-    public void newSubProductGroup(final String name) 
+    public void newSubProductGroupImplementation(final String name) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-
         SubProductGroup4Public subProductGroup4Public = SubProductGroup.createSubProductGroup(name, getThis());
-        ProductGroupWrapper4Public dpgw= DefaultProductGroupWrapper.createDefaultProductGroupWrapper(subProductGroup4Public);
-        getThis().addComponentWrapper(dpgw);
-
-
+        getThis().addComponent(subProductGroup4Public);
     }
     public void removeComponentImplementation(final Component4Public component) 
 				throws PersistenceException{
@@ -160,13 +160,14 @@ public abstract class ProductGroup extends model.Component implements Persistent
 
 
     public void newArticle(String name, Fraction price, long minStock, long maxStock, long producerDeliveryTime, Producer4Public producer) throws CycleException, PersistenceException {
-        Article4Public article4Public = Article.createArticle(name, price, minStock, maxStock, producerDeliveryTime, producer, getThis());
-
-        ComponentWrapper4Public wrapper = StandardArticleWrapper.createStandardArticleWrapper(article4Public);
-        getThis().addComponentWrapper(wrapper);
+        Article4Public article4Public = Article.createArticle(name, price, minStock, maxStock, producerDeliveryTime, producer);
+        ArticleWrapper4Public wrapper = ArticleWrapper.createArticleWrapper(article4Public.getName(), article4Public, getThis());
+        getThis().addComponent(wrapper);
     }
+
+
     @Override
-    public void components_update(ComponentWrapperMssgs event) throws PersistenceException {
+    public void components_update(ComponentMssgs event) throws PersistenceException {
 
     }
     /* End of protected part that is not overridden by persistence generator */

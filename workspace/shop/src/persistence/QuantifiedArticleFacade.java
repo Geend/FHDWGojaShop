@@ -34,6 +34,9 @@ public class QuantifiedArticleFacade{
     public void quantitySet(long QuantifiedArticleId, long quantityVal) throws PersistenceException {
         
     }
+    public void articleSet(long QuantifiedArticleId, ArticleWrapper4Public articleVal) throws PersistenceException {
+        
+    }
     public void subServiceSet(long QuantifiedArticleId, SubjInterface subServiceVal) throws PersistenceException {
         
     }

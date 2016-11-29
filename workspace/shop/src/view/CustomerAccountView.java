@@ -6,10 +6,12 @@ import view.visitor.*;
 
 public interface CustomerAccountView extends Anything, AbstractViewRoot {
     
+    public String getName()throws ModelException;
+    public void setName(String newValue) throws ModelException ;
     public common.Fraction getBalance()throws ModelException;
     public void setBalance(common.Fraction newValue) throws ModelException ;
-    public long getLimit()throws ModelException;
-    public void setLimit(long newValue) throws ModelException ;
+    public common.Fraction getLimit()throws ModelException;
+    public void setLimit(common.Fraction newValue) throws ModelException ;
     public ShoppingCartView getShoppingCart()throws ModelException;
     public void setShoppingCart(ShoppingCartView newValue) throws ModelException ;
     

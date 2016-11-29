@@ -31,19 +31,29 @@ public interface OwnerService4Public extends Service4Public {
 				throws PersistenceException;
     public String ownerService_Menu_Filter(final Anything anything) 
 				throws PersistenceException;
-    public void changeArticleName(final OwnerArticleWrapper4Public article, final String newName) 
+    public void changeArticleName(final ArticleWrapper4Public article, final String newName) 
+				throws PersistenceException;
+    public void changeArticlePrice(final ArticleWrapper4Public article, final common.Fraction newPrice) 
+				throws PersistenceException;
+    public void changeNewCustomerDefaultBalance(final common.Fraction newValue) 
+				throws PersistenceException;
+    public void changeNewCustomerDefaultLimit(final common.Fraction newValue) 
+				throws PersistenceException;
+    public void changeReturnPercentage(final common.Fraction newValue) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
+    public void createCustomerDeliveryTime(final String name, final common.Fraction price, final long time) 
+				throws model.DoubleDefinitionException, PersistenceException;
     public void createProducer(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException;
-    public void increaseArticleStock(final StandardArticleWrapper4Public article, final long quantity) 
+    public Article4Public getArticle(final ArticleWrapper4Public wrapper) 
+				throws PersistenceException;
+    public void increaseArticleStock(final ArticleWrapper4Public article, final long quantity) 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
-				throws PersistenceException;
-    public OwnerArticleWrapper4Public loadOwnerServiceArticleWrapper(final StandardArticleWrapper4Public wrapper) 
 				throws PersistenceException;
     public void moveTo(final SubComponent component, final ProductGroup4Public newParentGroup) 
 				throws model.CycleException, PersistenceException;
@@ -53,11 +63,11 @@ public interface OwnerService4Public extends Service4Public {
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException;
     public void newProductGroup(final String name) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException;
-    public void reduceArticleStock(final StandardArticleWrapper4Public article, final long quantity) 
+    public void reduceArticleStock(final ArticleWrapper4Public article, final long quantity) 
 				throws model.NotEnoughStockException, PersistenceException;
-    public void startSelling(final StandardArticleWrapper4Public article) 
+    public void startSelling(final ArticleWrapper4Public article) 
 				throws PersistenceException;
-    public void stopSelling(final StandardArticleWrapper4Public article) 
+    public void stopSelling(final ArticleWrapper4Public article) 
 				throws PersistenceException;
 
 }

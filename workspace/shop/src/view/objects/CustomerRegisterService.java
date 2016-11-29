@@ -11,9 +11,9 @@ import view.visitor.*;
 public class CustomerRegisterService extends view.objects.Service implements CustomerRegisterServiceView{
     
     
-    public CustomerRegisterService(RootProductGroupView rootProductGroup,java.util.Vector<ErrorDisplayView> errors,long id, long classId) {
+    public CustomerRegisterService(java.util.Vector<ErrorDisplayView> errors,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((RootProductGroupView)rootProductGroup,errors,id, classId);        
+        super(errors,id, classId);        
     }
     
     static public long getTypeId() {
@@ -63,10 +63,6 @@ public class CustomerRegisterService extends view.objects.Service implements Cus
     }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
-        RootProductGroupView rootProductGroup = this.getRootProductGroup();
-        if (rootProductGroup != null) {
-            ((ViewProxi)rootProductGroup).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(rootProductGroup.getClassId(), rootProductGroup.getId())));
-        }
         java.util.Vector<?> errors = this.getErrors();
         if (errors != null) {
             ViewObject.resolveVectorProxies(errors, resultTable);
@@ -77,23 +73,17 @@ public class CustomerRegisterService extends view.objects.Service implements Cus
         
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        int index = originalIndex;
-        if(index == 0 && this.getRootProductGroup() != null) return new RootProductGroupServiceWrapper(this, originalIndex, (ViewRoot)this.getRootProductGroup());
-        if(this.getRootProductGroup() != null) index = index - 1;
+        
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 
-            + (this.getRootProductGroup() == null ? 0 : 1);
+        return 0 ;
     }
     public boolean isLeaf() throws ModelException {
-        return true 
-            && (this.getRootProductGroup() == null ? true : false);
+        return true;
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        int result = 0;
-        if(this.getRootProductGroup() != null && this.getRootProductGroup().equals(child)) return result;
-        if(this.getRootProductGroup() != null) result = result + 1;
+        
         return -1;
     }
     public int getRowCount(){

@@ -96,10 +96,6 @@ public class CustomerRegisterServiceICProxi extends ServiceICProxi implements Pe
 				throws PersistenceException{
         ((PersistentCustomerRegisterService)this.getTheObject()).deregister(observee);
     }
-    public RootProductGroup4Public getRootProductGroup() 
-				throws PersistenceException{
-        return ((PersistentCustomerRegisterService)this.getTheObject()).getRootProductGroup();
-    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentCustomerRegisterService)this.getTheObject()).initialize(This, final$$Fields);
@@ -111,10 +107,6 @@ public class CustomerRegisterServiceICProxi extends ServiceICProxi implements Pe
     public void register(final String accountName, final String password, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentCustomerRegisterService)this.getTheObject()).register(accountName, password, invoker);
-    }
-    public void setRootProductGroup(final RootProductGroup4Public rootProductGroup) 
-				throws PersistenceException{
-        ((PersistentCustomerRegisterService)this.getTheObject()).setRootProductGroup(rootProductGroup);
     }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
@@ -159,10 +151,6 @@ public class CustomerRegisterServiceICProxi extends ServiceICProxi implements Pe
     public void register(final String accountName, final String password) 
 				throws model.UserAlreadyExistsException, PersistenceException{
         ((PersistentCustomerRegisterService)this.getTheObject()).register(accountName, password);
-    }
-    public void rootProductGroup_update(final model.meta.RootProductGroupMssgs event) 
-				throws PersistenceException{
-        ((PersistentCustomerRegisterService)this.getTheObject()).rootProductGroup_update(event);
     }
 
     

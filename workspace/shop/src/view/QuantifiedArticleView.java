@@ -8,6 +8,8 @@ public interface QuantifiedArticleView extends Anything, AbstractViewRoot {
     
     public long getQuantity()throws ModelException;
     public void setQuantity(long newValue) throws ModelException ;
+    public ArticleWrapperView getArticle()throws ModelException;
+    public void setArticle(ArticleWrapperView newValue) throws ModelException ;
     
     public void accept(QuantifiedArticleVisitor visitor) throws ModelException;
     public <R> R accept(QuantifiedArticleReturnVisitor<R>  visitor) throws ModelException;

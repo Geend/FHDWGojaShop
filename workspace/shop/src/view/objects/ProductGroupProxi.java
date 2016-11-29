@@ -10,10 +10,10 @@ public abstract class ProductGroupProxi extends ComponentProxi implements Produc
     }
     
     
-    public java.util.Vector<ComponentWrapperView> getComponents()throws ModelException{
+    public java.util.Vector<ComponentView> getComponents()throws ModelException{
         return ((ProductGroup)this.getTheObject()).getComponents();
     }
-    public void setComponents(java.util.Vector<ComponentWrapperView> newValue) throws ModelException {
+    public void setComponents(java.util.Vector<ComponentView> newValue) throws ModelException {
         ((ProductGroup)this.getTheObject()).setComponents(newValue);
     }
     

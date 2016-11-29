@@ -102,9 +102,9 @@ public class SubProductGroupProxi extends ProductGroupProxi implements Persisten
     }
     
     
-    public void addComponentWrapper(final ComponentWrapper4Public componentWrapper) 
+    public void addComponent(final Component4Public component) 
 				throws model.CycleException, PersistenceException{
-        ((PersistentSubProductGroup)this.getTheObject()).addComponentWrapper(componentWrapper);
+        ((PersistentSubProductGroup)this.getTheObject()).addComponent(component);
     }
     public boolean containsCompHierarchy(final CompHierarchyHIERARCHY part) 
 				throws PersistenceException{
@@ -138,6 +138,10 @@ public class SubProductGroupProxi extends ProductGroupProxi implements Persisten
 				throws PersistenceException{
         ((PersistentSubProductGroup)this.getTheObject()).newArticle(name, price, minStock, maxStock, producerDeliveryTime, producer, invoker);
     }
+    public void newSubProductGroup(final String name) 
+				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
+        ((PersistentSubProductGroup)this.getTheObject()).newSubProductGroup(name);
+    }
     public void newSubProductGroup(final String name, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentSubProductGroup)this.getTheObject()).newSubProductGroup(name, invoker);
@@ -162,11 +166,11 @@ public class SubProductGroupProxi extends ProductGroupProxi implements Persisten
 				throws PersistenceException{
         ((PersistentSubProductGroup)this.getTheObject()).updateObservers(event);
     }
-    public void addComponentWrapperImplementation(final ComponentWrapper4Public componentWrapper) 
+    public void addComponentImplementation(final Component4Public component) 
 				throws model.CycleException, PersistenceException{
-        ((PersistentSubProductGroup)this.getTheObject()).addComponentWrapperImplementation(componentWrapper);
+        ((PersistentSubProductGroup)this.getTheObject()).addComponentImplementation(component);
     }
-    public void components_update(final model.meta.ComponentWrapperMssgs event) 
+    public void components_update(final model.meta.ComponentMssgs event) 
 				throws PersistenceException{
         ((PersistentSubProductGroup)this.getTheObject()).components_update(event);
     }
@@ -190,9 +194,9 @@ public class SubProductGroupProxi extends ProductGroupProxi implements Persisten
 				throws model.CycleException, PersistenceException{
         ((PersistentSubProductGroup)this.getTheObject()).newArticle(name, price, minStock, maxStock, producerDeliveryTime, producer);
     }
-    public void newSubProductGroup(final String name) 
+    public void newSubProductGroupImplementation(final String name) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        ((PersistentSubProductGroup)this.getTheObject()).newSubProductGroup(name);
+        ((PersistentSubProductGroup)this.getTheObject()).newSubProductGroupImplementation(name);
     }
     public void removeComponentImplementation(final Component4Public component) 
 				throws PersistenceException{

@@ -12,9 +12,10 @@ public class CustomerDeliveryTimeProxi extends ViewProxi implements CustomerDeli
     }
     
     public CustomerDeliveryTimeView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
+        String name = (String)resultTable.get("name");
         common.Fraction price = common.Fraction.parse((String)resultTable.get("price"));
         long deliveryTime = new Long((String)resultTable.get("deliveryTime")).longValue();
-        CustomerDeliveryTimeView result$$ = new CustomerDeliveryTime((common.Fraction)price,(long)deliveryTime, this.getId(), this.getClassId());
+        CustomerDeliveryTimeView result$$ = new CustomerDeliveryTime((String)name,(common.Fraction)price,(long)deliveryTime, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -37,6 +38,12 @@ public class CustomerDeliveryTimeProxi extends ViewProxi implements CustomerDeli
         return -1;
     }
     
+    public String getName()throws ModelException{
+        return ((CustomerDeliveryTime)this.getTheObject()).getName();
+    }
+    public void setName(String newValue) throws ModelException {
+        ((CustomerDeliveryTime)this.getTheObject()).setName(newValue);
+    }
     public common.Fraction getPrice()throws ModelException{
         return ((CustomerDeliveryTime)this.getTheObject()).getPrice();
     }

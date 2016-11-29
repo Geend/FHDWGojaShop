@@ -3,10 +3,12 @@ package model;
 import model.visitor.ArticleStateReturnVisitor;
 import persistence.*;
 
+import java.text.MessageFormat;
+
 public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	private String result;
-	
+
 	public ToString$Visitor() {
 	}
 	public synchronized String toString(Anything anything) throws PersistenceException {
@@ -16,8 +18,8 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 			if (result == null) {
 				this.standardHandling(anything);
 			} else {
-				if (common.RPCConstantsAndServices.test) 
-					result = " " + anything.getClassId() + " , " + anything.getId() + "::  " + result; 
+				if (common.RPCConstantsAndServices.test)
+					result = " " + anything.getClassId() + " , " + anything.getId() + "::  " + result;
 			}
 		} catch (Exception ex){
 			System.out.println("During toString of " + anything.getClass() + " happened " + ex);
@@ -25,9 +27,43 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		}
 		return result;
 	}
-	
+
 	protected void standardHandling(Anything anything) {
 		result = anything.getClassId() + ";" + anything.getId();
+	}
+
+
+
+	@Override
+	public void handleServer(Server4Public server) throws PersistenceException {
+	}
+
+	@Override
+	public void handleOwnerService(OwnerService4Public ownerService) throws PersistenceException {
+	}
+
+	@Override
+	public void handleActiveOrder(ActiveOrder4Public activeOrder) throws PersistenceException {
+
+	}
+
+	@Override
+	public void handleCustomerService(CustomerService4Public customerService) throws PersistenceException {
+	}
+
+	@Override
+	public void handleCustomerRegisterService(CustomerRegisterService4Public customerRegisterService) throws PersistenceException {
+	}
+
+
+	@Override
+	public void handleArticle(Article4Public article) throws PersistenceException {
+		//Needs no implemenation, because only ArticleWrapper are visible on the ui
+	}
+
+	@Override
+	public void handleFinishedOrder(FinishedOrder4Public finishedOrder) throws PersistenceException {
+
 	}
 
 	@Override
@@ -35,15 +71,8 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		result = "Hersteller (H)";
 	}
 
-	@Override
-	public void handleOrderArticleWrapper(OrderArticleWrapper4Public orderArticleWrapper) throws PersistenceException {
 
-	}
 
-	@Override
-	public void handleCustomerService(CustomerService4Public customerService) throws PersistenceException {
-
-	}
 
 
 	@Override
@@ -53,34 +82,24 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleOrderQuantifiedArticle(OrderQuantifiedArticle4Public orderQuantifiedArticle) throws PersistenceException {
-
+		result = orderQuantifiedArticle.getQuantity() + "x " + orderQuantifiedArticle.getArticle().getName();
 	}
 
-	@Override
-	public void handleDefaultProductGroupWrapper(DefaultProductGroupWrapper4Public defaultProductGroupWrapper) throws PersistenceException {
-		result = defaultProductGroupWrapper.getName();
-	}
 
-	@Override
-	public void handleServer(Server4Public server) throws PersistenceException {
-
-	}
 
 	@Override
 	public void handleRootProductGroup(RootProductGroup4Public rootProductGroup) throws PersistenceException {
 		result = "RootProductGroup (" + rootProductGroup.getName() + ")";
 	}
 
+
 	@Override
 	public void handleCustomerAccount(CustomerAccount4Public customerAccount) throws PersistenceException {
-
+		result = "Kunde " + customerAccount.getName();
 	}
 
 
-	@Override
-	public void handleArticle(Article4Public article) throws PersistenceException {
 
-	}
 
 	@Override
 	public void handlePreOrder(PreOrder4Public preOrder) throws PersistenceException {
@@ -97,30 +116,34 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		result = subProductGroup.getName();
 	}
 
-	@Override
-	public void handleCustomerRegisterService(CustomerRegisterService4Public customerRegisterService) throws PersistenceException {
-
-	}
 
 	@Override
 	public void handleCustomerDeliveryTime(CustomerDeliveryTime4Public customerDeliveryTime) throws PersistenceException {
-
+		result = MessageFormat.format("{0} ({1}€ - {2} Tage)", customerDeliveryTime.getName(), customerDeliveryTime.getPrice(), customerDeliveryTime.getDeliveryTime());
 	}
 
-	@Override
-	public void handleOwnerService(OwnerService4Public ownerService) throws PersistenceException {
 
-	}
-
-	@Override
-	public void handleCustomerShopArticleWrapper(CustomerShopArticleWrapper4Public customerShopArticleWrapper) throws PersistenceException {
-
-	}
 
 	@Override
 	public void handleShoppingCartQuantifiedArticle(ShoppingCartQuantifiedArticle4Public shoppingCartQuantifiedArticle) throws PersistenceException {
-
+		result = shoppingCartQuantifiedArticle.getQuantity() + "x " + shoppingCartQuantifiedArticle.getArticle().getName();
 	}
+
+	@Override
+	public void handleCustomerArticleLst(CustomerArticleLst4Public customerArticleLst) throws PersistenceException {
+		result = "Such Liste";
+	}
+
+	@Override
+	public void handleCustomerDeliveryTimeManager(CustomerDeliveryTimeManager4Public customerDeliveryTimeManager) throws PersistenceException {
+		result = "Kundenlieferzeiten";
+	}
+
+	@Override
+	public void handleSettings(Settings4Public settings) throws PersistenceException {
+		result = "Einstellungen";
+	}
+
 
 	@Override
 	public void handleInSale(InSale4Public inSale) throws PersistenceException {
@@ -140,40 +163,20 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
-	public void handleOwnerArticleWrapper(OwnerArticleWrapper4Public ownerArticleWrapper) throws PersistenceException {
+	public void handleCustomerOrderManager(CustomerOrderManager4Public customerOrderManager) throws PersistenceException {
+		result = "Bestellungen";
 	}
 
 
-	@Override
-	public void handleShoppingCartArticleWrapper(ShoppingCartArticleWrapper4Public shoppingCartArticleWrapper) throws PersistenceException {
-		///result = shoppingCartArticleWrapper.getName();
-	}
-
 
 	@Override
-	public void handleNewCreated(NewCreated4Public newCreated) throws PersistenceException {
-		result = "Neuer Artikel, nicht im Verkauf";
-	}
+	public void handleArticleWrapper(ArticleWrapper4Public articleWrapper) throws PersistenceException {
+		result = articleWrapper.getName();
 
-	@Override
-	public void handleShopArticleWrapper(ShopArticleWrapper4Public shopArticleWrapper) throws PersistenceException {
-
-	}
-
-
-	@Override
-	public void handleOrder(Order4Public order) throws PersistenceException {
-		result = "Bestellung";
-	}
-
-	@Override
-	public void handleStandardArticleWrapper(StandardArticleWrapper4Public standardArticleWrapper) throws PersistenceException {
-		result = standardArticleWrapper.getName();
-
-		result += standardArticleWrapper.gArticle().getState().accept(new ArticleStateReturnVisitor<String>() {
+		result += articleWrapper.getArticle().getState().accept(new ArticleStateReturnVisitor<String>() {
 			@Override
 			public String handleInSale(InSale4Public inSale) throws PersistenceException {
-				return "";
+				return " - " + articleWrapper.getArticle().getPrice().toString() + "€";
 			}
 
 			@Override
@@ -191,6 +194,21 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 				return " (Restposten)";
 			}
 		});
-
 	}
+
+
+	@Override
+	public void handleNewCreated(NewCreated4Public newCreated) throws PersistenceException {
+		result = "Neuer Artikel, nicht im Verkauf";
+	}
+
+
+
+
+	@Override
+	public void handleOrder(Order4Public order) throws PersistenceException {
+		result = "Bestellung";
+	}
+
+
 }

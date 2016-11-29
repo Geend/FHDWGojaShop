@@ -1,7 +1,7 @@
 package viewClient;
 
+import constants.IconConstants;
 import view.*;
-import view.objects.CustomerShopArticleWrapper;
 import view.objects.ViewRoot;
 import view.objects.ViewObjectInTree;
 
@@ -230,18 +230,29 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
 				this.result = null;
 			}
 
-
 			@Override
-			public void handleStandardArticleWrapper(StandardArticleWrapperView standardArticleWrapper) throws ModelException {
-
-				CustomerShopArticleWrapperView wrapper = getConnection().loadArticleWrapper(standardArticleWrapper);
-
-				CustomerShopArticleWrapperDefaultDetailPanel panel = new CustomerShopArticleWrapperDefaultDetailPanel(CustomerServiceClientView.this, wrapper);
+			public void handleShoppingCartQuantifiedArticle(ShoppingCartQuantifiedArticleView shoppingCartQuantifiedArticle) throws ModelException {
 
 
-				result = panel;
+				ShoppingCartQuantifiedArticleDefaultDetailPanel panel = new ShoppingCartQuantifiedArticleDefaultDetailPanel(CustomerServiceClientView.this, shoppingCartQuantifiedArticle);
+
+				//TODO! fix this...
+				panel.registerUpdater(ShoppingCartQuantifiedArticleDefaultDetailPanel.QuantifiedArticle$$quantity, new StandardUpdater() {
+					@Override
+					public void update(String text) throws ModelException {
+						getConnection().changeArticleQuantity(shoppingCartQuantifiedArticle, Integer.getInteger(text));
+					}
+
+					@Override
+					public boolean check(String text) throws ModelException {
+						return true;
+					}
+				});
+
+				this.result = panel;
 
 			}
+
 			//TODO Overwrite all handle methods for the types for which you intend to provide a special panel!
 		}
 		PanelDecider decider = new PanelDecider();
@@ -325,7 +336,16 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
 
 
     interface MenuItemVisitor{
-        ImageView handle(LoadArticleWrapperPRMTRStandardArticleWrapperPRMTRMenuItem menuItem);
+        ImageView handle(AddToCartPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem);
+        ImageView handle(ChangeArticleQuantityPRMTRShoppingCartQuantifiedArticlePRMTRIntegerPRMTRMenuItem menuItem);
+        ImageView handle(ClearErrorPRMTRErrorDisplayPRMTRMenuItem menuItem);
+        ImageView handle(ClearPRMTRMenuItem menuItem);
+        ImageView handle(DepositPRMTRFractionPRMTRMenuItem menuItem);
+        ImageView handle(FindArticlePRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(OrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem menuItem);
+        ImageView handle(PreOrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem menuItem);
+        ImageView handle(RemoveFromCartPRMTRShoppingCartQuantifiedArticlePRMTRMenuItem menuItem);
+        ImageView handle(WithdrawPRMTRFractionPRMTRMenuItem menuItem);
     }
     private abstract class CustomerServiceMenuItem extends MenuItem{
         private CustomerServiceMenuItem(){
@@ -333,18 +353,166 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
         }
         abstract protected ImageView accept(MenuItemVisitor visitor);
     }
-    private class LoadArticleWrapperPRMTRStandardArticleWrapperPRMTRMenuItem extends CustomerServiceMenuItem{
+    private class AddToCartPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem extends CustomerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class ChangeArticleQuantityPRMTRShoppingCartQuantifiedArticlePRMTRIntegerPRMTRMenuItem extends CustomerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class ClearErrorPRMTRErrorDisplayPRMTRMenuItem extends CustomerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class ClearPRMTRMenuItem extends CustomerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class DepositPRMTRFractionPRMTRMenuItem extends CustomerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class FindArticlePRMTRStringPRMTRMenuItem extends CustomerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class OrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem extends CustomerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class PreOrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem extends CustomerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class RemoveFromCartPRMTRShoppingCartQuantifiedArticlePRMTRMenuItem extends CustomerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class WithdrawPRMTRFractionPRMTRMenuItem extends CustomerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
     }
     private java.util.Vector<javafx.scene.control.Button> getToolButtonsForStaticOperations() {
         java.util.Vector<javafx.scene.control.Button> result = new java.util.Vector<javafx.scene.control.Button>();
+        javafx.scene.control.Button currentButton = null;
+        currentButton = new javafx.scene.control.Button("clear");
+        currentButton.setGraphic(new ClearPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                Alert confirm = new Alert(AlertType.CONFIRMATION);
+                confirm.setTitle(GUIConstants.ConfirmButtonText);
+                confirm.setHeaderText(null);
+                confirm.setContentText("clear" + GUIConstants.ConfirmQuestionMark);
+                Optional<ButtonType> buttonResult = confirm.showAndWait();
+                if (buttonResult.get() == ButtonType.OK) {
+                    try {
+                        getConnection().clear();
+                        getConnection().setEagerRefresh();
+                        
+                    }catch(ModelException me){
+                        handleException(me);
+                    }
+                }
+            }
+        });
+        result.add(currentButton);
+        currentButton = new javafx.scene.control.Button("deposit ... ");
+        currentButton.setGraphic(new DepositPRMTRFractionPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final CustomerServiceDepositFractionMssgWizard wizard = new CustomerServiceDepositFractionMssgWizard("deposit");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.showAndWait();
+            }
+        });
+        result.add(currentButton);
+        currentButton = new javafx.scene.control.Button("findArticle ... ");
+        currentButton.setGraphic(new FindArticlePRMTRStringPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final CustomerServiceFindArticleStringMssgWizard wizard = new CustomerServiceFindArticleStringMssgWizard("findArticle");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.showAndWait();
+            }
+        });
+        result.add(currentButton);
+        currentButton = new javafx.scene.control.Button("withdraw ... ");
+        currentButton.setGraphic(new WithdrawPRMTRFractionPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final CustomerServiceWithdrawFractionMssgWizard wizard = new CustomerServiceWithdrawFractionMssgWizard("withdraw");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.showAndWait();
+            }
+        });
+        result.add(currentButton);
         return result;
     }
     private ContextMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations, final Point2D menuPos) {
         final ContextMenu result = new ContextMenu();
         MenuItem item = null;
+        item = new ClearPRMTRMenuItem();
+        item.setText("(S) clear");
+        item.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                Alert confirm = new Alert(AlertType.CONFIRMATION);
+                confirm.setTitle(GUIConstants.ConfirmButtonText);
+                confirm.setHeaderText(null);
+                confirm.setContentText("clear" + GUIConstants.ConfirmQuestionMark);
+                Optional<ButtonType> buttonResult = confirm.showAndWait();
+                if (buttonResult.get() == ButtonType.OK) {
+                    try {
+                        getConnection().clear();
+                        getConnection().setEagerRefresh();
+                        
+                    }catch(ModelException me){
+                        handleException(me);
+                    }
+                }
+            }
+        });
+        if (withStaticOperations) result.getItems().add(item);
+        item = new DepositPRMTRFractionPRMTRMenuItem();
+        item.setText("(S) deposit ... ");
+        item.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final CustomerServiceDepositFractionMssgWizard wizard = new CustomerServiceDepositFractionMssgWizard("deposit");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.showAndWait();
+            }
+        });
+        if (withStaticOperations) result.getItems().add(item);
+        item = new FindArticlePRMTRStringPRMTRMenuItem();
+        item.setText("(S) findArticle ... ");
+        item.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final CustomerServiceFindArticleStringMssgWizard wizard = new CustomerServiceFindArticleStringMssgWizard("findArticle");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.showAndWait();
+            }
+        });
+        if (withStaticOperations) result.getItems().add(item);
+        item = new WithdrawPRMTRFractionPRMTRMenuItem();
+        item.setText("(S) withdraw ... ");
+        item.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final CustomerServiceWithdrawFractionMssgWizard wizard = new CustomerServiceWithdrawFractionMssgWizard("withdraw");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.showAndWait();
+            }
+        });
+        if (withStaticOperations) result.getItems().add(item);
         if (selected != null){
             try {
                 this.setPreCalculatedFilters(this.getConnection().customerService_Menu_Filter((Anything)selected));
@@ -352,23 +520,45 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
                 this.handleException(me);
                 return result;
             }
-            if (selected instanceof StandardArticleWrapperView){
-                item = new LoadArticleWrapperPRMTRStandardArticleWrapperPRMTRMenuItem();
-                item.setText("loadArticleWrapper");
+            if (selected instanceof ShoppingCartView){
+                item = new OrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem();
+                item.setText("order ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final CustomerServiceOrderShoppingCartCustomerDeliveryTimeMssgWizard wizard = new CustomerServiceOrderShoppingCartCustomerDeliveryTimeMssgWizard("order");
+                        wizard.setFirstArgument((ShoppingCartView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+                item = new PreOrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem();
+                item.setText("preOrder ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final CustomerServicePreOrderShoppingCartCustomerDeliveryTimeMssgWizard wizard = new CustomerServicePreOrderShoppingCartCustomerDeliveryTimeMssgWizard("preOrder");
+                        wizard.setFirstArgument((ShoppingCartView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+            }
+            if (selected instanceof ErrorDisplayView){
+                item = new ClearErrorPRMTRErrorDisplayPRMTRMenuItem();
+                item.setText("clearError");
                 item.setOnAction(new EventHandler<ActionEvent>(){
                     public void handle(javafx.event.ActionEvent e) {
                         Alert confirm = new Alert(AlertType.CONFIRMATION);
                         confirm.setTitle(GUIConstants.ConfirmButtonText);
                         confirm.setHeaderText(null);
-                        confirm.setContentText("loadArticleWrapper" + GUIConstants.ConfirmQuestionMark);
+                        confirm.setContentText("clearError" + GUIConstants.ConfirmQuestionMark);
                         Optional<ButtonType> buttonResult = confirm.showAndWait();
                         if (buttonResult.get() == ButtonType.OK) {
                             try {
-                                ViewRoot result = (ViewRoot)getConnection().loadArticleWrapper((StandardArticleWrapperView)selected);
+                                getConnection().clearError((ErrorDisplayView)selected);
                                 getConnection().setEagerRefresh();
-                                ReturnValueView view = new ReturnValueView(result, new javafx.geometry.Dimension2D(getNavigationPanel().getWidth()*8/9,getNavigationPanel().getHeight()*8/9), CustomerServiceClientView.this);
-                                view.centerOnScreen();
-                                view.showAndWait();
+                                
                             }catch(ModelException me){
                                 handleException(me);
                             }
@@ -376,6 +566,55 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
                     }
                 });
                 result.getItems().add(item);
+            }
+            if (selected instanceof ShoppingCartQuantifiedArticleView){
+                item = new ChangeArticleQuantityPRMTRShoppingCartQuantifiedArticlePRMTRIntegerPRMTRMenuItem();
+                item.setText("changeArticleQuantity ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final CustomerServiceChangeArticleQuantityShoppingCartQuantifiedArticleIntegerMssgWizard wizard = new CustomerServiceChangeArticleQuantityShoppingCartQuantifiedArticleIntegerMssgWizard("changeArticleQuantity");
+                        wizard.setFirstArgument((ShoppingCartQuantifiedArticleView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+                item = new RemoveFromCartPRMTRShoppingCartQuantifiedArticlePRMTRMenuItem();
+                item.setText("removeFromCart");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        Alert confirm = new Alert(AlertType.CONFIRMATION);
+                        confirm.setTitle(GUIConstants.ConfirmButtonText);
+                        confirm.setHeaderText(null);
+                        confirm.setContentText("removeFromCart" + GUIConstants.ConfirmQuestionMark);
+                        Optional<ButtonType> buttonResult = confirm.showAndWait();
+                        if (buttonResult.get() == ButtonType.OK) {
+                            try {
+                                getConnection().removeFromCart((ShoppingCartQuantifiedArticleView)selected);
+                                getConnection().setEagerRefresh();
+                                
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
+                    }
+                });
+                result.getItems().add(item);
+            }
+            if (selected instanceof ArticleWrapperView){
+                if (filter_addToCart((ArticleWrapperView) selected)) {
+                    item = new AddToCartPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem();
+                    item.setText("addToCart ... ");
+                    item.setOnAction(new EventHandler<ActionEvent>(){
+                        public void handle(javafx.event.ActionEvent e) {
+                            final CustomerServiceAddToCartArticleWrapperIntegerMssgWizard wizard = new CustomerServiceAddToCartArticleWrapperIntegerMssgWizard("addToCart");
+                            wizard.setFirstArgument((ArticleWrapperView)selected);
+                            wizard.setWidth(getNavigationPanel().getWidth());
+                            wizard.showAndWait();
+                        }
+                    });
+                    result.getItems().add(item);
+                }
             }
             
         }
@@ -389,11 +628,385 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
     private void setPreCalculatedFilters(String switchOff) {
         this.preCalculatedFilters = switchOff;
     }
+    private boolean filter_addToCart(ArticleWrapperView argument){
+        return this.getPreCalculatedFilters().contains("+++addToCartPRMTRArticleWrapperPRMTRIntegerPRMTR");
+    }
     
+	class CustomerServiceAddToCartArticleWrapperIntegerMssgWizard extends Wizard {
+
+		protected CustomerServiceAddToCartArticleWrapperIntegerMssgWizard(String operationName){
+			super(CustomerServiceClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new AddToCartPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "CustomerServiceAddToCartArticleWrapperIntegerMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().addToCart(firstArgument, ((IntegerSelectionPanel)getParametersPanel().getChildren().get(0)).getResult().longValue());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new IntegerSelectionPanel("quantity", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private ArticleWrapperView firstArgument; 
+	
+		public void setFirstArgument(ArticleWrapperView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class CustomerServiceChangeArticleQuantityShoppingCartQuantifiedArticleIntegerMssgWizard extends Wizard {
+
+		protected CustomerServiceChangeArticleQuantityShoppingCartQuantifiedArticleIntegerMssgWizard(String operationName){
+			super(CustomerServiceClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new ChangeArticleQuantityPRMTRShoppingCartQuantifiedArticlePRMTRIntegerPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "CustomerServiceChangeArticleQuantityShoppingCartQuantifiedArticleIntegerMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().changeArticleQuantity(firstArgument, ((IntegerSelectionPanel)getParametersPanel().getChildren().get(0)).getResult().longValue());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new IntegerSelectionPanel("newQuantity", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private ShoppingCartQuantifiedArticleView firstArgument; 
+	
+		public void setFirstArgument(ShoppingCartQuantifiedArticleView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class CustomerServiceDepositFractionMssgWizard extends Wizard {
+
+		protected CustomerServiceDepositFractionMssgWizard(String operationName){
+			super(CustomerServiceClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new DepositPRMTRFractionPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "CustomerServiceDepositFractionMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().deposit(((FractionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new FractionSelectionPanel("amount", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+	}
+
+	class CustomerServiceFindArticleStringMssgWizard extends Wizard {
+
+		protected CustomerServiceFindArticleStringMssgWizard(String operationName){
+			super(CustomerServiceClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new FindArticlePRMTRStringPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "CustomerServiceFindArticleStringMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().findArticle(((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+	}
+
+	class CustomerServiceOrderShoppingCartCustomerDeliveryTimeMssgWizard extends Wizard {
+
+		protected CustomerServiceOrderShoppingCartCustomerDeliveryTimeMssgWizard(String operationName){
+			super(CustomerServiceClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new OrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "CustomerServiceOrderShoppingCartCustomerDeliveryTimeMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().order(firstArgument, (CustomerDeliveryTimeView)((ObjectSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			catch(NotEnoughStockException e) {
+				getStatusBar().setText(e.getMessage());
+			}
+			catch(NotEnoughMoneyException e) {
+				getStatusBar().setText(e.getMessage());
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			final ObjectSelectionPanel panel1 = new ObjectSelectionPanel("customerDeliveryTime", "view.CustomerDeliveryTimeView", null, this);
+			getParametersPanel().getChildren().add(panel1);
+			panel1.setBrowserRoot((ViewRoot) getConnection().getCustomerServiceView());		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private ShoppingCartView firstArgument; 
+	
+		public void setFirstArgument(ShoppingCartView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class CustomerServicePreOrderShoppingCartCustomerDeliveryTimeMssgWizard extends Wizard {
+
+		protected CustomerServicePreOrderShoppingCartCustomerDeliveryTimeMssgWizard(String operationName){
+			super(CustomerServiceClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new PreOrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "CustomerServicePreOrderShoppingCartCustomerDeliveryTimeMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().preOrder(firstArgument, (CustomerDeliveryTimeView)((ObjectSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			catch(NotEnoughMoneyException e) {
+				getStatusBar().setText(e.getMessage());
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			final ObjectSelectionPanel panel2 = new ObjectSelectionPanel("customerDeliveryTime", "view.CustomerDeliveryTimeView", null, this);
+			getParametersPanel().getChildren().add(panel2);
+			panel2.setBrowserRoot((ViewRoot) getConnection().getCustomerServiceView());		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private ShoppingCartView firstArgument; 
+	
+		public void setFirstArgument(ShoppingCartView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class CustomerServiceWithdrawFractionMssgWizard extends Wizard {
+
+		protected CustomerServiceWithdrawFractionMssgWizard(String operationName){
+			super(CustomerServiceClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new WithdrawPRMTRFractionPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "CustomerServiceWithdrawFractionMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().withdraw(((FractionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			catch(NotEnoughMoneyException e) {
+				getStatusBar().setText(e.getMessage());
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new FractionSelectionPanel("amount", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+	}
+
 	/* Menu and wizard section end */
 	
 	private ImageView getIconForMenuItem(CustomerServiceMenuItem menuItem){
-		return new ImageView(new javafx.scene.image.Image("/viewResources/default.gif")); //TODO Pimp-up your menu items!
+		return menuItem.accept(new MenuItemVisitor() {
+			@Override
+			public ImageView handle(AddToCartPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem) {
+				return null;
+			}
+
+			@Override
+			public ImageView handle(ChangeArticleQuantityPRMTRShoppingCartQuantifiedArticlePRMTRIntegerPRMTRMenuItem menuItem) {
+				return null;
+			}
+
+			@Override
+			public ImageView handle(ClearErrorPRMTRErrorDisplayPRMTRMenuItem menuItem) {
+				return null;
+			}
+
+			@Override
+			public ImageView handle(ClearPRMTRMenuItem menuItem) {
+				return null;
+			}
+
+			@Override
+			public ImageView handle(DepositPRMTRFractionPRMTRMenuItem menuItem) {
+				return null;
+			}
+
+			@Override
+			public ImageView handle(FindArticlePRMTRStringPRMTRMenuItem menuItem) {
+				return null;
+			}
+
+			@Override
+			public ImageView handle(OrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(IconConstants.CHECKOUT));
+
+			}
+
+			@Override
+			public ImageView handle(PreOrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem menuItem) {
+				return null;
+			}
+
+			@Override
+			public ImageView handle(RemoveFromCartPRMTRShoppingCartQuantifiedArticlePRMTRMenuItem menuItem) {
+				return null;
+			}
+
+			@Override
+			public ImageView handle(WithdrawPRMTRFractionPRMTRMenuItem menuItem) {
+				return null;
+			}
+		});
+
+
 	}
 	
 	

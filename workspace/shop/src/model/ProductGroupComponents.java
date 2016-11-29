@@ -60,7 +60,7 @@ public class ProductGroupComponents extends PersistentObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 284;
+        return 320;
     }
     
     public long getClassId() {
@@ -69,7 +69,7 @@ public class ProductGroupComponents extends PersistentObject implements Persiste
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 284) ConnectionHandler.getTheConnectionHandler().theProductGroupComponentsFacade
+        if (this.getClassId() == 320) ConnectionHandler.getTheConnectionHandler().theProductGroupComponentsFacade
             .newProductGroupComponents(this.getId());
         super.store();
         if(this.getObserver() != null){
@@ -167,23 +167,23 @@ public class ProductGroupComponents extends PersistentObject implements Persiste
     }
     
     
-    public void add(final ComponentWrapper4Public observee) 
+    public void add(final Component4Public observee) 
 				throws model.CycleException, PersistenceException{
         this.getObservee().add(observee);
     }
-    public <E extends model.UserException,R> R aggregateException(final persistence.AggregtionException<ComponentWrapper4Public,R,E> aggregtion) 
+    public <E extends model.UserException,R> R aggregateException(final persistence.AggregtionException<Component4Public,R,E> aggregtion) 
 				throws E, PersistenceException{
         return this.getObservee().aggregateException(aggregtion);
     }
-    public <R> R aggregate(final persistence.Aggregtion<ComponentWrapper4Public,R> aggregtion) 
+    public <R> R aggregate(final persistence.Aggregtion<Component4Public,R> aggregtion) 
 				throws PersistenceException{
         return this.getObservee().aggregate(aggregtion);
     }
-    public <E extends model.UserException> void applyToAllException(final persistence.ProcdureException<ComponentWrapper4Public,E> procdure) 
+    public <E extends model.UserException> void applyToAllException(final persistence.ProcdureException<Component4Public,E> procdure) 
 				throws E, PersistenceException{
         this.getObservee().applyToAllException(procdure);
     }
-    public void applyToAll(final persistence.Procdure<ComponentWrapper4Public> procdure) 
+    public void applyToAll(final persistence.Procdure<Component4Public> procdure) 
 				throws PersistenceException{
         this.getObservee().applyToAll(procdure);
     }
@@ -195,33 +195,33 @@ public class ProductGroupComponents extends PersistentObject implements Persiste
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
 		if(visited.contains(getThis())) return false;
-		java.util.Iterator<ComponentWrapper4Public> iterator0 = getThis().getObservee().iterator();
+		java.util.Iterator<Component4Public> iterator0 = getThis().getObservee().iterator();
 		while(iterator0.hasNext())
 			if(((CompHierarchyHIERARCHY)iterator0.next()).containsCompHierarchy(part, visited)) return true; 
 		visited.add(getThis());
 		return false;
     }
-    public <E extends model.UserException> void filterException(final persistence.PredcateException<ComponentWrapper4Public,E> predcate) 
+    public <E extends model.UserException> void filterException(final persistence.PredcateException<Component4Public,E> predcate) 
 				throws E, PersistenceException{
         this.getObservee().filterException(predcate);
     }
-    public void filter(final persistence.Predcate<ComponentWrapper4Public> predcate) 
+    public void filter(final persistence.Predcate<Component4Public> predcate) 
 				throws PersistenceException{
         this.getObservee().filter(predcate);
     }
-    public <E extends model.UserException> SearchListRoot<ComponentWrapper4Public> findAllException(final persistence.PredcateException<ComponentWrapper4Public,E> predcate) 
+    public <E extends model.UserException> SearchListRoot<Component4Public> findAllException(final persistence.PredcateException<Component4Public,E> predcate) 
 				throws E, PersistenceException{
         return this.getObservee().findAllException(predcate);
     }
-    public SearchListRoot<ComponentWrapper4Public> findAll(final persistence.Predcate<ComponentWrapper4Public> predcate) 
+    public SearchListRoot<Component4Public> findAll(final persistence.Predcate<Component4Public> predcate) 
 				throws PersistenceException{
         return this.getObservee().findAll(predcate);
     }
-    public <E extends model.UserException> ComponentWrapper4Public findFirstException(final persistence.PredcateException<ComponentWrapper4Public,E> predcate) 
+    public <E extends model.UserException> Component4Public findFirstException(final persistence.PredcateException<Component4Public,E> predcate) 
 				throws E, PersistenceException{
         return this.getObservee().findFirstException(predcate);
     }
-    public ComponentWrapper4Public findFirst(final persistence.Predcate<ComponentWrapper4Public> predcate) 
+    public Component4Public findFirst(final persistence.Predcate<Component4Public> predcate) 
 				throws PersistenceException{
         return this.getObservee().findFirst(predcate);
     }
@@ -229,27 +229,27 @@ public class ProductGroupComponents extends PersistentObject implements Persiste
 				throws PersistenceException{
         		return this.getObservee().getLength();
     }
-    public ComponentWrapperSearchList getList() 
+    public ComponentSearchList getList() 
 				throws PersistenceException{
         return this.getObservee().getList();
     }
-    public java.util.Iterator<ComponentWrapper4Public> iterator() 
+    public java.util.Iterator<Component4Public> iterator() 
 				throws PersistenceException{
         return this.getObservee().iterator();
     }
-    public <E extends model.UserException> void removeFirstFailureException(final persistence.PredcateException<ComponentWrapper4Public,E> predcate) 
+    public <E extends model.UserException> void removeFirstFailureException(final persistence.PredcateException<Component4Public,E> predcate) 
 				throws E, PersistenceException{
         this.getObservee().removeFirstFailureException(predcate);
     }
-    public void removeFirstFailure(final persistence.Predcate<ComponentWrapper4Public> predcate) 
+    public void removeFirstFailure(final persistence.Predcate<Component4Public> predcate) 
 				throws PersistenceException{
         this.getObservee().removeFirstFailure(predcate);
     }
-    public <E extends model.UserException> void removeFirstSuccessException(final persistence.PredcateException<ComponentWrapper4Public,E> predcate) 
+    public <E extends model.UserException> void removeFirstSuccessException(final persistence.PredcateException<Component4Public,E> predcate) 
 				throws E, PersistenceException{
         this.getObservee().removeFirstSuccessException(predcate);
     }
-    public void removeFirstSuccess(final persistence.Predcate<ComponentWrapper4Public> predcate) 
+    public void removeFirstSuccess(final persistence.Predcate<Component4Public> predcate) 
 				throws PersistenceException{
         this.getObservee().removeFirstSuccess(predcate);
     }
@@ -263,7 +263,7 @@ public class ProductGroupComponents extends PersistentObject implements Persiste
 		T result$$observee$$ProductGroupComponents = strategy.ProductGroupComponents$$observee$$$initialize(getThis());
 		java.util.Iterator<?> iterator$$ = getThis().getObservee().iterator();
 		while (iterator$$.hasNext()){
-			ComponentWrapper4Public current$$Field = (ComponentWrapper4Public)iterator$$.next();
+			Component4Public current$$Field = (Component4Public)iterator$$.next();
 			T current$$ = current$$Field.strategyCompHierarchy(strategy, visited);
 			result$$observee$$ProductGroupComponents = strategy.ProductGroupComponents$$observee$$consolidate(getThis(), result$$observee$$ProductGroupComponents, current$$);
 		}
@@ -273,7 +273,7 @@ public class ProductGroupComponents extends PersistentObject implements Persiste
     }
     public void update(final model.meta.Mssgs event) 
 				throws PersistenceException{
-        this.observer.getThis().components_update((model.meta.ComponentWrapperMssgs)event);
+        this.observer.getThis().components_update((model.meta.ComponentMssgs)event);
     }
     
     

@@ -22,6 +22,12 @@ public class CustomerDeliveryTimeICProxi extends PersistentInCacheProxiOptimisti
         return 234;
     }
     
+    public String getName() throws PersistenceException {
+        return ((PersistentCustomerDeliveryTime)this.getTheObject()).getName();
+    }
+    public void setName(String newValue) throws PersistenceException {
+        ((PersistentCustomerDeliveryTime)this.getTheObject()).setName(newValue);
+    }
     public common.Fraction getPrice() throws PersistenceException {
         return ((PersistentCustomerDeliveryTime)this.getTheObject()).getPrice();
     }

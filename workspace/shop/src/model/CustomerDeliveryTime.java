@@ -15,21 +15,23 @@ public class CustomerDeliveryTime extends PersistentObject implements Persistent
         return (CustomerDeliveryTime4Public)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static CustomerDeliveryTime4Public createCustomerDeliveryTime(common.Fraction price,long deliveryTime) throws PersistenceException{
-        return createCustomerDeliveryTime(price,deliveryTime,false);
+    public static CustomerDeliveryTime4Public createCustomerDeliveryTime(String name,common.Fraction price,long deliveryTime) throws PersistenceException{
+        return createCustomerDeliveryTime(name,price,deliveryTime,false);
     }
     
-    public static CustomerDeliveryTime4Public createCustomerDeliveryTime(common.Fraction price,long deliveryTime,boolean delayed$Persistence) throws PersistenceException {
+    public static CustomerDeliveryTime4Public createCustomerDeliveryTime(String name,common.Fraction price,long deliveryTime,boolean delayed$Persistence) throws PersistenceException {
+        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentCustomerDeliveryTime result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theCustomerDeliveryTimeFacade
-                .newDelayedCustomerDeliveryTime(price,deliveryTime);
+                .newDelayedCustomerDeliveryTime(name,price,deliveryTime);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theCustomerDeliveryTimeFacade
-                .newCustomerDeliveryTime(price,deliveryTime,-1);
+                .newCustomerDeliveryTime(name,price,deliveryTime,-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
+        final$$Fields.put("name", name);
         final$$Fields.put("price", price);
         final$$Fields.put("deliveryTime", deliveryTime);
         result.initialize(result, final$$Fields);
@@ -37,17 +39,19 @@ public class CustomerDeliveryTime extends PersistentObject implements Persistent
         return result;
     }
     
-    public static CustomerDeliveryTime4Public createCustomerDeliveryTime(common.Fraction price,long deliveryTime,boolean delayed$Persistence,CustomerDeliveryTime4Public This) throws PersistenceException {
+    public static CustomerDeliveryTime4Public createCustomerDeliveryTime(String name,common.Fraction price,long deliveryTime,boolean delayed$Persistence,CustomerDeliveryTime4Public This) throws PersistenceException {
+        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentCustomerDeliveryTime result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theCustomerDeliveryTimeFacade
-                .newDelayedCustomerDeliveryTime(price,deliveryTime);
+                .newDelayedCustomerDeliveryTime(name,price,deliveryTime);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theCustomerDeliveryTimeFacade
-                .newCustomerDeliveryTime(price,deliveryTime,-1);
+                .newCustomerDeliveryTime(name,price,deliveryTime,-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
+        final$$Fields.put("name", name);
         final$$Fields.put("price", price);
         final$$Fields.put("deliveryTime", deliveryTime);
         result.initialize(This, final$$Fields);
@@ -59,6 +63,7 @@ public class CustomerDeliveryTime extends PersistentObject implements Persistent
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            result.put("name", this.getName());
             result.put("price", this.getPrice().toString());
             result.put("deliveryTime", new Long(this.getDeliveryTime()).toString());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
@@ -69,7 +74,8 @@ public class CustomerDeliveryTime extends PersistentObject implements Persistent
     
     public CustomerDeliveryTime provideCopy() throws PersistenceException{
         CustomerDeliveryTime result = this;
-        result = new CustomerDeliveryTime(this.price, 
+        result = new CustomerDeliveryTime(this.name, 
+                                          this.price, 
                                           this.deliveryTime, 
                                           this.subService, 
                                           this.This, 
@@ -81,14 +87,16 @@ public class CustomerDeliveryTime extends PersistentObject implements Persistent
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
+    protected String name;
     protected common.Fraction price;
     protected long deliveryTime;
     protected SubjInterface subService;
     protected PersistentCustomerDeliveryTime This;
     
-    public CustomerDeliveryTime(common.Fraction price,long deliveryTime,SubjInterface subService,PersistentCustomerDeliveryTime This,long id) throws PersistenceException {
+    public CustomerDeliveryTime(String name,common.Fraction price,long deliveryTime,SubjInterface subService,PersistentCustomerDeliveryTime This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
+        this.name = name;
         this.price = price;
         this.deliveryTime = deliveryTime;
         this.subService = subService;
@@ -106,7 +114,7 @@ public class CustomerDeliveryTime extends PersistentObject implements Persistent
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         if (this.getClassId() == 234) ConnectionHandler.getTheConnectionHandler().theCustomerDeliveryTimeFacade
-            .newCustomerDeliveryTime(price,deliveryTime,this.getId());
+            .newCustomerDeliveryTime(name,price,deliveryTime,this.getId());
         super.store();
         if(this.getSubService() != null){
             this.getSubService().store();
@@ -119,6 +127,14 @@ public class CustomerDeliveryTime extends PersistentObject implements Persistent
         
     }
     
+    public String getName() throws PersistenceException {
+        return this.name;
+    }
+    public void setName(String newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCustomerDeliveryTimeFacade.nameSet(this.getId(), newValue);
+        this.name = newValue;
+    }
     public common.Fraction getPrice() throws PersistenceException {
         return this.price;
     }
@@ -212,6 +228,7 @@ public class CustomerDeliveryTime extends PersistentObject implements Persistent
 				throws PersistenceException{
         this.setThis((PersistentCustomerDeliveryTime)This);
 		if(this.isTheSameAs(This)){
+			this.setName((String)final$$Fields.get("name"));
 			this.setPrice((common.Fraction)final$$Fields.get("price"));
 			this.setDeliveryTime((Long)final$$Fields.get("deliveryTime"));
 		}

@@ -7,12 +7,12 @@ import view.visitor.*;
 
 /* Additional import section end */
 
-public class PreOrder extends view.objects.AbstractOrder implements PreOrderView{
+public class PreOrder extends view.objects.OrderState implements PreOrderView{
     
     
-    public PreOrder(java.util.Vector<OrderQuantifiedArticleView> articles,CustomerDeliveryTimeView customerDeliveryTime,long id, long classId) {
+    public PreOrder(long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super(articles,(CustomerDeliveryTimeView)customerDeliveryTime,id, classId);        
+        super(id, classId);        
     }
     
     static public long getTypeId() {
@@ -24,16 +24,16 @@ public class PreOrder extends view.objects.AbstractOrder implements PreOrderView
     }
     
     
-    public void accept(AbstractOrderVisitor visitor) throws ModelException {
+    public void accept(OrderStateVisitor visitor) throws ModelException {
         visitor.handlePreOrder(this);
     }
-    public <R> R accept(AbstractOrderReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(OrderStateReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handlePreOrder(this);
     }
-    public <E extends view.UserException>  void accept(AbstractOrderExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends view.UserException>  void accept(OrderStateExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handlePreOrder(this);
     }
-    public <R, E extends view.UserException> R accept(AbstractOrderReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends view.UserException> R accept(OrderStateReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handlePreOrder(this);
     }
     public void accept(AnythingVisitor visitor) throws ModelException {
@@ -50,46 +50,23 @@ public class PreOrder extends view.objects.AbstractOrder implements PreOrderView
     }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
-        java.util.Vector<?> articles = this.getArticles();
-        if (articles != null) {
-            ViewObject.resolveVectorProxies(articles, resultTable);
-        }
-        CustomerDeliveryTimeView customerDeliveryTime = this.getCustomerDeliveryTime();
-        if (customerDeliveryTime != null) {
-            ((ViewProxi)customerDeliveryTime).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(customerDeliveryTime.getClassId(), customerDeliveryTime.getId())));
-        }
         
     }
     public void sortSetValuedFields() throws ModelException {
         
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        int index = originalIndex;
-        if(index < this.getArticles().size()) return new ArticlesAbstractOrderWrapper(this, originalIndex, (ViewRoot)this.getArticles().get(index));
-        index = index - this.getArticles().size();
-        if(index == 0 && this.getCustomerDeliveryTime() != null) return new CustomerDeliveryTimeAbstractOrderWrapper(this, originalIndex, (ViewRoot)this.getCustomerDeliveryTime());
-        if(this.getCustomerDeliveryTime() != null) index = index - 1;
+        
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 
-            + (this.getArticles().size())
-            + (this.getCustomerDeliveryTime() == null ? 0 : 1);
+        return 0 ;
     }
     public boolean isLeaf() throws ModelException {
-        return true 
-            && (this.getArticles().size() == 0)
-            && (this.getCustomerDeliveryTime() == null ? true : false);
+        return true;
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        int result = 0;
-        java.util.Iterator<?> getArticlesIterator = this.getArticles().iterator();
-        while(getArticlesIterator.hasNext()){
-            if(getArticlesIterator.next().equals(child)) return result;
-            result = result + 1;
-        }
-        if(this.getCustomerDeliveryTime() != null && this.getCustomerDeliveryTime().equals(child)) return result;
-        if(this.getCustomerDeliveryTime() != null) result = result + 1;
+        
         return -1;
     }
     public int getRowCount(){

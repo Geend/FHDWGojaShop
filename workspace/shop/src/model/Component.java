@@ -25,6 +25,11 @@ public abstract class Component extends PersistentObject implements PersistentCo
         return result;
     }
     
+    public static ComponentSearchList getComponentByName(String name) throws PersistenceException{
+        return ConnectionHandler.getTheConnectionHandler().theComponentFacade
+            .getComponentByName(name);
+    }
+    
     public abstract Component provideCopy() throws PersistenceException;
     
     public boolean hasEssentialFields() throws PersistenceException{
@@ -118,18 +123,12 @@ public abstract class Component extends PersistentObject implements PersistentCo
     
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
     }
     
     

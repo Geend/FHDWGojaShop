@@ -18,11 +18,29 @@ public class OwnerServiceProxi extends ServiceProxi implements PersistentOwnerSe
         return -276;
     }
     
+    public RootProductGroup4Public getRootProductGroup() throws PersistenceException {
+        return ((PersistentOwnerService)this.getTheObject()).getRootProductGroup();
+    }
+    public void setRootProductGroup(RootProductGroup4Public newValue) throws PersistenceException {
+        ((PersistentOwnerService)this.getTheObject()).setRootProductGroup(newValue);
+    }
+    public CustomerDeliveryTimeManager4Public getCustomerDeliveryTimeManager() throws PersistenceException {
+        return ((PersistentOwnerService)this.getTheObject()).getCustomerDeliveryTimeManager();
+    }
+    public void setCustomerDeliveryTimeManager(CustomerDeliveryTimeManager4Public newValue) throws PersistenceException {
+        ((PersistentOwnerService)this.getTheObject()).setCustomerDeliveryTimeManager(newValue);
+    }
     public ProducerLst4Public getPrmanager() throws PersistenceException {
         return ((PersistentOwnerService)this.getTheObject()).getPrmanager();
     }
     public void setPrmanager(ProducerLst4Public newValue) throws PersistenceException {
         ((PersistentOwnerService)this.getTheObject()).setPrmanager(newValue);
+    }
+    public Settings4Public getSettings() throws PersistenceException {
+        return ((PersistentOwnerService)this.getTheObject()).getSettings();
+    }
+    public void setSettings(Settings4Public newValue) throws PersistenceException {
+        ((PersistentOwnerService)this.getTheObject()).setSettings(newValue);
     }
     public PersistentOwnerService getThis() throws PersistenceException {
         return ((PersistentOwnerService)this.getTheObject()).getThis();
@@ -94,10 +112,6 @@ public class OwnerServiceProxi extends ServiceProxi implements PersistentOwnerSe
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).deregister(observee);
     }
-    public RootProductGroup4Public getRootProductGroup() 
-				throws PersistenceException{
-        return ((PersistentOwnerService)this.getTheObject()).getRootProductGroup();
-    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).initialize(This, final$$Fields);
@@ -110,10 +124,6 @@ public class OwnerServiceProxi extends ServiceProxi implements PersistentOwnerSe
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).register(observee);
     }
-    public void setRootProductGroup(final RootProductGroup4Public rootProductGroup) 
-				throws PersistenceException{
-        ((PersistentOwnerService)this.getTheObject()).setRootProductGroup(rootProductGroup);
-    }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).signalChanged(signal);
@@ -122,9 +132,25 @@ public class OwnerServiceProxi extends ServiceProxi implements PersistentOwnerSe
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).updateObservers(event);
     }
-    public void changeArticleName(final OwnerArticleWrapper4Public article, final String newName) 
+    public void changeArticleName(final ArticleWrapper4Public article, final String newName) 
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).changeArticleName(article, newName);
+    }
+    public void changeArticlePrice(final ArticleWrapper4Public article, final common.Fraction newPrice) 
+				throws PersistenceException{
+        ((PersistentOwnerService)this.getTheObject()).changeArticlePrice(article, newPrice);
+    }
+    public void changeNewCustomerDefaultBalance(final common.Fraction newValue) 
+				throws PersistenceException{
+        ((PersistentOwnerService)this.getTheObject()).changeNewCustomerDefaultBalance(newValue);
+    }
+    public void changeNewCustomerDefaultLimit(final common.Fraction newValue) 
+				throws PersistenceException{
+        ((PersistentOwnerService)this.getTheObject()).changeNewCustomerDefaultLimit(newValue);
+    }
+    public void changeReturnPercentage(final common.Fraction newValue) 
+				throws PersistenceException{
+        ((PersistentOwnerService)this.getTheObject()).changeReturnPercentage(newValue);
     }
     public void connected(final String user) 
 				throws PersistenceException{
@@ -134,6 +160,10 @@ public class OwnerServiceProxi extends ServiceProxi implements PersistentOwnerSe
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public void createCustomerDeliveryTime(final String name, final common.Fraction price, final long time) 
+				throws model.DoubleDefinitionException, PersistenceException{
+        ((PersistentOwnerService)this.getTheObject()).createCustomerDeliveryTime(name, price, time);
+    }
     public void createProducer(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).createProducer(name);
@@ -141,6 +171,10 @@ public class OwnerServiceProxi extends ServiceProxi implements PersistentOwnerSe
     public void disconnected() 
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).disconnected();
+    }
+    public Article4Public getArticle(final ArticleWrapper4Public wrapper) 
+				throws PersistenceException{
+        return ((PersistentOwnerService)this.getTheObject()).getArticle(wrapper);
     }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{
@@ -154,7 +188,7 @@ public class OwnerServiceProxi extends ServiceProxi implements PersistentOwnerSe
 				throws PersistenceException{
         return ((PersistentOwnerService)this.getTheObject()).hasChanged();
     }
-    public void increaseArticleStock(final StandardArticleWrapper4Public article, final long quantity) 
+    public void increaseArticleStock(final ArticleWrapper4Public article, final long quantity) 
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).increaseArticleStock(article, quantity);
     }
@@ -165,10 +199,6 @@ public class OwnerServiceProxi extends ServiceProxi implements PersistentOwnerSe
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).initializeOnInstantiation();
-    }
-    public OwnerArticleWrapper4Public loadOwnerServiceArticleWrapper(final StandardArticleWrapper4Public wrapper) 
-				throws PersistenceException{
-        return ((PersistentOwnerService)this.getTheObject()).loadOwnerServiceArticleWrapper(wrapper);
     }
     public void moveTo(final SubComponent component, final ProductGroup4Public newParentGroup) 
 				throws model.CycleException, PersistenceException{
@@ -186,19 +216,15 @@ public class OwnerServiceProxi extends ServiceProxi implements PersistentOwnerSe
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).newProductGroup(name);
     }
-    public void reduceArticleStock(final StandardArticleWrapper4Public article, final long quantity) 
+    public void reduceArticleStock(final ArticleWrapper4Public article, final long quantity) 
 				throws model.NotEnoughStockException, PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).reduceArticleStock(article, quantity);
     }
-    public void rootProductGroup_update(final model.meta.RootProductGroupMssgs event) 
-				throws PersistenceException{
-        ((PersistentOwnerService)this.getTheObject()).rootProductGroup_update(event);
-    }
-    public void startSelling(final StandardArticleWrapper4Public article) 
+    public void startSelling(final ArticleWrapper4Public article) 
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).startSelling(article);
     }
-    public void stopSelling(final StandardArticleWrapper4Public article) 
+    public void stopSelling(final ArticleWrapper4Public article) 
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).stopSelling(article);
     }

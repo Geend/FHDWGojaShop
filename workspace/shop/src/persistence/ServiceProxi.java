@@ -12,9 +12,6 @@ public abstract class ServiceProxi extends PersistentProxi implements Persistent
     }
     
     
-    public void setRootProductGroup(ServiceRootProductGroup4Public newValue) throws PersistenceException {
-        ((PersistentService)this.getTheObject()).setRootProductGroup(newValue);
-    }
     public SubjInterface getSubService() throws PersistenceException {
         return ((PersistentService)this.getTheObject()).getSubService();
     }
@@ -32,10 +29,6 @@ public abstract class ServiceProxi extends PersistentProxi implements Persistent
 				throws PersistenceException{
         ((PersistentService)this.getTheObject()).deregister(observee);
     }
-    public RootProductGroup4Public getRootProductGroup() 
-				throws PersistenceException{
-        return ((PersistentService)this.getTheObject()).getRootProductGroup();
-    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentService)this.getTheObject()).initialize(This, final$$Fields);
@@ -43,10 +36,6 @@ public abstract class ServiceProxi extends PersistentProxi implements Persistent
     public void register(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentService)this.getTheObject()).register(observee);
-    }
-    public void setRootProductGroup(final RootProductGroup4Public rootProductGroup) 
-				throws PersistenceException{
-        ((PersistentService)this.getTheObject()).setRootProductGroup(rootProductGroup);
     }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
@@ -87,10 +76,6 @@ public abstract class ServiceProxi extends PersistentProxi implements Persistent
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentService)this.getTheObject()).initializeOnInstantiation();
-    }
-    public void rootProductGroup_update(final model.meta.RootProductGroupMssgs event) 
-				throws PersistenceException{
-        ((PersistentService)this.getTheObject()).rootProductGroup_update(event);
     }
 
     

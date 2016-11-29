@@ -18,16 +18,22 @@ public class CustomerAccountProxi extends PersistentProxi implements PersistentC
         return 239;
     }
     
+    public String getName() throws PersistenceException {
+        return ((PersistentCustomerAccount)this.getTheObject()).getName();
+    }
+    public void setName(String newValue) throws PersistenceException {
+        ((PersistentCustomerAccount)this.getTheObject()).setName(newValue);
+    }
     public common.Fraction getBalance() throws PersistenceException {
         return ((PersistentCustomerAccount)this.getTheObject()).getBalance();
     }
     public void setBalance(common.Fraction newValue) throws PersistenceException {
         ((PersistentCustomerAccount)this.getTheObject()).setBalance(newValue);
     }
-    public long getLimit() throws PersistenceException {
+    public common.Fraction getLimit() throws PersistenceException {
         return ((PersistentCustomerAccount)this.getTheObject()).getLimit();
     }
-    public void setLimit(long newValue) throws PersistenceException {
+    public void setLimit(common.Fraction newValue) throws PersistenceException {
         ((PersistentCustomerAccount)this.getTheObject()).setLimit(newValue);
     }
     public ShoppingCart4Public getShoppingCart() throws PersistenceException {
@@ -72,6 +78,10 @@ public class CustomerAccountProxi extends PersistentProxi implements PersistentC
     }
     
     
+    public void deposit(final common.Fraction amount, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentCustomerAccount)this.getTheObject()).deposit(amount, invoker);
+    }
     public void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentCustomerAccount)this.getTheObject()).deregister(observee);
@@ -88,13 +98,13 @@ public class CustomerAccountProxi extends PersistentProxi implements PersistentC
 				throws PersistenceException{
         ((PersistentCustomerAccount)this.getTheObject()).updateObservers(event);
     }
+    public void withdraw(final common.Fraction amount, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentCustomerAccount)this.getTheObject()).withdraw(amount, invoker);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentCustomerAccount)this.getTheObject()).copyingPrivateUserAttributes(copy);
-    }
-    public void debit(final common.Fraction amount) 
-				throws PersistenceException{
-        ((PersistentCustomerAccount)this.getTheObject()).debit(amount);
     }
     public void deposit(final common.Fraction amount) 
 				throws PersistenceException{
@@ -107,6 +117,10 @@ public class CustomerAccountProxi extends PersistentProxi implements PersistentC
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentCustomerAccount)this.getTheObject()).initializeOnInstantiation();
+    }
+    public void withdraw(final common.Fraction amount) 
+				throws model.NotEnoughMoneyException, PersistenceException{
+        ((PersistentCustomerAccount)this.getTheObject()).withdraw(amount);
     }
 
     
