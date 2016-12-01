@@ -25,6 +25,7 @@ public class OrderManagerFacade{
 	}
 
     public long getClass(long objectId) throws PersistenceException{
+        if(Cache.getTheCache().contains(objectId, 343)) return 343;
         if(Cache.getTheCache().contains(objectId, 308)) return 308;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);

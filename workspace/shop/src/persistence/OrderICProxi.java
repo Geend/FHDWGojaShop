@@ -31,6 +31,12 @@ public class OrderICProxi extends PersistentInCacheProxiOptimistic implements Pe
     public void setCustomerDeliveryTime(CustomerDeliveryTime4Public newValue) throws PersistenceException {
         ((PersistentOrder)this.getTheObject()).setCustomerDeliveryTime(newValue);
     }
+    public common.Fraction getTotalPrice() throws PersistenceException {
+        return ((PersistentOrder)this.getTheObject()).getTotalPrice();
+    }
+    public void setTotalPrice(common.Fraction newValue) throws PersistenceException {
+        ((PersistentOrder)this.getTheObject()).setTotalPrice(newValue);
+    }
     public OrderState4Public getState() throws PersistenceException {
         return ((PersistentOrder)this.getTheObject()).getState();
     }

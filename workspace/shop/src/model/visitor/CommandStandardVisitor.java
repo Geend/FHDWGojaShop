@@ -14,6 +14,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleChangePriceCommand(ChangePriceCommand4Public changePriceCommand) throws PersistenceException{
         this.standardHandling(changePriceCommand);
     }
+    public void handleAddArticleReturnCommand(AddArticleReturnCommand4Public addArticleReturnCommand) throws PersistenceException{
+        this.standardHandling(addArticleReturnCommand);
+    }
     public void handleIncreaseStockCommand(IncreaseStockCommand4Public increaseStockCommand) throws PersistenceException{
         this.standardHandling(increaseStockCommand);
     }
@@ -35,8 +38,14 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleNewPreOrderCommand(NewPreOrderCommand4Public newPreOrderCommand) throws PersistenceException{
         this.standardHandling(newPreOrderCommand);
     }
+    public void handleReOrderCommand(ReOrderCommand4Public reOrderCommand) throws PersistenceException{
+        this.standardHandling(reOrderCommand);
+    }
     public void handleRegisterCommand(RegisterCommand4Public registerCommand) throws PersistenceException{
         this.standardHandling(registerCommand);
+    }
+    public void handleStartOrderingCommand(StartOrderingCommand4Public startOrderingCommand) throws PersistenceException{
+        this.standardHandling(startOrderingCommand);
     }
     public void handleWithdrawCommand(WithdrawCommand4Public withdrawCommand) throws PersistenceException{
         this.standardHandling(withdrawCommand);
@@ -61,6 +70,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     }
     public void handleDepositCommand(DepositCommand4Public depositCommand) throws PersistenceException{
         this.standardHandling(depositCommand);
+    }
+    public void handleDebitCommand(DebitCommand4Public debitCommand) throws PersistenceException{
+        this.standardHandling(debitCommand);
     }
     protected abstract void standardHandling(Command command) throws PersistenceException;
 }

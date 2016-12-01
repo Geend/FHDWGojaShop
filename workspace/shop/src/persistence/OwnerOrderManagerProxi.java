@@ -1,0 +1,105 @@
+package persistence;
+
+
+
+import model.visitor.*;
+
+public class OwnerOrderManagerProxi extends OrderManagerProxi implements PersistentOwnerOrderManager{
+    
+    public OwnerOrderManagerProxi(long objectId) {
+        super(objectId);
+    }
+    public OwnerOrderManagerProxi(PersistentInCacheProxi object) {
+        super(object);
+    }
+    
+    
+    public long getClassId() {
+        return 343;
+    }
+    
+    public PersistentOwnerOrderManager getThis() throws PersistenceException {
+        return ((PersistentOwnerOrderManager)this.getTheObject()).getThis();
+    }
+    
+    public void accept(OrderManagerVisitor visitor) throws PersistenceException {
+        visitor.handleOwnerOrderManager(this);
+    }
+    public <R> R accept(OrderManagerReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleOwnerOrderManager(this);
+    }
+    public <E extends model.UserException>  void accept(OrderManagerExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleOwnerOrderManager(this);
+    }
+    public <R, E extends model.UserException> R accept(OrderManagerReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleOwnerOrderManager(this);
+    }
+    public void accept(AnythingVisitor visitor) throws PersistenceException {
+        visitor.handleOwnerOrderManager(this);
+    }
+    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleOwnerOrderManager(this);
+    }
+    public <E extends model.UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleOwnerOrderManager(this);
+    }
+    public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleOwnerOrderManager(this);
+    }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleOwnerOrderManager(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleOwnerOrderManager(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleOwnerOrderManager(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleOwnerOrderManager(this);
+    }
+    
+    
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentOwnerOrderManager)this.getTheObject()).deregister(observee);
+    }
+    public OwnerService4Public getMyServer() 
+				throws PersistenceException{
+        return ((PersistentOwnerOrderManager)this.getTheObject()).getMyServer();
+    }
+    public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
+				throws PersistenceException{
+        ((PersistentOwnerOrderManager)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentOwnerOrderManager)this.getTheObject()).register(observee);
+    }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentOwnerOrderManager)this.getTheObject()).updateObservers(event);
+    }
+    public void addOrder(final Order4Public order) 
+				throws PersistenceException{
+        ((PersistentOwnerOrderManager)this.getTheObject()).addOrder(order);
+    }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+        ((PersistentOwnerOrderManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
+        ((PersistentOwnerOrderManager)this.getTheObject()).initializeOnCreation();
+    }
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+        ((PersistentOwnerOrderManager)this.getTheObject()).initializeOnInstantiation();
+    }
+    public void startOrderProcessing() 
+				throws PersistenceException{
+        ((PersistentOwnerOrderManager)this.getTheObject()).startOrderProcessing();
+    }
+
+    
+}

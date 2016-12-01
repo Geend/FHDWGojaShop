@@ -149,6 +149,10 @@ public class CustomerServiceProxi extends ServiceProxi implements PersistentCust
 				throws PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).updateObservers(event);
     }
+    public void acceptOrder(final Order4Public order) 
+				throws PersistenceException{
+        ((PersistentCustomerService)this.getTheObject()).acceptOrder(order);
+    }
     public void addToCart(final ArticleWrapper4Public article, final long quantity) 
 				throws PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).addToCart(article, quantity);
@@ -205,6 +209,10 @@ public class CustomerServiceProxi extends ServiceProxi implements PersistentCust
 				throws PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).initializeOnInstantiation();
     }
+    public void markForReturn(final OrderQuantifiedArticle4Public article) 
+				throws PersistenceException{
+        ((PersistentCustomerService)this.getTheObject()).markForReturn(article);
+    }
     public void order(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
 				throws model.NotEnoughStockException, model.NotEnoughMoneyException, PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).order(cart, customerDeliveryTime);
@@ -220,6 +228,10 @@ public class CustomerServiceProxi extends ServiceProxi implements PersistentCust
     public void rootProductGroup_update(final model.meta.RootProductGroupMssgs event) 
 				throws PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).rootProductGroup_update(event);
+    }
+    public void unmarkForReturn(final OrderQuantifiedArticle4Public article) 
+				throws PersistenceException{
+        ((PersistentCustomerService)this.getTheObject()).unmarkForReturn(article);
     }
     public void withdraw(final common.Fraction amount) 
 				throws model.NotEnoughMoneyException, PersistenceException{

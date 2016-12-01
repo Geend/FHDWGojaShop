@@ -104,7 +104,7 @@ public class RootProductGroup extends view.objects.ProductGroup implements RootP
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
-                if(rowIndex == 0) return "name";
+                if(rowIndex == 0) return "Name";
                 rowIndex = rowIndex - 1;
             } else {
                 if(rowIndex == 0) return this.getName();

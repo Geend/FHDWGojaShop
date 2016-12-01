@@ -5,6 +5,10 @@ import model.visitor.*;
 
 public interface Order4Public extends Anything, SubjInterface, AbstractPersistentProxi {
     
+    public Order_ArticlesProxi getArticles() throws PersistenceException ;
+    public common.Fraction getTotalPrice() throws PersistenceException ;
+    public OrderState4Public getState() throws PersistenceException ;
+    public void setState(OrderState4Public newValue) throws PersistenceException ;
     
     public void accept(AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;

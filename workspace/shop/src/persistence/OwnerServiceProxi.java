@@ -42,6 +42,24 @@ public class OwnerServiceProxi extends ServiceProxi implements PersistentOwnerSe
     public void setSettings(Settings4Public newValue) throws PersistenceException {
         ((PersistentOwnerService)this.getTheObject()).setSettings(newValue);
     }
+    public ReOrderManager4Public getReOrderManager() throws PersistenceException {
+        return ((PersistentOwnerService)this.getTheObject()).getReOrderManager();
+    }
+    public void setReOrderManager(ReOrderManager4Public newValue) throws PersistenceException {
+        ((PersistentOwnerService)this.getTheObject()).setReOrderManager(newValue);
+    }
+    public OwnerOrderManager4Public getOwnerOrderManager() throws PersistenceException {
+        return ((PersistentOwnerService)this.getTheObject()).getOwnerOrderManager();
+    }
+    public void setOwnerOrderManager(OwnerOrderManager4Public newValue) throws PersistenceException {
+        ((PersistentOwnerService)this.getTheObject()).setOwnerOrderManager(newValue);
+    }
+    public ReturnManager4Public getReturnManager() throws PersistenceException {
+        return ((PersistentOwnerService)this.getTheObject()).getReturnManager();
+    }
+    public void setReturnManager(ReturnManager4Public newValue) throws PersistenceException {
+        ((PersistentOwnerService)this.getTheObject()).setReturnManager(newValue);
+    }
     public PersistentOwnerService getThis() throws PersistenceException {
         return ((PersistentOwnerService)this.getTheObject()).getThis();
     }
@@ -139,6 +157,14 @@ public class OwnerServiceProxi extends ServiceProxi implements PersistentOwnerSe
     public void changeArticlePrice(final ArticleWrapper4Public article, final common.Fraction newPrice) 
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).changeArticlePrice(article, newPrice);
+    }
+    public void changeCustomerDeliveryTimePrice(final CustomerDeliveryTime4Public customerDeliveryTime, final common.Fraction newValue) 
+				throws PersistenceException{
+        ((PersistentOwnerService)this.getTheObject()).changeCustomerDeliveryTimePrice(customerDeliveryTime, newValue);
+    }
+    public void changeCustomerDeliveryTimeTime(final CustomerDeliveryTime4Public customerDeliveryTime, final long newValue) 
+				throws PersistenceException{
+        ((PersistentOwnerService)this.getTheObject()).changeCustomerDeliveryTimeTime(customerDeliveryTime, newValue);
     }
     public void changeNewCustomerDefaultBalance(final common.Fraction newValue) 
 				throws PersistenceException{

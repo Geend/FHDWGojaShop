@@ -43,7 +43,28 @@ public class OwnerServiceProxi extends ServiceProxi implements OwnerServiceView{
             settings = view.objects.ViewProxi.createProxi(settings$Info,connectionKey);
             settings.setToString(settings$Info.getToString());
         }
-        OwnerServiceView result$$ = new OwnerService(errors,(RootProductGroupView)rootProductGroup,(CustomerDeliveryTimeManagerView)customerDeliveryTimeManager,(ProducerLstView)prmanager,(SettingsView)settings, this.getId(), this.getClassId());
+        ViewProxi reOrderManager = null;
+        String reOrderManager$String = (String)resultTable.get("reOrderManager");
+        if (reOrderManager$String != null) {
+            common.ProxiInformation reOrderManager$Info = common.RPCConstantsAndServices.createProxiInformation(reOrderManager$String);
+            reOrderManager = view.objects.ViewProxi.createProxi(reOrderManager$Info,connectionKey);
+            reOrderManager.setToString(reOrderManager$Info.getToString());
+        }
+        ViewProxi ownerOrderManager = null;
+        String ownerOrderManager$String = (String)resultTable.get("ownerOrderManager");
+        if (ownerOrderManager$String != null) {
+            common.ProxiInformation ownerOrderManager$Info = common.RPCConstantsAndServices.createProxiInformation(ownerOrderManager$String);
+            ownerOrderManager = view.objects.ViewProxi.createProxi(ownerOrderManager$Info,connectionKey);
+            ownerOrderManager.setToString(ownerOrderManager$Info.getToString());
+        }
+        ViewProxi returnManager = null;
+        String returnManager$String = (String)resultTable.get("returnManager");
+        if (returnManager$String != null) {
+            common.ProxiInformation returnManager$Info = common.RPCConstantsAndServices.createProxiInformation(returnManager$String);
+            returnManager = view.objects.ViewProxi.createProxi(returnManager$Info,connectionKey);
+            returnManager.setToString(returnManager$Info.getToString());
+        }
+        OwnerServiceView result$$ = new OwnerService(errors,(RootProductGroupView)rootProductGroup,(CustomerDeliveryTimeManagerView)customerDeliveryTimeManager,(ProducerLstView)prmanager,(SettingsView)settings,(ReOrderManagerView)reOrderManager,(OwnerOrderManagerView)ownerOrderManager,(ReturnManagerView)returnManager, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -61,6 +82,12 @@ public class OwnerServiceProxi extends ServiceProxi implements OwnerServiceView{
         if(this.getPrmanager() != null) index = index - 1;
         if(index == 0 && this.getSettings() != null) return new SettingsOwnerServiceWrapper(this, originalIndex, (ViewRoot)this.getSettings());
         if(this.getSettings() != null) index = index - 1;
+        if(index == 0 && this.getReOrderManager() != null) return new ReOrderManagerOwnerServiceWrapper(this, originalIndex, (ViewRoot)this.getReOrderManager());
+        if(this.getReOrderManager() != null) index = index - 1;
+        if(index == 0 && this.getOwnerOrderManager() != null) return new OwnerOrderManagerOwnerServiceWrapper(this, originalIndex, (ViewRoot)this.getOwnerOrderManager());
+        if(this.getOwnerOrderManager() != null) index = index - 1;
+        if(index == 0 && this.getReturnManager() != null) return new ReturnManagerOwnerServiceWrapper(this, originalIndex, (ViewRoot)this.getReturnManager());
+        if(this.getReturnManager() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
@@ -68,7 +95,10 @@ public class OwnerServiceProxi extends ServiceProxi implements OwnerServiceView{
             + (this.getRootProductGroup() == null ? 0 : 1)
             + (this.getCustomerDeliveryTimeManager() == null ? 0 : 1)
             + (this.getPrmanager() == null ? 0 : 1)
-            + (this.getSettings() == null ? 0 : 1);
+            + (this.getSettings() == null ? 0 : 1)
+            + (this.getReOrderManager() == null ? 0 : 1)
+            + (this.getOwnerOrderManager() == null ? 0 : 1)
+            + (this.getReturnManager() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
@@ -76,7 +106,10 @@ public class OwnerServiceProxi extends ServiceProxi implements OwnerServiceView{
             && (this.getRootProductGroup() == null ? true : false)
             && (this.getCustomerDeliveryTimeManager() == null ? true : false)
             && (this.getPrmanager() == null ? true : false)
-            && (this.getSettings() == null ? true : false);
+            && (this.getSettings() == null ? true : false)
+            && (this.getReOrderManager() == null ? true : false)
+            && (this.getOwnerOrderManager() == null ? true : false)
+            && (this.getReturnManager() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -88,6 +121,12 @@ public class OwnerServiceProxi extends ServiceProxi implements OwnerServiceView{
         if(this.getPrmanager() != null) result = result + 1;
         if(this.getSettings() != null && this.getSettings().equals(child)) return result;
         if(this.getSettings() != null) result = result + 1;
+        if(this.getReOrderManager() != null && this.getReOrderManager().equals(child)) return result;
+        if(this.getReOrderManager() != null) result = result + 1;
+        if(this.getOwnerOrderManager() != null && this.getOwnerOrderManager().equals(child)) return result;
+        if(this.getOwnerOrderManager() != null) result = result + 1;
+        if(this.getReturnManager() != null && this.getReturnManager().equals(child)) return result;
+        if(this.getReturnManager() != null) result = result + 1;
         return -1;
     }
     
@@ -114,6 +153,24 @@ public class OwnerServiceProxi extends ServiceProxi implements OwnerServiceView{
     }
     public void setSettings(SettingsView newValue) throws ModelException {
         ((OwnerService)this.getTheObject()).setSettings(newValue);
+    }
+    public ReOrderManagerView getReOrderManager()throws ModelException{
+        return ((OwnerService)this.getTheObject()).getReOrderManager();
+    }
+    public void setReOrderManager(ReOrderManagerView newValue) throws ModelException {
+        ((OwnerService)this.getTheObject()).setReOrderManager(newValue);
+    }
+    public OwnerOrderManagerView getOwnerOrderManager()throws ModelException{
+        return ((OwnerService)this.getTheObject()).getOwnerOrderManager();
+    }
+    public void setOwnerOrderManager(OwnerOrderManagerView newValue) throws ModelException {
+        ((OwnerService)this.getTheObject()).setOwnerOrderManager(newValue);
+    }
+    public ReturnManagerView getReturnManager()throws ModelException{
+        return ((OwnerService)this.getTheObject()).getReturnManager();
+    }
+    public void setReturnManager(ReturnManagerView newValue) throws ModelException {
+        ((OwnerService)this.getTheObject()).setReturnManager(newValue);
     }
     
     public void accept(ServiceVisitor visitor) throws ModelException {

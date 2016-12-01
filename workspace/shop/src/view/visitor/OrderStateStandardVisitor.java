@@ -5,14 +5,20 @@ import view.*;
 
 public abstract class OrderStateStandardVisitor implements OrderStateVisitor {
     
-    public void handleActiveOrder(ActiveOrderView activeOrder) throws ModelException{
-        this.standardHandling(activeOrder);
+    public void handlePreOrderState(PreOrderStateView preOrderState) throws ModelException{
+        this.standardHandling(preOrderState);
     }
-    public void handlePreOrder(PreOrderView preOrder) throws ModelException{
-        this.standardHandling(preOrder);
+    public void handleWaitingForAcceptOrderState(WaitingForAcceptOrderStateView waitingForAcceptOrderState) throws ModelException{
+        this.standardHandling(waitingForAcceptOrderState);
     }
-    public void handleFinishedOrder(FinishedOrderView finishedOrder) throws ModelException{
-        this.standardHandling(finishedOrder);
+    public void handleFinishedOrderState(FinishedOrderStateView finishedOrderState) throws ModelException{
+        this.standardHandling(finishedOrderState);
+    }
+    public void handleProcessingOrderState(ProcessingOrderStateView processingOrderState) throws ModelException{
+        this.standardHandling(processingOrderState);
+    }
+    public void handleInTransitOrderState(InTransitOrderStateView inTransitOrderState) throws ModelException{
+        this.standardHandling(inTransitOrderState);
     }
     protected abstract void standardHandling(OrderStateView orderState) throws ModelException;
 }

@@ -14,14 +14,20 @@ public class OwnerService extends view.objects.Service implements OwnerServiceVi
     protected CustomerDeliveryTimeManagerView customerDeliveryTimeManager;
     protected ProducerLstView prmanager;
     protected SettingsView settings;
+    protected ReOrderManagerView reOrderManager;
+    protected OwnerOrderManagerView ownerOrderManager;
+    protected ReturnManagerView returnManager;
     
-    public OwnerService(java.util.Vector<ErrorDisplayView> errors,RootProductGroupView rootProductGroup,CustomerDeliveryTimeManagerView customerDeliveryTimeManager,ProducerLstView prmanager,SettingsView settings,long id, long classId) {
+    public OwnerService(java.util.Vector<ErrorDisplayView> errors,RootProductGroupView rootProductGroup,CustomerDeliveryTimeManagerView customerDeliveryTimeManager,ProducerLstView prmanager,SettingsView settings,ReOrderManagerView reOrderManager,OwnerOrderManagerView ownerOrderManager,ReturnManagerView returnManager,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(errors,id, classId);
         this.rootProductGroup = rootProductGroup;
         this.customerDeliveryTimeManager = customerDeliveryTimeManager;
         this.prmanager = prmanager;
-        this.settings = settings;        
+        this.settings = settings;
+        this.reOrderManager = reOrderManager;
+        this.ownerOrderManager = ownerOrderManager;
+        this.returnManager = returnManager;        
     }
     
     static public long getTypeId() {
@@ -55,6 +61,24 @@ public class OwnerService extends view.objects.Service implements OwnerServiceVi
     }
     public void setSettings(SettingsView newValue) throws ModelException {
         this.settings = newValue;
+    }
+    public ReOrderManagerView getReOrderManager()throws ModelException{
+        return this.reOrderManager;
+    }
+    public void setReOrderManager(ReOrderManagerView newValue) throws ModelException {
+        this.reOrderManager = newValue;
+    }
+    public OwnerOrderManagerView getOwnerOrderManager()throws ModelException{
+        return this.ownerOrderManager;
+    }
+    public void setOwnerOrderManager(OwnerOrderManagerView newValue) throws ModelException {
+        this.ownerOrderManager = newValue;
+    }
+    public ReturnManagerView getReturnManager()throws ModelException{
+        return this.returnManager;
+    }
+    public void setReturnManager(ReturnManagerView newValue) throws ModelException {
+        this.returnManager = newValue;
     }
     
     public void accept(ServiceVisitor visitor) throws ModelException {
@@ -115,6 +139,18 @@ public class OwnerService extends view.objects.Service implements OwnerServiceVi
         if (settings != null) {
             ((ViewProxi)settings).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(settings.getClassId(), settings.getId())));
         }
+        ReOrderManagerView reOrderManager = this.getReOrderManager();
+        if (reOrderManager != null) {
+            ((ViewProxi)reOrderManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(reOrderManager.getClassId(), reOrderManager.getId())));
+        }
+        OwnerOrderManagerView ownerOrderManager = this.getOwnerOrderManager();
+        if (ownerOrderManager != null) {
+            ((ViewProxi)ownerOrderManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(ownerOrderManager.getClassId(), ownerOrderManager.getId())));
+        }
+        ReturnManagerView returnManager = this.getReturnManager();
+        if (returnManager != null) {
+            ((ViewProxi)returnManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(returnManager.getClassId(), returnManager.getId())));
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {
@@ -130,6 +166,12 @@ public class OwnerService extends view.objects.Service implements OwnerServiceVi
         if(this.getPrmanager() != null) index = index - 1;
         if(index == 0 && this.getSettings() != null) return new SettingsOwnerServiceWrapper(this, originalIndex, (ViewRoot)this.getSettings());
         if(this.getSettings() != null) index = index - 1;
+        if(index == 0 && this.getReOrderManager() != null) return new ReOrderManagerOwnerServiceWrapper(this, originalIndex, (ViewRoot)this.getReOrderManager());
+        if(this.getReOrderManager() != null) index = index - 1;
+        if(index == 0 && this.getOwnerOrderManager() != null) return new OwnerOrderManagerOwnerServiceWrapper(this, originalIndex, (ViewRoot)this.getOwnerOrderManager());
+        if(this.getOwnerOrderManager() != null) index = index - 1;
+        if(index == 0 && this.getReturnManager() != null) return new ReturnManagerOwnerServiceWrapper(this, originalIndex, (ViewRoot)this.getReturnManager());
+        if(this.getReturnManager() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
@@ -137,14 +179,20 @@ public class OwnerService extends view.objects.Service implements OwnerServiceVi
             + (this.getRootProductGroup() == null ? 0 : 1)
             + (this.getCustomerDeliveryTimeManager() == null ? 0 : 1)
             + (this.getPrmanager() == null ? 0 : 1)
-            + (this.getSettings() == null ? 0 : 1);
+            + (this.getSettings() == null ? 0 : 1)
+            + (this.getReOrderManager() == null ? 0 : 1)
+            + (this.getOwnerOrderManager() == null ? 0 : 1)
+            + (this.getReturnManager() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         return true 
             && (this.getRootProductGroup() == null ? true : false)
             && (this.getCustomerDeliveryTimeManager() == null ? true : false)
             && (this.getPrmanager() == null ? true : false)
-            && (this.getSettings() == null ? true : false);
+            && (this.getSettings() == null ? true : false)
+            && (this.getReOrderManager() == null ? true : false)
+            && (this.getOwnerOrderManager() == null ? true : false)
+            && (this.getReturnManager() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -156,6 +204,12 @@ public class OwnerService extends view.objects.Service implements OwnerServiceVi
         if(this.getPrmanager() != null) result = result + 1;
         if(this.getSettings() != null && this.getSettings().equals(child)) return result;
         if(this.getSettings() != null) result = result + 1;
+        if(this.getReOrderManager() != null && this.getReOrderManager().equals(child)) return result;
+        if(this.getReOrderManager() != null) result = result + 1;
+        if(this.getOwnerOrderManager() != null && this.getOwnerOrderManager().equals(child)) return result;
+        if(this.getOwnerOrderManager() != null) result = result + 1;
+        if(this.getReturnManager() != null && this.getReturnManager().equals(child)) return result;
+        if(this.getReturnManager() != null) result = result + 1;
         return -1;
     }
     public int getRowCount(){

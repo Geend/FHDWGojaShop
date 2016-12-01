@@ -45,6 +45,28 @@ public  class RemoteOwnerService extends RemoteService {
         }
     }
     
+    public synchronized java.util.HashMap<?,?> changeCustomerDeliveryTimePrice(String customerDeliveryTimeProxiString, String newValueAsString){
+        try {
+            PersistentCustomerDeliveryTime customerDeliveryTime = (PersistentCustomerDeliveryTime)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(customerDeliveryTimeProxiString));
+            common.Fraction newValue = common.Fraction.parse(newValueAsString);
+            ((PersistentOwnerService)this.server).changeCustomerDeliveryTimePrice(customerDeliveryTime, newValue);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> changeCustomerDeliveryTimeTime(String customerDeliveryTimeProxiString, String newValueAsString){
+        try {
+            PersistentCustomerDeliveryTime customerDeliveryTime = (PersistentCustomerDeliveryTime)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(customerDeliveryTimeProxiString));
+            long newValue = new Long(newValueAsString).longValue();
+            ((PersistentOwnerService)this.server).changeCustomerDeliveryTimeTime(customerDeliveryTime, newValue);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.HashMap<?,?> changeNewCustomerDefaultBalance(String newValueAsString){
         try {
             common.Fraction newValue = common.Fraction.parse(newValueAsString);

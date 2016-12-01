@@ -82,6 +82,10 @@ public class CustomerAccountICProxi extends PersistentInCacheProxiOptimistic imp
     }
     
     
+    public void debit(final common.Fraction amount, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentCustomerAccount)this.getTheObject()).debit(amount, invoker);
+    }
     public void deposit(final common.Fraction amount, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentCustomerAccount)this.getTheObject()).deposit(amount, invoker);
@@ -109,6 +113,10 @@ public class CustomerAccountICProxi extends PersistentInCacheProxiOptimistic imp
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentCustomerAccount)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public void debit(final common.Fraction amount) 
+				throws model.NotEnoughMoneyException, PersistenceException{
+        ((PersistentCustomerAccount)this.getTheObject()).debit(amount);
     }
     public void deposit(final common.Fraction amount) 
 				throws PersistenceException{

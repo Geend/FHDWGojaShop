@@ -5,8 +5,10 @@ import persistence.*;
 
 public interface OrderStateVisitor {
     
-    public void handleActiveOrder(ActiveOrder4Public activeOrder) throws PersistenceException;
-    public void handleFinishedOrder(FinishedOrder4Public finishedOrder) throws PersistenceException;
-    public void handlePreOrder(PreOrder4Public preOrder) throws PersistenceException;
+    public void handleFinishedOrderState(FinishedOrderState4Public finishedOrderState) throws PersistenceException;
+    public void handleInTransitOrderState(InTransitOrderState4Public inTransitOrderState) throws PersistenceException;
+    public void handlePreOrderState(PreOrderState4Public preOrderState) throws PersistenceException;
+    public void handleProcessingOrderState(ProcessingOrderState4Public processingOrderState) throws PersistenceException;
+    public void handleWaitingForAcceptOrderState(WaitingForAcceptOrderState4Public waitingForAcceptOrderState) throws PersistenceException;
     
 }

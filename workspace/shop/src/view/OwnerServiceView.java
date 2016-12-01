@@ -14,6 +14,12 @@ public interface OwnerServiceView extends ServiceView {
     public void setPrmanager(ProducerLstView newValue) throws ModelException ;
     public SettingsView getSettings()throws ModelException;
     public void setSettings(SettingsView newValue) throws ModelException ;
+    public ReOrderManagerView getReOrderManager()throws ModelException;
+    public void setReOrderManager(ReOrderManagerView newValue) throws ModelException ;
+    public OwnerOrderManagerView getOwnerOrderManager()throws ModelException;
+    public void setOwnerOrderManager(OwnerOrderManagerView newValue) throws ModelException ;
+    public ReturnManagerView getReturnManager()throws ModelException;
+    public void setReturnManager(ReturnManagerView newValue) throws ModelException ;
     
     public void accept(ServiceVisitor visitor) throws ModelException;
     public <R> R accept(ServiceReturnVisitor<R>  visitor) throws ModelException;

@@ -7,6 +7,7 @@ public interface CustomerAccount4Public extends Anything, SubjInterface, Abstrac
     
     public String getName() throws PersistenceException ;
     public common.Fraction getBalance() throws PersistenceException ;
+    public void setBalance(common.Fraction newValue) throws PersistenceException ;
     public common.Fraction getLimit() throws PersistenceException ;
     
     public void accept(AnythingVisitor visitor) throws PersistenceException;
@@ -18,6 +19,8 @@ public interface CustomerAccount4Public extends Anything, SubjInterface, Abstrac
     public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
+    public void debit(final common.Fraction amount, final Invoker invoker) 
+				throws PersistenceException;
     public void deposit(final common.Fraction amount, final Invoker invoker) 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
@@ -26,6 +29,8 @@ public interface CustomerAccount4Public extends Anything, SubjInterface, Abstrac
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
+    public void debit(final common.Fraction amount) 
+				throws model.NotEnoughMoneyException, PersistenceException;
     public void deposit(final common.Fraction amount) 
 				throws PersistenceException;
     public void initializeOnCreation() 

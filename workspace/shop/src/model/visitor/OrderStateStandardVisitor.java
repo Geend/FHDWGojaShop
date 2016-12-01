@@ -5,14 +5,20 @@ import persistence.*;
 
 public abstract class OrderStateStandardVisitor implements OrderStateVisitor {
     
-    public void handleActiveOrder(ActiveOrder4Public activeOrder) throws PersistenceException{
-        this.standardHandling(activeOrder);
+    public void handlePreOrderState(PreOrderState4Public preOrderState) throws PersistenceException{
+        this.standardHandling(preOrderState);
     }
-    public void handlePreOrder(PreOrder4Public preOrder) throws PersistenceException{
-        this.standardHandling(preOrder);
+    public void handleWaitingForAcceptOrderState(WaitingForAcceptOrderState4Public waitingForAcceptOrderState) throws PersistenceException{
+        this.standardHandling(waitingForAcceptOrderState);
     }
-    public void handleFinishedOrder(FinishedOrder4Public finishedOrder) throws PersistenceException{
-        this.standardHandling(finishedOrder);
+    public void handleFinishedOrderState(FinishedOrderState4Public finishedOrderState) throws PersistenceException{
+        this.standardHandling(finishedOrderState);
+    }
+    public void handleProcessingOrderState(ProcessingOrderState4Public processingOrderState) throws PersistenceException{
+        this.standardHandling(processingOrderState);
+    }
+    public void handleInTransitOrderState(InTransitOrderState4Public inTransitOrderState) throws PersistenceException{
+        this.standardHandling(inTransitOrderState);
     }
     protected abstract void standardHandling(OrderState4Public orderState) throws PersistenceException;
 }

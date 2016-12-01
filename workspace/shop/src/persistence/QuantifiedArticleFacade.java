@@ -26,7 +26,9 @@ public class QuantifiedArticleFacade{
 
     public long getClass(long objectId) throws PersistenceException{
         if(Cache.getTheCache().contains(objectId, 232)) return 232;
+        if(Cache.getTheCache().contains(objectId, 326)) return 326;
         if(Cache.getTheCache().contains(objectId, 236)) return 236;
+        if(Cache.getTheCache().contains(objectId, 346)) return 346;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

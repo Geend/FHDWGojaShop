@@ -67,7 +67,7 @@ public abstract class ProductGroup extends view.objects.Component implements Pro
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
-                if(rowIndex == 0) return "name";
+                if(rowIndex == 0) return "Name";
                 rowIndex = rowIndex - 1;
             } else {
                 if(rowIndex == 0) return this.getName();

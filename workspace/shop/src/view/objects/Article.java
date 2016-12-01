@@ -181,21 +181,21 @@ public class Article extends view.objects.Component implements ArticleView{
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
-                if(rowIndex == 0) return "name";
+                if(rowIndex == 0) return "Name";
                 rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return "price";
+                if(rowIndex == 0) return "Preis";
                 rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return "minStock";
+                if(rowIndex == 0) return "Mindestlagerbestand";
                 rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return "maxStock";
+                if(rowIndex == 0) return "Maximallagerbestand";
                 rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return "currentStock";
+                if(rowIndex == 0) return "Lagerbestand";
                 rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return "producerDeliveryTime";
+                if(rowIndex == 0) return "Herstellerlieferzeit";
                 rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return "currentState";
+                if(rowIndex == 0) return "Status";
                 rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return "producerName";
+                if(rowIndex == 0) return "Hersteller";
                 rowIndex = rowIndex - 1;
             } else {
                 if(rowIndex == 0) return this.getName();

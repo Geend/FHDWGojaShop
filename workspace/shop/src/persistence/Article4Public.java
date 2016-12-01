@@ -12,6 +12,7 @@ public interface Article4Public extends Component4Public {
     public long getMaxStock() throws PersistenceException ;
     public void setMaxStock(long newValue) throws PersistenceException ;
     public long getCurrentStock() throws PersistenceException ;
+    public void setCurrentStock(long newValue) throws PersistenceException ;
     public long getProducerDeliveryTime() throws PersistenceException ;
     public void setProducerDeliveryTime(long newValue) throws PersistenceException ;
     public Producer4Public getProducer() throws PersistenceException ;

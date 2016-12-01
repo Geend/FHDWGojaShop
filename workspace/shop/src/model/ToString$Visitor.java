@@ -39,13 +39,20 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
+	public void handleReOrderQuantifiedArticle(ReOrderQuantifiedArticle4Public reOrderQuantifiedArticle) throws PersistenceException {
+		result = reOrderQuantifiedArticle.getQuantity() + "x " + reOrderQuantifiedArticle.getArticle().getName() + "(" + reOrderQuantifiedArticle.getCountdown()+ " Ticks remaining)";
+
+	}
+
+	@Override
 	public void handleOwnerService(OwnerService4Public ownerService) throws PersistenceException {
 	}
 
 	@Override
-	public void handleActiveOrder(ActiveOrder4Public activeOrder) throws PersistenceException {
-
+	public void handleFinishedOrderState(FinishedOrderState4Public finishedOrderState) throws PersistenceException {
+		result = "abgeschlossen";
 	}
+
 
 	@Override
 	public void handleCustomerService(CustomerService4Public customerService) throws PersistenceException {
@@ -55,6 +62,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	public void handleCustomerRegisterService(CustomerRegisterService4Public customerRegisterService) throws PersistenceException {
 	}
 
+	@Override
+	public void handleProcessingOrderState(ProcessingOrderState4Public processingOrderState) throws PersistenceException {
+		result = "in Bearbeitung";
+	}
+
 
 	@Override
 	public void handleArticle(Article4Public article) throws PersistenceException {
@@ -62,13 +74,14 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
-	public void handleFinishedOrder(FinishedOrder4Public finishedOrder) throws PersistenceException {
-
+	public void handleOwnerOrderManager(OwnerOrderManager4Public ownerOrderManager) throws PersistenceException {
+		result = "Laufende Kunden-Bestellungen";
 	}
+
 
 	@Override
 	public void handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException {
-		result = "Hersteller (H)";
+		result = "Hersteller";
 	}
 
 
@@ -89,7 +102,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleRootProductGroup(RootProductGroup4Public rootProductGroup) throws PersistenceException {
-		result = "RootProductGroup (" + rootProductGroup.getName() + ")";
+		result = "Produkte (" + rootProductGroup.getName() + ")";
 	}
 
 
@@ -98,13 +111,16 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		result = "Kunde " + customerAccount.getName();
 	}
 
-
-
+	@Override
+	public void handleReOrderManager(ReOrderManager4Public reOrderManager) throws PersistenceException {
+		result = "Offene Nachbestellungen";
+	}
 
 	@Override
-	public void handlePreOrder(PreOrder4Public preOrder) throws PersistenceException {
-
+	public void handleInTransitOrderState(InTransitOrderState4Public inTransitOrderState) throws PersistenceException {
+		result = "unterwegs";
 	}
+
 
 	@Override
 	public void handleNotInSale(NotInSale4Public notInSale) throws PersistenceException {
@@ -158,6 +174,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
+	public void handleArticleReturn(ArticleReturn4Public articleReturn) throws PersistenceException {
+		result = "Retour";
+	}
+
+	@Override
 	public void handleShoppingCart(ShoppingCart4Public shoppingCart) throws PersistenceException {
 		result = "Warenkorb";
 	}
@@ -196,13 +217,32 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		});
 	}
 
+	@Override
+	public void handlePreOrderState(PreOrderState4Public preOrderState) throws PersistenceException {
+		result = "vorbestellt";
+	}
+
+	@Override
+	public void handleReturnManager(ReturnManager4Public returnManager) throws PersistenceException {
+		result = "Laufende Retouren";
+	}
+
 
 	@Override
 	public void handleNewCreated(NewCreated4Public newCreated) throws PersistenceException {
 		result = "Neuer Artikel, nicht im Verkauf";
 	}
 
+	@Override
+	public void handleWaitingForAcceptOrderState(WaitingForAcceptOrderState4Public waitingForAcceptOrderState) throws PersistenceException {
+		result = "warten auf Annahme";
+	}
 
+	@Override
+	public void handleReturnQuantifiedArticle(ReturnQuantifiedArticle4Public returnQuantifiedArticle) throws PersistenceException {
+		result = returnQuantifiedArticle.getArticle().getName();
+		//TODO! improve result
+	}
 
 
 	@Override

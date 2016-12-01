@@ -1,7 +1,6 @@
 model shop {
 
-// Server relevant classes - region begin
-
+// Server relevant classes - region begin
 server Server {
 	Service service;
 }
@@ -9,32 +8,42 @@ server Server {
 abstract server Service {
 }
 
-
 server OwnerService extends Service {
+
+	//Manager
   	one-to-one (server-only myServer) RootProductGroup rootProductGroup;
 	CustomerDeliveryTimeManager customerDeliveryTimeManager##cdtm;
 	ProducerLst prmanager;
 	Settings settings;
+  one-to-one (server-only myServer)	ReOrderManager reOrderManager;
+one-to-one (server-only myServer)	OwnerOrderManager ownerOrderManager##oom;
 
-	void createProducer(String name) throws DoubleDefinitionException;
+one-to-one (server-only myServer)	ReturnManager returnManager##rm;
+	//Producer
+	void createProducer@@Hersteller_anlegen(String name) throws DoubleDefinitionException;
 
-	void newArticle(ProductGroup parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
-	void newProductGroup(ProductGroup parent, String name) throws CycleException, DoubleDefinitionException;
+	//Articles
+	//TODO: Prevent article creation with same name and producer
+	void newArticle@@Neuer_Artikel(ProductGroup parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
+	void newProductGroup@@Neue_Produktgruppe(ProductGroup parent, String name) throws CycleException, DoubleDefinitionException;
 	void newProductGroup@@Neue_Produktgruppe(String name) throws DoubleDefinitionException, CycleException;
 	
-	void moveTo(SubComponent component, ProductGroup newParentGroup)throws CycleException;
+	void moveTo@@verschieben(SubComponent component, ProductGroup newParentGroup)throws CycleException;
 
 
 	no-view void changeArticleName(ArticleWrapper article, String newName);
 	no-view void changeArticlePrice(ArticleWrapper article, Fraction newPrice);
 
-	void startSelling(ArticleWrapper article checked);
-	void stopSelling(ArticleWrapper article checked);
-
-	void createCustomerDeliveryTime(String name, Fraction price, Integer time) throws DoubleDefinitionException;
-
+	void startSelling@@Verkauf_starten(ArticleWrapper article checked);
+	void stopSelling@@Verkauf_beenden(ArticleWrapper article checked);
 
 	no-view Article getArticle(ArticleWrapper wrapper);
+
+
+	//Customer Delivery Time
+	void createCustomerDeliveryTime@@Neue_Kundenlieferzeit(String name, Fraction price, Integer time) throws DoubleDefinitionException;
+	no-view void changeCustomerDeliveryTimePrice(CustomerDeliveryTime customerDeliveryTime, Fraction newValue);
+	no-view void changeCustomerDeliveryTimeTime(CustomerDeliveryTime customerDeliveryTime, Integer newValue);
 
 
 	//Settings
@@ -59,23 +68,28 @@ server CustomerService extends Service {
 	ShoppingCart cart;
 	CustomerOrderManager orderManager;
 
+	//ShoppingCart
 	void addToCart(ArticleWrapper article checked, Integer quantity);
 	void changeArticleQuantity(ShoppingCartQuantifiedArticle article, Integer newQuantity);
 	void removeFromCart(ShoppingCartQuantifiedArticle article);
 
+	//Ordering
 	void order(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime) throws NotEnoughStockException, NotEnoughMoneyException;
 	void preOrder(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime) throws NotEnoughMoneyException;
+	
+	void acceptOrder(Order order);
+	void markForReturn(OrderQuantifiedArticle article);
+	void unmarkForReturn(OrderQuantifiedArticle article);
 
+	//Money
 	void deposit(Fraction amount);
 	void withdraw(Fraction amount) throws NotEnoughMoneyException;
 
-
+	//Search
 	void findArticle(String name);
 	void clearError(ErrorDisplay error);
 	void clear();
 }
-
-
 
 server CustomerRegisterService##crs extends Service {
 	active void register(String accountName, String password PASSWORD) throws UserAlreadyExistsException;
@@ -107,6 +121,14 @@ singleton Settings{
 	public-write Fraction newCustomerDefaultLimit##ncdlOwn;
 	public-write Fraction returnPercentage;
 }
+
+singleton ReOrderManager{
+	ReOrderQuantifiedArticle ** reorderArticles;
+	active void reOrder(ArticleWrapper article);
+
+	active void startOrdering();
+}
+
 abstract class OrderManager{
 	public Order ** orders;
 }
@@ -114,10 +136,20 @@ abstract class OrderManager{
 class CustomerOrderManager##com extends OrderManager{
 	prior no-view CustomerAccount account;
 
-
 	active void newOrder(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime) throws NotEnoughStockException, NotEnoughMoneyException;
 	active void newPreOrder(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime) throws NotEnoughMoneyException;
+}
 
+singleton OwnerOrderManager##oom extends OrderManager{
+	void addOrder(Order order);
+
+	void startOrderProcessing();
+}
+
+singleton ReturnManager{
+	ArticleReturn ** articleReturn;
+	active void addArticleReturn##aar(ArticleReturn articleReturn);
+	
 }
 // manager relevant classes -- region end
 
@@ -126,7 +158,7 @@ class CustomerOrderManager##com extends OrderManager{
 hierarchy collapsed CompHierarchy;
 
 abstract class Component{
-	public-write prior indexed String name;
+	public-write prior indexed String name@@Name;
 }
 
 interface SubComponent{	
@@ -134,8 +166,7 @@ interface SubComponent{
 	active event void moveTo(ProductGroup productGroup) throws CycleException;
 }
 
-abstract class ProductGroup extends Component{
-	
+abstract class ProductGroup extends Component{	
    public observe Component ** components hierarchy CompHierarchy;
 	
 	active event void newSubProductGroup##cspg(String name) throws CycleException, DoubleDefinitionException;
@@ -156,23 +187,23 @@ class SubProductGroup extends ProductGroup implements SubComponent {
 class ArticleWrapper extends Component implements SubComponent{
   public server-only prior Article article;
 
-	derived Fraction price;
+	derived Fraction price@@Preis;
 	active event void changeArticleName(String newName);
 	active void changePrice(Fraction newPrice);
 }
 
 class Article extends Component{
-	public-write prior Fraction price;
-	public-write prior Integer minStock;
-	public-write prior Integer maxStock;
-	public Integer currentStock;
-	public-write prior Integer producerDeliveryTime;
+	public-write prior Fraction price@@Preis;
+	public-write prior Integer minStock@@Mindestlagerbestand;
+	public-write prior Integer maxStock@@Maximallagerbestand;
+	public-write Integer currentStock@@Lagerbestand;
+	public-write prior Integer producerDeliveryTime@@Herstellerlieferzeit;
 
 	public-write no-view prior Producer producer;
 	public-write no-view ArticleState state;
 
-	derived String currentState;
-	derived String producerName;
+	derived String currentState@@Status;
+	derived String producerName@@Hersteller;
 
 	active event void reduceStock(Integer quantity) throws NotEnoughStockException;
 	active event void increaseStock(Integer quantity);
@@ -180,7 +211,6 @@ class Article extends Component{
 	active event void startSelling();
 	active event void stopSelling();
 }
-
 
 
 
@@ -199,9 +229,6 @@ class NotInSale extends ArticleState{
 
 // Article States -- region end
 
-class Producer{
-	public prior String name;
-}
 
 
 abstract class QuantifiedArticle{
@@ -216,19 +243,38 @@ class ShoppingCartQuantifiedArticle##scqa extends QuantifiedArticle{
 }
 
 class OrderQuantifiedArticle##oqa extends QuantifiedArticle{
-	prior Fraction articlePriceAtOrderTime##apatot;
+	prior Fraction articlePriceAtOrderTime##apatot;	
+}
+class ReturnQuantifiedArticle##rqa extends QuantifiedArticle{
 
-	
+}
+
+class ReOrderQuantifiedArticle##roqa extends QuantifiedArticle{
+	Integer producerDeliveryTimeAtReorder##pdtar;
+	public-write Integer countdown;
+}
+
+class Producer{
+	public prior String name;
 }
 
 class CustomerAccount{
 	public prior indexed String name;
-	public prior Fraction balance;
+	public-write prior Fraction balance;
 	public prior Fraction limit;
 	ShoppingCart shoppingCart;
 
 	active void deposit(Fraction amount);
 	active void withdraw(Fraction amount) throws NotEnoughMoneyException;	
+
+	active void debit(Fraction amount) throws NotEnoughMoneyException;	
+
+}
+
+class CustomerDeliveryTime{
+	prior public String name;
+	prior public-write Fraction price;
+	prior public-write Integer deliveryTime;
 }
 
 class ShoppingCart{
@@ -239,30 +285,40 @@ class ShoppingCart{
 }
 
 class Order{
-	OrderQuantifiedArticle ** articles;
+	public OrderQuantifiedArticle ** articles;
 	prior CustomerDeliveryTime customerDeliveryTime;
 	void addArticle(OrderQuantifiedArticle orderQuantifiedArticle);
 
-	prior OrderState state;
+	public Fraction totalPrice;
+
+	prior public-write OrderState state;
+}
+
+class ArticleReturn{
+	prior	Order order;
+	ReturnQuantifiedArticle ** returnArticles;
+	void addArticle(ReturnQuantifiedArticle orderQuantifiedArticle);
 }
 
 abstract class OrderState{
 }
-class ActiveOrder extends OrderState{
+class ProcessingOrderState##pos extends OrderState{
 }
-class PreOrder extends OrderState{
+class InTransitOrderState##itos extends OrderState{
+	public-write prior Integer ticksLeft;
 }
-class FinishedOrder extends OrderState{
+
+class PreOrderState extends OrderState{
+}
+class WaitingForAcceptOrderState##wfao extends OrderState{
+	public-write prior Integer ticksLeft;
+}
+
+
+class FinishedOrderState##fos extends OrderState{
 }
 
 // main model classes -- region end
-
-class CustomerDeliveryTime{
-	prior public String name;
-	prior public Fraction price;
-	prior public Integer deliveryTime;
-}
-
 
 exception DoubleDefinitionException{}
 exception UserAlreadyExistsException{}

@@ -1,0 +1,60 @@
+package persistence;
+
+import model.*;
+
+public class ReOrderManagerFacade{
+
+	static private Long sequencer = new Long(0);
+
+	static protected long getTheNextId(){
+		long result = -1;
+		synchronized (sequencer) { 
+			result = sequencer.longValue() + 1;
+			sequencer = new Long(result);
+		}
+		return result;
+	}
+
+	protected long getNextId(){
+		return getTheNextId();
+	}
+
+	
+
+	public ReOrderManagerFacade() {
+	}
+
+    public PersistentReOrderManager getTheReOrderManager() throws PersistenceException {
+        long id = ConnectionHandler.getTheConnectionHandler().theReOrderManagerFacade.getNextId();
+        ReOrderManager result = new ReOrderManager(null, null, id);
+        PersistentInCacheProxi cached = Cache.getTheCache().putSingleton(result);
+        return (PersistentReOrderManager)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().isTheSameAs(result) ? -1 : 1), 327);
+    }
+    
+    public ReOrderManager getReOrderManager(long ReOrderManagerId) throws PersistenceException{
+        return null; //All data is in the cache!
+    }
+    public long getClass(long objectId) throws PersistenceException{
+        if(Cache.getTheCache().contains(objectId, 327)) return 327;
+        
+        throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
+        
+    }
+    public long reorderArticlesAdd(long ReOrderManagerId, ReOrderQuantifiedArticle4Public reorderArticlesVal) throws PersistenceException {
+        return 0;
+    }
+    public void reorderArticlesRem(long reorderArticlesId) throws PersistenceException {
+        
+    }
+    public ReOrderQuantifiedArticleList reorderArticlesGet(long ReOrderManagerId) throws PersistenceException {
+        return new ReOrderQuantifiedArticleList(); // remote access for initialization only!
+    }
+    public void subServiceSet(long ReOrderManagerId, SubjInterface subServiceVal) throws PersistenceException {
+        
+    }
+    public void ThisSet(long ReOrderManagerId, ReOrderManager4Public ThisVal) throws PersistenceException {
+        
+    }
+
+}
+

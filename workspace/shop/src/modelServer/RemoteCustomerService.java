@@ -24,6 +24,16 @@ public  class RemoteCustomerService extends RemoteService {
         }
     }
     
+    public synchronized java.util.HashMap<?,?> acceptOrder(String orderProxiString){
+        try {
+            PersistentOrder order = (PersistentOrder)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(orderProxiString));
+            ((PersistentCustomerService)this.server).acceptOrder(order);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.HashMap<?,?> addToCart(String articleProxiString, String quantityAsString){
         try {
             PersistentArticleWrapper article = (PersistentArticleWrapper)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
@@ -84,6 +94,16 @@ public  class RemoteCustomerService extends RemoteService {
         }
     }
     
+    public synchronized java.util.HashMap<?,?> markForReturn(String articleProxiString){
+        try {
+            PersistentOrderQuantifiedArticle article = (PersistentOrderQuantifiedArticle)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
+            ((PersistentCustomerService)this.server).markForReturn(article);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.HashMap<?,?> order(String cartProxiString, String customerDeliveryTimeProxiString){
         try {
             PersistentShoppingCart cart = (PersistentShoppingCart)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(cartProxiString));
@@ -116,6 +136,16 @@ public  class RemoteCustomerService extends RemoteService {
         try {
             PersistentShoppingCartQuantifiedArticle article = (PersistentShoppingCartQuantifiedArticle)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
             ((PersistentCustomerService)this.server).removeFromCart(article);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> unmarkForReturn(String articleProxiString){
+        try {
+            PersistentOrderQuantifiedArticle article = (PersistentOrderQuantifiedArticle)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
+            ((PersistentCustomerService)this.server).unmarkForReturn(article);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

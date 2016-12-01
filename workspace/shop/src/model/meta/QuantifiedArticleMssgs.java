@@ -5,4 +5,4 @@ public interface QuantifiedArticleMssgs {
 }
 
 interface QuantifiedArticleDOWNMssgs extends Mssgs, QuantifiedArticleMssgs{}
-interface QuantifiedArticleUPMssgs extends OrderQuantifiedArticleUPMssgs, ShoppingCartQuantifiedArticleUPMssgs, QuantifiedArticleMssgs{}
+interface QuantifiedArticleUPMssgs extends OrderQuantifiedArticleUPMssgs, ReOrderQuantifiedArticleUPMssgs, ShoppingCartQuantifiedArticleUPMssgs, ReturnQuantifiedArticleUPMssgs, QuantifiedArticleMssgs{}

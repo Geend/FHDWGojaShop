@@ -409,6 +409,11 @@ public class CustomerService extends model.Service implements PersistentCustomer
     
     // Start of section that contains operations that must be implemented.
     
+    public void acceptOrder(final Order4Public order) 
+				throws PersistenceException{
+        //TODO: implement method: acceptOrder
+        
+    }
     public void addToCart(final ArticleWrapper4Public article, final long quantity) 
 				throws PersistenceException{
         ShoppingCartQuantifiedArticle4Public shoppingCartQuantifiedArticle4Public = ShoppingCartQuantifiedArticle.createShoppingCartQuantifiedArticle(quantity, article);
@@ -460,6 +465,11 @@ public class CustomerService extends model.Service implements PersistentCustomer
 				throws PersistenceException{
         super.initializeOnInstantiation();
     }
+    public void markForReturn(final OrderQuantifiedArticle4Public article) 
+				throws PersistenceException{
+        //TODO: implement method: markForReturn
+        
+    }
     public void order(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
 				throws model.NotEnoughStockException, model.NotEnoughMoneyException, PersistenceException{
         getThis().getOrderManager().newOrder(cart, customerDeliveryTime,getThis());
@@ -477,6 +487,11 @@ public class CustomerService extends model.Service implements PersistentCustomer
     public void rootProductGroup_update(final model.meta.RootProductGroupMssgs event) 
 				throws PersistenceException{
         getThis().signalChanged(true);
+    }
+    public void unmarkForReturn(final OrderQuantifiedArticle4Public article) 
+				throws PersistenceException{
+        //TODO: implement method: unmarkForReturn
+        
     }
     public void withdraw(final common.Fraction amount) 
 				throws model.NotEnoughMoneyException, PersistenceException{

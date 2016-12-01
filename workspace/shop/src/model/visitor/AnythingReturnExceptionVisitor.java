@@ -6,6 +6,8 @@ import persistence.*;
 public interface AnythingReturnExceptionVisitor<R, E extends model.UserException> extends ArticleStateReturnExceptionVisitor<R, E> ,CommonDateReturnExceptionVisitor<R, E> ,ComponentReturnExceptionVisitor<R, E> ,OrderManagerReturnExceptionVisitor<R, E> ,OrderStateReturnExceptionVisitor<R, E> ,QuantifiedArticleReturnExceptionVisitor<R, E> ,ServiceReturnExceptionVisitor<R, E> {
     
     public R handleAddArticleCommand(AddArticleCommand4Public addArticleCommand) throws PersistenceException, E;
+    public R handleAddArticleReturnCommand(AddArticleReturnCommand4Public addArticleReturnCommand) throws PersistenceException, E;
+    public R handleArticleReturn(ArticleReturn4Public articleReturn) throws PersistenceException, E;
     public R handleChangeArticleNameCommand(ChangeArticleNameCommand4Public changeArticleNameCommand) throws PersistenceException, E;
     public R handleChangeArticleQuantityCommand(ChangeArticleQuantityCommand4Public changeArticleQuantityCommand) throws PersistenceException, E;
     public R handleChangePriceCommand(ChangePriceCommand4Public changePriceCommand) throws PersistenceException, E;
@@ -19,6 +21,7 @@ public interface AnythingReturnExceptionVisitor<R, E extends model.UserException
     public R handleCustomerDeliveryTime(CustomerDeliveryTime4Public customerDeliveryTime) throws PersistenceException, E;
     public R handleCustomerDeliveryTimeManager(CustomerDeliveryTimeManager4Public customerDeliveryTimeManager) throws PersistenceException, E;
     public R handleCustomerServiceRootProductGroup(CustomerServiceRootProductGroup4Public customerServiceRootProductGroup) throws PersistenceException, E;
+    public R handleDebitCommand(DebitCommand4Public debitCommand) throws PersistenceException, E;
     public R handleDepositCommand(DepositCommand4Public depositCommand) throws PersistenceException, E;
     public R handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException, E;
     public R handleIncreaseStockCommand(IncreaseStockCommand4Public increaseStockCommand) throws PersistenceException, E;
@@ -31,12 +34,16 @@ public interface AnythingReturnExceptionVisitor<R, E extends model.UserException
     public R handleProducer(Producer4Public producer) throws PersistenceException, E;
     public R handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException, E;
     public R handleProductGroupComponents(ProductGroupComponents4Public productGroupComponents) throws PersistenceException, E;
+    public R handleReOrderCommand(ReOrderCommand4Public reOrderCommand) throws PersistenceException, E;
+    public R handleReOrderManager(ReOrderManager4Public reOrderManager) throws PersistenceException, E;
     public R handleReduceStockCommand(ReduceStockCommand4Public reduceStockCommand) throws PersistenceException, E;
     public R handleRegisterCommand(RegisterCommand4Public registerCommand) throws PersistenceException, E;
     public R handleRemoveArticleCommand(RemoveArticleCommand4Public removeArticleCommand) throws PersistenceException, E;
+    public R handleReturnManager(ReturnManager4Public returnManager) throws PersistenceException, E;
     public R handleServer(Server4Public server) throws PersistenceException, E;
     public R handleSettings(Settings4Public settings) throws PersistenceException, E;
     public R handleShoppingCart(ShoppingCart4Public shoppingCart) throws PersistenceException, E;
+    public R handleStartOrderingCommand(StartOrderingCommand4Public startOrderingCommand) throws PersistenceException, E;
     public R handleStartSellingCommand(StartSellingCommand4Public startSellingCommand) throws PersistenceException, E;
     public R handleStopSellingCommand(StopSellingCommand4Public stopSellingCommand) throws PersistenceException, E;
     public R handleSubj(Subj4Public subj) throws PersistenceException, E;

@@ -168,6 +168,7 @@ public abstract class ProductGroup extends model.Component implements Persistent
 
     @Override
     public void components_update(ComponentMssgs event) throws PersistenceException {
+       // getThis().updateObservers();
 
     }
     /* End of protected part that is not overridden by persistence generator */

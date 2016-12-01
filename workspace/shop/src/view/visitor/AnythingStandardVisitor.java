@@ -23,8 +23,8 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException{
         this.standardHandling(errorDisplay);
     }
-    public void handleFinishedOrder(FinishedOrderView finishedOrder) throws ModelException{
-        this.standardHandling(finishedOrder);
+    public void handleReOrderQuantifiedArticle(ReOrderQuantifiedArticleView reOrderQuantifiedArticle) throws ModelException{
+        this.standardHandling(reOrderQuantifiedArticle);
     }
     public void handleNotInSale(NotInSaleView notInSale) throws ModelException{
         this.standardHandling(notInSale);
@@ -35,8 +35,8 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCustomerRegisterService(CustomerRegisterServiceView customerRegisterService) throws ModelException{
         this.standardHandling(customerRegisterService);
     }
-    public void handleActiveOrder(ActiveOrderView activeOrder) throws ModelException{
-        this.standardHandling(activeOrder);
+    public void handleProcessingOrderState(ProcessingOrderStateView processingOrderState) throws ModelException{
+        this.standardHandling(processingOrderState);
     }
     public void handleCustomerDeliveryTimeManager(CustomerDeliveryTimeManagerView customerDeliveryTimeManager) throws ModelException{
         this.standardHandling(customerDeliveryTimeManager);
@@ -53,23 +53,41 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCustomerAccount(CustomerAccountView customerAccount) throws ModelException{
         this.standardHandling(customerAccount);
     }
+    public void handleReOrderManager(ReOrderManagerView reOrderManager) throws ModelException{
+        this.standardHandling(reOrderManager);
+    }
+    public void handleInTransitOrderState(InTransitOrderStateView inTransitOrderState) throws ModelException{
+        this.standardHandling(inTransitOrderState);
+    }
     public void handleProducer(ProducerView producer) throws ModelException{
         this.standardHandling(producer);
+    }
+    public void handleArticleReturn(ArticleReturnView articleReturn) throws ModelException{
+        this.standardHandling(articleReturn);
     }
     public void handleArticleWrapper(ArticleWrapperView articleWrapper) throws ModelException{
         this.standardHandling(articleWrapper);
     }
-    public void handlePreOrder(PreOrderView preOrder) throws ModelException{
-        this.standardHandling(preOrder);
+    public void handlePreOrderState(PreOrderStateView preOrderState) throws ModelException{
+        this.standardHandling(preOrderState);
+    }
+    public void handleReturnManager(ReturnManagerView returnManager) throws ModelException{
+        this.standardHandling(returnManager);
     }
     public void handleArticle(ArticleView article) throws ModelException{
         this.standardHandling(article);
+    }
+    public void handleOwnerOrderManager(OwnerOrderManagerView ownerOrderManager) throws ModelException{
+        this.standardHandling(ownerOrderManager);
     }
     public void handleCustomerDeliveryTime(CustomerDeliveryTimeView customerDeliveryTime) throws ModelException{
         this.standardHandling(customerDeliveryTime);
     }
     public void handleOwnerService(OwnerServiceView ownerService) throws ModelException{
         this.standardHandling(ownerService);
+    }
+    public void handleFinishedOrderState(FinishedOrderStateView finishedOrderState) throws ModelException{
+        this.standardHandling(finishedOrderState);
     }
     public void handleShoppingCartQuantifiedArticle(ShoppingCartQuantifiedArticleView shoppingCartQuantifiedArticle) throws ModelException{
         this.standardHandling(shoppingCartQuantifiedArticle);
@@ -79,6 +97,12 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleNewCreated(NewCreatedView newCreated) throws ModelException{
         this.standardHandling(newCreated);
+    }
+    public void handleWaitingForAcceptOrderState(WaitingForAcceptOrderStateView waitingForAcceptOrderState) throws ModelException{
+        this.standardHandling(waitingForAcceptOrderState);
+    }
+    public void handleReturnQuantifiedArticle(ReturnQuantifiedArticleView returnQuantifiedArticle) throws ModelException{
+        this.standardHandling(returnQuantifiedArticle);
     }
     public void handleInSale(InSaleView inSale) throws ModelException{
         this.standardHandling(inSale);

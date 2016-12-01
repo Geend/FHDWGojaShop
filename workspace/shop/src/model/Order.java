@@ -23,11 +23,11 @@ public class Order extends PersistentObject implements PersistentOrder{
         PersistentOrder result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theOrderFacade
-                .newDelayedOrder();
+                .newDelayedOrder(common.Fraction.Null);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theOrderFacade
-                .newOrder(-1);
+                .newOrder(common.Fraction.Null,-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
         final$$Fields.put("customerDeliveryTime", customerDeliveryTime);
@@ -41,11 +41,11 @@ public class Order extends PersistentObject implements PersistentOrder{
         PersistentOrder result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theOrderFacade
-                .newDelayedOrder();
+                .newDelayedOrder(common.Fraction.Null);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theOrderFacade
-                .newOrder(-1);
+                .newOrder(common.Fraction.Null,-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
         final$$Fields.put("customerDeliveryTime", customerDeliveryTime);
@@ -69,6 +69,7 @@ public class Order extends PersistentObject implements PersistentOrder{
                     if(forGUI && customerDeliveryTime.hasEssentialFields())customerDeliveryTime.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
+            result.put("totalPrice", this.getTotalPrice().toString());
             AbstractPersistentRoot state = (AbstractPersistentRoot)this.getState();
             if (state != null) {
                 result.put("state", state.createProxiInformation(false, essentialLevel <= 1));
@@ -87,6 +88,7 @@ public class Order extends PersistentObject implements PersistentOrder{
     public Order provideCopy() throws PersistenceException{
         Order result = this;
         result = new Order(this.customerDeliveryTime, 
+                           this.totalPrice, 
                            this.state, 
                            this.subService, 
                            this.This, 
@@ -101,15 +103,17 @@ public class Order extends PersistentObject implements PersistentOrder{
     }
     protected Order_ArticlesProxi articles;
     protected PersistentCustomerDeliveryTime customerDeliveryTime;
+    protected common.Fraction totalPrice;
     protected PersistentOrderState state;
     protected SubjInterface subService;
     protected PersistentOrder This;
     
-    public Order(PersistentCustomerDeliveryTime customerDeliveryTime,PersistentOrderState state,SubjInterface subService,PersistentOrder This,long id) throws PersistenceException {
+    public Order(PersistentCustomerDeliveryTime customerDeliveryTime,common.Fraction totalPrice,PersistentOrderState state,SubjInterface subService,PersistentOrder This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.articles = new Order_ArticlesProxi(this);
         this.customerDeliveryTime = customerDeliveryTime;
+        this.totalPrice = totalPrice;
         this.state = state;
         this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
@@ -126,7 +130,7 @@ public class Order extends PersistentObject implements PersistentOrder{
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         if (this.getClassId() == 238) ConnectionHandler.getTheConnectionHandler().theOrderFacade
-            .newOrder(this.getId());
+            .newOrder(totalPrice,this.getId());
         super.store();
         this.getArticles().store();
         if(this.getCustomerDeliveryTime() != null){
@@ -164,6 +168,13 @@ public class Order extends PersistentObject implements PersistentOrder{
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theOrderFacade.customerDeliveryTimeSet(this.getId(), newValue);
         }
+    }
+    public common.Fraction getTotalPrice() throws PersistenceException {
+        return this.totalPrice;
+    }
+    public void setTotalPrice(common.Fraction newValue) throws PersistenceException {
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theOrderFacade.totalPriceSet(this.getId(), newValue);
+        this.totalPrice = newValue;
     }
     public OrderState4Public getState() throws PersistenceException {
         return this.state;
@@ -297,6 +308,8 @@ public class Order extends PersistentObject implements PersistentOrder{
             all.iterator().next().increaseQuantity(orderQuantifiedArticle.getQuantity());
         else
             getThis().getArticles().add(orderQuantifiedArticle);
+
+        getThis().setTotalPrice(getThis().getTotalPrice().add(orderQuantifiedArticle.getArticle().getPrice().mul(orderQuantifiedArticle.getQuantity())));
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -305,6 +318,7 @@ public class Order extends PersistentObject implements PersistentOrder{
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
+        getThis().setTotalPrice(getThis().getCustomerDeliveryTime().getPrice());
 
     }
     public void initializeOnInstantiation() 

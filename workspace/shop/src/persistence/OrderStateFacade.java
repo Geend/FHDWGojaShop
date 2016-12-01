@@ -25,9 +25,11 @@ public class OrderStateFacade{
 	}
 
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 233)) return 233;
-        if(Cache.getTheCache().contains(objectId, 310)) return 310;
-        if(Cache.getTheCache().contains(objectId, 311)) return 311;
+        if(Cache.getTheCache().contains(objectId, 337)) return 337;
+        if(Cache.getTheCache().contains(objectId, 335)) return 335;
+        if(Cache.getTheCache().contains(objectId, 338)) return 338;
+        if(Cache.getTheCache().contains(objectId, 332)) return 332;
+        if(Cache.getTheCache().contains(objectId, 336)) return 336;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

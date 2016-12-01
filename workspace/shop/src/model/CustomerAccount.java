@@ -4,6 +4,8 @@ package model;
 import persistence.*;
 import model.visitor.*;
 
+import java.text.MessageFormat;
+
 
 /* Additional import section end */
 
@@ -251,6 +253,14 @@ public class CustomerAccount extends PersistentObject implements PersistentCusto
     }
     
     
+    public void debit(final common.Fraction amount, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		DebitCommand4Public command = model.meta.DebitCommand.createDebitCommand(amount, now, now);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void deposit(final common.Fraction amount, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -311,6 +321,16 @@ public class CustomerAccount extends PersistentObject implements PersistentCusto
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes
         
+    }
+    public void debit(final common.Fraction amount) 
+				throws model.NotEnoughMoneyException, PersistenceException{
+
+        if(getThis().getBalance().isLess(amount)){
+            throw new NotEnoughMoneyException(MessageFormat.format("Nicht genug geld ({0}€) für Abbuchung von {1}€",getThis().getBalance(), amount));
+        }
+        else{
+            getThis().setBalance(getThis().getBalance().sub(amount));
+        }
     }
     public void deposit(final common.Fraction amount) 
 				throws PersistenceException{

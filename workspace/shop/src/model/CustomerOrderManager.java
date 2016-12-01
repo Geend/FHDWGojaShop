@@ -5,7 +5,9 @@ import common.Fraction;
 import persistence.*;
 import model.visitor.*;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 
 /* Additional import section end */
@@ -252,13 +254,13 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
     public void newOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
 				throws model.NotEnoughStockException, model.NotEnoughMoneyException, PersistenceException{
 
-        Order4Public order = Order.createOrder(customerDeliveryTime, ActiveOrder.createActiveOrder());
-        Iterator<ShoppingCartQuantifiedArticle4Public> iterator = cart.getArticles().iterator();
+        Order4Public order = Order.createOrder(customerDeliveryTime, ProcessingOrderState.createProcessingOrderState());
 
-        Fraction totalPrice = customerDeliveryTime.getPrice();
 
-        while (iterator.hasNext()) {
-            ShoppingCartQuantifiedArticle4Public shoppingCartQuantifiedArticle = iterator.next();
+
+        cart.getArticles().applyToAllException(shoppingCartQuantifiedArticle -> {
+
+            ArticleWrapper4Public articleWrapper = shoppingCartQuantifiedArticle.getArticle();
 
             shoppingCartQuantifiedArticle.getArticle().getArticle().reduceStock(shoppingCartQuantifiedArticle.getQuantity());
 
@@ -267,18 +269,43 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
             OrderQuantifiedArticle4Public orderQuantifiedArticle =
                     OrderQuantifiedArticle.createOrderQuantifiedArticle(
                             shoppingCartQuantifiedArticle.getQuantity(),
-                            shoppingCartQuantifiedArticle.getArticle(),
+                            articleWrapper,
                             perArticlePrice);
 
-            totalPrice.add(perArticlePrice.mul(shoppingCartQuantifiedArticle.getQuantity()));
             order.addArticle(orderQuantifiedArticle);
-        }
 
-        if(getThis().getAccount().getBalance().isLess(totalPrice)){
-            throw new NotEnoughMoneyException("Nicht genug Geld");
-        }
+            //Reorder articles that are in the correct state if necessary
+            if(articleWrapper.getArticle().getCurrentStock() < articleWrapper.getArticle().getMinStock()){
+                articleWrapper.getArticle().getState().accept(new ArticleStateVisitor() {
+                    @Override
+                    public void handleInSale(InSale4Public inSale) throws PersistenceException {
+                        ReOrderManager.getTheReOrderManager().reOrder(articleWrapper);
+                    }
 
+                    @Override
+                    public void handleNewCreated(NewCreated4Public newCreated) throws PersistenceException {
+                        ReOrderManager.getTheReOrderManager().reOrder(articleWrapper);
+                    }
+
+                    @Override
+                    public void handleNotInSale(NotInSale4Public notInSale) throws PersistenceException {
+                        //Don't reorder articles that aren't in sale (this should actually never be called)
+                    }
+
+                    @Override
+                    public void handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException {
+                        //Don't reorder remaining stock articles
+                    }
+                });
+            }
+        });
+
+        getThis().getAccount().debit(order.getTotalPrice());
         getThis().getOrders().add(order);
+        OwnerOrderManager.getTheOwnerOrderManager().addOrder(order);
+
+
+        order.setState(InTransitOrderState.createInTransitOrderState(customerDeliveryTime.getDeliveryTime()));
 
     }
     public void newPreOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 

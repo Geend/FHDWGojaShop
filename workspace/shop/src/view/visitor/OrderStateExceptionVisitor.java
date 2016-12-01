@@ -5,8 +5,10 @@ import view.*;
 
 public interface OrderStateExceptionVisitor<E extends view.UserException> {
     
-    public void handleActiveOrder(ActiveOrderView activeOrder) throws ModelException, E;
-    public void handleFinishedOrder(FinishedOrderView finishedOrder) throws ModelException, E;
-    public void handlePreOrder(PreOrderView preOrder) throws ModelException, E;
+    public void handleFinishedOrderState(FinishedOrderStateView finishedOrderState) throws ModelException, E;
+    public void handleInTransitOrderState(InTransitOrderStateView inTransitOrderState) throws ModelException, E;
+    public void handlePreOrderState(PreOrderStateView preOrderState) throws ModelException, E;
+    public void handleProcessingOrderState(ProcessingOrderStateView processingOrderState) throws ModelException, E;
+    public void handleWaitingForAcceptOrderState(WaitingForAcceptOrderStateView waitingForAcceptOrderState) throws ModelException, E;
     
 }

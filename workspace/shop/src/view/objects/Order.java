@@ -11,13 +11,15 @@ public class Order extends ViewObject implements OrderView{
     
     protected java.util.Vector<OrderQuantifiedArticleView> articles;
     protected CustomerDeliveryTimeView customerDeliveryTime;
+    protected common.Fraction totalPrice;
     protected OrderStateView state;
     
-    public Order(java.util.Vector<OrderQuantifiedArticleView> articles,CustomerDeliveryTimeView customerDeliveryTime,OrderStateView state,long id, long classId) {
+    public Order(java.util.Vector<OrderQuantifiedArticleView> articles,CustomerDeliveryTimeView customerDeliveryTime,common.Fraction totalPrice,OrderStateView state,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.articles = articles;
         this.customerDeliveryTime = customerDeliveryTime;
+        this.totalPrice = totalPrice;
         this.state = state;        
     }
     
@@ -40,6 +42,12 @@ public class Order extends ViewObject implements OrderView{
     }
     public void setCustomerDeliveryTime(CustomerDeliveryTimeView newValue) throws ModelException {
         this.customerDeliveryTime = newValue;
+    }
+    public common.Fraction getTotalPrice()throws ModelException{
+        return this.totalPrice;
+    }
+    public void setTotalPrice(common.Fraction newValue) throws ModelException {
+        this.totalPrice = newValue;
     }
     public OrderStateView getState()throws ModelException{
         return this.state;
@@ -114,13 +122,21 @@ public class Order extends ViewObject implements OrderView{
         if(this.getState() != null) result = result + 1;
         return -1;
     }
+    public int getTotalPriceIndex() throws ModelException {
+        return 0 + this.getArticles().size() + (this.getCustomerDeliveryTime() == null ? 0 : 1);
+    }
     public int getRowCount(){
-        return 0 ;
+        return 0 
+            + 1;
     }
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
+                if(rowIndex == 0) return "totalPrice";
+                rowIndex = rowIndex - 1;
             } else {
+                if(rowIndex == 0) return this.getTotalPrice();
+                rowIndex = rowIndex - 1;
             }
             throw new ModelException("Table index out of bounds!", -1);
         } catch (ModelException e){
@@ -132,7 +148,11 @@ public class Order extends ViewObject implements OrderView{
         return true;
     }
     public void setValueAt(String newValue, int rowIndex) throws Exception {
-        
+        if(rowIndex == 0){
+            this.setTotalPrice(common.Fraction.parse(newValue));
+            return;
+        }
+        rowIndex = rowIndex - 1;
     }
     public boolean hasTransientFields(){
         return false;

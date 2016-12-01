@@ -22,6 +22,7 @@ public class OrderProxi extends ViewProxi implements OrderView{
             customerDeliveryTime = view.objects.ViewProxi.createProxi(customerDeliveryTime$Info,connectionKey);
             customerDeliveryTime.setToString(customerDeliveryTime$Info.getToString());
         }
+        common.Fraction totalPrice = common.Fraction.parse((String)resultTable.get("totalPrice"));
         ViewProxi state = null;
         String state$String = (String)resultTable.get("state");
         if (state$String != null) {
@@ -29,7 +30,7 @@ public class OrderProxi extends ViewProxi implements OrderView{
             state = view.objects.ViewProxi.createProxi(state$Info,connectionKey);
             state.setToString(state$Info.getToString());
         }
-        OrderView result$$ = new Order(articles,(CustomerDeliveryTimeView)customerDeliveryTime,(OrderStateView)state, this.getId(), this.getClassId());
+        OrderView result$$ = new Order(articles,(CustomerDeliveryTimeView)customerDeliveryTime,(common.Fraction)totalPrice,(OrderStateView)state, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -85,6 +86,12 @@ public class OrderProxi extends ViewProxi implements OrderView{
     }
     public void setCustomerDeliveryTime(CustomerDeliveryTimeView newValue) throws ModelException {
         ((Order)this.getTheObject()).setCustomerDeliveryTime(newValue);
+    }
+    public common.Fraction getTotalPrice()throws ModelException{
+        return ((Order)this.getTheObject()).getTotalPrice();
+    }
+    public void setTotalPrice(common.Fraction newValue) throws ModelException {
+        ((Order)this.getTheObject()).setTotalPrice(newValue);
     }
     public OrderStateView getState()throws ModelException{
         return ((Order)this.getTheObject()).getState();

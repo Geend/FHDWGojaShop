@@ -7,7 +7,9 @@ public interface CustomerDeliveryTime4Public extends Anything, SubjInterface, Ab
     
     public String getName() throws PersistenceException ;
     public common.Fraction getPrice() throws PersistenceException ;
+    public void setPrice(common.Fraction newValue) throws PersistenceException ;
     public long getDeliveryTime() throws PersistenceException ;
+    public void setDeliveryTime(long newValue) throws PersistenceException ;
     
     public void accept(AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;

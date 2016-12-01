@@ -31,6 +31,8 @@ public interface CustomerService4Public extends Service4Public {
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
+    public void acceptOrder(final Order4Public order) 
+				throws PersistenceException;
     public void addToCart(final ArticleWrapper4Public article, final long quantity) 
 				throws PersistenceException;
     public void changeArticleQuantity(final ShoppingCartQuantifiedArticle4Public article, final long newQuantity) 
@@ -49,11 +51,15 @@ public interface CustomerService4Public extends Service4Public {
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
+    public void markForReturn(final OrderQuantifiedArticle4Public article) 
+				throws PersistenceException;
     public void order(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
 				throws model.NotEnoughStockException, model.NotEnoughMoneyException, PersistenceException;
     public void preOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
 				throws model.NotEnoughMoneyException, PersistenceException;
     public void removeFromCart(final ShoppingCartQuantifiedArticle4Public article) 
+				throws PersistenceException;
+    public void unmarkForReturn(final OrderQuantifiedArticle4Public article) 
 				throws PersistenceException;
     public void withdraw(final common.Fraction amount) 
 				throws model.NotEnoughMoneyException, PersistenceException;

@@ -336,15 +336,18 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
 
 
     interface MenuItemVisitor{
+        ImageView handle(AcceptOrderPRMTROrderPRMTRMenuItem menuItem);
         ImageView handle(AddToCartPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem);
         ImageView handle(ChangeArticleQuantityPRMTRShoppingCartQuantifiedArticlePRMTRIntegerPRMTRMenuItem menuItem);
         ImageView handle(ClearErrorPRMTRErrorDisplayPRMTRMenuItem menuItem);
         ImageView handle(ClearPRMTRMenuItem menuItem);
         ImageView handle(DepositPRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(FindArticlePRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(MarkForReturnPRMTROrderQuantifiedArticlePRMTRMenuItem menuItem);
         ImageView handle(OrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem menuItem);
         ImageView handle(PreOrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem menuItem);
         ImageView handle(RemoveFromCartPRMTRShoppingCartQuantifiedArticlePRMTRMenuItem menuItem);
+        ImageView handle(UnmarkForReturnPRMTROrderQuantifiedArticlePRMTRMenuItem menuItem);
         ImageView handle(WithdrawPRMTRFractionPRMTRMenuItem menuItem);
     }
     private abstract class CustomerServiceMenuItem extends MenuItem{
@@ -352,6 +355,11 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
             this.setGraphic(getIconForMenuItem(this));
         }
         abstract protected ImageView accept(MenuItemVisitor visitor);
+    }
+    private class AcceptOrderPRMTROrderPRMTRMenuItem extends CustomerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
     }
     private class AddToCartPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem extends CustomerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
@@ -383,6 +391,11 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
             return visitor.handle(this);
         }
     }
+    private class MarkForReturnPRMTROrderQuantifiedArticlePRMTRMenuItem extends CustomerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
     private class OrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem extends CustomerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
@@ -394,6 +407,11 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
         }
     }
     private class RemoveFromCartPRMTRShoppingCartQuantifiedArticlePRMTRMenuItem extends CustomerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class UnmarkForReturnPRMTROrderQuantifiedArticlePRMTRMenuItem extends CustomerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -519,6 +537,73 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
             } catch (ModelException me){
                 this.handleException(me);
                 return result;
+            }
+            if (selected instanceof OrderView){
+                item = new AcceptOrderPRMTROrderPRMTRMenuItem();
+                item.setText("acceptOrder");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        Alert confirm = new Alert(AlertType.CONFIRMATION);
+                        confirm.setTitle(GUIConstants.ConfirmButtonText);
+                        confirm.setHeaderText(null);
+                        confirm.setContentText("acceptOrder" + GUIConstants.ConfirmQuestionMark);
+                        Optional<ButtonType> buttonResult = confirm.showAndWait();
+                        if (buttonResult.get() == ButtonType.OK) {
+                            try {
+                                getConnection().acceptOrder((OrderView)selected);
+                                getConnection().setEagerRefresh();
+                                
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
+                    }
+                });
+                result.getItems().add(item);
+            }
+            if (selected instanceof OrderQuantifiedArticleView){
+                item = new MarkForReturnPRMTROrderQuantifiedArticlePRMTRMenuItem();
+                item.setText("markForReturn");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        Alert confirm = new Alert(AlertType.CONFIRMATION);
+                        confirm.setTitle(GUIConstants.ConfirmButtonText);
+                        confirm.setHeaderText(null);
+                        confirm.setContentText("markForReturn" + GUIConstants.ConfirmQuestionMark);
+                        Optional<ButtonType> buttonResult = confirm.showAndWait();
+                        if (buttonResult.get() == ButtonType.OK) {
+                            try {
+                                getConnection().markForReturn((OrderQuantifiedArticleView)selected);
+                                getConnection().setEagerRefresh();
+                                
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
+                    }
+                });
+                result.getItems().add(item);
+                item = new UnmarkForReturnPRMTROrderQuantifiedArticlePRMTRMenuItem();
+                item.setText("unmarkForReturn");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        Alert confirm = new Alert(AlertType.CONFIRMATION);
+                        confirm.setTitle(GUIConstants.ConfirmButtonText);
+                        confirm.setHeaderText(null);
+                        confirm.setContentText("unmarkForReturn" + GUIConstants.ConfirmQuestionMark);
+                        Optional<ButtonType> buttonResult = confirm.showAndWait();
+                        if (buttonResult.get() == ButtonType.OK) {
+                            try {
+                                getConnection().unmarkForReturn((OrderQuantifiedArticleView)selected);
+                                getConnection().setEagerRefresh();
+                                
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
+                    }
+                });
+                result.getItems().add(item);
             }
             if (selected instanceof ShoppingCartView){
                 item = new OrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem();
@@ -955,6 +1040,11 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
 	private ImageView getIconForMenuItem(CustomerServiceMenuItem menuItem){
 		return menuItem.accept(new MenuItemVisitor() {
 			@Override
+			public ImageView handle(AcceptOrderPRMTROrderPRMTRMenuItem menuItem) {
+				return null;
+			}
+
+			@Override
 			public ImageView handle(AddToCartPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem) {
 				return null;
 			}
@@ -985,6 +1075,11 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
 			}
 
 			@Override
+			public ImageView handle(MarkForReturnPRMTROrderQuantifiedArticlePRMTRMenuItem menuItem) {
+				return null;
+			}
+
+			@Override
 			public ImageView handle(OrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem menuItem) {
 				return new ImageView(IconManager.getImage(IconConstants.CHECKOUT));
 
@@ -997,6 +1092,11 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
 
 			@Override
 			public ImageView handle(RemoveFromCartPRMTRShoppingCartQuantifiedArticlePRMTRMenuItem menuItem) {
+				return null;
+			}
+
+			@Override
+			public ImageView handle(UnmarkForReturnPRMTROrderQuantifiedArticlePRMTRMenuItem menuItem) {
 				return null;
 			}
 

@@ -6,6 +6,8 @@ import persistence.*;
 public interface AnythingReturnVisitor<R> extends ArticleStateReturnVisitor<R> ,CommonDateReturnVisitor<R> ,ComponentReturnVisitor<R> ,OrderManagerReturnVisitor<R> ,OrderStateReturnVisitor<R> ,QuantifiedArticleReturnVisitor<R> ,ServiceReturnVisitor<R> {
     
     public R handleAddArticleCommand(AddArticleCommand4Public addArticleCommand) throws PersistenceException;
+    public R handleAddArticleReturnCommand(AddArticleReturnCommand4Public addArticleReturnCommand) throws PersistenceException;
+    public R handleArticleReturn(ArticleReturn4Public articleReturn) throws PersistenceException;
     public R handleChangeArticleNameCommand(ChangeArticleNameCommand4Public changeArticleNameCommand) throws PersistenceException;
     public R handleChangeArticleQuantityCommand(ChangeArticleQuantityCommand4Public changeArticleQuantityCommand) throws PersistenceException;
     public R handleChangePriceCommand(ChangePriceCommand4Public changePriceCommand) throws PersistenceException;
@@ -19,6 +21,7 @@ public interface AnythingReturnVisitor<R> extends ArticleStateReturnVisitor<R> ,
     public R handleCustomerDeliveryTime(CustomerDeliveryTime4Public customerDeliveryTime) throws PersistenceException;
     public R handleCustomerDeliveryTimeManager(CustomerDeliveryTimeManager4Public customerDeliveryTimeManager) throws PersistenceException;
     public R handleCustomerServiceRootProductGroup(CustomerServiceRootProductGroup4Public customerServiceRootProductGroup) throws PersistenceException;
+    public R handleDebitCommand(DebitCommand4Public debitCommand) throws PersistenceException;
     public R handleDepositCommand(DepositCommand4Public depositCommand) throws PersistenceException;
     public R handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException;
     public R handleIncreaseStockCommand(IncreaseStockCommand4Public increaseStockCommand) throws PersistenceException;
@@ -31,12 +34,16 @@ public interface AnythingReturnVisitor<R> extends ArticleStateReturnVisitor<R> ,
     public R handleProducer(Producer4Public producer) throws PersistenceException;
     public R handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException;
     public R handleProductGroupComponents(ProductGroupComponents4Public productGroupComponents) throws PersistenceException;
+    public R handleReOrderCommand(ReOrderCommand4Public reOrderCommand) throws PersistenceException;
+    public R handleReOrderManager(ReOrderManager4Public reOrderManager) throws PersistenceException;
     public R handleReduceStockCommand(ReduceStockCommand4Public reduceStockCommand) throws PersistenceException;
     public R handleRegisterCommand(RegisterCommand4Public registerCommand) throws PersistenceException;
     public R handleRemoveArticleCommand(RemoveArticleCommand4Public removeArticleCommand) throws PersistenceException;
+    public R handleReturnManager(ReturnManager4Public returnManager) throws PersistenceException;
     public R handleServer(Server4Public server) throws PersistenceException;
     public R handleSettings(Settings4Public settings) throws PersistenceException;
     public R handleShoppingCart(ShoppingCart4Public shoppingCart) throws PersistenceException;
+    public R handleStartOrderingCommand(StartOrderingCommand4Public startOrderingCommand) throws PersistenceException;
     public R handleStartSellingCommand(StartSellingCommand4Public startSellingCommand) throws PersistenceException;
     public R handleStopSellingCommand(StopSellingCommand4Public stopSellingCommand) throws PersistenceException;
     public R handleSubj(Subj4Public subj) throws PersistenceException;
