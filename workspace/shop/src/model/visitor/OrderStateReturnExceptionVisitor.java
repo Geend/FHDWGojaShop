@@ -5,6 +5,7 @@ import persistence.*;
 
 public interface OrderStateReturnExceptionVisitor<R, E extends model.UserException> {
     
+    public R handleArticlesInReturnOrderState(ArticlesInReturnOrderState4Public articlesInReturnOrderState) throws PersistenceException, E;
     public R handleFinishedOrderState(FinishedOrderState4Public finishedOrderState) throws PersistenceException, E;
     public R handleInTransitOrderState(InTransitOrderState4Public inTransitOrderState) throws PersistenceException, E;
     public R handlePreOrderState(PreOrderState4Public preOrderState) throws PersistenceException, E;

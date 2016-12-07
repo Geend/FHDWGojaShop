@@ -5,6 +5,12 @@ import persistence.*;
 
 public abstract class UserExceptionStandardVisitor implements UserExceptionVisitor {
     
+    public void handleEmptyCartException(model.EmptyCartException emptyCartException) throws PersistenceException{
+        this.standardHandling(emptyCartException);
+    }
+    public void handleOrderNotYetArrivedException(model.OrderNotYetArrivedException orderNotYetArrivedException) throws PersistenceException{
+        this.standardHandling(orderNotYetArrivedException);
+    }
     public void handleNotEnoughMoneyException(model.NotEnoughMoneyException notEnoughMoneyException) throws PersistenceException{
         this.standardHandling(notEnoughMoneyException);
     }

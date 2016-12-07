@@ -1,6 +1,7 @@
 package model;
 
 import model.visitor.ArticleStateReturnVisitor;
+import model.visitor.OrderQuantifiedArticleStateVisitor;
 import persistence.*;
 
 import java.text.MessageFormat;
@@ -96,6 +97,20 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleOrderQuantifiedArticle(OrderQuantifiedArticle4Public orderQuantifiedArticle) throws PersistenceException {
 		result = orderQuantifiedArticle.getQuantity() + "x " + orderQuantifiedArticle.getArticle().getName();
+
+		orderQuantifiedArticle.getState().accept(new OrderQuantifiedArticleStateVisitor() {
+			@Override
+			public void handleOrderQuantifiedArticleMarkedForReturnState(OrderQuantifiedArticleMarkedForReturnState4Public orderQuantifiedArticleMarkedForReturnState) throws PersistenceException {
+				result += " (Retour)";
+			}
+
+			@Override
+			public void handleOrderQuantifiedArticleNormalState(OrderQuantifiedArticleNormalState4Public orderQuantifiedArticleNormalState) throws PersistenceException {
+
+			}
+
+
+		});
 	}
 
 
@@ -103,6 +118,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleRootProductGroup(RootProductGroup4Public rootProductGroup) throws PersistenceException {
 		result = "Produkte (" + rootProductGroup.getName() + ")";
+	}
+
+	@Override
+	public void handleOrderQuantifiedArticleNormalState(OrderQuantifiedArticleNormalState4Public orderQuantifiedArticleNormalState) throws PersistenceException {
+
 	}
 
 
@@ -179,8 +199,18 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
+	public void handleOrderQuantifiedArticleMarkedForReturnState(OrderQuantifiedArticleMarkedForReturnState4Public orderQuantifiedArticleMarkedForReturnState) throws PersistenceException {
+
+	}
+
+	@Override
 	public void handleShoppingCart(ShoppingCart4Public shoppingCart) throws PersistenceException {
 		result = "Warenkorb";
+	}
+
+	@Override
+	public void handleArticlesInReturnOrderState(ArticlesInReturnOrderState4Public articlesInReturnOrderState) throws PersistenceException {
+
 	}
 
 	@Override
@@ -236,6 +266,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleWaitingForAcceptOrderState(WaitingForAcceptOrderState4Public waitingForAcceptOrderState) throws PersistenceException {
 		result = "warten auf Annahme";
+	}
+
+	@Override
+	public void handleBackgroundTaskManager(BackgroundTaskManager4Public backgroundTaskManager) throws PersistenceException {
+
 	}
 
 	@Override

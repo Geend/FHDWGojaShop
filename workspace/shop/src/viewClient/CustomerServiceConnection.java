@@ -207,7 +207,7 @@ public class CustomerServiceConnection extends ServiceConnection {
     }
     
     @SuppressWarnings("unchecked")
-    public synchronized void order(ShoppingCartView cart, CustomerDeliveryTimeView customerDeliveryTime) throws ModelException, NotEnoughStockException, NotEnoughMoneyException{
+    public synchronized void order(ShoppingCartView cart, CustomerDeliveryTimeView customerDeliveryTime) throws ModelException, EmptyCartException, NotEnoughStockException, NotEnoughMoneyException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             if (cart == null){
@@ -224,6 +224,8 @@ public class CustomerServiceConnection extends ServiceConnection {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -369)
+                    throw EmptyCartException.fromHashtableToEmptyCartException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -221)
                     throw NotEnoughStockException.fromHashtableToNotEnoughStockException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -299)
@@ -239,7 +241,7 @@ public class CustomerServiceConnection extends ServiceConnection {
     }
     
     @SuppressWarnings("unchecked")
-    public synchronized void preOrder(ShoppingCartView cart, CustomerDeliveryTimeView customerDeliveryTime) throws ModelException, NotEnoughMoneyException{
+    public synchronized void preOrder(ShoppingCartView cart, CustomerDeliveryTimeView customerDeliveryTime) throws ModelException, EmptyCartException, NotEnoughMoneyException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             if (cart == null){
@@ -256,6 +258,8 @@ public class CustomerServiceConnection extends ServiceConnection {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -369)
+                    throw EmptyCartException.fromHashtableToEmptyCartException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -299)
                     throw NotEnoughMoneyException.fromHashtableToNotEnoughMoneyException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new ModelException ("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")",0);

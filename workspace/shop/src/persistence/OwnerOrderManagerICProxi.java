@@ -22,6 +22,12 @@ public class OwnerOrderManagerICProxi extends OrderManagerICProxi implements Per
         return 343;
     }
     
+    public BackgroundTask4Public getMyCONCBackgroundTask() throws PersistenceException {
+        return ((PersistentOwnerOrderManager)this.getTheObject()).getMyCONCBackgroundTask();
+    }
+    public void setMyCONCBackgroundTask(BackgroundTask4Public newValue) throws PersistenceException {
+        ((PersistentOwnerOrderManager)this.getTheObject()).setMyCONCBackgroundTask(newValue);
+    }
     public PersistentOwnerOrderManager getThis() throws PersistenceException {
         return ((PersistentOwnerOrderManager)this.getTheObject()).getThis();
     }
@@ -62,6 +68,18 @@ public class OwnerOrderManagerICProxi extends OrderManagerICProxi implements Per
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleOwnerOrderManager(this);
     }
+    public void accept(BackgroundTaskVisitor visitor) throws PersistenceException {
+        visitor.handleOwnerOrderManager(this);
+    }
+    public <R> R accept(BackgroundTaskReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleOwnerOrderManager(this);
+    }
+    public <E extends model.UserException>  void accept(BackgroundTaskExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleOwnerOrderManager(this);
+    }
+    public <R, E extends model.UserException> R accept(BackgroundTaskReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleOwnerOrderManager(this);
+    }
     
     
     public void deregister(final ObsInterface observee) 
@@ -100,9 +118,17 @@ public class OwnerOrderManagerICProxi extends OrderManagerICProxi implements Per
 				throws PersistenceException{
         ((PersistentOwnerOrderManager)this.getTheObject()).initializeOnInstantiation();
     }
-    public void startOrderProcessing() 
+    public void startTask(final long tickTime) 
 				throws PersistenceException{
-        ((PersistentOwnerOrderManager)this.getTheObject()).startOrderProcessing();
+        ((PersistentOwnerOrderManager)this.getTheObject()).startTask(tickTime);
+    }
+    public void step() 
+				throws PersistenceException{
+        ((PersistentOwnerOrderManager)this.getTheObject()).step();
+    }
+    public void stopTask() 
+				throws PersistenceException{
+        ((PersistentOwnerOrderManager)this.getTheObject()).stopTask();
     }
 
     

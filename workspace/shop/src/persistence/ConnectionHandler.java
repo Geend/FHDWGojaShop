@@ -62,6 +62,8 @@ public class ConnectionHandler {
 
 
     public ProducerLstFacade theProducerLstFacade;
+    public OrderQuantifiedArticleStateFacade theOrderQuantifiedArticleStateFacade;
+    public CONCBackgroundTaskFacade theCONCBackgroundTaskFacade;
     public ProductGroupFacade theProductGroupFacade;
     public CustomerServiceFacade theCustomerServiceFacade;
     public RemainingStockFacade theRemainingStockFacade;
@@ -87,15 +89,18 @@ public class ConnectionHandler {
     public RootProductGroupFacade theRootProductGroupFacade;
     public IncreaseStockCommandFacade theIncreaseStockCommandFacade;
     public CreateProducerCommandFacade theCreateProducerCommandFacade;
+    public OrderQuantifiedArticleNormalStateFacade theOrderQuantifiedArticleNormalStateFacade;
     public StartSellingCommandFacade theStartSellingCommandFacade;
     public RemoveArticleCommandFacade theRemoveArticleCommandFacade;
     public NewArticleCommandFacade theNewArticleCommandFacade;
     public CustomerAccountFacade theCustomerAccountFacade;
     public ReOrderCommandFacade theReOrderCommandFacade;
     public ReOrderManagerFacade theReOrderManagerFacade;
+    public BackgroundTaskFacade theBackgroundTaskFacade;
     public InTransitOrderStateFacade theInTransitOrderStateFacade;
     public ProducerFacade theProducerFacade;
     public ArticleReturnFacade theArticleReturnFacade;
+    public OrderQuantifiedArticleMarkedForReturnStateFacade theOrderQuantifiedArticleMarkedForReturnStateFacade;
     public OrderStateFacade theOrderStateFacade;
     public CommonDateFacade theCommonDateFacade;
     public OrderManagerFacade theOrderManagerFacade;
@@ -119,25 +124,30 @@ public class ConnectionHandler {
     public CustomerServiceRootProductGroupFacade theCustomerServiceRootProductGroupFacade;
     public DebitCommandFacade theDebitCommandFacade;
     public NewSubProductGroupCommandFacade theNewSubProductGroupCommandFacade;
+    public BackgroundTaskManagerFacade theBackgroundTaskManagerFacade;
     public WaitingForAcceptOrderStateFacade theWaitingForAcceptOrderStateFacade;
-    public AddArticleReturnCommandFacade theAddArticleReturnCommandFacade;
     public ChangePriceCommandFacade theChangePriceCommandFacade;
+    public AddArticleReturnCommandFacade theAddArticleReturnCommandFacade;
     public ServiceFacade theServiceFacade;
     public InSaleFacade theInSaleFacade;
     public ReturnQuantifiedArticleFacade theReturnQuantifiedArticleFacade;
     public SubjFacade theSubjFacade;
-    public StartOrderingCommandFacade theStartOrderingCommandFacade;
+    public ReOrderForPreorderCommandFacade theReOrderForPreorderCommandFacade;
     public ShoppingCartFacade theShoppingCartFacade;
+    public ArticlesInReturnOrderStateFacade theArticlesInReturnOrderStateFacade;
     public ChangeArticleQuantityCommandFacade theChangeArticleQuantityCommandFacade;
     public ArticleStateFacade theArticleStateFacade;
     public CustomerOrderManagerFacade theCustomerOrderManagerFacade;
     public NewOrderCommandFacade theNewOrderCommandFacade;
     public CommandExecuterFacade theCommandExecuterFacade;
+    public AcceptOrderCommandFacade theAcceptOrderCommandFacade;
 
 	protected ConnectionHandler() throws PersistenceException {
 	}
 	public void connect(String databaseName, String currentSchemaName, String user, char[] pw, boolean autoCommit) throws PersistenceException {
             this.theProducerLstFacade= new ProducerLstFacade();
+            this.theOrderQuantifiedArticleStateFacade= new OrderQuantifiedArticleStateFacade();
+            this.theCONCBackgroundTaskFacade= new CONCBackgroundTaskFacade();
             this.theProductGroupFacade= new ProductGroupFacade();
             this.theCustomerServiceFacade= new CustomerServiceFacade();
             this.theRemainingStockFacade= new RemainingStockFacade();
@@ -163,15 +173,18 @@ public class ConnectionHandler {
             this.theRootProductGroupFacade= new RootProductGroupFacade();
             this.theIncreaseStockCommandFacade= new IncreaseStockCommandFacade();
             this.theCreateProducerCommandFacade= new CreateProducerCommandFacade();
+            this.theOrderQuantifiedArticleNormalStateFacade= new OrderQuantifiedArticleNormalStateFacade();
             this.theStartSellingCommandFacade= new StartSellingCommandFacade();
             this.theRemoveArticleCommandFacade= new RemoveArticleCommandFacade();
             this.theNewArticleCommandFacade= new NewArticleCommandFacade();
             this.theCustomerAccountFacade= new CustomerAccountFacade();
             this.theReOrderCommandFacade= new ReOrderCommandFacade();
             this.theReOrderManagerFacade= new ReOrderManagerFacade();
+            this.theBackgroundTaskFacade= new BackgroundTaskFacade();
             this.theInTransitOrderStateFacade= new InTransitOrderStateFacade();
             this.theProducerFacade= new ProducerFacade();
             this.theArticleReturnFacade= new ArticleReturnFacade();
+            this.theOrderQuantifiedArticleMarkedForReturnStateFacade= new OrderQuantifiedArticleMarkedForReturnStateFacade();
             this.theOrderStateFacade= new OrderStateFacade();
             this.theCommonDateFacade= new CommonDateFacade();
             this.theOrderManagerFacade= new OrderManagerFacade();
@@ -195,20 +208,23 @@ public class ConnectionHandler {
             this.theCustomerServiceRootProductGroupFacade= new CustomerServiceRootProductGroupFacade();
             this.theDebitCommandFacade= new DebitCommandFacade();
             this.theNewSubProductGroupCommandFacade= new NewSubProductGroupCommandFacade();
+            this.theBackgroundTaskManagerFacade= new BackgroundTaskManagerFacade();
             this.theWaitingForAcceptOrderStateFacade= new WaitingForAcceptOrderStateFacade();
-            this.theAddArticleReturnCommandFacade= new AddArticleReturnCommandFacade();
             this.theChangePriceCommandFacade= new ChangePriceCommandFacade();
+            this.theAddArticleReturnCommandFacade= new AddArticleReturnCommandFacade();
             this.theServiceFacade= new ServiceFacade();
             this.theInSaleFacade= new InSaleFacade();
             this.theReturnQuantifiedArticleFacade= new ReturnQuantifiedArticleFacade();
             this.theSubjFacade= new SubjFacade();
-            this.theStartOrderingCommandFacade= new StartOrderingCommandFacade();
+            this.theReOrderForPreorderCommandFacade= new ReOrderForPreorderCommandFacade();
             this.theShoppingCartFacade= new ShoppingCartFacade();
+            this.theArticlesInReturnOrderStateFacade= new ArticlesInReturnOrderStateFacade();
             this.theChangeArticleQuantityCommandFacade= new ChangeArticleQuantityCommandFacade();
             this.theArticleStateFacade= new ArticleStateFacade();
             this.theCustomerOrderManagerFacade= new CustomerOrderManagerFacade();
             this.theNewOrderCommandFacade= new NewOrderCommandFacade();
             this.theCommandExecuterFacade= new CommandExecuterFacade();
+            this.theAcceptOrderCommandFacade= new AcceptOrderCommandFacade();
 	}
 	public static void initializeMapsForMappedFields() throws PersistenceException {
 		

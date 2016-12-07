@@ -7,6 +7,7 @@ public abstract class OwnerService$AuthoriseVisitor extends AnythingStandardVisi
     
     public abstract void handleProducerLst(PersistentProducerLst producerLst) throws PersistenceException;
     public abstract void handlePreOrderState(PersistentPreOrderState preOrderState) throws PersistenceException;
+    public abstract void handleCONCBackgroundTask(PersistentCONCBackgroundTask cONCBackgroundTask) throws PersistenceException;
     public abstract void handleReturnManager(PersistentReturnManager returnManager) throws PersistenceException;
     public abstract void handleRemainingStock(PersistentRemainingStock remainingStock) throws PersistenceException;
     public abstract void handleOrderQuantifiedArticle(PersistentOrderQuantifiedArticle orderQuantifiedArticle) throws PersistenceException;
@@ -26,12 +27,15 @@ public abstract class OwnerService$AuthoriseVisitor extends AnythingStandardVisi
     public abstract void handleOrder(PersistentOrder order) throws PersistenceException;
     public abstract void handleWaitingForAcceptOrderState(PersistentWaitingForAcceptOrderState waitingForAcceptOrderState) throws PersistenceException;
     public abstract void handleRootProductGroup(PersistentRootProductGroup rootProductGroup) throws PersistenceException;
+    public abstract void handleOrderQuantifiedArticleNormalState(PersistentOrderQuantifiedArticleNormalState orderQuantifiedArticleNormalState) throws PersistenceException;
     public abstract void handleInSale(PersistentInSale inSale) throws PersistenceException;
     public abstract void handleReturnQuantifiedArticle(PersistentReturnQuantifiedArticle returnQuantifiedArticle) throws PersistenceException;
     public abstract void handleReOrderManager(PersistentReOrderManager reOrderManager) throws PersistenceException;
     public abstract void handleInTransitOrderState(PersistentInTransitOrderState inTransitOrderState) throws PersistenceException;
     public abstract void handleProducer(PersistentProducer producer) throws PersistenceException;
+    public abstract void handleArticlesInReturnOrderState(PersistentArticlesInReturnOrderState articlesInReturnOrderState) throws PersistenceException;
     public abstract void handleArticleReturn(PersistentArticleReturn articleReturn) throws PersistenceException;
+    public abstract void handleOrderQuantifiedArticleMarkedForReturnState(PersistentOrderQuantifiedArticleMarkedForReturnState orderQuantifiedArticleMarkedForReturnState) throws PersistenceException;
     public abstract void handleArticleWrapper(PersistentArticleWrapper articleWrapper) throws PersistenceException;
     
 }

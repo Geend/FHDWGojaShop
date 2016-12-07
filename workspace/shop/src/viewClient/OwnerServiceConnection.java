@@ -317,7 +317,7 @@ public class OwnerServiceConnection extends ServiceConnection {
     }
     
     @SuppressWarnings("unchecked")
-    public synchronized void newArticle(ProductGroupView parent, String name, common.Fraction price, long minStock, long maxStock, long producerDeliveryTime, ProducerView producer) throws ModelException, CycleException{
+    public synchronized void newArticle(ProductGroupView parent, String name, common.Fraction price, long minStock, long maxStock, long producerDeliveryTime, ProducerView producer) throws ModelException, DoubleDefinitionException, CycleException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             if (parent == null){
@@ -339,6 +339,8 @@ public class OwnerServiceConnection extends ServiceConnection {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -275)
+                    throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -118)
                     throw CycleException.fromHashtableToCycleException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new ModelException ("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")",0);

@@ -5,7 +5,7 @@ package constants;
  */
 public class ShopConstants {
 
-    public static int CUSTOMER_DELIVERY_ACCEPT_TIME = 3;
+    public static int CUSTOMER_DELIVERY_ACCEPT_TIME = 5;
     public static int DEFAULT_RETURN_TIME = 5;
     
 }

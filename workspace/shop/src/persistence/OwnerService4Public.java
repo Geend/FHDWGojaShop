@@ -62,7 +62,7 @@ public interface OwnerService4Public extends Service4Public {
     public void moveTo(final SubComponent component, final ProductGroup4Public newParentGroup) 
 				throws model.CycleException, PersistenceException;
     public void newArticle(final ProductGroup4Public parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
-				throws model.CycleException, PersistenceException;
+				throws model.DoubleDefinitionException, model.CycleException, PersistenceException;
     public void newProductGroup(final ProductGroup4Public parent, final String name) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException;
     public void newProductGroup(final String name) 

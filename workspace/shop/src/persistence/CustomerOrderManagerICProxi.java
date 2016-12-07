@@ -70,6 +70,10 @@ public class CustomerOrderManagerICProxi extends OrderManagerICProxi implements 
     }
     
     
+    public void acceptOrder(final Order4Public order, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentCustomerOrderManager)this.getTheObject()).acceptOrder(order, invoker);
+    }
     public void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentCustomerOrderManager)this.getTheObject()).deregister(observee);
@@ -94,6 +98,10 @@ public class CustomerOrderManagerICProxi extends OrderManagerICProxi implements 
 				throws PersistenceException{
         ((PersistentCustomerOrderManager)this.getTheObject()).updateObservers(event);
     }
+    public void acceptOrder(final Order4Public order) 
+				throws model.OrderNotYetArrivedException, model.NotEnoughMoneyException, PersistenceException{
+        ((PersistentCustomerOrderManager)this.getTheObject()).acceptOrder(order);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentCustomerOrderManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
@@ -107,11 +115,11 @@ public class CustomerOrderManagerICProxi extends OrderManagerICProxi implements 
         ((PersistentCustomerOrderManager)this.getTheObject()).initializeOnInstantiation();
     }
     public void newOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.NotEnoughStockException, model.NotEnoughMoneyException, PersistenceException{
+				throws model.EmptyCartException, model.NotEnoughStockException, model.NotEnoughMoneyException, PersistenceException{
         ((PersistentCustomerOrderManager)this.getTheObject()).newOrder(cart, customerDeliveryTime);
     }
     public void newPreOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.NotEnoughMoneyException, PersistenceException{
+				throws model.EmptyCartException, model.NotEnoughMoneyException, PersistenceException{
         ((PersistentCustomerOrderManager)this.getTheObject()).newPreOrder(cart, customerDeliveryTime);
     }
 

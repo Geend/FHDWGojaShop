@@ -15,7 +15,14 @@ public class OwnerOrderManagerProxi extends OrderManagerProxi implements OwnerOr
     public OwnerOrderManagerView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         java.util.Vector<String> orders_string = (java.util.Vector<String>)resultTable.get("orders");
         java.util.Vector<OrderView> orders = ViewProxi.getProxiVector(orders_string, connectionKey);
-        OwnerOrderManagerView result$$ = new OwnerOrderManager(orders, this.getId(), this.getClassId());
+        ViewProxi myCONCBackgroundTask = null;
+        String myCONCBackgroundTask$String = (String)resultTable.get("myCONCBackgroundTask");
+        if (myCONCBackgroundTask$String != null) {
+            common.ProxiInformation myCONCBackgroundTask$Info = common.RPCConstantsAndServices.createProxiInformation(myCONCBackgroundTask$String);
+            myCONCBackgroundTask = view.objects.ViewProxi.createProxi(myCONCBackgroundTask$Info,connectionKey);
+            myCONCBackgroundTask.setToString(myCONCBackgroundTask$Info.getToString());
+        }
+        OwnerOrderManagerView result$$ = new OwnerOrderManager(orders,(BackgroundTaskView)myCONCBackgroundTask, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -48,6 +55,12 @@ public class OwnerOrderManagerProxi extends OrderManagerProxi implements OwnerOr
         return -1;
     }
     
+    public BackgroundTaskView getMyCONCBackgroundTask()throws ModelException{
+        return ((OwnerOrderManager)this.getTheObject()).getMyCONCBackgroundTask();
+    }
+    public void setMyCONCBackgroundTask(BackgroundTaskView newValue) throws ModelException {
+        ((OwnerOrderManager)this.getTheObject()).setMyCONCBackgroundTask(newValue);
+    }
     
     public void accept(OrderManagerVisitor visitor) throws ModelException {
         visitor.handleOwnerOrderManager(this);
@@ -71,6 +84,18 @@ public class OwnerOrderManagerProxi extends OrderManagerProxi implements OwnerOr
          visitor.handleOwnerOrderManager(this);
     }
     public <R, E extends view.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+         return visitor.handleOwnerOrderManager(this);
+    }
+    public void accept(BackgroundTaskVisitor visitor) throws ModelException {
+        visitor.handleOwnerOrderManager(this);
+    }
+    public <R> R accept(BackgroundTaskReturnVisitor<R>  visitor) throws ModelException {
+         return visitor.handleOwnerOrderManager(this);
+    }
+    public <E extends view.UserException>  void accept(BackgroundTaskExceptionVisitor<E> visitor) throws ModelException, E {
+         visitor.handleOwnerOrderManager(this);
+    }
+    public <R, E extends view.UserException> R accept(BackgroundTaskReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleOwnerOrderManager(this);
     }
     

@@ -967,6 +967,9 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 				handleException(me);
 				this.close();
 			}
+			catch(DoubleDefinitionException e) {
+				getStatusBar().setText(e.getMessage());
+			}
 			catch(CycleException e) {
 				getStatusBar().setText(e.getMessage());
 			}

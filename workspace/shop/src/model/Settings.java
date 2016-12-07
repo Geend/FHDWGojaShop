@@ -1,6 +1,7 @@
 
 package model;
 
+import common.Fraction;
 import persistence.*;
 import model.visitor.*;
 
@@ -10,7 +11,7 @@ import model.visitor.*;
 public class Settings extends PersistentObject implements PersistentSettings{
     
     private static Settings4Public theSettings = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static Settings4Public getTheSettings() throws PersistenceException{
         if (theSettings == null || reset$For$Test){
@@ -242,8 +243,7 @@ public class Settings extends PersistentObject implements PersistentSettings{
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
+        getThis().setNewCustomerDefaultBalance(new Fraction(42));
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{

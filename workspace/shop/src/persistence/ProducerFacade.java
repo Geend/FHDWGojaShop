@@ -49,6 +49,19 @@ public class ProducerFacade{
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
     }
+    public ProducerSearchList getProducerByName(String name) throws PersistenceException {
+        name = name.replaceAll("%", ".*");
+        name = name.replaceAll("_", ".");
+        ProducerSearchList result = new ProducerSearchList();
+        java.util.Iterator<?> candidates;
+        candidates = Cache.getTheCache().iterator(198);
+        while (candidates.hasNext()){
+            PersistentProducer current = (PersistentProducer)((PersistentRoot)candidates.next()).getTheObject();
+            if (current != null && !current.isDltd() && !current.isDelayed$Persistence() && current.getName().matches(name))
+                result.add((PersistentProducer)PersistentProxi.createProxi(current.getId(), current.getClassId()));
+        }
+        return result;
+    }
     public void nameSet(long ProducerId, String nameVal) throws PersistenceException {
         
     }

@@ -246,6 +246,9 @@ public class NewPreOrderCommand extends PersistentObject implements PersistentNe
         try{
 			this.commandReceiver.newPreOrder(this.getCart(), this.getCustomerDeliveryTime());
 		}
+		catch(model.EmptyCartException e){
+			this.commandException = e;
+		}
 		catch(model.NotEnoughMoneyException e){
 			this.commandException = e;
 		}

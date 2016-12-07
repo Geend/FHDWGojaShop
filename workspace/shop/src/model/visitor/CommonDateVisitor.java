@@ -5,6 +5,7 @@ import persistence.*;
 
 public interface CommonDateVisitor {
     
+    public void handleAcceptOrderCommand(AcceptOrderCommand4Public acceptOrderCommand) throws PersistenceException;
     public void handleAddArticleCommand(AddArticleCommand4Public addArticleCommand) throws PersistenceException;
     public void handleAddArticleReturnCommand(AddArticleReturnCommand4Public addArticleReturnCommand) throws PersistenceException;
     public void handleChangeArticleNameCommand(ChangeArticleNameCommand4Public changeArticleNameCommand) throws PersistenceException;
@@ -21,10 +22,10 @@ public interface CommonDateVisitor {
     public void handleNewPreOrderCommand(NewPreOrderCommand4Public newPreOrderCommand) throws PersistenceException;
     public void handleNewSubProductGroupCommand(NewSubProductGroupCommand4Public newSubProductGroupCommand) throws PersistenceException;
     public void handleReOrderCommand(ReOrderCommand4Public reOrderCommand) throws PersistenceException;
+    public void handleReOrderForPreorderCommand(ReOrderForPreorderCommand4Public reOrderForPreorderCommand) throws PersistenceException;
     public void handleReduceStockCommand(ReduceStockCommand4Public reduceStockCommand) throws PersistenceException;
     public void handleRegisterCommand(RegisterCommand4Public registerCommand) throws PersistenceException;
     public void handleRemoveArticleCommand(RemoveArticleCommand4Public removeArticleCommand) throws PersistenceException;
-    public void handleStartOrderingCommand(StartOrderingCommand4Public startOrderingCommand) throws PersistenceException;
     public void handleStartSellingCommand(StartSellingCommand4Public startSellingCommand) throws PersistenceException;
     public void handleStopSellingCommand(StopSellingCommand4Public stopSellingCommand) throws PersistenceException;
     public void handleWithdrawCommand(WithdrawCommand4Public withdrawCommand) throws PersistenceException;

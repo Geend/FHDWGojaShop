@@ -2,11 +2,10 @@ package persistence;
 
 import java.util.*;
 
-public class ArticleReturnList {
+public class ArticleReturnList  extends ArticleReturnSearchList{
 
-	protected Vector<ArticleReturn4Public> data; //List of proxies
 	protected ArticleReturnList() {
-		this.data = new Vector<ArticleReturn4Public>();
+		super();
 	}
 	public Iterator<ArticleReturn4Public> iterator(PersistentListProxi<ArticleReturn4Public> listProxi) {
 		return new PersistentListIterator<ArticleReturn4Public>(listProxi, this.data);

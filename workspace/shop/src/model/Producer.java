@@ -66,6 +66,11 @@ public class Producer extends PersistentObject implements PersistentProducer{
         return result;
     }
     
+    public static ProducerSearchList getProducerByName(String name) throws PersistenceException{
+        return ConnectionHandler.getTheConnectionHandler().theProducerFacade
+            .getProducerByName(name);
+    }
+    
     public Producer provideCopy() throws PersistenceException{
         Producer result = this;
         result = new Producer(this.name, 

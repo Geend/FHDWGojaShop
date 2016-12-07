@@ -5,6 +5,7 @@ import view.*;
 
 public interface OrderStateReturnVisitor<R> {
     
+    public R handleArticlesInReturnOrderState(ArticlesInReturnOrderStateView articlesInReturnOrderState) throws ModelException;
     public R handleFinishedOrderState(FinishedOrderStateView finishedOrderState) throws ModelException;
     public R handleInTransitOrderState(InTransitOrderStateView inTransitOrderState) throws ModelException;
     public R handlePreOrderState(PreOrderStateView preOrderState) throws ModelException;

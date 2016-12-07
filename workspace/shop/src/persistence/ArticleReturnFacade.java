@@ -67,6 +67,21 @@ public class ArticleReturnFacade{
     public void ThisSet(long ArticleReturnId, ArticleReturn4Public ThisVal) throws PersistenceException {
         
     }
+    public ArticleReturnSearchList inverseGetOrder(long objectId, long classId)throws PersistenceException{
+        ArticleReturnSearchList result = new ArticleReturnSearchList();
+        java.util.Iterator<PersistentInCacheProxi> candidates;
+        candidates = Cache.getTheCache().iterator(349);
+        while (candidates.hasNext()){
+            PersistentArticleReturn current = (PersistentArticleReturn)((PersistentRoot)candidates.next()).getTheObject();
+            if (current != null && !current.isDltd() && !current.isDelayed$Persistence() && current.getOrder() != null){
+                if (current.getOrder().getClassId() == classId && current.getOrder().getId() == objectId) {
+                    PersistentArticleReturn proxi = (PersistentArticleReturn)PersistentProxi.createProxi(current.getId(), current.getClassId());
+                    result.add((PersistentArticleReturn)proxi.getThis());
+                }
+            }
+        }
+        return result;
+    }
 
 }
 

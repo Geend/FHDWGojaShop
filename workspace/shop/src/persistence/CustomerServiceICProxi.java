@@ -218,11 +218,11 @@ public class CustomerServiceICProxi extends ServiceICProxi implements Persistent
         ((PersistentCustomerService)this.getTheObject()).markForReturn(article);
     }
     public void order(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.NotEnoughStockException, model.NotEnoughMoneyException, PersistenceException{
+				throws model.EmptyCartException, model.NotEnoughStockException, model.NotEnoughMoneyException, PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).order(cart, customerDeliveryTime);
     }
     public void preOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.NotEnoughMoneyException, PersistenceException{
+				throws model.EmptyCartException, model.NotEnoughMoneyException, PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).preOrder(cart, customerDeliveryTime);
     }
     public void removeFromCart(final ShoppingCartQuantifiedArticle4Public article) 

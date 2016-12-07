@@ -3,7 +3,7 @@ package model.meta;
 public interface ComponentMssgsVisitor extends ComponentDOWNMssgsVisitor, ComponentUPMssgsVisitor {}
 
 
-interface ComponentDOWNMssgsVisitor extends ProductGroupDOWNMssgsVisitor, ArticleDOWNMssgsVisitor, ArticleWrapperDOWNMssgsVisitor, SubComponentUPMssgsVisitor {
+interface ComponentDOWNMssgsVisitor extends ProductGroupDOWNMssgsVisitor, ArticleWrapperDOWNMssgsVisitor, ArticleDOWNMssgsVisitor, SubComponentUPMssgsVisitor {
 
     
 }

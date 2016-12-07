@@ -14,7 +14,8 @@ public class IconConstants {
     public static final int CART = 8;
     public static final int DELIVERY_TIME = 9;
     public static final int SETTINGS = 10;
-
-
-
+    public static final int RETURN = 11;
+    public static final int ORDER = 12;
+    public static final int REORDER = 13;
+    public static final int SEARCH_LIST = 14;
 }

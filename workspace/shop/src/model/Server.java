@@ -423,17 +423,6 @@ public class Server extends PersistentObject implements PersistentServer{
         {
             getThis().setService(CustomerService.createCustomerService(accounts.iterator().next()));
         }
-        else
-        {
-            //TODO! Remove default test customer
-
-        }
-
-
-
-
-
-
 
     }
     public void initializeOnInstantiation() 

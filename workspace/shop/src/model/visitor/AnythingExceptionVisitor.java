@@ -3,11 +3,13 @@ package model.visitor;
 
 import persistence.*;
 
-public interface AnythingExceptionVisitor<E extends model.UserException> extends ArticleStateExceptionVisitor<E>,CommonDateExceptionVisitor<E>,ComponentExceptionVisitor<E>,OrderManagerExceptionVisitor<E>,OrderStateExceptionVisitor<E>,QuantifiedArticleExceptionVisitor<E>,ServiceExceptionVisitor<E>{
+public interface AnythingExceptionVisitor<E extends model.UserException> extends ArticleStateExceptionVisitor<E>,BackgroundTaskExceptionVisitor<E>,CommonDateExceptionVisitor<E>,ComponentExceptionVisitor<E>,OrderManagerExceptionVisitor<E>,OrderQuantifiedArticleStateExceptionVisitor<E>,OrderStateExceptionVisitor<E>,QuantifiedArticleExceptionVisitor<E>,ServiceExceptionVisitor<E>{
     
+    public void handleAcceptOrderCommand(AcceptOrderCommand4Public acceptOrderCommand) throws PersistenceException, E;
     public void handleAddArticleCommand(AddArticleCommand4Public addArticleCommand) throws PersistenceException, E;
     public void handleAddArticleReturnCommand(AddArticleReturnCommand4Public addArticleReturnCommand) throws PersistenceException, E;
     public void handleArticleReturn(ArticleReturn4Public articleReturn) throws PersistenceException, E;
+    public void handleBackgroundTaskManager(BackgroundTaskManager4Public backgroundTaskManager) throws PersistenceException, E;
     public void handleChangeArticleNameCommand(ChangeArticleNameCommand4Public changeArticleNameCommand) throws PersistenceException, E;
     public void handleChangeArticleQuantityCommand(ChangeArticleQuantityCommand4Public changeArticleQuantityCommand) throws PersistenceException, E;
     public void handleChangePriceCommand(ChangePriceCommand4Public changePriceCommand) throws PersistenceException, E;
@@ -35,6 +37,7 @@ public interface AnythingExceptionVisitor<E extends model.UserException> extends
     public void handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException, E;
     public void handleProductGroupComponents(ProductGroupComponents4Public productGroupComponents) throws PersistenceException, E;
     public void handleReOrderCommand(ReOrderCommand4Public reOrderCommand) throws PersistenceException, E;
+    public void handleReOrderForPreorderCommand(ReOrderForPreorderCommand4Public reOrderForPreorderCommand) throws PersistenceException, E;
     public void handleReOrderManager(ReOrderManager4Public reOrderManager) throws PersistenceException, E;
     public void handleReduceStockCommand(ReduceStockCommand4Public reduceStockCommand) throws PersistenceException, E;
     public void handleRegisterCommand(RegisterCommand4Public registerCommand) throws PersistenceException, E;
@@ -43,7 +46,6 @@ public interface AnythingExceptionVisitor<E extends model.UserException> extends
     public void handleServer(Server4Public server) throws PersistenceException, E;
     public void handleSettings(Settings4Public settings) throws PersistenceException, E;
     public void handleShoppingCart(ShoppingCart4Public shoppingCart) throws PersistenceException, E;
-    public void handleStartOrderingCommand(StartOrderingCommand4Public startOrderingCommand) throws PersistenceException, E;
     public void handleStartSellingCommand(StartSellingCommand4Public startSellingCommand) throws PersistenceException, E;
     public void handleStopSellingCommand(StopSellingCommand4Public stopSellingCommand) throws PersistenceException, E;
     public void handleSubj(Subj4Public subj) throws PersistenceException, E;

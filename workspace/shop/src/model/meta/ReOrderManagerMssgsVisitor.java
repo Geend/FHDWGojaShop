@@ -9,7 +9,7 @@ interface ReOrderManagerDOWNMssgsVisitor  {
 }
 
 
-interface ReOrderManagerUPMssgsVisitor  {
+interface ReOrderManagerUPMssgsVisitor extends BackgroundTaskUPMssgsVisitor {
 
     
 }

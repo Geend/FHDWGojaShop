@@ -9,10 +9,12 @@ import view.visitor.*;
 
 public class OwnerOrderManager extends view.objects.OrderManager implements OwnerOrderManagerView{
     
+    protected BackgroundTaskView myCONCBackgroundTask;
     
-    public OwnerOrderManager(java.util.Vector<OrderView> orders,long id, long classId) {
+    public OwnerOrderManager(java.util.Vector<OrderView> orders,BackgroundTaskView myCONCBackgroundTask,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super(orders,id, classId);        
+        super(orders,id, classId);
+        this.myCONCBackgroundTask = myCONCBackgroundTask;        
     }
     
     static public long getTypeId() {
@@ -23,6 +25,12 @@ public class OwnerOrderManager extends view.objects.OrderManager implements Owne
         return getTypeId();
     }
     
+    public BackgroundTaskView getMyCONCBackgroundTask()throws ModelException{
+        return this.myCONCBackgroundTask;
+    }
+    public void setMyCONCBackgroundTask(BackgroundTaskView newValue) throws ModelException {
+        this.myCONCBackgroundTask = newValue;
+    }
     
     public void accept(OrderManagerVisitor visitor) throws ModelException {
         visitor.handleOwnerOrderManager(this);
@@ -48,11 +56,27 @@ public class OwnerOrderManager extends view.objects.OrderManager implements Owne
     public <R, E extends view.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleOwnerOrderManager(this);
     }
+    public void accept(BackgroundTaskVisitor visitor) throws ModelException {
+        visitor.handleOwnerOrderManager(this);
+    }
+    public <R> R accept(BackgroundTaskReturnVisitor<R>  visitor) throws ModelException {
+         return visitor.handleOwnerOrderManager(this);
+    }
+    public <E extends view.UserException>  void accept(BackgroundTaskExceptionVisitor<E> visitor) throws ModelException, E {
+         visitor.handleOwnerOrderManager(this);
+    }
+    public <R, E extends view.UserException> R accept(BackgroundTaskReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+         return visitor.handleOwnerOrderManager(this);
+    }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
         java.util.Vector<?> orders = this.getOrders();
         if (orders != null) {
             ViewObject.resolveVectorProxies(orders, resultTable);
+        }
+        BackgroundTaskView myCONCBackgroundTask = this.getMyCONCBackgroundTask();
+        if (myCONCBackgroundTask != null) {
+            ((ViewProxi)myCONCBackgroundTask).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(myCONCBackgroundTask.getClassId(), myCONCBackgroundTask.getId())));
         }
         
     }

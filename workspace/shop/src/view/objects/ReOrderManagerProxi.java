@@ -15,7 +15,14 @@ public class ReOrderManagerProxi extends ViewProxi implements ReOrderManagerView
     public ReOrderManagerView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         java.util.Vector<String> reorderArticles_string = (java.util.Vector<String>)resultTable.get("reorderArticles");
         java.util.Vector<ReOrderQuantifiedArticleView> reorderArticles = ViewProxi.getProxiVector(reorderArticles_string, connectionKey);
-        ReOrderManagerView result$$ = new ReOrderManager(reorderArticles, this.getId(), this.getClassId());
+        ViewProxi myCONCBackgroundTask = null;
+        String myCONCBackgroundTask$String = (String)resultTable.get("myCONCBackgroundTask");
+        if (myCONCBackgroundTask$String != null) {
+            common.ProxiInformation myCONCBackgroundTask$Info = common.RPCConstantsAndServices.createProxiInformation(myCONCBackgroundTask$String);
+            myCONCBackgroundTask = view.objects.ViewProxi.createProxi(myCONCBackgroundTask$Info,connectionKey);
+            myCONCBackgroundTask.setToString(myCONCBackgroundTask$Info.getToString());
+        }
+        ReOrderManagerView result$$ = new ReOrderManager(reorderArticles,(BackgroundTaskView)myCONCBackgroundTask, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -54,7 +61,25 @@ public class ReOrderManagerProxi extends ViewProxi implements ReOrderManagerView
     public void setReorderArticles(java.util.Vector<ReOrderQuantifiedArticleView> newValue) throws ModelException {
         ((ReOrderManager)this.getTheObject()).setReorderArticles(newValue);
     }
+    public BackgroundTaskView getMyCONCBackgroundTask()throws ModelException{
+        return ((ReOrderManager)this.getTheObject()).getMyCONCBackgroundTask();
+    }
+    public void setMyCONCBackgroundTask(BackgroundTaskView newValue) throws ModelException {
+        ((ReOrderManager)this.getTheObject()).setMyCONCBackgroundTask(newValue);
+    }
     
+    public void accept(BackgroundTaskVisitor visitor) throws ModelException {
+        visitor.handleReOrderManager(this);
+    }
+    public <R> R accept(BackgroundTaskReturnVisitor<R>  visitor) throws ModelException {
+         return visitor.handleReOrderManager(this);
+    }
+    public <E extends view.UserException>  void accept(BackgroundTaskExceptionVisitor<E> visitor) throws ModelException, E {
+         visitor.handleReOrderManager(this);
+    }
+    public <R, E extends view.UserException> R accept(BackgroundTaskReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+         return visitor.handleReOrderManager(this);
+    }
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleReOrderManager(this);
     }

@@ -5,6 +5,7 @@ import persistence.*;
 
 public interface CommonDateExceptionVisitor<E extends model.UserException> {
     
+    public void handleAcceptOrderCommand(AcceptOrderCommand4Public acceptOrderCommand) throws PersistenceException, E;
     public void handleAddArticleCommand(AddArticleCommand4Public addArticleCommand) throws PersistenceException, E;
     public void handleAddArticleReturnCommand(AddArticleReturnCommand4Public addArticleReturnCommand) throws PersistenceException, E;
     public void handleChangeArticleNameCommand(ChangeArticleNameCommand4Public changeArticleNameCommand) throws PersistenceException, E;
@@ -21,10 +22,10 @@ public interface CommonDateExceptionVisitor<E extends model.UserException> {
     public void handleNewPreOrderCommand(NewPreOrderCommand4Public newPreOrderCommand) throws PersistenceException, E;
     public void handleNewSubProductGroupCommand(NewSubProductGroupCommand4Public newSubProductGroupCommand) throws PersistenceException, E;
     public void handleReOrderCommand(ReOrderCommand4Public reOrderCommand) throws PersistenceException, E;
+    public void handleReOrderForPreorderCommand(ReOrderForPreorderCommand4Public reOrderForPreorderCommand) throws PersistenceException, E;
     public void handleReduceStockCommand(ReduceStockCommand4Public reduceStockCommand) throws PersistenceException, E;
     public void handleRegisterCommand(RegisterCommand4Public registerCommand) throws PersistenceException, E;
     public void handleRemoveArticleCommand(RemoveArticleCommand4Public removeArticleCommand) throws PersistenceException, E;
-    public void handleStartOrderingCommand(StartOrderingCommand4Public startOrderingCommand) throws PersistenceException, E;
     public void handleStartSellingCommand(StartSellingCommand4Public startSellingCommand) throws PersistenceException, E;
     public void handleStopSellingCommand(StopSellingCommand4Public stopSellingCommand) throws PersistenceException, E;
     public void handleWithdrawCommand(WithdrawCommand4Public withdrawCommand) throws PersistenceException, E;

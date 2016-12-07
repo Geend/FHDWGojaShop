@@ -5,6 +5,7 @@ import model.visitor.*;
 
 public interface Server4Public extends Invoker, Anything, SubjInterface, Remote, AbstractPersistentProxi {
     
+    public Service4Public getService() throws PersistenceException ;
     
     public void accept(InvokerVisitor visitor) throws PersistenceException;
     public <R> R accept(InvokerReturnVisitor<R>  visitor) throws PersistenceException;

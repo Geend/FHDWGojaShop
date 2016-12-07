@@ -29,6 +29,14 @@ public class IconManager {
 				return getImage("Ecommerce/delivery-48.png");
 			case IconConstants.SETTINGS:
 				return getImage("Programming/settings_3-48.png");
+			case IconConstants.RETURN:
+				return getImage("Industry/return-48.png");
+			case IconConstants.ORDER:
+				return getImage("Finance/purchase_order-48.png");
+			case IconConstants.REORDER:
+				return getImage("Business/multiple_inputs-48.png");
+			case IconConstants.SEARCH_LIST:
+				return getImage("Data/list-48.png");
 		default:
 			return new Image("/viewResources/default.gif");
 		}

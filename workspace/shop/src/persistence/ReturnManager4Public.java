@@ -5,6 +5,7 @@ import model.visitor.*;
 
 public interface ReturnManager4Public extends Anything, SubjInterface, AbstractPersistentProxi {
     
+    public ReturnManager_ArticleReturnProxi getArticleReturn() throws PersistenceException ;
     
     public void accept(AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;

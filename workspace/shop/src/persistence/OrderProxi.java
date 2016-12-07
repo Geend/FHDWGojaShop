@@ -79,6 +79,10 @@ public class OrderProxi extends PersistentProxi implements PersistentOrder{
 				throws PersistenceException{
         ((PersistentOrder)this.getTheObject()).deregister(observee);
     }
+    public ArticleReturn4Public getMyOrder() 
+				throws PersistenceException{
+        return ((PersistentOrder)this.getTheObject()).getMyOrder();
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentOrder)this.getTheObject()).initialize(This, final$$Fields);

@@ -57,6 +57,15 @@ public class OrderQuantifiedArticle extends model.QuantifiedArticle implements P
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
             result.put("articlePriceAtOrderTime", this.getArticlePriceAtOrderTime().toString());
+            AbstractPersistentRoot state = (AbstractPersistentRoot)this.getState();
+            if (state != null) {
+                result.put("state", state.createProxiInformation(false, essentialLevel <= 1));
+                if(depth > 1) {
+                    state.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && state.hasEssentialFields())state.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -70,6 +79,7 @@ public class OrderQuantifiedArticle extends model.QuantifiedArticle implements P
                                             this.subService, 
                                             this.This, 
                                             this.articlePriceAtOrderTime, 
+                                            this.state, 
                                             this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -79,11 +89,13 @@ public class OrderQuantifiedArticle extends model.QuantifiedArticle implements P
         return false;
     }
     protected common.Fraction articlePriceAtOrderTime;
+    protected PersistentOrderQuantifiedArticleState state;
     
-    public OrderQuantifiedArticle(long quantity,PersistentArticleWrapper article,SubjInterface subService,PersistentQuantifiedArticle This,common.Fraction articlePriceAtOrderTime,long id) throws PersistenceException {
+    public OrderQuantifiedArticle(long quantity,PersistentArticleWrapper article,SubjInterface subService,PersistentQuantifiedArticle This,common.Fraction articlePriceAtOrderTime,PersistentOrderQuantifiedArticleState state,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super((long)quantity,(PersistentArticleWrapper)article,(SubjInterface)subService,(PersistentQuantifiedArticle)This,id);
-        this.articlePriceAtOrderTime = articlePriceAtOrderTime;        
+        this.articlePriceAtOrderTime = articlePriceAtOrderTime;
+        this.state = state;        
     }
     
     static public long getTypeId() {
@@ -99,6 +111,10 @@ public class OrderQuantifiedArticle extends model.QuantifiedArticle implements P
         if (this.getClassId() == 232) ConnectionHandler.getTheConnectionHandler().theOrderQuantifiedArticleFacade
             .newOrderQuantifiedArticle(quantity,articlePriceAtOrderTime,this.getId());
         super.store();
+        if(this.getState() != null){
+            this.getState().store();
+            ConnectionHandler.getTheConnectionHandler().theOrderQuantifiedArticleFacade.stateSet(this.getId(), getState());
+        }
         
     }
     
@@ -108,6 +124,20 @@ public class OrderQuantifiedArticle extends model.QuantifiedArticle implements P
     public void setArticlePriceAtOrderTime(common.Fraction newValue) throws PersistenceException {
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theOrderQuantifiedArticleFacade.articlePriceAtOrderTimeSet(this.getId(), newValue);
         this.articlePriceAtOrderTime = newValue;
+    }
+    public OrderQuantifiedArticleState4Public getState() throws PersistenceException {
+        return this.state;
+    }
+    public void setState(OrderQuantifiedArticleState4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.state)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.state = (PersistentOrderQuantifiedArticleState)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theOrderQuantifiedArticleFacade.stateSet(this.getId(), newValue);
+        }
     }
     public PersistentOrderQuantifiedArticle getThis() throws PersistenceException {
         if(this.This == null){
@@ -206,12 +236,21 @@ public class OrderQuantifiedArticle extends model.QuantifiedArticle implements P
     public void initializeOnCreation() 
 				throws PersistenceException{
         super.initializeOnCreation();
-		//TODO: implement method: initializeOnCreation
+        getThis().setState(OrderQuantifiedArticleNormalState.createOrderQuantifiedArticleNormalState());
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         super.initializeOnInstantiation();
 		//TODO: implement method: initializeOnInstantiation
+    }
+    public void markForReturn() 
+				throws PersistenceException{
+        getThis().setState(OrderQuantifiedArticleMarkedForReturnState.createOrderQuantifiedArticleMarkedForReturnState());
+    }
+    public void unmarkForReturn() 
+				throws PersistenceException{
+        getThis().setState(OrderQuantifiedArticleNormalState.createOrderQuantifiedArticleNormalState());
+        
     }
     
     

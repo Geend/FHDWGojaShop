@@ -10,7 +10,7 @@ import model.visitor.*;
 public class CustomerDeliveryTimeManager extends PersistentObject implements PersistentCustomerDeliveryTimeManager{
     
     private static CustomerDeliveryTimeManager4Public theCustomerDeliveryTimeManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static CustomerDeliveryTimeManager4Public getTheCustomerDeliveryTimeManager() throws PersistenceException{
         if (theCustomerDeliveryTimeManager == null || reset$For$Test){

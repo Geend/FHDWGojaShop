@@ -6,6 +6,8 @@ public interface OrderQuantifiedArticleView extends QuantifiedArticleView {
     
     public common.Fraction getArticlePriceAtOrderTime()throws ModelException;
     public void setArticlePriceAtOrderTime(common.Fraction newValue) throws ModelException ;
+    public OrderQuantifiedArticleStateView getState()throws ModelException;
+    public void setState(OrderQuantifiedArticleStateView newValue) throws ModelException ;
     
     public void accept(QuantifiedArticleVisitor visitor) throws ModelException;
     public <R> R accept(QuantifiedArticleReturnVisitor<R>  visitor) throws ModelException;

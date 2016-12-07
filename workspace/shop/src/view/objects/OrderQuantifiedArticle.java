@@ -10,11 +10,13 @@ import view.visitor.*;
 public class OrderQuantifiedArticle extends view.objects.QuantifiedArticle implements OrderQuantifiedArticleView{
     
     protected common.Fraction articlePriceAtOrderTime;
+    protected OrderQuantifiedArticleStateView state;
     
-    public OrderQuantifiedArticle(long quantity,ArticleWrapperView article,common.Fraction articlePriceAtOrderTime,long id, long classId) {
+    public OrderQuantifiedArticle(long quantity,ArticleWrapperView article,common.Fraction articlePriceAtOrderTime,OrderQuantifiedArticleStateView state,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super((long)quantity,(ArticleWrapperView)article,id, classId);
-        this.articlePriceAtOrderTime = articlePriceAtOrderTime;        
+        this.articlePriceAtOrderTime = articlePriceAtOrderTime;
+        this.state = state;        
     }
     
     static public long getTypeId() {
@@ -30,6 +32,12 @@ public class OrderQuantifiedArticle extends view.objects.QuantifiedArticle imple
     }
     public void setArticlePriceAtOrderTime(common.Fraction newValue) throws ModelException {
         this.articlePriceAtOrderTime = newValue;
+    }
+    public OrderQuantifiedArticleStateView getState()throws ModelException{
+        return this.state;
+    }
+    public void setState(OrderQuantifiedArticleStateView newValue) throws ModelException {
+        this.state = newValue;
     }
     
     public void accept(QuantifiedArticleVisitor visitor) throws ModelException {
@@ -61,6 +69,10 @@ public class OrderQuantifiedArticle extends view.objects.QuantifiedArticle imple
         ArticleWrapperView article = this.getArticle();
         if (article != null) {
             ((ViewProxi)article).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(article.getClassId(), article.getId())));
+        }
+        OrderQuantifiedArticleStateView state = this.getState();
+        if (state != null) {
+            ((ViewProxi)state).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(state.getClassId(), state.getId())));
         }
         
     }

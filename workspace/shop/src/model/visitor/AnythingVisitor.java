@@ -3,11 +3,13 @@ package model.visitor;
 
 import persistence.*;
 
-public interface AnythingVisitor extends ArticleStateVisitor,CommonDateVisitor,ComponentVisitor,OrderManagerVisitor,OrderStateVisitor,QuantifiedArticleVisitor,ServiceVisitor{
+public interface AnythingVisitor extends ArticleStateVisitor,BackgroundTaskVisitor,CommonDateVisitor,ComponentVisitor,OrderManagerVisitor,OrderQuantifiedArticleStateVisitor,OrderStateVisitor,QuantifiedArticleVisitor,ServiceVisitor{
     
+    public void handleAcceptOrderCommand(AcceptOrderCommand4Public acceptOrderCommand) throws PersistenceException;
     public void handleAddArticleCommand(AddArticleCommand4Public addArticleCommand) throws PersistenceException;
     public void handleAddArticleReturnCommand(AddArticleReturnCommand4Public addArticleReturnCommand) throws PersistenceException;
     public void handleArticleReturn(ArticleReturn4Public articleReturn) throws PersistenceException;
+    public void handleBackgroundTaskManager(BackgroundTaskManager4Public backgroundTaskManager) throws PersistenceException;
     public void handleChangeArticleNameCommand(ChangeArticleNameCommand4Public changeArticleNameCommand) throws PersistenceException;
     public void handleChangeArticleQuantityCommand(ChangeArticleQuantityCommand4Public changeArticleQuantityCommand) throws PersistenceException;
     public void handleChangePriceCommand(ChangePriceCommand4Public changePriceCommand) throws PersistenceException;
@@ -35,6 +37,7 @@ public interface AnythingVisitor extends ArticleStateVisitor,CommonDateVisitor,C
     public void handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException;
     public void handleProductGroupComponents(ProductGroupComponents4Public productGroupComponents) throws PersistenceException;
     public void handleReOrderCommand(ReOrderCommand4Public reOrderCommand) throws PersistenceException;
+    public void handleReOrderForPreorderCommand(ReOrderForPreorderCommand4Public reOrderForPreorderCommand) throws PersistenceException;
     public void handleReOrderManager(ReOrderManager4Public reOrderManager) throws PersistenceException;
     public void handleReduceStockCommand(ReduceStockCommand4Public reduceStockCommand) throws PersistenceException;
     public void handleRegisterCommand(RegisterCommand4Public registerCommand) throws PersistenceException;
@@ -43,7 +46,6 @@ public interface AnythingVisitor extends ArticleStateVisitor,CommonDateVisitor,C
     public void handleServer(Server4Public server) throws PersistenceException;
     public void handleSettings(Settings4Public settings) throws PersistenceException;
     public void handleShoppingCart(ShoppingCart4Public shoppingCart) throws PersistenceException;
-    public void handleStartOrderingCommand(StartOrderingCommand4Public startOrderingCommand) throws PersistenceException;
     public void handleStartSellingCommand(StartSellingCommand4Public startSellingCommand) throws PersistenceException;
     public void handleStopSellingCommand(StopSellingCommand4Public stopSellingCommand) throws PersistenceException;
     public void handleSubj(Subj4Public subj) throws PersistenceException;

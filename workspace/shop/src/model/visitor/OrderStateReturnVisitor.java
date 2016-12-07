@@ -5,6 +5,7 @@ import persistence.*;
 
 public interface OrderStateReturnVisitor<R> {
     
+    public R handleArticlesInReturnOrderState(ArticlesInReturnOrderState4Public articlesInReturnOrderState) throws PersistenceException;
     public R handleFinishedOrderState(FinishedOrderState4Public finishedOrderState) throws PersistenceException;
     public R handleInTransitOrderState(InTransitOrderState4Public inTransitOrderState) throws PersistenceException;
     public R handlePreOrderState(PreOrderState4Public preOrderState) throws PersistenceException;

@@ -49,10 +49,10 @@ public class ReOrderManagerFacade{
     public ReOrderQuantifiedArticleList reorderArticlesGet(long ReOrderManagerId) throws PersistenceException {
         return new ReOrderQuantifiedArticleList(); // remote access for initialization only!
     }
-    public void subServiceSet(long ReOrderManagerId, SubjInterface subServiceVal) throws PersistenceException {
+    public void ThisSet(long ReOrderManagerId, ReOrderManager4Public ThisVal) throws PersistenceException {
         
     }
-    public void ThisSet(long ReOrderManagerId, ReOrderManager4Public ThisVal) throws PersistenceException {
+    public void myCONCBackgroundTaskSet(long ReOrderManagerId, BackgroundTask4Public myCONCBackgroundTaskVal) throws PersistenceException {
         
     }
 

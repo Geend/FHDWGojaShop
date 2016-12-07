@@ -3,7 +3,7 @@ package persistence;
 
 import model.visitor.*;
 
-public interface OwnerOrderManager4Public extends OrderManager4Public {
+public interface OwnerOrderManager4Public extends CONCBackgroundTask4Public, OrderManager4Public {
     
     
     public void accept(OrderManagerVisitor visitor) throws PersistenceException;
@@ -18,6 +18,10 @@ public interface OwnerOrderManager4Public extends OrderManager4Public {
     public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
+    public void accept(BackgroundTaskVisitor visitor) throws PersistenceException;
+    public <R> R accept(BackgroundTaskReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends model.UserException>  void accept(BackgroundTaskExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends model.UserException> R accept(BackgroundTaskReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
@@ -28,8 +32,6 @@ public interface OwnerOrderManager4Public extends OrderManager4Public {
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
-				throws PersistenceException;
-    public void startOrderProcessing() 
 				throws PersistenceException;
 
 }

@@ -81,10 +81,10 @@ public class Cache {
 		this.garbageCollector.start();
 	}
 
-//	public void reset$For$Test(){
-//		this.garbageCollector.interrupt();
-//		Cache.theCache = null;
-//	}
+	public void reset$For$Test(){
+		this.garbageCollector.interrupt();
+		Cache.theCache = null;
+	}
 
 	public void finalize(){
 		this.garbageCollector.interrupt();
@@ -274,11 +274,15 @@ public class Cache {
 	
 	private void initializeNumber2NameMap() {
 		this.number2NameMap = new Hashtable<Integer,String>();
+		this.number2NameMap.put(360, "AcceptOrderCommand");
 		this.number2NameMap.put(292, "AddArticleCommand");
 		this.number2NameMap.put(352, "AddArticleReturnCommand");
 		this.number2NameMap.put(194, "Article");
 		this.number2NameMap.put(349, "ArticleReturn");
 		this.number2NameMap.put(242, "ArticleWrapper");
+		this.number2NameMap.put(361, "ArticlesInReturnOrderState");
+		this.number2NameMap.put(363, "BackgroundTaskManager");
+		this.number2NameMap.put(367, "CONCBackgroundTask");
 		this.number2NameMap.put(290, "ChangeArticleNameCommand");
 		this.number2NameMap.put(294, "ChangeArticleQuantityCommand");
 		this.number2NameMap.put(291, "ChangePriceCommand");
@@ -311,6 +315,8 @@ public class Cache {
 		this.number2NameMap.put(195, "NotInSale");
 		this.number2NameMap.put(238, "Order");
 		this.number2NameMap.put(232, "OrderQuantifiedArticle");
+		this.number2NameMap.put(355, "OrderQuantifiedArticleMarkedForReturnState");
+		this.number2NameMap.put(356, "OrderQuantifiedArticleNormalState");
 		this.number2NameMap.put(343, "OwnerOrderManager");
 		this.number2NameMap.put(-276, "OwnerService");
 		this.number2NameMap.put(337, "PreOrderState");
@@ -319,6 +325,7 @@ public class Cache {
 		this.number2NameMap.put(210, "ProducerLst");
 		this.number2NameMap.put(320, "ProductGroupComponents");
 		this.number2NameMap.put(330, "ReOrderCommand");
+		this.number2NameMap.put(368, "ReOrderForPreorderCommand");
 		this.number2NameMap.put(327, "ReOrderManager");
 		this.number2NameMap.put(326, "ReOrderQuantifiedArticle");
 		this.number2NameMap.put(286, "ReduceStockCommand");
@@ -332,7 +339,6 @@ public class Cache {
 		this.number2NameMap.put(318, "Settings");
 		this.number2NameMap.put(241, "ShoppingCart");
 		this.number2NameMap.put(236, "ShoppingCartQuantifiedArticle");
-		this.number2NameMap.put(331, "StartOrderingCommand");
 		this.number2NameMap.put(289, "StartSellingCommand");
 		this.number2NameMap.put(287, "StopSellingCommand");
 		this.number2NameMap.put(214, "SubProductGroup");

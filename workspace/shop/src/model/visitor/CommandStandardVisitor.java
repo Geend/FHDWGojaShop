@@ -44,8 +44,8 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleRegisterCommand(RegisterCommand4Public registerCommand) throws PersistenceException{
         this.standardHandling(registerCommand);
     }
-    public void handleStartOrderingCommand(StartOrderingCommand4Public startOrderingCommand) throws PersistenceException{
-        this.standardHandling(startOrderingCommand);
+    public void handleReOrderForPreorderCommand(ReOrderForPreorderCommand4Public reOrderForPreorderCommand) throws PersistenceException{
+        this.standardHandling(reOrderForPreorderCommand);
     }
     public void handleWithdrawCommand(WithdrawCommand4Public withdrawCommand) throws PersistenceException{
         this.standardHandling(withdrawCommand);
@@ -70,6 +70,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     }
     public void handleDepositCommand(DepositCommand4Public depositCommand) throws PersistenceException{
         this.standardHandling(depositCommand);
+    }
+    public void handleAcceptOrderCommand(AcceptOrderCommand4Public acceptOrderCommand) throws PersistenceException{
+        this.standardHandling(acceptOrderCommand);
     }
     public void handleDebitCommand(DebitCommand4Public debitCommand) throws PersistenceException{
         this.standardHandling(debitCommand);

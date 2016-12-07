@@ -411,8 +411,7 @@ public class CustomerService extends model.Service implements PersistentCustomer
     
     public void acceptOrder(final Order4Public order) 
 				throws PersistenceException{
-        //TODO: implement method: acceptOrder
-        
+        getThis().getOrderManager().acceptOrder(order, getThis());
     }
     public void addToCart(final ArticleWrapper4Public article, final long quantity) 
 				throws PersistenceException{
@@ -467,18 +466,20 @@ public class CustomerService extends model.Service implements PersistentCustomer
     }
     public void markForReturn(final OrderQuantifiedArticle4Public article) 
 				throws PersistenceException{
-        //TODO: implement method: markForReturn
-        
+        article.markForReturn();
+        getThis().signalChanged(true);
     }
     public void order(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.NotEnoughStockException, model.NotEnoughMoneyException, PersistenceException{
+				throws model.EmptyCartException, model.NotEnoughStockException, model.NotEnoughMoneyException, PersistenceException{
         getThis().getOrderManager().newOrder(cart, customerDeliveryTime,getThis());
         getThis().setCart(ShoppingCart.createShoppingCart());
+
     }
     public void preOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.NotEnoughMoneyException, PersistenceException{
+				throws model.EmptyCartException, model.NotEnoughMoneyException, PersistenceException{
         getThis().getOrderManager().newPreOrder(cart, customerDeliveryTime,getThis());
         getThis().setCart(ShoppingCart.createShoppingCart());
+
     }
     public void removeFromCart(final ShoppingCartQuantifiedArticle4Public article) 
 				throws PersistenceException{
@@ -490,8 +491,8 @@ public class CustomerService extends model.Service implements PersistentCustomer
     }
     public void unmarkForReturn(final OrderQuantifiedArticle4Public article) 
 				throws PersistenceException{
-        //TODO: implement method: unmarkForReturn
-        
+        article.unmarkForReturn();
+        getThis().signalChanged(true);
     }
     public void withdraw(final common.Fraction amount) 
 				throws model.NotEnoughMoneyException, PersistenceException{

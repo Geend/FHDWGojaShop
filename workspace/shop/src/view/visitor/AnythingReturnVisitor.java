@@ -3,9 +3,10 @@ package view.visitor;
 
 import view.*;
 
-public interface AnythingReturnVisitor<R> extends ArticleStateReturnVisitor<R> ,ComponentReturnVisitor<R> ,OrderManagerReturnVisitor<R> ,OrderStateReturnVisitor<R> ,QuantifiedArticleReturnVisitor<R> ,ServiceReturnVisitor<R> {
+public interface AnythingReturnVisitor<R> extends ArticleStateReturnVisitor<R> ,BackgroundTaskReturnVisitor<R> ,ComponentReturnVisitor<R> ,OrderManagerReturnVisitor<R> ,OrderQuantifiedArticleStateReturnVisitor<R> ,OrderStateReturnVisitor<R> ,QuantifiedArticleReturnVisitor<R> ,ServiceReturnVisitor<R> {
     
     public R handleArticleReturn(ArticleReturnView articleReturn) throws ModelException;
+    public R handleBackgroundTaskManager(BackgroundTaskManagerView backgroundTaskManager) throws ModelException;
     public R handleCustomerAccount(CustomerAccountView customerAccount) throws ModelException;
     public R handleCustomerArticleLst(CustomerArticleLstView customerArticleLst) throws ModelException;
     public R handleCustomerDeliveryTime(CustomerDeliveryTimeView customerDeliveryTime) throws ModelException;

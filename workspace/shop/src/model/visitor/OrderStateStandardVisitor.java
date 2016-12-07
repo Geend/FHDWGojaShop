@@ -11,6 +11,9 @@ public abstract class OrderStateStandardVisitor implements OrderStateVisitor {
     public void handleWaitingForAcceptOrderState(WaitingForAcceptOrderState4Public waitingForAcceptOrderState) throws PersistenceException{
         this.standardHandling(waitingForAcceptOrderState);
     }
+    public void handleArticlesInReturnOrderState(ArticlesInReturnOrderState4Public articlesInReturnOrderState) throws PersistenceException{
+        this.standardHandling(articlesInReturnOrderState);
+    }
     public void handleFinishedOrderState(FinishedOrderState4Public finishedOrderState) throws PersistenceException{
         this.standardHandling(finishedOrderState);
     }

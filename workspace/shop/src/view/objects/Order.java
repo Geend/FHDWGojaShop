@@ -13,14 +13,16 @@ public class Order extends ViewObject implements OrderView{
     protected CustomerDeliveryTimeView customerDeliveryTime;
     protected common.Fraction totalPrice;
     protected OrderStateView state;
+    protected ArticleReturnView myOrder;
     
-    public Order(java.util.Vector<OrderQuantifiedArticleView> articles,CustomerDeliveryTimeView customerDeliveryTime,common.Fraction totalPrice,OrderStateView state,long id, long classId) {
+    public Order(java.util.Vector<OrderQuantifiedArticleView> articles,CustomerDeliveryTimeView customerDeliveryTime,common.Fraction totalPrice,OrderStateView state,ArticleReturnView myOrder,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.articles = articles;
         this.customerDeliveryTime = customerDeliveryTime;
         this.totalPrice = totalPrice;
-        this.state = state;        
+        this.state = state;
+        this.myOrder = myOrder;        
     }
     
     static public long getTypeId() {
@@ -55,6 +57,9 @@ public class Order extends ViewObject implements OrderView{
     public void setState(OrderStateView newValue) throws ModelException {
         this.state = newValue;
     }
+    public ArticleReturnView getMyOrder()throws ModelException{
+        return this.myOrder;
+    }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleOrder(this);
@@ -82,6 +87,10 @@ public class Order extends ViewObject implements OrderView{
         if (state != null) {
             ((ViewProxi)state).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(state.getClassId(), state.getId())));
         }
+        ArticleReturnView myOrder = this.getMyOrder();
+        if (myOrder != null) {
+            ((ViewProxi)myOrder).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(myOrder.getClassId(), myOrder.getId())));
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {
@@ -95,19 +104,23 @@ public class Order extends ViewObject implements OrderView{
         if(this.getCustomerDeliveryTime() != null) index = index - 1;
         if(index == 0 && this.getState() != null) return new StateOrderWrapper(this, originalIndex, (ViewRoot)this.getState());
         if(this.getState() != null) index = index - 1;
+        if(index == 0 && this.getMyOrder() != null) return new MyOrderOrderWrapper(this, originalIndex, (ViewRoot)this.getMyOrder());
+        if(this.getMyOrder() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getArticles().size())
             + (this.getCustomerDeliveryTime() == null ? 0 : 1)
-            + (this.getState() == null ? 0 : 1);
+            + (this.getState() == null ? 0 : 1)
+            + (this.getMyOrder() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         return true 
             && (this.getArticles().size() == 0)
             && (this.getCustomerDeliveryTime() == null ? true : false)
-            && (this.getState() == null ? true : false);
+            && (this.getState() == null ? true : false)
+            && (this.getMyOrder() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -120,6 +133,8 @@ public class Order extends ViewObject implements OrderView{
         if(this.getCustomerDeliveryTime() != null) result = result + 1;
         if(this.getState() != null && this.getState().equals(child)) return result;
         if(this.getState() != null) result = result + 1;
+        if(this.getMyOrder() != null && this.getMyOrder().equals(child)) return result;
+        if(this.getMyOrder() != null) result = result + 1;
         return -1;
     }
     public int getTotalPriceIndex() throws ModelException {
@@ -155,7 +170,7 @@ public class Order extends ViewObject implements OrderView{
         rowIndex = rowIndex - 1;
     }
     public boolean hasTransientFields(){
-        return false;
+        return true;
     }
     /* Start of protected part that is not overridden by persistence generator */
     

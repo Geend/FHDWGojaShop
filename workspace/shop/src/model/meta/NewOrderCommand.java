@@ -246,6 +246,9 @@ public class NewOrderCommand extends PersistentObject implements PersistentNewOr
         try{
 			this.commandReceiver.newOrder(this.getCart(), this.getCustomerDeliveryTime());
 		}
+		catch(model.EmptyCartException e){
+			this.commandException = e;
+		}
 		catch(model.NotEnoughStockException e){
 			this.commandException = e;
 		}

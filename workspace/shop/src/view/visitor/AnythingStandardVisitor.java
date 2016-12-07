@@ -8,6 +8,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleProducerLst(ProducerLstView producerLst) throws ModelException{
         this.standardHandling(producerLst);
     }
+    public void handleCONCBackgroundTask(CONCBackgroundTaskView cONCBackgroundTask) throws ModelException{
+        this.standardHandling(cONCBackgroundTask);
+    }
     public void handleCustomerService(CustomerServiceView customerService) throws ModelException{
         this.standardHandling(customerService);
     }
@@ -50,6 +53,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleRootProductGroup(RootProductGroupView rootProductGroup) throws ModelException{
         this.standardHandling(rootProductGroup);
     }
+    public void handleOrderQuantifiedArticleNormalState(OrderQuantifiedArticleNormalStateView orderQuantifiedArticleNormalState) throws ModelException{
+        this.standardHandling(orderQuantifiedArticleNormalState);
+    }
     public void handleCustomerAccount(CustomerAccountView customerAccount) throws ModelException{
         this.standardHandling(customerAccount);
     }
@@ -64,6 +70,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleArticleReturn(ArticleReturnView articleReturn) throws ModelException{
         this.standardHandling(articleReturn);
+    }
+    public void handleOrderQuantifiedArticleMarkedForReturnState(OrderQuantifiedArticleMarkedForReturnStateView orderQuantifiedArticleMarkedForReturnState) throws ModelException{
+        this.standardHandling(orderQuantifiedArticleMarkedForReturnState);
     }
     public void handleArticleWrapper(ArticleWrapperView articleWrapper) throws ModelException{
         this.standardHandling(articleWrapper);
@@ -101,6 +110,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleWaitingForAcceptOrderState(WaitingForAcceptOrderStateView waitingForAcceptOrderState) throws ModelException{
         this.standardHandling(waitingForAcceptOrderState);
     }
+    public void handleBackgroundTaskManager(BackgroundTaskManagerView backgroundTaskManager) throws ModelException{
+        this.standardHandling(backgroundTaskManager);
+    }
     public void handleReturnQuantifiedArticle(ReturnQuantifiedArticleView returnQuantifiedArticle) throws ModelException{
         this.standardHandling(returnQuantifiedArticle);
     }
@@ -109,6 +121,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleShoppingCart(ShoppingCartView shoppingCart) throws ModelException{
         this.standardHandling(shoppingCart);
+    }
+    public void handleArticlesInReturnOrderState(ArticlesInReturnOrderStateView articlesInReturnOrderState) throws ModelException{
+        this.standardHandling(articlesInReturnOrderState);
     }
     public void handleCustomerOrderManager(CustomerOrderManagerView customerOrderManager) throws ModelException{
         this.standardHandling(customerOrderManager);

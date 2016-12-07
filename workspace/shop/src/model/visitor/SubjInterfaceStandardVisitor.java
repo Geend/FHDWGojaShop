@@ -8,6 +8,9 @@ public abstract class SubjInterfaceStandardVisitor implements SubjInterfaceVisit
     public void handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException{
         this.standardHandling(producerLst);
     }
+    public void handleCONCBackgroundTask(CONCBackgroundTask4Public cONCBackgroundTask) throws PersistenceException{
+        this.standardHandling(cONCBackgroundTask);
+    }
     public void handlePreOrderState(PreOrderState4Public preOrderState) throws PersistenceException{
         this.standardHandling(preOrderState);
     }
@@ -35,11 +38,11 @@ public abstract class SubjInterfaceStandardVisitor implements SubjInterfaceVisit
     public void handleArticle(Article4Public article) throws PersistenceException{
         this.standardHandling(article);
     }
-    public void handleNotInSale(NotInSale4Public notInSale) throws PersistenceException{
-        this.standardHandling(notInSale);
-    }
     public void handleOwnerOrderManager(OwnerOrderManager4Public ownerOrderManager) throws PersistenceException{
         this.standardHandling(ownerOrderManager);
+    }
+    public void handleNotInSale(NotInSale4Public notInSale) throws PersistenceException{
+        this.standardHandling(notInSale);
     }
     public void handleSubProductGroup(SubProductGroup4Public subProductGroup) throws PersistenceException{
         this.standardHandling(subProductGroup);
@@ -80,8 +83,14 @@ public abstract class SubjInterfaceStandardVisitor implements SubjInterfaceVisit
     public void handleWaitingForAcceptOrderState(WaitingForAcceptOrderState4Public waitingForAcceptOrderState) throws PersistenceException{
         this.standardHandling(waitingForAcceptOrderState);
     }
+    public void handleBackgroundTaskManager(BackgroundTaskManager4Public backgroundTaskManager) throws PersistenceException{
+        this.standardHandling(backgroundTaskManager);
+    }
     public void handleRootProductGroup(RootProductGroup4Public rootProductGroup) throws PersistenceException{
         this.standardHandling(rootProductGroup);
+    }
+    public void handleOrderQuantifiedArticleNormalState(OrderQuantifiedArticleNormalState4Public orderQuantifiedArticleNormalState) throws PersistenceException{
+        this.standardHandling(orderQuantifiedArticleNormalState);
     }
     public void handleCustomerAccount(CustomerAccount4Public customerAccount) throws PersistenceException{
         this.standardHandling(customerAccount);
@@ -107,8 +116,14 @@ public abstract class SubjInterfaceStandardVisitor implements SubjInterfaceVisit
     public void handleShoppingCart(ShoppingCart4Public shoppingCart) throws PersistenceException{
         this.standardHandling(shoppingCart);
     }
+    public void handleArticlesInReturnOrderState(ArticlesInReturnOrderState4Public articlesInReturnOrderState) throws PersistenceException{
+        this.standardHandling(articlesInReturnOrderState);
+    }
     public void handleArticleReturn(ArticleReturn4Public articleReturn) throws PersistenceException{
         this.standardHandling(articleReturn);
+    }
+    public void handleOrderQuantifiedArticleMarkedForReturnState(OrderQuantifiedArticleMarkedForReturnState4Public orderQuantifiedArticleMarkedForReturnState) throws PersistenceException{
+        this.standardHandling(orderQuantifiedArticleMarkedForReturnState);
     }
     public void handleCustomerOrderManager(CustomerOrderManager4Public customerOrderManager) throws PersistenceException{
         this.standardHandling(customerOrderManager);

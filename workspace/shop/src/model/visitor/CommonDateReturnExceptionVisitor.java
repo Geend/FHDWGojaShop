@@ -5,6 +5,7 @@ import persistence.*;
 
 public interface CommonDateReturnExceptionVisitor<R, E extends model.UserException> {
     
+    public R handleAcceptOrderCommand(AcceptOrderCommand4Public acceptOrderCommand) throws PersistenceException, E;
     public R handleAddArticleCommand(AddArticleCommand4Public addArticleCommand) throws PersistenceException, E;
     public R handleAddArticleReturnCommand(AddArticleReturnCommand4Public addArticleReturnCommand) throws PersistenceException, E;
     public R handleChangeArticleNameCommand(ChangeArticleNameCommand4Public changeArticleNameCommand) throws PersistenceException, E;
@@ -21,10 +22,10 @@ public interface CommonDateReturnExceptionVisitor<R, E extends model.UserExcepti
     public R handleNewPreOrderCommand(NewPreOrderCommand4Public newPreOrderCommand) throws PersistenceException, E;
     public R handleNewSubProductGroupCommand(NewSubProductGroupCommand4Public newSubProductGroupCommand) throws PersistenceException, E;
     public R handleReOrderCommand(ReOrderCommand4Public reOrderCommand) throws PersistenceException, E;
+    public R handleReOrderForPreorderCommand(ReOrderForPreorderCommand4Public reOrderForPreorderCommand) throws PersistenceException, E;
     public R handleReduceStockCommand(ReduceStockCommand4Public reduceStockCommand) throws PersistenceException, E;
     public R handleRegisterCommand(RegisterCommand4Public registerCommand) throws PersistenceException, E;
     public R handleRemoveArticleCommand(RemoveArticleCommand4Public removeArticleCommand) throws PersistenceException, E;
-    public R handleStartOrderingCommand(StartOrderingCommand4Public startOrderingCommand) throws PersistenceException, E;
     public R handleStartSellingCommand(StartSellingCommand4Public startSellingCommand) throws PersistenceException, E;
     public R handleStopSellingCommand(StopSellingCommand4Public stopSellingCommand) throws PersistenceException, E;
     public R handleWithdrawCommand(WithdrawCommand4Public withdrawCommand) throws PersistenceException, E;

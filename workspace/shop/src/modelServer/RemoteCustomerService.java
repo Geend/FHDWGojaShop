@@ -112,10 +112,12 @@ public  class RemoteCustomerService extends RemoteService {
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
-        }catch(model.NotEnoughStockException e0){
+        }catch(model.EmptyCartException e0){
             return createExceptionResult(e0, this);
-        }catch(model.NotEnoughMoneyException e1){
+        }catch(model.NotEnoughStockException e1){
             return createExceptionResult(e1, this);
+        }catch(model.NotEnoughMoneyException e2){
+            return createExceptionResult(e2, this);
         }
     }
     
@@ -127,8 +129,10 @@ public  class RemoteCustomerService extends RemoteService {
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
-        }catch(model.NotEnoughMoneyException e0){
+        }catch(model.EmptyCartException e0){
             return createExceptionResult(e0, this);
+        }catch(model.NotEnoughMoneyException e1){
+            return createExceptionResult(e1, this);
         }
     }
     

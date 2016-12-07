@@ -28,6 +28,12 @@ public class OrderQuantifiedArticleICProxi extends QuantifiedArticleICProxi impl
     public void setArticlePriceAtOrderTime(common.Fraction newValue) throws PersistenceException {
         ((PersistentOrderQuantifiedArticle)this.getTheObject()).setArticlePriceAtOrderTime(newValue);
     }
+    public OrderQuantifiedArticleState4Public getState() throws PersistenceException {
+        return ((PersistentOrderQuantifiedArticle)this.getTheObject()).getState();
+    }
+    public void setState(OrderQuantifiedArticleState4Public newValue) throws PersistenceException {
+        ((PersistentOrderQuantifiedArticle)this.getTheObject()).setState(newValue);
+    }
     public PersistentOrderQuantifiedArticle getThis() throws PersistenceException {
         return ((PersistentOrderQuantifiedArticle)this.getTheObject()).getThis();
     }
@@ -101,6 +107,14 @@ public class OrderQuantifiedArticleICProxi extends QuantifiedArticleICProxi impl
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentOrderQuantifiedArticle)this.getTheObject()).initializeOnInstantiation();
+    }
+    public void markForReturn() 
+				throws PersistenceException{
+        ((PersistentOrderQuantifiedArticle)this.getTheObject()).markForReturn();
+    }
+    public void unmarkForReturn() 
+				throws PersistenceException{
+        ((PersistentOrderQuantifiedArticle)this.getTheObject()).unmarkForReturn();
     }
 
     

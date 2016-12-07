@@ -235,7 +235,7 @@ public class OwnerServiceICProxi extends ServiceICProxi implements PersistentOwn
         ((PersistentOwnerService)this.getTheObject()).moveTo(component, newParentGroup);
     }
     public void newArticle(final ProductGroup4Public parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
-				throws model.CycleException, PersistenceException{
+				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).newArticle(parent, name, price, minStock, maxStock, producerDeliveryTime, producer);
     }
     public void newProductGroup(final ProductGroup4Public parent, final String name) 

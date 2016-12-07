@@ -436,6 +436,7 @@ public class Article extends model.Component implements PersistentArticle{
 
             @Override
             public void handleNotInSale(NotInSale4Public notInSale) throws PersistenceException {
+                // This can occur when an article gets returned by a customer that change to NotInSale state
                 getThis().setState(RemainingStock.createRemainingStock());
             }
 
@@ -460,46 +461,17 @@ public class Article extends model.Component implements PersistentArticle{
 				throws model.NotEnoughStockException, PersistenceException{
         if (getThis().getCurrentStock() >= quantity) {
             getThis().setCurrentStock(getThis().getCurrentStock() - quantity);
-
-            if (getThis().getCurrentStock() < getThis().getMinStock()) {
-
-                getThis().getState().accept(new ArticleStateVisitor() {
-                    @Override
-                    public void handleInSale(InSale4Public inSale) throws PersistenceException {
-                        // TODO! Nachbestellen
-                    }
-
-                    @Override
-                    public void handleNewCreated(NewCreated4Public newCreated) throws PersistenceException {
-                        // TODO! Call not possible
-                    }
-
-                    @Override
-                    public void handleNotInSale(NotInSale4Public notInSale) throws PersistenceException {
-                        // TODO! Call not possible
-                    }
-
-                    @Override
-                    public void handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException {
-                        if (getThis().getCurrentStock() == 0) {
-                            getThis().setState(NotInSale.createNotInSale());
-                        }
-                    }
-                });
-
-            }
         } else {
             throw new NotEnoughStockException(MessageFormat.format("Tried to reduce stock by {0}, but only {1} in stock", quantity, getThis().getCurrentStock()));
         }
     }
     public void startSellingImplementation() 
 				throws PersistenceException{
+        //TODO! reorder articles if under minStock
         getThis().setState(getThis().getState().accept(new ArticleStateReturnVisitor<ArticleState4Public>() {
             @Override
             public ArticleState4Public handleInSale(InSale4Public inSale) throws PersistenceException {
-                return null;
-                // Should not happen
-                // TODO! Throw a "ArticleAlreadyInSaleException"?
+                return inSale;
             }
 
             @Override
@@ -531,23 +503,18 @@ public class Article extends model.Component implements PersistentArticle{
 
             @Override
             public ArticleState4Public handleNewCreated(NewCreated4Public newCreated) throws PersistenceException {
-                // Should not happen
-                // TODO! Throw a "ArticleNotInSaleException"?
-                return null;
+                return NotInSale.createNotInSale();
             }
 
             @Override
             public ArticleState4Public handleNotInSale(NotInSale4Public notInSale) throws PersistenceException {
                 // Should not happen
-                // TODO! Throw a "ArticleNotInSaleException"?
-                return null;
+                return notInSale;
             }
 
             @Override
             public ArticleState4Public handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException {
-                // Should not happen
-                // TODO! Throw a "ArticleNotInSaleException"?
-                return null;
+                return NotInSale.createNotInSale();
             }
         }));
     }

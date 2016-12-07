@@ -7,6 +7,14 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleProducerLst(ProducerLstView producerLst) throws ModelException;
     
+    public abstract void handleOrderQuantifiedArticleState(OrderQuantifiedArticleStateView orderQuantifiedArticleState) throws ModelException;
+    
+    public void handleOrderQuantifiedArticleNormalState(OrderQuantifiedArticleNormalStateView orderQuantifiedArticleNormalState) throws ModelException{
+        this.handleOrderQuantifiedArticleState(orderQuantifiedArticleNormalState);
+    }
+    public void handleOrderQuantifiedArticleMarkedForReturnState(OrderQuantifiedArticleMarkedForReturnStateView orderQuantifiedArticleMarkedForReturnState) throws ModelException{
+        this.handleOrderQuantifiedArticleState(orderQuantifiedArticleMarkedForReturnState);
+    }
     public abstract void handleReturnManager(ReturnManagerView returnManager) throws ModelException;
     
     public abstract void handleServer(ServerView server) throws ModelException;
@@ -51,6 +59,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleOrder(OrderView order) throws ModelException;
     
+    public abstract void handleBackgroundTaskManager(BackgroundTaskManagerView backgroundTaskManager) throws ModelException;
+    
     public abstract void handleService(ServiceView service) throws ModelException;
     
     public void handleCustomerService(CustomerServiceView customerService) throws ModelException{
@@ -64,8 +74,17 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleCustomerAccount(CustomerAccountView customerAccount) throws ModelException;
     
-    public abstract void handleReOrderManager(ReOrderManagerView reOrderManager) throws ModelException;
+    public abstract void handleBackgroundTask(BackgroundTaskView backgroundTask) throws ModelException;
     
+    public void handleCONCBackgroundTask(CONCBackgroundTaskView cONCBackgroundTask) throws ModelException{
+        this.handleBackgroundTask(cONCBackgroundTask);
+    }
+    public void handleOwnerOrderManager(OwnerOrderManagerView ownerOrderManager) throws ModelException{
+        this.handleBackgroundTask(ownerOrderManager);
+    }
+    public void handleReOrderManager(ReOrderManagerView reOrderManager) throws ModelException{
+        this.handleBackgroundTask(reOrderManager);
+    }
     public abstract void handleProducer(ProducerView producer) throws ModelException;
     
     public abstract void handleShoppingCart(ShoppingCartView shoppingCart) throws ModelException;
@@ -94,6 +113,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleWaitingForAcceptOrderState(WaitingForAcceptOrderStateView waitingForAcceptOrderState) throws ModelException{
         this.handleOrderState(waitingForAcceptOrderState);
     }
+    public void handleArticlesInReturnOrderState(ArticlesInReturnOrderStateView articlesInReturnOrderState) throws ModelException{
+        this.handleOrderState(articlesInReturnOrderState);
+    }
     public void handleFinishedOrderState(FinishedOrderStateView finishedOrderState) throws ModelException{
         this.handleOrderState(finishedOrderState);
     }
@@ -105,9 +127,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleOrderManager(OrderManagerView orderManager) throws ModelException;
     
-    public void handleOwnerOrderManager(OwnerOrderManagerView ownerOrderManager) throws ModelException{
-        this.handleOrderManager(ownerOrderManager);
-    }
     public void handleCustomerOrderManager(CustomerOrderManagerView customerOrderManager) throws ModelException{
         this.handleOrderManager(customerOrderManager);
     }

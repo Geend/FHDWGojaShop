@@ -4,13 +4,15 @@ package model;
 import persistence.*;
 import model.visitor.*;
 
+import java.text.MessageFormat;
+
 
 /* Additional import section end */
 
 public class ProducerLst extends PersistentObject implements PersistentProducerLst{
     
     private static ProducerLst4Public theProducerLst = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static ProducerLst4Public getTheProducerLst() throws PersistenceException{
         if (theProducerLst == null || reset$For$Test){
@@ -225,6 +227,12 @@ public class ProducerLst extends PersistentObject implements PersistentProducerL
     }
     public Producer4Public createProducer(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
+
+        if(Producer.getProducerByName(name).getLength() > 0)
+        {
+            throw new DoubleDefinitionException(MessageFormat.format("Producer with name {0} already exists", name));
+        }
+
         Producer4Public producer4Public = Producer.createProducer(name);
         getThis().getCurrentProducer().add(producer4Public);
         return producer4Public;

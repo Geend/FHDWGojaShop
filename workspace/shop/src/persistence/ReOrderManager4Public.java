@@ -3,9 +3,13 @@ package persistence;
 
 import model.visitor.*;
 
-public interface ReOrderManager4Public extends Anything, SubjInterface, AbstractPersistentProxi {
+public interface ReOrderManager4Public extends Anything, CONCBackgroundTask4Public, AbstractPersistentProxi {
     
     
+    public void accept(BackgroundTaskVisitor visitor) throws PersistenceException;
+    public <R> R accept(BackgroundTaskReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends model.UserException>  void accept(BackgroundTaskExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends model.UserException> R accept(BackgroundTaskReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     public void accept(AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends model.UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;
@@ -17,9 +21,9 @@ public interface ReOrderManager4Public extends Anything, SubjInterface, Abstract
     
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
-    public void reOrder(final ArticleWrapper4Public article, final Invoker invoker) 
+    public void reOrderForPreorder(final ArticleWrapper4Public article, final long quantity, final Invoker invoker) 
 				throws PersistenceException;
-    public void startOrdering(final Invoker invoker) 
+    public void reOrder(final ArticleWrapper4Public article, final Invoker invoker) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
@@ -27,9 +31,9 @@ public interface ReOrderManager4Public extends Anything, SubjInterface, Abstract
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
-    public void reOrder(final ArticleWrapper4Public article) 
+    public void reOrderForPreorder(final ArticleWrapper4Public article, final long quantity) 
 				throws PersistenceException;
-    public void startOrdering() 
+    public void reOrder(final ArticleWrapper4Public article) 
 				throws PersistenceException;
 
 }

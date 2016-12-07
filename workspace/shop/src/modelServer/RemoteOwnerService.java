@@ -167,8 +167,10 @@ public  class RemoteOwnerService extends RemoteService {
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
-        }catch(model.CycleException e0){
+        }catch(model.DoubleDefinitionException e0){
             return createExceptionResult(e0, this);
+        }catch(model.CycleException e1){
+            return createExceptionResult(e1, this);
         }
     }
     

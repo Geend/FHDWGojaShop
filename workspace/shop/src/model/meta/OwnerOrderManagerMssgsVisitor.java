@@ -9,7 +9,7 @@ interface OwnerOrderManagerDOWNMssgsVisitor  {
 }
 
 
-interface OwnerOrderManagerUPMssgsVisitor extends OrderManagerUPMssgsVisitor {
+interface OwnerOrderManagerUPMssgsVisitor extends OrderManagerUPMssgsVisitor, BackgroundTaskUPMssgsVisitor {
 
     
 }

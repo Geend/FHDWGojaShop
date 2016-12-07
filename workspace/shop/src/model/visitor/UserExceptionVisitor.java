@@ -7,8 +7,10 @@ public interface UserExceptionVisitor {
     
     public void handleCycleException(model.CycleException cycleException) throws PersistenceException;
     public void handleDoubleDefinitionException(model.DoubleDefinitionException doubleDefinitionException) throws PersistenceException;
+    public void handleEmptyCartException(model.EmptyCartException emptyCartException) throws PersistenceException;
     public void handleNotEnoughMoneyException(model.NotEnoughMoneyException notEnoughMoneyException) throws PersistenceException;
     public void handleNotEnoughStockException(model.NotEnoughStockException notEnoughStockException) throws PersistenceException;
+    public void handleOrderNotYetArrivedException(model.OrderNotYetArrivedException orderNotYetArrivedException) throws PersistenceException;
     public void handleRestrictionException(model.RestrictionException restrictionException) throws PersistenceException;
     public void handleUserAlreadyExistsException(model.UserAlreadyExistsException userAlreadyExistsException) throws PersistenceException;
     

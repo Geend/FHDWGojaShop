@@ -23,11 +23,16 @@ public abstract class CustomerService$AuthoriseVisitor extends AnythingStandardV
     public abstract void handleOrder(PersistentOrder order) throws PersistenceException;
     public abstract void handleWaitingForAcceptOrderState(PersistentWaitingForAcceptOrderState waitingForAcceptOrderState) throws PersistenceException;
     public abstract void handleRootProductGroup(PersistentRootProductGroup rootProductGroup) throws PersistenceException;
+    public abstract void handleOrderQuantifiedArticleNormalState(PersistentOrderQuantifiedArticleNormalState orderQuantifiedArticleNormalState) throws PersistenceException;
     public abstract void handleCustomerAccount(PersistentCustomerAccount customerAccount) throws PersistenceException;
     public abstract void handleInSale(PersistentInSale inSale) throws PersistenceException;
+    public abstract void handleReturnQuantifiedArticle(PersistentReturnQuantifiedArticle returnQuantifiedArticle) throws PersistenceException;
     public abstract void handleInTransitOrderState(PersistentInTransitOrderState inTransitOrderState) throws PersistenceException;
     public abstract void handleProducer(PersistentProducer producer) throws PersistenceException;
     public abstract void handleShoppingCart(PersistentShoppingCart shoppingCart) throws PersistenceException;
+    public abstract void handleArticlesInReturnOrderState(PersistentArticlesInReturnOrderState articlesInReturnOrderState) throws PersistenceException;
+    public abstract void handleArticleReturn(PersistentArticleReturn articleReturn) throws PersistenceException;
+    public abstract void handleOrderQuantifiedArticleMarkedForReturnState(PersistentOrderQuantifiedArticleMarkedForReturnState orderQuantifiedArticleMarkedForReturnState) throws PersistenceException;
     public abstract void handleCustomerOrderManager(PersistentCustomerOrderManager customerOrderManager) throws PersistenceException;
     public abstract void handleArticleWrapper(PersistentArticleWrapper articleWrapper) throws PersistenceException;
     

@@ -13,14 +13,14 @@ public class OrderQuantifiedArticleFacade{
     public PersistentOrderQuantifiedArticle newOrderQuantifiedArticle(long quantity,common.Fraction articlePriceAtOrderTime,long idCreateIfLessZero) throws PersistenceException {
         if(idCreateIfLessZero > 0) return (PersistentOrderQuantifiedArticle)PersistentProxi.createProxi(idCreateIfLessZero, 232);
         long id = ConnectionHandler.getTheConnectionHandler().theQuantifiedArticleFacade.getNextId();
-        OrderQuantifiedArticle result = new OrderQuantifiedArticle(quantity,null,null,null,articlePriceAtOrderTime,id);
+        OrderQuantifiedArticle result = new OrderQuantifiedArticle(quantity,null,null,null,articlePriceAtOrderTime,null,id);
         Cache.getTheCache().put(result);
         return (PersistentOrderQuantifiedArticle)PersistentProxi.createProxi(id, 232);
     }
     
     public PersistentOrderQuantifiedArticle newDelayedOrderQuantifiedArticle(long quantity,common.Fraction articlePriceAtOrderTime) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theQuantifiedArticleFacade.getNextId();
-        OrderQuantifiedArticle result = new OrderQuantifiedArticle(quantity,null,null,null,articlePriceAtOrderTime,id);
+        OrderQuantifiedArticle result = new OrderQuantifiedArticle(quantity,null,null,null,articlePriceAtOrderTime,null,id);
         Cache.getTheCache().put(result);
         return (PersistentOrderQuantifiedArticle)PersistentProxi.createProxi(id, 232);
     }
@@ -29,6 +29,9 @@ public class OrderQuantifiedArticleFacade{
         return null; //All data is in the cache!
     }
     public void articlePriceAtOrderTimeSet(long OrderQuantifiedArticleId, common.Fraction articlePriceAtOrderTimeVal) throws PersistenceException {
+        
+    }
+    public void stateSet(long OrderQuantifiedArticleId, OrderQuantifiedArticleState4Public stateVal) throws PersistenceException {
         
     }
 

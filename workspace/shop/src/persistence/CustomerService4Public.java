@@ -54,9 +54,9 @@ public interface CustomerService4Public extends Service4Public {
     public void markForReturn(final OrderQuantifiedArticle4Public article) 
 				throws PersistenceException;
     public void order(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.NotEnoughStockException, model.NotEnoughMoneyException, PersistenceException;
+				throws model.EmptyCartException, model.NotEnoughStockException, model.NotEnoughMoneyException, PersistenceException;
     public void preOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.NotEnoughMoneyException, PersistenceException;
+				throws model.EmptyCartException, model.NotEnoughMoneyException, PersistenceException;
     public void removeFromCart(final ShoppingCartQuantifiedArticle4Public article) 
 				throws PersistenceException;
     public void unmarkForReturn(final OrderQuantifiedArticle4Public article) 

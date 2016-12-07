@@ -6,6 +6,7 @@ import persistence.*;
 import model.visitor.*;
 
 import java.security.acl.Owner;
+import java.text.MessageFormat;
 
 
 /* Additional import section end */
@@ -506,60 +507,13 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
         getThis().setRootProductGroup(RootProductGroup.getTheRootProductGroup());
         getThis().setCustomerDeliveryTimeManager(CustomerDeliveryTimeManager.getTheCustomerDeliveryTimeManager());
         getThis().setSettings(Settings.getTheSettings());
-
         getThis().setReOrderManager(ReOrderManager.getTheReOrderManager());
-        getThis().getReOrderManager().startOrdering(getThis());
-
         getThis().setOwnerOrderManager(OwnerOrderManager.getTheOwnerOrderManager());
-        getThis().getOwnerOrderManager().startOrderProcessing();
         getThis().setReturnManager(ReturnManager.getTheReturnManager());
 
-        getThis().getSettings().setNewCustomerDefaultBalance(new Fraction(42));
-        getRootProductGroup().setName("Obst");
+        makeTestData();
 
-        try {
-
-
-            Producer4Public producer4PublicHermann = getThis().getPrmanager().createProducer("Obstbauer Hermann");
-            Producer4Public producer4PublicPeter = getThis().getPrmanager().createProducer("Obstbauer Peter");
-
-
-            Article4Public testArt = Article.createArticle("TestArt", new Fraction(5),10, 100, 4, producer4PublicHermann);
-            testArt.startSelling(getThis());
-            testArt.increaseStock(20,getThis());
-
-            getThis().getRootProductGroup().addComponent(ArticleWrapper.createArticleWrapper("TestArt", testArt, getThis().getRootProductGroup()));
-
-
-
-            try {
-                SubProductGroup4Public groupKernobst = SubProductGroup.createSubProductGroup("Kernobst", getRootProductGroup());
-
-                getRootProductGroup().addComponent(groupKernobst);
-                SubProductGroup4Public groupKernobstBirnen = SubProductGroup.createSubProductGroup("Birnen", groupKernobst);
-                groupKernobst.addComponent(groupKernobstBirnen);
-
-                groupKernobstBirnen.newArticle("Europäische Birne", new Fraction(10), 10, 100, 2,producer4PublicPeter);
-                groupKernobstBirnen.newArticle("Nashi-Birne", new Fraction(12), 4, 40, 5, producer4PublicHermann);
-
-                SubProductGroup4Public groupSteinobst = SubProductGroup.createSubProductGroup("Steinobst", getRootProductGroup());
-                getRootProductGroup().addComponent(groupSteinobst);
-            } catch (CycleException e) {
-                e.printStackTrace();
-            }
-        } catch (DoubleDefinitionException doubleDefinition) {
-            doubleDefinition.printStackTrace();
-        } catch (CycleException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            getThis().getCustomerDeliveryTimeManager().createCustomerDeliveryTime(
-           "default" ,new Fraction(4), 3);
-        } catch (DoubleDefinitionException e) {
-            e.printStackTrace();
-        }
-
+        BackgroundTaskManager.getTheBackgroundTaskManager().startTasks();
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
@@ -570,7 +524,43 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
         component.moveTo(newParentGroup,getThis());
     }
     public void newArticle(final ProductGroup4Public parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
-				throws model.CycleException, PersistenceException{
+				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
+
+
+        //TODO! Prevent creation of second article with same name and producer
+        /*
+        Article.getComponentByName(name).applyToAll(component ->
+        {
+           if(component.getName().equals(name)) {
+
+
+               component.accept(new ComponentExceptionVisitor<DoubleDefinitionException>() {
+                   @Override
+                   public void handleArticle(Article4Public article) throws PersistenceException, DoubleDefinitionException {
+                        if(article.getProducer().equals(producer)){
+                            throw new DoubleDefinitionException(MessageFormat.format("Article \"{0}\" with Producer {1} already exists", article.getName(), producer.toString()));
+                        }
+                   }
+
+                   @Override
+                   public void handleArticleWrapper(ArticleWrapper4Public articleWrapper) throws PersistenceException, DoubleDefinitionException {
+
+                   }
+
+                   @Override
+                   public void handleRootProductGroup(RootProductGroup4Public rootProductGroup) throws PersistenceException, DoubleDefinitionException {
+
+                   }
+
+                   @Override
+                   public void handleSubProductGroup(SubProductGroup4Public subProductGroup) throws PersistenceException, DoubleDefinitionException {
+
+                   })
+               };
+           }
+        });
+        */
+
         parent.newArticle(name, price, minStock, maxStock, producerDeliveryTime, producer, getThis());
     }
     public void newProductGroup(final ProductGroup4Public parent, final String name) 
@@ -649,6 +639,52 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
                 return Boolean.FALSE;
             }
         });
+    }
+    private void makeTestData() throws PersistenceException {
+        getRootProductGroup().setName("Obst");
+
+        try {
+
+
+            Producer4Public producer4PublicHermann = getThis().getPrmanager().createProducer("Obstbauer Hermann");
+            Producer4Public producer4PublicPeter = getThis().getPrmanager().createProducer("Obstbauer Peter");
+
+
+            Article4Public testArt = Article.createArticle("TestArt", new Fraction(5),10, 100, 4, producer4PublicHermann);
+            testArt.startSelling(getThis());
+            testArt.increaseStock(20,getThis());
+
+            getThis().getRootProductGroup().addComponent(ArticleWrapper.createArticleWrapper("TestArt", testArt, getThis().getRootProductGroup()));
+
+
+
+            try {
+                SubProductGroup4Public groupKernobst = SubProductGroup.createSubProductGroup("Kernobst", getRootProductGroup());
+
+                getRootProductGroup().addComponent(groupKernobst);
+                SubProductGroup4Public groupKernobstBirnen = SubProductGroup.createSubProductGroup("Birnen", groupKernobst);
+                groupKernobst.addComponent(groupKernobstBirnen);
+
+                groupKernobstBirnen.newArticle("Europäische Birne", new Fraction(10), 10, 100, 2,producer4PublicPeter);
+                groupKernobstBirnen.newArticle("Nashi-Birne", new Fraction(12), 4, 40, 5, producer4PublicHermann);
+
+                SubProductGroup4Public groupSteinobst = SubProductGroup.createSubProductGroup("Steinobst", getRootProductGroup());
+                getRootProductGroup().addComponent(groupSteinobst);
+            } catch (CycleException e) {
+                e.printStackTrace();
+            }
+        } catch (DoubleDefinitionException doubleDefinition) {
+            doubleDefinition.printStackTrace();
+        } catch (CycleException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            getThis().getCustomerDeliveryTimeManager().createCustomerDeliveryTime(
+                    "default" ,new Fraction(4), 3);
+        } catch (DoubleDefinitionException e) {
+            e.printStackTrace();
+        }
     }
 
     /* End of protected part that is not overridden by persistence generator */

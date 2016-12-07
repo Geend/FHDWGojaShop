@@ -21,7 +21,14 @@ public class OrderQuantifiedArticleProxi extends QuantifiedArticleProxi implemen
             article.setToString(article$Info.getToString());
         }
         common.Fraction articlePriceAtOrderTime = common.Fraction.parse((String)resultTable.get("articlePriceAtOrderTime"));
-        OrderQuantifiedArticleView result$$ = new OrderQuantifiedArticle((long)quantity,(ArticleWrapperView)article,(common.Fraction)articlePriceAtOrderTime, this.getId(), this.getClassId());
+        ViewProxi state = null;
+        String state$String = (String)resultTable.get("state");
+        if (state$String != null) {
+            common.ProxiInformation state$Info = common.RPCConstantsAndServices.createProxiInformation(state$String);
+            state = view.objects.ViewProxi.createProxi(state$Info,connectionKey);
+            state.setToString(state$Info.getToString());
+        }
+        OrderQuantifiedArticleView result$$ = new OrderQuantifiedArticle((long)quantity,(ArticleWrapperView)article,(common.Fraction)articlePriceAtOrderTime,(OrderQuantifiedArticleStateView)state, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -49,6 +56,12 @@ public class OrderQuantifiedArticleProxi extends QuantifiedArticleProxi implemen
     }
     public void setArticlePriceAtOrderTime(common.Fraction newValue) throws ModelException {
         ((OrderQuantifiedArticle)this.getTheObject()).setArticlePriceAtOrderTime(newValue);
+    }
+    public OrderQuantifiedArticleStateView getState()throws ModelException{
+        return ((OrderQuantifiedArticle)this.getTheObject()).getState();
+    }
+    public void setState(OrderQuantifiedArticleStateView newValue) throws ModelException {
+        ((OrderQuantifiedArticle)this.getTheObject()).setState(newValue);
     }
     
     public void accept(QuantifiedArticleVisitor visitor) throws ModelException {

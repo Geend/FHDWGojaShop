@@ -1191,6 +1191,9 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleProducerLst(view.ProducerLstView object){
         result = new ProducerLstDefaultDetailPanel(handler, object);
     }
+    public void handleCONCBackgroundTask(view.CONCBackgroundTaskView object){
+        result = new CONCBackgroundTaskDefaultDetailPanel(handler, object);
+    }
     public void handleCustomerService(view.CustomerServiceView object){
         result = new CustomerServiceDefaultDetailPanel(handler, object);
     }
@@ -1233,6 +1236,9 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleRootProductGroup(view.RootProductGroupView object){
         result = new RootProductGroupDefaultDetailPanel(handler, object);
     }
+    public void handleOrderQuantifiedArticleNormalState(view.OrderQuantifiedArticleNormalStateView object){
+        result = new OrderQuantifiedArticleNormalStateDefaultDetailPanel(handler, object);
+    }
     public void handleCustomerAccount(view.CustomerAccountView object){
         result = new CustomerAccountDefaultDetailPanel(handler, object);
     }
@@ -1247,6 +1253,9 @@ class DetailPanelFactory implements AnythingVisitor {
     }
     public void handleArticleReturn(view.ArticleReturnView object){
         result = new ArticleReturnDefaultDetailPanel(handler, object);
+    }
+    public void handleOrderQuantifiedArticleMarkedForReturnState(view.OrderQuantifiedArticleMarkedForReturnStateView object){
+        result = new OrderQuantifiedArticleMarkedForReturnStateDefaultDetailPanel(handler, object);
     }
     public void handleArticleWrapper(view.ArticleWrapperView object){
         result = new ArticleWrapperDefaultDetailPanel(handler, object);
@@ -1281,6 +1290,9 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleNewCreated(view.NewCreatedView object){
         result = new NewCreatedDefaultDetailPanel(handler, object);
     }
+    public void handleBackgroundTaskManager(view.BackgroundTaskManagerView object){
+        result = new BackgroundTaskManagerDefaultDetailPanel(handler, object);
+    }
     public void handleWaitingForAcceptOrderState(view.WaitingForAcceptOrderStateView object){
         result = new WaitingForAcceptOrderStateDefaultDetailPanel(handler, object);
     }
@@ -1292,6 +1304,9 @@ class DetailPanelFactory implements AnythingVisitor {
     }
     public void handleShoppingCart(view.ShoppingCartView object){
         result = new ShoppingCartDefaultDetailPanel(handler, object);
+    }
+    public void handleArticlesInReturnOrderState(view.ArticlesInReturnOrderStateView object){
+        result = new ArticlesInReturnOrderStateDefaultDetailPanel(handler, object);
     }
     public void handleCustomerOrderManager(view.CustomerOrderManagerView object){
         result = new CustomerOrderManagerDefaultDetailPanel(handler, object);
@@ -1313,6 +1328,19 @@ class ProducerLstDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ProducerLstView getAnything(){
         return (view.ProducerLstView)this.anything;
+    }
+}
+
+class CONCBackgroundTaskDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected CONCBackgroundTaskDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.CONCBackgroundTaskView getAnything(){
+        return (view.CONCBackgroundTaskView)this.anything;
     }
 }
 
@@ -1583,6 +1611,7 @@ class OrderDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String Order$$customerDeliveryTime = "Order$$customerDeliveryTime";
     protected static final String Order$$totalPrice = "Order$$totalPrice";
     protected static final String Order$$state = "Order$$state";
+    protected static final String Order$$myOrder = "Order$$myOrder";
     
     protected OrderDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1622,6 +1651,19 @@ class RootProductGroupDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.RootProductGroupView getAnything(){
         return (view.RootProductGroupView)this.anything;
+    }
+}
+
+class OrderQuantifiedArticleNormalStateDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected OrderQuantifiedArticleNormalStateDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.OrderQuantifiedArticleNormalStateView getAnything(){
+        return (view.OrderQuantifiedArticleNormalStateView)this.anything;
     }
 }
 
@@ -1736,6 +1778,19 @@ class ArticleReturnDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ArticleReturnView getAnything(){
         return (view.ArticleReturnView)this.anything;
+    }
+}
+
+class OrderQuantifiedArticleMarkedForReturnStateDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected OrderQuantifiedArticleMarkedForReturnStateDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.OrderQuantifiedArticleMarkedForReturnStateView getAnything(){
+        return (view.OrderQuantifiedArticleMarkedForReturnStateView)this.anything;
     }
 }
 
@@ -2012,6 +2067,21 @@ class NewCreatedDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class BackgroundTaskManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String BackgroundTaskManager$$tasks = "BackgroundTaskManager$$tasks";
+    
+    protected BackgroundTaskManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.BackgroundTaskManagerView getAnything(){
+        return (view.BackgroundTaskManagerView)this.anything;
+    }
+}
+
 class WaitingForAcceptOrderStateDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String WaitingForAcceptOrderState$$ticksLeft = "WaitingForAcceptOrderState$$ticksLeft";
@@ -2081,6 +2151,28 @@ class ShoppingCartDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ShoppingCartView getAnything(){
         return (view.ShoppingCartView)this.anything;
+    }
+}
+
+class ArticlesInReturnOrderStateDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String ArticlesInReturnOrderState$$ticksLeft = "ArticlesInReturnOrderState$$ticksLeft";
+    
+    protected ArticlesInReturnOrderStateDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new IntegerPanel(this, "ticksLeft", this.getAnything().getTicksLeft());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(ArticlesInReturnOrderState$$ticksLeft, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.ArticlesInReturnOrderStateView getAnything(){
+        return (view.ArticlesInReturnOrderStateView)this.anything;
     }
 }
 

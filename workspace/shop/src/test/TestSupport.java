@@ -17,6 +17,16 @@ public class TestSupport {
 	private TestSupport(){}	
 	
 	public static void prepareSingletons(){
+        model.ProducerLst.reset$For$Test = true;
+        model.meta.CommandCoordinator.reset$For$Test = true;
+        model.CustomerDeliveryTimeManager.reset$For$Test = true;
+        model.Settings.reset$For$Test = true;
+        model.RootProductGroup.reset$For$Test = true;
+        model.ReOrderManager.reset$For$Test = true;
+        model.ReturnManager.reset$For$Test = true;
+        model.OwnerOrderManager.reset$For$Test = true;
+        model.BackgroundTaskManager.reset$For$Test = true;
+
 	}
 
 	public static void prepareDatabase() throws PersistenceException{

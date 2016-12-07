@@ -3,9 +3,10 @@ package view.visitor;
 
 import view.*;
 
-public interface AnythingExceptionVisitor<E extends view.UserException> extends ArticleStateExceptionVisitor<E>,ComponentExceptionVisitor<E>,OrderManagerExceptionVisitor<E>,OrderStateExceptionVisitor<E>,QuantifiedArticleExceptionVisitor<E>,ServiceExceptionVisitor<E>{
+public interface AnythingExceptionVisitor<E extends view.UserException> extends ArticleStateExceptionVisitor<E>,BackgroundTaskExceptionVisitor<E>,ComponentExceptionVisitor<E>,OrderManagerExceptionVisitor<E>,OrderQuantifiedArticleStateExceptionVisitor<E>,OrderStateExceptionVisitor<E>,QuantifiedArticleExceptionVisitor<E>,ServiceExceptionVisitor<E>{
     
     public void handleArticleReturn(ArticleReturnView articleReturn) throws ModelException, E;
+    public void handleBackgroundTaskManager(BackgroundTaskManagerView backgroundTaskManager) throws ModelException, E;
     public void handleCustomerAccount(CustomerAccountView customerAccount) throws ModelException, E;
     public void handleCustomerArticleLst(CustomerArticleLstView customerArticleLst) throws ModelException, E;
     public void handleCustomerDeliveryTime(CustomerDeliveryTimeView customerDeliveryTime) throws ModelException, E;

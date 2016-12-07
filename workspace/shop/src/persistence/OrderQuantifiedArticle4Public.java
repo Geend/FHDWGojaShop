@@ -5,6 +5,8 @@ import model.visitor.*;
 
 public interface OrderQuantifiedArticle4Public extends QuantifiedArticle4Public {
     
+    public common.Fraction getArticlePriceAtOrderTime() throws PersistenceException ;
+    public OrderQuantifiedArticleState4Public getState() throws PersistenceException ;
     
     public void accept(QuantifiedArticleVisitor visitor) throws PersistenceException;
     public <R> R accept(QuantifiedArticleReturnVisitor<R>  visitor) throws PersistenceException;
@@ -26,6 +28,10 @@ public interface OrderQuantifiedArticle4Public extends QuantifiedArticle4Public 
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
+				throws PersistenceException;
+    public void markForReturn() 
+				throws PersistenceException;
+    public void unmarkForReturn() 
 				throws PersistenceException;
 
 }

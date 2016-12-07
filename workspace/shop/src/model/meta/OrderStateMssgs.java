@@ -5,4 +5,4 @@ public interface OrderStateMssgs {
 }
 
 interface OrderStateDOWNMssgs extends Mssgs, OrderStateMssgs{}
-interface OrderStateUPMssgs extends PreOrderStateUPMssgs, ProcessingOrderStateUPMssgs, FinishedOrderStateUPMssgs, WaitingForAcceptOrderStateUPMssgs, InTransitOrderStateUPMssgs, OrderStateMssgs{}
+interface OrderStateUPMssgs extends ProcessingOrderStateUPMssgs, InTransitOrderStateUPMssgs, PreOrderStateUPMssgs, FinishedOrderStateUPMssgs, WaitingForAcceptOrderStateUPMssgs, ArticlesInReturnOrderStateUPMssgs, OrderStateMssgs{}

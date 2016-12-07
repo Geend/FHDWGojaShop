@@ -10,7 +10,7 @@ import model.visitor.*;
 public class ReturnManager extends PersistentObject implements PersistentReturnManager{
     
     private static ReturnManager4Public theReturnManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static ReturnManager4Public getTheReturnManager() throws PersistenceException{
         if (theReturnManager == null || reset$For$Test){

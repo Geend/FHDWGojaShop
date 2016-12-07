@@ -5,6 +5,12 @@ import view.*;
 
 public abstract class UserExceptionStandardVisitor implements UserExceptionVisitor {
     
+    public void handleEmptyCartException(EmptyCartException emptyCartException) throws ModelException{
+        this.standardHandling(emptyCartException);
+    }
+    public void handleOrderNotYetArrivedException(OrderNotYetArrivedException orderNotYetArrivedException) throws ModelException{
+        this.standardHandling(orderNotYetArrivedException);
+    }
     public void handleNotEnoughMoneyException(NotEnoughMoneyException notEnoughMoneyException) throws ModelException{
         this.standardHandling(notEnoughMoneyException);
     }

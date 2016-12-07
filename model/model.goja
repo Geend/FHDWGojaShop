@@ -2,7 +2,7 @@ model shop {
 
 // Server relevant classes - region begin
 server Server {
-	Service service;
+ 	public Service service;
 }
 
 abstract server Service {
@@ -15,16 +15,17 @@ server OwnerService extends Service {
 	CustomerDeliveryTimeManager customerDeliveryTimeManager##cdtm;
 	ProducerLst prmanager;
 	Settings settings;
-  one-to-one (server-only myServer)	ReOrderManager reOrderManager;
-one-to-one (server-only myServer)	OwnerOrderManager ownerOrderManager##oom;
+	one-to-one (server-only myServer) ReOrderManager reOrderManager;
+	one-to-one (server-only myServer) OwnerOrderManager ownerOrderManager##oom;
+	one-to-one (server-only myServer) ReturnManager returnManager##rm;
 
-one-to-one (server-only myServer)	ReturnManager returnManager##rm;
+
 	//Producer
 	void createProducer@@Hersteller_anlegen(String name) throws DoubleDefinitionException;
 
 	//Articles
 	//TODO: Prevent article creation with same name and producer
-	void newArticle@@Neuer_Artikel(ProductGroup parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
+	void newArticle@@Neuer_Artikel(ProductGroup parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException, DoubleDefinitionException;
 	void newProductGroup@@Neue_Produktgruppe(ProductGroup parent, String name) throws CycleException, DoubleDefinitionException;
 	void newProductGroup@@Neue_Produktgruppe(String name) throws DoubleDefinitionException, CycleException;
 	
@@ -69,24 +70,24 @@ server CustomerService extends Service {
 	CustomerOrderManager orderManager;
 
 	//ShoppingCart
-	void addToCart(ArticleWrapper article checked, Integer quantity);
-	void changeArticleQuantity(ShoppingCartQuantifiedArticle article, Integer newQuantity);
-	void removeFromCart(ShoppingCartQuantifiedArticle article);
+	void addToCart@@In_den_Warenkorb(ArticleWrapper article checked, Integer quantity@@Anzahl);
+	void changeArticleQuantity@@Anzahl_ändern(ShoppingCartQuantifiedArticle article, Integer newQuantity@@Anzahl);
+	void removeFromCart@@Entfernen(ShoppingCartQuantifiedArticle article);
 
 	//Ordering
-	void order(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime) throws NotEnoughStockException, NotEnoughMoneyException;
-	void preOrder(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime) throws NotEnoughMoneyException;
+	void order@@Bestellen(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime@@Versandart) throws NotEnoughStockException, NotEnoughMoneyException, EmptyCartException;
+	void preOrder@@Vorbestellen(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime@@Versandart) throws NotEnoughMoneyException, EmptyCartException;
 	
-	void acceptOrder(Order order);
-	void markForReturn(OrderQuantifiedArticle article);
-	void unmarkForReturn(OrderQuantifiedArticle article);
+	void acceptOrder@@Lieferung_annehmen(Order order);
+	void markForReturn@@Als_Retour_markieren(OrderQuantifiedArticle article);
+	void unmarkForReturn@@Retour_markierung_entfernen(OrderQuantifiedArticle article);
 
 	//Money
-	void deposit(Fraction amount);
-	void withdraw(Fraction amount) throws NotEnoughMoneyException;
+	void deposit@@Einzahlen(Fraction amount);
+	void withdraw@@Auszahlen(Fraction amount) throws NotEnoughMoneyException;
 
 	//Search
-	void findArticle(String name);
+	void findArticle@@Artikel_suchen(String name);
 	void clearError(ErrorDisplay error);
 	void clear();
 }
@@ -122,11 +123,14 @@ singleton Settings{
 	public-write Fraction returnPercentage;
 }
 
-singleton ReOrderManager{
+singleton ReOrderManager covers BackgroundTask{
 	ReOrderQuantifiedArticle ** reorderArticles;
+
+	//Reorders enough aricles to get back to maxStock
 	active void reOrder(ArticleWrapper article);
 
-	active void startOrdering();
+	//Reorders <<quantity>> amount of articles (used for preorders only)
+	active void reOrderForPreorder##rofp(ArticleWrapper article, Integer quantity);
 }
 
 abstract class OrderManager{
@@ -136,18 +140,34 @@ abstract class OrderManager{
 class CustomerOrderManager##com extends OrderManager{
 	prior no-view CustomerAccount account;
 
-	active void newOrder(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime) throws NotEnoughStockException, NotEnoughMoneyException;
-	active void newPreOrder(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime) throws NotEnoughMoneyException;
+	active void newOrder(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime) throws NotEnoughStockException, NotEnoughMoneyException, EmptyCartException;
+	active void newPreOrder(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime) throws NotEnoughMoneyException, EmptyCartException;
+
+	//Accepts the order. OrderQuantifiedArticles in the OrderQuantifiedArticleMarkedForReturnState will get returned.
+	active void acceptOrder(Order order) throws NotEnoughMoneyException, OrderNotYetArrivedException;
 }
 
-singleton OwnerOrderManager##oom extends OrderManager{
-	void addOrder(Order order);
+singleton BackgroundTaskManager##btm{
 
-	void startOrderProcessing();
+	BackgroundTask ** tasks;
+	void addTask(BackgroundTask task);
+	void startTasks();
+	void stopTasks();
+	void step();
+}
+
+abstract class BackgroundTask{
+	void startTask(Integer tickTime);
+	void stopTask();
+	abstract void step();
+}
+
+singleton OwnerOrderManager##oom extends OrderManager covers BackgroundTask{
+	void addOrder(Order order);
 }
 
 singleton ReturnManager{
-	ArticleReturn ** articleReturn;
+	public ArticleReturn ** articleReturn;
 	active void addArticleReturn##aar(ArticleReturn articleReturn);
 	
 }
@@ -243,8 +263,23 @@ class ShoppingCartQuantifiedArticle##scqa extends QuantifiedArticle{
 }
 
 class OrderQuantifiedArticle##oqa extends QuantifiedArticle{
-	prior Fraction articlePriceAtOrderTime##apatot;	
+	prior public Fraction articlePriceAtOrderTime##apatot;
+	public no-view OrderQuantifiedArticleState state;
+	void markForReturn();
+	void unmarkForReturn();
+
 }
+
+abstract class OrderQuantifiedArticleState##ooas{
+}
+class OrderQuantifiedArticleNormalState##ooans extends OrderQuantifiedArticleState{
+}
+
+class OrderQuantifiedArticleMarkedForReturnState##ooamafrs extends OrderQuantifiedArticleState{
+}
+
+
+
 class ReturnQuantifiedArticle##rqa extends QuantifiedArticle{
 
 }
@@ -255,7 +290,7 @@ class ReOrderQuantifiedArticle##roqa extends QuantifiedArticle{
 }
 
 class Producer{
-	public prior String name;
+	public prior indexed String name;
 }
 
 class CustomerAccount{
@@ -286,18 +321,20 @@ class ShoppingCart{
 
 class Order{
 	public OrderQuantifiedArticle ** articles;
-	prior CustomerDeliveryTime customerDeliveryTime;
+	prior public CustomerDeliveryTime customerDeliveryTime;
 	void addArticle(OrderQuantifiedArticle orderQuantifiedArticle);
 
-	public Fraction totalPrice;
-
+	public-write Fraction totalPrice;
+	
 	prior public-write OrderState state;
 }
 
 class ArticleReturn{
-	prior	Order order;
-	ReturnQuantifiedArticle ** returnArticles;
+	prior	one-to-one (myOrder) Order order;
+	public ReturnQuantifiedArticle ** returnArticles;
 	void addArticle(ReturnQuantifiedArticle orderQuantifiedArticle);
+
+
 }
 
 abstract class OrderState{
@@ -313,6 +350,9 @@ class PreOrderState extends OrderState{
 class WaitingForAcceptOrderState##wfao extends OrderState{
 	public-write prior Integer ticksLeft;
 }
+class ArticlesInReturnOrderState##airos extends OrderState{
+	public-write prior Integer ticksLeft;
+}
 
 
 class FinishedOrderState##fos extends OrderState{
@@ -324,6 +364,8 @@ exception DoubleDefinitionException{}
 exception UserAlreadyExistsException{}
 exception NotEnoughStockException{}
 exception NotEnoughMoneyException{}
+exception EmptyCartException{}
+exception OrderNotYetArrivedException{}
 }
 
 
