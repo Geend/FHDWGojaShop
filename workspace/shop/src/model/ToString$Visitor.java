@@ -49,6 +49,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	public void handleOwnerService(OwnerService4Public ownerService) throws PersistenceException {
 	}
 
+
 	@Override
 	public void handleFinishedOrderState(FinishedOrderState4Public finishedOrderState) throws PersistenceException {
 		result = "abgeschlossen";
@@ -147,6 +148,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleInTransitOrderState(InTransitOrderState4Public inTransitOrderState) throws PersistenceException {
 		result = "unterwegs";
+	}
+
+	@Override
+	public void handleShop(Shop4Public shop) throws PersistenceException {
+
 	}
 
 
@@ -267,6 +273,8 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	public void handleNewCreated(NewCreated4Public newCreated) throws PersistenceException {
 		result = "Neuer Artikel, nicht im Verkauf";
 	}
+
+
 
 	@Override
 	public void handleWaitingForAcceptOrderState(WaitingForAcceptOrderState4Public waitingForAcceptOrderState) throws PersistenceException {

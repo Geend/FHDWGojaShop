@@ -105,6 +105,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleReOrderManager(ReOrderManagerView reOrderManager) throws ModelException{
         this.handleBackgroundTask(reOrderManager);
     }
+    public abstract void handleShop(ShopView shop) throws ModelException;
+    
     public abstract void handleProducer(ProducerView producer) throws ModelException;
     
     public abstract void handleShoppingCart(ShoppingCartView shoppingCart) throws ModelException;

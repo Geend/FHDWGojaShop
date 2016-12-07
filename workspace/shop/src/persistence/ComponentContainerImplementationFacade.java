@@ -28,14 +28,14 @@ public class ComponentContainerImplementationFacade{
     public PersistentComponentContainerImplementation newComponentContainerImplementation(long idCreateIfLessZero) throws PersistenceException {
         if(idCreateIfLessZero > 0) return (PersistentComponentContainerImplementation)PersistentProxi.createProxi(idCreateIfLessZero, 395);
         long id = ConnectionHandler.getTheConnectionHandler().theComponentContainerImplementationFacade.getNextId();
-        ComponentContainerImplementation result = new ComponentContainerImplementation(null,null,null,id);
+        ComponentContainerImplementation result = new ComponentContainerImplementation(null,null,id);
         Cache.getTheCache().put(result);
         return (PersistentComponentContainerImplementation)PersistentProxi.createProxi(id, 395);
     }
     
     public PersistentComponentContainerImplementation newDelayedComponentContainerImplementation() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theComponentContainerImplementationFacade.getNextId();
-        ComponentContainerImplementation result = new ComponentContainerImplementation(null,null,null,id);
+        ComponentContainerImplementation result = new ComponentContainerImplementation(null,null,id);
         Cache.getTheCache().put(result);
         return (PersistentComponentContainerImplementation)PersistentProxi.createProxi(id, 395);
     }
@@ -49,8 +49,14 @@ public class ComponentContainerImplementationFacade{
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
     }
-    public void componentsSet(long ComponentContainerImplementationId, ComponentContainerImplementationComponents4Public componentsVal) throws PersistenceException {
+    public long componentsAdd(long ComponentContainerImplementationId, Component4Public componentsVal) throws PersistenceException {
+        return 0;
+    }
+    public void componentsRem(long componentsId) throws PersistenceException {
         
+    }
+    public ComponentList componentsGet(long ComponentContainerImplementationId) throws PersistenceException {
+        return new ComponentList(); // remote access for initialization only!
     }
     public void subServiceSet(long ComponentContainerImplementationId, SubjInterface subServiceVal) throws PersistenceException {
         

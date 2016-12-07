@@ -205,13 +205,6 @@ public class ComponentManager extends PersistentObject implements PersistentComp
     }
     
     
-    public void addComponent(final Component4Public component) 
-				throws model.CycleException, PersistenceException{
-        model.meta.ComponentContainerAddComponentComponentMssg event = new model.meta.ComponentContainerAddComponentComponentMssg(component, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
-    }
     public synchronized void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
@@ -221,49 +214,11 @@ public class ComponentManager extends PersistentObject implements PersistentComp
 		}
 		subService.deregister(observee);
     }
-    public void fireComponentChanged(final model.meta.ComponentMssgs evnt) 
-				throws PersistenceException{
-        model.meta.ComponentContainerFireComponentChangedComponentMssgsMssg event = new model.meta.ComponentContainerFireComponentChangedComponentMssgsMssg(evnt, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
-    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentComponentManager)This);
 		if(this.isTheSameAs(This)){
 		}
-    }
-    public ArticleWrapper4Public newArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
-				throws model.CycleException, PersistenceException{
-        model.meta.ComponentContainerNewArticleStringFractionIntegerIntegerIntegerProducerMssg event = new model.meta.ComponentContainerNewArticleStringFractionIntegerIntegerIntegerProducerMssg(name, price, minStock, maxStock, producerDeliveryTime, producer, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		return event.getResult();
-    }
-    public void newArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		NewArticleCommand4Public command = model.meta.NewArticleCommand.createNewArticleCommand(name, price, minStock, maxStock, producerDeliveryTime, now, now);
-		command.setProducer(producer);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public ProductGroup4Public newProductGroup(final String name) 
-				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        model.meta.ComponentContainerNewProductGroupStringMssg event = new model.meta.ComponentContainerNewProductGroupStringMssg(name, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		return event.getResult();
-    }
-    public void newProductGroup(final String name, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		NewProductGroupCommand4Public command = model.meta.NewProductGroupCommand.createNewProductGroupCommand(name, now, now);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public synchronized void register(final ObsInterface observee) 
 				throws PersistenceException{
@@ -273,13 +228,6 @@ public class ComponentManager extends PersistentObject implements PersistentComp
 			getThis().setSubService(subService);
 		}
 		subService.register(observee);
-    }
-    public void removeComponent(final Component4Public component) 
-				throws PersistenceException{
-        model.meta.ComponentContainerRemoveComponentComponentMssg event = new model.meta.ComponentContainerRemoveComponentComponentMssg(component, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
     }
     public synchronized void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
@@ -294,18 +242,13 @@ public class ComponentManager extends PersistentObject implements PersistentComp
     
     // Start of section that contains operations that must be implemented.
     
-    public void addComponentImplementation(final Component4Public component) 
+    public void addComponent(final Component4Public component) 
 				throws model.CycleException, PersistenceException{
         getThis().getContainer().addComponent(component);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
-    public void fireComponentChangedImplementation(final model.meta.ComponentMssgs evnt) 
-				throws PersistenceException{
-        //TODO: implement method: fireComponentChangedImplementation
         
     }
     public void initializeOnCreation() 
@@ -317,17 +260,18 @@ public class ComponentManager extends PersistentObject implements PersistentComp
         //TODO: implement method: initializeOnInstantiation
         
     }
-    public ArticleWrapper4Public newArticleImplementation(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
+    public ArticleWrapper4Public newArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
 				throws model.CycleException, PersistenceException{
-        return getContainer().newArticle(name, price, minStock,maxStock, producerDeliveryTime, producer);
+       return getThis().getContainer().newArticle(name, price, minStock, maxStock, producerDeliveryTime, producer);
     }
-    public ProductGroup4Public newProductGroupImplementation(final String name) 
+    public ProductGroup4Public newProductGroup(final String name) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        return getContainer().newProductGroup(name);
+        return getThis().getContainer().newProductGroup(name);
     }
-    public void removeComponentImplementation(final Component4Public component) 
+    public void removeComponent(final Component4Public component) 
 				throws PersistenceException{
-        getContainer().removeComponent(component);
+        getThis().getContainer().removeComponent(component);
+
     }
     
     

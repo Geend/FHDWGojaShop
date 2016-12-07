@@ -36,15 +36,17 @@ public class StopSellingCommand extends PersistentObject implements PersistentSt
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
+    protected PersistentArticleWrapper article;
     protected Invoker invoker;
-    protected PersistentArticle commandReceiver;
+    protected PersistentShop commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public StopSellingCommand(Invoker invoker,PersistentArticle commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
+    public StopSellingCommand(PersistentArticleWrapper article,Invoker invoker,PersistentShop commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
+        this.article = article;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
         this.myCommonDate = myCommonDate;        
@@ -63,6 +65,10 @@ public class StopSellingCommand extends PersistentObject implements PersistentSt
         if (this.getClassId() == 287) ConnectionHandler.getTheConnectionHandler().theStopSellingCommandFacade
             .newStopSellingCommand(this.getId());
         super.store();
+        if(this.getArticle() != null){
+            this.getArticle().store();
+            ConnectionHandler.getTheConnectionHandler().theStopSellingCommandFacade.articleSet(this.getId(), getArticle());
+        }
         if(this.getInvoker() != null){
             this.getInvoker().store();
             ConnectionHandler.getTheConnectionHandler().theStopSellingCommandFacade.invokerSet(this.getId(), getInvoker());
@@ -78,6 +84,20 @@ public class StopSellingCommand extends PersistentObject implements PersistentSt
         
     }
     
+    public ArticleWrapper4Public getArticle() throws PersistenceException {
+        return this.article;
+    }
+    public void setArticle(ArticleWrapper4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.article)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.article = (PersistentArticleWrapper)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theStopSellingCommandFacade.articleSet(this.getId(), newValue);
+        }
+    }
     public Invoker getInvoker() throws PersistenceException {
         return this.invoker;
     }
@@ -92,15 +112,15 @@ public class StopSellingCommand extends PersistentObject implements PersistentSt
             ConnectionHandler.getTheConnectionHandler().theStopSellingCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
-    public Article4Public getCommandReceiver() throws PersistenceException {
+    public Shop4Public getCommandReceiver() throws PersistenceException {
         return this.commandReceiver;
     }
-    public void setCommandReceiver(Article4Public newValue) throws PersistenceException {
+    public void setCommandReceiver(Shop4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.commandReceiver)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.commandReceiver = (PersistentArticle)PersistentProxi.createProxi(objectId, classId);
+        this.commandReceiver = (PersistentShop)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theStopSellingCommandFacade.commandReceiverSet(this.getId(), newValue);
@@ -173,19 +193,20 @@ public class StopSellingCommand extends PersistentObject implements PersistentSt
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleStopSellingCommand(this);
     }
-    public void accept(ArticleCommandVisitor visitor) throws PersistenceException {
+    public void accept(ShopCommandVisitor visitor) throws PersistenceException {
         visitor.handleStopSellingCommand(this);
     }
-    public <R> R accept(ArticleCommandReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(ShopCommandReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleStopSellingCommand(this);
     }
-    public <E extends model.UserException>  void accept(ArticleCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(ShopCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleStopSellingCommand(this);
     }
-    public <R, E extends model.UserException> R accept(ArticleCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(ShopCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleStopSellingCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{
+        if (this.getArticle() != null) return 1;
         if (this.getCommandReceiver() != null) return 1;
         return 0;
     }
@@ -201,7 +222,7 @@ public class StopSellingCommand extends PersistentObject implements PersistentSt
     }
     public void execute() 
 				throws PersistenceException{
-        this.commandReceiver.stopSelling();
+        this.commandReceiver.stopSelling(this.getArticle());
 		
     }
     public Invoker fetchInvoker() 

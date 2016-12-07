@@ -8,17 +8,14 @@ public abstract class ObsInterfaceStandardVisitor implements ObsInterfaceVisitor
     public void handleOrderManagerOrders(OrderManagerOrders4Public orderManagerOrders) throws PersistenceException{
         this.standardHandling(orderManagerOrders);
     }
-    public void handleCustomerServiceComponentManager(CustomerServiceComponentManager4Public customerServiceComponentManager) throws PersistenceException{
-        this.standardHandling(customerServiceComponentManager);
-    }
     public void handleCustomerServiceOrderManager(CustomerServiceOrderManager4Public customerServiceOrderManager) throws PersistenceException{
         this.standardHandling(customerServiceOrderManager);
     }
-    public void handleProductGroupComponents(ProductGroupComponents4Public productGroupComponents) throws PersistenceException{
-        this.standardHandling(productGroupComponents);
+    public void handleOwnerServiceShop(OwnerServiceShop4Public ownerServiceShop) throws PersistenceException{
+        this.standardHandling(ownerServiceShop);
     }
-    public void handleComponentContainerImplementationComponents(ComponentContainerImplementationComponents4Public componentContainerImplementationComponents) throws PersistenceException{
-        this.standardHandling(componentContainerImplementationComponents);
+    public void handleCustomerServiceShop(CustomerServiceShop4Public customerServiceShop) throws PersistenceException{
+        this.standardHandling(customerServiceShop);
     }
     protected abstract void standardHandling(ObsInterface obsInterface) throws PersistenceException;
 }

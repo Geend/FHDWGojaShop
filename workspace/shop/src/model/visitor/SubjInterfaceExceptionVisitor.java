@@ -19,6 +19,7 @@ public interface SubjInterfaceExceptionVisitor<E extends model.UserException> ex
     public void handleReturnManager(ReturnManager4Public returnManager) throws PersistenceException, E;
     public void handleServer(Server4Public server) throws PersistenceException, E;
     public void handleSettings(Settings4Public settings) throws PersistenceException, E;
+    public void handleShop(Shop4Public shop) throws PersistenceException, E;
     public void handleShoppingCart(ShoppingCart4Public shoppingCart) throws PersistenceException, E;
     public void handleSubj(Subj4Public subj) throws PersistenceException, E;
     

@@ -107,6 +107,8 @@ public abstract class SubjInterfaceDirectVisitor implements SubjInterfaceVisitor
     public void handleReOrderManager(ReOrderManager4Public reOrderManager) throws PersistenceException{
         this.handleBackgroundTask(reOrderManager);
     }
+    public abstract void handleShop(Shop4Public shop) throws PersistenceException;
+    
     public abstract void handleProducer(Producer4Public producer) throws PersistenceException;
     
     public abstract void handleShoppingCart(ShoppingCart4Public shoppingCart) throws PersistenceException;

@@ -19,6 +19,7 @@ public interface SubjInterfaceReturnExceptionVisitor<R, E extends model.UserExce
     public R handleReturnManager(ReturnManager4Public returnManager) throws PersistenceException, E;
     public R handleServer(Server4Public server) throws PersistenceException, E;
     public R handleSettings(Settings4Public settings) throws PersistenceException, E;
+    public R handleShop(Shop4Public shop) throws PersistenceException, E;
     public R handleShoppingCart(ShoppingCart4Public shoppingCart) throws PersistenceException, E;
     public R handleSubj(Subj4Public subj) throws PersistenceException, E;
     

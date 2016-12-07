@@ -12,7 +12,7 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		
 	  private static ICProxiFactory [] getTheICProxiFactories(){
 		if (iCProxiFactories == null){
-			iCProxiFactories = new ICProxiFactory[300];
+			iCProxiFactories = new ICProxiFactory[331];
         iCProxiFactories[109] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ProducerLstICProxi(objectId);
@@ -68,7 +68,7 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new NotInSaleICProxi(objectId);
             }
         };
-        iCProxiFactories[91] = new ICProxiFactory(){
+        iCProxiFactories[308] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new NewProductGroupCommandICProxi(objectId);
             }
@@ -123,6 +123,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new AddArticleCommandICProxi(objectId);
             }
         };
+        iCProxiFactories[309] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new ChangeCustomerDeliveryTimeTimeCommandICProxi(objectId);
+            }
+        };
         iCProxiFactories[195] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CustomerDeliveryTimeManagerICProxi(objectId);
@@ -136,11 +141,6 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[199] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new DepositCommandICProxi(objectId);
-            }
-        };
-        iCProxiFactories[295] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new ComponentContainerImplementationComponentsICProxi(objectId);
             }
         };
         iCProxiFactories[137] = new ICProxiFactory(){
@@ -188,6 +188,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new ReOrderCommandICProxi(objectId);
             }
         };
+        iCProxiFactories[325] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new OwnerServiceShopICProxi(objectId);
+            }
+        };
         iCProxiFactories[226] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ReOrderManagerICProxi(objectId);
@@ -196,6 +201,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[235] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new InTransitOrderStateICProxi(objectId);
+            }
+        };
+        iCProxiFactories[327] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new ShopICProxi(objectId);
             }
         };
         iCProxiFactories[97] = new ICProxiFactory(){
@@ -248,11 +258,6 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new OwnerOrderManagerICProxi(objectId);
             }
         };
-        iCProxiFactories[290] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new ProductGroupComponentsICProxi(objectId);
-            }
-        };
         iCProxiFactories[133] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CustomerDeliveryTimeICProxi(objectId);
@@ -266,6 +271,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[200] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new WithdrawCommandICProxi(objectId);
+            }
+        };
+        iCProxiFactories[329] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new ChangeArticleNameCommandICProxi(objectId);
             }
         };
         iCProxiFactories[237] = new ICProxiFactory(){
@@ -293,14 +303,14 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new NewCreatedICProxi(objectId);
             }
         };
+        iCProxiFactories[330] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new ChangeArticlePriceCommandICProxi(objectId);
+            }
+        };
         iCProxiFactories[233] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new DebitCommandICProxi(objectId);
-            }
-        };
-        iCProxiFactories[298] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new CustomerServiceComponentManagerICProxi(objectId);
             }
         };
         iCProxiFactories[262] = new ICProxiFactory(){
@@ -338,6 +348,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new SubjICProxi(objectId);
             }
         };
+        iCProxiFactories[306] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new CustomerServiceShopICProxi(objectId);
+            }
+        };
         iCProxiFactories[267] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ReOrderForPreorderCommandICProxi(objectId);
@@ -366,6 +381,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[216] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new NewOrderCommandICProxi(objectId);
+            }
+        };
+        iCProxiFactories[310] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new ChangeCustomerDeliveryTimePriceCommandICProxi(objectId);
             }
         };
         iCProxiFactories[4] = new ICProxiFactory(){

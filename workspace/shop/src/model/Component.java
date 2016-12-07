@@ -130,22 +130,6 @@ public abstract class Component extends PersistentObject implements PersistentCo
 			this.setParent((ComponentContainer)final$$Fields.get("parent"));
 		}
     }
-    public void moveTo(final ComponentContainer container) 
-				throws model.CycleException, PersistenceException{
-        model.meta.ComponentMoveToComponentContainerMssg event = new model.meta.ComponentMoveToComponentContainerMssg(container, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
-    }
-    public void moveTo(final ComponentContainer container, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		MoveToCommand4Public command = model.meta.MoveToCommand.createMoveToCommand(now, now);
-		command.setContainer(container);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
     
     
     // Start of section that contains operations that must be implemented.
@@ -163,9 +147,8 @@ public abstract class Component extends PersistentObject implements PersistentCo
     
     // Start of section that contains overridden operations only.
     
-    public void moveToImplementation(final ComponentContainer container) 
+    public void moveTo(final ComponentContainer container) 
 				throws model.CycleException, PersistenceException{
-
         getThis().getParent().removeComponent(getThis());
         container.addComponent(getThis());
         getThis().setParent(container);

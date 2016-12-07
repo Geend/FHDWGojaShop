@@ -41,14 +41,6 @@ public interface Article4Public extends Anything, SubjInterface, AbstractPersist
 				throws model.NotEnoughStockException, PersistenceException;
     public void reduceStock(final long quantity, final Invoker invoker) 
 				throws PersistenceException;
-    public void startSelling() 
-				throws PersistenceException;
-    public void startSelling(final Invoker invoker) 
-				throws PersistenceException;
-    public void stopSelling() 
-				throws PersistenceException;
-    public void stopSelling(final Invoker invoker) 
-				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public String getCurrentState() 
@@ -65,9 +57,9 @@ public interface Article4Public extends Anything, SubjInterface, AbstractPersist
 				throws PersistenceException;
     public void reduceStockImplementation(final long quantity) 
 				throws model.NotEnoughStockException, PersistenceException;
-    public void startSellingImplementation() 
+    public void startSelling() 
 				throws PersistenceException;
-    public void stopSellingImplementation() 
+    public void stopSelling() 
 				throws PersistenceException;
 
 }

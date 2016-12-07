@@ -41,7 +41,7 @@ public class ProductGroupFacade{
         }
         return result;
     }
-    public void componentsSet(long ProductGroupId, ProductGroupComponents4Public componentsVal) throws PersistenceException {
+    public void containerSet(long ProductGroupId, ComponentContainerImplementation4Public containerVal) throws PersistenceException {
         
     }
     public void nameSet(long ProductGroupId, String nameVal) throws PersistenceException {

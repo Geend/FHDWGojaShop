@@ -84,10 +84,10 @@ public class ConnectionHandler {
     public StopSellingCommandFacade theStopSellingCommandFacade;
     public MoveToCommandFacade theMoveToCommandFacade;
     public AddArticleCommandFacade theAddArticleCommandFacade;
+    public ChangeCustomerDeliveryTimeTimeCommandFacade theChangeCustomerDeliveryTimeTimeCommandFacade;
     public CustomerDeliveryTimeManagerFacade theCustomerDeliveryTimeManagerFacade;
     public SettingsFacade theSettingsFacade;
     public DepositCommandFacade theDepositCommandFacade;
-    public ComponentContainerImplementationComponentsFacade theComponentContainerImplementationComponentsFacade;
     public OrderFacade theOrderFacade;
     public IncreaseStockCommandFacade theIncreaseStockCommandFacade;
     public CreateProducerCommandFacade theCreateProducerCommandFacade;
@@ -97,9 +97,11 @@ public class ConnectionHandler {
     public NewArticleCommandFacade theNewArticleCommandFacade;
     public CustomerAccountFacade theCustomerAccountFacade;
     public ReOrderCommandFacade theReOrderCommandFacade;
+    public OwnerServiceShopFacade theOwnerServiceShopFacade;
     public ReOrderManagerFacade theReOrderManagerFacade;
     public BackgroundTaskFacade theBackgroundTaskFacade;
     public InTransitOrderStateFacade theInTransitOrderStateFacade;
+    public ShopFacade theShopFacade;
     public ProducerFacade theProducerFacade;
     public ArticleReturnFacade theArticleReturnFacade;
     public OrderQuantifiedArticleMarkedForReturnStateFacade theOrderQuantifiedArticleMarkedForReturnStateFacade;
@@ -111,20 +113,20 @@ public class ConnectionHandler {
     public CreateCustomerDeliveryTimeCommandFacade theCreateCustomerDeliveryTimeCommandFacade;
     public ArticleFacade theArticleFacade;
     public OwnerOrderManagerFacade theOwnerOrderManagerFacade;
-    public ProductGroupComponentsFacade theProductGroupComponentsFacade;
     public CustomerDeliveryTimeFacade theCustomerDeliveryTimeFacade;
     public OrderStatusFacade theOrderStatusFacade;
     public OwnerServiceFacade theOwnerServiceFacade;
     public QuantifiedArticleFacade theQuantifiedArticleFacade;
     public WithdrawCommandFacade theWithdrawCommandFacade;
+    public ChangeArticleNameCommandFacade theChangeArticleNameCommandFacade;
     public FinishedOrderStateFacade theFinishedOrderStateFacade;
     public ComponentManagerFacade theComponentManagerFacade;
     public CustomerArticleLstFacade theCustomerArticleLstFacade;
     public ShoppingCartQuantifiedArticleFacade theShoppingCartQuantifiedArticleFacade;
     public NewCreatedFacade theNewCreatedFacade;
     public ComponentFacade theComponentFacade;
+    public ChangeArticlePriceCommandFacade theChangeArticlePriceCommandFacade;
     public DebitCommandFacade theDebitCommandFacade;
-    public CustomerServiceComponentManagerFacade theCustomerServiceComponentManagerFacade;
     public BackgroundTaskManagerFacade theBackgroundTaskManagerFacade;
     public WaitingForAcceptOrderStateFacade theWaitingForAcceptOrderStateFacade;
     public AddArticleReturnCommandFacade theAddArticleReturnCommandFacade;
@@ -133,6 +135,7 @@ public class ConnectionHandler {
     public InSaleFacade theInSaleFacade;
     public ReturnQuantifiedArticleFacade theReturnQuantifiedArticleFacade;
     public SubjFacade theSubjFacade;
+    public CustomerServiceShopFacade theCustomerServiceShopFacade;
     public ReOrderForPreorderCommandFacade theReOrderForPreorderCommandFacade;
     public ShoppingCartFacade theShoppingCartFacade;
     public ArticlesInReturnOrderStateFacade theArticlesInReturnOrderStateFacade;
@@ -140,6 +143,7 @@ public class ConnectionHandler {
     public ArticleStateFacade theArticleStateFacade;
     public CustomerOrderManagerFacade theCustomerOrderManagerFacade;
     public NewOrderCommandFacade theNewOrderCommandFacade;
+    public ChangeCustomerDeliveryTimePriceCommandFacade theChangeCustomerDeliveryTimePriceCommandFacade;
     public CommandExecuterFacade theCommandExecuterFacade;
     public AcceptOrderCommandFacade theAcceptOrderCommandFacade;
 
@@ -169,10 +173,10 @@ public class ConnectionHandler {
             this.theStopSellingCommandFacade= new StopSellingCommandFacade();
             this.theMoveToCommandFacade= new MoveToCommandFacade();
             this.theAddArticleCommandFacade= new AddArticleCommandFacade();
+            this.theChangeCustomerDeliveryTimeTimeCommandFacade= new ChangeCustomerDeliveryTimeTimeCommandFacade();
             this.theCustomerDeliveryTimeManagerFacade= new CustomerDeliveryTimeManagerFacade();
             this.theSettingsFacade= new SettingsFacade();
             this.theDepositCommandFacade= new DepositCommandFacade();
-            this.theComponentContainerImplementationComponentsFacade= new ComponentContainerImplementationComponentsFacade();
             this.theOrderFacade= new OrderFacade();
             this.theIncreaseStockCommandFacade= new IncreaseStockCommandFacade();
             this.theCreateProducerCommandFacade= new CreateProducerCommandFacade();
@@ -182,9 +186,11 @@ public class ConnectionHandler {
             this.theNewArticleCommandFacade= new NewArticleCommandFacade();
             this.theCustomerAccountFacade= new CustomerAccountFacade();
             this.theReOrderCommandFacade= new ReOrderCommandFacade();
+            this.theOwnerServiceShopFacade= new OwnerServiceShopFacade();
             this.theReOrderManagerFacade= new ReOrderManagerFacade();
             this.theBackgroundTaskFacade= new BackgroundTaskFacade();
             this.theInTransitOrderStateFacade= new InTransitOrderStateFacade();
+            this.theShopFacade= new ShopFacade();
             this.theProducerFacade= new ProducerFacade();
             this.theArticleReturnFacade= new ArticleReturnFacade();
             this.theOrderQuantifiedArticleMarkedForReturnStateFacade= new OrderQuantifiedArticleMarkedForReturnStateFacade();
@@ -196,20 +202,20 @@ public class ConnectionHandler {
             this.theCreateCustomerDeliveryTimeCommandFacade= new CreateCustomerDeliveryTimeCommandFacade();
             this.theArticleFacade= new ArticleFacade();
             this.theOwnerOrderManagerFacade= new OwnerOrderManagerFacade();
-            this.theProductGroupComponentsFacade= new ProductGroupComponentsFacade();
             this.theCustomerDeliveryTimeFacade= new CustomerDeliveryTimeFacade();
             this.theOrderStatusFacade= new OrderStatusFacade();
             this.theOwnerServiceFacade= new OwnerServiceFacade();
             this.theQuantifiedArticleFacade= new QuantifiedArticleFacade();
             this.theWithdrawCommandFacade= new WithdrawCommandFacade();
+            this.theChangeArticleNameCommandFacade= new ChangeArticleNameCommandFacade();
             this.theFinishedOrderStateFacade= new FinishedOrderStateFacade();
             this.theComponentManagerFacade= new ComponentManagerFacade();
             this.theCustomerArticleLstFacade= new CustomerArticleLstFacade();
             this.theShoppingCartQuantifiedArticleFacade= new ShoppingCartQuantifiedArticleFacade();
             this.theNewCreatedFacade= new NewCreatedFacade();
             this.theComponentFacade= new ComponentFacade();
+            this.theChangeArticlePriceCommandFacade= new ChangeArticlePriceCommandFacade();
             this.theDebitCommandFacade= new DebitCommandFacade();
-            this.theCustomerServiceComponentManagerFacade= new CustomerServiceComponentManagerFacade();
             this.theBackgroundTaskManagerFacade= new BackgroundTaskManagerFacade();
             this.theWaitingForAcceptOrderStateFacade= new WaitingForAcceptOrderStateFacade();
             this.theAddArticleReturnCommandFacade= new AddArticleReturnCommandFacade();
@@ -218,6 +224,7 @@ public class ConnectionHandler {
             this.theInSaleFacade= new InSaleFacade();
             this.theReturnQuantifiedArticleFacade= new ReturnQuantifiedArticleFacade();
             this.theSubjFacade= new SubjFacade();
+            this.theCustomerServiceShopFacade= new CustomerServiceShopFacade();
             this.theReOrderForPreorderCommandFacade= new ReOrderForPreorderCommandFacade();
             this.theShoppingCartFacade= new ShoppingCartFacade();
             this.theArticlesInReturnOrderStateFacade= new ArticlesInReturnOrderStateFacade();
@@ -225,6 +232,7 @@ public class ConnectionHandler {
             this.theArticleStateFacade= new ArticleStateFacade();
             this.theCustomerOrderManagerFacade= new CustomerOrderManagerFacade();
             this.theNewOrderCommandFacade= new NewOrderCommandFacade();
+            this.theChangeCustomerDeliveryTimePriceCommandFacade= new ChangeCustomerDeliveryTimePriceCommandFacade();
             this.theCommandExecuterFacade= new CommandExecuterFacade();
             this.theAcceptOrderCommandFacade= new AcceptOrderCommandFacade();
 	}

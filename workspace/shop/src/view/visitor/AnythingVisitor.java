@@ -22,6 +22,7 @@ public interface AnythingVisitor extends ArticleStateVisitor,BackgroundTaskVisit
     public void handleReturnManager(ReturnManagerView returnManager) throws ModelException;
     public void handleServer(ServerView server) throws ModelException;
     public void handleSettings(SettingsView settings) throws ModelException;
+    public void handleShop(ShopView shop) throws ModelException;
     public void handleShoppingCart(ShoppingCartView shoppingCart) throws ModelException;
     
 }

@@ -11,7 +11,6 @@ public class ProductGroupProxi extends ComponentProxi implements ProductGroupVie
         super(objectId, classId, connectionKey);
     }
     
-    @SuppressWarnings("unchecked")
     public ProductGroupView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         ViewProxi parent = null;
         String parent$String = (String)resultTable.get("parent");
@@ -20,10 +19,15 @@ public class ProductGroupProxi extends ComponentProxi implements ProductGroupVie
             parent = view.objects.ViewProxi.createProxi(parent$Info,connectionKey);
             parent.setToString(parent$Info.getToString());
         }
-        java.util.Vector<String> components_string = (java.util.Vector<String>)resultTable.get("components");
-        java.util.Vector<ComponentView> components = ViewProxi.getProxiVector(components_string, connectionKey);
+        ViewProxi container = null;
+        String container$String = (String)resultTable.get("container");
+        if (container$String != null) {
+            common.ProxiInformation container$Info = common.RPCConstantsAndServices.createProxiInformation(container$String);
+            container = view.objects.ViewProxi.createProxi(container$Info,connectionKey);
+            container.setToString(container$Info.getToString());
+        }
         String name = (String)resultTable.get("name");
-        ProductGroupView result$$ = new ProductGroup((ComponentContainer)parent,components,(String)name, this.getId(), this.getClassId());
+        ProductGroupView result$$ = new ProductGroup((ComponentContainer)parent,(ComponentContainerImplementationView)container,(String)name, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -33,34 +37,32 @@ public class ProductGroupProxi extends ComponentProxi implements ProductGroupVie
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
         int index = originalIndex;
-        if(index < this.getComponents().size()) return new ComponentsProductGroupWrapper(this, originalIndex, (ViewRoot)this.getComponents().get(index));
-        index = index - this.getComponents().size();
+        if(this.getContainer() != null && index < this.getContainer().getTheObject().getChildCount())
+            return this.getContainer().getTheObject().getChild(index);
+        if(this.getContainer() != null) index = index - this.getContainer().getTheObject().getChildCount();
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getComponents().size());
+            + (this.getContainer() == null ? 0 : this.getContainer().getTheObject().getChildCount());
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
-            && (this.getComponents().size() == 0);
+            && (this.getContainer() == null ? true : this.getContainer().getTheObject().isLeaf());
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
-        java.util.Iterator<?> getComponentsIterator = this.getComponents().iterator();
-        while(getComponentsIterator.hasNext()){
-            if(getComponentsIterator.next().equals(child)) return result;
-            result = result + 1;
-        }
+        if(this.getContainer() != null && this.getContainer().equals(child)) return result;
+        if(this.getContainer() != null) result = result + 1;
         return -1;
     }
     
-    public java.util.Vector<ComponentView> getComponents()throws ModelException{
-        return ((ProductGroup)this.getTheObject()).getComponents();
+    public ComponentContainerImplementationView getContainer()throws ModelException{
+        return ((ProductGroup)this.getTheObject()).getContainer();
     }
-    public void setComponents(java.util.Vector<ComponentView> newValue) throws ModelException {
-        ((ProductGroup)this.getTheObject()).setComponents(newValue);
+    public void setContainer(ComponentContainerImplementationView newValue) throws ModelException {
+        ((ProductGroup)this.getTheObject()).setContainer(newValue);
     }
     public String getName()throws ModelException{
         return ((ProductGroup)this.getTheObject()).getName();

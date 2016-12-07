@@ -54,31 +54,13 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            AbstractPersistentRoot componentManager = (AbstractPersistentRoot)this.getComponentManager();
-            if (componentManager != null) {
-                result.put("componentManager", componentManager.createProxiInformation(false, essentialLevel <= 1));
+            AbstractPersistentRoot shop = (AbstractPersistentRoot)this.getShop();
+            if (shop != null) {
+                result.put("shop", shop.createProxiInformation(false, essentialLevel <= 1));
                 if(depth > 1) {
-                    componentManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                    shop.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
                 }else{
-                    if(forGUI && componentManager.hasEssentialFields())componentManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
-            AbstractPersistentRoot customerDeliveryTimeManager = (AbstractPersistentRoot)this.getCustomerDeliveryTimeManager();
-            if (customerDeliveryTimeManager != null) {
-                result.put("customerDeliveryTimeManager", customerDeliveryTimeManager.createProxiInformation(false, essentialLevel <= 1));
-                if(depth > 1) {
-                    customerDeliveryTimeManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && customerDeliveryTimeManager.hasEssentialFields())customerDeliveryTimeManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
-            AbstractPersistentRoot prmanager = (AbstractPersistentRoot)this.getPrmanager();
-            if (prmanager != null) {
-                result.put("prmanager", prmanager.createProxiInformation(false, essentialLevel <= 1));
-                if(depth > 1) {
-                    prmanager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && prmanager.hasEssentialFields())prmanager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                    if(forGUI && shop.hasEssentialFields())shop.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
             AbstractPersistentRoot settings = (AbstractPersistentRoot)this.getSettings();
@@ -127,9 +109,7 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
         OwnerService result = this;
         result = new OwnerService(this.subService, 
                                   this.This, 
-                                  this.componentManager, 
-                                  this.customerDeliveryTimeManager, 
-                                  this.prmanager, 
+                                  this.shop, 
                                   this.settings, 
                                   this.reOrderManager, 
                                   this.ownerOrderManager, 
@@ -144,20 +124,16 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected PersistentComponentManager componentManager;
-    protected PersistentCustomerDeliveryTimeManager customerDeliveryTimeManager;
-    protected PersistentProducerLst prmanager;
+    protected PersistentOwnerServiceShop shop;
     protected PersistentSettings settings;
     protected PersistentReOrderManager reOrderManager;
     protected PersistentOwnerOrderManager ownerOrderManager;
     protected PersistentReturnManager returnManager;
     
-    public OwnerService(SubjInterface subService,PersistentService This,PersistentComponentManager componentManager,PersistentCustomerDeliveryTimeManager customerDeliveryTimeManager,PersistentProducerLst prmanager,PersistentSettings settings,PersistentReOrderManager reOrderManager,PersistentOwnerOrderManager ownerOrderManager,PersistentReturnManager returnManager,long id) throws PersistenceException {
+    public OwnerService(SubjInterface subService,PersistentService This,PersistentOwnerServiceShop shop,PersistentSettings settings,PersistentReOrderManager reOrderManager,PersistentOwnerOrderManager ownerOrderManager,PersistentReturnManager returnManager,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super((SubjInterface)subService,(PersistentService)This,id);
-        this.componentManager = componentManager;
-        this.customerDeliveryTimeManager = customerDeliveryTimeManager;
-        this.prmanager = prmanager;
+        this.shop = shop;
         this.settings = settings;
         this.reOrderManager = reOrderManager;
         this.ownerOrderManager = ownerOrderManager;
@@ -177,17 +153,9 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
         if (this.getClassId() == -276) ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade
             .newOwnerService(this.getId());
         super.store();
-        if(this.getComponentManager() != null){
-            this.getComponentManager().store();
-            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.componentManagerSet(this.getId(), getComponentManager());
-        }
-        if(this.getCustomerDeliveryTimeManager() != null){
-            this.getCustomerDeliveryTimeManager().store();
-            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.customerDeliveryTimeManagerSet(this.getId(), getCustomerDeliveryTimeManager());
-        }
-        if(this.getPrmanager() != null){
-            this.getPrmanager().store();
-            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.prmanagerSet(this.getId(), getPrmanager());
+        if(this.shop != null){
+            this.shop.store();
+            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.shopSet(this.getId(), shop);
         }
         if(this.getSettings() != null){
             this.getSettings().store();
@@ -208,46 +176,15 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
         
     }
     
-    public ComponentManager4Public getComponentManager() throws PersistenceException {
-        return this.componentManager;
-    }
-    public void setComponentManager(ComponentManager4Public newValue) throws PersistenceException {
+    public void setShop(OwnerServiceShop4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.componentManager)) return;
+        if(newValue.isTheSameAs(this.shop)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.componentManager = (PersistentComponentManager)PersistentProxi.createProxi(objectId, classId);
+        this.shop = (PersistentOwnerServiceShop)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.componentManagerSet(this.getId(), newValue);
-        }
-    }
-    public CustomerDeliveryTimeManager4Public getCustomerDeliveryTimeManager() throws PersistenceException {
-        return this.customerDeliveryTimeManager;
-    }
-    public void setCustomerDeliveryTimeManager(CustomerDeliveryTimeManager4Public newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.customerDeliveryTimeManager)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.customerDeliveryTimeManager = (PersistentCustomerDeliveryTimeManager)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.customerDeliveryTimeManagerSet(this.getId(), newValue);
-        }
-    }
-    public ProducerLst4Public getPrmanager() throws PersistenceException {
-        return this.prmanager;
-    }
-    public void setPrmanager(ProducerLst4Public newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.prmanager)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.prmanager = (PersistentProducerLst)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.prmanagerSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.shopSet(this.getId(), newValue);
         }
     }
     public Settings4Public getSettings() throws PersistenceException {
@@ -375,13 +312,11 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
          return visitor.handleOwnerService(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getComponentManager() != null) return 1;
-        if (this.getCustomerDeliveryTimeManager() != null) return 1;
-        if (this.getPrmanager() != null) return 1;
         if (this.getSettings() != null) return 1;
         if (this.getReOrderManager() != null) return 1;
         if (this.getOwnerOrderManager() != null) return 1;
         if (this.getReturnManager() != null) return 1;
+        if (this.getShop() != null && this.getShop().getTheObject().getLeafInfo() != 0) return 1;
         return 0;
     }
     
@@ -394,6 +329,11 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
 			getThis().setSubService(subService);
 		}
 		subService.deregister(observee);
+    }
+    public Shop4Public getShop() 
+				throws PersistenceException{
+        if (this.shop== null) return null;
+		return this.shop.getObservee();
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -419,6 +359,14 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
 		}
 		subService.register(observee);
     }
+    public void setShop(final Shop4Public shop) 
+				throws PersistenceException{
+        if (this.shop == null) {
+			this.setShop(model.OwnerServiceShop.createOwnerServiceShop(this.isDelayed$Persistence()));
+			this.shop.setObserver(getThis());
+		}
+		this.shop.setObservee(shop);
+    }
     public synchronized void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
@@ -434,14 +382,11 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
     
     public void changeArticleName(final ArticleWrapper4Public article, final String newName) 
 				throws PersistenceException{
-        article.getArticle().setName(newName);
-        getThis().signalChanged(true);
+       getThis().getShop().changeArticleName(article, newName, getThis());
     }
     public void changeArticlePrice(final ArticleWrapper4Public article, final common.Fraction newPrice) 
 				throws PersistenceException{
-        article.getArticle().setPrice(newPrice);
-        getThis().signalChanged(true);
-
+       getThis().getShop().changeArticlePrice(article, newPrice, getThis());
     }
     public void changeCustomerDeliveryTimePrice(final CustomerDeliveryTime4Public customerDeliveryTime, final common.Fraction newValue) 
 				throws PersistenceException{
@@ -482,11 +427,12 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
     public void createCustomerDeliveryTime(final String name, final common.Fraction price, final long time) 
 				throws model.DoubleDefinitionException, PersistenceException{
 
-        getThis().getCustomerDeliveryTimeManager().createCustomerDeliveryTime(name, price, time, getThis());
+        getThis().getShop().createCustomerDeliveryTime(name, price, time, getThis());
     }
     public void createProducer(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
-        getThis().getPrmanager().createProducer(name, getThis());
+        getThis().getShop().createProducer(name);
+
     }
     public void disconnected() 
 				throws PersistenceException{
@@ -503,16 +449,11 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
 				throws PersistenceException{
         super.initializeOnCreation();
 
-        getThis().setPrmanager(ProducerLst.getTheProducerLst());
-        getThis().setComponentManager(ComponentManager.getTheComponentManager());
-        getThis().setCustomerDeliveryTimeManager(CustomerDeliveryTimeManager.getTheCustomerDeliveryTimeManager());
         getThis().setSettings(Settings.getTheSettings());
         getThis().setReOrderManager(ReOrderManager.getTheReOrderManager());
         getThis().setOwnerOrderManager(OwnerOrderManager.getTheOwnerOrderManager());
         getThis().setReturnManager(ReturnManager.getTheReturnManager());
-
-        makeTestData();
-
+        getThis().setShop(Shop.getTheShop());
         BackgroundTaskManager.getTheBackgroundTaskManager().startTasks();
     }
     public void initializeOnInstantiation() 
@@ -521,70 +462,35 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
     }
     public void moveTo(final Component4Public component, final ComponentContainer newParentGroup) 
 				throws model.CycleException, PersistenceException{
-        component.moveTo(newParentGroup, getThis());
+        getThis().getShop().moveTo(component, newParentGroup, getThis());
 
     }
     public void newArticle(final ComponentContainer parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-
-
-        //TODO! Prevent creation of second article with same name and producer
-        /*
-        Article.getComponentByName(name).applyToAll(component ->
-        {
-           if(component.getName().equals(name)) {
-
-
-               component.accept(new ComponentExceptionVisitor<DoubleDefinitionException>() {
-                   @Override
-                   public void handleArticle(Article4Public article) throws PersistenceException, DoubleDefinitionException {
-                        if(article.getProducer().equals(producer)){
-                            throw new DoubleDefinitionException(MessageFormat.format("Article \"{0}\" with Producer {1} already exists", article.getName(), producer.toString()));
-                        }
-                   }
-
-                   @Override
-                   public void handleArticleWrapper(ArticleWrapper4Public articleWrapper) throws PersistenceException, DoubleDefinitionException {
-
-                   }
-
-                   @Override
-                   public void handleRootProductGroup(RootProductGroup4Public rootProductGroup) throws PersistenceException, DoubleDefinitionException {
-
-                   }
-
-                   @Override
-                   public void handleSubProductGroup(SubProductGroup4Public subProductGroup) throws PersistenceException, DoubleDefinitionException {
-
-                   })
-               };
-           }
-        });
-        */
-
-        parent.newArticle(name, price, minStock, maxStock, producerDeliveryTime, producer, getThis());
+        getThis().getShop().newArticle(parent, name, price, minStock, maxStock, producerDeliveryTime, producer, getThis());
     }
     public void newProductGroup(final ComponentContainer parent, final String name) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        parent.newProductGroup(name, getThis());
+        getThis().getShop().newProductGroup(parent, name, getThis());
 
     }
     public void newProductGroup(final String name) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        getThis().getComponentManager().newProductGroup(name, getThis());
+        getThis().getShop().newProductGroup(name);
     }
     public void reduceArticleStock(final ArticleWrapper4Public article, final long quantity) 
 				throws model.NotEnoughStockException, PersistenceException{
         //TODO: implement method: reduceArticleStock
         
     }
+
     public void startSelling(final ArticleWrapper4Public article) 
 				throws PersistenceException{
-        article.getArticle().startSelling(getThis());
+        getThis().getShop().startSelling(article, getThis());
     }
     public void stopSelling(final ArticleWrapper4Public article) 
 				throws PersistenceException{
-        article.getArticle().stopSelling(getThis());
+        getThis().getShop().stopSelling(article, getThis());
     }
     
     
@@ -592,7 +498,10 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
     
 
     /* Start of protected part that is not overridden by persistence generator */
-
+    public void shop_update(final model.meta.ShopMssgs event)
+            throws PersistenceException{
+        getThis().signalChanged(true);
+    }
 
     private boolean filter_startSelling(ArticleWrapper4Public anything) throws PersistenceException {
         return anything.getArticle().getState().accept(new ArticleStateReturnVisitor<Boolean>() {
@@ -641,48 +550,7 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
             }
         });
     }
-    private void makeTestData() throws PersistenceException {
-        try {
 
-
-            Producer4Public producer4PublicHermann = getThis().getPrmanager().createProducer("Obstbauer Hermann");
-            Producer4Public producer4PublicPeter = getThis().getPrmanager().createProducer("Obstbauer Peter");
-
-
-            Article4Public testArt = Article.createArticle("TestArt", new Fraction(5),10, 100, 4, producer4PublicHermann);
-            testArt.startSelling(getThis());
-            testArt.increaseStock(20,getThis());
-
-            getThis().getComponentManager().addComponent(ArticleWrapper.createArticleWrapper(getThis().getComponentManager(), testArt));
-
-
-
-            try {
-                ProductGroup4Public groupKernobst = getComponentManager().newProductGroup("Kernobst");
-
-                ProductGroup4Public groupKernobstBirnen = groupKernobst.newProductGroup("Kernobst");
-
-                groupKernobstBirnen.newArticle("Europäische Birne", new Fraction(10), 10, 100, 2,producer4PublicPeter);
-                groupKernobstBirnen.newArticle("Nashi-Birne", new Fraction(12), 4, 40, 5, producer4PublicHermann);
-
-                ProductGroup4Public groupSteinobst = getComponentManager().newProductGroup("Steinobst");
-
-            } catch (CycleException e) {
-                e.printStackTrace();
-            }
-        } catch (DoubleDefinitionException doubleDefinition) {
-            doubleDefinition.printStackTrace();
-        } catch (CycleException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            getThis().getCustomerDeliveryTimeManager().createCustomerDeliveryTime(
-                    "default" ,new Fraction(4), 3);
-        } catch (DoubleDefinitionException e) {
-            e.printStackTrace();
-        }
-    }
 
     /* End of protected part that is not overridden by persistence generator */
     

@@ -36,14 +36,6 @@ public abstract class ComponentProxi extends PersistentProxi implements Persiste
 				throws PersistenceException{
         ((PersistentComponent)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void moveTo(final ComponentContainer container) 
-				throws model.CycleException, PersistenceException{
-        ((PersistentComponent)this.getTheObject()).moveTo(container);
-    }
-    public void moveTo(final ComponentContainer container, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentComponent)this.getTheObject()).moveTo(container, invoker);
-    }
     public void register(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentComponent)this.getTheObject()).register(observee);
@@ -72,9 +64,9 @@ public abstract class ComponentProxi extends PersistentProxi implements Persiste
 				throws PersistenceException{
         ((PersistentComponent)this.getTheObject()).initializeOnInstantiation();
     }
-    public void moveToImplementation(final ComponentContainer container) 
+    public void moveTo(final ComponentContainer container) 
 				throws model.CycleException, PersistenceException{
-        ((PersistentComponent)this.getTheObject()).moveToImplementation(container);
+        ((PersistentComponent)this.getTheObject()).moveTo(container);
     }
     public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{

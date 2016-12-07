@@ -22,23 +22,8 @@ public class OwnerServiceICProxi extends ServiceICProxi implements PersistentOwn
         return -276;
     }
     
-    public ComponentManager4Public getComponentManager() throws PersistenceException {
-        return ((PersistentOwnerService)this.getTheObject()).getComponentManager();
-    }
-    public void setComponentManager(ComponentManager4Public newValue) throws PersistenceException {
-        ((PersistentOwnerService)this.getTheObject()).setComponentManager(newValue);
-    }
-    public CustomerDeliveryTimeManager4Public getCustomerDeliveryTimeManager() throws PersistenceException {
-        return ((PersistentOwnerService)this.getTheObject()).getCustomerDeliveryTimeManager();
-    }
-    public void setCustomerDeliveryTimeManager(CustomerDeliveryTimeManager4Public newValue) throws PersistenceException {
-        ((PersistentOwnerService)this.getTheObject()).setCustomerDeliveryTimeManager(newValue);
-    }
-    public ProducerLst4Public getPrmanager() throws PersistenceException {
-        return ((PersistentOwnerService)this.getTheObject()).getPrmanager();
-    }
-    public void setPrmanager(ProducerLst4Public newValue) throws PersistenceException {
-        ((PersistentOwnerService)this.getTheObject()).setPrmanager(newValue);
+    public void setShop(OwnerServiceShop4Public newValue) throws PersistenceException {
+        ((PersistentOwnerService)this.getTheObject()).setShop(newValue);
     }
     public Settings4Public getSettings() throws PersistenceException {
         return ((PersistentOwnerService)this.getTheObject()).getSettings();
@@ -134,6 +119,10 @@ public class OwnerServiceICProxi extends ServiceICProxi implements PersistentOwn
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).deregister(observee);
     }
+    public Shop4Public getShop() 
+				throws PersistenceException{
+        return ((PersistentOwnerService)this.getTheObject()).getShop();
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).initialize(This, final$$Fields);
@@ -145,6 +134,10 @@ public class OwnerServiceICProxi extends ServiceICProxi implements PersistentOwn
     public void register(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).register(observee);
+    }
+    public void setShop(final Shop4Public shop) 
+				throws PersistenceException{
+        ((PersistentOwnerService)this.getTheObject()).setShop(shop);
     }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
@@ -249,6 +242,10 @@ public class OwnerServiceICProxi extends ServiceICProxi implements PersistentOwn
     public void reduceArticleStock(final ArticleWrapper4Public article, final long quantity) 
 				throws model.NotEnoughStockException, PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).reduceArticleStock(article, quantity);
+    }
+    public void shop_update(final model.meta.ShopMssgs event) 
+				throws PersistenceException{
+        ((PersistentOwnerService)this.getTheObject()).shop_update(event);
     }
     public void startSelling(final ArticleWrapper4Public article) 
 				throws PersistenceException{

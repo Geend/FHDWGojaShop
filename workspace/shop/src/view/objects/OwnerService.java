@@ -10,20 +10,16 @@ import view.visitor.*;
 
 public class OwnerService extends view.objects.Service implements OwnerServiceView{
     
-    protected ComponentManagerView componentManager;
-    protected CustomerDeliveryTimeManagerView customerDeliveryTimeManager;
-    protected ProducerLstView prmanager;
+    protected ShopView shop;
     protected SettingsView settings;
     protected ReOrderManagerView reOrderManager;
     protected OwnerOrderManagerView ownerOrderManager;
     protected ReturnManagerView returnManager;
     
-    public OwnerService(java.util.Vector<ErrorDisplayView> errors,ComponentManagerView componentManager,CustomerDeliveryTimeManagerView customerDeliveryTimeManager,ProducerLstView prmanager,SettingsView settings,ReOrderManagerView reOrderManager,OwnerOrderManagerView ownerOrderManager,ReturnManagerView returnManager,long id, long classId) {
+    public OwnerService(java.util.Vector<ErrorDisplayView> errors,ShopView shop,SettingsView settings,ReOrderManagerView reOrderManager,OwnerOrderManagerView ownerOrderManager,ReturnManagerView returnManager,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(errors,id, classId);
-        this.componentManager = componentManager;
-        this.customerDeliveryTimeManager = customerDeliveryTimeManager;
-        this.prmanager = prmanager;
+        this.shop = shop;
         this.settings = settings;
         this.reOrderManager = reOrderManager;
         this.ownerOrderManager = ownerOrderManager;
@@ -38,23 +34,11 @@ public class OwnerService extends view.objects.Service implements OwnerServiceVi
         return getTypeId();
     }
     
-    public ComponentManagerView getComponentManager()throws ModelException{
-        return this.componentManager;
+    public ShopView getShop()throws ModelException{
+        return this.shop;
     }
-    public void setComponentManager(ComponentManagerView newValue) throws ModelException {
-        this.componentManager = newValue;
-    }
-    public CustomerDeliveryTimeManagerView getCustomerDeliveryTimeManager()throws ModelException{
-        return this.customerDeliveryTimeManager;
-    }
-    public void setCustomerDeliveryTimeManager(CustomerDeliveryTimeManagerView newValue) throws ModelException {
-        this.customerDeliveryTimeManager = newValue;
-    }
-    public ProducerLstView getPrmanager()throws ModelException{
-        return this.prmanager;
-    }
-    public void setPrmanager(ProducerLstView newValue) throws ModelException {
-        this.prmanager = newValue;
+    public void setShop(ShopView newValue) throws ModelException {
+        this.shop = newValue;
     }
     public SettingsView getSettings()throws ModelException{
         return this.settings;
@@ -123,17 +107,9 @@ public class OwnerService extends view.objects.Service implements OwnerServiceVi
         if (errors != null) {
             ViewObject.resolveVectorProxies(errors, resultTable);
         }
-        ComponentManagerView componentManager = this.getComponentManager();
-        if (componentManager != null) {
-            ((ViewProxi)componentManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(componentManager.getClassId(), componentManager.getId())));
-        }
-        CustomerDeliveryTimeManagerView customerDeliveryTimeManager = this.getCustomerDeliveryTimeManager();
-        if (customerDeliveryTimeManager != null) {
-            ((ViewProxi)customerDeliveryTimeManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(customerDeliveryTimeManager.getClassId(), customerDeliveryTimeManager.getId())));
-        }
-        ProducerLstView prmanager = this.getPrmanager();
-        if (prmanager != null) {
-            ((ViewProxi)prmanager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(prmanager.getClassId(), prmanager.getId())));
+        ShopView shop = this.getShop();
+        if (shop != null) {
+            ((ViewProxi)shop).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(shop.getClassId(), shop.getId())));
         }
         SettingsView settings = this.getSettings();
         if (settings != null) {
@@ -158,12 +134,9 @@ public class OwnerService extends view.objects.Service implements OwnerServiceVi
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
         int index = originalIndex;
-        if(index == 0 && this.getComponentManager() != null) return new ComponentManagerOwnerServiceWrapper(this, originalIndex, (ViewRoot)this.getComponentManager());
-        if(this.getComponentManager() != null) index = index - 1;
-        if(index == 0 && this.getCustomerDeliveryTimeManager() != null) return new CustomerDeliveryTimeManagerOwnerServiceWrapper(this, originalIndex, (ViewRoot)this.getCustomerDeliveryTimeManager());
-        if(this.getCustomerDeliveryTimeManager() != null) index = index - 1;
-        if(index == 0 && this.getPrmanager() != null) return new PrmanagerOwnerServiceWrapper(this, originalIndex, (ViewRoot)this.getPrmanager());
-        if(this.getPrmanager() != null) index = index - 1;
+        if(this.getShop() != null && index < this.getShop().getTheObject().getChildCount())
+            return this.getShop().getTheObject().getChild(index);
+        if(this.getShop() != null) index = index - this.getShop().getTheObject().getChildCount();
         if(index == 0 && this.getSettings() != null) return new SettingsOwnerServiceWrapper(this, originalIndex, (ViewRoot)this.getSettings());
         if(this.getSettings() != null) index = index - 1;
         if(index == 0 && this.getReOrderManager() != null) return new ReOrderManagerOwnerServiceWrapper(this, originalIndex, (ViewRoot)this.getReOrderManager());
@@ -176,9 +149,7 @@ public class OwnerService extends view.objects.Service implements OwnerServiceVi
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getComponentManager() == null ? 0 : 1)
-            + (this.getCustomerDeliveryTimeManager() == null ? 0 : 1)
-            + (this.getPrmanager() == null ? 0 : 1)
+            + (this.getShop() == null ? 0 : this.getShop().getTheObject().getChildCount())
             + (this.getSettings() == null ? 0 : 1)
             + (this.getReOrderManager() == null ? 0 : 1)
             + (this.getOwnerOrderManager() == null ? 0 : 1)
@@ -186,9 +157,7 @@ public class OwnerService extends view.objects.Service implements OwnerServiceVi
     }
     public boolean isLeaf() throws ModelException {
         return true 
-            && (this.getComponentManager() == null ? true : false)
-            && (this.getCustomerDeliveryTimeManager() == null ? true : false)
-            && (this.getPrmanager() == null ? true : false)
+            && (this.getShop() == null ? true : this.getShop().getTheObject().isLeaf())
             && (this.getSettings() == null ? true : false)
             && (this.getReOrderManager() == null ? true : false)
             && (this.getOwnerOrderManager() == null ? true : false)
@@ -196,12 +165,8 @@ public class OwnerService extends view.objects.Service implements OwnerServiceVi
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
-        if(this.getComponentManager() != null && this.getComponentManager().equals(child)) return result;
-        if(this.getComponentManager() != null) result = result + 1;
-        if(this.getCustomerDeliveryTimeManager() != null && this.getCustomerDeliveryTimeManager().equals(child)) return result;
-        if(this.getCustomerDeliveryTimeManager() != null) result = result + 1;
-        if(this.getPrmanager() != null && this.getPrmanager().equals(child)) return result;
-        if(this.getPrmanager() != null) result = result + 1;
+        if(this.getShop() != null && this.getShop().equals(child)) return result;
+        if(this.getShop() != null) result = result + 1;
         if(this.getSettings() != null && this.getSettings().equals(child)) return result;
         if(this.getSettings() != null) result = result + 1;
         if(this.getReOrderManager() != null && this.getReOrderManager().equals(child)) return result;

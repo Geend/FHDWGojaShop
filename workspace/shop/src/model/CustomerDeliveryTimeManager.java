@@ -173,14 +173,6 @@ public class CustomerDeliveryTimeManager extends PersistentObject implements Per
     }
     
     
-    public void createCustomerDeliveryTime(final String name, final common.Fraction price, final long time, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		CreateCustomerDeliveryTimeCommand4Public command = model.meta.CreateCustomerDeliveryTimeCommand.createCreateCustomerDeliveryTimeCommand(name, price, time, now, now);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
     public synchronized void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();

@@ -3,12 +3,14 @@ package persistence;
 
 import model.visitor.*;
 
-public interface StartSellingCommand4Public extends ArticleCommand, Anything, CommonDate4Public, AbstractPersistentProxi {
+public interface StartSellingCommand4Public extends Anything, ShopCommand, CommonDate4Public, AbstractPersistentProxi {
     
+    public ArticleWrapper4Public getArticle() throws PersistenceException ;
+    public void setArticle(ArticleWrapper4Public newValue) throws PersistenceException ;
     public Invoker getInvoker() throws PersistenceException ;
     public void setInvoker(Invoker newValue) throws PersistenceException ;
-    public Article4Public getCommandReceiver() throws PersistenceException ;
-    public void setCommandReceiver(Article4Public newValue) throws PersistenceException ;
+    public Shop4Public getCommandReceiver() throws PersistenceException ;
+    public void setCommandReceiver(Shop4Public newValue) throws PersistenceException ;
     
     public void accept(CommonDateVisitor visitor) throws PersistenceException;
     public <R> R accept(CommonDateReturnVisitor<R>  visitor) throws PersistenceException;
@@ -22,10 +24,10 @@ public interface StartSellingCommand4Public extends ArticleCommand, Anything, Co
     public <R> R accept(CommandReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends model.UserException>  void accept(CommandExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
-    public void accept(ArticleCommandVisitor visitor) throws PersistenceException;
-    public <R> R accept(ArticleCommandReturnVisitor<R>  visitor) throws PersistenceException;
-    public <E extends model.UserException>  void accept(ArticleCommandExceptionVisitor<E> visitor) throws PersistenceException, E;
-    public <R, E extends model.UserException> R accept(ArticleCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
+    public void accept(ShopCommandVisitor visitor) throws PersistenceException;
+    public <R> R accept(ShopCommandReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends model.UserException>  void accept(ShopCommandExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends model.UserException> R accept(ShopCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
     public void checkException() 
 				throws model.UserException, PersistenceException;

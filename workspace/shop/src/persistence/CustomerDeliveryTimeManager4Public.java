@@ -16,8 +16,6 @@ public interface CustomerDeliveryTimeManager4Public extends Anything, SubjInterf
     public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
-    public void createCustomerDeliveryTime(final String name, final common.Fraction price, final long time, final Invoker invoker) 
-				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 

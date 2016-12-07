@@ -94,14 +94,6 @@ public class ArticleWrapperProxi extends ComponentProxi implements PersistentArt
 				throws PersistenceException{
         ((PersistentArticleWrapper)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void moveTo(final ComponentContainer container) 
-				throws model.CycleException, PersistenceException{
-        ((PersistentArticleWrapper)this.getTheObject()).moveTo(container);
-    }
-    public void moveTo(final ComponentContainer container, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentArticleWrapper)this.getTheObject()).moveTo(container, invoker);
-    }
     public void register(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentArticleWrapper)this.getTheObject()).register(observee);
@@ -138,9 +130,9 @@ public class ArticleWrapperProxi extends ComponentProxi implements PersistentArt
 				throws PersistenceException{
         ((PersistentArticleWrapper)this.getTheObject()).initializeOnInstantiation();
     }
-    public void moveToImplementation(final ComponentContainer container) 
+    public void moveTo(final ComponentContainer container) 
 				throws model.CycleException, PersistenceException{
-        ((PersistentArticleWrapper)this.getTheObject()).moveToImplementation(container);
+        ((PersistentArticleWrapper)this.getTheObject()).moveTo(container);
     }
 
     

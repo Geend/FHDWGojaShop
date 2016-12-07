@@ -61,10 +61,6 @@ public class CustomerDeliveryTimeManagerICProxi extends PersistentInCacheProxiOp
     }
     
     
-    public void createCustomerDeliveryTime(final String name, final common.Fraction price, final long time, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentCustomerDeliveryTimeManager)this.getTheObject()).createCustomerDeliveryTime(name, price, time, invoker);
-    }
     public void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentCustomerDeliveryTimeManager)this.getTheObject()).deregister(observee);

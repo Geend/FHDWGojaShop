@@ -37,6 +37,7 @@ public class NewArticleCommand extends PersistentObject implements PersistentNew
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
+    protected ComponentContainer parent;
     protected String name;
     protected common.Fraction price;
     protected long minStock;
@@ -44,15 +45,15 @@ public class NewArticleCommand extends PersistentObject implements PersistentNew
     protected long producerDeliveryTime;
     protected PersistentProducer producer;
     protected Invoker invoker;
-    protected ComponentContainer commandReceiver;
-    protected PersistentArticleWrapper commandResult;
+    protected PersistentShop commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public NewArticleCommand(String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,PersistentProducer producer,Invoker invoker,ComponentContainer commandReceiver,PersistentArticleWrapper commandResult,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
+    public NewArticleCommand(ComponentContainer parent,String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,PersistentProducer producer,Invoker invoker,PersistentShop commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
+        this.parent = parent;
         this.name = name;
         this.price = price;
         this.minStock = minStock;
@@ -61,7 +62,6 @@ public class NewArticleCommand extends PersistentObject implements PersistentNew
         this.producer = producer;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
-        this.commandResult = commandResult;
         this.myCommonDate = myCommonDate;        
     }
     
@@ -78,6 +78,10 @@ public class NewArticleCommand extends PersistentObject implements PersistentNew
         if (this.getClassId() == 272) ConnectionHandler.getTheConnectionHandler().theNewArticleCommandFacade
             .newNewArticleCommand(name,price,minStock,maxStock,producerDeliveryTime,this.getId());
         super.store();
+        if(this.getParent() != null){
+            this.getParent().store();
+            ConnectionHandler.getTheConnectionHandler().theNewArticleCommandFacade.parentSet(this.getId(), getParent());
+        }
         if(this.getProducer() != null){
             this.getProducer().store();
             ConnectionHandler.getTheConnectionHandler().theNewArticleCommandFacade.producerSet(this.getId(), getProducer());
@@ -90,10 +94,6 @@ public class NewArticleCommand extends PersistentObject implements PersistentNew
             this.getCommandReceiver().store();
             ConnectionHandler.getTheConnectionHandler().theNewArticleCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
         }
-        if(this.getCommandResult() != null){
-            this.getCommandResult().store();
-            ConnectionHandler.getTheConnectionHandler().theNewArticleCommandFacade.commandResultSet(this.getId(), getCommandResult());
-        }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
             ConnectionHandler.getTheConnectionHandler().theNewArticleCommandFacade.myCommonDateSet(this.getId(), getMyCommonDate());
@@ -101,6 +101,20 @@ public class NewArticleCommand extends PersistentObject implements PersistentNew
         
     }
     
+    public ComponentContainer getParent() throws PersistenceException {
+        return this.parent;
+    }
+    public void setParent(ComponentContainer newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.parent)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.parent = (ComponentContainer)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theNewArticleCommandFacade.parentSet(this.getId(), newValue);
+        }
+    }
     public String getName() throws PersistenceException {
         return this.name;
     }
@@ -165,32 +179,18 @@ public class NewArticleCommand extends PersistentObject implements PersistentNew
             ConnectionHandler.getTheConnectionHandler().theNewArticleCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
-    public ComponentContainer getCommandReceiver() throws PersistenceException {
+    public Shop4Public getCommandReceiver() throws PersistenceException {
         return this.commandReceiver;
     }
-    public void setCommandReceiver(ComponentContainer newValue) throws PersistenceException {
+    public void setCommandReceiver(Shop4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.commandReceiver)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.commandReceiver = (ComponentContainer)PersistentProxi.createProxi(objectId, classId);
+        this.commandReceiver = (PersistentShop)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theNewArticleCommandFacade.commandReceiverSet(this.getId(), newValue);
-        }
-    }
-    public ArticleWrapper4Public getCommandResult() throws PersistenceException {
-        return this.commandResult;
-    }
-    public void setCommandResult(ArticleWrapper4Public newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.commandResult)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.commandResult = (PersistentArticleWrapper)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theNewArticleCommandFacade.commandResultSet(this.getId(), newValue);
         }
     }
     public CommonDate4Public getMyCommonDate() throws PersistenceException {
@@ -260,22 +260,22 @@ public class NewArticleCommand extends PersistentObject implements PersistentNew
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleNewArticleCommand(this);
     }
-    public void accept(ComponentContainerCommandVisitor visitor) throws PersistenceException {
+    public void accept(ShopCommandVisitor visitor) throws PersistenceException {
         visitor.handleNewArticleCommand(this);
     }
-    public <R> R accept(ComponentContainerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(ShopCommandReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleNewArticleCommand(this);
     }
-    public <E extends model.UserException>  void accept(ComponentContainerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(ShopCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleNewArticleCommand(this);
     }
-    public <R, E extends model.UserException> R accept(ComponentContainerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(ShopCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleNewArticleCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{
+        if (this.getParent() != null) return 1;
         if (this.getProducer() != null) return 1;
         if (this.getCommandReceiver() != null) return 1;
-        if (this.getCommandResult() != null) return 1;
         return 0;
     }
     
@@ -291,7 +291,10 @@ public class NewArticleCommand extends PersistentObject implements PersistentNew
     public void execute() 
 				throws PersistenceException{
         try{
-			this.setCommandResult(this.commandReceiver.newArticle(this.getName(), this.getPrice(), this.getMinStock(), this.getMaxStock(), this.getProducerDeliveryTime(), this.getProducer()));
+			this.commandReceiver.newArticle(this.getParent(), this.getName(), this.getPrice(), this.getMinStock(), this.getMaxStock(), this.getProducerDeliveryTime(), this.getProducer());
+		}
+		catch(model.DoubleDefinitionException e){
+			this.commandException = e;
 		}
 		catch(model.CycleException e){
 			this.commandException = e;

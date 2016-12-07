@@ -10,14 +10,15 @@ abstract server Service {
 
 server OwnerService extends Service {
 
-	//Manager
-  	ComponentManager componentManager;
-	CustomerDeliveryTimeManager customerDeliveryTimeManager##cdtm;
-	ProducerLst prmanager;
+	//Manager	
+	skip-view observe Shop shop;
+
+
 	Settings settings;
 	one-to-one (server-only myServer) ReOrderManager reOrderManager;
 	one-to-one (server-only myServer) OwnerOrderManager ownerOrderManager##oom;
 	one-to-one (server-only myServer) ReturnManager returnManager##rm;
+
 
 
 	//Producer
@@ -58,12 +59,16 @@ server OwnerService extends Service {
 	void increaseArticleStock(ArticleWrapper article, Integer quantity);
 }
 
+
+
 server CustomerService extends Service {
-
 	CustomerArticleLst articleLst;
-  	observe ComponentManager componentManager;
-
+	server-only observe Shop shop;
+	ComponentManager componentManager;
+	ProducerLst prmanager;
 	CustomerDeliveryTimeManager customerDeliveryTimeManager##cdtm;
+
+
 
 	prior CustomerAccount account;
 	ShoppingCart cart;
@@ -102,6 +107,45 @@ server CustomerRegisterService##crs extends Service {
 
 
 
+
+
+singleton Shop{	 
+   public ComponentManager componentManager;
+	public ProducerLst prmanager;
+	public CustomerDeliveryTimeManager customerDeliveryTimeManager##cdtm;
+
+
+	//Producer
+	event void createProducer(String name) throws DoubleDefinitionException;
+
+	//Articles
+	//TODO: Prevent article creation with same name and producer
+	active event void newArticle(ComponentContainer parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException, DoubleDefinitionException;
+	active event void newProductGroup(ComponentContainer parent, String name) throws CycleException, DoubleDefinitionException;
+	event void newProductGroup(String name) throws DoubleDefinitionException, CycleException;
+	
+	active event void moveTo(Component component, ComponentContainer newParentGroup)throws CycleException;
+
+	active event void changeArticleName(ArticleWrapper article, String newName);
+	active event void changeArticlePrice##cap(ArticleWrapper article, Fraction newPrice);
+
+	active event void startSelling(ArticleWrapper article);
+	active event void stopSelling(ArticleWrapper article);
+
+
+	//Customer Delivery Time
+	active event void createCustomerDeliveryTime##ccdt(String name, Fraction price, Integer time) throws DoubleDefinitionException;
+	active event void changeCustomerDeliveryTimePrice##ccdtp(CustomerDeliveryTime customerDeliveryTime, Fraction newValue);
+	active event void changeCustomerDeliveryTimeTime##ccdtt(CustomerDeliveryTime customerDeliveryTime, Integer newValue);
+}
+
+
+
+
+
+
+
+
 // manager relevant classes -- region begin
 class CustomerArticleLst##cal {
 	public ArticleWrapper ** articles;
@@ -117,7 +161,7 @@ singleton ProducerLst {
 
 singleton CustomerDeliveryTimeManager##cdtm {
 	public CustomerDeliveryTime ** customerDeliveryTimes##cdts;
-	active CustomerDeliveryTime createCustomerDeliveryTime##ccdt(String name, Fraction price, Integer time) throws DoubleDefinitionException;
+	CustomerDeliveryTime createCustomerDeliveryTime##ccdt(String name, Fraction price, Integer time) throws DoubleDefinitionException;
 }
 
 singleton Settings{
@@ -188,25 +232,25 @@ singleton ComponentManager implements ComponentContainer{
 
 abstract class Component{
 	prior no-view ComponentContainer parent;
-	active event void moveTo(ComponentContainer container) throws CycleException;
+	void moveTo(ComponentContainer container) throws CycleException;
 }
 
 interface ComponentContainer{ 
-   event	void removeComponent(Component component);
-	event	void addComponent(Component component) throws CycleException;
+   void removeComponent(Component component);
+	void addComponent(Component component) throws CycleException;
 
-	active event ProductGroup newProductGroup##cspg(String name) throws CycleException, DoubleDefinitionException;
-	active event ArticleWrapper newArticle(String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
+	ProductGroup newProductGroup##cspg(String name) throws CycleException, DoubleDefinitionException;
+	ArticleWrapper newArticle(String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
 
-	event void fireComponentChanged(extern model.meta.ComponentMssgs evnt);
+
 }
 
 class ComponentContainerImplementation##cci implements ComponentContainer{
-	public observe Component ** components hierarchy CompHierarchy;
+	public Component ** components hierarchy CompHierarchy;
 }
 
 class ProductGroup extends Component implements ComponentContainer{
-	public observe Component ** components hierarchy CompHierarchy;
+	skip-view  ComponentContainerImplementation container;
 	public-write prior indexed String name@@Name;
 
 }
@@ -236,8 +280,8 @@ class Article{
 	active event void reduceStock(Integer quantity) throws NotEnoughStockException;
 	active event void increaseStock(Integer quantity);
 
-	active event void startSelling();
-	active event void stopSelling();
+	void startSelling();
+	void stopSelling();
 
 	//Report a goja bug? one-to-one wrapper not accessible despite being public
 	derived ArticleWrapper wrapper;

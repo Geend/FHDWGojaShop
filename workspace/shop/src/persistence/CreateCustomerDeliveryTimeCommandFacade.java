@@ -28,14 +28,14 @@ public class CreateCustomerDeliveryTimeCommandFacade{
     public PersistentCreateCustomerDeliveryTimeCommand newCreateCustomerDeliveryTimeCommand(String name,common.Fraction price,long time,long idCreateIfLessZero) throws PersistenceException {
         if(idCreateIfLessZero > 0) return (PersistentCreateCustomerDeliveryTimeCommand)PersistentProxi.createProxi(idCreateIfLessZero, 295);
         long id = ConnectionHandler.getTheConnectionHandler().theCreateCustomerDeliveryTimeCommandFacade.getNextId();
-        CreateCustomerDeliveryTimeCommand result = new CreateCustomerDeliveryTimeCommand(name,price,time,null,null,null,null,id);
+        CreateCustomerDeliveryTimeCommand result = new CreateCustomerDeliveryTimeCommand(name,price,time,null,null,null,id);
         Cache.getTheCache().put(result);
         return (PersistentCreateCustomerDeliveryTimeCommand)PersistentProxi.createProxi(id, 295);
     }
     
     public PersistentCreateCustomerDeliveryTimeCommand newDelayedCreateCustomerDeliveryTimeCommand(String name,common.Fraction price,long time) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theCreateCustomerDeliveryTimeCommandFacade.getNextId();
-        CreateCustomerDeliveryTimeCommand result = new CreateCustomerDeliveryTimeCommand(name,price,time,null,null,null,null,id);
+        CreateCustomerDeliveryTimeCommand result = new CreateCustomerDeliveryTimeCommand(name,price,time,null,null,null,id);
         Cache.getTheCache().put(result);
         return (PersistentCreateCustomerDeliveryTimeCommand)PersistentProxi.createProxi(id, 295);
     }
@@ -61,10 +61,7 @@ public class CreateCustomerDeliveryTimeCommandFacade{
     public void invokerSet(long CreateCustomerDeliveryTimeCommandId, Invoker invokerVal) throws PersistenceException {
         
     }
-    public void commandReceiverSet(long CreateCustomerDeliveryTimeCommandId, CustomerDeliveryTimeManager4Public commandReceiverVal) throws PersistenceException {
-        
-    }
-    public void commandResultSet(long CreateCustomerDeliveryTimeCommandId, CustomerDeliveryTime4Public commandResultVal) throws PersistenceException {
+    public void commandReceiverSet(long CreateCustomerDeliveryTimeCommandId, Shop4Public commandReceiverVal) throws PersistenceException {
         
     }
     public void myCommonDateSet(long CreateCustomerDeliveryTimeCommandId, CommonDate4Public myCommonDateVal) throws PersistenceException {

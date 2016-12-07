@@ -113,6 +113,9 @@ public abstract class SubjInterfaceStandardVisitor implements SubjInterfaceVisit
     public void handleInTransitOrderState(InTransitOrderState4Public inTransitOrderState) throws PersistenceException{
         this.standardHandling(inTransitOrderState);
     }
+    public void handleShop(Shop4Public shop) throws PersistenceException{
+        this.standardHandling(shop);
+    }
     public void handleProducer(Producer4Public producer) throws PersistenceException{
         this.standardHandling(producer);
     }

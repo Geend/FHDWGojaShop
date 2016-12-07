@@ -76,61 +76,29 @@ public class ComponentManagerICProxi extends PersistentInCacheProxiOptimistic im
     }
     
     
-    public void addComponent(final Component4Public component) 
-				throws model.CycleException, PersistenceException{
-        ((PersistentComponentManager)this.getTheObject()).addComponent(component);
-    }
     public void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentComponentManager)this.getTheObject()).deregister(observee);
-    }
-    public void fireComponentChanged(final model.meta.ComponentMssgs evnt) 
-				throws PersistenceException{
-        ((PersistentComponentManager)this.getTheObject()).fireComponentChanged(evnt);
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentComponentManager)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public ArticleWrapper4Public newArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
-				throws model.CycleException, PersistenceException{
-        return ((PersistentComponentManager)this.getTheObject()).newArticle(name, price, minStock, maxStock, producerDeliveryTime, producer);
-    }
-    public void newArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentComponentManager)this.getTheObject()).newArticle(name, price, minStock, maxStock, producerDeliveryTime, producer, invoker);
-    }
-    public ProductGroup4Public newProductGroup(final String name) 
-				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        return ((PersistentComponentManager)this.getTheObject()).newProductGroup(name);
-    }
-    public void newProductGroup(final String name, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentComponentManager)this.getTheObject()).newProductGroup(name, invoker);
-    }
     public void register(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentComponentManager)this.getTheObject()).register(observee);
-    }
-    public void removeComponent(final Component4Public component) 
-				throws PersistenceException{
-        ((PersistentComponentManager)this.getTheObject()).removeComponent(component);
     }
     public void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         ((PersistentComponentManager)this.getTheObject()).updateObservers(event);
     }
-    public void addComponentImplementation(final Component4Public component) 
+    public void addComponent(final Component4Public component) 
 				throws model.CycleException, PersistenceException{
-        ((PersistentComponentManager)this.getTheObject()).addComponentImplementation(component);
+        ((PersistentComponentManager)this.getTheObject()).addComponent(component);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentComponentManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
-    }
-    public void fireComponentChangedImplementation(final model.meta.ComponentMssgs evnt) 
-				throws PersistenceException{
-        ((PersistentComponentManager)this.getTheObject()).fireComponentChangedImplementation(evnt);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -140,17 +108,17 @@ public class ComponentManagerICProxi extends PersistentInCacheProxiOptimistic im
 				throws PersistenceException{
         ((PersistentComponentManager)this.getTheObject()).initializeOnInstantiation();
     }
-    public ArticleWrapper4Public newArticleImplementation(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
+    public ArticleWrapper4Public newArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
 				throws model.CycleException, PersistenceException{
-        return ((PersistentComponentManager)this.getTheObject()).newArticleImplementation(name, price, minStock, maxStock, producerDeliveryTime, producer);
+        return ((PersistentComponentManager)this.getTheObject()).newArticle(name, price, minStock, maxStock, producerDeliveryTime, producer);
     }
-    public ProductGroup4Public newProductGroupImplementation(final String name) 
+    public ProductGroup4Public newProductGroup(final String name) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        return ((PersistentComponentManager)this.getTheObject()).newProductGroupImplementation(name);
+        return ((PersistentComponentManager)this.getTheObject()).newProductGroup(name);
     }
-    public void removeComponentImplementation(final Component4Public component) 
+    public void removeComponent(final Component4Public component) 
 				throws PersistenceException{
-        ((PersistentComponentManager)this.getTheObject()).removeComponentImplementation(component);
+        ((PersistentComponentManager)this.getTheObject()).removeComponent(component);
     }
 
     

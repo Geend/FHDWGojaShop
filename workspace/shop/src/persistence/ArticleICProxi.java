@@ -138,22 +138,6 @@ public class ArticleICProxi extends PersistentInCacheProxiOptimistic implements 
 				throws PersistenceException{
         ((PersistentArticle)this.getTheObject()).register(observee);
     }
-    public void startSelling() 
-				throws PersistenceException{
-        ((PersistentArticle)this.getTheObject()).startSelling();
-    }
-    public void startSelling(final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentArticle)this.getTheObject()).startSelling(invoker);
-    }
-    public void stopSelling() 
-				throws PersistenceException{
-        ((PersistentArticle)this.getTheObject()).stopSelling();
-    }
-    public void stopSelling(final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentArticle)this.getTheObject()).stopSelling(invoker);
-    }
     public void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         ((PersistentArticle)this.getTheObject()).updateObservers(event);
@@ -190,13 +174,13 @@ public class ArticleICProxi extends PersistentInCacheProxiOptimistic implements 
 				throws model.NotEnoughStockException, PersistenceException{
         ((PersistentArticle)this.getTheObject()).reduceStockImplementation(quantity);
     }
-    public void startSellingImplementation() 
+    public void startSelling() 
 				throws PersistenceException{
-        ((PersistentArticle)this.getTheObject()).startSellingImplementation();
+        ((PersistentArticle)this.getTheObject()).startSelling();
     }
-    public void stopSellingImplementation() 
+    public void stopSelling() 
 				throws PersistenceException{
-        ((PersistentArticle)this.getTheObject()).stopSellingImplementation();
+        ((PersistentArticle)this.getTheObject()).stopSelling();
     }
 
     

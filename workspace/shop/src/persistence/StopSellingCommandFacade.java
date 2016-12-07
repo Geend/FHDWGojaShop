@@ -28,14 +28,14 @@ public class StopSellingCommandFacade{
     public PersistentStopSellingCommand newStopSellingCommand(long idCreateIfLessZero) throws PersistenceException {
         if(idCreateIfLessZero > 0) return (PersistentStopSellingCommand)PersistentProxi.createProxi(idCreateIfLessZero, 287);
         long id = ConnectionHandler.getTheConnectionHandler().theStopSellingCommandFacade.getNextId();
-        StopSellingCommand result = new StopSellingCommand(null,null,null,id);
+        StopSellingCommand result = new StopSellingCommand(null,null,null,null,id);
         Cache.getTheCache().put(result);
         return (PersistentStopSellingCommand)PersistentProxi.createProxi(id, 287);
     }
     
     public PersistentStopSellingCommand newDelayedStopSellingCommand() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theStopSellingCommandFacade.getNextId();
-        StopSellingCommand result = new StopSellingCommand(null,null,null,id);
+        StopSellingCommand result = new StopSellingCommand(null,null,null,null,id);
         Cache.getTheCache().put(result);
         return (PersistentStopSellingCommand)PersistentProxi.createProxi(id, 287);
     }
@@ -49,10 +49,13 @@ public class StopSellingCommandFacade{
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
     }
+    public void articleSet(long StopSellingCommandId, ArticleWrapper4Public articleVal) throws PersistenceException {
+        
+    }
     public void invokerSet(long StopSellingCommandId, Invoker invokerVal) throws PersistenceException {
         
     }
-    public void commandReceiverSet(long StopSellingCommandId, Article4Public commandReceiverVal) throws PersistenceException {
+    public void commandReceiverSet(long StopSellingCommandId, Shop4Public commandReceiverVal) throws PersistenceException {
         
     }
     public void myCommonDateSet(long StopSellingCommandId, CommonDate4Public myCommonDateVal) throws PersistenceException {

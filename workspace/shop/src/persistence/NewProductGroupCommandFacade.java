@@ -26,27 +26,30 @@ public class NewProductGroupCommandFacade{
 
     /* If idCreateIfLessZero is negative, a new id is generated. */
     public PersistentNewProductGroupCommand newNewProductGroupCommand(String name,long idCreateIfLessZero) throws PersistenceException {
-        if(idCreateIfLessZero > 0) return (PersistentNewProductGroupCommand)PersistentProxi.createProxi(idCreateIfLessZero, 192);
+        if(idCreateIfLessZero > 0) return (PersistentNewProductGroupCommand)PersistentProxi.createProxi(idCreateIfLessZero, 409);
         long id = ConnectionHandler.getTheConnectionHandler().theNewProductGroupCommandFacade.getNextId();
-        NewProductGroupCommand result = new NewProductGroupCommand(name,null,null,null,null,id);
+        NewProductGroupCommand result = new NewProductGroupCommand(null,name,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (PersistentNewProductGroupCommand)PersistentProxi.createProxi(id, 192);
+        return (PersistentNewProductGroupCommand)PersistentProxi.createProxi(id, 409);
     }
     
     public PersistentNewProductGroupCommand newDelayedNewProductGroupCommand(String name) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theNewProductGroupCommandFacade.getNextId();
-        NewProductGroupCommand result = new NewProductGroupCommand(name,null,null,null,null,id);
+        NewProductGroupCommand result = new NewProductGroupCommand(null,name,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (PersistentNewProductGroupCommand)PersistentProxi.createProxi(id, 192);
+        return (PersistentNewProductGroupCommand)PersistentProxi.createProxi(id, 409);
     }
     
     public NewProductGroupCommand getNewProductGroupCommand(long NewProductGroupCommandId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 192)) return 192;
+        if(Cache.getTheCache().contains(objectId, 409)) return 409;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
+        
+    }
+    public void parentSet(long NewProductGroupCommandId, ComponentContainer parentVal) throws PersistenceException {
         
     }
     public void nameSet(long NewProductGroupCommandId, String nameVal) throws PersistenceException {
@@ -55,10 +58,7 @@ public class NewProductGroupCommandFacade{
     public void invokerSet(long NewProductGroupCommandId, Invoker invokerVal) throws PersistenceException {
         
     }
-    public void commandReceiverSet(long NewProductGroupCommandId, ComponentContainer commandReceiverVal) throws PersistenceException {
-        
-    }
-    public void commandResultSet(long NewProductGroupCommandId, ProductGroup4Public commandResultVal) throws PersistenceException {
+    public void commandReceiverSet(long NewProductGroupCommandId, Shop4Public commandReceiverVal) throws PersistenceException {
         
     }
     public void myCommonDateSet(long NewProductGroupCommandId, CommonDate4Public myCommonDateVal) throws PersistenceException {

@@ -42,17 +42,11 @@ public class CreateCustomerDeliveryTimeCommandProxi extends PersistentProxi impl
     public void setInvoker(Invoker newValue) throws PersistenceException {
         ((PersistentCreateCustomerDeliveryTimeCommand)this.getTheObject()).setInvoker(newValue);
     }
-    public CustomerDeliveryTimeManager4Public getCommandReceiver() throws PersistenceException {
+    public Shop4Public getCommandReceiver() throws PersistenceException {
         return ((PersistentCreateCustomerDeliveryTimeCommand)this.getTheObject()).getCommandReceiver();
     }
-    public void setCommandReceiver(CustomerDeliveryTimeManager4Public newValue) throws PersistenceException {
+    public void setCommandReceiver(Shop4Public newValue) throws PersistenceException {
         ((PersistentCreateCustomerDeliveryTimeCommand)this.getTheObject()).setCommandReceiver(newValue);
-    }
-    public CustomerDeliveryTime4Public getCommandResult() throws PersistenceException {
-        return ((PersistentCreateCustomerDeliveryTimeCommand)this.getTheObject()).getCommandResult();
-    }
-    public void setCommandResult(CustomerDeliveryTime4Public newValue) throws PersistenceException {
-        ((PersistentCreateCustomerDeliveryTimeCommand)this.getTheObject()).setCommandResult(newValue);
     }
     public CommonDate4Public getMyCommonDate() throws PersistenceException {
         return ((PersistentCreateCustomerDeliveryTimeCommand)this.getTheObject()).getMyCommonDate();
@@ -109,16 +103,16 @@ public class CreateCustomerDeliveryTimeCommandProxi extends PersistentProxi impl
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateCustomerDeliveryTimeCommand(this);
     }
-    public void accept(CustomerDeliveryTimeManagerCommandVisitor visitor) throws PersistenceException {
+    public void accept(ShopCommandVisitor visitor) throws PersistenceException {
         visitor.handleCreateCustomerDeliveryTimeCommand(this);
     }
-    public <R> R accept(CustomerDeliveryTimeManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(ShopCommandReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleCreateCustomerDeliveryTimeCommand(this);
     }
-    public <E extends model.UserException>  void accept(CustomerDeliveryTimeManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(ShopCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleCreateCustomerDeliveryTimeCommand(this);
     }
-    public <R, E extends model.UserException> R accept(CustomerDeliveryTimeManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(ShopCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateCustomerDeliveryTimeCommand(this);
     }
     

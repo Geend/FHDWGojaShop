@@ -41,13 +41,12 @@ public class CreateCustomerDeliveryTimeCommand extends PersistentObject implemen
     protected common.Fraction price;
     protected long time;
     protected Invoker invoker;
-    protected PersistentCustomerDeliveryTimeManager commandReceiver;
-    protected PersistentCustomerDeliveryTime commandResult;
+    protected PersistentShop commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateCustomerDeliveryTimeCommand(String name,common.Fraction price,long time,Invoker invoker,PersistentCustomerDeliveryTimeManager commandReceiver,PersistentCustomerDeliveryTime commandResult,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
+    public CreateCustomerDeliveryTimeCommand(String name,common.Fraction price,long time,Invoker invoker,PersistentShop commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
@@ -55,7 +54,6 @@ public class CreateCustomerDeliveryTimeCommand extends PersistentObject implemen
         this.time = time;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
-        this.commandResult = commandResult;
         this.myCommonDate = myCommonDate;        
     }
     
@@ -79,10 +77,6 @@ public class CreateCustomerDeliveryTimeCommand extends PersistentObject implemen
         if(this.getCommandReceiver() != null){
             this.getCommandReceiver().store();
             ConnectionHandler.getTheConnectionHandler().theCreateCustomerDeliveryTimeCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
-        }
-        if(this.getCommandResult() != null){
-            this.getCommandResult().store();
-            ConnectionHandler.getTheConnectionHandler().theCreateCustomerDeliveryTimeCommandFacade.commandResultSet(this.getId(), getCommandResult());
         }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
@@ -127,32 +121,18 @@ public class CreateCustomerDeliveryTimeCommand extends PersistentObject implemen
             ConnectionHandler.getTheConnectionHandler().theCreateCustomerDeliveryTimeCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
-    public CustomerDeliveryTimeManager4Public getCommandReceiver() throws PersistenceException {
+    public Shop4Public getCommandReceiver() throws PersistenceException {
         return this.commandReceiver;
     }
-    public void setCommandReceiver(CustomerDeliveryTimeManager4Public newValue) throws PersistenceException {
+    public void setCommandReceiver(Shop4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.commandReceiver)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.commandReceiver = (PersistentCustomerDeliveryTimeManager)PersistentProxi.createProxi(objectId, classId);
+        this.commandReceiver = (PersistentShop)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateCustomerDeliveryTimeCommandFacade.commandReceiverSet(this.getId(), newValue);
-        }
-    }
-    public CustomerDeliveryTime4Public getCommandResult() throws PersistenceException {
-        return this.commandResult;
-    }
-    public void setCommandResult(CustomerDeliveryTime4Public newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.commandResult)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.commandResult = (PersistentCustomerDeliveryTime)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theCreateCustomerDeliveryTimeCommandFacade.commandResultSet(this.getId(), newValue);
         }
     }
     public CommonDate4Public getMyCommonDate() throws PersistenceException {
@@ -222,21 +202,20 @@ public class CreateCustomerDeliveryTimeCommand extends PersistentObject implemen
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateCustomerDeliveryTimeCommand(this);
     }
-    public void accept(CustomerDeliveryTimeManagerCommandVisitor visitor) throws PersistenceException {
+    public void accept(ShopCommandVisitor visitor) throws PersistenceException {
         visitor.handleCreateCustomerDeliveryTimeCommand(this);
     }
-    public <R> R accept(CustomerDeliveryTimeManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(ShopCommandReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleCreateCustomerDeliveryTimeCommand(this);
     }
-    public <E extends model.UserException>  void accept(CustomerDeliveryTimeManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(ShopCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleCreateCustomerDeliveryTimeCommand(this);
     }
-    public <R, E extends model.UserException> R accept(CustomerDeliveryTimeManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(ShopCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateCustomerDeliveryTimeCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{
         if (this.getCommandReceiver() != null) return 1;
-        if (this.getCommandResult() != null) return 1;
         return 0;
     }
     
@@ -252,7 +231,7 @@ public class CreateCustomerDeliveryTimeCommand extends PersistentObject implemen
     public void execute() 
 				throws PersistenceException{
         try{
-			this.setCommandResult(this.commandReceiver.createCustomerDeliveryTime(this.getName(), this.getPrice(), this.getTime()));
+			this.commandReceiver.createCustomerDeliveryTime(this.getName(), this.getPrice(), this.getTime());
 		}
 		catch(model.DoubleDefinitionException e){
 			this.commandException = e;

@@ -22,6 +22,7 @@ public interface AnythingReturnExceptionVisitor<R, E extends view.UserException>
     public R handleReturnManager(ReturnManagerView returnManager) throws ModelException, E;
     public R handleServer(ServerView server) throws ModelException, E;
     public R handleSettings(SettingsView settings) throws ModelException, E;
+    public R handleShop(ShopView shop) throws ModelException, E;
     public R handleShoppingCart(ShoppingCartView shoppingCart) throws ModelException, E;
     
 }

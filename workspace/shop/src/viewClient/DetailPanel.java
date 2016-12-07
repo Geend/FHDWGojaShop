@@ -1248,6 +1248,9 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleInTransitOrderState(view.InTransitOrderStateView object){
         result = new InTransitOrderStateDefaultDetailPanel(handler, object);
     }
+    public void handleShop(view.ShopView object){
+        result = new ShopDefaultDetailPanel(handler, object);
+    }
     public void handleProducer(view.ProducerView object){
         result = new ProducerDefaultDetailPanel(handler, object);
     }
@@ -1349,7 +1352,7 @@ class CONCBackgroundTaskDefaultDetailPanel extends DefaultDetailPanel{
 
 class ProductGroupDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String ProductGroup$$components = "ProductGroup$$components";
+    protected static final String ProductGroup$$container = "ProductGroup$$container";
     protected static final String ProductGroup$$name = "ProductGroup$$name";
     
     protected ProductGroupDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1374,6 +1377,7 @@ class CustomerServiceDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String CustomerService$$articleLst = "CustomerService$$articleLst";
     protected static final String CustomerService$$componentManager = "CustomerService$$componentManager";
+    protected static final String CustomerService$$prmanager = "CustomerService$$prmanager";
     protected static final String CustomerService$$customerDeliveryTimeManager = "CustomerService$$customerDeliveryTimeManager";
     protected static final String CustomerService$$account = "CustomerService$$account";
     protected static final String CustomerService$$cart = "CustomerService$$cart";
@@ -1738,6 +1742,23 @@ class InTransitOrderStateDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class ShopDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String Shop$$componentManager = "Shop$$componentManager";
+    protected static final String Shop$$prmanager = "Shop$$prmanager";
+    protected static final String Shop$$customerDeliveryTimeManager = "Shop$$customerDeliveryTimeManager";
+    
+    protected ShopDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.ShopView getAnything(){
+        return (view.ShopView)this.anything;
+    }
+}
+
 class ProducerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Producer$$name = "Producer$$name";
@@ -1981,9 +2002,7 @@ class CustomerDeliveryTimeDefaultDetailPanel extends DefaultDetailPanel{
 
 class OwnerServiceDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String OwnerService$$componentManager = "OwnerService$$componentManager";
-    protected static final String OwnerService$$customerDeliveryTimeManager = "OwnerService$$customerDeliveryTimeManager";
-    protected static final String OwnerService$$prmanager = "OwnerService$$prmanager";
+    protected static final String OwnerService$$shop = "OwnerService$$shop";
     protected static final String OwnerService$$settings = "OwnerService$$settings";
     protected static final String OwnerService$$reOrderManager = "OwnerService$$reOrderManager";
     protected static final String OwnerService$$ownerOrderManager = "OwnerService$$ownerOrderManager";

@@ -3,12 +3,7 @@ package persistence;
 
 public interface PersistentOwnerService extends PersistentService, OwnerService4Public {
     
-    public ComponentManager4Public getComponentManager() throws PersistenceException ;
-    public void setComponentManager(ComponentManager4Public newValue) throws PersistenceException ;
-    public CustomerDeliveryTimeManager4Public getCustomerDeliveryTimeManager() throws PersistenceException ;
-    public void setCustomerDeliveryTimeManager(CustomerDeliveryTimeManager4Public newValue) throws PersistenceException ;
-    public ProducerLst4Public getPrmanager() throws PersistenceException ;
-    public void setPrmanager(ProducerLst4Public newValue) throws PersistenceException ;
+    public void setShop(OwnerServiceShop4Public newValue) throws PersistenceException ;
     public Settings4Public getSettings() throws PersistenceException ;
     public void setSettings(Settings4Public newValue) throws PersistenceException ;
     public ReOrderManager4Public getReOrderManager() throws PersistenceException ;
@@ -20,6 +15,12 @@ public interface PersistentOwnerService extends PersistentService, OwnerService4
     public PersistentOwnerService getThis() throws PersistenceException ;
     
     
+    public Shop4Public getShop() 
+				throws PersistenceException;
+    public void setShop(final Shop4Public shop) 
+				throws PersistenceException;
+    public void shop_update(final model.meta.ShopMssgs event) 
+				throws PersistenceException;
 
 }
 

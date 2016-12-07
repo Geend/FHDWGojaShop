@@ -22,6 +22,7 @@ public interface AnythingExceptionVisitor<E extends view.UserException> extends 
     public void handleReturnManager(ReturnManagerView returnManager) throws ModelException, E;
     public void handleServer(ServerView server) throws ModelException, E;
     public void handleSettings(SettingsView settings) throws ModelException, E;
+    public void handleShop(ShopView shop) throws ModelException, E;
     public void handleShoppingCart(ShoppingCartView shoppingCart) throws ModelException, E;
     
 }

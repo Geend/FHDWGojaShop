@@ -65,6 +65,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleInTransitOrderState(InTransitOrderStateView inTransitOrderState) throws ModelException{
         this.standardHandling(inTransitOrderState);
     }
+    public void handleShop(ShopView shop) throws ModelException{
+        this.standardHandling(shop);
+    }
     public void handleProducer(ProducerView producer) throws ModelException{
         this.standardHandling(producer);
     }

@@ -22,6 +22,7 @@ public interface AnythingReturnVisitor<R> extends ArticleStateReturnVisitor<R> ,
     public R handleReturnManager(ReturnManagerView returnManager) throws ModelException;
     public R handleServer(ServerView server) throws ModelException;
     public R handleSettings(SettingsView settings) throws ModelException;
+    public R handleShop(ShopView shop) throws ModelException;
     public R handleShoppingCart(ShoppingCartView shoppingCart) throws ModelException;
     
 }

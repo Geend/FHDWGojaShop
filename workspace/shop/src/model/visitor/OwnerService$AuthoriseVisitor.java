@@ -33,6 +33,7 @@ public abstract class OwnerService$AuthoriseVisitor extends AnythingStandardVisi
     public abstract void handleInSale(PersistentInSale inSale) throws PersistenceException;
     public abstract void handleReOrderManager(PersistentReOrderManager reOrderManager) throws PersistenceException;
     public abstract void handleInTransitOrderState(PersistentInTransitOrderState inTransitOrderState) throws PersistenceException;
+    public abstract void handleShop(PersistentShop shop) throws PersistenceException;
     public abstract void handleProducer(PersistentProducer producer) throws PersistenceException;
     public abstract void handleArticlesInReturnOrderState(PersistentArticlesInReturnOrderState articlesInReturnOrderState) throws PersistenceException;
     public abstract void handleArticleReturn(PersistentArticleReturn articleReturn) throws PersistenceException;

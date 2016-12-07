@@ -22,16 +22,22 @@ public class StartSellingCommandICProxi extends PersistentInCacheProxi implement
         return 289;
     }
     
+    public ArticleWrapper4Public getArticle() throws PersistenceException {
+        return ((PersistentStartSellingCommand)this.getTheObject()).getArticle();
+    }
+    public void setArticle(ArticleWrapper4Public newValue) throws PersistenceException {
+        ((PersistentStartSellingCommand)this.getTheObject()).setArticle(newValue);
+    }
     public Invoker getInvoker() throws PersistenceException {
         return ((PersistentStartSellingCommand)this.getTheObject()).getInvoker();
     }
     public void setInvoker(Invoker newValue) throws PersistenceException {
         ((PersistentStartSellingCommand)this.getTheObject()).setInvoker(newValue);
     }
-    public Article4Public getCommandReceiver() throws PersistenceException {
+    public Shop4Public getCommandReceiver() throws PersistenceException {
         return ((PersistentStartSellingCommand)this.getTheObject()).getCommandReceiver();
     }
-    public void setCommandReceiver(Article4Public newValue) throws PersistenceException {
+    public void setCommandReceiver(Shop4Public newValue) throws PersistenceException {
         ((PersistentStartSellingCommand)this.getTheObject()).setCommandReceiver(newValue);
     }
     public CommonDate4Public getMyCommonDate() throws PersistenceException {
@@ -89,16 +95,16 @@ public class StartSellingCommandICProxi extends PersistentInCacheProxi implement
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleStartSellingCommand(this);
     }
-    public void accept(ArticleCommandVisitor visitor) throws PersistenceException {
+    public void accept(ShopCommandVisitor visitor) throws PersistenceException {
         visitor.handleStartSellingCommand(this);
     }
-    public <R> R accept(ArticleCommandReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(ShopCommandReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleStartSellingCommand(this);
     }
-    public <E extends model.UserException>  void accept(ArticleCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(ShopCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleStartSellingCommand(this);
     }
-    public <R, E extends model.UserException> R accept(ArticleCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(ShopCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleStartSellingCommand(this);
     }
     

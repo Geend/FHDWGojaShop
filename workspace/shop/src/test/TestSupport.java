@@ -22,6 +22,7 @@ public class TestSupport {
         model.CustomerDeliveryTimeManager.reset$For$Test = true;
         model.Settings.reset$For$Test = true;
         model.ReOrderManager.reset$For$Test = true;
+        model.Shop.reset$For$Test = true;
         model.ReturnManager.reset$For$Test = true;
         model.OwnerOrderManager.reset$For$Test = true;
         model.ComponentManager.reset$For$Test = true;

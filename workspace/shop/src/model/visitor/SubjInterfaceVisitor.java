@@ -19,6 +19,7 @@ public interface SubjInterfaceVisitor extends ArticleStateVisitor,BackgroundTask
     public void handleReturnManager(ReturnManager4Public returnManager) throws PersistenceException;
     public void handleServer(Server4Public server) throws PersistenceException;
     public void handleSettings(Settings4Public settings) throws PersistenceException;
+    public void handleShop(Shop4Public shop) throws PersistenceException;
     public void handleShoppingCart(ShoppingCart4Public shoppingCart) throws PersistenceException;
     public void handleSubj(Subj4Public subj) throws PersistenceException;
     

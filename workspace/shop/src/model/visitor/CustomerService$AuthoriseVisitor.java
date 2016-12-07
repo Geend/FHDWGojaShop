@@ -5,6 +5,7 @@ import persistence.*;
 
 public abstract class CustomerService$AuthoriseVisitor extends AnythingStandardVisitor{
     
+    public abstract void handleProducerLst(PersistentProducerLst producerLst) throws PersistenceException;
     public abstract void handlePreOrderState(PersistentPreOrderState preOrderState) throws PersistenceException;
     public abstract void handleProductGroup(PersistentProductGroup productGroup) throws PersistenceException;
     public abstract void handleCustomerService(PersistentCustomerService customerService) throws PersistenceException;
@@ -24,6 +25,8 @@ public abstract class CustomerService$AuthoriseVisitor extends AnythingStandardV
     public abstract void handleCustomerAccount(PersistentCustomerAccount customerAccount) throws PersistenceException;
     public abstract void handleReturnQuantifiedArticle(PersistentReturnQuantifiedArticle returnQuantifiedArticle) throws PersistenceException;
     public abstract void handleInTransitOrderState(PersistentInTransitOrderState inTransitOrderState) throws PersistenceException;
+    public abstract void handleShop(PersistentShop shop) throws PersistenceException;
+    public abstract void handleProducer(PersistentProducer producer) throws PersistenceException;
     public abstract void handleShoppingCart(PersistentShoppingCart shoppingCart) throws PersistenceException;
     public abstract void handleArticlesInReturnOrderState(PersistentArticlesInReturnOrderState articlesInReturnOrderState) throws PersistenceException;
     public abstract void handleArticleReturn(PersistentArticleReturn articleReturn) throws PersistenceException;

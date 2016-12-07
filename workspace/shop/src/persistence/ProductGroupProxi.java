@@ -18,8 +18,11 @@ public class ProductGroupProxi extends ComponentProxi implements PersistentProdu
         return 121;
     }
     
-    public void setComponents(ProductGroupComponents4Public newValue) throws PersistenceException , model.CycleException{
-        ((PersistentProductGroup)this.getTheObject()).setComponents(newValue);
+    public ComponentContainerImplementation4Public getContainer() throws PersistenceException {
+        return ((PersistentProductGroup)this.getTheObject()).getContainer();
+    }
+    public void setContainer(ComponentContainerImplementation4Public newValue) throws PersistenceException {
+        ((PersistentProductGroup)this.getTheObject()).setContainer(newValue);
     }
     public String getName() throws PersistenceException {
         return ((PersistentProductGroup)this.getTheObject()).getName();
@@ -93,10 +96,6 @@ public class ProductGroupProxi extends ComponentProxi implements PersistentProdu
     }
     
     
-    public void addComponent(final Component4Public component) 
-				throws model.CycleException, PersistenceException{
-        ((PersistentProductGroup)this.getTheObject()).addComponent(component);
-    }
     public boolean containsCompHierarchy(final CompHierarchyHIERARCHY part) 
 				throws PersistenceException{
         return ((PersistentProductGroup)this.getTheObject()).containsCompHierarchy(part);
@@ -109,49 +108,13 @@ public class ProductGroupProxi extends ComponentProxi implements PersistentProdu
 				throws PersistenceException{
         ((PersistentProductGroup)this.getTheObject()).deregister(observee);
     }
-    public void fireComponentChanged(final model.meta.ComponentMssgs evnt) 
-				throws PersistenceException{
-        ((PersistentProductGroup)this.getTheObject()).fireComponentChanged(evnt);
-    }
-    public ProductGroupComponents4Public getComponents() 
-				throws PersistenceException{
-        return ((PersistentProductGroup)this.getTheObject()).getComponents();
-    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentProductGroup)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void moveTo(final ComponentContainer container) 
-				throws model.CycleException, PersistenceException{
-        ((PersistentProductGroup)this.getTheObject()).moveTo(container);
-    }
-    public void moveTo(final ComponentContainer container, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentProductGroup)this.getTheObject()).moveTo(container, invoker);
-    }
-    public ArticleWrapper4Public newArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
-				throws model.CycleException, PersistenceException{
-        return ((PersistentProductGroup)this.getTheObject()).newArticle(name, price, minStock, maxStock, producerDeliveryTime, producer);
-    }
-    public void newArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentProductGroup)this.getTheObject()).newArticle(name, price, minStock, maxStock, producerDeliveryTime, producer, invoker);
-    }
-    public ProductGroup4Public newProductGroup(final String name) 
-				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        return ((PersistentProductGroup)this.getTheObject()).newProductGroup(name);
-    }
-    public void newProductGroup(final String name, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentProductGroup)this.getTheObject()).newProductGroup(name, invoker);
-    }
     public void register(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentProductGroup)this.getTheObject()).register(observee);
-    }
-    public void removeComponent(final Component4Public component) 
-				throws PersistenceException{
-        ((PersistentProductGroup)this.getTheObject()).removeComponent(component);
     }
     public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
@@ -165,21 +128,13 @@ public class ProductGroupProxi extends ComponentProxi implements PersistentProdu
 				throws PersistenceException{
         ((PersistentProductGroup)this.getTheObject()).updateObservers(event);
     }
-    public void addComponentImplementation(final Component4Public component) 
+    public void addComponent(final Component4Public component) 
 				throws model.CycleException, PersistenceException{
-        ((PersistentProductGroup)this.getTheObject()).addComponentImplementation(component);
-    }
-    public void components_update(final model.meta.ComponentMssgs event) 
-				throws PersistenceException{
-        ((PersistentProductGroup)this.getTheObject()).components_update(event);
+        ((PersistentProductGroup)this.getTheObject()).addComponent(component);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentProductGroup)this.getTheObject()).copyingPrivateUserAttributes(copy);
-    }
-    public void fireComponentChangedImplementation(final model.meta.ComponentMssgs evnt) 
-				throws PersistenceException{
-        ((PersistentProductGroup)this.getTheObject()).fireComponentChangedImplementation(evnt);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -189,21 +144,21 @@ public class ProductGroupProxi extends ComponentProxi implements PersistentProdu
 				throws PersistenceException{
         ((PersistentProductGroup)this.getTheObject()).initializeOnInstantiation();
     }
-    public void moveToImplementation(final ComponentContainer container) 
+    public void moveTo(final ComponentContainer container) 
 				throws model.CycleException, PersistenceException{
-        ((PersistentProductGroup)this.getTheObject()).moveToImplementation(container);
+        ((PersistentProductGroup)this.getTheObject()).moveTo(container);
     }
-    public ArticleWrapper4Public newArticleImplementation(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
+    public ArticleWrapper4Public newArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
 				throws model.CycleException, PersistenceException{
-        return ((PersistentProductGroup)this.getTheObject()).newArticleImplementation(name, price, minStock, maxStock, producerDeliveryTime, producer);
+        return ((PersistentProductGroup)this.getTheObject()).newArticle(name, price, minStock, maxStock, producerDeliveryTime, producer);
     }
-    public ProductGroup4Public newProductGroupImplementation(final String name) 
+    public ProductGroup4Public newProductGroup(final String name) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        return ((PersistentProductGroup)this.getTheObject()).newProductGroupImplementation(name);
+        return ((PersistentProductGroup)this.getTheObject()).newProductGroup(name);
     }
-    public void removeComponentImplementation(final Component4Public component) 
+    public void removeComponent(final Component4Public component) 
 				throws PersistenceException{
-        ((PersistentProductGroup)this.getTheObject()).removeComponentImplementation(component);
+        ((PersistentProductGroup)this.getTheObject()).removeComponent(component);
     }
 
     

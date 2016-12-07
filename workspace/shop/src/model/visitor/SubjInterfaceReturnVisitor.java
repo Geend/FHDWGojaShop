@@ -19,6 +19,7 @@ public interface SubjInterfaceReturnVisitor<R> extends ArticleStateReturnVisitor
     public R handleReturnManager(ReturnManager4Public returnManager) throws PersistenceException;
     public R handleServer(Server4Public server) throws PersistenceException;
     public R handleSettings(Settings4Public settings) throws PersistenceException;
+    public R handleShop(Shop4Public shop) throws PersistenceException;
     public R handleShoppingCart(ShoppingCart4Public shoppingCart) throws PersistenceException;
     public R handleSubj(Subj4Public subj) throws PersistenceException;
     

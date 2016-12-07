@@ -6,12 +6,8 @@ import view.visitor.*;
 
 public interface OwnerServiceView extends ServiceView {
     
-    public ComponentManagerView getComponentManager()throws ModelException;
-    public void setComponentManager(ComponentManagerView newValue) throws ModelException ;
-    public CustomerDeliveryTimeManagerView getCustomerDeliveryTimeManager()throws ModelException;
-    public void setCustomerDeliveryTimeManager(CustomerDeliveryTimeManagerView newValue) throws ModelException ;
-    public ProducerLstView getPrmanager()throws ModelException;
-    public void setPrmanager(ProducerLstView newValue) throws ModelException ;
+    public ShopView getShop()throws ModelException;
+    public void setShop(ShopView newValue) throws ModelException ;
     public SettingsView getSettings()throws ModelException;
     public void setSettings(SettingsView newValue) throws ModelException ;
     public ReOrderManagerView getReOrderManager()throws ModelException;

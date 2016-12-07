@@ -37,26 +37,26 @@ public class NewProductGroupCommand extends PersistentObject implements Persiste
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
+    protected ComponentContainer parent;
     protected String name;
     protected Invoker invoker;
-    protected ComponentContainer commandReceiver;
-    protected PersistentProductGroup commandResult;
+    protected PersistentShop commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public NewProductGroupCommand(String name,Invoker invoker,ComponentContainer commandReceiver,PersistentProductGroup commandResult,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
+    public NewProductGroupCommand(ComponentContainer parent,String name,Invoker invoker,PersistentShop commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
+        this.parent = parent;
         this.name = name;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
-        this.commandResult = commandResult;
         this.myCommonDate = myCommonDate;        
     }
     
     static public long getTypeId() {
-        return 192;
+        return 409;
     }
     
     public long getClassId() {
@@ -65,9 +65,13 @@ public class NewProductGroupCommand extends PersistentObject implements Persiste
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 192) ConnectionHandler.getTheConnectionHandler().theNewProductGroupCommandFacade
+        if (this.getClassId() == 409) ConnectionHandler.getTheConnectionHandler().theNewProductGroupCommandFacade
             .newNewProductGroupCommand(name,this.getId());
         super.store();
+        if(this.getParent() != null){
+            this.getParent().store();
+            ConnectionHandler.getTheConnectionHandler().theNewProductGroupCommandFacade.parentSet(this.getId(), getParent());
+        }
         if(this.getInvoker() != null){
             this.getInvoker().store();
             ConnectionHandler.getTheConnectionHandler().theNewProductGroupCommandFacade.invokerSet(this.getId(), getInvoker());
@@ -76,10 +80,6 @@ public class NewProductGroupCommand extends PersistentObject implements Persiste
             this.getCommandReceiver().store();
             ConnectionHandler.getTheConnectionHandler().theNewProductGroupCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
         }
-        if(this.getCommandResult() != null){
-            this.getCommandResult().store();
-            ConnectionHandler.getTheConnectionHandler().theNewProductGroupCommandFacade.commandResultSet(this.getId(), getCommandResult());
-        }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
             ConnectionHandler.getTheConnectionHandler().theNewProductGroupCommandFacade.myCommonDateSet(this.getId(), getMyCommonDate());
@@ -87,6 +87,20 @@ public class NewProductGroupCommand extends PersistentObject implements Persiste
         
     }
     
+    public ComponentContainer getParent() throws PersistenceException {
+        return this.parent;
+    }
+    public void setParent(ComponentContainer newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.parent)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.parent = (ComponentContainer)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theNewProductGroupCommandFacade.parentSet(this.getId(), newValue);
+        }
+    }
     public String getName() throws PersistenceException {
         return this.name;
     }
@@ -109,32 +123,18 @@ public class NewProductGroupCommand extends PersistentObject implements Persiste
             ConnectionHandler.getTheConnectionHandler().theNewProductGroupCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
-    public ComponentContainer getCommandReceiver() throws PersistenceException {
+    public Shop4Public getCommandReceiver() throws PersistenceException {
         return this.commandReceiver;
     }
-    public void setCommandReceiver(ComponentContainer newValue) throws PersistenceException {
+    public void setCommandReceiver(Shop4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.commandReceiver)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.commandReceiver = (ComponentContainer)PersistentProxi.createProxi(objectId, classId);
+        this.commandReceiver = (PersistentShop)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theNewProductGroupCommandFacade.commandReceiverSet(this.getId(), newValue);
-        }
-    }
-    public ProductGroup4Public getCommandResult() throws PersistenceException {
-        return this.commandResult;
-    }
-    public void setCommandResult(ProductGroup4Public newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.commandResult)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.commandResult = (PersistentProductGroup)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theNewProductGroupCommandFacade.commandResultSet(this.getId(), newValue);
         }
     }
     public CommonDate4Public getMyCommonDate() throws PersistenceException {
@@ -204,21 +204,21 @@ public class NewProductGroupCommand extends PersistentObject implements Persiste
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleNewProductGroupCommand(this);
     }
-    public void accept(ComponentContainerCommandVisitor visitor) throws PersistenceException {
+    public void accept(ShopCommandVisitor visitor) throws PersistenceException {
         visitor.handleNewProductGroupCommand(this);
     }
-    public <R> R accept(ComponentContainerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(ShopCommandReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleNewProductGroupCommand(this);
     }
-    public <E extends model.UserException>  void accept(ComponentContainerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(ShopCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleNewProductGroupCommand(this);
     }
-    public <R, E extends model.UserException> R accept(ComponentContainerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(ShopCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleNewProductGroupCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{
+        if (this.getParent() != null) return 1;
         if (this.getCommandReceiver() != null) return 1;
-        if (this.getCommandResult() != null) return 1;
         return 0;
     }
     
@@ -234,7 +234,7 @@ public class NewProductGroupCommand extends PersistentObject implements Persiste
     public void execute() 
 				throws PersistenceException{
         try{
-			this.setCommandResult(this.commandReceiver.newProductGroup(this.getName()));
+			this.commandReceiver.newProductGroup(this.getParent(), this.getName());
 		}
 		catch(model.DoubleDefinitionException e){
 			this.commandException = e;

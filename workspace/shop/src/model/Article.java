@@ -404,36 +404,6 @@ public class Article extends PersistentObject implements PersistentArticle{
 		}
 		subService.register(observee);
     }
-    public void startSelling() 
-				throws PersistenceException{
-        model.meta.ArticleStartSellingMssg event = new model.meta.ArticleStartSellingMssg(getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
-    }
-    public void startSelling(final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		StartSellingCommand4Public command = model.meta.StartSellingCommand.createStartSellingCommand(now, now);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void stopSelling() 
-				throws PersistenceException{
-        model.meta.ArticleStopSellingMssg event = new model.meta.ArticleStopSellingMssg(getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
-    }
-    public void stopSelling(final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		StopSellingCommand4Public command = model.meta.StopSellingCommand.createStopSellingCommand(now, now);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
     public synchronized void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
@@ -506,7 +476,7 @@ public class Article extends PersistentObject implements PersistentArticle{
             throw new NotEnoughStockException(MessageFormat.format("Tried to reduce stock by {0}, but only {1} in stock", quantity, getThis().getCurrentStock()));
         }
     }
-    public void startSellingImplementation() 
+    public void startSelling() 
 				throws PersistenceException{
         //TODO! reorder articles if under minStock
         getThis().setState(getThis().getState().accept(new ArticleStateReturnVisitor<ArticleState4Public>() {
@@ -530,8 +500,9 @@ public class Article extends PersistentObject implements PersistentArticle{
                 return InSale.createInSale();
             }
         }));
+        
     }
-    public void stopSellingImplementation() 
+    public void stopSelling() 
 				throws PersistenceException{
         getThis().setState(getThis().getState().accept(new ArticleStateReturnVisitor<ArticleState4Public>() {
             @Override
