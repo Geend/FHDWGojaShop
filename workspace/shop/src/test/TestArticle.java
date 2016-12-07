@@ -2,7 +2,8 @@ package test;
 
 import common.Fraction;
 import model.Article;
-import model.RootProductGroup;
+import model.ArticleWrapper;
+import model.ComponentManager;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,6 +15,7 @@ import org.junit.rules.ExpectedException;
 import model.DoubleDefinitionException;
 import model.ProducerLst;
 import persistence.Article4Public;
+import persistence.ArticleWrapper4Public;
 import persistence.Cache;
 import persistence.PersistenceException;
 import persistence.Producer4Public;
@@ -61,8 +63,8 @@ public class TestArticle {
     public void testCreateArticle() throws Exception {
         Producer4Public producer = ProducerLst.getTheProducerLst().createProducer("Test");
 
-        Article4Public testArt = Article.createArticle("TestArt", new Fraction(5),10, 100, 4, producer);
-        RootProductGroup.getTheRootProductGroup().addComponent(testArt);
+
+        ArticleWrapper4Public testArt =ComponentManager.getTheComponentManager().newArticle("TestArt", new Fraction(5),10, 100, 4, producer);
 
     }
 

@@ -4,7 +4,7 @@ package persistence;
 
 import model.visitor.*;
 
-public class FinishedOrderStateICProxi extends OrderStateICProxi implements PersistentFinishedOrderState{
+public class FinishedOrderStateICProxi extends OrderStatusICProxi implements PersistentFinishedOrderState{
     
     public FinishedOrderStateICProxi(long objectId) {
         super(objectId);
@@ -26,16 +26,16 @@ public class FinishedOrderStateICProxi extends OrderStateICProxi implements Pers
         return ((PersistentFinishedOrderState)this.getTheObject()).getThis();
     }
     
-    public void accept(OrderStateVisitor visitor) throws PersistenceException {
+    public void accept(OrderStatusVisitor visitor) throws PersistenceException {
         visitor.handleFinishedOrderState(this);
     }
-    public <R> R accept(OrderStateReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(OrderStatusReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleFinishedOrderState(this);
     }
-    public <E extends model.UserException>  void accept(OrderStateExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(OrderStatusExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleFinishedOrderState(this);
     }
-    public <R, E extends model.UserException> R accept(OrderStateReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(OrderStatusReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleFinishedOrderState(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {

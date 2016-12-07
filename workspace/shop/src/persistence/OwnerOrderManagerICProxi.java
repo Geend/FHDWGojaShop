@@ -90,6 +90,10 @@ public class OwnerOrderManagerICProxi extends OrderManagerICProxi implements Per
 				throws PersistenceException{
         return ((PersistentOwnerOrderManager)this.getTheObject()).getMyServer();
     }
+    public OrderManagerOrders4Public getOrders() 
+				throws PersistenceException{
+        return ((PersistentOwnerOrderManager)this.getTheObject()).getOrders();
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentOwnerOrderManager)this.getTheObject()).initialize(This, final$$Fields);
@@ -97,6 +101,10 @@ public class OwnerOrderManagerICProxi extends OrderManagerICProxi implements Per
     public void register(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentOwnerOrderManager)this.getTheObject()).register(observee);
+    }
+    public void step() 
+				throws PersistenceException{
+        ((PersistentOwnerOrderManager)this.getTheObject()).step();
     }
     public void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
@@ -118,13 +126,17 @@ public class OwnerOrderManagerICProxi extends OrderManagerICProxi implements Per
 				throws PersistenceException{
         ((PersistentOwnerOrderManager)this.getTheObject()).initializeOnInstantiation();
     }
+    public void orders_update(final model.meta.OrderMssgs event) 
+				throws PersistenceException{
+        ((PersistentOwnerOrderManager)this.getTheObject()).orders_update(event);
+    }
     public void startTask(final long tickTime) 
 				throws PersistenceException{
         ((PersistentOwnerOrderManager)this.getTheObject()).startTask(tickTime);
     }
-    public void step() 
+    public void stepImplementation() 
 				throws PersistenceException{
-        ((PersistentOwnerOrderManager)this.getTheObject()).step();
+        ((PersistentOwnerOrderManager)this.getTheObject()).stepImplementation();
     }
     public void stopTask() 
 				throws PersistenceException{

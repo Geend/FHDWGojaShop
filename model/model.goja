@@ -11,7 +11,7 @@ abstract server Service {
 server OwnerService extends Service {
 
 	//Manager
-  	one-to-one (server-only myServer) RootProductGroup rootProductGroup;
+  	one-to-one (server-only myServer) ComponentManager componentManager;
 	CustomerDeliveryTimeManager customerDeliveryTimeManager##cdtm;
 	ProducerLst prmanager;
 	Settings settings;
@@ -29,7 +29,7 @@ server OwnerService extends Service {
 	void newProductGroup@@Neue_Produktgruppe(ProductGroup parent, String name) throws CycleException, DoubleDefinitionException;
 	void newProductGroup@@Neue_Produktgruppe(String name) throws DoubleDefinitionException, CycleException;
 	
-	void moveTo@@verschieben(SubComponent component, ProductGroup newParentGroup)throws CycleException;
+	void moveTo@@verschieben(Component component, ComponentContainer newParentGroup)throws CycleException;
 
 
 	no-view void changeArticleName(ArticleWrapper article, String newName);
@@ -61,13 +61,13 @@ server OwnerService extends Service {
 server CustomerService extends Service {
 
 	CustomerArticleLst articleLst;
-  	observe RootProductGroup rootProductGroup;
+  	observe ComponentManager componentManager;
 
 	CustomerDeliveryTimeManager customerDeliveryTimeManager##cdtm;
 
 	prior CustomerAccount account;
 	ShoppingCart cart;
-	CustomerOrderManager orderManager;
+	observe CustomerOrderManager orderManager;
 
 	//ShoppingCart
 	void addToCart@@In_den_Warenkorb(ArticleWrapper article checked, Integer quantity@@Anzahl);
@@ -90,6 +90,9 @@ server CustomerService extends Service {
 	void findArticle@@Artikel_suchen(String name);
 	void clearError(ErrorDisplay error);
 	void clear();
+
+	//Refresh
+	void reloadUI();
 }
 
 server CustomerRegisterService##crs extends Service {
@@ -134,7 +137,7 @@ singleton ReOrderManager covers BackgroundTask{
 }
 
 abstract class OrderManager{
-	public Order ** orders;
+	public observe Order ** orders;
 }
 
 class CustomerOrderManager##com extends OrderManager{
@@ -153,13 +156,13 @@ singleton BackgroundTaskManager##btm{
 	void addTask(BackgroundTask task);
 	void startTasks();
 	void stopTasks();
-	void step();
+	event void step();
 }
 
 abstract class BackgroundTask{
 	void startTask(Integer tickTime);
 	void stopTask();
-	abstract void step();
+	abstract event void step();
 }
 
 singleton OwnerOrderManager##oom extends OrderManager covers BackgroundTask{
@@ -177,42 +180,42 @@ singleton ReturnManager{
 
 hierarchy collapsed CompHierarchy;
 
+
+singleton ComponentManager implements ComponentContainer{
+	public Component ** components hierarchy CompHierarchy;
+}
+
 abstract class Component{
-	public-write prior indexed String name@@Name;
+	prior no-view ComponentContainer parent;
+	active event void moveTo(ComponentContainer container) throws CycleException;
 }
 
-interface SubComponent{	
-	prior no-view ProductGroup parent;	
-	active event void moveTo(ProductGroup productGroup) throws CycleException;
-}
-
-abstract class ProductGroup extends Component{	
-   public observe Component ** components hierarchy CompHierarchy;
-	
-	active event void newSubProductGroup##cspg(String name) throws CycleException, DoubleDefinitionException;
-	active void newArticle(String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
-
-
+interface ComponentContainer{
+ 
    event	void removeComponent(Component component);
 	event	void addComponent(Component component) throws CycleException;
+
+	active event ProductGroup newProductGroup##cspg(String name) throws CycleException, DoubleDefinitionException;
+	active event ArticleWrapper newArticle(String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
+
 }
 
+class ProductGroup extends Component implements ComponentContainer{
+	public Component ** components hierarchy CompHierarchy;
+	public-write prior indexed String name@@Name;
 
-singleton RootProductGroup extends ProductGroup{
 }
 
-class SubProductGroup extends ProductGroup implements SubComponent {	
-}
-
-class ArticleWrapper extends Component implements SubComponent{
-  public server-only prior Article article;
+class ArticleWrapper extends Component{
+   public prior server-only Article article;
 
 	derived Fraction price@@Preis;
-	active event void changeArticleName(String newName);
-	active void changePrice(Fraction newPrice);
+	derived String name@@Name;
 }
 
-class Article extends Component{
+class Article{
+	public-write prior indexed String name@@Name;
+
 	public-write prior Fraction price@@Preis;
 	public-write prior Integer minStock@@Mindestlagerbestand;
 	public-write prior Integer maxStock@@Maximallagerbestand;
@@ -237,7 +240,8 @@ class Article extends Component{
 // Article States -- region begin
 
 abstract class ArticleState{
-}
+}
+
 class NewCreated extends ArticleState{
 }
 class InSale extends ArticleState{
@@ -248,7 +252,8 @@ class NotInSale extends ArticleState{
 }
 
 // Article States -- region end
-
+
+
 
 
 abstract class QuantifiedArticle{
@@ -280,7 +285,8 @@ class OrderQuantifiedArticleMarkedForReturnState##ooamafrs extends OrderQuantifi
 
 
 
-class ReturnQuantifiedArticle##rqa extends QuantifiedArticle{
+
+class ReturnQuantifiedArticle##rqa extends QuantifiedArticle{
 
 }
 
@@ -306,7 +312,8 @@ class CustomerAccount{
 
 }
 
-class CustomerDeliveryTime{
+
+class CustomerDeliveryTime{
 	prior public String name;
 	prior public-write Fraction price;
 	prior public-write Integer deliveryTime;
@@ -326,7 +333,7 @@ class Order{
 
 	public-write Fraction totalPrice;
 	
-	prior public-write OrderState state;
+	prior public-write OrderStatus state;
 }
 
 class ArticleReturn{
@@ -337,35 +344,36 @@ class ArticleReturn{
 
 }
 
-abstract class OrderState{
+abstract class OrderStatus{
 }
-class ProcessingOrderState##pos extends OrderState{
+
+class ProcessingOrderState##pos extends OrderStatus{
 }
-class InTransitOrderState##itos extends OrderState{
+class InTransitOrderState##itos extends OrderStatus{
 	public-write prior Integer ticksLeft;
 }
 
-class PreOrderState extends OrderState{
+class PreOrderState extends OrderStatus{
 }
-class WaitingForAcceptOrderState##wfao extends OrderState{
+class WaitingForAcceptOrderState##wfao extends OrderStatus{
 	public-write prior Integer ticksLeft;
 }
-class ArticlesInReturnOrderState##airos extends OrderState{
+class ArticlesInReturnOrderState##airos extends OrderStatus{
 	public-write prior Integer ticksLeft;
 }
 
 
-class FinishedOrderState##fos extends OrderState{
+class FinishedOrderState##fos extends OrderStatus{
 }
 
-// main model classes -- region end
+
+// main model classes -- region end
 
 exception DoubleDefinitionException{}
 exception UserAlreadyExistsException{}
-exception NotEnoughStockException{}
+
+exception NotEnoughStockException{}
 exception NotEnoughMoneyException{}
 exception EmptyCartException{}
 exception OrderNotYetArrivedException{}
 }
-
-

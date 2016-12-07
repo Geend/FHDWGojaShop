@@ -103,6 +103,10 @@ public class ReOrderManagerICProxi extends PersistentInCacheProxiOptimistic impl
 				throws PersistenceException{
         ((PersistentReOrderManager)this.getTheObject()).register(observee);
     }
+    public void step() 
+				throws PersistenceException{
+        ((PersistentReOrderManager)this.getTheObject()).step();
+    }
     public void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         ((PersistentReOrderManager)this.getTheObject()).updateObservers(event);
@@ -131,9 +135,9 @@ public class ReOrderManagerICProxi extends PersistentInCacheProxiOptimistic impl
 				throws PersistenceException{
         ((PersistentReOrderManager)this.getTheObject()).startTask(tickTime);
     }
-    public void step() 
+    public void stepImplementation() 
 				throws PersistenceException{
-        ((PersistentReOrderManager)this.getTheObject()).step();
+        ((PersistentReOrderManager)this.getTheObject()).stepImplementation();
     }
     public void stopTask() 
 				throws PersistenceException{

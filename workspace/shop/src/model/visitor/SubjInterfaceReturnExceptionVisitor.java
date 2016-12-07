@@ -3,8 +3,9 @@ package model.visitor;
 
 import persistence.*;
 
-public interface SubjInterfaceReturnExceptionVisitor<R, E extends model.UserException> extends ArticleStateReturnExceptionVisitor<R, E> ,BackgroundTaskReturnExceptionVisitor<R, E> ,ComponentReturnExceptionVisitor<R, E> ,OrderManagerReturnExceptionVisitor<R, E> ,OrderQuantifiedArticleStateReturnExceptionVisitor<R, E> ,OrderStateReturnExceptionVisitor<R, E> ,QuantifiedArticleReturnExceptionVisitor<R, E> ,ServiceReturnExceptionVisitor<R, E> ,SubComponentReturnExceptionVisitor<R, E> {
+public interface SubjInterfaceReturnExceptionVisitor<R, E extends model.UserException> extends ArticleStateReturnExceptionVisitor<R, E> ,BackgroundTaskReturnExceptionVisitor<R, E> ,ComponentReturnExceptionVisitor<R, E> ,ComponentContainerReturnExceptionVisitor<R, E> ,OrderManagerReturnExceptionVisitor<R, E> ,OrderQuantifiedArticleStateReturnExceptionVisitor<R, E> ,OrderStatusReturnExceptionVisitor<R, E> ,QuantifiedArticleReturnExceptionVisitor<R, E> ,ServiceReturnExceptionVisitor<R, E> {
     
+    public R handleArticle(Article4Public article) throws PersistenceException, E;
     public R handleArticleReturn(ArticleReturn4Public articleReturn) throws PersistenceException, E;
     public R handleBackgroundTaskManager(BackgroundTaskManager4Public backgroundTaskManager) throws PersistenceException, E;
     public R handleCustomerAccount(CustomerAccount4Public customerAccount) throws PersistenceException, E;

@@ -4,7 +4,7 @@ package persistence;
 
 import model.visitor.*;
 
-public class ArticlesInReturnOrderStateProxi extends OrderStateProxi implements PersistentArticlesInReturnOrderState{
+public class ArticlesInReturnOrderStateProxi extends OrderStatusProxi implements PersistentArticlesInReturnOrderState{
     
     public ArticlesInReturnOrderStateProxi(long objectId) {
         super(objectId);
@@ -28,16 +28,16 @@ public class ArticlesInReturnOrderStateProxi extends OrderStateProxi implements 
         return ((PersistentArticlesInReturnOrderState)this.getTheObject()).getThis();
     }
     
-    public void accept(OrderStateVisitor visitor) throws PersistenceException {
+    public void accept(OrderStatusVisitor visitor) throws PersistenceException {
         visitor.handleArticlesInReturnOrderState(this);
     }
-    public <R> R accept(OrderStateReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(OrderStatusReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleArticlesInReturnOrderState(this);
     }
-    public <E extends model.UserException>  void accept(OrderStateExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(OrderStatusExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleArticlesInReturnOrderState(this);
     }
-    public <R, E extends model.UserException> R accept(OrderStateReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(OrderStatusReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleArticlesInReturnOrderState(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {

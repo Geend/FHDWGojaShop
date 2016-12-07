@@ -7,7 +7,7 @@ import model.visitor.*;
 
 /* Additional import section end */
 
-public class FinishedOrderState extends model.OrderState implements PersistentFinishedOrderState{
+public class FinishedOrderState extends model.OrderStatus implements PersistentFinishedOrderState{
     
     
     public static FinishedOrderState4Public createFinishedOrderState() throws PersistenceException{
@@ -69,9 +69,9 @@ public class FinishedOrderState extends model.OrderState implements PersistentFi
         return false;
     }
     
-    public FinishedOrderState(SubjInterface subService,PersistentOrderState This,long id) throws PersistenceException {
+    public FinishedOrderState(SubjInterface subService,PersistentOrderStatus This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((SubjInterface)subService,(PersistentOrderState)This,id);        
+        super((SubjInterface)subService,(PersistentOrderStatus)This,id);        
     }
     
     static public long getTypeId() {
@@ -98,16 +98,16 @@ public class FinishedOrderState extends model.OrderState implements PersistentFi
         }return (PersistentFinishedOrderState)this.This;
     }
     
-    public void accept(OrderStateVisitor visitor) throws PersistenceException {
+    public void accept(OrderStatusVisitor visitor) throws PersistenceException {
         visitor.handleFinishedOrderState(this);
     }
-    public <R> R accept(OrderStateReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(OrderStatusReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleFinishedOrderState(this);
     }
-    public <E extends model.UserException>  void accept(OrderStateExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(OrderStatusExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleFinishedOrderState(this);
     }
-    public <R, E extends model.UserException> R accept(OrderStateReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(OrderStatusReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleFinishedOrderState(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {

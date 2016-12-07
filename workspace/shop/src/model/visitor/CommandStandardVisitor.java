@@ -5,14 +5,8 @@ import persistence.*;
 
 public abstract class CommandStandardVisitor implements CommandVisitor {
     
-    public void handleNewSubProductGroupCommand(NewSubProductGroupCommand4Public newSubProductGroupCommand) throws PersistenceException{
-        this.standardHandling(newSubProductGroupCommand);
-    }
     public void handleCreateCustomerDeliveryTimeCommand(CreateCustomerDeliveryTimeCommand4Public createCustomerDeliveryTimeCommand) throws PersistenceException{
         this.standardHandling(createCustomerDeliveryTimeCommand);
-    }
-    public void handleChangePriceCommand(ChangePriceCommand4Public changePriceCommand) throws PersistenceException{
-        this.standardHandling(changePriceCommand);
     }
     public void handleAddArticleReturnCommand(AddArticleReturnCommand4Public addArticleReturnCommand) throws PersistenceException{
         this.standardHandling(addArticleReturnCommand);
@@ -31,6 +25,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     }
     public void handleRemoveArticleCommand(RemoveArticleCommand4Public removeArticleCommand) throws PersistenceException{
         this.standardHandling(removeArticleCommand);
+    }
+    public void handleNewProductGroupCommand(NewProductGroupCommand4Public newProductGroupCommand) throws PersistenceException{
+        this.standardHandling(newProductGroupCommand);
     }
     public void handleNewArticleCommand(NewArticleCommand4Public newArticleCommand) throws PersistenceException{
         this.standardHandling(newArticleCommand);
@@ -52,9 +49,6 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     }
     public void handleStopSellingCommand(StopSellingCommand4Public stopSellingCommand) throws PersistenceException{
         this.standardHandling(stopSellingCommand);
-    }
-    public void handleChangeArticleNameCommand(ChangeArticleNameCommand4Public changeArticleNameCommand) throws PersistenceException{
-        this.standardHandling(changeArticleNameCommand);
     }
     public void handleMoveToCommand(MoveToCommand4Public moveToCommand) throws PersistenceException{
         this.standardHandling(moveToCommand);

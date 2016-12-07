@@ -4,5 +4,5 @@ public interface ArticleMssgs {
     void accept(ArticleMssgsVisitor visitor) throws persistence.PersistenceException;
 }
 
-interface ArticleDOWNMssgs extends ComponentDOWNMssgs, ArticleMssgs{}
+interface ArticleDOWNMssgs extends Mssgs, ArticleMssgs{}
 interface ArticleUPMssgs extends Mssgs, ArticleMssgs{}

@@ -163,9 +163,9 @@ public class CONCBackgroundTask extends model.BackgroundTask implements Persiste
 				throws PersistenceException{
         super.initializeOnInstantiation();
     }
-    public void step() 
+    public void stepImplementation() 
 				throws PersistenceException{
-        getThis().step();
+        getThis().stepImplementation();
     }
     
     

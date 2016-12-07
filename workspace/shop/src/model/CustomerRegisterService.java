@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 import java.text.MessageFormat;
 import java.time.Instant;
 
-import model.meta.RootProductGroupMssgs;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
@@ -34,7 +33,6 @@ import persistence.ObsInterface;
 import persistence.PersistenceException;
 import persistence.PersistentCustomerRegisterService;
 import persistence.PersistentProxi;
-import persistence.PersistentRootProductGroup;
 import persistence.PersistentService;
 import persistence.RegisterCommand4Public;
 import persistence.SubjInterface;

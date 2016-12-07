@@ -12,10 +12,10 @@ public class Order extends ViewObject implements OrderView{
     protected java.util.Vector<OrderQuantifiedArticleView> articles;
     protected CustomerDeliveryTimeView customerDeliveryTime;
     protected common.Fraction totalPrice;
-    protected OrderStateView state;
+    protected OrderStatusView state;
     protected ArticleReturnView myOrder;
     
-    public Order(java.util.Vector<OrderQuantifiedArticleView> articles,CustomerDeliveryTimeView customerDeliveryTime,common.Fraction totalPrice,OrderStateView state,ArticleReturnView myOrder,long id, long classId) {
+    public Order(java.util.Vector<OrderQuantifiedArticleView> articles,CustomerDeliveryTimeView customerDeliveryTime,common.Fraction totalPrice,OrderStatusView state,ArticleReturnView myOrder,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.articles = articles;
@@ -51,10 +51,10 @@ public class Order extends ViewObject implements OrderView{
     public void setTotalPrice(common.Fraction newValue) throws ModelException {
         this.totalPrice = newValue;
     }
-    public OrderStateView getState()throws ModelException{
+    public OrderStatusView getState()throws ModelException{
         return this.state;
     }
-    public void setState(OrderStateView newValue) throws ModelException {
+    public void setState(OrderStatusView newValue) throws ModelException {
         this.state = newValue;
     }
     public ArticleReturnView getMyOrder()throws ModelException{
@@ -83,7 +83,7 @@ public class Order extends ViewObject implements OrderView{
         if (customerDeliveryTime != null) {
             ((ViewProxi)customerDeliveryTime).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(customerDeliveryTime.getClassId(), customerDeliveryTime.getId())));
         }
-        OrderStateView state = this.getState();
+        OrderStatusView state = this.getState();
         if (state != null) {
             ((ViewProxi)state).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(state.getClassId(), state.getId())));
         }

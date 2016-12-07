@@ -5,7 +5,7 @@ import viewClient.*;
 
 import view.visitor.*;
 
-public class ArticleProxi extends ComponentProxi implements ArticleView{
+public class ArticleProxi extends ViewProxi implements ArticleView{
     
     public ArticleProxi(long objectId, long classId, ExceptionAndEventHandler connectionKey) {
         super(objectId, classId, connectionKey);
@@ -57,6 +57,12 @@ public class ArticleProxi extends ComponentProxi implements ArticleView{
         return -1;
     }
     
+    public String getName()throws ModelException{
+        return ((Article)this.getTheObject()).getName();
+    }
+    public void setName(String newValue) throws ModelException {
+        ((Article)this.getTheObject()).setName(newValue);
+    }
     public common.Fraction getPrice()throws ModelException{
         return ((Article)this.getTheObject()).getPrice();
     }
@@ -106,18 +112,6 @@ public class ArticleProxi extends ComponentProxi implements ArticleView{
         return ((Article)this.getTheObject()).getProducerName();
     }
     
-    public void accept(ComponentVisitor visitor) throws ModelException {
-        visitor.handleArticle(this);
-    }
-    public <R> R accept(ComponentReturnVisitor<R>  visitor) throws ModelException {
-         return visitor.handleArticle(this);
-    }
-    public <E extends view.UserException>  void accept(ComponentExceptionVisitor<E> visitor) throws ModelException, E {
-         visitor.handleArticle(this);
-    }
-    public <R, E extends view.UserException> R accept(ComponentReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
-         return visitor.handleArticle(this);
-    }
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleArticle(this);
     }

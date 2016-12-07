@@ -2,10 +2,11 @@ package persistence;
 
 import java.util.*;
 
-public class ComponentList  extends ComponentSearchList{
+public class ComponentList {
 
+	protected Vector<Component4Public> data; //List of proxies
 	protected ComponentList() {
-		super();
+		this.data = new Vector<Component4Public>();
 	}
 	public Iterator<Component4Public> iterator(PersistentListProxi<Component4Public> listProxi) {
 		return new PersistentListIterator<Component4Public>(listProxi, this.data);

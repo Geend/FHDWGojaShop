@@ -13,6 +13,8 @@ public interface BackgroundTask4Public extends Anything, SubjInterface, Abstract
     
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
+    public void step() 
+				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void initializeOnCreation() 
@@ -21,7 +23,7 @@ public interface BackgroundTask4Public extends Anything, SubjInterface, Abstract
 				throws PersistenceException;
     public void startTask(final long tickTime) 
 				throws PersistenceException;
-    public void step() 
+    public void stepImplementation() 
 				throws PersistenceException;
     public void stopTask() 
 				throws PersistenceException;

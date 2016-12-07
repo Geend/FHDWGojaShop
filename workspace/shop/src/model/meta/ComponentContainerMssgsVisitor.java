@@ -1,0 +1,23 @@
+package model.meta;
+
+public interface ComponentContainerMssgsVisitor extends ComponentContainerDOWNMssgsVisitor, ComponentContainerUPMssgsVisitor {}
+
+
+interface ComponentContainerDOWNMssgsVisitor extends ProductGroupDOWNMssgsVisitor, ComponentManagerDOWNMssgsVisitor, ComponentUPMssgsVisitor {
+
+    public void handleComponentContainerAddComponentComponentMssg(ComponentContainerAddComponentComponentMssg event) throws persistence.PersistenceException;
+    public void handleComponentContainerNewArticleStringFractionIntegerIntegerIntegerProducerMssg(ComponentContainerNewArticleStringFractionIntegerIntegerIntegerProducerMssg event) throws persistence.PersistenceException;
+    public void handleComponentContainerNewProductGroupStringMssg(ComponentContainerNewProductGroupStringMssg event) throws persistence.PersistenceException;
+    public void handleComponentContainerRemoveComponentComponentMssg(ComponentContainerRemoveComponentComponentMssg event) throws persistence.PersistenceException;
+    
+}
+
+
+interface ComponentContainerUPMssgsVisitor  {
+
+    public void handleComponentContainerAddComponentComponentMssg(ComponentContainerAddComponentComponentMssg event) throws persistence.PersistenceException;
+    public void handleComponentContainerNewArticleStringFractionIntegerIntegerIntegerProducerMssg(ComponentContainerNewArticleStringFractionIntegerIntegerIntegerProducerMssg event) throws persistence.PersistenceException;
+    public void handleComponentContainerNewProductGroupStringMssg(ComponentContainerNewProductGroupStringMssg event) throws persistence.PersistenceException;
+    public void handleComponentContainerRemoveComponentComponentMssg(ComponentContainerRemoveComponentComponentMssg event) throws persistence.PersistenceException;
+    
+}

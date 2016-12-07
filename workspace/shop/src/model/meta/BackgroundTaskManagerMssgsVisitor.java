@@ -5,11 +5,13 @@ public interface BackgroundTaskManagerMssgsVisitor extends BackgroundTaskManager
 
 interface BackgroundTaskManagerDOWNMssgsVisitor  {
 
+    public void handleBackgroundTaskManagerStepMssg(BackgroundTaskManagerStepMssg event) throws persistence.PersistenceException;
     
 }
 
 
 interface BackgroundTaskManagerUPMssgsVisitor  {
 
+    public void handleBackgroundTaskManagerStepMssg(BackgroundTaskManagerStepMssg event) throws persistence.PersistenceException;
     
 }

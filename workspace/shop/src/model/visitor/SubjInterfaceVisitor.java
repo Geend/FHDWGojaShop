@@ -3,8 +3,9 @@ package model.visitor;
 
 import persistence.*;
 
-public interface SubjInterfaceVisitor extends ArticleStateVisitor,BackgroundTaskVisitor,ComponentVisitor,OrderManagerVisitor,OrderQuantifiedArticleStateVisitor,OrderStateVisitor,QuantifiedArticleVisitor,ServiceVisitor,SubComponentVisitor{
+public interface SubjInterfaceVisitor extends ArticleStateVisitor,BackgroundTaskVisitor,ComponentVisitor,ComponentContainerVisitor,OrderManagerVisitor,OrderQuantifiedArticleStateVisitor,OrderStatusVisitor,QuantifiedArticleVisitor,ServiceVisitor{
     
+    public void handleArticle(Article4Public article) throws PersistenceException;
     public void handleArticleReturn(ArticleReturn4Public articleReturn) throws PersistenceException;
     public void handleBackgroundTaskManager(BackgroundTaskManager4Public backgroundTaskManager) throws PersistenceException;
     public void handleCustomerAccount(CustomerAccount4Public customerAccount) throws PersistenceException;

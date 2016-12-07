@@ -12,11 +12,11 @@ public abstract class ComponentICProxi extends PersistentInCacheProxiOptimistic 
     }
     
     
-    public String getName() throws PersistenceException {
-        return ((PersistentComponent)this.getTheObject()).getName();
+    public ComponentContainer getParent() throws PersistenceException {
+        return ((PersistentComponent)this.getTheObject()).getParent();
     }
-    public void setName(String newValue) throws PersistenceException {
-        ((PersistentComponent)this.getTheObject()).setName(newValue);
+    public void setParent(ComponentContainer newValue) throws PersistenceException {
+        ((PersistentComponent)this.getTheObject()).setParent(newValue);
     }
     public SubjInterface getSubService() throws PersistenceException {
         return ((PersistentComponent)this.getTheObject()).getSubService();
@@ -35,6 +35,14 @@ public abstract class ComponentICProxi extends PersistentInCacheProxiOptimistic 
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentComponent)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void moveTo(final ComponentContainer container) 
+				throws model.CycleException, PersistenceException{
+        ((PersistentComponent)this.getTheObject()).moveTo(container);
+    }
+    public void moveTo(final ComponentContainer container, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentComponent)this.getTheObject()).moveTo(container, invoker);
     }
     public void register(final ObsInterface observee) 
 				throws PersistenceException{
@@ -63,6 +71,10 @@ public abstract class ComponentICProxi extends PersistentInCacheProxiOptimistic 
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentComponent)this.getTheObject()).initializeOnInstantiation();
+    }
+    public void moveToImplementation(final ComponentContainer container) 
+				throws model.CycleException, PersistenceException{
+        ((PersistentComponent)this.getTheObject()).moveToImplementation(container);
     }
     public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{

@@ -6,8 +6,8 @@ import view.visitor.*;
 
 public interface OwnerServiceView extends ServiceView {
     
-    public RootProductGroupView getRootProductGroup()throws ModelException;
-    public void setRootProductGroup(RootProductGroupView newValue) throws ModelException ;
+    public ComponentManagerView getComponentManager()throws ModelException;
+    public void setComponentManager(ComponentManagerView newValue) throws ModelException ;
     public CustomerDeliveryTimeManagerView getCustomerDeliveryTimeManager()throws ModelException;
     public void setCustomerDeliveryTimeManager(CustomerDeliveryTimeManagerView newValue) throws ModelException ;
     public ProducerLstView getPrmanager()throws ModelException;

@@ -7,7 +7,7 @@ import view.visitor.*;
 
 /* Additional import section end */
 
-public class ArticlesInReturnOrderState extends view.objects.OrderState implements ArticlesInReturnOrderStateView{
+public class ArticlesInReturnOrderState extends view.objects.OrderStatus implements ArticlesInReturnOrderStateView{
     
     protected long ticksLeft;
     
@@ -32,16 +32,16 @@ public class ArticlesInReturnOrderState extends view.objects.OrderState implemen
         this.ticksLeft = newValue;
     }
     
-    public void accept(OrderStateVisitor visitor) throws ModelException {
+    public void accept(OrderStatusVisitor visitor) throws ModelException {
         visitor.handleArticlesInReturnOrderState(this);
     }
-    public <R> R accept(OrderStateReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(OrderStatusReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleArticlesInReturnOrderState(this);
     }
-    public <E extends view.UserException>  void accept(OrderStateExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends view.UserException>  void accept(OrderStatusExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleArticlesInReturnOrderState(this);
     }
-    public <R, E extends view.UserException> R accept(OrderStateReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends view.UserException> R accept(OrderStatusReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleArticlesInReturnOrderState(this);
     }
     public void accept(AnythingVisitor visitor) throws ModelException {

@@ -7,7 +7,7 @@ import model.visitor.*;
 
 /* Additional import section end */
 
-public class InTransitOrderState extends model.OrderState implements PersistentInTransitOrderState{
+public class InTransitOrderState extends model.OrderStatus implements PersistentInTransitOrderState{
     
     
     public static InTransitOrderState4Public createInTransitOrderState(long ticksLeft) throws PersistenceException{
@@ -74,9 +74,9 @@ public class InTransitOrderState extends model.OrderState implements PersistentI
     }
     protected long ticksLeft;
     
-    public InTransitOrderState(SubjInterface subService,PersistentOrderState This,long ticksLeft,long id) throws PersistenceException {
+    public InTransitOrderState(SubjInterface subService,PersistentOrderStatus This,long ticksLeft,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((SubjInterface)subService,(PersistentOrderState)This,id);
+        super((SubjInterface)subService,(PersistentOrderStatus)This,id);
         this.ticksLeft = ticksLeft;        
     }
     
@@ -111,16 +111,16 @@ public class InTransitOrderState extends model.OrderState implements PersistentI
         }return (PersistentInTransitOrderState)this.This;
     }
     
-    public void accept(OrderStateVisitor visitor) throws PersistenceException {
+    public void accept(OrderStatusVisitor visitor) throws PersistenceException {
         visitor.handleInTransitOrderState(this);
     }
-    public <R> R accept(OrderStateReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(OrderStatusReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleInTransitOrderState(this);
     }
-    public <E extends model.UserException>  void accept(OrderStateExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(OrderStatusExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleInTransitOrderState(this);
     }
-    public <R, E extends model.UserException> R accept(OrderStateReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(OrderStatusReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleInTransitOrderState(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {

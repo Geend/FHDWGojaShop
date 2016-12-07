@@ -61,13 +61,13 @@ public class CustomerService extends model.Service implements PersistentCustomer
                     if(forGUI && articleLst.hasEssentialFields())articleLst.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
-            AbstractPersistentRoot rootProductGroup = (AbstractPersistentRoot)this.getRootProductGroup();
-            if (rootProductGroup != null) {
-                result.put("rootProductGroup", rootProductGroup.createProxiInformation(false, essentialLevel <= 1));
+            AbstractPersistentRoot componentManager = (AbstractPersistentRoot)this.getComponentManager();
+            if (componentManager != null) {
+                result.put("componentManager", componentManager.createProxiInformation(false, essentialLevel <= 1));
                 if(depth > 1) {
-                    rootProductGroup.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                    componentManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
                 }else{
-                    if(forGUI && rootProductGroup.hasEssentialFields())rootProductGroup.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                    if(forGUI && componentManager.hasEssentialFields())componentManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
             AbstractPersistentRoot customerDeliveryTimeManager = (AbstractPersistentRoot)this.getCustomerDeliveryTimeManager();
@@ -117,7 +117,7 @@ public class CustomerService extends model.Service implements PersistentCustomer
         result = new CustomerService(this.subService, 
                                      this.This, 
                                      this.articleLst, 
-                                     this.rootProductGroup, 
+                                     this.componentManager, 
                                      this.customerDeliveryTimeManager, 
                                      this.account, 
                                      this.cart, 
@@ -133,17 +133,17 @@ public class CustomerService extends model.Service implements PersistentCustomer
         return false;
     }
     protected PersistentCustomerArticleLst articleLst;
-    protected PersistentCustomerServiceRootProductGroup rootProductGroup;
+    protected PersistentCustomerServiceComponentManager componentManager;
     protected PersistentCustomerDeliveryTimeManager customerDeliveryTimeManager;
     protected PersistentCustomerAccount account;
     protected PersistentShoppingCart cart;
-    protected PersistentCustomerOrderManager orderManager;
+    protected PersistentCustomerServiceOrderManager orderManager;
     
-    public CustomerService(SubjInterface subService,PersistentService This,PersistentCustomerArticleLst articleLst,PersistentCustomerServiceRootProductGroup rootProductGroup,PersistentCustomerDeliveryTimeManager customerDeliveryTimeManager,PersistentCustomerAccount account,PersistentShoppingCart cart,PersistentCustomerOrderManager orderManager,long id) throws PersistenceException {
+    public CustomerService(SubjInterface subService,PersistentService This,PersistentCustomerArticleLst articleLst,PersistentCustomerServiceComponentManager componentManager,PersistentCustomerDeliveryTimeManager customerDeliveryTimeManager,PersistentCustomerAccount account,PersistentShoppingCart cart,PersistentCustomerServiceOrderManager orderManager,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super((SubjInterface)subService,(PersistentService)This,id);
         this.articleLst = articleLst;
-        this.rootProductGroup = rootProductGroup;
+        this.componentManager = componentManager;
         this.customerDeliveryTimeManager = customerDeliveryTimeManager;
         this.account = account;
         this.cart = cart;
@@ -167,9 +167,9 @@ public class CustomerService extends model.Service implements PersistentCustomer
             this.getArticleLst().store();
             ConnectionHandler.getTheConnectionHandler().theCustomerServiceFacade.articleLstSet(this.getId(), getArticleLst());
         }
-        if(this.rootProductGroup != null){
-            this.rootProductGroup.store();
-            ConnectionHandler.getTheConnectionHandler().theCustomerServiceFacade.rootProductGroupSet(this.getId(), rootProductGroup);
+        if(this.componentManager != null){
+            this.componentManager.store();
+            ConnectionHandler.getTheConnectionHandler().theCustomerServiceFacade.componentManagerSet(this.getId(), componentManager);
         }
         if(this.getCustomerDeliveryTimeManager() != null){
             this.getCustomerDeliveryTimeManager().store();
@@ -183,9 +183,9 @@ public class CustomerService extends model.Service implements PersistentCustomer
             this.getCart().store();
             ConnectionHandler.getTheConnectionHandler().theCustomerServiceFacade.cartSet(this.getId(), getCart());
         }
-        if(this.getOrderManager() != null){
-            this.getOrderManager().store();
-            ConnectionHandler.getTheConnectionHandler().theCustomerServiceFacade.orderManagerSet(this.getId(), getOrderManager());
+        if(this.orderManager != null){
+            this.orderManager.store();
+            ConnectionHandler.getTheConnectionHandler().theCustomerServiceFacade.orderManagerSet(this.getId(), orderManager);
         }
         
     }
@@ -204,15 +204,15 @@ public class CustomerService extends model.Service implements PersistentCustomer
             ConnectionHandler.getTheConnectionHandler().theCustomerServiceFacade.articleLstSet(this.getId(), newValue);
         }
     }
-    public void setRootProductGroup(CustomerServiceRootProductGroup4Public newValue) throws PersistenceException {
+    public void setComponentManager(CustomerServiceComponentManager4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.rootProductGroup)) return;
+        if(newValue.isTheSameAs(this.componentManager)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.rootProductGroup = (PersistentCustomerServiceRootProductGroup)PersistentProxi.createProxi(objectId, classId);
+        this.componentManager = (PersistentCustomerServiceComponentManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theCustomerServiceFacade.rootProductGroupSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theCustomerServiceFacade.componentManagerSet(this.getId(), newValue);
         }
     }
     public CustomerDeliveryTimeManager4Public getCustomerDeliveryTimeManager() throws PersistenceException {
@@ -257,15 +257,12 @@ public class CustomerService extends model.Service implements PersistentCustomer
             ConnectionHandler.getTheConnectionHandler().theCustomerServiceFacade.cartSet(this.getId(), newValue);
         }
     }
-    public CustomerOrderManager4Public getOrderManager() throws PersistenceException {
-        return this.orderManager;
-    }
-    public void setOrderManager(CustomerOrderManager4Public newValue) throws PersistenceException {
+    public void setOrderManager(CustomerServiceOrderManager4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.orderManager)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.orderManager = (PersistentCustomerOrderManager)PersistentProxi.createProxi(objectId, classId);
+        this.orderManager = (PersistentCustomerServiceOrderManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCustomerServiceFacade.orderManagerSet(this.getId(), newValue);
@@ -341,7 +338,7 @@ public class CustomerService extends model.Service implements PersistentCustomer
     }
     public int getLeafInfo() throws PersistenceException{
         if (this.getArticleLst() != null) return 1;
-        if (this.getRootProductGroup() != null) return 1;
+        if (this.getComponentManager() != null) return 1;
         if (this.getCustomerDeliveryTimeManager() != null) return 1;
         if (this.getAccount() != null) return 1;
         if (this.getCart() != null) return 1;
@@ -367,10 +364,15 @@ public class CustomerService extends model.Service implements PersistentCustomer
 		}
 		subService.deregister(observee);
     }
-    public RootProductGroup4Public getRootProductGroup() 
+    public ComponentManager4Public getComponentManager() 
 				throws PersistenceException{
-        if (this.rootProductGroup== null) return null;
-		return this.rootProductGroup.getObservee();
+        if (this.componentManager== null) return null;
+		return this.componentManager.getObservee();
+    }
+    public CustomerOrderManager4Public getOrderManager() 
+				throws PersistenceException{
+        if (this.orderManager== null) return null;
+		return this.orderManager.getObservee();
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -388,13 +390,21 @@ public class CustomerService extends model.Service implements PersistentCustomer
 		}
 		subService.register(observee);
     }
-    public void setRootProductGroup(final RootProductGroup4Public rootProductGroup) 
+    public void setComponentManager(final ComponentManager4Public componentManager) 
 				throws PersistenceException{
-        if (this.rootProductGroup == null) {
-			this.setRootProductGroup(model.CustomerServiceRootProductGroup.createCustomerServiceRootProductGroup(this.isDelayed$Persistence()));
-			this.rootProductGroup.setObserver(getThis());
+        if (this.componentManager == null) {
+			this.setComponentManager(model.CustomerServiceComponentManager.createCustomerServiceComponentManager(this.isDelayed$Persistence()));
+			this.componentManager.setObserver(getThis());
 		}
-		this.rootProductGroup.setObservee(rootProductGroup);
+		this.componentManager.setObservee(componentManager);
+    }
+    public void setOrderManager(final CustomerOrderManager4Public orderManager) 
+				throws PersistenceException{
+        if (this.orderManager == null) {
+			this.setOrderManager(model.CustomerServiceOrderManager.createCustomerServiceOrderManager(this.isDelayed$Persistence()));
+			this.orderManager.setObserver(getThis());
+		}
+		this.orderManager.setObservee(orderManager);
     }
     public synchronized void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
@@ -433,6 +443,11 @@ public class CustomerService extends model.Service implements PersistentCustomer
         getThis().getArticleLst().clear();
         getThis().signalChanged(true);
     }
+    public void componentManager_update(final model.meta.ComponentManagerMssgs event) 
+				throws PersistenceException{
+        //TODO: implement method: componentManager_update
+        
+    }
     public void connected(final String user) 
 				throws PersistenceException{
     }
@@ -455,7 +470,7 @@ public class CustomerService extends model.Service implements PersistentCustomer
 				throws PersistenceException{
         super.initializeOnCreation();
         getThis().setCart(ShoppingCart.createShoppingCart());
-        getThis().setRootProductGroup( RootProductGroup.getTheRootProductGroup());
+        getThis().setComponentManager(ComponentManager.getTheComponentManager());
         getThis().setCustomerDeliveryTimeManager(CustomerDeliveryTimeManager.getTheCustomerDeliveryTimeManager());
         getThis().setOrderManager(CustomerOrderManager.createCustomerOrderManager(getThis().getAccount()));
         getThis().setArticleLst(CustomerArticleLst.createCustomerArticleLst());
@@ -469,6 +484,11 @@ public class CustomerService extends model.Service implements PersistentCustomer
         article.markForReturn();
         getThis().signalChanged(true);
     }
+    public void orderManager_update(final model.meta.CustomerOrderManagerMssgs event) 
+				throws PersistenceException{
+        //TODO: implement method: orderManager_update
+        
+    }
     public void order(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
 				throws model.EmptyCartException, model.NotEnoughStockException, model.NotEnoughMoneyException, PersistenceException{
         getThis().getOrderManager().newOrder(cart, customerDeliveryTime,getThis());
@@ -481,13 +501,13 @@ public class CustomerService extends model.Service implements PersistentCustomer
         getThis().setCart(ShoppingCart.createShoppingCart());
 
     }
+    public void reloadUI() 
+				throws PersistenceException{
+        //getThis().signalChanged(true);
+    }
     public void removeFromCart(final ShoppingCartQuantifiedArticle4Public article) 
 				throws PersistenceException{
         getThis().getCart().removeArticle(article,getThis());
-    }
-    public void rootProductGroup_update(final model.meta.RootProductGroupMssgs event) 
-				throws PersistenceException{
-        getThis().signalChanged(true);
     }
     public void unmarkForReturn(final OrderQuantifiedArticle4Public article) 
 				throws PersistenceException{

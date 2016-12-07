@@ -1,6 +1,6 @@
 package persistence;
 
-public abstract class ProductGroupListEntryProxi extends ProductGroupProxi implements PersistentProductGroupListEntryProxi {
+public class ProductGroupListEntryProxi extends ProductGroupProxi implements PersistentProductGroupListEntryProxi {
 
   long entryId;
 

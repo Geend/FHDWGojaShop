@@ -1,17 +1,13 @@
 
 package model;
 
-import model.meta.RootProductGroupMssgs;
-import persistence.AbstractPersistentRoot;
 import persistence.Anything;
 import persistence.Command;
 import persistence.ConnectionHandler;
 import persistence.PersistenceException;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
-import persistence.PersistentRootProductGroup;
 import persistence.PersistentService;
-import persistence.RootProductGroup4Public;
 import persistence.Service4Public;
 import persistence.Service_ErrorsProxi;
 import persistence.SubjInterface;
@@ -184,9 +180,6 @@ public abstract class Service extends PersistentObject implements PersistentServ
     /* Start of protected part that is not overridden by persistence generator */
 
 
-    public void rootProductGroup_update(RootProductGroupMssgs event) throws PersistenceException {
-
-    }
     /* End of protected part that is not overridden by persistence generator */
     
 }

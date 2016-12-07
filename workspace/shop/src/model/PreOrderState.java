@@ -7,7 +7,7 @@ import model.visitor.*;
 
 /* Additional import section end */
 
-public class PreOrderState extends model.OrderState implements PersistentPreOrderState{
+public class PreOrderState extends model.OrderStatus implements PersistentPreOrderState{
     
     
     public static PreOrderState4Public createPreOrderState() throws PersistenceException{
@@ -69,9 +69,9 @@ public class PreOrderState extends model.OrderState implements PersistentPreOrde
         return false;
     }
     
-    public PreOrderState(SubjInterface subService,PersistentOrderState This,long id) throws PersistenceException {
+    public PreOrderState(SubjInterface subService,PersistentOrderStatus This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((SubjInterface)subService,(PersistentOrderState)This,id);        
+        super((SubjInterface)subService,(PersistentOrderStatus)This,id);        
     }
     
     static public long getTypeId() {
@@ -98,16 +98,16 @@ public class PreOrderState extends model.OrderState implements PersistentPreOrde
         }return (PersistentPreOrderState)this.This;
     }
     
-    public void accept(OrderStateVisitor visitor) throws PersistenceException {
+    public void accept(OrderStatusVisitor visitor) throws PersistenceException {
         visitor.handlePreOrderState(this);
     }
-    public <R> R accept(OrderStateReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(OrderStatusReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handlePreOrderState(this);
     }
-    public <E extends model.UserException>  void accept(OrderStateExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(OrderStatusExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handlePreOrderState(this);
     }
-    public <R, E extends model.UserException> R accept(OrderStateReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(OrderStatusReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handlePreOrderState(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {

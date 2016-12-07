@@ -64,11 +64,17 @@ public class NewArticleCommandICProxi extends PersistentInCacheProxi implements 
     public void setInvoker(Invoker newValue) throws PersistenceException {
         ((PersistentNewArticleCommand)this.getTheObject()).setInvoker(newValue);
     }
-    public ProductGroup4Public getCommandReceiver() throws PersistenceException {
+    public ComponentContainer getCommandReceiver() throws PersistenceException {
         return ((PersistentNewArticleCommand)this.getTheObject()).getCommandReceiver();
     }
-    public void setCommandReceiver(ProductGroup4Public newValue) throws PersistenceException {
+    public void setCommandReceiver(ComponentContainer newValue) throws PersistenceException {
         ((PersistentNewArticleCommand)this.getTheObject()).setCommandReceiver(newValue);
+    }
+    public ArticleWrapper4Public getCommandResult() throws PersistenceException {
+        return ((PersistentNewArticleCommand)this.getTheObject()).getCommandResult();
+    }
+    public void setCommandResult(ArticleWrapper4Public newValue) throws PersistenceException {
+        ((PersistentNewArticleCommand)this.getTheObject()).setCommandResult(newValue);
     }
     public CommonDate4Public getMyCommonDate() throws PersistenceException {
         return ((PersistentNewArticleCommand)this.getTheObject()).getMyCommonDate();
@@ -113,18 +119,6 @@ public class NewArticleCommandICProxi extends PersistentInCacheProxi implements 
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleNewArticleCommand(this);
     }
-    public void accept(ProductGroupCommandVisitor visitor) throws PersistenceException {
-        visitor.handleNewArticleCommand(this);
-    }
-    public <R> R accept(ProductGroupCommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleNewArticleCommand(this);
-    }
-    public <E extends model.UserException>  void accept(ProductGroupCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleNewArticleCommand(this);
-    }
-    public <R, E extends model.UserException> R accept(ProductGroupCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleNewArticleCommand(this);
-    }
     public void accept(CommandVisitor visitor) throws PersistenceException {
         visitor.handleNewArticleCommand(this);
     }
@@ -135,6 +129,18 @@ public class NewArticleCommandICProxi extends PersistentInCacheProxi implements 
          visitor.handleNewArticleCommand(this);
     }
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleNewArticleCommand(this);
+    }
+    public void accept(ComponentContainerCommandVisitor visitor) throws PersistenceException {
+        visitor.handleNewArticleCommand(this);
+    }
+    public <R> R accept(ComponentContainerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleNewArticleCommand(this);
+    }
+    public <E extends model.UserException>  void accept(ComponentContainerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleNewArticleCommand(this);
+    }
+    public <R, E extends model.UserException> R accept(ComponentContainerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleNewArticleCommand(this);
     }
     

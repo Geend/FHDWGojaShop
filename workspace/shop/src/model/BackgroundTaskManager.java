@@ -197,6 +197,13 @@ public class BackgroundTaskManager extends PersistentObject implements Persisten
 		}
 		subService.register(observee);
     }
+    public void step() 
+				throws PersistenceException{
+        model.meta.BackgroundTaskManagerStepMssg event = new model.meta.BackgroundTaskManagerStepMssg(getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
     public synchronized void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
@@ -233,7 +240,7 @@ public class BackgroundTaskManager extends PersistentObject implements Persisten
 				throws PersistenceException{
         getThis().getTasks().applyToAll(task -> task.startTask(5000));
     }
-    public void step() 
+    public void stepImplementation() 
 				throws PersistenceException{
         getThis().getTasks().applyToAll(BackgroundTask4Public::step);
     }

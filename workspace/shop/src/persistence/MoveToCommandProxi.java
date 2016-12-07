@@ -18,11 +18,11 @@ public class MoveToCommandProxi extends PersistentProxi implements PersistentMov
         return 269;
     }
     
-    public ProductGroup4Public getProductGroup() throws PersistenceException {
-        return ((PersistentMoveToCommand)this.getTheObject()).getProductGroup();
+    public ComponentContainer getContainer() throws PersistenceException {
+        return ((PersistentMoveToCommand)this.getTheObject()).getContainer();
     }
-    public void setProductGroup(ProductGroup4Public newValue) throws PersistenceException {
-        ((PersistentMoveToCommand)this.getTheObject()).setProductGroup(newValue);
+    public void setContainer(ComponentContainer newValue) throws PersistenceException {
+        ((PersistentMoveToCommand)this.getTheObject()).setContainer(newValue);
     }
     public Invoker getInvoker() throws PersistenceException {
         return ((PersistentMoveToCommand)this.getTheObject()).getInvoker();
@@ -30,10 +30,10 @@ public class MoveToCommandProxi extends PersistentProxi implements PersistentMov
     public void setInvoker(Invoker newValue) throws PersistenceException {
         ((PersistentMoveToCommand)this.getTheObject()).setInvoker(newValue);
     }
-    public SubComponent getCommandReceiver() throws PersistenceException {
+    public Component4Public getCommandReceiver() throws PersistenceException {
         return ((PersistentMoveToCommand)this.getTheObject()).getCommandReceiver();
     }
-    public void setCommandReceiver(SubComponent newValue) throws PersistenceException {
+    public void setCommandReceiver(Component4Public newValue) throws PersistenceException {
         ((PersistentMoveToCommand)this.getTheObject()).setCommandReceiver(newValue);
     }
     public CommonDate4Public getMyCommonDate() throws PersistenceException {
@@ -91,16 +91,16 @@ public class MoveToCommandProxi extends PersistentProxi implements PersistentMov
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMoveToCommand(this);
     }
-    public void accept(SubComponentCommandVisitor visitor) throws PersistenceException {
+    public void accept(ComponentCommandVisitor visitor) throws PersistenceException {
         visitor.handleMoveToCommand(this);
     }
-    public <R> R accept(SubComponentCommandReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(ComponentCommandReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleMoveToCommand(this);
     }
-    public <E extends model.UserException>  void accept(SubComponentCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(ComponentCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleMoveToCommand(this);
     }
-    public <R, E extends model.UserException> R accept(SubComponentCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(ComponentCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMoveToCommand(this);
     }
     

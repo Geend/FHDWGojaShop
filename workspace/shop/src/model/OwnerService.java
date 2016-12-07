@@ -54,13 +54,13 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            AbstractPersistentRoot rootProductGroup = (AbstractPersistentRoot)this.getRootProductGroup();
-            if (rootProductGroup != null) {
-                result.put("rootProductGroup", rootProductGroup.createProxiInformation(false, essentialLevel <= 1));
+            AbstractPersistentRoot componentManager = (AbstractPersistentRoot)this.getComponentManager();
+            if (componentManager != null) {
+                result.put("componentManager", componentManager.createProxiInformation(false, essentialLevel <= 1));
                 if(depth > 1) {
-                    rootProductGroup.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                    componentManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
                 }else{
-                    if(forGUI && rootProductGroup.hasEssentialFields())rootProductGroup.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                    if(forGUI && componentManager.hasEssentialFields())componentManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
             AbstractPersistentRoot customerDeliveryTimeManager = (AbstractPersistentRoot)this.getCustomerDeliveryTimeManager();
@@ -127,7 +127,7 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
         OwnerService result = this;
         result = new OwnerService(this.subService, 
                                   this.This, 
-                                  this.rootProductGroup, 
+                                  this.componentManager, 
                                   this.customerDeliveryTimeManager, 
                                   this.prmanager, 
                                   this.settings, 
@@ -144,7 +144,7 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected PersistentRootProductGroup rootProductGroup;
+    protected PersistentComponentManager componentManager;
     protected PersistentCustomerDeliveryTimeManager customerDeliveryTimeManager;
     protected PersistentProducerLst prmanager;
     protected PersistentSettings settings;
@@ -152,10 +152,10 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
     protected PersistentOwnerOrderManager ownerOrderManager;
     protected PersistentReturnManager returnManager;
     
-    public OwnerService(SubjInterface subService,PersistentService This,PersistentRootProductGroup rootProductGroup,PersistentCustomerDeliveryTimeManager customerDeliveryTimeManager,PersistentProducerLst prmanager,PersistentSettings settings,PersistentReOrderManager reOrderManager,PersistentOwnerOrderManager ownerOrderManager,PersistentReturnManager returnManager,long id) throws PersistenceException {
+    public OwnerService(SubjInterface subService,PersistentService This,PersistentComponentManager componentManager,PersistentCustomerDeliveryTimeManager customerDeliveryTimeManager,PersistentProducerLst prmanager,PersistentSettings settings,PersistentReOrderManager reOrderManager,PersistentOwnerOrderManager ownerOrderManager,PersistentReturnManager returnManager,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super((SubjInterface)subService,(PersistentService)This,id);
-        this.rootProductGroup = rootProductGroup;
+        this.componentManager = componentManager;
         this.customerDeliveryTimeManager = customerDeliveryTimeManager;
         this.prmanager = prmanager;
         this.settings = settings;
@@ -177,9 +177,9 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
         if (this.getClassId() == -276) ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade
             .newOwnerService(this.getId());
         super.store();
-        if(this.getRootProductGroup() != null){
-            this.getRootProductGroup().store();
-            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.rootProductGroupSet(this.getId(), getRootProductGroup());
+        if(this.getComponentManager() != null){
+            this.getComponentManager().store();
+            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.componentManagerSet(this.getId(), getComponentManager());
         }
         if(this.getCustomerDeliveryTimeManager() != null){
             this.getCustomerDeliveryTimeManager().store();
@@ -208,18 +208,18 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
         
     }
     
-    public RootProductGroup4Public getRootProductGroup() throws PersistenceException {
-        return this.rootProductGroup;
+    public ComponentManager4Public getComponentManager() throws PersistenceException {
+        return this.componentManager;
     }
-    public void setRootProductGroup(RootProductGroup4Public newValue) throws PersistenceException {
+    public void setComponentManager(ComponentManager4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.rootProductGroup)) return;
+        if(newValue.isTheSameAs(this.componentManager)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.rootProductGroup = (PersistentRootProductGroup)PersistentProxi.createProxi(objectId, classId);
+        this.componentManager = (PersistentComponentManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.rootProductGroupSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.componentManagerSet(this.getId(), newValue);
         }
     }
     public CustomerDeliveryTimeManager4Public getCustomerDeliveryTimeManager() throws PersistenceException {
@@ -375,7 +375,7 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
          return visitor.handleOwnerService(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getRootProductGroup() != null) return 1;
+        if (this.getComponentManager() != null) return 1;
         if (this.getCustomerDeliveryTimeManager() != null) return 1;
         if (this.getPrmanager() != null) return 1;
         if (this.getSettings() != null) return 1;
@@ -434,12 +434,12 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
     
     public void changeArticleName(final ArticleWrapper4Public article, final String newName) 
 				throws PersistenceException{
-        article.changeArticleName(newName, getThis());
+        article.getArticle().setName(newName);
         getThis().signalChanged(true);
     }
     public void changeArticlePrice(final ArticleWrapper4Public article, final common.Fraction newPrice) 
 				throws PersistenceException{
-        article.changePrice(newPrice, getThis());
+        article.getArticle().setPrice(newPrice);
         getThis().signalChanged(true);
 
     }
@@ -504,7 +504,7 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
         super.initializeOnCreation();
 
         getThis().setPrmanager(ProducerLst.getTheProducerLst());
-        getThis().setRootProductGroup(RootProductGroup.getTheRootProductGroup());
+        getThis().setComponentManager(ComponentManager.getTheComponentManager());
         getThis().setCustomerDeliveryTimeManager(CustomerDeliveryTimeManager.getTheCustomerDeliveryTimeManager());
         getThis().setSettings(Settings.getTheSettings());
         getThis().setReOrderManager(ReOrderManager.getTheReOrderManager());
@@ -519,9 +519,10 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
 				throws PersistenceException{
         super.initializeOnInstantiation();
     }
-    public void moveTo(final SubComponent component, final ProductGroup4Public newParentGroup) 
+    public void moveTo(final Component4Public component, final ComponentContainer newParentGroup) 
 				throws model.CycleException, PersistenceException{
-        component.moveTo(newParentGroup,getThis());
+        component.moveTo(newParentGroup, getThis());
+
     }
     public void newArticle(final ProductGroup4Public parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
@@ -565,12 +566,12 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
     }
     public void newProductGroup(final ProductGroup4Public parent, final String name) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        parent.newSubProductGroup(name, getThis());
+        parent.newProductGroup(name, getThis());
 
     }
     public void newProductGroup(final String name) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        getThis().getRootProductGroup().newSubProductGroup(name, getThis());
+        getThis().getComponentManager().newProductGroup(name, getThis());
     }
     public void reduceArticleStock(final ArticleWrapper4Public article, final long quantity) 
 				throws model.NotEnoughStockException, PersistenceException{
@@ -641,8 +642,6 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
         });
     }
     private void makeTestData() throws PersistenceException {
-        getRootProductGroup().setName("Obst");
-
         try {
 
 
@@ -654,22 +653,20 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
             testArt.startSelling(getThis());
             testArt.increaseStock(20,getThis());
 
-            getThis().getRootProductGroup().addComponent(ArticleWrapper.createArticleWrapper("TestArt", testArt, getThis().getRootProductGroup()));
+            getThis().getComponentManager().addComponent(ArticleWrapper.createArticleWrapper(getThis().getComponentManager(), testArt));
 
 
 
             try {
-                SubProductGroup4Public groupKernobst = SubProductGroup.createSubProductGroup("Kernobst", getRootProductGroup());
+                ProductGroup4Public groupKernobst = getComponentManager().newProductGroup("Kernobst");
 
-                getRootProductGroup().addComponent(groupKernobst);
-                SubProductGroup4Public groupKernobstBirnen = SubProductGroup.createSubProductGroup("Birnen", groupKernobst);
-                groupKernobst.addComponent(groupKernobstBirnen);
+                ProductGroup4Public groupKernobstBirnen = groupKernobst.newProductGroup("Kernobst");
 
                 groupKernobstBirnen.newArticle("Europäische Birne", new Fraction(10), 10, 100, 2,producer4PublicPeter);
                 groupKernobstBirnen.newArticle("Nashi-Birne", new Fraction(12), 4, 40, 5, producer4PublicHermann);
 
-                SubProductGroup4Public groupSteinobst = SubProductGroup.createSubProductGroup("Steinobst", getRootProductGroup());
-                getRootProductGroup().addComponent(groupSteinobst);
+                ProductGroup4Public groupSteinobst = getComponentManager().newProductGroup("Steinobst");
+
             } catch (CycleException e) {
                 e.printStackTrace();
             }

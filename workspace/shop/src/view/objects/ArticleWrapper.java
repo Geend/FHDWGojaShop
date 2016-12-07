@@ -10,13 +10,13 @@ import view.visitor.*;
 public class ArticleWrapper extends view.objects.Component implements ArticleWrapperView{
     
     protected common.Fraction price;
-    protected ProductGroupView parent;
+    protected String name;
     
-    public ArticleWrapper(String name,common.Fraction price,ProductGroupView parent,long id, long classId) {
+    public ArticleWrapper(ComponentContainer parent,common.Fraction price,String name,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((String)name,id, classId);
+        super((ComponentContainer)parent,id, classId);
         this.price = price;
-        this.parent = parent;        
+        this.name = name;        
     }
     
     static public long getTypeId() {
@@ -30,11 +30,8 @@ public class ArticleWrapper extends view.objects.Component implements ArticleWra
     public common.Fraction getPrice()throws ModelException{
         return this.price;
     }
-    public ProductGroupView getParent()throws ModelException{
-        return this.parent;
-    }
-    public void setParent(ProductGroupView newValue) throws ModelException {
-        this.parent = newValue;
+    public String getName()throws ModelException{
+        return this.name;
     }
     
     public void accept(ComponentVisitor visitor) throws ModelException {
@@ -61,21 +58,9 @@ public class ArticleWrapper extends view.objects.Component implements ArticleWra
     public <R, E extends view.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleArticleWrapper(this);
     }
-    public void accept(SubComponentVisitor visitor) throws ModelException {
-        visitor.handleArticleWrapper(this);
-    }
-    public <R> R accept(SubComponentReturnVisitor<R>  visitor) throws ModelException {
-         return visitor.handleArticleWrapper(this);
-    }
-    public <E extends view.UserException>  void accept(SubComponentExceptionVisitor<E> visitor) throws ModelException, E {
-         visitor.handleArticleWrapper(this);
-    }
-    public <R, E extends view.UserException> R accept(SubComponentReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
-         return visitor.handleArticleWrapper(this);
-    }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
-        ProductGroupView parent = this.getParent();
+        ComponentContainer parent = this.getParent();
         if (parent != null) {
             ((ViewProxi)parent).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(parent.getClassId(), parent.getId())));
         }
@@ -98,10 +83,10 @@ public class ArticleWrapper extends view.objects.Component implements ArticleWra
         
         return -1;
     }
-    public int getNameIndex() throws ModelException {
+    public int getPriceIndex() throws ModelException {
         return 0;
     }
-    public int getPriceIndex() throws ModelException {
+    public int getNameIndex() throws ModelException {
         return 0 + 1;
     }
     public int getRowCount(){
@@ -112,14 +97,14 @@ public class ArticleWrapper extends view.objects.Component implements ArticleWra
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
-                if(rowIndex == 0) return "Name";
-                rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return "Preis";
                 rowIndex = rowIndex - 1;
-            } else {
-                if(rowIndex == 0) return this.getName();
+                if(rowIndex == 0) return "Name";
                 rowIndex = rowIndex - 1;
+            } else {
                 if(rowIndex == 0) return this.getPrice();
+                rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return this.getName();
                 rowIndex = rowIndex - 1;
             }
             throw new ModelException("Table index out of bounds!", -1);
@@ -132,10 +117,6 @@ public class ArticleWrapper extends view.objects.Component implements ArticleWra
         return true;
     }
     public void setValueAt(String newValue, int rowIndex) throws Exception {
-        if(rowIndex == 0){
-            this.setName(newValue);
-            return;
-        }
         rowIndex = rowIndex - 1;
         rowIndex = rowIndex - 1;
     }

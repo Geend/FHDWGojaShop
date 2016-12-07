@@ -28,7 +28,7 @@ public class OwnerServiceFacade{
     public OwnerService getOwnerService(long OwnerServiceId) throws PersistenceException{
         return null; //All data is in the cache!
     }
-    public void rootProductGroupSet(long OwnerServiceId, RootProductGroup4Public rootProductGroupVal) throws PersistenceException {
+    public void componentManagerSet(long OwnerServiceId, ComponentManager4Public componentManagerVal) throws PersistenceException {
         
     }
     public void customerDeliveryTimeManagerSet(long OwnerServiceId, CustomerDeliveryTimeManager4Public customerDeliveryTimeManagerVal) throws PersistenceException {
@@ -49,14 +49,14 @@ public class OwnerServiceFacade{
     public void returnManagerSet(long OwnerServiceId, ReturnManager4Public returnManagerVal) throws PersistenceException {
         
     }
-    public OwnerServiceSearchList inverseGetRootProductGroup(long objectId, long classId)throws PersistenceException{
+    public OwnerServiceSearchList inverseGetComponentManager(long objectId, long classId)throws PersistenceException{
         OwnerServiceSearchList result = new OwnerServiceSearchList();
         java.util.Iterator<PersistentInCacheProxi> candidates;
         candidates = Cache.getTheCache().iterator(-276);
         while (candidates.hasNext()){
             PersistentOwnerService current = (PersistentOwnerService)((PersistentRoot)candidates.next()).getTheObject();
-            if (current != null && !current.isDltd() && !current.isDelayed$Persistence() && current.getRootProductGroup() != null){
-                if (current.getRootProductGroup().getClassId() == classId && current.getRootProductGroup().getId() == objectId) {
+            if (current != null && !current.isDltd() && !current.isDelayed$Persistence() && current.getComponentManager() != null){
+                if (current.getComponentManager().getClassId() == classId && current.getComponentManager().getId() == objectId) {
                     PersistentOwnerService proxi = (PersistentOwnerService)PersistentProxi.createProxi(current.getId(), current.getClassId());
                     result.add((PersistentOwnerService)proxi.getThis());
                 }

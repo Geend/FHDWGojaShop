@@ -28,8 +28,8 @@ public class CustomerServiceICProxi extends ServiceICProxi implements Persistent
     public void setArticleLst(CustomerArticleLst4Public newValue) throws PersistenceException {
         ((PersistentCustomerService)this.getTheObject()).setArticleLst(newValue);
     }
-    public void setRootProductGroup(CustomerServiceRootProductGroup4Public newValue) throws PersistenceException {
-        ((PersistentCustomerService)this.getTheObject()).setRootProductGroup(newValue);
+    public void setComponentManager(CustomerServiceComponentManager4Public newValue) throws PersistenceException {
+        ((PersistentCustomerService)this.getTheObject()).setComponentManager(newValue);
     }
     public CustomerDeliveryTimeManager4Public getCustomerDeliveryTimeManager() throws PersistenceException {
         return ((PersistentCustomerService)this.getTheObject()).getCustomerDeliveryTimeManager();
@@ -49,10 +49,7 @@ public class CustomerServiceICProxi extends ServiceICProxi implements Persistent
     public void setCart(ShoppingCart4Public newValue) throws PersistenceException {
         ((PersistentCustomerService)this.getTheObject()).setCart(newValue);
     }
-    public CustomerOrderManager4Public getOrderManager() throws PersistenceException {
-        return ((PersistentCustomerService)this.getTheObject()).getOrderManager();
-    }
-    public void setOrderManager(CustomerOrderManager4Public newValue) throws PersistenceException {
+    public void setOrderManager(CustomerServiceOrderManager4Public newValue) throws PersistenceException {
         ((PersistentCustomerService)this.getTheObject()).setOrderManager(newValue);
     }
     public PersistentCustomerService getThis() throws PersistenceException {
@@ -129,9 +126,13 @@ public class CustomerServiceICProxi extends ServiceICProxi implements Persistent
 				throws PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).deregister(observee);
     }
-    public RootProductGroup4Public getRootProductGroup() 
+    public ComponentManager4Public getComponentManager() 
 				throws PersistenceException{
-        return ((PersistentCustomerService)this.getTheObject()).getRootProductGroup();
+        return ((PersistentCustomerService)this.getTheObject()).getComponentManager();
+    }
+    public CustomerOrderManager4Public getOrderManager() 
+				throws PersistenceException{
+        return ((PersistentCustomerService)this.getTheObject()).getOrderManager();
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -141,9 +142,13 @@ public class CustomerServiceICProxi extends ServiceICProxi implements Persistent
 				throws PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).register(observee);
     }
-    public void setRootProductGroup(final RootProductGroup4Public rootProductGroup) 
+    public void setComponentManager(final ComponentManager4Public componentManager) 
 				throws PersistenceException{
-        ((PersistentCustomerService)this.getTheObject()).setRootProductGroup(rootProductGroup);
+        ((PersistentCustomerService)this.getTheObject()).setComponentManager(componentManager);
+    }
+    public void setOrderManager(final CustomerOrderManager4Public orderManager) 
+				throws PersistenceException{
+        ((PersistentCustomerService)this.getTheObject()).setOrderManager(orderManager);
     }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
@@ -172,6 +177,10 @@ public class CustomerServiceICProxi extends ServiceICProxi implements Persistent
     public void clear() 
 				throws PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).clear();
+    }
+    public void componentManager_update(final model.meta.ComponentManagerMssgs event) 
+				throws PersistenceException{
+        ((PersistentCustomerService)this.getTheObject()).componentManager_update(event);
     }
     public void connected(final String user) 
 				throws PersistenceException{
@@ -217,6 +226,10 @@ public class CustomerServiceICProxi extends ServiceICProxi implements Persistent
 				throws PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).markForReturn(article);
     }
+    public void orderManager_update(final model.meta.CustomerOrderManagerMssgs event) 
+				throws PersistenceException{
+        ((PersistentCustomerService)this.getTheObject()).orderManager_update(event);
+    }
     public void order(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
 				throws model.EmptyCartException, model.NotEnoughStockException, model.NotEnoughMoneyException, PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).order(cart, customerDeliveryTime);
@@ -225,13 +238,13 @@ public class CustomerServiceICProxi extends ServiceICProxi implements Persistent
 				throws model.EmptyCartException, model.NotEnoughMoneyException, PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).preOrder(cart, customerDeliveryTime);
     }
+    public void reloadUI() 
+				throws PersistenceException{
+        ((PersistentCustomerService)this.getTheObject()).reloadUI();
+    }
     public void removeFromCart(final ShoppingCartQuantifiedArticle4Public article) 
 				throws PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).removeFromCart(article);
-    }
-    public void rootProductGroup_update(final model.meta.RootProductGroupMssgs event) 
-				throws PersistenceException{
-        ((PersistentCustomerService)this.getTheObject()).rootProductGroup_update(event);
     }
     public void unmarkForReturn(final OrderQuantifiedArticle4Public article) 
 				throws PersistenceException{

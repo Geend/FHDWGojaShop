@@ -36,17 +36,17 @@ public class MoveToCommand extends PersistentObject implements PersistentMoveToC
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
-    protected PersistentProductGroup productGroup;
+    protected ComponentContainer container;
     protected Invoker invoker;
-    protected SubComponent commandReceiver;
+    protected PersistentComponent commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public MoveToCommand(PersistentProductGroup productGroup,Invoker invoker,SubComponent commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
+    public MoveToCommand(ComponentContainer container,Invoker invoker,PersistentComponent commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.productGroup = productGroup;
+        this.container = container;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
         this.myCommonDate = myCommonDate;        
@@ -65,9 +65,9 @@ public class MoveToCommand extends PersistentObject implements PersistentMoveToC
         if (this.getClassId() == 269) ConnectionHandler.getTheConnectionHandler().theMoveToCommandFacade
             .newMoveToCommand(this.getId());
         super.store();
-        if(this.getProductGroup() != null){
-            this.getProductGroup().store();
-            ConnectionHandler.getTheConnectionHandler().theMoveToCommandFacade.productGroupSet(this.getId(), getProductGroup());
+        if(this.getContainer() != null){
+            this.getContainer().store();
+            ConnectionHandler.getTheConnectionHandler().theMoveToCommandFacade.containerSet(this.getId(), getContainer());
         }
         if(this.getInvoker() != null){
             this.getInvoker().store();
@@ -84,18 +84,18 @@ public class MoveToCommand extends PersistentObject implements PersistentMoveToC
         
     }
     
-    public ProductGroup4Public getProductGroup() throws PersistenceException {
-        return this.productGroup;
+    public ComponentContainer getContainer() throws PersistenceException {
+        return this.container;
     }
-    public void setProductGroup(ProductGroup4Public newValue) throws PersistenceException {
+    public void setContainer(ComponentContainer newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.productGroup)) return;
+        if(newValue.isTheSameAs(this.container)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.productGroup = (PersistentProductGroup)PersistentProxi.createProxi(objectId, classId);
+        this.container = (ComponentContainer)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theMoveToCommandFacade.productGroupSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theMoveToCommandFacade.containerSet(this.getId(), newValue);
         }
     }
     public Invoker getInvoker() throws PersistenceException {
@@ -112,15 +112,15 @@ public class MoveToCommand extends PersistentObject implements PersistentMoveToC
             ConnectionHandler.getTheConnectionHandler().theMoveToCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
-    public SubComponent getCommandReceiver() throws PersistenceException {
+    public Component4Public getCommandReceiver() throws PersistenceException {
         return this.commandReceiver;
     }
-    public void setCommandReceiver(SubComponent newValue) throws PersistenceException {
+    public void setCommandReceiver(Component4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.commandReceiver)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.commandReceiver = (SubComponent)PersistentProxi.createProxi(objectId, classId);
+        this.commandReceiver = (PersistentComponent)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theMoveToCommandFacade.commandReceiverSet(this.getId(), newValue);
@@ -193,20 +193,20 @@ public class MoveToCommand extends PersistentObject implements PersistentMoveToC
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMoveToCommand(this);
     }
-    public void accept(SubComponentCommandVisitor visitor) throws PersistenceException {
+    public void accept(ComponentCommandVisitor visitor) throws PersistenceException {
         visitor.handleMoveToCommand(this);
     }
-    public <R> R accept(SubComponentCommandReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(ComponentCommandReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleMoveToCommand(this);
     }
-    public <E extends model.UserException>  void accept(SubComponentCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(ComponentCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleMoveToCommand(this);
     }
-    public <R, E extends model.UserException> R accept(SubComponentCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(ComponentCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMoveToCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getProductGroup() != null) return 1;
+        if (this.getContainer() != null) return 1;
         if (this.getCommandReceiver() != null) return 1;
         return 0;
     }
@@ -223,7 +223,7 @@ public class MoveToCommand extends PersistentObject implements PersistentMoveToC
     public void execute() 
 				throws PersistenceException{
         try{
-			this.commandReceiver.moveTo(this.getProductGroup());
+			this.commandReceiver.moveTo(this.getContainer());
 		}
 		catch(model.CycleException e){
 			this.commandException = e;

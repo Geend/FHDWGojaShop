@@ -13,7 +13,7 @@ interface ArticleDOWNMssgsVisitor  {
 }
 
 
-interface ArticleUPMssgsVisitor extends ComponentUPMssgsVisitor {
+interface ArticleUPMssgsVisitor  {
 
     public void handleArticleIncreaseStockIntegerMssg(ArticleIncreaseStockIntegerMssg event) throws persistence.PersistenceException;
     public void handleArticleReduceStockIntegerMssg(ArticleReduceStockIntegerMssg event) throws persistence.PersistenceException;

@@ -7,8 +7,9 @@ import view.visitor.*;
 
 /* Additional import section end */
 
-public class Article extends view.objects.Component implements ArticleView{
+public class Article extends ViewObject implements ArticleView{
     
+    protected String name;
     protected common.Fraction price;
     protected long minStock;
     protected long maxStock;
@@ -21,7 +22,8 @@ public class Article extends view.objects.Component implements ArticleView{
     
     public Article(String name,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,ProducerView producer,ArticleStateView state,String currentState,String producerName,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((String)name,id, classId);
+        super(id, classId);
+        this.name = name;
         this.price = price;
         this.minStock = minStock;
         this.maxStock = maxStock;
@@ -41,6 +43,12 @@ public class Article extends view.objects.Component implements ArticleView{
         return getTypeId();
     }
     
+    public String getName()throws ModelException{
+        return this.name;
+    }
+    public void setName(String newValue) throws ModelException {
+        this.name = newValue;
+    }
     public common.Fraction getPrice()throws ModelException{
         return this.price;
     }
@@ -90,18 +98,6 @@ public class Article extends view.objects.Component implements ArticleView{
         return this.producerName;
     }
     
-    public void accept(ComponentVisitor visitor) throws ModelException {
-        visitor.handleArticle(this);
-    }
-    public <R> R accept(ComponentReturnVisitor<R>  visitor) throws ModelException {
-         return visitor.handleArticle(this);
-    }
-    public <E extends view.UserException>  void accept(ComponentExceptionVisitor<E> visitor) throws ModelException, E {
-         visitor.handleArticle(this);
-    }
-    public <R, E extends view.UserException> R accept(ComponentReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
-         return visitor.handleArticle(this);
-    }
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleArticle(this);
     }

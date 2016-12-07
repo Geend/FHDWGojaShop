@@ -4,7 +4,7 @@ package persistence;
 
 import model.visitor.*;
 
-public class WaitingForAcceptOrderStateICProxi extends OrderStateICProxi implements PersistentWaitingForAcceptOrderState{
+public class WaitingForAcceptOrderStateICProxi extends OrderStatusICProxi implements PersistentWaitingForAcceptOrderState{
     
     public WaitingForAcceptOrderStateICProxi(long objectId) {
         super(objectId);
@@ -32,16 +32,16 @@ public class WaitingForAcceptOrderStateICProxi extends OrderStateICProxi impleme
         return ((PersistentWaitingForAcceptOrderState)this.getTheObject()).getThis();
     }
     
-    public void accept(OrderStateVisitor visitor) throws PersistenceException {
+    public void accept(OrderStatusVisitor visitor) throws PersistenceException {
         visitor.handleWaitingForAcceptOrderState(this);
     }
-    public <R> R accept(OrderStateReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(OrderStatusReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleWaitingForAcceptOrderState(this);
     }
-    public <E extends model.UserException>  void accept(OrderStateExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(OrderStatusExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleWaitingForAcceptOrderState(this);
     }
-    public <R, E extends model.UserException> R accept(OrderStateReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(OrderStatusReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleWaitingForAcceptOrderState(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {

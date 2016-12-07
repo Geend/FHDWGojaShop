@@ -9,7 +9,7 @@ interface PreOrderStateDOWNMssgsVisitor  {
 }
 
 
-interface PreOrderStateUPMssgsVisitor extends OrderStateUPMssgsVisitor {
+interface PreOrderStateUPMssgsVisitor extends OrderStatusUPMssgsVisitor {
 
     
 }

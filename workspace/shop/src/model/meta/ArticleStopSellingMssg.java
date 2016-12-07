@@ -14,9 +14,6 @@ public class ArticleStopSellingMssg implements ArticleDOWNMssgs,ArticleUPMssgs{
     public void accept(ArticleMssgsVisitor visitor) throws PersistenceException{
         visitor.handleArticleStopSellingMssg(this);
     }
-    public void accept(ComponentMssgsVisitor visitor) throws PersistenceException{
-        visitor.handleArticleStopSellingMssg(this);
-    }
     public synchronized void execute() {
         if (this.exctDte == null){
             this.exctDte = new java.util.Date();

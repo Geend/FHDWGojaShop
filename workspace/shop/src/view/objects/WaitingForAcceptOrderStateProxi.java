@@ -5,7 +5,7 @@ import viewClient.*;
 
 import view.visitor.*;
 
-public class WaitingForAcceptOrderStateProxi extends OrderStateProxi implements WaitingForAcceptOrderStateView{
+public class WaitingForAcceptOrderStateProxi extends OrderStatusProxi implements WaitingForAcceptOrderStateView{
     
     public WaitingForAcceptOrderStateProxi(long objectId, long classId, ExceptionAndEventHandler connectionKey) {
         super(objectId, classId, connectionKey);
@@ -43,16 +43,16 @@ public class WaitingForAcceptOrderStateProxi extends OrderStateProxi implements 
         ((WaitingForAcceptOrderState)this.getTheObject()).setTicksLeft(newValue);
     }
     
-    public void accept(OrderStateVisitor visitor) throws ModelException {
+    public void accept(OrderStatusVisitor visitor) throws ModelException {
         visitor.handleWaitingForAcceptOrderState(this);
     }
-    public <R> R accept(OrderStateReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(OrderStatusReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleWaitingForAcceptOrderState(this);
     }
-    public <E extends view.UserException>  void accept(OrderStateExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends view.UserException>  void accept(OrderStatusExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleWaitingForAcceptOrderState(this);
     }
-    public <R, E extends view.UserException> R accept(OrderStateReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends view.UserException> R accept(OrderStatusReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleWaitingForAcceptOrderState(this);
     }
     public void accept(AnythingVisitor visitor) throws ModelException {

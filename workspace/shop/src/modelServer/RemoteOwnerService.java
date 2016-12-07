@@ -144,8 +144,8 @@ public  class RemoteOwnerService extends RemoteService {
     
     public synchronized java.util.HashMap<?,?> moveTo(String componentProxiString, String newParentGroupProxiString){
         try {
-            SubComponent component = (SubComponent)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(componentProxiString));
-            PersistentProductGroup newParentGroup = (PersistentProductGroup)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(newParentGroupProxiString));
+            PersistentComponent component = (PersistentComponent)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(componentProxiString));
+            ComponentContainer newParentGroup = (ComponentContainer)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(newParentGroupProxiString));
             ((PersistentOwnerService)this.server).moveTo(component, newParentGroup);
             return createOKResult();
         }catch(PersistenceException pe){

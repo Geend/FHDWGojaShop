@@ -9,7 +9,7 @@ interface ArticlesInReturnOrderStateDOWNMssgsVisitor  {
 }
 
 
-interface ArticlesInReturnOrderStateUPMssgsVisitor extends OrderStateUPMssgsVisitor {
+interface ArticlesInReturnOrderStateUPMssgsVisitor extends OrderStatusUPMssgsVisitor {
 
     
 }

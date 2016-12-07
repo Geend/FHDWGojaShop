@@ -232,8 +232,10 @@ public class CustomerArticleLst extends PersistentObject implements PersistentCu
     public void find(final String name) 
 				throws PersistenceException{
         getThis().clear();
-
-        ComponentSearchList list = Component.getComponentByName(name);
+            //TODO! Reimplement
+        /*
+        Article.getArticleByName(name);
+         list = Component.getComponentByName(name);
 
         Iterator<Component4Public> iterator = list.iterator();
         while(iterator.hasNext()){
@@ -261,7 +263,7 @@ public class CustomerArticleLst extends PersistentObject implements PersistentCu
 
             if(article.isPresent())
                 getArticles().add(article.get());
-        }
+        }*/
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

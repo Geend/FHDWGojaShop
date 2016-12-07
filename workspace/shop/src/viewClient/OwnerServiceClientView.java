@@ -40,6 +40,8 @@ import javafx.scene.layout.BorderPane;
 import view.Anything;
 import view.ArticleView;
 import view.ArticleWrapperView;
+import view.ComponentContainer;
+import view.ComponentView;
 import view.CustomerDeliveryTimeView;
 import view.CycleException;
 import view.DoubleDefinitionException;
@@ -49,7 +51,6 @@ import view.OwnerServiceView;
 import view.ProducerView;
 import view.ProductGroupView;
 import view.SettingsView;
-import view.SubComponent;
 import view.UserException;
 import view.objects.OwnerService;
 import view.objects.ViewObjectInTree;
@@ -275,7 +276,7 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 
                 ArticleDefaultDetailPanel panel = new ArticleDefaultDetailPanel(OwnerServiceClientView.this, articleView);
 
-                panel.registerUpdater(ArticleDefaultDetailPanel.Component$$name, new UpdaterForString() {
+                panel.registerUpdater(ArticleDefaultDetailPanel.Article$$name, new UpdaterForString() {
                     @Override
                     public void update(String text) throws ModelException {
                         getConnection().changeArticleName(articleWrapper, text);
@@ -497,7 +498,7 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
         ImageView handle(StartSellingPRMTRArticleWrapperPRMTRMenuItem menuItem);
         ImageView handle(IncreaseArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem);
         ImageView handle(ReduceArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem);
-        ImageView handle(MoveToPRMTRSubComponentPRMTRProductGroupPRMTRMenuItem menuItem);
+        ImageView handle(MoveToPRMTRComponentPRMTRComponentContainerPRMTRMenuItem menuItem);
     }
     private abstract class OwnerServiceMenuItem extends MenuItem{
         private OwnerServiceMenuItem(){
@@ -550,7 +551,7 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
             return visitor.handle(this);
         }
     }
-    private class MoveToPRMTRSubComponentPRMTRProductGroupPRMTRMenuItem extends OwnerServiceMenuItem{
+    private class MoveToPRMTRComponentPRMTRComponentContainerPRMTRMenuItem extends OwnerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -654,13 +655,13 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
                 });
                 result.getItems().add(item);
             }
-            if (selected instanceof SubComponent){
-                item = new MoveToPRMTRSubComponentPRMTRProductGroupPRMTRMenuItem();
+            if (selected instanceof ComponentView){
+                item = new MoveToPRMTRComponentPRMTRComponentContainerPRMTRMenuItem();
                 item.setText("verschieben ... ");
                 item.setOnAction(new EventHandler<ActionEvent>(){
                     public void handle(javafx.event.ActionEvent e) {
-                        final OwnerServiceMoveToSubComponentProductGroupMssgWizard wizard = new OwnerServiceMoveToSubComponentProductGroupMssgWizard("verschieben");
-                        wizard.setFirstArgument((SubComponent)selected);
+                        final OwnerServiceMoveToComponentComponentContainerMssgWizard wizard = new OwnerServiceMoveToComponentComponentContainerMssgWizard("verschieben");
+                        wizard.setFirstArgument((ComponentView)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.showAndWait();
                     }
@@ -889,21 +890,21 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 		
 	}
 
-	class OwnerServiceMoveToSubComponentProductGroupMssgWizard extends Wizard {
+	class OwnerServiceMoveToComponentComponentContainerMssgWizard extends Wizard {
 
-		protected OwnerServiceMoveToSubComponentProductGroupMssgWizard(String operationName){
+		protected OwnerServiceMoveToComponentComponentContainerMssgWizard(String operationName){
 			super(OwnerServiceClientView.this);
 			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new MoveToPRMTRSubComponentPRMTRProductGroupPRMTRMenuItem ().getGraphic());
+			getOkButton().setGraphic(new MoveToPRMTRComponentPRMTRComponentContainerPRMTRMenuItem ().getGraphic());
 		}
 		protected void initialize(){
-			this.helpFileName = "OwnerServiceMoveToSubComponentProductGroupMssgWizard.help";
+			this.helpFileName = "OwnerServiceMoveToComponentComponentContainerMssgWizard.help";
 			super.initialize();		
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().moveTo(firstArgument, (ProductGroupView)((ObjectSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().moveTo(firstArgument, (ComponentContainer)((ObjectSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
 				getConnection().setEagerRefresh();
 				this.close();	
 			} catch(ModelException me){
@@ -922,7 +923,7 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 			return false;
 		}
 		protected void addParameters(){
-			final ObjectSelectionPanel panel1 = new ObjectSelectionPanel("newParentGroup", "view.ProductGroupView", null, this);
+			final ObjectSelectionPanel panel1 = new ObjectSelectionPanel("newParentGroup", "view.ComponentContainer", null, this);
 			getParametersPanel().getChildren().add(panel1);
 			panel1.setBrowserRoot((ViewRoot) getConnection().getOwnerServiceView());		
 		}	
@@ -930,9 +931,9 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 		}
 		
 		
-		private SubComponent firstArgument; 
+		private ComponentView firstArgument; 
 	
-		public void setFirstArgument(SubComponent firstArgument){
+		public void setFirstArgument(ComponentView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -1199,10 +1200,6 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
             }
 
 
-            @Override
-            public ImageView handle(MoveToPRMTRSubComponentPRMTRProductGroupPRMTRMenuItem menuItem) {
-                return null;
-            }
 
             @Override
             public ImageView handle(NewArticlePRMTRProductGroupPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem menuItem) {
@@ -1218,6 +1215,12 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
             public ImageView handle(ReduceArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem) {
                 return null;
             }
+
+            @Override
+            public ImageView handle(MoveToPRMTRComponentPRMTRComponentContainerPRMTRMenuItem menuItem) {
+                return null;
+            }
+
 
             @Override
             public ImageView handle(StartSellingPRMTRArticleWrapperPRMTRMenuItem menuItem) {

@@ -17,9 +17,6 @@ public class ArticleReduceStockIntegerMssg implements ArticleDOWNMssgs,ArticleUP
     public void accept(ArticleMssgsVisitor visitor) throws PersistenceException{
         visitor.handleArticleReduceStockIntegerMssg(this);
     }
-    public void accept(ComponentMssgsVisitor visitor) throws PersistenceException{
-        visitor.handleArticleReduceStockIntegerMssg(this);
-    }
     public synchronized void execute() {
         if (this.exctDte == null){
             this.exctDte = new java.util.Date();

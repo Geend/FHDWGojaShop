@@ -3,6 +3,7 @@ package model;
 
 import common.Fraction;
 import constants.ShopConstants;
+import model.meta.OrderMssgs;
 import persistence.*;
 import model.visitor.*;
 import view.objects.ArticleReturnReturnManagerWrapper;
@@ -76,11 +77,11 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
     
     public CustomerOrderManager provideCopy() throws PersistenceException{
         CustomerOrderManager result = this;
-        result = new CustomerOrderManager(this.subService, 
+        result = new CustomerOrderManager(this.orders, 
+                                          this.subService, 
                                           this.This, 
                                           this.account, 
                                           this.getId());
-        result.orders = this.orders.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -90,9 +91,9 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
     }
     protected PersistentCustomerAccount account;
     
-    public CustomerOrderManager(SubjInterface subService,PersistentOrderManager This,PersistentCustomerAccount account,long id) throws PersistenceException {
+    public CustomerOrderManager(PersistentOrderManagerOrders orders,SubjInterface subService,PersistentOrderManager This,PersistentCustomerAccount account,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((SubjInterface)subService,(PersistentOrderManager)This,id);
+        super(orders,(SubjInterface)subService,(PersistentOrderManager)This,id);
         this.account = account;        
     }
     
@@ -175,7 +176,7 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
          return visitor.handleCustomerOrderManager(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getOrders().getLength() > 0) return 1;
+        if (this.getOrders().getObservee().getLength() > 0) return 1;
         return 0;
     }
     
@@ -250,7 +251,7 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
     public void acceptOrder(final Order4Public order) 
 				throws model.OrderNotYetArrivedException, model.NotEnoughMoneyException, PersistenceException{
 
-        order.getState().accept(new OrderStateExceptionVisitor<OrderNotYetArrivedException>() {
+        order.getState().accept(new OrderStatusExceptionVisitor<OrderNotYetArrivedException>() {
             @Override
             public void handleArticlesInReturnOrderState(ArticlesInReturnOrderState4Public articlesInReturnOrderState) throws PersistenceException {
 
@@ -470,7 +471,10 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
+    @Override
+    public void orders_update(OrderMssgs event) throws PersistenceException {
+        System.out.println(event.toString() + "C");
+    }
     /* End of protected part that is not overridden by persistence generator */
     
 }

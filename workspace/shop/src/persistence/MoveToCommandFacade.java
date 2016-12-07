@@ -49,13 +49,13 @@ public class MoveToCommandFacade{
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
     }
-    public void productGroupSet(long MoveToCommandId, ProductGroup4Public productGroupVal) throws PersistenceException {
+    public void containerSet(long MoveToCommandId, ComponentContainer containerVal) throws PersistenceException {
         
     }
     public void invokerSet(long MoveToCommandId, Invoker invokerVal) throws PersistenceException {
         
     }
-    public void commandReceiverSet(long MoveToCommandId, SubComponent commandReceiverVal) throws PersistenceException {
+    public void commandReceiverSet(long MoveToCommandId, Component4Public commandReceiverVal) throws PersistenceException {
         
     }
     public void myCommonDateSet(long MoveToCommandId, CommonDate4Public myCommonDateVal) throws PersistenceException {

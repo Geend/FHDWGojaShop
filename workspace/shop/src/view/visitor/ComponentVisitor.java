@@ -3,9 +3,9 @@ package view.visitor;
 
 import view.*;
 
-public interface ComponentVisitor extends ProductGroupVisitor{
+public interface ComponentVisitor {
     
-    public void handleArticle(ArticleView article) throws ModelException;
     public void handleArticleWrapper(ArticleWrapperView articleWrapper) throws ModelException;
+    public void handleProductGroup(ProductGroupView productGroup) throws ModelException;
     
 }

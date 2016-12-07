@@ -2,6 +2,7 @@
 package model;
 
 import constants.ShopConstants;
+import model.meta.OrderMssgs;
 import persistence.*;
 import model.visitor.*;
 
@@ -78,11 +79,11 @@ public class OwnerOrderManager extends model.OrderManager implements PersistentO
     
     public OwnerOrderManager provideCopy() throws PersistenceException{
         OwnerOrderManager result = this;
-        result = new OwnerOrderManager(this.subService, 
+        result = new OwnerOrderManager(this.orders, 
+                                       this.subService, 
                                        this.This, 
                                        this.myCONCBackgroundTask, 
                                        this.getId());
-        result.orders = this.orders.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -92,9 +93,9 @@ public class OwnerOrderManager extends model.OrderManager implements PersistentO
     }
     protected PersistentBackgroundTask myCONCBackgroundTask;
     
-    public OwnerOrderManager(SubjInterface subService,PersistentOrderManager This,PersistentBackgroundTask myCONCBackgroundTask,long id) throws PersistenceException {
+    public OwnerOrderManager(PersistentOrderManagerOrders orders,SubjInterface subService,PersistentOrderManager This,PersistentBackgroundTask myCONCBackgroundTask,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((SubjInterface)subService,(PersistentOrderManager)This,id);
+        super(orders,(SubjInterface)subService,(PersistentOrderManager)This,id);
         this.myCONCBackgroundTask = myCONCBackgroundTask;        
     }
     
@@ -185,7 +186,7 @@ public class OwnerOrderManager extends model.OrderManager implements PersistentO
          return visitor.handleOwnerOrderManager(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getOrders().getLength() > 0) return 1;
+        if (this.getOrders().getObservee().getLength() > 0) return 1;
         return 0;
     }
     
@@ -227,6 +228,10 @@ public class OwnerOrderManager extends model.OrderManager implements PersistentO
 		}
 		subService.register(observee);
     }
+    public void step() 
+				throws PersistenceException{
+        this.getMyCONCBackgroundTask().step();
+    }
     public synchronized void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
@@ -264,24 +269,20 @@ public class OwnerOrderManager extends model.OrderManager implements PersistentO
         //TODO Check delegation to abstract class and overwrite if necessary!
         this.getMyCONCBackgroundTask().startTask(tickTime);
     }
-    public void step() 
+    public void stepImplementation() 
 				throws PersistenceException{
         System.out.println(MessageFormat.format("Order Processing Tick. Currently {0} are being processed", getThis().getOrders().getLength()));
 
         getThis().getOrders().applyToAll(order -> {
-
-            order.getState().accept(new OrderStateVisitor() {
+            order.getState().accept(new OrderStatusVisitor() {
                 @Override
                 public void handleArticlesInReturnOrderState(ArticlesInReturnOrderState4Public articlesInReturnOrderState) throws PersistenceException {
-                    if(articlesInReturnOrderState.getTicksLeft() == 1){
+                    if (articlesInReturnOrderState.getTicksLeft() == 1) {
                         //TODO! put back articles
 
-                        
 
                         order.setState(FinishedOrderState.createFinishedOrderState());
-                    }
-                    else
-                    {
+                    } else {
                         articlesInReturnOrderState.setTicksLeft(articlesInReturnOrderState.getTicksLeft() - 1);
                     }
                 }
@@ -335,9 +336,8 @@ public class OwnerOrderManager extends model.OrderManager implements PersistentO
             });
 
 
-
         });
-        getThis().getOrders().filter(order -> order.getState().accept(new OrderStateReturnVisitor<Boolean>() {
+        getThis().getOrders().filter(order -> order.getState().accept(new OrderStatusReturnVisitor<Boolean>() {
             @Override
             public Boolean handleArticlesInReturnOrderState(ArticlesInReturnOrderState4Public articlesInReturnOrderState) throws PersistenceException {
                 return true;
@@ -369,7 +369,7 @@ public class OwnerOrderManager extends model.OrderManager implements PersistentO
                 return true;
             }
         }));
-        getThis().getMyServer().signalChanged(true);
+
     }
     public void stopTask() 
 				throws PersistenceException{
@@ -382,6 +382,9 @@ public class OwnerOrderManager extends model.OrderManager implements PersistentO
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    public void orders_update(OrderMssgs event) throws PersistenceException {
+        System.out.println(event.toString() + "O");
+    }
     /* End of protected part that is not overridden by persistence generator */
     
 }

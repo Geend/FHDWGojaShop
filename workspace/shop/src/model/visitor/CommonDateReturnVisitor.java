@@ -8,9 +8,7 @@ public interface CommonDateReturnVisitor<R> {
     public R handleAcceptOrderCommand(AcceptOrderCommand4Public acceptOrderCommand) throws PersistenceException;
     public R handleAddArticleCommand(AddArticleCommand4Public addArticleCommand) throws PersistenceException;
     public R handleAddArticleReturnCommand(AddArticleReturnCommand4Public addArticleReturnCommand) throws PersistenceException;
-    public R handleChangeArticleNameCommand(ChangeArticleNameCommand4Public changeArticleNameCommand) throws PersistenceException;
     public R handleChangeArticleQuantityCommand(ChangeArticleQuantityCommand4Public changeArticleQuantityCommand) throws PersistenceException;
-    public R handleChangePriceCommand(ChangePriceCommand4Public changePriceCommand) throws PersistenceException;
     public R handleCreateCustomerDeliveryTimeCommand(CreateCustomerDeliveryTimeCommand4Public createCustomerDeliveryTimeCommand) throws PersistenceException;
     public R handleCreateProducerCommand(CreateProducerCommand4Public createProducerCommand) throws PersistenceException;
     public R handleDebitCommand(DebitCommand4Public debitCommand) throws PersistenceException;
@@ -20,7 +18,7 @@ public interface CommonDateReturnVisitor<R> {
     public R handleNewArticleCommand(NewArticleCommand4Public newArticleCommand) throws PersistenceException;
     public R handleNewOrderCommand(NewOrderCommand4Public newOrderCommand) throws PersistenceException;
     public R handleNewPreOrderCommand(NewPreOrderCommand4Public newPreOrderCommand) throws PersistenceException;
-    public R handleNewSubProductGroupCommand(NewSubProductGroupCommand4Public newSubProductGroupCommand) throws PersistenceException;
+    public R handleNewProductGroupCommand(NewProductGroupCommand4Public newProductGroupCommand) throws PersistenceException;
     public R handleReOrderCommand(ReOrderCommand4Public reOrderCommand) throws PersistenceException;
     public R handleReOrderForPreorderCommand(ReOrderForPreorderCommand4Public reOrderForPreorderCommand) throws PersistenceException;
     public R handleReduceStockCommand(ReduceStockCommand4Public reduceStockCommand) throws PersistenceException;

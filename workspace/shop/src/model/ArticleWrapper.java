@@ -10,43 +10,41 @@ import model.visitor.*;
 public class ArticleWrapper extends model.Component implements PersistentArticleWrapper{
     
     
-    public static ArticleWrapper4Public createArticleWrapper(String name,Article4Public article,ProductGroup4Public parent) throws PersistenceException{
-        return createArticleWrapper(name,article,parent,false);
+    public static ArticleWrapper4Public createArticleWrapper(ComponentContainer parent,Article4Public article) throws PersistenceException{
+        return createArticleWrapper(parent,article,false);
     }
     
-    public static ArticleWrapper4Public createArticleWrapper(String name,Article4Public article,ProductGroup4Public parent,boolean delayed$Persistence) throws PersistenceException {
+    public static ArticleWrapper4Public createArticleWrapper(ComponentContainer parent,Article4Public article,boolean delayed$Persistence) throws PersistenceException {
         PersistentArticleWrapper result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theArticleWrapperFacade
-                .newDelayedArticleWrapper(name);
+                .newDelayedArticleWrapper();
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theArticleWrapperFacade
-                .newArticleWrapper(name,-1);
+                .newArticleWrapper(-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
-        final$$Fields.put("name", name);
-        final$$Fields.put("article", article);
         final$$Fields.put("parent", parent);
+        final$$Fields.put("article", article);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static ArticleWrapper4Public createArticleWrapper(String name,Article4Public article,ProductGroup4Public parent,boolean delayed$Persistence,ArticleWrapper4Public This) throws PersistenceException {
+    public static ArticleWrapper4Public createArticleWrapper(ComponentContainer parent,Article4Public article,boolean delayed$Persistence,ArticleWrapper4Public This) throws PersistenceException {
         PersistentArticleWrapper result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theArticleWrapperFacade
-                .newDelayedArticleWrapper(name);
+                .newDelayedArticleWrapper();
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theArticleWrapperFacade
-                .newArticleWrapper(name,-1);
+                .newArticleWrapper(-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
-        final$$Fields.put("name", name);
-        final$$Fields.put("article", article);
         final$$Fields.put("parent", parent);
+        final$$Fields.put("article", article);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -57,15 +55,7 @@ public class ArticleWrapper extends model.Component implements PersistentArticle
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
             result.put("price", this.getPrice().toString());
-            AbstractPersistentRoot parent = (AbstractPersistentRoot)this.getParent();
-            if (parent != null) {
-                result.put("parent", parent.createProxiInformation(false, essentialLevel <= 1));
-                if(depth > 1) {
-                    parent.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && parent.hasEssentialFields())parent.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
+            result.put("name", this.getName());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -74,11 +64,10 @@ public class ArticleWrapper extends model.Component implements PersistentArticle
     
     public ArticleWrapper provideCopy() throws PersistenceException{
         ArticleWrapper result = this;
-        result = new ArticleWrapper(this.name, 
+        result = new ArticleWrapper(this.parent, 
                                     this.subService, 
                                     this.This, 
                                     this.article, 
-                                    this.parent, 
                                     this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -88,13 +77,11 @@ public class ArticleWrapper extends model.Component implements PersistentArticle
         return false;
     }
     protected PersistentArticle article;
-    protected PersistentProductGroup parent;
     
-    public ArticleWrapper(String name,SubjInterface subService,PersistentComponent This,PersistentArticle article,PersistentProductGroup parent,long id) throws PersistenceException {
+    public ArticleWrapper(ComponentContainer parent,SubjInterface subService,PersistentComponent This,PersistentArticle article,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((String)name,(SubjInterface)subService,(PersistentComponent)This,id);
-        this.article = article;
-        this.parent = parent;        
+        super((ComponentContainer)parent,(SubjInterface)subService,(PersistentComponent)This,id);
+        this.article = article;        
     }
     
     static public long getTypeId() {
@@ -108,15 +95,11 @@ public class ArticleWrapper extends model.Component implements PersistentArticle
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         if (this.getClassId() == 242) ConnectionHandler.getTheConnectionHandler().theArticleWrapperFacade
-            .newArticleWrapper(name,this.getId());
+            .newArticleWrapper(this.getId());
         super.store();
         if(this.getArticle() != null){
             this.getArticle().store();
             ConnectionHandler.getTheConnectionHandler().theArticleWrapperFacade.articleSet(this.getId(), getArticle());
-        }
-        if(this.getParent() != null){
-            this.getParent().store();
-            ConnectionHandler.getTheConnectionHandler().theArticleWrapperFacade.parentSet(this.getId(), getParent());
         }
         
     }
@@ -133,20 +116,6 @@ public class ArticleWrapper extends model.Component implements PersistentArticle
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theArticleWrapperFacade.articleSet(this.getId(), newValue);
-        }
-    }
-    public ProductGroup4Public getParent() throws PersistenceException {
-        return this.parent;
-    }
-    public void setParent(ProductGroup4Public newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.parent)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.parent = (PersistentProductGroup)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theArticleWrapperFacade.parentSet(this.getId(), newValue);
         }
     }
     public PersistentArticleWrapper getThis() throws PersistenceException {
@@ -205,46 +174,11 @@ public class ArticleWrapper extends model.Component implements PersistentArticle
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleArticleWrapper(this);
     }
-    public void accept(SubComponentVisitor visitor) throws PersistenceException {
-        visitor.handleArticleWrapper(this);
-    }
-    public <R> R accept(SubComponentReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleArticleWrapper(this);
-    }
-    public <E extends model.UserException>  void accept(SubComponentExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleArticleWrapper(this);
-    }
-    public <R, E extends model.UserException> R accept(SubComponentReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleArticleWrapper(this);
-    }
     public int getLeafInfo() throws PersistenceException{
         return 0;
     }
     
     
-    public void changeArticleName(final String newName) 
-				throws PersistenceException{
-        model.meta.ArticleWrapperChangeArticleNameStringMssg event = new model.meta.ArticleWrapperChangeArticleNameStringMssg(newName, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
-    }
-    public void changeArticleName(final String newName, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		ChangeArticleNameCommand4Public command = model.meta.ChangeArticleNameCommand.createChangeArticleNameCommand(newName, now, now);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void changePrice(final common.Fraction newPrice, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		ChangePriceCommand4Public command = model.meta.ChangePriceCommand.createChangePriceCommand(newPrice, now, now);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
     public boolean containsCompHierarchy(final CompHierarchyHIERARCHY part) 
 				throws PersistenceException{
         return getThis().containsCompHierarchy(part, new java.util.HashSet<CompHierarchyHIERARCHY>());
@@ -269,26 +203,9 @@ public class ArticleWrapper extends model.Component implements PersistentArticle
 				throws PersistenceException{
         this.setThis((PersistentArticleWrapper)This);
 		if(this.isTheSameAs(This)){
-			this.setName((String)final$$Fields.get("name"));
+			this.setParent((ComponentContainer)final$$Fields.get("parent"));
 			this.setArticle((PersistentArticle)final$$Fields.get("article"));
-			this.setParent((PersistentProductGroup)final$$Fields.get("parent"));
 		}
-    }
-    public void moveTo(final ProductGroup4Public productGroup) 
-				throws model.CycleException, PersistenceException{
-        model.meta.SubComponentMoveToProductGroupMssg event = new model.meta.SubComponentMoveToProductGroupMssg(productGroup, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
-    }
-    public void moveTo(final ProductGroup4Public productGroup, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		MoveToCommand4Public command = model.meta.MoveToCommand.createMoveToCommand(now, now);
-		command.setProductGroup(productGroup);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public synchronized void register(final ObsInterface observee) 
 				throws PersistenceException{
@@ -323,17 +240,12 @@ public class ArticleWrapper extends model.Component implements PersistentArticle
     
     // Start of section that contains operations that must be implemented.
     
-    public void changeArticleNameImplementation(final String newName) 
-				throws PersistenceException{
-        getThis().setName(newName);
-        getThis().getArticle().setName(newName);
-    }
-    public void changePrice(final common.Fraction newPrice) 
-				throws PersistenceException{
-        getThis().getArticle().setPrice(newPrice);
-    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
+    }
+    public String getName() 
+				throws PersistenceException{
+       return getArticle().getName();
     }
     public common.Fraction getPrice() 
 				throws PersistenceException{
@@ -346,14 +258,6 @@ public class ArticleWrapper extends model.Component implements PersistentArticle
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         super.initializeOnInstantiation();
-    }
-    public void moveToImplementation(final ProductGroup4Public productGroup) 
-				throws model.CycleException, PersistenceException{
-        getThis().getParent().removeComponent(getThis());
-
-        productGroup.addComponent(getThis());
-        getThis().setParent(productGroup);
-
     }
     
     

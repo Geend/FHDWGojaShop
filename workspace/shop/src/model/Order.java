@@ -15,11 +15,11 @@ public class Order extends PersistentObject implements PersistentOrder{
         return (Order4Public)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static Order4Public createOrder(CustomerDeliveryTime4Public customerDeliveryTime,OrderState4Public state) throws PersistenceException{
+    public static Order4Public createOrder(CustomerDeliveryTime4Public customerDeliveryTime,OrderStatus4Public state) throws PersistenceException{
         return createOrder(customerDeliveryTime,state,false);
     }
     
-    public static Order4Public createOrder(CustomerDeliveryTime4Public customerDeliveryTime,OrderState4Public state,boolean delayed$Persistence) throws PersistenceException {
+    public static Order4Public createOrder(CustomerDeliveryTime4Public customerDeliveryTime,OrderStatus4Public state,boolean delayed$Persistence) throws PersistenceException {
         PersistentOrder result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theOrderFacade
@@ -37,7 +37,7 @@ public class Order extends PersistentObject implements PersistentOrder{
         return result;
     }
     
-    public static Order4Public createOrder(CustomerDeliveryTime4Public customerDeliveryTime,OrderState4Public state,boolean delayed$Persistence,Order4Public This) throws PersistenceException {
+    public static Order4Public createOrder(CustomerDeliveryTime4Public customerDeliveryTime,OrderStatus4Public state,boolean delayed$Persistence,Order4Public This) throws PersistenceException {
         PersistentOrder result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theOrderFacade
@@ -113,11 +113,11 @@ public class Order extends PersistentObject implements PersistentOrder{
     protected Order_ArticlesProxi articles;
     protected PersistentCustomerDeliveryTime customerDeliveryTime;
     protected common.Fraction totalPrice;
-    protected PersistentOrderState state;
+    protected PersistentOrderStatus state;
     protected SubjInterface subService;
     protected PersistentOrder This;
     
-    public Order(PersistentCustomerDeliveryTime customerDeliveryTime,common.Fraction totalPrice,PersistentOrderState state,SubjInterface subService,PersistentOrder This,long id) throws PersistenceException {
+    public Order(PersistentCustomerDeliveryTime customerDeliveryTime,common.Fraction totalPrice,PersistentOrderStatus state,SubjInterface subService,PersistentOrder This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.articles = new Order_ArticlesProxi(this);
@@ -185,15 +185,15 @@ public class Order extends PersistentObject implements PersistentOrder{
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theOrderFacade.totalPriceSet(this.getId(), newValue);
         this.totalPrice = newValue;
     }
-    public OrderState4Public getState() throws PersistenceException {
+    public OrderStatus4Public getState() throws PersistenceException {
         return this.state;
     }
-    public void setState(OrderState4Public newValue) throws PersistenceException {
+    public void setState(OrderStatus4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.state)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.state = (PersistentOrderState)PersistentProxi.createProxi(objectId, classId);
+        this.state = (PersistentOrderStatus)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theOrderFacade.stateSet(this.getId(), newValue);
@@ -294,7 +294,7 @@ public class Order extends PersistentObject implements PersistentOrder{
         this.setThis((PersistentOrder)This);
 		if(this.isTheSameAs(This)){
 			this.setCustomerDeliveryTime((PersistentCustomerDeliveryTime)final$$Fields.get("customerDeliveryTime"));
-			this.setState((PersistentOrderState)final$$Fields.get("state"));
+			this.setState((PersistentOrderStatus)final$$Fields.get("state"));
 		}
     }
     public synchronized void register(final ObsInterface observee) 

@@ -9,7 +9,7 @@ interface ProcessingOrderStateDOWNMssgsVisitor  {
 }
 
 
-interface ProcessingOrderStateUPMssgsVisitor extends OrderStateUPMssgsVisitor {
+interface ProcessingOrderStateUPMssgsVisitor extends OrderStatusUPMssgsVisitor {
 
     
 }

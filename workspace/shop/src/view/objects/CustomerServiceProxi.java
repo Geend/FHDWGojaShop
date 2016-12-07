@@ -22,12 +22,12 @@ public class CustomerServiceProxi extends ServiceProxi implements CustomerServic
             articleLst = view.objects.ViewProxi.createProxi(articleLst$Info,connectionKey);
             articleLst.setToString(articleLst$Info.getToString());
         }
-        ViewProxi rootProductGroup = null;
-        String rootProductGroup$String = (String)resultTable.get("rootProductGroup");
-        if (rootProductGroup$String != null) {
-            common.ProxiInformation rootProductGroup$Info = common.RPCConstantsAndServices.createProxiInformation(rootProductGroup$String);
-            rootProductGroup = view.objects.ViewProxi.createProxi(rootProductGroup$Info,connectionKey);
-            rootProductGroup.setToString(rootProductGroup$Info.getToString());
+        ViewProxi componentManager = null;
+        String componentManager$String = (String)resultTable.get("componentManager");
+        if (componentManager$String != null) {
+            common.ProxiInformation componentManager$Info = common.RPCConstantsAndServices.createProxiInformation(componentManager$String);
+            componentManager = view.objects.ViewProxi.createProxi(componentManager$Info,connectionKey);
+            componentManager.setToString(componentManager$Info.getToString());
         }
         ViewProxi customerDeliveryTimeManager = null;
         String customerDeliveryTimeManager$String = (String)resultTable.get("customerDeliveryTimeManager");
@@ -57,7 +57,7 @@ public class CustomerServiceProxi extends ServiceProxi implements CustomerServic
             orderManager = view.objects.ViewProxi.createProxi(orderManager$Info,connectionKey);
             orderManager.setToString(orderManager$Info.getToString());
         }
-        CustomerServiceView result$$ = new CustomerService(errors,(CustomerArticleLstView)articleLst,(RootProductGroupView)rootProductGroup,(CustomerDeliveryTimeManagerView)customerDeliveryTimeManager,(CustomerAccountView)account,(ShoppingCartView)cart,(CustomerOrderManagerView)orderManager, this.getId(), this.getClassId());
+        CustomerServiceView result$$ = new CustomerService(errors,(CustomerArticleLstView)articleLst,(ComponentManagerView)componentManager,(CustomerDeliveryTimeManagerView)customerDeliveryTimeManager,(CustomerAccountView)account,(ShoppingCartView)cart,(CustomerOrderManagerView)orderManager, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -69,8 +69,8 @@ public class CustomerServiceProxi extends ServiceProxi implements CustomerServic
         int index = originalIndex;
         if(index == 0 && this.getArticleLst() != null) return new ArticleLstCustomerServiceWrapper(this, originalIndex, (ViewRoot)this.getArticleLst());
         if(this.getArticleLst() != null) index = index - 1;
-        if(index == 0 && this.getRootProductGroup() != null) return new RootProductGroupCustomerServiceWrapper(this, originalIndex, (ViewRoot)this.getRootProductGroup());
-        if(this.getRootProductGroup() != null) index = index - 1;
+        if(index == 0 && this.getComponentManager() != null) return new ComponentManagerCustomerServiceWrapper(this, originalIndex, (ViewRoot)this.getComponentManager());
+        if(this.getComponentManager() != null) index = index - 1;
         if(index == 0 && this.getCustomerDeliveryTimeManager() != null) return new CustomerDeliveryTimeManagerCustomerServiceWrapper(this, originalIndex, (ViewRoot)this.getCustomerDeliveryTimeManager());
         if(this.getCustomerDeliveryTimeManager() != null) index = index - 1;
         if(index == 0 && this.getAccount() != null) return new AccountCustomerServiceWrapper(this, originalIndex, (ViewRoot)this.getAccount());
@@ -84,7 +84,7 @@ public class CustomerServiceProxi extends ServiceProxi implements CustomerServic
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getArticleLst() == null ? 0 : 1)
-            + (this.getRootProductGroup() == null ? 0 : 1)
+            + (this.getComponentManager() == null ? 0 : 1)
             + (this.getCustomerDeliveryTimeManager() == null ? 0 : 1)
             + (this.getAccount() == null ? 0 : 1)
             + (this.getCart() == null ? 0 : 1)
@@ -94,7 +94,7 @@ public class CustomerServiceProxi extends ServiceProxi implements CustomerServic
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
             && (this.getArticleLst() == null ? true : false)
-            && (this.getRootProductGroup() == null ? true : false)
+            && (this.getComponentManager() == null ? true : false)
             && (this.getCustomerDeliveryTimeManager() == null ? true : false)
             && (this.getAccount() == null ? true : false)
             && (this.getCart() == null ? true : false)
@@ -104,8 +104,8 @@ public class CustomerServiceProxi extends ServiceProxi implements CustomerServic
         int result = 0;
         if(this.getArticleLst() != null && this.getArticleLst().equals(child)) return result;
         if(this.getArticleLst() != null) result = result + 1;
-        if(this.getRootProductGroup() != null && this.getRootProductGroup().equals(child)) return result;
-        if(this.getRootProductGroup() != null) result = result + 1;
+        if(this.getComponentManager() != null && this.getComponentManager().equals(child)) return result;
+        if(this.getComponentManager() != null) result = result + 1;
         if(this.getCustomerDeliveryTimeManager() != null && this.getCustomerDeliveryTimeManager().equals(child)) return result;
         if(this.getCustomerDeliveryTimeManager() != null) result = result + 1;
         if(this.getAccount() != null && this.getAccount().equals(child)) return result;
@@ -123,11 +123,11 @@ public class CustomerServiceProxi extends ServiceProxi implements CustomerServic
     public void setArticleLst(CustomerArticleLstView newValue) throws ModelException {
         ((CustomerService)this.getTheObject()).setArticleLst(newValue);
     }
-    public RootProductGroupView getRootProductGroup()throws ModelException{
-        return ((CustomerService)this.getTheObject()).getRootProductGroup();
+    public ComponentManagerView getComponentManager()throws ModelException{
+        return ((CustomerService)this.getTheObject()).getComponentManager();
     }
-    public void setRootProductGroup(RootProductGroupView newValue) throws ModelException {
-        ((CustomerService)this.getTheObject()).setRootProductGroup(newValue);
+    public void setComponentManager(ComponentManagerView newValue) throws ModelException {
+        ((CustomerService)this.getTheObject()).setComponentManager(newValue);
     }
     public CustomerDeliveryTimeManagerView getCustomerDeliveryTimeManager()throws ModelException{
         return ((CustomerService)this.getTheObject()).getCustomerDeliveryTimeManager();

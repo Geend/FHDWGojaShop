@@ -4,5 +4,5 @@ public interface ProductGroupMssgs {
     void accept(ProductGroupMssgsVisitor visitor) throws persistence.PersistenceException;
 }
 
-interface ProductGroupDOWNMssgs extends ComponentDOWNMssgs, ProductGroupMssgs{}
-interface ProductGroupUPMssgs extends SubProductGroupUPMssgs, RootProductGroupUPMssgs, ProductGroupMssgs{}
+interface ProductGroupDOWNMssgs extends ComponentDOWNMssgs, ComponentContainerDOWNMssgs, ProductGroupMssgs{}
+interface ProductGroupUPMssgs extends Mssgs, ProductGroupMssgs{}

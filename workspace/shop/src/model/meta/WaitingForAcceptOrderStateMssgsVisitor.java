@@ -9,7 +9,7 @@ interface WaitingForAcceptOrderStateDOWNMssgsVisitor  {
 }
 
 
-interface WaitingForAcceptOrderStateUPMssgsVisitor extends OrderStateUPMssgsVisitor {
+interface WaitingForAcceptOrderStateUPMssgsVisitor extends OrderStatusUPMssgsVisitor {
 
     
 }

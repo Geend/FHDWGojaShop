@@ -5,6 +5,6 @@ import persistence.*;
 
 public interface CompHierarchyHIERARCHYReturnVisitor<R> extends ComponentReturnVisitor<R> {
     
-    public R handleProductGroupComponents(ProductGroupComponents4Public productGroupComponents) throws PersistenceException;
+    public R handleComponentManager(ComponentManager4Public componentManager) throws PersistenceException;
     
 }

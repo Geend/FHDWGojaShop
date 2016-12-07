@@ -349,6 +349,7 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
         ImageView handle(PreOrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem menuItem);
         ImageView handle(ClearErrorPRMTRErrorDisplayPRMTRMenuItem menuItem);
         ImageView handle(ClearPRMTRMenuItem menuItem);
+        ImageView handle(ReloadUIPRMTRMenuItem menuItem);
     }
     private abstract class CustomerServiceMenuItem extends MenuItem{
         private CustomerServiceMenuItem(){
@@ -421,6 +422,11 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
             return visitor.handle(this);
         }
     }
+    private class ReloadUIPRMTRMenuItem extends CustomerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
     private java.util.Vector<javafx.scene.control.Button> getToolButtonsForStaticOperations() {
         java.util.Vector<javafx.scene.control.Button> result = new java.util.Vector<javafx.scene.control.Button>();
         javafx.scene.control.Button currentButton = null;
@@ -466,6 +472,27 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
                 if (buttonResult.get() == ButtonType.OK) {
                     try {
                         getConnection().clear();
+                        getConnection().setEagerRefresh();
+                        
+                    }catch(ModelException me){
+                        handleException(me);
+                    }
+                }
+            }
+        });
+        result.add(currentButton);
+        currentButton = new javafx.scene.control.Button("reloadUI");
+        currentButton.setGraphic(new ReloadUIPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                Alert confirm = new Alert(AlertType.CONFIRMATION);
+                confirm.setTitle(GUIConstants.ConfirmButtonText);
+                confirm.setHeaderText(null);
+                confirm.setContentText("reloadUI" + GUIConstants.ConfirmQuestionMark);
+                Optional<ButtonType> buttonResult = confirm.showAndWait();
+                if (buttonResult.get() == ButtonType.OK) {
+                    try {
+                        getConnection().reloadUI();
                         getConnection().setEagerRefresh();
                         
                     }catch(ModelException me){
@@ -522,6 +549,27 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
                 if (buttonResult.get() == ButtonType.OK) {
                     try {
                         getConnection().clear();
+                        getConnection().setEagerRefresh();
+                        
+                    }catch(ModelException me){
+                        handleException(me);
+                    }
+                }
+            }
+        });
+        if (withStaticOperations) result.getItems().add(item);
+        item = new ReloadUIPRMTRMenuItem();
+        item.setText("(S) reloadUI");
+        item.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                Alert confirm = new Alert(AlertType.CONFIRMATION);
+                confirm.setTitle(GUIConstants.ConfirmButtonText);
+                confirm.setHeaderText(null);
+                confirm.setContentText("reloadUI" + GUIConstants.ConfirmQuestionMark);
+                Optional<ButtonType> buttonResult = confirm.showAndWait();
+                if (buttonResult.get() == ButtonType.OK) {
+                    try {
+                        getConnection().reloadUI();
                         getConnection().setEagerRefresh();
                         
                     }catch(ModelException me){
@@ -1067,6 +1115,11 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
 
 			@Override
 			public ImageView handle(ClearPRMTRMenuItem menuItem) {
+				return null;
+			}
+
+			@Override
+			public ImageView handle(ReloadUIPRMTRMenuItem menuItem) {
 				return null;
 			}
 

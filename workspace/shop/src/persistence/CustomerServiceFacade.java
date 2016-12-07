@@ -31,7 +31,7 @@ public class CustomerServiceFacade{
     public void articleLstSet(long CustomerServiceId, CustomerArticleLst4Public articleLstVal) throws PersistenceException {
         
     }
-    public void rootProductGroupSet(long CustomerServiceId, CustomerServiceRootProductGroup4Public rootProductGroupVal) throws PersistenceException {
+    public void componentManagerSet(long CustomerServiceId, CustomerServiceComponentManager4Public componentManagerVal) throws PersistenceException {
         
     }
     public void customerDeliveryTimeManagerSet(long CustomerServiceId, CustomerDeliveryTimeManager4Public customerDeliveryTimeManagerVal) throws PersistenceException {
@@ -43,7 +43,7 @@ public class CustomerServiceFacade{
     public void cartSet(long CustomerServiceId, ShoppingCart4Public cartVal) throws PersistenceException {
         
     }
-    public void orderManagerSet(long CustomerServiceId, CustomerOrderManager4Public orderManagerVal) throws PersistenceException {
+    public void orderManagerSet(long CustomerServiceId, CustomerServiceOrderManager4Public orderManagerVal) throws PersistenceException {
         
     }
 

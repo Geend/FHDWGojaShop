@@ -2,11 +2,10 @@ package view;
 
 import view.visitor.*;
 
-public interface ArticleWrapperView extends SubComponent, ComponentView {
+public interface ArticleWrapperView extends ComponentView {
     
     public common.Fraction getPrice()throws ModelException;
-    public ProductGroupView getParent()throws ModelException;
-    public void setParent(ProductGroupView newValue) throws ModelException ;
+    public String getName()throws ModelException;
     
     public void accept(ComponentVisitor visitor) throws ModelException;
     public <R> R accept(ComponentReturnVisitor<R>  visitor) throws ModelException;
@@ -16,10 +15,6 @@ public interface ArticleWrapperView extends SubComponent, ComponentView {
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException;
     public <E extends view.UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws ModelException, E;
     public <R, E extends view.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E;
-    public void accept(SubComponentVisitor visitor) throws ModelException;
-    public <R> R accept(SubComponentReturnVisitor<R>  visitor) throws ModelException;
-    public <E extends view.UserException>  void accept(SubComponentExceptionVisitor<E> visitor) throws ModelException, E;
-    public <R, E extends view.UserException> R accept(SubComponentReturnExceptionVisitor<R, E>  visitor) throws ModelException, E;
     
 }
 

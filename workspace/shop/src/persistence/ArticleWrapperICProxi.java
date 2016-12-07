@@ -28,12 +28,6 @@ public class ArticleWrapperICProxi extends ComponentICProxi implements Persisten
     public void setArticle(Article4Public newValue) throws PersistenceException {
         ((PersistentArticleWrapper)this.getTheObject()).setArticle(newValue);
     }
-    public ProductGroup4Public getParent() throws PersistenceException {
-        return ((PersistentArticleWrapper)this.getTheObject()).getParent();
-    }
-    public void setParent(ProductGroup4Public newValue) throws PersistenceException {
-        ((PersistentArticleWrapper)this.getTheObject()).setParent(newValue);
-    }
     public PersistentArticleWrapper getThis() throws PersistenceException {
         return ((PersistentArticleWrapper)this.getTheObject()).getThis();
     }
@@ -86,32 +80,8 @@ public class ArticleWrapperICProxi extends ComponentICProxi implements Persisten
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleArticleWrapper(this);
     }
-    public void accept(SubComponentVisitor visitor) throws PersistenceException {
-        visitor.handleArticleWrapper(this);
-    }
-    public <R> R accept(SubComponentReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleArticleWrapper(this);
-    }
-    public <E extends model.UserException>  void accept(SubComponentExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleArticleWrapper(this);
-    }
-    public <R, E extends model.UserException> R accept(SubComponentReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleArticleWrapper(this);
-    }
     
     
-    public void changeArticleName(final String newName) 
-				throws PersistenceException{
-        ((PersistentArticleWrapper)this.getTheObject()).changeArticleName(newName);
-    }
-    public void changeArticleName(final String newName, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentArticleWrapper)this.getTheObject()).changeArticleName(newName, invoker);
-    }
-    public void changePrice(final common.Fraction newPrice, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentArticleWrapper)this.getTheObject()).changePrice(newPrice, invoker);
-    }
     public boolean containsCompHierarchy(final CompHierarchyHIERARCHY part) 
 				throws PersistenceException{
         return ((PersistentArticleWrapper)this.getTheObject()).containsCompHierarchy(part);
@@ -128,13 +98,13 @@ public class ArticleWrapperICProxi extends ComponentICProxi implements Persisten
 				throws PersistenceException{
         ((PersistentArticleWrapper)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void moveTo(final ProductGroup4Public productGroup) 
+    public void moveTo(final ComponentContainer container) 
 				throws model.CycleException, PersistenceException{
-        ((PersistentArticleWrapper)this.getTheObject()).moveTo(productGroup);
+        ((PersistentArticleWrapper)this.getTheObject()).moveTo(container);
     }
-    public void moveTo(final ProductGroup4Public productGroup, final Invoker invoker) 
+    public void moveTo(final ComponentContainer container, final Invoker invoker) 
 				throws PersistenceException{
-        ((PersistentArticleWrapper)this.getTheObject()).moveTo(productGroup, invoker);
+        ((PersistentArticleWrapper)this.getTheObject()).moveTo(container, invoker);
     }
     public void register(final ObsInterface observee) 
 				throws PersistenceException{
@@ -152,17 +122,13 @@ public class ArticleWrapperICProxi extends ComponentICProxi implements Persisten
 				throws PersistenceException{
         ((PersistentArticleWrapper)this.getTheObject()).updateObservers(event);
     }
-    public void changeArticleNameImplementation(final String newName) 
-				throws PersistenceException{
-        ((PersistentArticleWrapper)this.getTheObject()).changeArticleNameImplementation(newName);
-    }
-    public void changePrice(final common.Fraction newPrice) 
-				throws PersistenceException{
-        ((PersistentArticleWrapper)this.getTheObject()).changePrice(newPrice);
-    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentArticleWrapper)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public String getName() 
+				throws PersistenceException{
+        return ((PersistentArticleWrapper)this.getTheObject()).getName();
     }
     public common.Fraction getPrice() 
 				throws PersistenceException{
@@ -176,9 +142,9 @@ public class ArticleWrapperICProxi extends ComponentICProxi implements Persisten
 				throws PersistenceException{
         ((PersistentArticleWrapper)this.getTheObject()).initializeOnInstantiation();
     }
-    public void moveToImplementation(final ProductGroup4Public productGroup) 
+    public void moveToImplementation(final ComponentContainer container) 
 				throws model.CycleException, PersistenceException{
-        ((PersistentArticleWrapper)this.getTheObject()).moveToImplementation(productGroup);
+        ((PersistentArticleWrapper)this.getTheObject()).moveToImplementation(container);
     }
 
     

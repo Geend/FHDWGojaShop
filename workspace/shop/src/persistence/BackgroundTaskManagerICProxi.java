@@ -73,6 +73,10 @@ public class BackgroundTaskManagerICProxi extends PersistentInCacheProxiOptimist
 				throws PersistenceException{
         ((PersistentBackgroundTaskManager)this.getTheObject()).register(observee);
     }
+    public void step() 
+				throws PersistenceException{
+        ((PersistentBackgroundTaskManager)this.getTheObject()).step();
+    }
     public void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         ((PersistentBackgroundTaskManager)this.getTheObject()).updateObservers(event);
@@ -97,9 +101,9 @@ public class BackgroundTaskManagerICProxi extends PersistentInCacheProxiOptimist
 				throws PersistenceException{
         ((PersistentBackgroundTaskManager)this.getTheObject()).startTasks();
     }
-    public void step() 
+    public void stepImplementation() 
 				throws PersistenceException{
-        ((PersistentBackgroundTaskManager)this.getTheObject()).step();
+        ((PersistentBackgroundTaskManager)this.getTheObject()).stepImplementation();
     }
     public void stopTasks() 
 				throws PersistenceException{

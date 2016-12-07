@@ -287,7 +287,7 @@ public class OwnerServiceConnection extends ServiceConnection {
     }
     
     @SuppressWarnings("unchecked")
-    public synchronized void moveTo(SubComponent component, ProductGroupView newParentGroup) throws ModelException, CycleException{
+    public synchronized void moveTo(ComponentView component, ComponentContainer newParentGroup) throws ModelException, CycleException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             if (component == null){

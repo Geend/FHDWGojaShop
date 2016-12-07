@@ -33,10 +33,10 @@ public class OrderProxi extends PersistentProxi implements PersistentOrder{
     public void setTotalPrice(common.Fraction newValue) throws PersistenceException {
         ((PersistentOrder)this.getTheObject()).setTotalPrice(newValue);
     }
-    public OrderState4Public getState() throws PersistenceException {
+    public OrderStatus4Public getState() throws PersistenceException {
         return ((PersistentOrder)this.getTheObject()).getState();
     }
-    public void setState(OrderState4Public newValue) throws PersistenceException {
+    public void setState(OrderStatus4Public newValue) throws PersistenceException {
         ((PersistentOrder)this.getTheObject()).setState(newValue);
     }
     public SubjInterface getSubService() throws PersistenceException {

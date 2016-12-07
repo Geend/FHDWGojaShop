@@ -11,17 +11,17 @@ import view.visitor.*;
 public class CustomerService extends view.objects.Service implements CustomerServiceView{
     
     protected CustomerArticleLstView articleLst;
-    protected RootProductGroupView rootProductGroup;
+    protected ComponentManagerView componentManager;
     protected CustomerDeliveryTimeManagerView customerDeliveryTimeManager;
     protected CustomerAccountView account;
     protected ShoppingCartView cart;
     protected CustomerOrderManagerView orderManager;
     
-    public CustomerService(java.util.Vector<ErrorDisplayView> errors,CustomerArticleLstView articleLst,RootProductGroupView rootProductGroup,CustomerDeliveryTimeManagerView customerDeliveryTimeManager,CustomerAccountView account,ShoppingCartView cart,CustomerOrderManagerView orderManager,long id, long classId) {
+    public CustomerService(java.util.Vector<ErrorDisplayView> errors,CustomerArticleLstView articleLst,ComponentManagerView componentManager,CustomerDeliveryTimeManagerView customerDeliveryTimeManager,CustomerAccountView account,ShoppingCartView cart,CustomerOrderManagerView orderManager,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(errors,id, classId);
         this.articleLst = articleLst;
-        this.rootProductGroup = rootProductGroup;
+        this.componentManager = componentManager;
         this.customerDeliveryTimeManager = customerDeliveryTimeManager;
         this.account = account;
         this.cart = cart;
@@ -42,11 +42,11 @@ public class CustomerService extends view.objects.Service implements CustomerSer
     public void setArticleLst(CustomerArticleLstView newValue) throws ModelException {
         this.articleLst = newValue;
     }
-    public RootProductGroupView getRootProductGroup()throws ModelException{
-        return this.rootProductGroup;
+    public ComponentManagerView getComponentManager()throws ModelException{
+        return this.componentManager;
     }
-    public void setRootProductGroup(RootProductGroupView newValue) throws ModelException {
-        this.rootProductGroup = newValue;
+    public void setComponentManager(ComponentManagerView newValue) throws ModelException {
+        this.componentManager = newValue;
     }
     public CustomerDeliveryTimeManagerView getCustomerDeliveryTimeManager()throws ModelException{
         return this.customerDeliveryTimeManager;
@@ -119,9 +119,9 @@ public class CustomerService extends view.objects.Service implements CustomerSer
         if (articleLst != null) {
             ((ViewProxi)articleLst).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(articleLst.getClassId(), articleLst.getId())));
         }
-        RootProductGroupView rootProductGroup = this.getRootProductGroup();
-        if (rootProductGroup != null) {
-            ((ViewProxi)rootProductGroup).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(rootProductGroup.getClassId(), rootProductGroup.getId())));
+        ComponentManagerView componentManager = this.getComponentManager();
+        if (componentManager != null) {
+            ((ViewProxi)componentManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(componentManager.getClassId(), componentManager.getId())));
         }
         CustomerDeliveryTimeManagerView customerDeliveryTimeManager = this.getCustomerDeliveryTimeManager();
         if (customerDeliveryTimeManager != null) {
@@ -148,8 +148,8 @@ public class CustomerService extends view.objects.Service implements CustomerSer
         int index = originalIndex;
         if(index == 0 && this.getArticleLst() != null) return new ArticleLstCustomerServiceWrapper(this, originalIndex, (ViewRoot)this.getArticleLst());
         if(this.getArticleLst() != null) index = index - 1;
-        if(index == 0 && this.getRootProductGroup() != null) return new RootProductGroupCustomerServiceWrapper(this, originalIndex, (ViewRoot)this.getRootProductGroup());
-        if(this.getRootProductGroup() != null) index = index - 1;
+        if(index == 0 && this.getComponentManager() != null) return new ComponentManagerCustomerServiceWrapper(this, originalIndex, (ViewRoot)this.getComponentManager());
+        if(this.getComponentManager() != null) index = index - 1;
         if(index == 0 && this.getCustomerDeliveryTimeManager() != null) return new CustomerDeliveryTimeManagerCustomerServiceWrapper(this, originalIndex, (ViewRoot)this.getCustomerDeliveryTimeManager());
         if(this.getCustomerDeliveryTimeManager() != null) index = index - 1;
         if(index == 0 && this.getAccount() != null) return new AccountCustomerServiceWrapper(this, originalIndex, (ViewRoot)this.getAccount());
@@ -163,7 +163,7 @@ public class CustomerService extends view.objects.Service implements CustomerSer
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getArticleLst() == null ? 0 : 1)
-            + (this.getRootProductGroup() == null ? 0 : 1)
+            + (this.getComponentManager() == null ? 0 : 1)
             + (this.getCustomerDeliveryTimeManager() == null ? 0 : 1)
             + (this.getAccount() == null ? 0 : 1)
             + (this.getCart() == null ? 0 : 1)
@@ -172,7 +172,7 @@ public class CustomerService extends view.objects.Service implements CustomerSer
     public boolean isLeaf() throws ModelException {
         return true 
             && (this.getArticleLst() == null ? true : false)
-            && (this.getRootProductGroup() == null ? true : false)
+            && (this.getComponentManager() == null ? true : false)
             && (this.getCustomerDeliveryTimeManager() == null ? true : false)
             && (this.getAccount() == null ? true : false)
             && (this.getCart() == null ? true : false)
@@ -182,8 +182,8 @@ public class CustomerService extends view.objects.Service implements CustomerSer
         int result = 0;
         if(this.getArticleLst() != null && this.getArticleLst().equals(child)) return result;
         if(this.getArticleLst() != null) result = result + 1;
-        if(this.getRootProductGroup() != null && this.getRootProductGroup().equals(child)) return result;
-        if(this.getRootProductGroup() != null) result = result + 1;
+        if(this.getComponentManager() != null && this.getComponentManager().equals(child)) return result;
+        if(this.getComponentManager() != null) result = result + 1;
         if(this.getCustomerDeliveryTimeManager() != null && this.getCustomerDeliveryTimeManager().equals(child)) return result;
         if(this.getCustomerDeliveryTimeManager() != null) result = result + 1;
         if(this.getAccount() != null && this.getAccount().equals(child)) return result;

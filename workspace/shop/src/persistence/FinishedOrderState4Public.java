@@ -3,13 +3,13 @@ package persistence;
 
 import model.visitor.*;
 
-public interface FinishedOrderState4Public extends OrderState4Public {
+public interface FinishedOrderState4Public extends OrderStatus4Public {
     
     
-    public void accept(OrderStateVisitor visitor) throws PersistenceException;
-    public <R> R accept(OrderStateReturnVisitor<R>  visitor) throws PersistenceException;
-    public <E extends model.UserException>  void accept(OrderStateExceptionVisitor<E> visitor) throws PersistenceException, E;
-    public <R, E extends model.UserException> R accept(OrderStateReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
+    public void accept(OrderStatusVisitor visitor) throws PersistenceException;
+    public <R> R accept(OrderStatusReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends model.UserException>  void accept(OrderStatusExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends model.UserException> R accept(OrderStatusReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     public void accept(AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends model.UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;

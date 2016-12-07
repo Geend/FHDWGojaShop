@@ -3,13 +3,13 @@ package test;
 import common.Fraction;
 import model.Article;
 import model.ArticleWrapper;
+import model.ComponentManager;
 import model.CustomerAccount;
 import model.CustomerDeliveryTime;
 import model.CustomerOrderManager;
 import model.DoubleDefinitionException;
 import model.OrderManager;
 import model.ProducerLst;
-import model.RootProductGroup;
 import model.ShoppingCart;
 import model.ShoppingCartQuantifiedArticle;
 import org.junit.AfterClass;
@@ -88,11 +88,11 @@ public class TestOrdering {
         testArt.increaseStock(10);
         testArt.startSelling();
 
-        RootProductGroup.getTheRootProductGroup().addComponent(testArt);
+        //ComponentManager.getTheComponentManager().addComponent(testArt);
 
-        shoppingCart.addArticle(ShoppingCartQuantifiedArticle.createShoppingCartQuantifiedArticle(
-                1, ArticleWrapper.createArticleWrapper(testArt.getName(),testArt, RootProductGroup.getTheRootProductGroup())));
-        orderManager.newOrder(shoppingCart, CustomerDeliveryTime.createCustomerDeliveryTime("default", new Fraction(3), 4));
+       // shoppingCart.addArticle(ShoppingCartQuantifiedArticle.createShoppingCartQuantifiedArticle(
+       //         1, ArticleWrapper.createArticleWrapper(testArt.getName(),testArt, ComponentManager.getTheComponentManager())));
+       // orderManager.newOrder(shoppingCart, CustomerDeliveryTime.createCustomerDeliveryTime("default", new Fraction(3), 4));
 
 
 

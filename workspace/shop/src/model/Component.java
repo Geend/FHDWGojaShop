@@ -18,16 +18,19 @@ public abstract class Component extends PersistentObject implements PersistentCo
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            result.put("name", this.getName());
+            AbstractPersistentRoot parent = (AbstractPersistentRoot)this.getParent();
+            if (parent != null) {
+                result.put("parent", parent.createProxiInformation(false, essentialLevel <= 1));
+                if(depth > 1) {
+                    parent.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && parent.hasEssentialFields())parent.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
         }
         return result;
-    }
-    
-    public static ComponentSearchList getComponentByName(String name) throws PersistenceException{
-        return ConnectionHandler.getTheConnectionHandler().theComponentFacade
-            .getComponentByName(name);
     }
     
     public abstract Component provideCopy() throws PersistenceException;
@@ -35,14 +38,14 @@ public abstract class Component extends PersistentObject implements PersistentCo
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected String name;
+    protected ComponentContainer parent;
     protected SubjInterface subService;
     protected PersistentComponent This;
     
-    public Component(String name,SubjInterface subService,PersistentComponent This,long id) throws PersistenceException {
+    public Component(ComponentContainer parent,SubjInterface subService,PersistentComponent This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.name = name;
+        this.parent = parent;
         this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
@@ -58,6 +61,10 @@ public abstract class Component extends PersistentObject implements PersistentCo
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         super.store();
+        if(this.getParent() != null){
+            this.getParent().store();
+            ConnectionHandler.getTheConnectionHandler().theComponentFacade.parentSet(this.getId(), getParent());
+        }
         if(this.getSubService() != null){
             this.getSubService().store();
             ConnectionHandler.getTheConnectionHandler().theComponentFacade.subServiceSet(this.getId(), getSubService());
@@ -69,13 +76,19 @@ public abstract class Component extends PersistentObject implements PersistentCo
         
     }
     
-    public String getName() throws PersistenceException {
-        return this.name;
+    public ComponentContainer getParent() throws PersistenceException {
+        return this.parent;
     }
-    public void setName(String newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theComponentFacade.nameSet(this.getId(), newValue);
-        this.name = newValue;
+    public void setParent(ComponentContainer newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.parent)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.parent = (ComponentContainer)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theComponentFacade.parentSet(this.getId(), newValue);
+        }
     }
     public SubjInterface getSubService() throws PersistenceException {
         return this.subService;
@@ -114,8 +127,24 @@ public abstract class Component extends PersistentObject implements PersistentCo
 				throws PersistenceException{
         this.setThis((PersistentComponent)This);
 		if(this.isTheSameAs(This)){
-			this.setName((String)final$$Fields.get("name"));
+			this.setParent((ComponentContainer)final$$Fields.get("parent"));
 		}
+    }
+    public void moveTo(final ComponentContainer container) 
+				throws model.CycleException, PersistenceException{
+        model.meta.ComponentMoveToComponentContainerMssg event = new model.meta.ComponentMoveToComponentContainerMssg(container, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
+    public void moveTo(final ComponentContainer container, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		MoveToCommand4Public command = model.meta.MoveToCommand.createMoveToCommand(now, now);
+		command.setContainer(container);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     
     
@@ -134,6 +163,13 @@ public abstract class Component extends PersistentObject implements PersistentCo
     
     // Start of section that contains overridden operations only.
     
+    public void moveToImplementation(final ComponentContainer container) 
+				throws model.CycleException, PersistenceException{
+
+        getThis().getParent().removeComponent(getThis());
+        container.addComponent(getThis());
+        getThis().setParent(container);
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
 

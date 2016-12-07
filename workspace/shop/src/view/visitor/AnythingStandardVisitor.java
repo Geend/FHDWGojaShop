@@ -11,6 +11,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCONCBackgroundTask(CONCBackgroundTaskView cONCBackgroundTask) throws ModelException{
         this.standardHandling(cONCBackgroundTask);
     }
+    public void handleProductGroup(ProductGroupView productGroup) throws ModelException{
+        this.standardHandling(productGroup);
+    }
     public void handleCustomerService(CustomerServiceView customerService) throws ModelException{
         this.standardHandling(customerService);
     }
@@ -32,9 +35,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleNotInSale(NotInSaleView notInSale) throws ModelException{
         this.standardHandling(notInSale);
     }
-    public void handleSubProductGroup(SubProductGroupView subProductGroup) throws ModelException{
-        this.standardHandling(subProductGroup);
-    }
     public void handleCustomerRegisterService(CustomerRegisterServiceView customerRegisterService) throws ModelException{
         this.standardHandling(customerRegisterService);
     }
@@ -49,9 +49,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleOrder(OrderView order) throws ModelException{
         this.standardHandling(order);
-    }
-    public void handleRootProductGroup(RootProductGroupView rootProductGroup) throws ModelException{
-        this.standardHandling(rootProductGroup);
     }
     public void handleOrderQuantifiedArticleNormalState(OrderQuantifiedArticleNormalStateView orderQuantifiedArticleNormalState) throws ModelException{
         this.standardHandling(orderQuantifiedArticleNormalState);
@@ -97,6 +94,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleFinishedOrderState(FinishedOrderStateView finishedOrderState) throws ModelException{
         this.standardHandling(finishedOrderState);
+    }
+    public void handleComponentManager(ComponentManagerView componentManager) throws ModelException{
+        this.standardHandling(componentManager);
     }
     public void handleShoppingCartQuantifiedArticle(ShoppingCartQuantifiedArticleView shoppingCartQuantifiedArticle) throws ModelException{
         this.standardHandling(shoppingCartQuantifiedArticle);

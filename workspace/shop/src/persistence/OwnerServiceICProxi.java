@@ -22,11 +22,11 @@ public class OwnerServiceICProxi extends ServiceICProxi implements PersistentOwn
         return -276;
     }
     
-    public RootProductGroup4Public getRootProductGroup() throws PersistenceException {
-        return ((PersistentOwnerService)this.getTheObject()).getRootProductGroup();
+    public ComponentManager4Public getComponentManager() throws PersistenceException {
+        return ((PersistentOwnerService)this.getTheObject()).getComponentManager();
     }
-    public void setRootProductGroup(RootProductGroup4Public newValue) throws PersistenceException {
-        ((PersistentOwnerService)this.getTheObject()).setRootProductGroup(newValue);
+    public void setComponentManager(ComponentManager4Public newValue) throws PersistenceException {
+        ((PersistentOwnerService)this.getTheObject()).setComponentManager(newValue);
     }
     public CustomerDeliveryTimeManager4Public getCustomerDeliveryTimeManager() throws PersistenceException {
         return ((PersistentOwnerService)this.getTheObject()).getCustomerDeliveryTimeManager();
@@ -230,7 +230,7 @@ public class OwnerServiceICProxi extends ServiceICProxi implements PersistentOwn
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).initializeOnInstantiation();
     }
-    public void moveTo(final SubComponent component, final ProductGroup4Public newParentGroup) 
+    public void moveTo(final Component4Public component, final ComponentContainer newParentGroup) 
 				throws model.CycleException, PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).moveTo(component, newParentGroup);
     }

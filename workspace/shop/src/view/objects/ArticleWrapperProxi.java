@@ -12,8 +12,6 @@ public class ArticleWrapperProxi extends ComponentProxi implements ArticleWrappe
     }
     
     public ArticleWrapperView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
-        String name = (String)resultTable.get("name");
-        common.Fraction price = common.Fraction.parse((String)resultTable.get("price"));
         ViewProxi parent = null;
         String parent$String = (String)resultTable.get("parent");
         if (parent$String != null) {
@@ -21,7 +19,9 @@ public class ArticleWrapperProxi extends ComponentProxi implements ArticleWrappe
             parent = view.objects.ViewProxi.createProxi(parent$Info,connectionKey);
             parent.setToString(parent$Info.getToString());
         }
-        ArticleWrapperView result$$ = new ArticleWrapper((String)name,(common.Fraction)price,(ProductGroupView)parent, this.getId(), this.getClassId());
+        common.Fraction price = common.Fraction.parse((String)resultTable.get("price"));
+        String name = (String)resultTable.get("name");
+        ArticleWrapperView result$$ = new ArticleWrapper((ComponentContainer)parent,(common.Fraction)price,(String)name, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -47,11 +47,8 @@ public class ArticleWrapperProxi extends ComponentProxi implements ArticleWrappe
     public common.Fraction getPrice()throws ModelException{
         return ((ArticleWrapper)this.getTheObject()).getPrice();
     }
-    public ProductGroupView getParent()throws ModelException{
-        return ((ArticleWrapper)this.getTheObject()).getParent();
-    }
-    public void setParent(ProductGroupView newValue) throws ModelException {
-        ((ArticleWrapper)this.getTheObject()).setParent(newValue);
+    public String getName()throws ModelException{
+        return ((ArticleWrapper)this.getTheObject()).getName();
     }
     
     public void accept(ComponentVisitor visitor) throws ModelException {
@@ -76,18 +73,6 @@ public class ArticleWrapperProxi extends ComponentProxi implements ArticleWrappe
          visitor.handleArticleWrapper(this);
     }
     public <R, E extends view.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
-         return visitor.handleArticleWrapper(this);
-    }
-    public void accept(SubComponentVisitor visitor) throws ModelException {
-        visitor.handleArticleWrapper(this);
-    }
-    public <R> R accept(SubComponentReturnVisitor<R>  visitor) throws ModelException {
-         return visitor.handleArticleWrapper(this);
-    }
-    public <E extends view.UserException>  void accept(SubComponentExceptionVisitor<E> visitor) throws ModelException, E {
-         visitor.handleArticleWrapper(this);
-    }
-    public <R, E extends view.UserException> R accept(SubComponentReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleArticleWrapper(this);
     }
     

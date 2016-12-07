@@ -64,7 +64,7 @@ public class OrderFacade{
     public void totalPriceSet(long OrderId, common.Fraction totalPriceVal) throws PersistenceException {
         
     }
-    public void stateSet(long OrderId, OrderState4Public stateVal) throws PersistenceException {
+    public void stateSet(long OrderId, OrderStatus4Public stateVal) throws PersistenceException {
         
     }
     public void subServiceSet(long OrderId, SubjInterface subServiceVal) throws PersistenceException {

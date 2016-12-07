@@ -5,7 +5,7 @@ import viewClient.*;
 
 import view.visitor.*;
 
-public class FinishedOrderStateProxi extends OrderStateProxi implements FinishedOrderStateView{
+public class FinishedOrderStateProxi extends OrderStatusProxi implements FinishedOrderStateView{
     
     public FinishedOrderStateProxi(long objectId, long classId, ExceptionAndEventHandler connectionKey) {
         super(objectId, classId, connectionKey);
@@ -36,16 +36,16 @@ public class FinishedOrderStateProxi extends OrderStateProxi implements Finished
     }
     
     
-    public void accept(OrderStateVisitor visitor) throws ModelException {
+    public void accept(OrderStatusVisitor visitor) throws ModelException {
         visitor.handleFinishedOrderState(this);
     }
-    public <R> R accept(OrderStateReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(OrderStatusReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleFinishedOrderState(this);
     }
-    public <E extends view.UserException>  void accept(OrderStateExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends view.UserException>  void accept(OrderStatusExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleFinishedOrderState(this);
     }
-    public <R, E extends view.UserException> R accept(OrderStateReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends view.UserException> R accept(OrderStatusReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleFinishedOrderState(this);
     }
     public void accept(AnythingVisitor visitor) throws ModelException {

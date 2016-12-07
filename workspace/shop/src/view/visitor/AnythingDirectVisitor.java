@@ -21,8 +21,30 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;
     
+    public abstract void handleArticle(ArticleView article) throws ModelException;
+    
     public abstract void handleCustomerDeliveryTime(CustomerDeliveryTimeView customerDeliveryTime) throws ModelException;
     
+    public abstract void handleOrderStatus(OrderStatusView orderStatus) throws ModelException;
+    
+    public void handlePreOrderState(PreOrderStateView preOrderState) throws ModelException{
+        this.handleOrderStatus(preOrderState);
+    }
+    public void handleWaitingForAcceptOrderState(WaitingForAcceptOrderStateView waitingForAcceptOrderState) throws ModelException{
+        this.handleOrderStatus(waitingForAcceptOrderState);
+    }
+    public void handleArticlesInReturnOrderState(ArticlesInReturnOrderStateView articlesInReturnOrderState) throws ModelException{
+        this.handleOrderStatus(articlesInReturnOrderState);
+    }
+    public void handleFinishedOrderState(FinishedOrderStateView finishedOrderState) throws ModelException{
+        this.handleOrderStatus(finishedOrderState);
+    }
+    public void handleProcessingOrderState(ProcessingOrderStateView processingOrderState) throws ModelException{
+        this.handleOrderStatus(processingOrderState);
+    }
+    public void handleInTransitOrderState(InTransitOrderStateView inTransitOrderState) throws ModelException{
+        this.handleOrderStatus(inTransitOrderState);
+    }
     public abstract void handleQuantifiedArticle(QuantifiedArticleView quantifiedArticle) throws ModelException;
     
     public void handleOrderQuantifiedArticle(OrderQuantifiedArticleView orderQuantifiedArticle) throws ModelException{
@@ -37,20 +59,16 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleReturnQuantifiedArticle(ReturnQuantifiedArticleView returnQuantifiedArticle) throws ModelException{
         this.handleQuantifiedArticle(returnQuantifiedArticle);
     }
+    public abstract void handleComponentManager(ComponentManagerView componentManager) throws ModelException;
+    
     public abstract void handleCustomerArticleLst(CustomerArticleLstView customerArticleLst) throws ModelException;
     
     public abstract void handleCustomerDeliveryTimeManager(CustomerDeliveryTimeManagerView customerDeliveryTimeManager) throws ModelException;
     
     public abstract void handleComponent(ComponentView component) throws ModelException;
     
-    public void handleRootProductGroup(RootProductGroupView rootProductGroup) throws ModelException{
-        this.handleComponent(rootProductGroup);
-    }
-    public void handleArticle(ArticleView article) throws ModelException{
-        this.handleComponent(article);
-    }
-    public void handleSubProductGroup(SubProductGroupView subProductGroup) throws ModelException{
-        this.handleComponent(subProductGroup);
+    public void handleProductGroup(ProductGroupView productGroup) throws ModelException{
+        this.handleComponent(productGroup);
     }
     public void handleArticleWrapper(ArticleWrapperView articleWrapper) throws ModelException{
         this.handleComponent(articleWrapper);
@@ -104,26 +122,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public void handleInSale(InSaleView inSale) throws ModelException{
         this.handleArticleState(inSale);
-    }
-    public abstract void handleOrderState(OrderStateView orderState) throws ModelException;
-    
-    public void handlePreOrderState(PreOrderStateView preOrderState) throws ModelException{
-        this.handleOrderState(preOrderState);
-    }
-    public void handleWaitingForAcceptOrderState(WaitingForAcceptOrderStateView waitingForAcceptOrderState) throws ModelException{
-        this.handleOrderState(waitingForAcceptOrderState);
-    }
-    public void handleArticlesInReturnOrderState(ArticlesInReturnOrderStateView articlesInReturnOrderState) throws ModelException{
-        this.handleOrderState(articlesInReturnOrderState);
-    }
-    public void handleFinishedOrderState(FinishedOrderStateView finishedOrderState) throws ModelException{
-        this.handleOrderState(finishedOrderState);
-    }
-    public void handleProcessingOrderState(ProcessingOrderStateView processingOrderState) throws ModelException{
-        this.handleOrderState(processingOrderState);
-    }
-    public void handleInTransitOrderState(InTransitOrderStateView inTransitOrderState) throws ModelException{
-        this.handleOrderState(inTransitOrderState);
     }
     public abstract void handleOrderManager(OrderManagerView orderManager) throws ModelException;
     

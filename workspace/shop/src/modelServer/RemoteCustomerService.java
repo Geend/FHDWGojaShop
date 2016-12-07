@@ -136,6 +136,15 @@ public  class RemoteCustomerService extends RemoteService {
         }
     }
     
+    public synchronized java.util.HashMap<?,?> reloadUI(){
+        try {
+            ((PersistentCustomerService)this.server).reloadUI();
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.HashMap<?,?> removeFromCart(String articleProxiString){
         try {
             PersistentShoppingCartQuantifiedArticle article = (PersistentShoppingCartQuantifiedArticle)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));

@@ -5,13 +5,11 @@ public interface ArticleWrapperMssgsVisitor extends ArticleWrapperDOWNMssgsVisit
 
 interface ArticleWrapperDOWNMssgsVisitor  {
 
-    public void handleArticleWrapperChangeArticleNameStringMssg(ArticleWrapperChangeArticleNameStringMssg event) throws persistence.PersistenceException;
     
 }
 
 
-interface ArticleWrapperUPMssgsVisitor extends ComponentUPMssgsVisitor, SubComponentUPMssgsVisitor {
+interface ArticleWrapperUPMssgsVisitor extends ComponentUPMssgsVisitor {
 
-    public void handleArticleWrapperChangeArticleNameStringMssg(ArticleWrapperChangeArticleNameStringMssg event) throws persistence.PersistenceException;
     
 }

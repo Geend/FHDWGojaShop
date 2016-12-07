@@ -74,6 +74,10 @@ public class CustomerOrderManagerProxi extends OrderManagerProxi implements Pers
 				throws PersistenceException{
         ((PersistentCustomerOrderManager)this.getTheObject()).deregister(observee);
     }
+    public OrderManagerOrders4Public getOrders() 
+				throws PersistenceException{
+        return ((PersistentCustomerOrderManager)this.getTheObject()).getOrders();
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentCustomerOrderManager)this.getTheObject()).initialize(This, final$$Fields);
@@ -117,6 +121,10 @@ public class CustomerOrderManagerProxi extends OrderManagerProxi implements Pers
     public void newPreOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
 				throws model.EmptyCartException, model.NotEnoughMoneyException, PersistenceException{
         ((PersistentCustomerOrderManager)this.getTheObject()).newPreOrder(cart, customerDeliveryTime);
+    }
+    public void orders_update(final model.meta.OrderMssgs event) 
+				throws PersistenceException{
+        ((PersistentCustomerOrderManager)this.getTheObject()).orders_update(event);
     }
 
     

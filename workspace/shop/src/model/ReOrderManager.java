@@ -264,6 +264,10 @@ public class ReOrderManager extends PersistentObject implements PersistentReOrde
 		}
 		subService.register(observee);
     }
+    public void step() 
+				throws PersistenceException{
+        this.getMyCONCBackgroundTask().step();
+    }
     public synchronized void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
@@ -309,7 +313,7 @@ public class ReOrderManager extends PersistentObject implements PersistentReOrde
         //TODO Check delegation to abstract class and overwrite if necessary!
         this.getMyCONCBackgroundTask().startTask(tickTime);
     }
-    public void step() 
+    public void stepImplementation() 
 				throws PersistenceException{
         System.out.println(MessageFormat.format("Reorder Tick. Currently {0} articles are getting reorderd", getThis().getReorderArticles().getLength()));
 
@@ -324,7 +328,7 @@ public class ReOrderManager extends PersistentObject implements PersistentReOrde
 
         getThis().getReorderArticles().filter(orderArticle -> orderArticle.getCountdown() != 0);
 
-        getThis().getMyServer().signalChanged(true);
+        //getThis().getMyServer().signalChanged(true);
     }
     public void stopTask() 
 				throws PersistenceException{

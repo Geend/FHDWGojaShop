@@ -4,6 +4,7 @@ import constants.IconConstants;
 import persistence.Anything;
 import persistence.ArticleReturn4Public;
 import persistence.ArticleWrapper4Public;
+import persistence.ComponentManager4Public;
 import persistence.CustomerAccount4Public;
 import persistence.CustomerArticleLst4Public;
 import persistence.CustomerDeliveryTime4Public;
@@ -15,16 +16,14 @@ import persistence.OwnerOrderManager4Public;
 import persistence.PersistenceException;
 import persistence.Producer4Public;
 import persistence.ProducerLst4Public;
+import persistence.ProductGroup4Public;
 import persistence.ReOrderManager4Public;
 import persistence.ReOrderQuantifiedArticle4Public;
 import persistence.ReturnManager4Public;
 import persistence.ReturnQuantifiedArticle4Public;
-import persistence.RootProductGroup4Public;
 import persistence.Settings4Public;
 import persistence.ShoppingCart4Public;
 import persistence.ShoppingCartQuantifiedArticle4Public;
-import persistence.SubProductGroup4Public;
-import viewClient.IconManager;
 
 public class GetIconInfo$Visitor extends model.visitor.AnythingStandardVisitor {
 
@@ -46,13 +45,14 @@ public class GetIconInfo$Visitor extends model.visitor.AnythingStandardVisitor {
 		result = IconConstants.ARTICLE;
 	}
 
+
 	@Override
-	public void handleRootProductGroup(RootProductGroup4Public rootProductGroup) throws PersistenceException {
+	public void handleProductGroup(ProductGroup4Public productGroup) throws PersistenceException {
 		result = IconConstants.PRODUCT_GROUP;
 	}
 
 	@Override
-	public void handleSubProductGroup(SubProductGroup4Public subProductGroup) throws PersistenceException {
+	public void handleComponentManager(ComponentManager4Public componentManager) throws PersistenceException {
 		result = IconConstants.PRODUCT_GROUP;
 	}
 
