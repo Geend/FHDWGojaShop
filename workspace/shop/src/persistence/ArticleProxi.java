@@ -106,6 +106,10 @@ public class ArticleProxi extends PersistentProxi implements PersistentArticle{
 				throws PersistenceException{
         ((PersistentArticle)this.getTheObject()).deregister(observee);
     }
+    public ArticleWrapper4Public getMyWrapper() 
+				throws PersistenceException{
+        return ((PersistentArticle)this.getTheObject()).getMyWrapper();
+    }
     public void increaseStock(final long quantity) 
 				throws PersistenceException{
         ((PersistentArticle)this.getTheObject()).increaseStock(quantity);
@@ -161,6 +165,10 @@ public class ArticleProxi extends PersistentProxi implements PersistentArticle{
     public String getProducerName() 
 				throws PersistenceException{
         return ((PersistentArticle)this.getTheObject()).getProducerName();
+    }
+    public ArticleWrapper4Public getWrapper() 
+				throws PersistenceException{
+        return ((PersistentArticle)this.getTheObject()).getWrapper();
     }
     public void increaseStockImplementation(final long quantity) 
 				throws PersistenceException{

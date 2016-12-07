@@ -1224,6 +1224,9 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleProcessingOrderState(view.ProcessingOrderStateView object){
         result = new ProcessingOrderStateDefaultDetailPanel(handler, object);
     }
+    public void handleComponentContainerImplementation(view.ComponentContainerImplementationView object){
+        result = new ComponentContainerImplementationDefaultDetailPanel(handler, object);
+    }
     public void handleCustomerDeliveryTimeManager(view.CustomerDeliveryTimeManagerView object){
         result = new CustomerDeliveryTimeManagerDefaultDetailPanel(handler, object);
     }
@@ -1552,6 +1555,21 @@ class ProcessingOrderStateDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class ComponentContainerImplementationDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String ComponentContainerImplementation$$components = "ComponentContainerImplementation$$components";
+    
+    protected ComponentContainerImplementationDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.ComponentContainerImplementationView getAnything(){
+        return (view.ComponentContainerImplementationView)this.anything;
+    }
+}
+
 class CustomerDeliveryTimeManagerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String CustomerDeliveryTimeManager$$customerDeliveryTimes = "CustomerDeliveryTimeManager$$customerDeliveryTimes";
@@ -1839,6 +1857,7 @@ class ArticleDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String Article$$producerDeliveryTime = "Article$$producerDeliveryTime";
     protected static final String Article$$currentState = "Article$$currentState";
     protected static final String Article$$producerName = "Article$$producerName";
+    protected static final String Article$$wrapper = "Article$$wrapper";
     
     protected ArticleDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1996,7 +2015,7 @@ class FinishedOrderStateDefaultDetailPanel extends DefaultDetailPanel{
 
 class ComponentManagerDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String ComponentManager$$components = "ComponentManager$$components";
+    protected static final String ComponentManager$$container = "ComponentManager$$container";
     
     protected ComponentManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);

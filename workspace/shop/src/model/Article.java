@@ -97,6 +97,15 @@ public class Article extends PersistentObject implements PersistentArticle{
             }
             result.put("currentState", this.getCurrentState());
             result.put("producerName", this.getProducerName());
+            AbstractPersistentRoot wrapper = (AbstractPersistentRoot)this.getWrapper();
+            if (wrapper != null) {
+                result.put("wrapper", wrapper.createProxiInformation(false, essentialLevel <= 1));
+                if(depth > 1) {
+                    wrapper.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && wrapper.hasEssentialFields())wrapper.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -319,6 +328,7 @@ public class Article extends PersistentObject implements PersistentArticle{
          return visitor.handleArticle(this);
     }
     public int getLeafInfo() throws PersistenceException{
+        if (this.getWrapper() != null) return 1;
         return 0;
     }
     
@@ -331,6 +341,17 @@ public class Article extends PersistentObject implements PersistentArticle{
 			getThis().setSubService(subService);
 		}
 		subService.deregister(observee);
+    }
+    public ArticleWrapper4Public getMyWrapper() 
+				throws PersistenceException{
+        ArticleWrapperSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theArticleWrapperFacade
+										.inverseGetArticle(getThis().getId(), getThis().getClassId());
+		try {
+			return result.iterator().next();
+		} catch (java.util.NoSuchElementException nsee){
+			return null;
+		}
     }
     public void increaseStock(final long quantity) 
 				throws PersistenceException{
@@ -436,6 +457,10 @@ public class Article extends PersistentObject implements PersistentArticle{
     public String getProducerName() 
 				throws PersistenceException{
         return getThis().getProducer().getName();
+    }
+    public ArticleWrapper4Public getWrapper() 
+				throws PersistenceException{
+       return getThis().getMyWrapper();
     }
     public void increaseStockImplementation(final long quantity) 
 				throws PersistenceException{

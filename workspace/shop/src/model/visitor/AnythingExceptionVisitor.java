@@ -15,6 +15,8 @@ public interface AnythingExceptionVisitor<E extends model.UserException> extends
     public void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException, E;
     public void handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException, E;
     public void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException, E;
+    public void handleComponentContainerImplementation(ComponentContainerImplementation4Public componentContainerImplementation) throws PersistenceException, E;
+    public void handleComponentContainerImplementationComponents(ComponentContainerImplementationComponents4Public componentContainerImplementationComponents) throws PersistenceException, E;
     public void handleComponentManager(ComponentManager4Public componentManager) throws PersistenceException, E;
     public void handleCreateCustomerDeliveryTimeCommand(CreateCustomerDeliveryTimeCommand4Public createCustomerDeliveryTimeCommand) throws PersistenceException, E;
     public void handleCreateProducerCommand(CreateProducerCommand4Public createProducerCommand) throws PersistenceException, E;
@@ -37,6 +39,7 @@ public interface AnythingExceptionVisitor<E extends model.UserException> extends
     public void handleOrderManagerOrders(OrderManagerOrders4Public orderManagerOrders) throws PersistenceException, E;
     public void handleProducer(Producer4Public producer) throws PersistenceException, E;
     public void handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException, E;
+    public void handleProductGroupComponents(ProductGroupComponents4Public productGroupComponents) throws PersistenceException, E;
     public void handleReOrderCommand(ReOrderCommand4Public reOrderCommand) throws PersistenceException, E;
     public void handleReOrderForPreorderCommand(ReOrderForPreorderCommand4Public reOrderForPreorderCommand) throws PersistenceException, E;
     public void handleReOrderManager(ReOrderManager4Public reOrderManager) throws PersistenceException, E;

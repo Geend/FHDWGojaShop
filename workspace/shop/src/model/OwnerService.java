@@ -524,7 +524,7 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
         component.moveTo(newParentGroup, getThis());
 
     }
-    public void newArticle(final ProductGroup4Public parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
+    public void newArticle(final ComponentContainer parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
 
 
@@ -564,7 +564,7 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
 
         parent.newArticle(name, price, minStock, maxStock, producerDeliveryTime, producer, getThis());
     }
-    public void newProductGroup(final ProductGroup4Public parent, final String name) 
+    public void newProductGroup(final ComponentContainer parent, final String name) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
         parent.newProductGroup(name, getThis());
 

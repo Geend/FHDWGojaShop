@@ -59,8 +59,6 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		result = "Artikel";
 	}
 
-
-
 	@Override
 	public void handleCustomerService(CustomerService4Public customerService) throws PersistenceException {
 	}
@@ -72,6 +70,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleProcessingOrderState(ProcessingOrderState4Public processingOrderState) throws PersistenceException {
 		result = "in Bearbeitung";
+	}
+
+	@Override
+	public void handleComponentContainerImplementation(ComponentContainerImplementation4Public componentContainerImplementation) throws PersistenceException {
+
 	}
 
 
@@ -246,6 +249,8 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 			}
 		});
 	}
+
+
 
 	@Override
 	public void handlePreOrderState(PreOrderState4Public preOrderState) throws PersistenceException {

@@ -19,7 +19,7 @@ public class CustomerServiceComponentManagerICProxi extends PersistentInCachePro
     }
     
     public long getClassId() {
-        return 380;
+        return 399;
     }
     
     public CustomerService4Public getObserver() throws PersistenceException {

@@ -23,6 +23,10 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleArticle(Article4Public article) throws PersistenceException;
     
+    public abstract void handleProductGroupComponents(ProductGroupComponents4Public productGroupComponents) throws PersistenceException;
+    
+    public abstract void handleComponentContainerImplementation(ComponentContainerImplementation4Public componentContainerImplementation) throws PersistenceException;
+    
     public abstract void handleCustomerDeliveryTime(CustomerDeliveryTime4Public customerDeliveryTime) throws PersistenceException;
     
     public abstract void handleOrderManagerOrders(OrderManagerOrders4Public orderManagerOrders) throws PersistenceException;
@@ -78,6 +82,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
         this.handleComponent(articleWrapper);
     }
     public abstract void handleSettings(Settings4Public settings) throws PersistenceException;
+    
+    public abstract void handleComponentContainerImplementationComponents(ComponentContainerImplementationComponents4Public componentContainerImplementationComponents) throws PersistenceException;
     
     public abstract void handleOrder(Order4Public order) throws PersistenceException;
     

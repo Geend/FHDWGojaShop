@@ -15,7 +15,7 @@ public class CustomerServiceComponentManagerProxi extends PersistentProxi implem
     
     
     public long getClassId() {
-        return 380;
+        return 399;
     }
     
     public CustomerService4Public getObserver() throws PersistenceException {

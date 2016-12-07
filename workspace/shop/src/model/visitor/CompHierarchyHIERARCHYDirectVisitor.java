@@ -5,7 +5,7 @@ import persistence.*;
 
 public abstract class CompHierarchyHIERARCHYDirectVisitor implements CompHierarchyHIERARCHYVisitor {
     
-    public abstract void handleComponentManager(ComponentManager4Public componentManager) throws PersistenceException;
+    public abstract void handleProductGroupComponents(ProductGroupComponents4Public productGroupComponents) throws PersistenceException;
     
     public abstract void handleComponent(Component4Public component) throws PersistenceException;
     
@@ -15,5 +15,9 @@ public abstract class CompHierarchyHIERARCHYDirectVisitor implements CompHierarc
     public void handleArticleWrapper(ArticleWrapper4Public articleWrapper) throws PersistenceException{
         this.handleComponent(articleWrapper);
     }
+    public abstract void handleComponentContainerImplementation(ComponentContainerImplementation4Public componentContainerImplementation) throws PersistenceException;
+    
+    public abstract void handleComponentContainerImplementationComponents(ComponentContainerImplementationComponents4Public componentContainerImplementationComponents) throws PersistenceException;
+    
     
 }

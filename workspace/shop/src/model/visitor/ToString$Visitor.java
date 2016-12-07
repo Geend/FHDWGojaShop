@@ -15,6 +15,7 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleNotInSale(NotInSale4Public notInSale) throws PersistenceException;
     public abstract void handleCustomerRegisterService(CustomerRegisterService4Public customerRegisterService) throws PersistenceException;
     public abstract void handleProcessingOrderState(ProcessingOrderState4Public processingOrderState) throws PersistenceException;
+    public abstract void handleComponentContainerImplementation(ComponentContainerImplementation4Public componentContainerImplementation) throws PersistenceException;
     public abstract void handleCustomerDeliveryTimeManager(CustomerDeliveryTimeManager4Public customerDeliveryTimeManager) throws PersistenceException;
     public abstract void handleSettings(Settings4Public settings) throws PersistenceException;
     public abstract void handleOrder(Order4Public order) throws PersistenceException;

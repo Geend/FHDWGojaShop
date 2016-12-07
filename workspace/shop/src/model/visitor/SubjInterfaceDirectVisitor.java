@@ -23,6 +23,8 @@ public abstract class SubjInterfaceDirectVisitor implements SubjInterfaceVisitor
     
     public abstract void handleArticle(Article4Public article) throws PersistenceException;
     
+    public abstract void handleComponentContainerImplementation(ComponentContainerImplementation4Public componentContainerImplementation) throws PersistenceException;
+    
     public abstract void handleCustomerDeliveryTime(CustomerDeliveryTime4Public customerDeliveryTime) throws PersistenceException;
     
     public abstract void handleOrderStatus(OrderStatus4Public orderStatus) throws PersistenceException;

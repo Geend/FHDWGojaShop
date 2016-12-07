@@ -157,7 +157,7 @@ public  class RemoteOwnerService extends RemoteService {
     
     public synchronized java.util.HashMap<?,?> newArticle(String parentProxiString, String name, String priceAsString, String minStockAsString, String maxStockAsString, String producerDeliveryTimeAsString, String producerProxiString){
         try {
-            PersistentProductGroup parent = (PersistentProductGroup)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(parentProxiString));
+            ComponentContainer parent = (ComponentContainer)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(parentProxiString));
             common.Fraction price = common.Fraction.parse(priceAsString);
             long minStock = new Long(minStockAsString).longValue();
             long maxStock = new Long(maxStockAsString).longValue();
@@ -176,7 +176,7 @@ public  class RemoteOwnerService extends RemoteService {
     
     public synchronized java.util.HashMap<?,?> newProductGroup(String parentProxiString, String name){
         try {
-            PersistentProductGroup parent = (PersistentProductGroup)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(parentProxiString));
+            ComponentContainer parent = (ComponentContainer)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(parentProxiString));
             ((PersistentOwnerService)this.server).newProductGroup(parent, name);
             return createOKResult();
         }catch(PersistenceException pe){

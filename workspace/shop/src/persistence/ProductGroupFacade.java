@@ -13,14 +13,14 @@ public class ProductGroupFacade{
     public PersistentProductGroup newProductGroup(String name,long idCreateIfLessZero) throws PersistenceException {
         if(idCreateIfLessZero > 0) return (PersistentProductGroup)PersistentProxi.createProxi(idCreateIfLessZero, 121);
         long id = ConnectionHandler.getTheConnectionHandler().theComponentFacade.getNextId();
-        ProductGroup result = new ProductGroup(null,null,null,name,id);
+        ProductGroup result = new ProductGroup(null,null,null,null,name,id);
         Cache.getTheCache().put(result);
         return (PersistentProductGroup)PersistentProxi.createProxi(id, 121);
     }
     
     public PersistentProductGroup newDelayedProductGroup(String name) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theComponentFacade.getNextId();
-        ProductGroup result = new ProductGroup(null,null,null,name,id);
+        ProductGroup result = new ProductGroup(null,null,null,null,name,id);
         Cache.getTheCache().put(result);
         return (PersistentProductGroup)PersistentProxi.createProxi(id, 121);
     }
@@ -41,14 +41,8 @@ public class ProductGroupFacade{
         }
         return result;
     }
-    public long componentsAdd(long ProductGroupId, Component4Public componentsVal) throws PersistenceException {
-        return 0;
-    }
-    public void componentsRem(long componentsId) throws PersistenceException {
+    public void componentsSet(long ProductGroupId, ProductGroupComponents4Public componentsVal) throws PersistenceException {
         
-    }
-    public ComponentList componentsGet(long ProductGroupId) throws PersistenceException {
-        return new ComponentList(); // remote access for initialization only!
     }
     public void nameSet(long ProductGroupId, String nameVal) throws PersistenceException {
         

@@ -8,6 +8,7 @@ public interface AnythingReturnExceptionVisitor<R, E extends view.UserException>
     public R handleArticle(ArticleView article) throws ModelException, E;
     public R handleArticleReturn(ArticleReturnView articleReturn) throws ModelException, E;
     public R handleBackgroundTaskManager(BackgroundTaskManagerView backgroundTaskManager) throws ModelException, E;
+    public R handleComponentContainerImplementation(ComponentContainerImplementationView componentContainerImplementation) throws ModelException, E;
     public R handleComponentManager(ComponentManagerView componentManager) throws ModelException, E;
     public R handleCustomerAccount(CustomerAccountView customerAccount) throws ModelException, E;
     public R handleCustomerArticleLst(CustomerArticleLstView customerArticleLst) throws ModelException, E;

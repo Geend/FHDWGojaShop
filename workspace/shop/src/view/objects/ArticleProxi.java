@@ -34,7 +34,14 @@ public class ArticleProxi extends ViewProxi implements ArticleView{
         }
         String currentState = (String)resultTable.get("currentState");
         String producerName = (String)resultTable.get("producerName");
-        ArticleView result$$ = new Article((String)name,(common.Fraction)price,(long)minStock,(long)maxStock,(long)currentStock,(long)producerDeliveryTime,(ProducerView)producer,(ArticleStateView)state,(String)currentState,(String)producerName, this.getId(), this.getClassId());
+        ViewProxi wrapper = null;
+        String wrapper$String = (String)resultTable.get("wrapper");
+        if (wrapper$String != null) {
+            common.ProxiInformation wrapper$Info = common.RPCConstantsAndServices.createProxiInformation(wrapper$String);
+            wrapper = view.objects.ViewProxi.createProxi(wrapper$Info,connectionKey);
+            wrapper.setToString(wrapper$Info.getToString());
+        }
+        ArticleView result$$ = new Article((String)name,(common.Fraction)price,(long)minStock,(long)maxStock,(long)currentStock,(long)producerDeliveryTime,(ProducerView)producer,(ArticleStateView)state,(String)currentState,(String)producerName,(ArticleWrapperView)wrapper, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -43,17 +50,24 @@ public class ArticleProxi extends ViewProxi implements ArticleView{
         return RemoteDepth;
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        
+        int index = originalIndex;
+        if(index == 0 && this.getWrapper() != null) return new WrapperArticleWrapper(this, originalIndex, (ViewRoot)this.getWrapper());
+        if(this.getWrapper() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 ;
+        return 0 
+            + (this.getWrapper() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
-        return true;
+        if (this.object == null) return this.getLeafInfo() == 0;
+        return true 
+            && (this.getWrapper() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        
+        int result = 0;
+        if(this.getWrapper() != null && this.getWrapper().equals(child)) return result;
+        if(this.getWrapper() != null) result = result + 1;
         return -1;
     }
     
@@ -110,6 +124,9 @@ public class ArticleProxi extends ViewProxi implements ArticleView{
     }
     public String getProducerName()throws ModelException{
         return ((Article)this.getTheObject()).getProducerName();
+    }
+    public ArticleWrapperView getWrapper()throws ModelException{
+        return ((Article)this.getTheObject()).getWrapper();
     }
     
     public void accept(AnythingVisitor visitor) throws ModelException {

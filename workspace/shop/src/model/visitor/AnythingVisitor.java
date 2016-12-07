@@ -15,6 +15,8 @@ public interface AnythingVisitor extends ArticleStateVisitor,BackgroundTaskVisit
     public void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException;
     public void handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException;
     public void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException;
+    public void handleComponentContainerImplementation(ComponentContainerImplementation4Public componentContainerImplementation) throws PersistenceException;
+    public void handleComponentContainerImplementationComponents(ComponentContainerImplementationComponents4Public componentContainerImplementationComponents) throws PersistenceException;
     public void handleComponentManager(ComponentManager4Public componentManager) throws PersistenceException;
     public void handleCreateCustomerDeliveryTimeCommand(CreateCustomerDeliveryTimeCommand4Public createCustomerDeliveryTimeCommand) throws PersistenceException;
     public void handleCreateProducerCommand(CreateProducerCommand4Public createProducerCommand) throws PersistenceException;
@@ -37,6 +39,7 @@ public interface AnythingVisitor extends ArticleStateVisitor,BackgroundTaskVisit
     public void handleOrderManagerOrders(OrderManagerOrders4Public orderManagerOrders) throws PersistenceException;
     public void handleProducer(Producer4Public producer) throws PersistenceException;
     public void handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException;
+    public void handleProductGroupComponents(ProductGroupComponents4Public productGroupComponents) throws PersistenceException;
     public void handleReOrderCommand(ReOrderCommand4Public reOrderCommand) throws PersistenceException;
     public void handleReOrderForPreorderCommand(ReOrderForPreorderCommand4Public reOrderForPreorderCommand) throws PersistenceException;
     public void handleReOrderManager(ReOrderManager4Public reOrderManager) throws PersistenceException;

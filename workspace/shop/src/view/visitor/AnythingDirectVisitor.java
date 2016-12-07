@@ -23,6 +23,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleArticle(ArticleView article) throws ModelException;
     
+    public abstract void handleComponentContainerImplementation(ComponentContainerImplementationView componentContainerImplementation) throws ModelException;
+    
     public abstract void handleCustomerDeliveryTime(CustomerDeliveryTimeView customerDeliveryTime) throws ModelException;
     
     public abstract void handleOrderStatus(OrderStatusView orderStatus) throws ModelException;

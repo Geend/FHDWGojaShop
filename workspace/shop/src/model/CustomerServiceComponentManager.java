@@ -60,7 +60,7 @@ public class CustomerServiceComponentManager extends PersistentObject implements
     }
     
     static public long getTypeId() {
-        return 380;
+        return 399;
     }
     
     public long getClassId() {
@@ -69,7 +69,7 @@ public class CustomerServiceComponentManager extends PersistentObject implements
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 380) ConnectionHandler.getTheConnectionHandler().theCustomerServiceComponentManagerFacade
+        if (this.getClassId() == 399) ConnectionHandler.getTheConnectionHandler().theCustomerServiceComponentManagerFacade
             .newCustomerServiceComponentManager(this.getId());
         super.store();
         if(this.getObserver() != null){

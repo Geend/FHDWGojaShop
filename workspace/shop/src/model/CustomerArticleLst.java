@@ -224,7 +224,7 @@ public class CustomerArticleLst extends PersistentObject implements PersistentCu
     
     public void clear() 
 				throws PersistenceException{
-       // getThis().getArticles()
+        getThis().getArticles().filter(argument -> false);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -232,48 +232,14 @@ public class CustomerArticleLst extends PersistentObject implements PersistentCu
     public void find(final String name) 
 				throws PersistenceException{
         getThis().clear();
-            //TODO! Reimplement
-        /*
-        Article.getArticleByName(name);
-         list = Component.getComponentByName(name);
-
-        Iterator<Component4Public> iterator = list.iterator();
-        while(iterator.hasNext()){
-            Optional<ArticleWrapper4Public> article= iterator.next().accept(new ComponentReturnVisitor<Optional<ArticleWrapper4Public>>() {
-                @Override
-                public Optional<ArticleWrapper4Public> handleArticle(Article4Public article) throws PersistenceException {
-                    return Optional.empty();
-                }
-
-                @Override
-                public Optional<ArticleWrapper4Public> handleArticleWrapper(ArticleWrapper4Public articleWrapper) throws PersistenceException {
-                    return Optional.of(articleWrapper);
-                }
-
-                @Override
-                public Optional<ArticleWrapper4Public> handleRootProductGroup(RootProductGroup4Public rootProductGroup) throws PersistenceException {
-                    return Optional.empty();
-                }
-
-                @Override
-                public Optional<ArticleWrapper4Public> handleSubProductGroup(SubProductGroup4Public subProductGroup) throws PersistenceException {
-                    return Optional.empty();
-                }
-            });
-
-            if(article.isPresent())
-                getArticles().add(article.get());
-        }*/
+        ArticleSearchList list = Article.getArticleByName(name);
+        list.applyToAll(article -> getThis().getArticles().add(article.getWrapper()));
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
     }
     
     

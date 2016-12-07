@@ -8,6 +8,7 @@ public interface AnythingExceptionVisitor<E extends view.UserException> extends 
     public void handleArticle(ArticleView article) throws ModelException, E;
     public void handleArticleReturn(ArticleReturnView articleReturn) throws ModelException, E;
     public void handleBackgroundTaskManager(BackgroundTaskManagerView backgroundTaskManager) throws ModelException, E;
+    public void handleComponentContainerImplementation(ComponentContainerImplementationView componentContainerImplementation) throws ModelException, E;
     public void handleComponentManager(ComponentManagerView componentManager) throws ModelException, E;
     public void handleCustomerAccount(CustomerAccountView customerAccount) throws ModelException, E;
     public void handleCustomerArticleLst(CustomerArticleLstView customerArticleLst) throws ModelException, E;

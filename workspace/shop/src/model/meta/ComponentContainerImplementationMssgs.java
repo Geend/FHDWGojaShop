@@ -1,0 +1,8 @@
+package model.meta;
+
+public interface ComponentContainerImplementationMssgs {
+    void accept(ComponentContainerImplementationMssgsVisitor visitor) throws persistence.PersistenceException;
+}
+
+interface ComponentContainerImplementationDOWNMssgs extends ComponentContainerDOWNMssgs, ComponentContainerImplementationMssgs{}
+interface ComponentContainerImplementationUPMssgs extends Mssgs, ComponentContainerImplementationMssgs{}

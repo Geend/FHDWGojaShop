@@ -56,7 +56,7 @@ public class ProductGroup extends model.Component implements PersistentProductGr
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            result.put("components", this.getComponents().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
+            result.put("components", this.getComponents().getObservee().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
             result.put("name", this.getName());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
@@ -74,9 +74,9 @@ public class ProductGroup extends model.Component implements PersistentProductGr
         result = new ProductGroup(this.parent, 
                                   this.subService, 
                                   this.This, 
+                                  this.components, 
                                   this.name, 
                                   this.getId());
-        result.components = this.components.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -84,13 +84,13 @@ public class ProductGroup extends model.Component implements PersistentProductGr
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected ProductGroup_ComponentsProxi components;
+    protected PersistentProductGroupComponents components;
     protected String name;
     
-    public ProductGroup(ComponentContainer parent,SubjInterface subService,PersistentComponent This,String name,long id) throws PersistenceException {
+    public ProductGroup(ComponentContainer parent,SubjInterface subService,PersistentComponent This,PersistentProductGroupComponents components,String name,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super((ComponentContainer)parent,(SubjInterface)subService,(PersistentComponent)This,id);
-        this.components = new ProductGroup_ComponentsProxi(this);
+        this.components = components;
         this.name = name;        
     }
     
@@ -107,12 +107,24 @@ public class ProductGroup extends model.Component implements PersistentProductGr
         if (this.getClassId() == 121) ConnectionHandler.getTheConnectionHandler().theProductGroupFacade
             .newProductGroup(name,this.getId());
         super.store();
-        this.getComponents().store();
+        if(this.components != null){
+            this.components.store();
+            ConnectionHandler.getTheConnectionHandler().theProductGroupFacade.componentsSet(this.getId(), components);
+        }
         
     }
     
-    public ProductGroup_ComponentsProxi getComponents() throws PersistenceException {
-        return this.components;
+    public void setComponents(ProductGroupComponents4Public newValue) throws PersistenceException , model.CycleException{
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if (newValue.containsCompHierarchy(getThis())) throw new model.CycleException("Cycle in CompHierarchy detected!");
+        if(newValue.isTheSameAs(this.components)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.components = (PersistentProductGroupComponents)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theProductGroupFacade.componentsSet(this.getId(), newValue);
+        }
     }
     public String getName() throws PersistenceException {
         return this.name;
@@ -191,7 +203,7 @@ public class ProductGroup extends model.Component implements PersistentProductGr
          return visitor.handleProductGroup(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getComponents().getLength() > 0) return 1;
+        if (this.getComponents().getObservee().getLength() > 0) return 1;
         return 0;
     }
     
@@ -211,9 +223,7 @@ public class ProductGroup extends model.Component implements PersistentProductGr
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
 		if(visited.contains(getThis())) return false;
-		java.util.Iterator<Component4Public> iterator0 = getThis().getComponents().iterator();
-		while(iterator0.hasNext())
-			if(((CompHierarchyHIERARCHY)iterator0.next()).containsCompHierarchy(part, visited)) return true; 
+		if(getThis().getComponents() != null && getThis().getComponents().containsCompHierarchy(part, visited)) return true;
 		visited.add(getThis());
 		return false;
     }
@@ -225,6 +235,21 @@ public class ProductGroup extends model.Component implements PersistentProductGr
 			getThis().setSubService(subService);
 		}
 		subService.deregister(observee);
+    }
+    public void fireComponentChanged(final model.meta.ComponentMssgs evnt) 
+				throws PersistenceException{
+        model.meta.ComponentContainerFireComponentChangedComponentMssgsMssg event = new model.meta.ComponentContainerFireComponentChangedComponentMssgsMssg(evnt, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
+    public ProductGroupComponents4Public getComponents() 
+				throws PersistenceException{
+        if (this.components == null) {
+			try { this.setComponents(model.ProductGroupComponents.createProductGroupComponents(this.isDelayed$Persistence())); } catch (CycleException e){throw new Error("Cycle shall be impossible!");}
+			this.components.setObserver(this);
+		}
+		return this.components;
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -288,13 +313,7 @@ public class ProductGroup extends model.Component implements PersistentProductGr
     public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy, final java.util.HashMap<CompHierarchyHIERARCHY,T> visited) 
 				throws PersistenceException{
         if (visited.containsKey(getThis())) return visited.get(getThis());
-		T result$$components$$ProductGroup = strategy.ProductGroup$$components$$$initialize(getThis());
-		java.util.Iterator<?> iterator$$ = getThis().getComponents().iterator();
-		while (iterator$$.hasNext()){
-			Component4Public current$$Field = (Component4Public)iterator$$.next();
-			T current$$ = current$$Field.strategyCompHierarchy(strategy, visited);
-			result$$components$$ProductGroup = strategy.ProductGroup$$components$$consolidate(getThis(), result$$components$$ProductGroup, current$$);
-		}
+		T result$$components$$ProductGroup = this.getComponents().strategyCompHierarchy(strategy, visited);
 		T result = strategy.ProductGroup$$finalize(getThis() ,result$$components$$ProductGroup);
 		visited.put(getThis(),result);
 		return result;
@@ -316,10 +335,19 @@ public class ProductGroup extends model.Component implements PersistentProductGr
 				throws model.CycleException, PersistenceException{
         getThis().getComponents().add(component);
     }
+    public void components_update(final model.meta.ComponentMssgs event) 
+				throws PersistenceException{
+       getThis().fireComponentChanged(event);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes
 
+    }
+    public void fireComponentChangedImplementation(final model.meta.ComponentMssgs evnt) 
+				throws PersistenceException{
+        //TODO: implement method: fireComponentChangedImplementation
+        
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

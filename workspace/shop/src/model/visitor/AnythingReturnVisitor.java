@@ -15,6 +15,8 @@ public interface AnythingReturnVisitor<R> extends ArticleStateReturnVisitor<R> ,
     public R handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException;
     public R handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException;
     public R handleCommonDate(CommonDate4Public commonDate) throws PersistenceException;
+    public R handleComponentContainerImplementation(ComponentContainerImplementation4Public componentContainerImplementation) throws PersistenceException;
+    public R handleComponentContainerImplementationComponents(ComponentContainerImplementationComponents4Public componentContainerImplementationComponents) throws PersistenceException;
     public R handleComponentManager(ComponentManager4Public componentManager) throws PersistenceException;
     public R handleCreateCustomerDeliveryTimeCommand(CreateCustomerDeliveryTimeCommand4Public createCustomerDeliveryTimeCommand) throws PersistenceException;
     public R handleCreateProducerCommand(CreateProducerCommand4Public createProducerCommand) throws PersistenceException;
@@ -37,6 +39,7 @@ public interface AnythingReturnVisitor<R> extends ArticleStateReturnVisitor<R> ,
     public R handleOrderManagerOrders(OrderManagerOrders4Public orderManagerOrders) throws PersistenceException;
     public R handleProducer(Producer4Public producer) throws PersistenceException;
     public R handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException;
+    public R handleProductGroupComponents(ProductGroupComponents4Public productGroupComponents) throws PersistenceException;
     public R handleReOrderCommand(ReOrderCommand4Public reOrderCommand) throws PersistenceException;
     public R handleReOrderForPreorderCommand(ReOrderForPreorderCommand4Public reOrderForPreorderCommand) throws PersistenceException;
     public R handleReOrderManager(ReOrderManager4Public reOrderManager) throws PersistenceException;

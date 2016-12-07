@@ -317,7 +317,7 @@ public class OwnerServiceConnection extends ServiceConnection {
     }
     
     @SuppressWarnings("unchecked")
-    public synchronized void newArticle(ProductGroupView parent, String name, common.Fraction price, long minStock, long maxStock, long producerDeliveryTime, ProducerView producer) throws ModelException, DoubleDefinitionException, CycleException{
+    public synchronized void newArticle(ComponentContainer parent, String name, common.Fraction price, long minStock, long maxStock, long producerDeliveryTime, ProducerView producer) throws ModelException, DoubleDefinitionException, CycleException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             if (parent == null){
@@ -354,7 +354,7 @@ public class OwnerServiceConnection extends ServiceConnection {
     }
     
     @SuppressWarnings("unchecked")
-    public synchronized void newProductGroup(ProductGroupView parent, String name) throws ModelException, DoubleDefinitionException, CycleException{
+    public synchronized void newProductGroup(ComponentContainer parent, String name) throws ModelException, DoubleDefinitionException, CycleException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             if (parent == null){

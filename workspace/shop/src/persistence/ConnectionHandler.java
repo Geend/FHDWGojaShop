@@ -78,6 +78,7 @@ public class ConnectionHandler {
     public NewPreOrderCommandFacade theNewPreOrderCommandFacade;
     public RegisterCommandFacade theRegisterCommandFacade;
     public ProcessingOrderStateFacade theProcessingOrderStateFacade;
+    public ComponentContainerImplementationFacade theComponentContainerImplementationFacade;
     public OrderManagerOrdersFacade theOrderManagerOrdersFacade;
     public CommandCoordinatorFacade theCommandCoordinatorFacade;
     public StopSellingCommandFacade theStopSellingCommandFacade;
@@ -86,6 +87,7 @@ public class ConnectionHandler {
     public CustomerDeliveryTimeManagerFacade theCustomerDeliveryTimeManagerFacade;
     public SettingsFacade theSettingsFacade;
     public DepositCommandFacade theDepositCommandFacade;
+    public ComponentContainerImplementationComponentsFacade theComponentContainerImplementationComponentsFacade;
     public OrderFacade theOrderFacade;
     public IncreaseStockCommandFacade theIncreaseStockCommandFacade;
     public CreateProducerCommandFacade theCreateProducerCommandFacade;
@@ -109,6 +111,7 @@ public class ConnectionHandler {
     public CreateCustomerDeliveryTimeCommandFacade theCreateCustomerDeliveryTimeCommandFacade;
     public ArticleFacade theArticleFacade;
     public OwnerOrderManagerFacade theOwnerOrderManagerFacade;
+    public ProductGroupComponentsFacade theProductGroupComponentsFacade;
     public CustomerDeliveryTimeFacade theCustomerDeliveryTimeFacade;
     public OrderStatusFacade theOrderStatusFacade;
     public OwnerServiceFacade theOwnerServiceFacade;
@@ -160,6 +163,7 @@ public class ConnectionHandler {
             this.theNewPreOrderCommandFacade= new NewPreOrderCommandFacade();
             this.theRegisterCommandFacade= new RegisterCommandFacade();
             this.theProcessingOrderStateFacade= new ProcessingOrderStateFacade();
+            this.theComponentContainerImplementationFacade= new ComponentContainerImplementationFacade();
             this.theOrderManagerOrdersFacade= new OrderManagerOrdersFacade();
             this.theCommandCoordinatorFacade= new CommandCoordinatorFacade();
             this.theStopSellingCommandFacade= new StopSellingCommandFacade();
@@ -168,6 +172,7 @@ public class ConnectionHandler {
             this.theCustomerDeliveryTimeManagerFacade= new CustomerDeliveryTimeManagerFacade();
             this.theSettingsFacade= new SettingsFacade();
             this.theDepositCommandFacade= new DepositCommandFacade();
+            this.theComponentContainerImplementationComponentsFacade= new ComponentContainerImplementationComponentsFacade();
             this.theOrderFacade= new OrderFacade();
             this.theIncreaseStockCommandFacade= new IncreaseStockCommandFacade();
             this.theCreateProducerCommandFacade= new CreateProducerCommandFacade();
@@ -191,6 +196,7 @@ public class ConnectionHandler {
             this.theCreateCustomerDeliveryTimeCommandFacade= new CreateCustomerDeliveryTimeCommandFacade();
             this.theArticleFacade= new ArticleFacade();
             this.theOwnerOrderManagerFacade= new OwnerOrderManagerFacade();
+            this.theProductGroupComponentsFacade= new ProductGroupComponentsFacade();
             this.theCustomerDeliveryTimeFacade= new CustomerDeliveryTimeFacade();
             this.theOrderStatusFacade= new OrderStatusFacade();
             this.theOwnerServiceFacade= new OwnerServiceFacade();

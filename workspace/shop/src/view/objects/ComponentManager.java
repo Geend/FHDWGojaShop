@@ -9,12 +9,12 @@ import view.visitor.*;
 
 public class ComponentManager extends ViewObject implements ComponentManagerView{
     
-    protected java.util.Vector<ComponentView> components;
+    protected ComponentContainerImplementationView container;
     
-    public ComponentManager(java.util.Vector<ComponentView> components,long id, long classId) {
+    public ComponentManager(ComponentContainerImplementationView container,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
-        this.components = components;        
+        this.container = container;        
     }
     
     static public long getTypeId() {
@@ -25,11 +25,11 @@ public class ComponentManager extends ViewObject implements ComponentManagerView
         return getTypeId();
     }
     
-    public java.util.Vector<ComponentView> getComponents()throws ModelException{
-        return this.components;
+    public ComponentContainerImplementationView getContainer()throws ModelException{
+        return this.container;
     }
-    public void setComponents(java.util.Vector<ComponentView> newValue) throws ModelException {
-        this.components = newValue;
+    public void setContainer(ComponentContainerImplementationView newValue) throws ModelException {
+        this.container = newValue;
     }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
@@ -58,9 +58,9 @@ public class ComponentManager extends ViewObject implements ComponentManagerView
     }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
-        java.util.Vector<?> components = this.getComponents();
-        if (components != null) {
-            ViewObject.resolveVectorProxies(components, resultTable);
+        ComponentContainerImplementationView container = this.getContainer();
+        if (container != null) {
+            ((ViewProxi)container).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(container.getClassId(), container.getId())));
         }
         
     }
@@ -69,25 +69,23 @@ public class ComponentManager extends ViewObject implements ComponentManagerView
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
         int index = originalIndex;
-        if(index < this.getComponents().size()) return new ComponentsComponentManagerWrapper(this, originalIndex, (ViewRoot)this.getComponents().get(index));
-        index = index - this.getComponents().size();
+        if(this.getContainer() != null && index < this.getContainer().getTheObject().getChildCount())
+            return this.getContainer().getTheObject().getChild(index);
+        if(this.getContainer() != null) index = index - this.getContainer().getTheObject().getChildCount();
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getComponents().size());
+            + (this.getContainer() == null ? 0 : this.getContainer().getTheObject().getChildCount());
     }
     public boolean isLeaf() throws ModelException {
         return true 
-            && (this.getComponents().size() == 0);
+            && (this.getContainer() == null ? true : this.getContainer().getTheObject().isLeaf());
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
-        java.util.Iterator<?> getComponentsIterator = this.getComponents().iterator();
-        while(getComponentsIterator.hasNext()){
-            if(getComponentsIterator.next().equals(child)) return result;
-            result = result + 1;
-        }
+        if(this.getContainer() != null && this.getContainer().equals(child)) return result;
+        if(this.getContainer() != null) result = result + 1;
         return -1;
     }
     public int getRowCount(){

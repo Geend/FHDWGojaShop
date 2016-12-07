@@ -11,5 +11,8 @@ public abstract class ComponentContainerStandardVisitor implements ComponentCont
     public void handleComponentManager(ComponentManagerView componentManager) throws ModelException{
         this.standardHandling(componentManager);
     }
+    public void handleComponentContainerImplementation(ComponentContainerImplementationView componentContainerImplementation) throws ModelException{
+        this.standardHandling(componentContainerImplementation);
+    }
     protected abstract void standardHandling(ComponentContainer componentContainer) throws ModelException;
 }

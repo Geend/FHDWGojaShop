@@ -287,6 +287,8 @@ public class Cache {
 		this.number2NameMap.put(-101, "CommandCoordinator");
 		this.number2NameMap.put(-105, "CommandExecuter");
 		this.number2NameMap.put(104, "CommonDate");
+		this.number2NameMap.put(395, "ComponentContainerImplementation");
+		this.number2NameMap.put(396, "ComponentContainerImplementationComponents");
 		this.number2NameMap.put(379, "ComponentManager");
 		this.number2NameMap.put(295, "CreateCustomerDeliveryTimeCommand");
 		this.number2NameMap.put(209, "CreateProducerCommand");
@@ -297,7 +299,7 @@ public class Cache {
 		this.number2NameMap.put(308, "CustomerOrderManager");
 		this.number2NameMap.put(-225, "CustomerRegisterService");
 		this.number2NameMap.put(-278, "CustomerService");
-		this.number2NameMap.put(380, "CustomerServiceComponentManager");
+		this.number2NameMap.put(399, "CustomerServiceComponentManager");
 		this.number2NameMap.put(375, "CustomerServiceOrderManager");
 		this.number2NameMap.put(334, "DebitCommand");
 		this.number2NameMap.put(300, "DepositCommand");
@@ -325,6 +327,7 @@ public class Cache {
 		this.number2NameMap.put(198, "Producer");
 		this.number2NameMap.put(210, "ProducerLst");
 		this.number2NameMap.put(121, "ProductGroup");
+		this.number2NameMap.put(391, "ProductGroupComponents");
 		this.number2NameMap.put(330, "ReOrderCommand");
 		this.number2NameMap.put(368, "ReOrderForPreorderCommand");
 		this.number2NameMap.put(327, "ReOrderManager");

@@ -36,6 +36,9 @@ public class ComponentContainerNewArticleStringFractionIntegerIntegerIntegerProd
     public void accept(ProductGroupMssgsVisitor visitor) throws PersistenceException{
         visitor.handleComponentContainerNewArticleStringFractionIntegerIntegerIntegerProducerMssg(this);
     }
+    public void accept(ComponentContainerImplementationMssgsVisitor visitor) throws PersistenceException{
+        visitor.handleComponentContainerNewArticleStringFractionIntegerIntegerIntegerProducerMssg(this);
+    }
     public void accept(ComponentManagerMssgsVisitor visitor) throws PersistenceException{
         visitor.handleComponentContainerNewArticleStringFractionIntegerIntegerIntegerProducerMssg(this);
     }

@@ -31,6 +31,21 @@ public class ArticleWrapperFacade{
     public void articleSet(long ArticleWrapperId, Article4Public articleVal) throws PersistenceException {
         
     }
+    public ArticleWrapperSearchList inverseGetArticle(long objectId, long classId)throws PersistenceException{
+        ArticleWrapperSearchList result = new ArticleWrapperSearchList();
+        java.util.Iterator<PersistentInCacheProxi> candidates;
+        candidates = Cache.getTheCache().iterator(242);
+        while (candidates.hasNext()){
+            PersistentArticleWrapper current = (PersistentArticleWrapper)((PersistentRoot)candidates.next()).getTheObject();
+            if (current != null && !current.isDltd() && !current.isDelayed$Persistence() && current.getArticle() != null){
+                if (current.getArticle().getClassId() == classId && current.getArticle().getId() == objectId) {
+                    PersistentArticleWrapper proxi = (PersistentArticleWrapper)PersistentProxi.createProxi(current.getId(), current.getClassId());
+                    result.add((PersistentArticleWrapper)proxi.getThis());
+                }
+            }
+        }
+        return result;
+    }
 
 }
 

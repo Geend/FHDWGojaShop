@@ -11,6 +11,7 @@ public abstract class CustomerService$AuthoriseVisitor extends AnythingStandardV
     public abstract void handleOrderQuantifiedArticle(PersistentOrderQuantifiedArticle orderQuantifiedArticle) throws PersistenceException;
     public abstract void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException;
     public abstract void handleProcessingOrderState(PersistentProcessingOrderState processingOrderState) throws PersistenceException;
+    public abstract void handleComponentContainerImplementation(PersistentComponentContainerImplementation componentContainerImplementation) throws PersistenceException;
     public abstract void handleCustomerDeliveryTime(PersistentCustomerDeliveryTime customerDeliveryTime) throws PersistenceException;
     public abstract void handleFinishedOrderState(PersistentFinishedOrderState finishedOrderState) throws PersistenceException;
     public abstract void handleComponentManager(PersistentComponentManager componentManager) throws PersistenceException;

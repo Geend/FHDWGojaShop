@@ -24,6 +24,7 @@ public interface ArticleView extends Anything, AbstractViewRoot {
     public void setState(ArticleStateView newValue) throws ModelException ;
     public String getCurrentState()throws ModelException;
     public String getProducerName()throws ModelException;
+    public ArticleWrapperView getWrapper()throws ModelException;
     
     public void accept(AnythingVisitor visitor) throws ModelException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException;

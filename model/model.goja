@@ -11,7 +11,7 @@ abstract server Service {
 server OwnerService extends Service {
 
 	//Manager
-  	one-to-one (server-only myServer) ComponentManager componentManager;
+  	ComponentManager componentManager;
 	CustomerDeliveryTimeManager customerDeliveryTimeManager##cdtm;
 	ProducerLst prmanager;
 	Settings settings;
@@ -25,8 +25,8 @@ server OwnerService extends Service {
 
 	//Articles
 	//TODO: Prevent article creation with same name and producer
-	void newArticle@@Neuer_Artikel(ProductGroup parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException, DoubleDefinitionException;
-	void newProductGroup@@Neue_Produktgruppe(ProductGroup parent, String name) throws CycleException, DoubleDefinitionException;
+	void newArticle@@Neuer_Artikel(ComponentContainer parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException, DoubleDefinitionException;
+	void newProductGroup@@Neue_Produktgruppe(ComponentContainer parent, String name) throws CycleException, DoubleDefinitionException;
 	void newProductGroup@@Neue_Produktgruppe(String name) throws DoubleDefinitionException, CycleException;
 	
 	void moveTo@@verschieben(Component component, ComponentContainer newParentGroup)throws CycleException;
@@ -182,7 +182,8 @@ hierarchy collapsed CompHierarchy;
 
 
 singleton ComponentManager implements ComponentContainer{
-	public Component ** components hierarchy CompHierarchy;
+	skip-view ComponentContainerImplementation container;
+
 }
 
 abstract class Component{
@@ -190,24 +191,28 @@ abstract class Component{
 	active event void moveTo(ComponentContainer container) throws CycleException;
 }
 
-interface ComponentContainer{
- 
+interface ComponentContainer{ 
    event	void removeComponent(Component component);
 	event	void addComponent(Component component) throws CycleException;
 
 	active event ProductGroup newProductGroup##cspg(String name) throws CycleException, DoubleDefinitionException;
 	active event ArticleWrapper newArticle(String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
 
+	event void fireComponentChanged(extern model.meta.ComponentMssgs evnt);
+}
+
+class ComponentContainerImplementation##cci implements ComponentContainer{
+	public observe Component ** components hierarchy CompHierarchy;
 }
 
 class ProductGroup extends Component implements ComponentContainer{
-	public Component ** components hierarchy CompHierarchy;
+	public observe Component ** components hierarchy CompHierarchy;
 	public-write prior indexed String name@@Name;
 
 }
 
 class ArticleWrapper extends Component{
-   public prior server-only Article article;
+   public prior server-only one-to-one (server-only myWrapper) Article article;
 
 	derived Fraction price@@Preis;
 	derived String name@@Name;
@@ -227,12 +232,16 @@ class Article{
 
 	derived String currentState@@Status;
 	derived String producerName@@Hersteller;
-
+	
 	active event void reduceStock(Integer quantity) throws NotEnoughStockException;
 	active event void increaseStock(Integer quantity);
 
 	active event void startSelling();
 	active event void stopSelling();
+
+	//Report a goja bug? one-to-one wrapper not accessible despite being public
+	derived ArticleWrapper wrapper;
+
 }
 
 

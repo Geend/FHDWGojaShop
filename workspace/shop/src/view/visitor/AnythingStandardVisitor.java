@@ -41,6 +41,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleProcessingOrderState(ProcessingOrderStateView processingOrderState) throws ModelException{
         this.standardHandling(processingOrderState);
     }
+    public void handleComponentContainerImplementation(ComponentContainerImplementationView componentContainerImplementation) throws ModelException{
+        this.standardHandling(componentContainerImplementation);
+    }
     public void handleCustomerDeliveryTimeManager(CustomerDeliveryTimeManagerView customerDeliveryTimeManager) throws ModelException{
         this.standardHandling(customerDeliveryTimeManager);
     }

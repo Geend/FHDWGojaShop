@@ -445,8 +445,7 @@ public class CustomerService extends model.Service implements PersistentCustomer
     }
     public void componentManager_update(final model.meta.ComponentManagerMssgs event) 
 				throws PersistenceException{
-        //TODO: implement method: componentManager_update
-        
+        getThis().signalChanged(true);
     }
     public void connected(final String user) 
 				throws PersistenceException{
@@ -486,8 +485,7 @@ public class CustomerService extends model.Service implements PersistentCustomer
     }
     public void orderManager_update(final model.meta.CustomerOrderManagerMssgs event) 
 				throws PersistenceException{
-        //TODO: implement method: orderManager_update
-        
+getThis().signalChanged(true);
     }
     public void order(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
 				throws model.EmptyCartException, model.NotEnoughStockException, model.NotEnoughMoneyException, PersistenceException{
@@ -503,7 +501,7 @@ public class CustomerService extends model.Service implements PersistentCustomer
     }
     public void reloadUI() 
 				throws PersistenceException{
-        //getThis().signalChanged(true);
+        getThis().signalChanged(true);
     }
     public void removeFromCart(final ShoppingCartQuantifiedArticle4Public article) 
 				throws PersistenceException{

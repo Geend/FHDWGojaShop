@@ -9,6 +9,8 @@ public interface ComponentContainer extends  SubjInterface {
     
     public void addComponent(final Component4Public component) 
 				throws model.CycleException, PersistenceException;
+    public void fireComponentChanged(final model.meta.ComponentMssgs evnt) 
+				throws PersistenceException;
     public ArticleWrapper4Public newArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
 				throws model.CycleException, PersistenceException;
     public void newArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer, final Invoker invoker) 
@@ -21,6 +23,8 @@ public interface ComponentContainer extends  SubjInterface {
 				throws PersistenceException;
     public void addComponentImplementation(final Component4Public component) 
 				throws model.CycleException, PersistenceException;
+    public void fireComponentChangedImplementation(final model.meta.ComponentMssgs evnt) 
+				throws PersistenceException;
     public ArticleWrapper4Public newArticleImplementation(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
 				throws model.CycleException, PersistenceException;
     public ProductGroup4Public newProductGroupImplementation(final String name) 

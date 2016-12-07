@@ -19,8 +19,9 @@ public class Article extends ViewObject implements ArticleView{
     protected ArticleStateView state;
     protected String currentState;
     protected String producerName;
+    protected ArticleWrapperView wrapper;
     
-    public Article(String name,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,ProducerView producer,ArticleStateView state,String currentState,String producerName,long id, long classId) {
+    public Article(String name,common.Fraction price,long minStock,long maxStock,long currentStock,long producerDeliveryTime,ProducerView producer,ArticleStateView state,String currentState,String producerName,ArticleWrapperView wrapper,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.name = name;
@@ -32,7 +33,8 @@ public class Article extends ViewObject implements ArticleView{
         this.producer = producer;
         this.state = state;
         this.currentState = currentState;
-        this.producerName = producerName;        
+        this.producerName = producerName;
+        this.wrapper = wrapper;        
     }
     
     static public long getTypeId() {
@@ -97,6 +99,9 @@ public class Article extends ViewObject implements ArticleView{
     public String getProducerName()throws ModelException{
         return this.producerName;
     }
+    public ArticleWrapperView getWrapper()throws ModelException{
+        return this.wrapper;
+    }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleArticle(this);
@@ -120,23 +125,33 @@ public class Article extends ViewObject implements ArticleView{
         if (state != null) {
             ((ViewProxi)state).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(state.getClassId(), state.getId())));
         }
+        ArticleWrapperView wrapper = this.getWrapper();
+        if (wrapper != null) {
+            ((ViewProxi)wrapper).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(wrapper.getClassId(), wrapper.getId())));
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {
         
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        
+        int index = originalIndex;
+        if(index == 0 && this.getWrapper() != null) return new WrapperArticleWrapper(this, originalIndex, (ViewRoot)this.getWrapper());
+        if(this.getWrapper() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 ;
+        return 0 
+            + (this.getWrapper() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
-        return true;
+        return true 
+            && (this.getWrapper() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        
+        int result = 0;
+        if(this.getWrapper() != null && this.getWrapper().equals(child)) return result;
+        if(this.getWrapper() != null) result = result + 1;
         return -1;
     }
     public int getNameIndex() throws ModelException {

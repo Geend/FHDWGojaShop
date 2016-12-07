@@ -18,8 +18,8 @@ public class ProductGroupProxi extends ComponentProxi implements PersistentProdu
         return 121;
     }
     
-    public ProductGroup_ComponentsProxi getComponents() throws PersistenceException {
-        return ((PersistentProductGroup)this.getTheObject()).getComponents();
+    public void setComponents(ProductGroupComponents4Public newValue) throws PersistenceException , model.CycleException{
+        ((PersistentProductGroup)this.getTheObject()).setComponents(newValue);
     }
     public String getName() throws PersistenceException {
         return ((PersistentProductGroup)this.getTheObject()).getName();
@@ -109,6 +109,14 @@ public class ProductGroupProxi extends ComponentProxi implements PersistentProdu
 				throws PersistenceException{
         ((PersistentProductGroup)this.getTheObject()).deregister(observee);
     }
+    public void fireComponentChanged(final model.meta.ComponentMssgs evnt) 
+				throws PersistenceException{
+        ((PersistentProductGroup)this.getTheObject()).fireComponentChanged(evnt);
+    }
+    public ProductGroupComponents4Public getComponents() 
+				throws PersistenceException{
+        return ((PersistentProductGroup)this.getTheObject()).getComponents();
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentProductGroup)this.getTheObject()).initialize(This, final$$Fields);
@@ -161,9 +169,17 @@ public class ProductGroupProxi extends ComponentProxi implements PersistentProdu
 				throws model.CycleException, PersistenceException{
         ((PersistentProductGroup)this.getTheObject()).addComponentImplementation(component);
     }
+    public void components_update(final model.meta.ComponentMssgs event) 
+				throws PersistenceException{
+        ((PersistentProductGroup)this.getTheObject()).components_update(event);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentProductGroup)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public void fireComponentChangedImplementation(final model.meta.ComponentMssgs evnt) 
+				throws PersistenceException{
+        ((PersistentProductGroup)this.getTheObject()).fireComponentChangedImplementation(evnt);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

@@ -49,21 +49,6 @@ public class OwnerServiceFacade{
     public void returnManagerSet(long OwnerServiceId, ReturnManager4Public returnManagerVal) throws PersistenceException {
         
     }
-    public OwnerServiceSearchList inverseGetComponentManager(long objectId, long classId)throws PersistenceException{
-        OwnerServiceSearchList result = new OwnerServiceSearchList();
-        java.util.Iterator<PersistentInCacheProxi> candidates;
-        candidates = Cache.getTheCache().iterator(-276);
-        while (candidates.hasNext()){
-            PersistentOwnerService current = (PersistentOwnerService)((PersistentRoot)candidates.next()).getTheObject();
-            if (current != null && !current.isDltd() && !current.isDelayed$Persistence() && current.getComponentManager() != null){
-                if (current.getComponentManager().getClassId() == classId && current.getComponentManager().getId() == objectId) {
-                    PersistentOwnerService proxi = (PersistentOwnerService)PersistentProxi.createProxi(current.getId(), current.getClassId());
-                    result.add((PersistentOwnerService)proxi.getThis());
-                }
-            }
-        }
-        return result;
-    }
     public OwnerServiceSearchList inverseGetReOrderManager(long objectId, long classId)throws PersistenceException{
         OwnerServiceSearchList result = new OwnerServiceSearchList();
         java.util.Iterator<PersistentInCacheProxi> candidates;

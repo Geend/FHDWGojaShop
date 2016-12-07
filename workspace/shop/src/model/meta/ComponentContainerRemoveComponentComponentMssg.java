@@ -20,6 +20,9 @@ public class ComponentContainerRemoveComponentComponentMssg implements Component
     public void accept(ProductGroupMssgsVisitor visitor) throws PersistenceException{
         visitor.handleComponentContainerRemoveComponentComponentMssg(this);
     }
+    public void accept(ComponentContainerImplementationMssgsVisitor visitor) throws PersistenceException{
+        visitor.handleComponentContainerRemoveComponentComponentMssg(this);
+    }
     public void accept(ComponentManagerMssgsVisitor visitor) throws PersistenceException{
         visitor.handleComponentContainerRemoveComponentComponentMssg(this);
     }

@@ -21,6 +21,9 @@ public class ComponentContainerNewProductGroupStringMssg implements ComponentCon
     public void accept(ProductGroupMssgsVisitor visitor) throws PersistenceException{
         visitor.handleComponentContainerNewProductGroupStringMssg(this);
     }
+    public void accept(ComponentContainerImplementationMssgsVisitor visitor) throws PersistenceException{
+        visitor.handleComponentContainerNewProductGroupStringMssg(this);
+    }
     public void accept(ComponentManagerMssgsVisitor visitor) throws PersistenceException{
         visitor.handleComponentContainerNewProductGroupStringMssg(this);
     }

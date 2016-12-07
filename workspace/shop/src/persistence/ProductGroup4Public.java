@@ -5,7 +5,6 @@ import model.visitor.*;
 
 public interface ProductGroup4Public extends ComponentContainer, Component4Public {
     
-    public ProductGroup_ComponentsProxi getComponents() throws PersistenceException ;
     public String getName() throws PersistenceException ;
     public void setName(String newValue) throws PersistenceException ;
     
@@ -35,6 +34,10 @@ public interface ProductGroup4Public extends ComponentContainer, Component4Publi
     public boolean containsCompHierarchy(final CompHierarchyHIERARCHY part) 
 				throws PersistenceException;
     public boolean containsCompHierarchy(final CompHierarchyHIERARCHY part, final java.util.HashSet<CompHierarchyHIERARCHY> visited) 
+				throws PersistenceException;
+    public void fireComponentChanged(final model.meta.ComponentMssgs evnt) 
+				throws PersistenceException;
+    public ProductGroupComponents4Public getComponents() 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;

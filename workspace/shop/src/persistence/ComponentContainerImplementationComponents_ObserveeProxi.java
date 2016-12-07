@@ -4,12 +4,12 @@ import model.*;
 
 import java.util.Iterator;
 
-public class ComponentManager_ComponentsProxi extends PersistentListProxi<Component4Public> {
+public class ComponentContainerImplementationComponents_ObserveeProxi extends PersistentListProxi<Component4Public> {
 
   	private ComponentList list;
-  	private ComponentManager owner;
+  	private ComponentContainerImplementationComponents owner;
 
-  	public ComponentManager_ComponentsProxi(ComponentManager owner) {
+  	public ComponentContainerImplementationComponents_ObserveeProxi(ComponentContainerImplementationComponents owner) {
     	this.owner = owner;
   	}
   	public ComponentList getList() throws PersistenceException{
@@ -19,7 +19,7 @@ public class ComponentManager_ComponentsProxi extends PersistentListProxi<Compon
       		} else {
         		this.list = ConnectionHandler
                 		    .getTheConnectionHandler()
-                      		.theComponentManagerFacade.componentsGet(this.owner.getId());
+                      		.theComponentContainerImplementationComponentsFacade.observeeGet(this.owner.getId());
       		}
       		this.data = this.list.data;
     	}
@@ -38,23 +38,23 @@ public class ComponentManager_ComponentsProxi extends PersistentListProxi<Compon
       		long entryId = 0;
       		if (!this.owner.isDelayed$Persistence()) {
         		entry.store();  	
-        		entryId = ConnectionHandler.getTheConnectionHandler().theComponentManagerFacade
-        	               	.componentsAdd(owner.getId(), entry);
+        		entryId = ConnectionHandler.getTheConnectionHandler().theComponentContainerImplementationComponentsFacade
+        	               	.observeeAdd(owner.getId(), entry);
       		}
       		list.add((Component4Public)PersistentProxi.createListEntryProxi(entry.getId(),
             		                   entry.getClassId(),
         	    	                   entryId));
-      		
+      		entry.register(this.owner);
     	}
   	}
   	protected void remove(PersistentListEntryProxi entry) throws PersistenceException {
     	if (!this.owner.isDelayed$Persistence()) {
-      		ConnectionHandler.getTheConnectionHandler().theComponentManagerFacade.componentsRem(entry.getListEntryId());
+      		ConnectionHandler.getTheConnectionHandler().theComponentContainerImplementationComponentsFacade.observeeRem(entry.getListEntryId());
     	}
-    	
+    	((Component4Public)entry).deregister(this.owner);
   	}
-  	public ComponentManager_ComponentsProxi copy(ComponentManager owner) throws PersistenceException {
-  		ComponentManager_ComponentsProxi result = new ComponentManager_ComponentsProxi(owner);
+  	public ComponentContainerImplementationComponents_ObserveeProxi copy(ComponentContainerImplementationComponents owner) throws PersistenceException {
+  		ComponentContainerImplementationComponents_ObserveeProxi result = new ComponentContainerImplementationComponents_ObserveeProxi(owner);
   		result.list = this.getList().copy();
   		return result;
   	}	 
@@ -63,8 +63,8 @@ public class ComponentManager_ComponentsProxi extends PersistentListProxi<Compon
   		while (entries.hasNext()){
   			Component4Public current = entries.next();
   			current.store();
-      		long entryId = ConnectionHandler.getTheConnectionHandler().theComponentManagerFacade
-            	           .componentsAdd(owner.getId(), current);
+      		long entryId = ConnectionHandler.getTheConnectionHandler().theComponentContainerImplementationComponentsFacade
+            	           .observeeAdd(owner.getId(), current);
         	((PersistentListEntryProxi)current).setListEntryId(entryId);
 		}
 	}

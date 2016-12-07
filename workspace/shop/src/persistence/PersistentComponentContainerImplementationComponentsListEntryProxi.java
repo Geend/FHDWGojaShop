@@ -1,0 +1,5 @@
+package persistence;
+
+public interface PersistentComponentContainerImplementationComponentsListEntryProxi extends PersistentListEntryProxi {
+
+}

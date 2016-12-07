@@ -8,6 +8,7 @@ public interface AnythingReturnVisitor<R> extends ArticleStateReturnVisitor<R> ,
     public R handleArticle(ArticleView article) throws ModelException;
     public R handleArticleReturn(ArticleReturnView articleReturn) throws ModelException;
     public R handleBackgroundTaskManager(BackgroundTaskManagerView backgroundTaskManager) throws ModelException;
+    public R handleComponentContainerImplementation(ComponentContainerImplementationView componentContainerImplementation) throws ModelException;
     public R handleComponentManager(ComponentManagerView componentManager) throws ModelException;
     public R handleCustomerAccount(CustomerAccountView customerAccount) throws ModelException;
     public R handleCustomerArticleLst(CustomerArticleLstView customerArticleLst) throws ModelException;

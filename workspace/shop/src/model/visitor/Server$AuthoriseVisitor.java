@@ -18,6 +18,7 @@ public abstract class Server$AuthoriseVisitor extends AnythingStandardVisitor{
     public abstract void handleOwnerOrderManager(PersistentOwnerOrderManager ownerOrderManager) throws PersistenceException;
     public abstract void handleCustomerRegisterService(PersistentCustomerRegisterService customerRegisterService) throws PersistenceException;
     public abstract void handleProcessingOrderState(PersistentProcessingOrderState processingOrderState) throws PersistenceException;
+    public abstract void handleComponentContainerImplementation(PersistentComponentContainerImplementation componentContainerImplementation) throws PersistenceException;
     public abstract void handleCustomerDeliveryTime(PersistentCustomerDeliveryTime customerDeliveryTime) throws PersistenceException;
     public abstract void handleOwnerService(PersistentOwnerService ownerService) throws PersistenceException;
     public abstract void handleFinishedOrderState(PersistentFinishedOrderState finishedOrderState) throws PersistenceException;

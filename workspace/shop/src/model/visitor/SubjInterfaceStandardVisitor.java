@@ -53,6 +53,9 @@ public abstract class SubjInterfaceStandardVisitor implements SubjInterfaceVisit
     public void handleProcessingOrderState(ProcessingOrderState4Public processingOrderState) throws PersistenceException{
         this.standardHandling(processingOrderState);
     }
+    public void handleComponentContainerImplementation(ComponentContainerImplementation4Public componentContainerImplementation) throws PersistenceException{
+        this.standardHandling(componentContainerImplementation);
+    }
     public void handleCustomerDeliveryTime(CustomerDeliveryTime4Public customerDeliveryTime) throws PersistenceException{
         this.standardHandling(customerDeliveryTime);
     }

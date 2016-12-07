@@ -55,6 +55,8 @@ public interface Article4Public extends Anything, SubjInterface, AbstractPersist
 				throws PersistenceException;
     public String getProducerName() 
 				throws PersistenceException;
+    public ArticleWrapper4Public getWrapper() 
+				throws PersistenceException;
     public void increaseStockImplementation(final long quantity) 
 				throws PersistenceException;
     public void initializeOnCreation() 

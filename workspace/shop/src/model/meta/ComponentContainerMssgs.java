@@ -5,4 +5,4 @@ public interface ComponentContainerMssgs {
 }
 
 interface ComponentContainerDOWNMssgs extends Mssgs, ComponentContainerMssgs{}
-interface ComponentContainerUPMssgs extends ProductGroupUPMssgs, ComponentManagerUPMssgs, ComponentContainerMssgs{}
+interface ComponentContainerUPMssgs extends ProductGroupUPMssgs, ComponentContainerImplementationUPMssgs, ComponentManagerUPMssgs, ComponentContainerMssgs{}

@@ -53,6 +53,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleProcessingOrderState(ProcessingOrderState4Public processingOrderState) throws PersistenceException{
         this.standardHandling(processingOrderState);
     }
+    public void handleComponentContainerImplementation(ComponentContainerImplementation4Public componentContainerImplementation) throws PersistenceException{
+        this.standardHandling(componentContainerImplementation);
+    }
     public void handleOrderManagerOrders(OrderManagerOrders4Public orderManagerOrders) throws PersistenceException{
         this.standardHandling(orderManagerOrders);
     }
@@ -76,6 +79,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleDepositCommand(DepositCommand4Public depositCommand) throws PersistenceException{
         this.standardHandling(depositCommand);
+    }
+    public void handleComponentContainerImplementationComponents(ComponentContainerImplementationComponents4Public componentContainerImplementationComponents) throws PersistenceException{
+        this.standardHandling(componentContainerImplementationComponents);
     }
     public void handleOrder(Order4Public order) throws PersistenceException{
         this.standardHandling(order);
@@ -139,6 +145,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleOwnerOrderManager(OwnerOrderManager4Public ownerOrderManager) throws PersistenceException{
         this.standardHandling(ownerOrderManager);
+    }
+    public void handleProductGroupComponents(ProductGroupComponents4Public productGroupComponents) throws PersistenceException{
+        this.standardHandling(productGroupComponents);
     }
     public void handleCustomerDeliveryTime(CustomerDeliveryTime4Public customerDeliveryTime) throws PersistenceException{
         this.standardHandling(customerDeliveryTime);

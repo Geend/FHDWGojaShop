@@ -3,9 +3,9 @@ package view.objects;
 
 /* Additional import section end */
 
-public class ComponentsComponentManagerWrapper extends AssociationInTreeWrapper {
+public class ContainerComponentManagerWrapper extends AssociationInTreeWrapper {
 
-	public ComponentsComponentManagerWrapper(ViewRoot parent, int index, ViewRoot object) {
+	public ContainerComponentManagerWrapper(ViewRoot parent, int index, ViewRoot object) {
 		super(parent, index, object);
 	}
     
@@ -16,7 +16,7 @@ public class ComponentsComponentManagerWrapper extends AssociationInTreeWrapper 
 	
 	
 	public String toString(){
-    	//TODO: Implement toString in wrapper class for association components in class ComponentManager
+    	//TODO: Implement toString in wrapper class for association container in class ComponentManager
     	return this.getWrappedObject().toString();
     }
 

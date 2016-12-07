@@ -8,6 +8,8 @@ public interface PersistentArticle extends Anything, SubjInterface, AbstractPers
     public PersistentArticle getThis() throws PersistenceException ;
     
     
+    public ArticleWrapper4Public getMyWrapper() 
+				throws PersistenceException;
 
 }
 

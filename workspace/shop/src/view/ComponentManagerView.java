@@ -6,8 +6,8 @@ import view.visitor.*;
 
 public interface ComponentManagerView extends Anything, ComponentContainer, AbstractViewRoot {
     
-    public java.util.Vector<ComponentView> getComponents()throws ModelException;
-    public void setComponents(java.util.Vector<ComponentView> newValue) throws ModelException ;
+    public ComponentContainerImplementationView getContainer()throws ModelException;
+    public void setContainer(ComponentContainerImplementationView newValue) throws ModelException ;
     
     public void accept(AnythingVisitor visitor) throws ModelException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException;
