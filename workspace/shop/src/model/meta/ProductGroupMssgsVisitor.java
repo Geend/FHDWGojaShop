@@ -9,7 +9,7 @@ interface ProductGroupDOWNMssgsVisitor  {
 }
 
 
-interface ProductGroupUPMssgsVisitor extends ComponentUPMssgsVisitor {
+interface ProductGroupUPMssgsVisitor extends ComponentUPMssgsVisitor, ComponentContainerUPMssgsVisitor {
 
     
 }

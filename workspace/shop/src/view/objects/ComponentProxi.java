@@ -10,11 +10,11 @@ public abstract class ComponentProxi extends ViewProxi implements ComponentView{
     }
     
     
-    public String getName()throws ModelException{
-        return ((Component)this.getTheObject()).getName();
+    public ComponentContainer getParent()throws ModelException{
+        return ((Component)this.getTheObject()).getParent();
     }
-    public void setName(String newValue) throws ModelException {
-        ((Component)this.getTheObject()).setName(newValue);
+    public void setParent(ComponentContainer newValue) throws ModelException {
+        ((Component)this.getTheObject()).setParent(newValue);
     }
     
     

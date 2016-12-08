@@ -49,6 +49,10 @@ public class Fraction {
 
 	private BigInteger denominator;
 
+	public Fraction(Integer integer){
+		this.denominator = BigInteger.ONE;
+		this.enumerator = BigInteger.valueOf(integer);
+	}
 	public Fraction(BigInteger enumerator, BigInteger denominator) {
 		BigInteger gcd = enumerator.gcd(denominator);
 		boolean negativeDenominator = denominator.compareTo(BIZero) < 0;
@@ -83,5 +87,15 @@ public class Fraction {
 	@Override
 	public int hashCode(){
 		return this.getEnumerator().multiply(this.getDenominator()).hashCode();
+	}
+
+    public boolean isLess(Fraction amount) {
+		return ((getEnumerator().multiply(amount.getDenominator()).compareTo(getDenominator().multiply(amount.getEnumerator()))) == -1);
+    }
+
+	public Fraction sub(Fraction amount) {
+
+		return new Fraction(getEnumerator().multiply(amount.getDenominator()).subtract(getDenominator().multiply(amount.getEnumerator())),
+						getDenominator().multiply(amount.getDenominator()));
 	}
 }

@@ -3,8 +3,10 @@ package persistence;
 
 import model.visitor.*;
 
-public interface ProductGroup4Public extends Component4Public {
+public interface ProductGroup4Public extends ComponentContainer, Component4Public {
     
+    public String getName() throws PersistenceException ;
+    public void setName(String newValue) throws PersistenceException ;
     
     public void accept(ComponentVisitor visitor) throws PersistenceException;
     public <R> R accept(ComponentReturnVisitor<R>  visitor) throws PersistenceException;
@@ -18,11 +20,15 @@ public interface ProductGroup4Public extends Component4Public {
     public <R> R accept(CompHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends model.UserException>  void accept(CompHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(CompHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException;
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
+    public void accept(ComponentContainerVisitor visitor) throws PersistenceException;
+    public <R> R accept(ComponentContainerReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends model.UserException>  void accept(ComponentContainerExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends model.UserException> R accept(ComponentContainerReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
-    public void addArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer, final Invoker invoker) 
-				throws PersistenceException;
-    public void addSubProductGroup(final String name, final Invoker invoker) 
-				throws PersistenceException;
     public boolean containsCompHierarchy(final CompHierarchyHIERARCHY part) 
 				throws PersistenceException;
     public boolean containsCompHierarchy(final CompHierarchyHIERARCHY part, final java.util.HashSet<CompHierarchyHIERARCHY> visited) 
@@ -33,10 +39,6 @@ public interface ProductGroup4Public extends Component4Public {
 				throws PersistenceException;
     public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy, final java.util.HashMap<CompHierarchyHIERARCHY,T> visited) 
 				throws PersistenceException;
-    public void addArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
-				throws model.CycleException, PersistenceException;
-    public void addSubProductGroup(final String name) 
-				throws model.DoubleDefinition, model.CycleException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void initializeOnCreation() 

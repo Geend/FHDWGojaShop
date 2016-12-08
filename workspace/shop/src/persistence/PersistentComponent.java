@@ -1,9 +1,12 @@
 package persistence;
 
 
-public interface PersistentComponent extends Anything, CompHierarchyHIERARCHY, AbstractPersistentProxi, Component4Public {
+public interface PersistentComponent extends Anything, CompHierarchyHIERARCHY, SubjInterface, AbstractPersistentProxi, Component4Public {
     
-    public void setName(String newValue) throws PersistenceException ;
+    public ComponentContainer getParent() throws PersistenceException ;
+    public void setParent(ComponentContainer newValue) throws PersistenceException ;
+    public SubjInterface getSubService() throws PersistenceException ;
+    public void setSubService(SubjInterface newValue) throws PersistenceException ;
     public abstract PersistentComponent getThis() throws PersistenceException ;
     
     

@@ -19,44 +19,14 @@ public class AddArticleCommandICProxi extends PersistentInCacheProxi implements 
     }
     
     public long getClassId() {
-        return 208;
+        return 292;
     }
     
-    public String getName() throws PersistenceException {
-        return ((PersistentAddArticleCommand)this.getTheObject()).getName();
+    public ShoppingCartQuantifiedArticle4Public getArticle() throws PersistenceException {
+        return ((PersistentAddArticleCommand)this.getTheObject()).getArticle();
     }
-    public void setName(String newValue) throws PersistenceException {
-        ((PersistentAddArticleCommand)this.getTheObject()).setName(newValue);
-    }
-    public common.Fraction getPrice() throws PersistenceException {
-        return ((PersistentAddArticleCommand)this.getTheObject()).getPrice();
-    }
-    public void setPrice(common.Fraction newValue) throws PersistenceException {
-        ((PersistentAddArticleCommand)this.getTheObject()).setPrice(newValue);
-    }
-    public long getMinStock() throws PersistenceException {
-        return ((PersistentAddArticleCommand)this.getTheObject()).getMinStock();
-    }
-    public void setMinStock(long newValue) throws PersistenceException {
-        ((PersistentAddArticleCommand)this.getTheObject()).setMinStock(newValue);
-    }
-    public long getMaxStock() throws PersistenceException {
-        return ((PersistentAddArticleCommand)this.getTheObject()).getMaxStock();
-    }
-    public void setMaxStock(long newValue) throws PersistenceException {
-        ((PersistentAddArticleCommand)this.getTheObject()).setMaxStock(newValue);
-    }
-    public long getProducerDeliveryTime() throws PersistenceException {
-        return ((PersistentAddArticleCommand)this.getTheObject()).getProducerDeliveryTime();
-    }
-    public void setProducerDeliveryTime(long newValue) throws PersistenceException {
-        ((PersistentAddArticleCommand)this.getTheObject()).setProducerDeliveryTime(newValue);
-    }
-    public Producer4Public getProducer() throws PersistenceException {
-        return ((PersistentAddArticleCommand)this.getTheObject()).getProducer();
-    }
-    public void setProducer(Producer4Public newValue) throws PersistenceException {
-        ((PersistentAddArticleCommand)this.getTheObject()).setProducer(newValue);
+    public void setArticle(ShoppingCartQuantifiedArticle4Public newValue) throws PersistenceException {
+        ((PersistentAddArticleCommand)this.getTheObject()).setArticle(newValue);
     }
     public Invoker getInvoker() throws PersistenceException {
         return ((PersistentAddArticleCommand)this.getTheObject()).getInvoker();
@@ -64,10 +34,10 @@ public class AddArticleCommandICProxi extends PersistentInCacheProxi implements 
     public void setInvoker(Invoker newValue) throws PersistenceException {
         ((PersistentAddArticleCommand)this.getTheObject()).setInvoker(newValue);
     }
-    public ProductGroup4Public getCommandReceiver() throws PersistenceException {
+    public ShoppingCart4Public getCommandReceiver() throws PersistenceException {
         return ((PersistentAddArticleCommand)this.getTheObject()).getCommandReceiver();
     }
-    public void setCommandReceiver(ProductGroup4Public newValue) throws PersistenceException {
+    public void setCommandReceiver(ShoppingCart4Public newValue) throws PersistenceException {
         ((PersistentAddArticleCommand)this.getTheObject()).setCommandReceiver(newValue);
     }
     public CommonDate4Public getMyCommonDate() throws PersistenceException {
@@ -113,18 +83,6 @@ public class AddArticleCommandICProxi extends PersistentInCacheProxi implements 
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleAddArticleCommand(this);
     }
-    public void accept(ProductGroupCommandVisitor visitor) throws PersistenceException {
-        visitor.handleAddArticleCommand(this);
-    }
-    public <R> R accept(ProductGroupCommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAddArticleCommand(this);
-    }
-    public <E extends model.UserException>  void accept(ProductGroupCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAddArticleCommand(this);
-    }
-    public <R, E extends model.UserException> R accept(ProductGroupCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAddArticleCommand(this);
-    }
     public void accept(CommandVisitor visitor) throws PersistenceException {
         visitor.handleAddArticleCommand(this);
     }
@@ -135,6 +93,18 @@ public class AddArticleCommandICProxi extends PersistentInCacheProxi implements 
          visitor.handleAddArticleCommand(this);
     }
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleAddArticleCommand(this);
+    }
+    public void accept(ShoppingCartCommandVisitor visitor) throws PersistenceException {
+        visitor.handleAddArticleCommand(this);
+    }
+    public <R> R accept(ShoppingCartCommandReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleAddArticleCommand(this);
+    }
+    public <E extends model.UserException>  void accept(ShoppingCartCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleAddArticleCommand(this);
+    }
+    public <R, E extends model.UserException> R accept(ShoppingCartCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleAddArticleCommand(this);
     }
     

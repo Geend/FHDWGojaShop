@@ -1,9 +1,13 @@
 package view;
 
+import view.objects.*;
+
 import view.visitor.*;
 
-public interface ArticleView extends ComponentView {
+public interface ArticleView extends Anything, AbstractViewRoot {
     
+    public String getName()throws ModelException;
+    public void setName(String newValue) throws ModelException ;
     public common.Fraction getPrice()throws ModelException;
     public void setPrice(common.Fraction newValue) throws ModelException ;
     public long getMinStock()throws ModelException;
@@ -18,11 +22,10 @@ public interface ArticleView extends ComponentView {
     public void setProducer(ProducerView newValue) throws ModelException ;
     public ArticleStateView getState()throws ModelException;
     public void setState(ArticleStateView newValue) throws ModelException ;
+    public String getCurrentState()throws ModelException;
+    public String getProducerName()throws ModelException;
+    public ArticleWrapperView getWrapper()throws ModelException;
     
-    public void accept(ComponentVisitor visitor) throws ModelException;
-    public <R> R accept(ComponentReturnVisitor<R>  visitor) throws ModelException;
-    public <E extends view.UserException>  void accept(ComponentExceptionVisitor<E> visitor) throws ModelException, E;
-    public <R, E extends view.UserException> R accept(ComponentReturnExceptionVisitor<R, E>  visitor) throws ModelException, E;
     public void accept(AnythingVisitor visitor) throws ModelException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException;
     public <E extends view.UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws ModelException, E;

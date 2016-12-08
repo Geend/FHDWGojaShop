@@ -3,9 +3,8 @@ package persistence;
 
 import model.visitor.*;
 
-public interface Component4Public extends Anything, CompHierarchyHIERARCHY, AbstractPersistentProxi {
+public interface Component4Public extends Anything, CompHierarchyHIERARCHY, SubjInterface, AbstractPersistentProxi {
     
-    public String getName() throws PersistenceException ;
     
     public void accept(ComponentVisitor visitor) throws PersistenceException;
     public <R> R accept(ComponentReturnVisitor<R>  visitor) throws PersistenceException;
@@ -20,6 +19,8 @@ public interface Component4Public extends Anything, CompHierarchyHIERARCHY, Abst
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
+    public void moveTo(final ComponentContainer container) 
+				throws model.CycleException, PersistenceException;
 
 }
 

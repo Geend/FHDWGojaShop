@@ -12,8 +12,14 @@ import persistence.PersistenceException;
 import persistence.AbstractPersistentRoot;
 import persistence.Remote;
 
+import persistence.PersistentCustomerService;
+import persistence.CustomerService4Public;
+import persistence.PersistentOwnerService;
+import persistence.OwnerService4Public;
 import persistence.PersistentServer;
 import persistence.Server4Public;
+import persistence.PersistentCustomerRegisterService;
+import persistence.CustomerRegisterService4Public;
 
 
 import common.RPCConstantsAndServices;
@@ -53,7 +59,10 @@ public class ConnectionServer extends RemoteServerMaster {
 
 	public RemoteServerMaster createRemoteServer(String connectionName, String userName, long objectId, long classId){
 		try {
+			if(classId == -278)return new RemoteCustomerService(connectionName, userName, (PersistentCustomerService)PersistentProxi.createProxi(objectId, classId));
+			if(classId == -276)return new RemoteOwnerService(connectionName, userName, (PersistentOwnerService)PersistentProxi.createProxi(objectId, classId));
 			if(classId == -102)return new RemoteServer(connectionName, userName, (PersistentServer)PersistentProxi.createProxi(objectId, classId));
+			if(classId == -225)return new RemoteCustomerRegisterService(connectionName, userName, (PersistentCustomerRegisterService)PersistentProxi.createProxi(objectId, classId));
 			
 		}catch(PersistenceException pe){
 			return null;
@@ -116,7 +125,7 @@ public class ConnectionServer extends RemoteServerMaster {
 		}
 	}
 	public synchronized HashMap<String,Object> fork(String user, String oldConnection, String objectId, String classId){
-		return createExceptionResult(new PersistenceException("Bitte neue Version der Software von der üblichen Stelle laden!",0));
+		return createExceptionResult(new PersistenceException("Bitte neue Version der Software von der ï¿½blichen Stelle laden!",0));
 	}
 	public synchronized HashMap<String,Object> fork(String user, String oldConnection, String objectId, String classId, java.util.Date date){
 		if (this.connections.size() >= this.maximalNumberOfConnections) 
@@ -154,7 +163,7 @@ public class ConnectionServer extends RemoteServerMaster {
 	}
 	
 	public synchronized HashMap<String,Object> connect(String user, String password, boolean createUserIfNotPresent, byte[] keyBytes){
-		return createExceptionResult(new PersistenceException("Bitte neue Version der Software von der üblichen Stelle laden!",0));
+		return createExceptionResult(new PersistenceException("Bitte neue Version der Software von der ï¿½blichen Stelle laden!",0));
 	}
 	
 	public synchronized HashMap<String,Object> connect(String user, String password, boolean createUserIfNotPresent, byte[] keyBytes, java.util.Date date, int version){
@@ -163,7 +172,7 @@ public class ConnectionServer extends RemoteServerMaster {
 		if (date.before(earliest) || date.after(latest))
 			return createExceptionResult(new PersistenceException("Bitte Systemzeit einstellen: Ihre Zeit: " + date.toString() + ". Unsere Zeit: " + new java.util.Date().toString(),0));
 		if (this.connections.size() >= this.maximalNumberOfConnections)
-			return createExceptionResult(new PersistenceException("!Maximale Anzahl der Verbindungen überschritten! Später nochmals versuchen!",0));
+			return createExceptionResult(new PersistenceException("!Maximale Anzahl der Verbindungen ï¿½berschritten! Spï¿½ter nochmals versuchen!",0));
 		if (version < RPCConstantsAndServices.CurrentVersion)
 			return createExceptionResult(new PersistenceException(RPCConstantsAndServices.VersionErrorText,0));
 		Iterator<Server4Public> serverIterator;

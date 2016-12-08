@@ -1,0 +1,8 @@
+package model.meta;
+
+public interface OrderQuantifiedArticleNormalStateMssgs {
+    void accept(OrderQuantifiedArticleNormalStateMssgsVisitor visitor) throws persistence.PersistenceException;
+}
+
+interface OrderQuantifiedArticleNormalStateDOWNMssgs extends OrderQuantifiedArticleStateDOWNMssgs, OrderQuantifiedArticleNormalStateMssgs{}
+interface OrderQuantifiedArticleNormalStateUPMssgs extends Mssgs, OrderQuantifiedArticleNormalStateMssgs{}

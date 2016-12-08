@@ -5,4 +5,4 @@ public interface ArticleStateMssgs {
 }
 
 interface ArticleStateDOWNMssgs extends Mssgs, ArticleStateMssgs{}
-interface ArticleStateUPMssgs extends RemainingStockUPMssgs, NotInSaleUPMssgs, InSaleUPMssgs, NewCreatedUPMssgs, ArticleStateMssgs{}
+interface ArticleStateUPMssgs extends RemainingStockUPMssgs, NotInSaleUPMssgs, NewCreatedUPMssgs, InSaleUPMssgs, ArticleStateMssgs{}

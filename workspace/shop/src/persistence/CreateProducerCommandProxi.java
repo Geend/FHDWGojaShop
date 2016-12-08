@@ -36,6 +36,12 @@ public class CreateProducerCommandProxi extends PersistentProxi implements Persi
     public void setCommandReceiver(ProducerLst4Public newValue) throws PersistenceException {
         ((PersistentCreateProducerCommand)this.getTheObject()).setCommandReceiver(newValue);
     }
+    public Producer4Public getCommandResult() throws PersistenceException {
+        return ((PersistentCreateProducerCommand)this.getTheObject()).getCommandResult();
+    }
+    public void setCommandResult(Producer4Public newValue) throws PersistenceException {
+        ((PersistentCreateProducerCommand)this.getTheObject()).setCommandResult(newValue);
+    }
     public CommonDate4Public getMyCommonDate() throws PersistenceException {
         return ((PersistentCreateProducerCommand)this.getTheObject()).getMyCommonDate();
     }

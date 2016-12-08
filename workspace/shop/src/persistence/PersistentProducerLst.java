@@ -1,9 +1,10 @@
 package persistence;
 
 
-public interface PersistentProducerLst extends Anything, AbstractPersistentProxi, ProducerLst4Public {
+public interface PersistentProducerLst extends Anything, SubjInterface, AbstractPersistentProxi, ProducerLst4Public {
     
-    public ProducerLst_CurrentProducerProxi getCurrentProducer() throws PersistenceException ;
+    public SubjInterface getSubService() throws PersistenceException ;
+    public void setSubService(SubjInterface newValue) throws PersistenceException ;
     public PersistentProducerLst getThis() throws PersistenceException ;
     
     

@@ -2,11 +2,10 @@ package persistence;
 
 import java.util.*;
 
-public class ProducerList {
+public class ProducerList  extends ProducerSearchList{
 
-	protected Vector<Producer4Public> data; //List of proxies
 	protected ProducerList() {
-		this.data = new Vector<Producer4Public>();
+		super();
 	}
 	public Iterator<Producer4Public> iterator(PersistentListProxi<Producer4Public> listProxi) {
 		return new PersistentListIterator<Producer4Public>(listProxi, this.data);

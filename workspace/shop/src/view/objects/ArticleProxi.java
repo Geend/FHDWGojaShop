@@ -5,7 +5,7 @@ import viewClient.*;
 
 import view.visitor.*;
 
-public class ArticleProxi extends ComponentProxi implements ArticleView{
+public class ArticleProxi extends ViewProxi implements ArticleView{
     
     public ArticleProxi(long objectId, long classId, ExceptionAndEventHandler connectionKey) {
         super(objectId, classId, connectionKey);
@@ -32,7 +32,16 @@ public class ArticleProxi extends ComponentProxi implements ArticleView{
             state = view.objects.ViewProxi.createProxi(state$Info,connectionKey);
             state.setToString(state$Info.getToString());
         }
-        ArticleView result$$ = new Article((String)name,(common.Fraction)price,(long)minStock,(long)maxStock,(long)currentStock,(long)producerDeliveryTime,(ProducerView)producer,(ArticleStateView)state, this.getId(), this.getClassId());
+        String currentState = (String)resultTable.get("currentState");
+        String producerName = (String)resultTable.get("producerName");
+        ViewProxi wrapper = null;
+        String wrapper$String = (String)resultTable.get("wrapper");
+        if (wrapper$String != null) {
+            common.ProxiInformation wrapper$Info = common.RPCConstantsAndServices.createProxiInformation(wrapper$String);
+            wrapper = view.objects.ViewProxi.createProxi(wrapper$Info,connectionKey);
+            wrapper.setToString(wrapper$Info.getToString());
+        }
+        ArticleView result$$ = new Article((String)name,(common.Fraction)price,(long)minStock,(long)maxStock,(long)currentStock,(long)producerDeliveryTime,(ProducerView)producer,(ArticleStateView)state,(String)currentState,(String)producerName,(ArticleWrapperView)wrapper, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -42,32 +51,32 @@ public class ArticleProxi extends ComponentProxi implements ArticleView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
         int index = originalIndex;
-        if(index == 0 && this.getProducer() != null) return new ProducerArticleWrapper(this, originalIndex, (ViewRoot)this.getProducer());
-        if(this.getProducer() != null) index = index - 1;
-        if(index == 0 && this.getState() != null) return new StateArticleWrapper(this, originalIndex, (ViewRoot)this.getState());
-        if(this.getState() != null) index = index - 1;
+        if(index == 0 && this.getWrapper() != null) return new WrapperArticleWrapper(this, originalIndex, (ViewRoot)this.getWrapper());
+        if(this.getWrapper() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getProducer() == null ? 0 : 1)
-            + (this.getState() == null ? 0 : 1);
+            + (this.getWrapper() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
-            && (this.getProducer() == null ? true : false)
-            && (this.getState() == null ? true : false);
+            && (this.getWrapper() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
-        if(this.getProducer() != null && this.getProducer().equals(child)) return result;
-        if(this.getProducer() != null) result = result + 1;
-        if(this.getState() != null && this.getState().equals(child)) return result;
-        if(this.getState() != null) result = result + 1;
+        if(this.getWrapper() != null && this.getWrapper().equals(child)) return result;
+        if(this.getWrapper() != null) result = result + 1;
         return -1;
     }
     
+    public String getName()throws ModelException{
+        return ((Article)this.getTheObject()).getName();
+    }
+    public void setName(String newValue) throws ModelException {
+        ((Article)this.getTheObject()).setName(newValue);
+    }
     public common.Fraction getPrice()throws ModelException{
         return ((Article)this.getTheObject()).getPrice();
     }
@@ -110,19 +119,16 @@ public class ArticleProxi extends ComponentProxi implements ArticleView{
     public void setState(ArticleStateView newValue) throws ModelException {
         ((Article)this.getTheObject()).setState(newValue);
     }
+    public String getCurrentState()throws ModelException{
+        return ((Article)this.getTheObject()).getCurrentState();
+    }
+    public String getProducerName()throws ModelException{
+        return ((Article)this.getTheObject()).getProducerName();
+    }
+    public ArticleWrapperView getWrapper()throws ModelException{
+        return ((Article)this.getTheObject()).getWrapper();
+    }
     
-    public void accept(ComponentVisitor visitor) throws ModelException {
-        visitor.handleArticle(this);
-    }
-    public <R> R accept(ComponentReturnVisitor<R>  visitor) throws ModelException {
-         return visitor.handleArticle(this);
-    }
-    public <E extends view.UserException>  void accept(ComponentExceptionVisitor<E> visitor) throws ModelException, E {
-         visitor.handleArticle(this);
-    }
-    public <R, E extends view.UserException> R accept(ComponentReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
-         return visitor.handleArticle(this);
-    }
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleArticle(this);
     }
@@ -137,7 +143,7 @@ public class ArticleProxi extends ComponentProxi implements ArticleView{
     }
     
     public boolean hasTransientFields(){
-        return false;
+        return true;
     }
     
     public javafx.scene.image.Image getImage(){

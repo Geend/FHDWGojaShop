@@ -11,5 +11,14 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-goja_backup/
-db_scripts/
+goja_backup/*
+db_scripts/*
+
+model/.PersistenceGeneratorConfiguration.xml
+
+
+workspace/shop/out
+workspace/shop/shop.iml
+workspace/shop/.idea
+
+
