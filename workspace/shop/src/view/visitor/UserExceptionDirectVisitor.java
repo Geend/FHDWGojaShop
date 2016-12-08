@@ -27,5 +27,7 @@ public abstract class UserExceptionDirectVisitor implements UserExceptionVisitor
     
     public abstract void handleDoubleDefinitionException(DoubleDefinitionException doubleDefinitionException) throws ModelException;
     
+    public abstract void handleEmptyDefinitionException(EmptyDefinitionException emptyDefinitionException) throws ModelException;
+    
     
 }

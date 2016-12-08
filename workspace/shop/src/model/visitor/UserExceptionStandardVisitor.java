@@ -32,5 +32,8 @@ public abstract class UserExceptionStandardVisitor implements UserExceptionVisit
     public void handleDoubleDefinitionException(model.DoubleDefinitionException doubleDefinitionException) throws PersistenceException{
         this.standardHandling(doubleDefinitionException);
     }
+    public void handleEmptyDefinitionException(model.EmptyDefinitionException emptyDefinitionException) throws PersistenceException{
+        this.standardHandling(emptyDefinitionException);
+    }
     protected abstract void standardHandling(model.UserException userException) throws PersistenceException;
 }

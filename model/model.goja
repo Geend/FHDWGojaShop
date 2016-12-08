@@ -81,7 +81,7 @@ server CustomerService extends Service {
 
 	//ShoppingCart
 	void addToCart@@In_den_Warenkorb(ArticleWrapper article checked, Integer quantity@@Anzahl);
-	void changeArticleQuantity@@Anzahl_ändern(ShoppingCartQuantifiedArticle article, Integer newQuantity@@Anzahl);
+	void changeArticleQuantity@@Anzahl_ï¿½ndern(ShoppingCartQuantifiedArticle article, Integer newQuantity@@Anzahl);
 	void removeFromCart@@Entfernen(ShoppingCartQuantifiedArticle article);
 	void emptyCart@@Leeren(ShoppingCart cart);
 
@@ -445,6 +445,7 @@ class FinishedOrderState##fos extends OrderStatus{
 
 
 abstract exception ArticleOrderException{}
+exception EmptyDefinitionException{}
 exception DoubleDefinitionException{}
 exception UserAlreadyExistsException{}
 

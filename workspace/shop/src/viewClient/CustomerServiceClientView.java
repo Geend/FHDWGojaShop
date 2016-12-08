@@ -729,10 +729,10 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
             }
             if (selected instanceof ShoppingCartQuantifiedArticleView){
                 item = new ChangeArticleQuantityPRMTRShoppingCartQuantifiedArticlePRMTRIntegerPRMTRMenuItem();
-                item.setText("Anzahl ändern ... ");
+                item.setText("Anzahl ï¿½ndern ... ");
                 item.setOnAction(new EventHandler<ActionEvent>(){
                     public void handle(javafx.event.ActionEvent e) {
-                        final CustomerServiceChangeArticleQuantityShoppingCartQuantifiedArticleIntegerMssgWizard wizard = new CustomerServiceChangeArticleQuantityShoppingCartQuantifiedArticleIntegerMssgWizard("Anzahl ändern");
+                        final CustomerServiceChangeArticleQuantityShoppingCartQuantifiedArticleIntegerMssgWizard wizard = new CustomerServiceChangeArticleQuantityShoppingCartQuantifiedArticleIntegerMssgWizard("Anzahl ï¿½ndern");
                         wizard.setFirstArgument((ShoppingCartQuantifiedArticleView)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.showAndWait();
