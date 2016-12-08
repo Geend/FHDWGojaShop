@@ -27,6 +27,8 @@ public interface Service4Public extends Invoker, Anything, SubjInterface, Remote
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
+    public void reloadUI() 
+				throws PersistenceException;
 
 }
 

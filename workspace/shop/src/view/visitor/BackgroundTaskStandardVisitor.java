@@ -8,8 +8,8 @@ public abstract class BackgroundTaskStandardVisitor implements BackgroundTaskVis
     public void handleCONCBackgroundTask(CONCBackgroundTaskView cONCBackgroundTask) throws ModelException{
         this.standardHandling(cONCBackgroundTask);
     }
-    public void handleOwnerOrderManager(OwnerOrderManagerView ownerOrderManager) throws ModelException{
-        this.standardHandling(ownerOrderManager);
+    public void handleGlobalOrderManager(GlobalOrderManagerView globalOrderManager) throws ModelException{
+        this.standardHandling(globalOrderManager);
     }
     public void handleReOrderManager(ReOrderManagerView reOrderManager) throws ModelException{
         this.standardHandling(reOrderManager);

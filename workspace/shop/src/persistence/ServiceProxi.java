@@ -77,6 +77,10 @@ public abstract class ServiceProxi extends PersistentProxi implements Persistent
 				throws PersistenceException{
         ((PersistentService)this.getTheObject()).initializeOnInstantiation();
     }
+    public void reloadUI() 
+				throws PersistenceException{
+        ((PersistentService)this.getTheObject()).reloadUI();
+    }
 
     
 }

@@ -26,25 +26,25 @@ public class CustomerServiceOrderManagerFacade{
 
     /* If idCreateIfLessZero is negative, a new id is generated. */
     public PersistentCustomerServiceOrderManager newCustomerServiceOrderManager(long idCreateIfLessZero) throws PersistenceException {
-        if(idCreateIfLessZero > 0) return (PersistentCustomerServiceOrderManager)PersistentProxi.createProxi(idCreateIfLessZero, 375);
+        if(idCreateIfLessZero > 0) return (PersistentCustomerServiceOrderManager)PersistentProxi.createProxi(idCreateIfLessZero, 448);
         long id = ConnectionHandler.getTheConnectionHandler().theCustomerServiceOrderManagerFacade.getNextId();
         CustomerServiceOrderManager result = new CustomerServiceOrderManager(null,null,null,id);
         Cache.getTheCache().put(result);
-        return (PersistentCustomerServiceOrderManager)PersistentProxi.createProxi(id, 375);
+        return (PersistentCustomerServiceOrderManager)PersistentProxi.createProxi(id, 448);
     }
     
     public PersistentCustomerServiceOrderManager newDelayedCustomerServiceOrderManager() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theCustomerServiceOrderManagerFacade.getNextId();
         CustomerServiceOrderManager result = new CustomerServiceOrderManager(null,null,null,id);
         Cache.getTheCache().put(result);
-        return (PersistentCustomerServiceOrderManager)PersistentProxi.createProxi(id, 375);
+        return (PersistentCustomerServiceOrderManager)PersistentProxi.createProxi(id, 448);
     }
     
     public CustomerServiceOrderManager getCustomerServiceOrderManager(long CustomerServiceOrderManagerId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 375)) return 375;
+        if(Cache.getTheCache().contains(objectId, 448)) return 448;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

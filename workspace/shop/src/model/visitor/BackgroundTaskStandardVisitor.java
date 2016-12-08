@@ -8,8 +8,8 @@ public abstract class BackgroundTaskStandardVisitor implements BackgroundTaskVis
     public void handleCONCBackgroundTask(CONCBackgroundTask4Public cONCBackgroundTask) throws PersistenceException{
         this.standardHandling(cONCBackgroundTask);
     }
-    public void handleOwnerOrderManager(OwnerOrderManager4Public ownerOrderManager) throws PersistenceException{
-        this.standardHandling(ownerOrderManager);
+    public void handleGlobalOrderManager(GlobalOrderManager4Public globalOrderManager) throws PersistenceException{
+        this.standardHandling(globalOrderManager);
     }
     public void handleReOrderManager(ReOrderManager4Public reOrderManager) throws PersistenceException{
         this.standardHandling(reOrderManager);

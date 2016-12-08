@@ -26,7 +26,7 @@ public class ShopFacade{
 
     public PersistentShop getTheShop() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theShopFacade.getNextId();
-        Shop result = new Shop(null, null, null, null, null, id);
+        Shop result = new Shop(null, null, id);
         PersistentInCacheProxi cached = Cache.getTheCache().putSingleton(result);
         return (PersistentShop)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().isTheSameAs(result) ? -1 : 1), 428);
     }
@@ -38,15 +38,6 @@ public class ShopFacade{
         if(Cache.getTheCache().contains(objectId, 428)) return 428;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
-        
-    }
-    public void componentManagerSet(long ShopId, ComponentManager4Public componentManagerVal) throws PersistenceException {
-        
-    }
-    public void prmanagerSet(long ShopId, ProducerLst4Public prmanagerVal) throws PersistenceException {
-        
-    }
-    public void customerDeliveryTimeManagerSet(long ShopId, CustomerDeliveryTimeManager4Public customerDeliveryTimeManagerVal) throws PersistenceException {
         
     }
     public void subServiceSet(long ShopId, SubjInterface subServiceVal) throws PersistenceException {

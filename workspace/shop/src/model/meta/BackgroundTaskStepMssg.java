@@ -14,10 +14,10 @@ public class BackgroundTaskStepMssg implements BackgroundTaskDOWNMssgs,Backgroun
     public void accept(BackgroundTaskMssgsVisitor visitor) throws PersistenceException{
         visitor.handleBackgroundTaskStepMssg(this);
     }
-    public void accept(ReOrderManagerMssgsVisitor visitor) throws PersistenceException{
+    public void accept(GlobalOrderManagerMssgsVisitor visitor) throws PersistenceException{
         visitor.handleBackgroundTaskStepMssg(this);
     }
-    public void accept(OwnerOrderManagerMssgsVisitor visitor) throws PersistenceException{
+    public void accept(ReOrderManagerMssgsVisitor visitor) throws PersistenceException{
         visitor.handleBackgroundTaskStepMssg(this);
     }
     public void accept(OrderManagerMssgsVisitor visitor) throws PersistenceException{

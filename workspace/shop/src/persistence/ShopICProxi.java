@@ -22,24 +22,6 @@ public class ShopICProxi extends PersistentInCacheProxiOptimistic implements Per
         return 428;
     }
     
-    public ComponentManager4Public getComponentManager() throws PersistenceException {
-        return ((PersistentShop)this.getTheObject()).getComponentManager();
-    }
-    public void setComponentManager(ComponentManager4Public newValue) throws PersistenceException {
-        ((PersistentShop)this.getTheObject()).setComponentManager(newValue);
-    }
-    public ProducerLst4Public getPrmanager() throws PersistenceException {
-        return ((PersistentShop)this.getTheObject()).getPrmanager();
-    }
-    public void setPrmanager(ProducerLst4Public newValue) throws PersistenceException {
-        ((PersistentShop)this.getTheObject()).setPrmanager(newValue);
-    }
-    public CustomerDeliveryTimeManager4Public getCustomerDeliveryTimeManager() throws PersistenceException {
-        return ((PersistentShop)this.getTheObject()).getCustomerDeliveryTimeManager();
-    }
-    public void setCustomerDeliveryTimeManager(CustomerDeliveryTimeManager4Public newValue) throws PersistenceException {
-        ((PersistentShop)this.getTheObject()).setCustomerDeliveryTimeManager(newValue);
-    }
     public SubjInterface getSubService() throws PersistenceException {
         return ((PersistentShop)this.getTheObject()).getSubService();
     }
@@ -76,6 +58,14 @@ public class ShopICProxi extends PersistentInCacheProxiOptimistic implements Per
     }
     
     
+    public void acceptOrder(final CustomerOrderManager4Public manager, final Order4Public order) 
+				throws model.OrderNotAcceptableException, model.NotEnoughMoneyException, PersistenceException{
+        ((PersistentShop)this.getTheObject()).acceptOrder(manager, order);
+    }
+    public void acceptOrder(final CustomerOrderManager4Public manager, final Order4Public order, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentShop)this.getTheObject()).acceptOrder(manager, order, invoker);
+    }
     public void changeArticleName(final ArticleWrapper4Public article, final String newName) 
 				throws PersistenceException{
         ((PersistentShop)this.getTheObject()).changeArticleName(article, newName);
@@ -116,9 +106,9 @@ public class ShopICProxi extends PersistentInCacheProxiOptimistic implements Per
 				throws PersistenceException{
         ((PersistentShop)this.getTheObject()).createCustomerDeliveryTime(name, price, time, invoker);
     }
-    public void createProducer(final String name) 
+    public Producer4Public createProducer(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
-        ((PersistentShop)this.getTheObject()).createProducer(name);
+        return ((PersistentShop)this.getTheObject()).createProducer(name);
     }
     public void deregister(final ObsInterface observee) 
 				throws PersistenceException{
@@ -136,25 +126,37 @@ public class ShopICProxi extends PersistentInCacheProxiOptimistic implements Per
 				throws PersistenceException{
         ((PersistentShop)this.getTheObject()).moveTo(component, newParentGroup, invoker);
     }
-    public void newArticle(final ComponentContainer parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
+    public ArticleWrapper4Public newArticle(final ComponentContainer parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        ((PersistentShop)this.getTheObject()).newArticle(parent, name, price, minStock, maxStock, producerDeliveryTime, producer);
+        return ((PersistentShop)this.getTheObject()).newArticle(parent, name, price, minStock, maxStock, producerDeliveryTime, producer);
     }
     public void newArticle(final ComponentContainer parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentShop)this.getTheObject()).newArticle(parent, name, price, minStock, maxStock, producerDeliveryTime, producer, invoker);
     }
-    public void newProductGroup(final ComponentContainer parent, final String name) 
+    public ProductGroup4Public newProductGroup(final ComponentContainer parent, final String name) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        ((PersistentShop)this.getTheObject()).newProductGroup(parent, name);
+        return ((PersistentShop)this.getTheObject()).newProductGroup(parent, name);
     }
     public void newProductGroup(final ComponentContainer parent, final String name, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentShop)this.getTheObject()).newProductGroup(parent, name, invoker);
     }
-    public void newProductGroup(final String name) 
-				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        ((PersistentShop)this.getTheObject()).newProductGroup(name);
+    public void orderCart(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
+				throws model.EmptyCartException, model.ArticleOrderException, model.NotEnoughMoneyException, PersistenceException{
+        ((PersistentShop)this.getTheObject()).orderCart(manager, cart, customerDeliveryTime);
+    }
+    public void orderCart(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentShop)this.getTheObject()).orderCart(manager, cart, customerDeliveryTime, invoker);
+    }
+    public void preOrderCart(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
+				throws model.EmptyCartException, model.NotEnoughMoneyException, model.ArticleNotInSaleException, PersistenceException{
+        ((PersistentShop)this.getTheObject()).preOrderCart(manager, cart, customerDeliveryTime);
+    }
+    public void preOrderCart(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentShop)this.getTheObject()).preOrderCart(manager, cart, customerDeliveryTime, invoker);
     }
     public void register(final ObsInterface observee) 
 				throws PersistenceException{
@@ -180,6 +182,10 @@ public class ShopICProxi extends PersistentInCacheProxiOptimistic implements Per
 				throws PersistenceException{
         ((PersistentShop)this.getTheObject()).updateObservers(event);
     }
+    public void acceptOrderImplementation(final CustomerOrderManager4Public manager, final Order4Public order) 
+				throws model.OrderNotAcceptableException, model.NotEnoughMoneyException, PersistenceException{
+        ((PersistentShop)this.getTheObject()).acceptOrderImplementation(manager, order);
+    }
     public void changeArticleNameImplementation(final ArticleWrapper4Public article, final String newName) 
 				throws PersistenceException{
         ((PersistentShop)this.getTheObject()).changeArticleNameImplementation(article, newName);
@@ -204,9 +210,9 @@ public class ShopICProxi extends PersistentInCacheProxiOptimistic implements Per
 				throws model.DoubleDefinitionException, PersistenceException{
         ((PersistentShop)this.getTheObject()).createCustomerDeliveryTimeImplementation(name, price, time);
     }
-    public void createProducerImplementation(final String name) 
+    public Producer4Public createProducerImplementation(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
-        ((PersistentShop)this.getTheObject()).createProducerImplementation(name);
+        return ((PersistentShop)this.getTheObject()).createProducerImplementation(name);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -220,17 +226,21 @@ public class ShopICProxi extends PersistentInCacheProxiOptimistic implements Per
 				throws model.CycleException, PersistenceException{
         ((PersistentShop)this.getTheObject()).moveToImplementation(component, newParentGroup);
     }
-    public void newArticleImplementation(final ComponentContainer parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
+    public ArticleWrapper4Public newArticleImplementation(final ComponentContainer parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        ((PersistentShop)this.getTheObject()).newArticleImplementation(parent, name, price, minStock, maxStock, producerDeliveryTime, producer);
+        return ((PersistentShop)this.getTheObject()).newArticleImplementation(parent, name, price, minStock, maxStock, producerDeliveryTime, producer);
     }
-    public void newProductGroupImplementation(final ComponentContainer parent, final String name) 
+    public ProductGroup4Public newProductGroupImplementation(final ComponentContainer parent, final String name) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        ((PersistentShop)this.getTheObject()).newProductGroupImplementation(parent, name);
+        return ((PersistentShop)this.getTheObject()).newProductGroupImplementation(parent, name);
     }
-    public void newProductGroupImplementation(final String name) 
-				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        ((PersistentShop)this.getTheObject()).newProductGroupImplementation(name);
+    public void orderCartImplementation(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
+				throws model.EmptyCartException, model.ArticleOrderException, model.NotEnoughMoneyException, PersistenceException{
+        ((PersistentShop)this.getTheObject()).orderCartImplementation(manager, cart, customerDeliveryTime);
+    }
+    public void preOrderCartImplementation(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
+				throws model.EmptyCartException, model.NotEnoughMoneyException, model.ArticleNotInSaleException, PersistenceException{
+        ((PersistentShop)this.getTheObject()).preOrderCartImplementation(manager, cart, customerDeliveryTime);
     }
     public void startSellingImplementation(final ArticleWrapper4Public article) 
 				throws PersistenceException{

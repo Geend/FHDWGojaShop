@@ -63,6 +63,8 @@ public abstract class SubjInterfaceDirectVisitor implements SubjInterfaceVisitor
     }
     public abstract void handleComponentManager(ComponentManager4Public componentManager) throws PersistenceException;
     
+    public abstract void handleGlobalOrderArchive(GlobalOrderArchive4Public globalOrderArchive) throws PersistenceException;
+    
     public abstract void handleCustomerArticleLst(CustomerArticleLst4Public customerArticleLst) throws PersistenceException;
     
     public abstract void handleCustomerDeliveryTimeManager(CustomerDeliveryTimeManager4Public customerDeliveryTimeManager) throws PersistenceException;
@@ -101,8 +103,8 @@ public abstract class SubjInterfaceDirectVisitor implements SubjInterfaceVisitor
     public void handleCONCBackgroundTask(CONCBackgroundTask4Public cONCBackgroundTask) throws PersistenceException{
         this.handleBackgroundTask(cONCBackgroundTask);
     }
-    public void handleOwnerOrderManager(OwnerOrderManager4Public ownerOrderManager) throws PersistenceException{
-        this.handleBackgroundTask(ownerOrderManager);
+    public void handleGlobalOrderManager(GlobalOrderManager4Public globalOrderManager) throws PersistenceException{
+        this.handleBackgroundTask(globalOrderManager);
     }
     public void handleReOrderManager(ReOrderManager4Public reOrderManager) throws PersistenceException{
         this.handleBackgroundTask(reOrderManager);

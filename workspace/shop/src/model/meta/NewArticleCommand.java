@@ -46,11 +46,12 @@ public class NewArticleCommand extends PersistentObject implements PersistentNew
     protected PersistentProducer producer;
     protected Invoker invoker;
     protected PersistentShop commandReceiver;
+    protected PersistentArticleWrapper commandResult;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public NewArticleCommand(ComponentContainer parent,String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,PersistentProducer producer,Invoker invoker,PersistentShop commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
+    public NewArticleCommand(ComponentContainer parent,String name,common.Fraction price,long minStock,long maxStock,long producerDeliveryTime,PersistentProducer producer,Invoker invoker,PersistentShop commandReceiver,PersistentArticleWrapper commandResult,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.parent = parent;
@@ -62,6 +63,7 @@ public class NewArticleCommand extends PersistentObject implements PersistentNew
         this.producer = producer;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
+        this.commandResult = commandResult;
         this.myCommonDate = myCommonDate;        
     }
     
@@ -93,6 +95,10 @@ public class NewArticleCommand extends PersistentObject implements PersistentNew
         if(this.getCommandReceiver() != null){
             this.getCommandReceiver().store();
             ConnectionHandler.getTheConnectionHandler().theNewArticleCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
+        }
+        if(this.getCommandResult() != null){
+            this.getCommandResult().store();
+            ConnectionHandler.getTheConnectionHandler().theNewArticleCommandFacade.commandResultSet(this.getId(), getCommandResult());
         }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
@@ -193,6 +199,20 @@ public class NewArticleCommand extends PersistentObject implements PersistentNew
             ConnectionHandler.getTheConnectionHandler().theNewArticleCommandFacade.commandReceiverSet(this.getId(), newValue);
         }
     }
+    public ArticleWrapper4Public getCommandResult() throws PersistenceException {
+        return this.commandResult;
+    }
+    public void setCommandResult(ArticleWrapper4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.commandResult)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.commandResult = (PersistentArticleWrapper)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theNewArticleCommandFacade.commandResultSet(this.getId(), newValue);
+        }
+    }
     public CommonDate4Public getMyCommonDate() throws PersistenceException {
         return this.myCommonDate;
     }
@@ -276,6 +296,7 @@ public class NewArticleCommand extends PersistentObject implements PersistentNew
         if (this.getParent() != null) return 1;
         if (this.getProducer() != null) return 1;
         if (this.getCommandReceiver() != null) return 1;
+        if (this.getCommandResult() != null) return 1;
         return 0;
     }
     
@@ -291,7 +312,7 @@ public class NewArticleCommand extends PersistentObject implements PersistentNew
     public void execute() 
 				throws PersistenceException{
         try{
-			this.commandReceiver.newArticle(this.getParent(), this.getName(), this.getPrice(), this.getMinStock(), this.getMaxStock(), this.getProducerDeliveryTime(), this.getProducer());
+			this.setCommandResult(this.commandReceiver.newArticle(this.getParent(), this.getName(), this.getPrice(), this.getMinStock(), this.getMaxStock(), this.getProducerDeliveryTime(), this.getProducer()));
 		}
 		catch(model.DoubleDefinitionException e){
 			this.commandException = e;

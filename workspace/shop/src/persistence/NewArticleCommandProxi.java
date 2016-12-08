@@ -72,6 +72,12 @@ public class NewArticleCommandProxi extends PersistentProxi implements Persisten
     public void setCommandReceiver(Shop4Public newValue) throws PersistenceException {
         ((PersistentNewArticleCommand)this.getTheObject()).setCommandReceiver(newValue);
     }
+    public ArticleWrapper4Public getCommandResult() throws PersistenceException {
+        return ((PersistentNewArticleCommand)this.getTheObject()).getCommandResult();
+    }
+    public void setCommandResult(ArticleWrapper4Public newValue) throws PersistenceException {
+        ((PersistentNewArticleCommand)this.getTheObject()).setCommandResult(newValue);
+    }
     public CommonDate4Public getMyCommonDate() throws PersistenceException {
         return ((PersistentNewArticleCommand)this.getTheObject()).getMyCommonDate();
     }

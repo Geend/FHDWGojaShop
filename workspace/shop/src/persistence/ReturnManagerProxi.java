@@ -57,17 +57,9 @@ public class ReturnManagerProxi extends PersistentProxi implements PersistentRet
     }
     
     
-    public void addArticleReturn(final ArticleReturn4Public articleReturn, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentReturnManager)this.getTheObject()).addArticleReturn(articleReturn, invoker);
-    }
     public void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentReturnManager)this.getTheObject()).deregister(observee);
-    }
-    public OwnerService4Public getMyServer() 
-				throws PersistenceException{
-        return ((PersistentReturnManager)this.getTheObject()).getMyServer();
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -96,6 +88,10 @@ public class ReturnManagerProxi extends PersistentProxi implements PersistentRet
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentReturnManager)this.getTheObject()).initializeOnInstantiation();
+    }
+    public void removeArticleReturn(final ArticleReturn4Public articleReturn) 
+				throws PersistenceException{
+        ((PersistentReturnManager)this.getTheObject()).removeArticleReturn(articleReturn);
     }
 
     

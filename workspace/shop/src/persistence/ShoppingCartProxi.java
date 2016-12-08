@@ -89,6 +89,10 @@ public class ShoppingCartProxi extends PersistentProxi implements PersistentShop
 				throws PersistenceException{
         ((PersistentShoppingCart)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public void empty() 
+				throws PersistenceException{
+        ((PersistentShoppingCart)this.getTheObject()).empty();
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentShoppingCart)this.getTheObject()).initializeOnCreation();

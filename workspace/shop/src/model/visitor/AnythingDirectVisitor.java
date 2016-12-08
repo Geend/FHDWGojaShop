@@ -27,8 +27,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleCustomerDeliveryTime(CustomerDeliveryTime4Public customerDeliveryTime) throws PersistenceException;
     
-    public abstract void handleOrderManagerOrders(OrderManagerOrders4Public orderManagerOrders) throws PersistenceException;
-    
     public abstract void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException;
     
     public abstract void handleOrderStatus(OrderStatus4Public orderStatus) throws PersistenceException;
@@ -67,6 +65,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleComponentManager(ComponentManager4Public componentManager) throws PersistenceException;
     
+    public abstract void handleGlobalOrderArchive(GlobalOrderArchive4Public globalOrderArchive) throws PersistenceException;
+    
     public abstract void handleCustomerArticleLst(CustomerArticleLst4Public customerArticleLst) throws PersistenceException;
     
     public abstract void handleCustomerDeliveryTimeManager(CustomerDeliveryTimeManager4Public customerDeliveryTimeManager) throws PersistenceException;
@@ -102,6 +102,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleOwnerServiceShop(OwnerServiceShop4Public ownerServiceShop) throws PersistenceException;
     
+    public abstract void handleOwnerServiceOrderManager(OwnerServiceOrderManager4Public ownerServiceOrderManager) throws PersistenceException;
+    
     public abstract void handleSubj(Subj4Public subj) throws PersistenceException;
     
     public abstract void handleBackgroundTask(BackgroundTask4Public backgroundTask) throws PersistenceException;
@@ -109,19 +111,23 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCONCBackgroundTask(CONCBackgroundTask4Public cONCBackgroundTask) throws PersistenceException{
         this.handleBackgroundTask(cONCBackgroundTask);
     }
-    public void handleOwnerOrderManager(OwnerOrderManager4Public ownerOrderManager) throws PersistenceException{
-        this.handleBackgroundTask(ownerOrderManager);
+    public void handleGlobalOrderManager(GlobalOrderManager4Public globalOrderManager) throws PersistenceException{
+        this.handleBackgroundTask(globalOrderManager);
     }
     public void handleReOrderManager(ReOrderManager4Public reOrderManager) throws PersistenceException{
         this.handleBackgroundTask(reOrderManager);
     }
     public abstract void handleCustomerServiceShop(CustomerServiceShop4Public customerServiceShop) throws PersistenceException;
     
+    public abstract void handleReOrderManagerReorderArticles(ReOrderManagerReorderArticles4Public reOrderManagerReorderArticles) throws PersistenceException;
+    
     public abstract void handleShop(Shop4Public shop) throws PersistenceException;
     
     public abstract void handleProducer(Producer4Public producer) throws PersistenceException;
     
     public abstract void handleShoppingCart(ShoppingCart4Public shoppingCart) throws PersistenceException;
+    
+    public abstract void handleOwnerServiceReOrderManager(OwnerServiceReOrderManager4Public ownerServiceReOrderManager) throws PersistenceException;
     
     public abstract void handleArticleReturn(ArticleReturn4Public articleReturn) throws PersistenceException;
     
@@ -144,17 +150,29 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateCustomerDeliveryTimeCommand(CreateCustomerDeliveryTimeCommand4Public createCustomerDeliveryTimeCommand) throws PersistenceException{
         this.handleCommonDate(createCustomerDeliveryTimeCommand);
     }
-    public void handleReduceStockCommand(ReduceStockCommand4Public reduceStockCommand) throws PersistenceException{
-        this.handleCommonDate(reduceStockCommand);
+    public void handleCreateProducerCommand(CreateProducerCommand4Public createProducerCommand) throws PersistenceException{
+        this.handleCommonDate(createProducerCommand);
+    }
+    public void handleStartSellingCommand(StartSellingCommand4Public startSellingCommand) throws PersistenceException{
+        this.handleCommonDate(startSellingCommand);
+    }
+    public void handleRemoveArticleCommand(RemoveArticleCommand4Public removeArticleCommand) throws PersistenceException{
+        this.handleCommonDate(removeArticleCommand);
     }
     public void handleNewProductGroupCommand(NewProductGroupCommand4Public newProductGroupCommand) throws PersistenceException{
         this.handleCommonDate(newProductGroupCommand);
     }
-    public void handleNewPreOrderCommand(NewPreOrderCommand4Public newPreOrderCommand) throws PersistenceException{
-        this.handleCommonDate(newPreOrderCommand);
+    public void handleNewArticleCommand(NewArticleCommand4Public newArticleCommand) throws PersistenceException{
+        this.handleCommonDate(newArticleCommand);
+    }
+    public void handleOrderCartCommand(OrderCartCommand4Public orderCartCommand) throws PersistenceException{
+        this.handleCommonDate(orderCartCommand);
     }
     public void handleRegisterCommand(RegisterCommand4Public registerCommand) throws PersistenceException{
         this.handleCommonDate(registerCommand);
+    }
+    public void handlePreOrderCartCommand(PreOrderCartCommand4Public preOrderCartCommand) throws PersistenceException{
+        this.handleCommonDate(preOrderCartCommand);
     }
     public void handleWithdrawCommand(WithdrawCommand4Public withdrawCommand) throws PersistenceException{
         this.handleCommonDate(withdrawCommand);
@@ -168,6 +186,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleChangeArticleNameCommand(ChangeArticleNameCommand4Public changeArticleNameCommand) throws PersistenceException{
         this.handleCommonDate(changeArticleNameCommand);
     }
+    public void handleChangeArticleQuantityCommand(ChangeArticleQuantityCommand4Public changeArticleQuantityCommand) throws PersistenceException{
+        this.handleCommonDate(changeArticleQuantityCommand);
+    }
     public void handleAddArticleCommand(AddArticleCommand4Public addArticleCommand) throws PersistenceException{
         this.handleCommonDate(addArticleCommand);
     }
@@ -180,41 +201,11 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleDepositCommand(DepositCommand4Public depositCommand) throws PersistenceException{
         this.handleCommonDate(depositCommand);
     }
-    public void handleDebitCommand(DebitCommand4Public debitCommand) throws PersistenceException{
-        this.handleCommonDate(debitCommand);
-    }
-    public void handleAddArticleReturnCommand(AddArticleReturnCommand4Public addArticleReturnCommand) throws PersistenceException{
-        this.handleCommonDate(addArticleReturnCommand);
-    }
-    public void handleIncreaseStockCommand(IncreaseStockCommand4Public increaseStockCommand) throws PersistenceException{
-        this.handleCommonDate(increaseStockCommand);
-    }
-    public void handleCreateProducerCommand(CreateProducerCommand4Public createProducerCommand) throws PersistenceException{
-        this.handleCommonDate(createProducerCommand);
-    }
-    public void handleStartSellingCommand(StartSellingCommand4Public startSellingCommand) throws PersistenceException{
-        this.handleCommonDate(startSellingCommand);
-    }
-    public void handleRemoveArticleCommand(RemoveArticleCommand4Public removeArticleCommand) throws PersistenceException{
-        this.handleCommonDate(removeArticleCommand);
-    }
-    public void handleNewArticleCommand(NewArticleCommand4Public newArticleCommand) throws PersistenceException{
-        this.handleCommonDate(newArticleCommand);
-    }
-    public void handleReOrderCommand(ReOrderCommand4Public reOrderCommand) throws PersistenceException{
-        this.handleCommonDate(reOrderCommand);
-    }
-    public void handleReOrderForPreorderCommand(ReOrderForPreorderCommand4Public reOrderForPreorderCommand) throws PersistenceException{
-        this.handleCommonDate(reOrderForPreorderCommand);
-    }
-    public void handleChangeArticleQuantityCommand(ChangeArticleQuantityCommand4Public changeArticleQuantityCommand) throws PersistenceException{
-        this.handleCommonDate(changeArticleQuantityCommand);
-    }
-    public void handleNewOrderCommand(NewOrderCommand4Public newOrderCommand) throws PersistenceException{
-        this.handleCommonDate(newOrderCommand);
-    }
     public void handleChangeCustomerDeliveryTimePriceCommand(ChangeCustomerDeliveryTimePriceCommand4Public changeCustomerDeliveryTimePriceCommand) throws PersistenceException{
         this.handleCommonDate(changeCustomerDeliveryTimePriceCommand);
+    }
+    public void handleDebitCommand(DebitCommand4Public debitCommand) throws PersistenceException{
+        this.handleCommonDate(debitCommand);
     }
     public void handleAcceptOrderCommand(AcceptOrderCommand4Public acceptOrderCommand) throws PersistenceException{
         this.handleCommonDate(acceptOrderCommand);

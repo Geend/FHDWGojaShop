@@ -254,6 +254,10 @@ public class ShoppingCart extends PersistentObject implements PersistentShopping
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
     }
+    public void empty() 
+				throws PersistenceException{
+        getThis().getArticles().filter(x->false);
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
     }

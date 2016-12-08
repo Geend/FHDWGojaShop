@@ -5,7 +5,6 @@ import common.Fraction;
 import persistence.*;
 import model.visitor.*;
 
-
 /* Additional import section end */
 
 public class Shop extends PersistentObject implements PersistentShop{
@@ -60,33 +59,6 @@ public class Shop extends PersistentObject implements PersistentShop{
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            AbstractPersistentRoot componentManager = (AbstractPersistentRoot)this.getComponentManager();
-            if (componentManager != null) {
-                result.put("componentManager", componentManager.createProxiInformation(false, essentialLevel <= 1));
-                if(depth > 1) {
-                    componentManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && componentManager.hasEssentialFields())componentManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
-            AbstractPersistentRoot prmanager = (AbstractPersistentRoot)this.getPrmanager();
-            if (prmanager != null) {
-                result.put("prmanager", prmanager.createProxiInformation(false, essentialLevel <= 1));
-                if(depth > 1) {
-                    prmanager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && prmanager.hasEssentialFields())prmanager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
-            AbstractPersistentRoot customerDeliveryTimeManager = (AbstractPersistentRoot)this.getCustomerDeliveryTimeManager();
-            if (customerDeliveryTimeManager != null) {
-                result.put("customerDeliveryTimeManager", customerDeliveryTimeManager.createProxiInformation(false, essentialLevel <= 1));
-                if(depth > 1) {
-                    customerDeliveryTimeManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && customerDeliveryTimeManager.hasEssentialFields())customerDeliveryTimeManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -95,10 +67,7 @@ public class Shop extends PersistentObject implements PersistentShop{
     
     public Shop provideCopy() throws PersistenceException{
         Shop result = this;
-        result = new Shop(this.componentManager, 
-                          this.prmanager, 
-                          this.customerDeliveryTimeManager, 
-                          this.subService, 
+        result = new Shop(this.subService, 
                           this.This, 
                           this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -108,18 +77,12 @@ public class Shop extends PersistentObject implements PersistentShop{
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected PersistentComponentManager componentManager;
-    protected PersistentProducerLst prmanager;
-    protected PersistentCustomerDeliveryTimeManager customerDeliveryTimeManager;
     protected SubjInterface subService;
     protected PersistentShop This;
     
-    public Shop(PersistentComponentManager componentManager,PersistentProducerLst prmanager,PersistentCustomerDeliveryTimeManager customerDeliveryTimeManager,SubjInterface subService,PersistentShop This,long id) throws PersistenceException {
+    public Shop(SubjInterface subService,PersistentShop This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.componentManager = componentManager;
-        this.prmanager = prmanager;
-        this.customerDeliveryTimeManager = customerDeliveryTimeManager;
         this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
@@ -136,48 +99,6 @@ public class Shop extends PersistentObject implements PersistentShop{
         // Singletons cannot be delayed!
     }
     
-    public ComponentManager4Public getComponentManager() throws PersistenceException {
-        return this.componentManager;
-    }
-    public void setComponentManager(ComponentManager4Public newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.componentManager)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.componentManager = (PersistentComponentManager)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theShopFacade.componentManagerSet(this.getId(), newValue);
-        }
-    }
-    public ProducerLst4Public getPrmanager() throws PersistenceException {
-        return this.prmanager;
-    }
-    public void setPrmanager(ProducerLst4Public newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.prmanager)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.prmanager = (PersistentProducerLst)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theShopFacade.prmanagerSet(this.getId(), newValue);
-        }
-    }
-    public CustomerDeliveryTimeManager4Public getCustomerDeliveryTimeManager() throws PersistenceException {
-        return this.customerDeliveryTimeManager;
-    }
-    public void setCustomerDeliveryTimeManager(CustomerDeliveryTimeManager4Public newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.customerDeliveryTimeManager)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.customerDeliveryTimeManager = (PersistentCustomerDeliveryTimeManager)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theShopFacade.customerDeliveryTimeManagerSet(this.getId(), newValue);
-        }
-    }
     public SubjInterface getSubService() throws PersistenceException {
         return this.subService;
     }
@@ -240,13 +161,27 @@ public class Shop extends PersistentObject implements PersistentShop{
          return visitor.handleShop(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getComponentManager() != null) return 1;
-        if (this.getPrmanager() != null) return 1;
-        if (this.getCustomerDeliveryTimeManager() != null) return 1;
         return 0;
     }
     
     
+    public void acceptOrder(final CustomerOrderManager4Public manager, final Order4Public order) 
+				throws model.OrderNotAcceptableException, model.NotEnoughMoneyException, PersistenceException{
+        model.meta.ShopAcceptOrderCustomerOrderManagerOrderMssg event = new model.meta.ShopAcceptOrderCustomerOrderManagerOrderMssg(manager, order, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
+    public void acceptOrder(final CustomerOrderManager4Public manager, final Order4Public order, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		AcceptOrderCommand4Public command = model.meta.AcceptOrderCommand.createAcceptOrderCommand(now, now);
+		command.setManager(manager);
+		command.setOrder(order);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void changeArticleName(final ArticleWrapper4Public article, final String newName) 
 				throws PersistenceException{
         model.meta.ShopChangeArticleNameArticleWrapperStringMssg event = new model.meta.ShopChangeArticleNameArticleWrapperStringMssg(article, newName, getThis());
@@ -326,12 +261,12 @@ public class Shop extends PersistentObject implements PersistentShop{
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void createProducer(final String name) 
+    public Producer4Public createProducer(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
         model.meta.ShopCreateProducerStringMssg event = new model.meta.ShopCreateProducerStringMssg(name, getThis());
 		event.execute();
 		getThis().updateObservers(event);
-		event.getResult();
+		return event.getResult();
     }
     public synchronized void deregister(final ObsInterface observee) 
 				throws PersistenceException{
@@ -365,12 +300,12 @@ public class Shop extends PersistentObject implements PersistentShop{
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void newArticle(final ComponentContainer parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
+    public ArticleWrapper4Public newArticle(final ComponentContainer parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
         model.meta.ShopNewArticleComponentContainerStringFractionIntegerIntegerIntegerProducerMssg event = new model.meta.ShopNewArticleComponentContainerStringFractionIntegerIntegerIntegerProducerMssg(parent, name, price, minStock, maxStock, producerDeliveryTime, producer, getThis());
 		event.execute();
 		getThis().updateObservers(event);
-		event.getResult();
+		return event.getResult();
     }
     public void newArticle(final ComponentContainer parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer, final Invoker invoker) 
 				throws PersistenceException{
@@ -382,12 +317,12 @@ public class Shop extends PersistentObject implements PersistentShop{
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void newProductGroup(final ComponentContainer parent, final String name) 
+    public ProductGroup4Public newProductGroup(final ComponentContainer parent, final String name) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
         model.meta.ShopNewProductGroupComponentContainerStringMssg event = new model.meta.ShopNewProductGroupComponentContainerStringMssg(parent, name, getThis());
 		event.execute();
 		getThis().updateObservers(event);
-		event.getResult();
+		return event.getResult();
     }
     public void newProductGroup(final ComponentContainer parent, final String name, final Invoker invoker) 
 				throws PersistenceException{
@@ -398,12 +333,41 @@ public class Shop extends PersistentObject implements PersistentShop{
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void newProductGroup(final String name) 
-				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        model.meta.ShopNewProductGroupStringMssg event = new model.meta.ShopNewProductGroupStringMssg(name, getThis());
+    public void orderCart(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
+				throws model.EmptyCartException, model.ArticleOrderException, model.NotEnoughMoneyException, PersistenceException{
+        model.meta.ShopOrderCartCustomerOrderManagerShoppingCartCustomerDeliveryTimeMssg event = new model.meta.ShopOrderCartCustomerOrderManagerShoppingCartCustomerDeliveryTimeMssg(manager, cart, customerDeliveryTime, getThis());
 		event.execute();
 		getThis().updateObservers(event);
 		event.getResult();
+    }
+    public void orderCart(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		OrderCartCommand4Public command = model.meta.OrderCartCommand.createOrderCartCommand(now, now);
+		command.setManager(manager);
+		command.setCart(cart);
+		command.setCustomerDeliveryTime(customerDeliveryTime);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void preOrderCart(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
+				throws model.EmptyCartException, model.NotEnoughMoneyException, model.ArticleNotInSaleException, PersistenceException{
+        model.meta.ShopPreOrderCartCustomerOrderManagerShoppingCartCustomerDeliveryTimeMssg event = new model.meta.ShopPreOrderCartCustomerOrderManagerShoppingCartCustomerDeliveryTimeMssg(manager, cart, customerDeliveryTime, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
+    public void preOrderCart(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PreOrderCartCommand4Public command = model.meta.PreOrderCartCommand.createPreOrderCartCommand(now, now);
+		command.setManager(manager);
+		command.setCart(cart);
+		command.setCustomerDeliveryTime(customerDeliveryTime);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public synchronized void register(final ObsInterface observee) 
 				throws PersistenceException{
@@ -459,6 +423,10 @@ public class Shop extends PersistentObject implements PersistentShop{
     
     // Start of section that contains operations that must be implemented.
     
+    public void acceptOrderImplementation(final CustomerOrderManager4Public manager, final Order4Public order) 
+				throws model.OrderNotAcceptableException, model.NotEnoughMoneyException, PersistenceException{
+        manager.acceptOrder(order);
+    }
     public void changeArticleNameImplementation(final ArticleWrapper4Public article, final String newName) 
 				throws PersistenceException{
         article.getArticle().setName(newName);
@@ -477,91 +445,55 @@ public class Shop extends PersistentObject implements PersistentShop{
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
+        // TODO: implement method: copyingPrivateUserAttributes
+
     }
     public void createCustomerDeliveryTimeImplementation(final String name, final common.Fraction price, final long time) 
 				throws model.DoubleDefinitionException, PersistenceException{
-        getThis().getCustomerDeliveryTimeManager().createCustomerDeliveryTime(name, price, time);
+        CustomerDeliveryTimeManager.getTheCustomerDeliveryTimeManager().createCustomerDeliveryTime(name, price, time);
     }
-    public void createProducerImplementation(final String name) 
+    public Producer4Public createProducerImplementation(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
-        getThis().getPrmanager().createProducer(name);
+        return ProducerLst.getTheProducerLst().createProducer(name);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        getThis().setComponentManager(ComponentManager.getTheComponentManager());
-        getThis().setPrmanager(ProducerLst.getTheProducerLst());
-        getThis().setCustomerDeliveryTimeManager(CustomerDeliveryTimeManager.getTheCustomerDeliveryTimeManager());
 
-
-        try {
-
-            Producer4Public producer4PublicHermann = getThis().getPrmanager().createProducer("Obstbauer Hermann");
-            Producer4Public producer4PublicPeter = getThis().getPrmanager().createProducer("Obstbauer Peter");
-            Article4Public testArt = Article.createArticle("TestArt", new Fraction(5),10, 100, 4, producer4PublicHermann);
-            testArt.startSelling();
-            testArt.increaseStock(20);
-
-
-            getThis().getComponentManager().addComponent(ArticleWrapper.createArticleWrapper(getThis().getComponentManager(), testArt));
-
-
-
-            try {
-                ProductGroup4Public groupKernobst = getComponentManager().newProductGroup("Kernobst");
-
-                ProductGroup4Public groupKernobstBirnen = groupKernobst.newProductGroup("Kernobst");
-
-                groupKernobstBirnen.newArticle("Europäische Birne", new Fraction(10), 10, 100, 2,producer4PublicPeter);
-                groupKernobstBirnen.newArticle("Nashi-Birne", new Fraction(12), 4, 40, 5, producer4PublicHermann);
-
-                ProductGroup4Public groupSteinobst = getComponentManager().newProductGroup("Steinobst");
-
-            } catch (CycleException e) {
-                e.printStackTrace();
-            } catch (DoubleDefinitionException e) {
-                e.printStackTrace();
-            }
-        } catch (CycleException e) {
-            e.printStackTrace();
-        } catch (DoubleDefinitionException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            getThis().getCustomerDeliveryTimeManager().createCustomerDeliveryTime(
-                    "default" ,new Fraction(4), 3);
-        } catch (DoubleDefinitionException e) {
-            e.printStackTrace();
-        }
-
+        makeTestData();
+        BackgroundTaskManager.getTheBackgroundTaskManager().startTasks();
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
+        // TODO: implement method: initializeOnInstantiation
+
     }
     public void moveToImplementation(final Component4Public component, final ComponentContainer newParentGroup) 
 				throws model.CycleException, PersistenceException{
         component.moveTo(newParentGroup);
     }
-    public void newArticleImplementation(final ComponentContainer parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
+    public ArticleWrapper4Public newArticleImplementation(final ComponentContainer parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        parent.newArticle(name, price, minStock, maxStock, producerDeliveryTime, producer);
+        return parent.newArticle(name, price, minStock, maxStock, producerDeliveryTime, producer);
+
     }
-    public void newProductGroupImplementation(final ComponentContainer parent, final String name) 
+    public ProductGroup4Public newProductGroupImplementation(final ComponentContainer parent, final String name) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        parent.newProductGroup(name);
+        return parent.newProductGroup(name);
     }
-    public void newProductGroupImplementation(final String name) 
-				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        getThis().getComponentManager().newProductGroup(name);
+    public void orderCartImplementation(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
+				throws model.EmptyCartException, model.ArticleOrderException, model.NotEnoughMoneyException, PersistenceException{
+        manager.newOrder(cart, customerDeliveryTime);
+        cart.empty();
+    }
+    public void preOrderCartImplementation(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
+				throws model.EmptyCartException, model.NotEnoughMoneyException, model.ArticleNotInSaleException, PersistenceException{
+        manager.newPreOrder(cart, customerDeliveryTime);
+        cart.empty();
     }
     public void startSellingImplementation(final ArticleWrapper4Public article) 
 				throws PersistenceException{
         article.getArticle().startSelling();
-        
+
     }
     public void stopSellingImplementation(final ArticleWrapper4Public article) 
 				throws PersistenceException{
@@ -573,7 +505,37 @@ public class Shop extends PersistentObject implements PersistentShop{
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
+    private void makeTestData() throws PersistenceException {
+        try {
+
+            ComponentManager4Public componentManager = ComponentManager.getTheComponentManager();
+
+            Producer4Public producer4PublicHermann = getThis().createProducer("Obstbauer Hermann");
+            Producer4Public producer4PublicPeter = getThis().createProducer("Obstbauer Peter");
+
+
+            ArticleWrapper4Public testArt = getThis().newArticle(componentManager, "TestArt", new Fraction(5), 10, 100, 4, producer4PublicHermann);
+            testArt.getArticle().startSelling();
+            // testArt.getArticle().increaseStock(20);
+
+            ProductGroup4Public groupKernobst = getThis().newProductGroup(componentManager, "Kernobst");
+            ProductGroup4Public groupKernobstBirnen = getThis().newProductGroup(groupKernobst, "Birnen");
+
+            getThis().newArticle(groupKernobstBirnen, "Europäische Birne", new Fraction(10), 10, 100, 2, producer4PublicPeter);
+            getThis().newArticle(groupKernobstBirnen, "Nashi-Birne", new Fraction(12), 4, 40, 5, producer4PublicHermann);
+
+            ProductGroup4Public groupSteinobst = getThis().newProductGroup(componentManager,"Steinobst");
+
+
+            CustomerDeliveryTimeManager.getTheCustomerDeliveryTimeManager().createCustomerDeliveryTime("default", new Fraction(4), 3);
+
+        } catch (CycleException | DoubleDefinitionException e) {
+            throw new Error(e);
+        }
+
+
+    }
+
     /* End of protected part that is not overridden by persistence generator */
     
 }

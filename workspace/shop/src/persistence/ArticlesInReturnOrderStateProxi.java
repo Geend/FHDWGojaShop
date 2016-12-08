@@ -18,6 +18,12 @@ public class ArticlesInReturnOrderStateProxi extends OrderStatusProxi implements
         return 361;
     }
     
+    public ArticleReturn4Public getArticleReturn() throws PersistenceException {
+        return ((PersistentArticlesInReturnOrderState)this.getTheObject()).getArticleReturn();
+    }
+    public void setArticleReturn(ArticleReturn4Public newValue) throws PersistenceException {
+        ((PersistentArticlesInReturnOrderState)this.getTheObject()).setArticleReturn(newValue);
+    }
     public long getTicksLeft() throws PersistenceException {
         return ((PersistentArticlesInReturnOrderState)this.getTheObject()).getTicksLeft();
     }

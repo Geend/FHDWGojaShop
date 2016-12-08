@@ -5,4 +5,4 @@ public interface BackgroundTaskMssgs {
 }
 
 interface BackgroundTaskDOWNMssgs extends Mssgs, BackgroundTaskMssgs{}
-interface BackgroundTaskUPMssgs extends ReOrderManagerUPMssgs, OwnerOrderManagerUPMssgs, BackgroundTaskMssgs{}
+interface BackgroundTaskUPMssgs extends GlobalOrderManagerUPMssgs, ReOrderManagerUPMssgs, BackgroundTaskMssgs{}

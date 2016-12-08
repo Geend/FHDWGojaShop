@@ -5,6 +5,7 @@ import persistence.*;
 public class ShopNewArticleComponentContainerStringFractionIntegerIntegerIntegerProducerMssg implements ShopDOWNMssgs,ShopUPMssgs{
     
     private java.util.Date exctDte = null;
+    private persistence.ArticleWrapper4Public rslt;
     private Exception excptn;
     public final persistence.PersistentShop rcvr;
     public final persistence.ComponentContainer parent;
@@ -39,13 +40,13 @@ public class ShopNewArticleComponentContainerStringFractionIntegerIntegerInteger
         if (this.exctDte == null){
             this.exctDte = new java.util.Date();
             try{
-                this.rcvr.newArticleImplementation(this.parent, this.name, this.price, this.minStock, this.maxStock, this.producerDeliveryTime, this.producer);
+                rslt = this.rcvr.newArticleImplementation(this.parent, this.name, this.price, this.minStock, this.maxStock, this.producerDeliveryTime, this.producer);
             }catch(Exception exception){
                 this.excptn = exception;
             }
         }
     }
-    public synchronized void getResult() throws model.DoubleDefinitionException, model.CycleException, PersistenceException {
+    public synchronized persistence.ArticleWrapper4Public getResult() throws model.DoubleDefinitionException, model.CycleException, PersistenceException {
         if(this.excptn != null) {
             if(this.excptn instanceof model.DoubleDefinitionException) throw (model.DoubleDefinitionException) this.excptn;
             if(this.excptn instanceof model.CycleException) throw (model.CycleException) this.excptn;
@@ -54,6 +55,7 @@ public class ShopNewArticleComponentContainerStringFractionIntegerIntegerInteger
             throw new Error(this.excptn);
             
         }
+        return this.rslt;
     }
     
 }

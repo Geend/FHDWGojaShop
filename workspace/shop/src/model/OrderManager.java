@@ -1,6 +1,7 @@
 
 package model;
 
+import model.meta.OrderMssgs;
 import persistence.*;
 import model.visitor.*;
 
@@ -19,7 +20,7 @@ public abstract class OrderManager extends PersistentObject implements Persisten
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            result.put("orders", this.getOrders().getObservee().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
+            result.put("orders", this.getOrders().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -31,14 +32,14 @@ public abstract class OrderManager extends PersistentObject implements Persisten
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected PersistentOrderManagerOrders orders;
+    protected OrderManager_OrdersProxi orders;
     protected SubjInterface subService;
     protected PersistentOrderManager This;
     
-    public OrderManager(PersistentOrderManagerOrders orders,SubjInterface subService,PersistentOrderManager This,long id) throws PersistenceException {
+    public OrderManager(SubjInterface subService,PersistentOrderManager This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.orders = orders;
+        this.orders = new OrderManager_OrdersProxi(this);
         this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
@@ -54,10 +55,7 @@ public abstract class OrderManager extends PersistentObject implements Persisten
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         super.store();
-        if(this.orders != null){
-            this.orders.store();
-            ConnectionHandler.getTheConnectionHandler().theOrderManagerFacade.ordersSet(this.getId(), orders);
-        }
+        this.getOrders().store();
         if(this.getSubService() != null){
             this.getSubService().store();
             ConnectionHandler.getTheConnectionHandler().theOrderManagerFacade.subServiceSet(this.getId(), getSubService());
@@ -69,16 +67,8 @@ public abstract class OrderManager extends PersistentObject implements Persisten
         
     }
     
-    public void setOrders(OrderManagerOrders4Public newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.orders)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.orders = (PersistentOrderManagerOrders)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theOrderManagerFacade.ordersSet(this.getId(), newValue);
-        }
+    public OrderManager_OrdersProxi getOrders() throws PersistenceException {
+        return this.orders;
     }
     public SubjInterface getSubService() throws PersistenceException {
         return this.subService;
@@ -113,14 +103,6 @@ public abstract class OrderManager extends PersistentObject implements Persisten
     
     
     
-    public OrderManagerOrders4Public getOrders() 
-				throws PersistenceException{
-        if (this.orders == null) {
-			this.setOrders(model.OrderManagerOrders.createOrderManagerOrders(this.isDelayed$Persistence()));
-			this.orders.setObserver(this);
-		}
-		return this.orders;
-    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentOrderManager)This);
@@ -179,7 +161,14 @@ public abstract class OrderManager extends PersistentObject implements Persisten
     }
 
     /* Start of protected part that is not overridden by persistence generator */
-    
+
+    public void fireChangeImplementation(OrderMssgs evnt) throws PersistenceException {
+
+    }
+
+    public void orders_update(OrderMssgs event) throws PersistenceException {
+
+    }
     /* End of protected part that is not overridden by persistence generator */
     
 }

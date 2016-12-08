@@ -15,6 +15,7 @@ public interface AnythingExceptionVisitor<E extends view.UserException> extends 
     public void handleCustomerDeliveryTime(CustomerDeliveryTimeView customerDeliveryTime) throws ModelException, E;
     public void handleCustomerDeliveryTimeManager(CustomerDeliveryTimeManagerView customerDeliveryTimeManager) throws ModelException, E;
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException, E;
+    public void handleGlobalOrderArchive(GlobalOrderArchiveView globalOrderArchive) throws ModelException, E;
     public void handleOrder(OrderView order) throws ModelException, E;
     public void handleProducer(ProducerView producer) throws ModelException, E;
     public void handleProducerLst(ProducerLstView producerLst) throws ModelException, E;

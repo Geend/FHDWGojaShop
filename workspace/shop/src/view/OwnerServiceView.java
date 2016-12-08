@@ -6,16 +6,22 @@ import view.visitor.*;
 
 public interface OwnerServiceView extends ServiceView {
     
-    public ShopView getShop()throws ModelException;
-    public void setShop(ShopView newValue) throws ModelException ;
+    public ComponentManagerView getComponentManager()throws ModelException;
+    public void setComponentManager(ComponentManagerView newValue) throws ModelException ;
+    public ProducerLstView getPrmanager()throws ModelException;
+    public void setPrmanager(ProducerLstView newValue) throws ModelException ;
+    public CustomerDeliveryTimeManagerView getCustomerDeliveryTimeManager()throws ModelException;
+    public void setCustomerDeliveryTimeManager(CustomerDeliveryTimeManagerView newValue) throws ModelException ;
     public SettingsView getSettings()throws ModelException;
     public void setSettings(SettingsView newValue) throws ModelException ;
     public ReOrderManagerView getReOrderManager()throws ModelException;
     public void setReOrderManager(ReOrderManagerView newValue) throws ModelException ;
-    public OwnerOrderManagerView getOwnerOrderManager()throws ModelException;
-    public void setOwnerOrderManager(OwnerOrderManagerView newValue) throws ModelException ;
+    public GlobalOrderManagerView getOrderManager()throws ModelException;
+    public void setOrderManager(GlobalOrderManagerView newValue) throws ModelException ;
     public ReturnManagerView getReturnManager()throws ModelException;
     public void setReturnManager(ReturnManagerView newValue) throws ModelException ;
+    public GlobalOrderArchiveView getOrderArchive()throws ModelException;
+    public void setOrderArchive(GlobalOrderArchiveView newValue) throws ModelException ;
     
     public void accept(ServiceVisitor visitor) throws ModelException;
     public <R> R accept(ServiceReturnVisitor<R>  visitor) throws ModelException;

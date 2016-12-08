@@ -5,4 +5,4 @@ public interface OrderManagerMssgs {
 }
 
 interface OrderManagerDOWNMssgs extends Mssgs, OrderManagerMssgs{}
-interface OrderManagerUPMssgs extends OwnerOrderManagerUPMssgs, CustomerOrderManagerUPMssgs, OrderManagerMssgs{}
+interface OrderManagerUPMssgs extends GlobalOrderManagerUPMssgs, CustomerOrderManagerUPMssgs, OrderManagerMssgs{}

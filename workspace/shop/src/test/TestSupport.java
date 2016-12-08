@@ -19,12 +19,13 @@ public class TestSupport {
 	public static void prepareSingletons(){
         model.ProducerLst.reset$For$Test = true;
         model.meta.CommandCoordinator.reset$For$Test = true;
+        model.GlobalOrderArchive.reset$For$Test = true;
         model.CustomerDeliveryTimeManager.reset$For$Test = true;
         model.Settings.reset$For$Test = true;
+        model.GlobalOrderManager.reset$For$Test = true;
         model.ReOrderManager.reset$For$Test = true;
         model.Shop.reset$For$Test = true;
         model.ReturnManager.reset$For$Test = true;
-        model.OwnerOrderManager.reset$For$Test = true;
         model.ComponentManager.reset$For$Test = true;
         model.BackgroundTaskManager.reset$For$Test = true;
 

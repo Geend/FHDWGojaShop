@@ -77,11 +77,11 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
     
     public CustomerOrderManager provideCopy() throws PersistenceException{
         CustomerOrderManager result = this;
-        result = new CustomerOrderManager(this.orders, 
-                                          this.subService, 
+        result = new CustomerOrderManager(this.subService, 
                                           this.This, 
                                           this.account, 
                                           this.getId());
+        result.orders = this.orders.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -91,9 +91,9 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
     }
     protected PersistentCustomerAccount account;
     
-    public CustomerOrderManager(PersistentOrderManagerOrders orders,SubjInterface subService,PersistentOrderManager This,PersistentCustomerAccount account,long id) throws PersistenceException {
+    public CustomerOrderManager(SubjInterface subService,PersistentOrderManager This,PersistentCustomerAccount account,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super(orders,(SubjInterface)subService,(PersistentOrderManager)This,id);
+        super((SubjInterface)subService,(PersistentOrderManager)This,id);
         this.account = account;        
     }
     
@@ -176,20 +176,11 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
          return visitor.handleCustomerOrderManager(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getOrders().getObservee().getLength() > 0) return 1;
+        if (this.getOrders().getLength() > 0) return 1;
         return 0;
     }
     
     
-    public void acceptOrder(final Order4Public order, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		AcceptOrderCommand4Public command = model.meta.AcceptOrderCommand.createAcceptOrderCommand(now, now);
-		command.setOrder(order);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
     public synchronized void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
@@ -205,26 +196,6 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
 		if(this.isTheSameAs(This)){
 			this.setAccount((PersistentCustomerAccount)final$$Fields.get("account"));
 		}
-    }
-    public void newOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		NewOrderCommand4Public command = model.meta.NewOrderCommand.createNewOrderCommand(now, now);
-		command.setCart(cart);
-		command.setCustomerDeliveryTime(customerDeliveryTime);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void newPreOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		NewPreOrderCommand4Public command = model.meta.NewPreOrderCommand.createNewPreOrderCommand(now, now);
-		command.setCart(cart);
-		command.setCustomerDeliveryTime(customerDeliveryTime);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public synchronized void register(final ObsInterface observee) 
 				throws PersistenceException{
@@ -249,34 +220,33 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
     // Start of section that contains operations that must be implemented.
     
     public void acceptOrder(final Order4Public order) 
-				throws model.OrderNotYetArrivedException, model.NotEnoughMoneyException, PersistenceException{
+				throws model.OrderNotAcceptableException, model.NotEnoughMoneyException, PersistenceException{
 
-        order.getState().accept(new OrderStatusExceptionVisitor<OrderNotYetArrivedException>() {
+        order.getState().accept(new OrderStatusExceptionVisitor<OrderNotAcceptableException>() {
             @Override
-            public void handleArticlesInReturnOrderState(ArticlesInReturnOrderState4Public articlesInReturnOrderState) throws PersistenceException {
+            public void handleArticlesInReturnOrderState(ArticlesInReturnOrderState4Public articlesInReturnOrderState) throws PersistenceException, OrderNotAcceptableException {
+                throw new OrderNotAcceptableException("Die Bestellung wurde bereits angenommen.");
+            }
+
+            @Override
+            public void handleFinishedOrderState(FinishedOrderState4Public finishedOrderState) throws PersistenceException, OrderNotAcceptableException {
+                throw new OrderNotAcceptableException("Die Bestellung wurde bereits angenommen.");
+            }
+
+            @Override
+            public void handleInTransitOrderState(InTransitOrderState4Public inTransitOrderState) throws PersistenceException, OrderNotAcceptableException {
+                throw new OrderNotAcceptableException("Die Bestellung ist derzeit im Transport.");
+            }
+
+            @Override
+            public void handlePreOrderState(PreOrderState4Public preOrderState) throws PersistenceException, OrderNotAcceptableException {
+                throw new OrderNotAcceptableException("Die Bestellung wurde noch nicht versandt.");
 
             }
 
             @Override
-            public void handleFinishedOrderState(FinishedOrderState4Public finishedOrderState) throws PersistenceException {
-
-            }
-
-            @Override
-            public void handleInTransitOrderState(InTransitOrderState4Public inTransitOrderState) throws PersistenceException, OrderNotYetArrivedException {
-                if(inTransitOrderState.getTicksLeft() == 0)
-                    throw new OrderNotYetArrivedException("");
-            }
-
-            @Override
-            public void handlePreOrderState(PreOrderState4Public preOrderState) throws PersistenceException, OrderNotYetArrivedException {
-                throw new OrderNotYetArrivedException("");
-
-            }
-
-            @Override
-            public void handleProcessingOrderState(ProcessingOrderState4Public processingOrderState) throws PersistenceException, OrderNotYetArrivedException {
-                throw new OrderNotYetArrivedException("");
+            public void handleProcessingOrderState(ProcessingOrderState4Public processingOrderState) throws PersistenceException, OrderNotAcceptableException {
+                throw new OrderNotAcceptableException("Die Bestellung wurde noch nicht versandt.");
 
             }
 
@@ -303,7 +273,7 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
 
                 @Override
                 public void handleOrderQuantifiedArticleNormalState(OrderQuantifiedArticleNormalState4Public orderQuantifiedArticleNormalState) throws PersistenceException {
-
+                    System.out.println("t");
                 }
             });
         });
@@ -313,13 +283,10 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
 
         if(articleReturn.getReturnArticles().getLength() > 0) {
             ReturnManager.getTheReturnManager().addArticleReturn(articleReturn);
-            order.setState(ArticlesInReturnOrderState.createArticlesInReturnOrderState(ShopConstants.DEFAULT_RETURN_TIME));
+            order.setState(ArticlesInReturnOrderState.createArticlesInReturnOrderState(articleReturn, ShopConstants.DEFAULT_RETURN_TIME));
         }
         else{
-            order.setState(FinishedOrderState.createFinishedOrderState());
-
-            //TODO! Order in archive
-            //getThis().getOrders().removeAll(order);
+            GlobalOrderManager.getTheGlobalOrderManager().finishOrder(order);
         }
 
     }
@@ -333,7 +300,7 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
 				throws PersistenceException{
     }
     public void newOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.EmptyCartException, model.NotEnoughStockException, model.NotEnoughMoneyException, PersistenceException{
+				throws model.EmptyCartException, model.ArticleOrderException, model.NotEnoughMoneyException, PersistenceException{
         if(cart.getArticles().getLength() == 0)
             throw new EmptyCartException();
 
@@ -343,7 +310,7 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
 
             ArticleWrapper4Public articleWrapper = shoppingCartQuantifiedArticle.getArticle();
 
-            shoppingCartQuantifiedArticle.getArticle().getArticle().reduceStock(shoppingCartQuantifiedArticle.getQuantity());
+            shoppingCartQuantifiedArticle.getArticle().getArticle().order(shoppingCartQuantifiedArticle.getQuantity());
 
             Fraction perArticlePrice = shoppingCartQuantifiedArticle.getArticle().getArticle().getPrice();
 
@@ -355,56 +322,29 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
 
             order.addArticle(orderQuantifiedArticle);
 
-            //Reorder articles that are in the correct state if necessary
-            //TODO! Move reorder logic somewhere else?
-            if(articleWrapper.getArticle().getCurrentStock() < articleWrapper.getArticle().getMinStock()){
-                articleWrapper.getArticle().getState().accept(new ArticleStateVisitor() {
-                    @Override
-                    public void handleInSale(InSale4Public inSale) throws PersistenceException {
-                        ReOrderManager.getTheReOrderManager().reOrder(articleWrapper);
-                    }
-
-                    @Override
-                    public void handleNewCreated(NewCreated4Public newCreated) throws PersistenceException {
-                        ReOrderManager.getTheReOrderManager().reOrder(articleWrapper);
-                    }
-
-                    @Override
-                    public void handleNotInSale(NotInSale4Public notInSale) throws PersistenceException {
-                        //Don't reorder articles that aren't in sale (this should actually never be called)
-                    }
-
-                    @Override
-                    public void handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException {
-                        if(articleWrapper.getArticle().getCurrentStock() == 0)
-                            articleWrapper.getArticle().setState(NotInSale.createNotInSale());
-                    }
-                });
-            }
+            ReOrderManager.getTheReOrderManager().reOrderIfNecessary(articleWrapper);
         });
 
         //TODO! Account for the customers limit
         if(getThis().getAccount().getBalance().isLess(order.getTotalPrice())){
-            throw new NotEnoughMoneyException("");
+            throw new NotEnoughMoneyException(order.getTotalPrice(), getThis().getAccount().getBalance());
         }
 
         getThis().getOrders().add(order);
-        OwnerOrderManager.getTheOwnerOrderManager().addOrder(order);
+        GlobalOrderManager.getTheGlobalOrderManager().addOrder(order);
 
         order.setState(InTransitOrderState.createInTransitOrderState(customerDeliveryTime.getDeliveryTime()));
 
     }
     public void newPreOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.EmptyCartException, model.NotEnoughMoneyException, PersistenceException{
+				throws model.EmptyCartException, model.NotEnoughMoneyException, model.ArticleNotInSaleException, PersistenceException{
 
         if(cart.getArticles().getLength() == 0)
             throw new EmptyCartException();
 
         Order4Public order = Order.createOrder(customerDeliveryTime, ProcessingOrderState.createProcessingOrderState());
 
-
-
-        cart.getArticles().applyToAll(shoppingCartQuantifiedArticle -> {
+        cart.getArticles().applyToAllException(shoppingCartQuantifiedArticle -> {
 
             ArticleWrapper4Public articleWrapper = shoppingCartQuantifiedArticle.getArticle();
 
@@ -416,10 +356,9 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
             {
                 Long diff = requestedQuantity - currentStock;
 
-
                 //"Reserve" all available articles for this pre order
                 try {
-                    shoppingCartQuantifiedArticle.getArticle().getArticle().reduceStock(currentStock);
+                    shoppingCartQuantifiedArticle.getArticle().getArticle().order(currentStock);
                 } catch (NotEnoughStockException e) {
                     //This can't happen because we already checked if we have enough stock.
                     //Maybe there is a race condition problem when two customers order the same article at the same time.
@@ -457,11 +396,11 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
 
         //TODO! Account for the customers limit
         if(getThis().getAccount().getBalance().isLess(order.getTotalPrice())){
-            throw new NotEnoughMoneyException("");
+            throw new NotEnoughMoneyException(order.getTotalPrice(), getThis().getAccount().getBalance());
         }
 
         getThis().getOrders().add(order);
-        OwnerOrderManager.getTheOwnerOrderManager().addOrder(order);
+        GlobalOrderManager.getTheGlobalOrderManager().addOrder(order);
 
         order.setState(PreOrderState.createPreOrderState());
     }
@@ -471,7 +410,7 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    @Override
+
     public void orders_update(OrderMssgs event) throws PersistenceException {
         System.out.println(event.toString() + "C");
     }

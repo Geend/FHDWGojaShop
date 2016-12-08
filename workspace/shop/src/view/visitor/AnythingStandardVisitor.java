@@ -44,6 +44,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleComponentContainerImplementation(ComponentContainerImplementationView componentContainerImplementation) throws ModelException{
         this.standardHandling(componentContainerImplementation);
     }
+    public void handleGlobalOrderArchive(GlobalOrderArchiveView globalOrderArchive) throws ModelException{
+        this.standardHandling(globalOrderArchive);
+    }
     public void handleCustomerDeliveryTimeManager(CustomerDeliveryTimeManagerView customerDeliveryTimeManager) throws ModelException{
         this.standardHandling(customerDeliveryTimeManager);
     }
@@ -58,6 +61,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleCustomerAccount(CustomerAccountView customerAccount) throws ModelException{
         this.standardHandling(customerAccount);
+    }
+    public void handleGlobalOrderManager(GlobalOrderManagerView globalOrderManager) throws ModelException{
+        this.standardHandling(globalOrderManager);
     }
     public void handleReOrderManager(ReOrderManagerView reOrderManager) throws ModelException{
         this.standardHandling(reOrderManager);
@@ -88,9 +94,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleArticle(ArticleView article) throws ModelException{
         this.standardHandling(article);
-    }
-    public void handleOwnerOrderManager(OwnerOrderManagerView ownerOrderManager) throws ModelException{
-        this.standardHandling(ownerOrderManager);
     }
     public void handleCustomerDeliveryTime(CustomerDeliveryTimeView customerDeliveryTime) throws ModelException{
         this.standardHandling(customerDeliveryTime);

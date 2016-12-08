@@ -10,9 +10,10 @@ import persistence.CustomerArticleLst4Public;
 import persistence.CustomerDeliveryTime4Public;
 import persistence.CustomerDeliveryTimeManager4Public;
 import persistence.CustomerOrderManager4Public;
+import persistence.GlobalOrderArchive4Public;
+import persistence.GlobalOrderManager4Public;
 import persistence.Order4Public;
 import persistence.OrderQuantifiedArticle4Public;
-import persistence.OwnerOrderManager4Public;
 import persistence.PersistenceException;
 import persistence.Producer4Public;
 import persistence.ProducerLst4Public;
@@ -106,8 +107,15 @@ public class GetIconInfo$Visitor extends model.visitor.AnythingStandardVisitor {
 		result = IconConstants.RETURN;
 	}
 
+
+
 	@Override
-	public void handleOwnerOrderManager(OwnerOrderManager4Public ownerOrderManager) throws PersistenceException {
+	public void handleGlobalOrderArchive(GlobalOrderArchive4Public globalOrderArchive) throws PersistenceException {
+		result = IconConstants.ORDER;
+	}
+
+	@Override
+	public void handleGlobalOrderManager(GlobalOrderManager4Public globalOrderManager) throws PersistenceException {
 		result = IconConstants.ORDER;
 	}
 

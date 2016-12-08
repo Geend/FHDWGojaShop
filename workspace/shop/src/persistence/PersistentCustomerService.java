@@ -3,9 +3,9 @@ package persistence;
 
 public interface PersistentCustomerService extends PersistentService, CustomerService4Public {
     
+    public void setShop(CustomerServiceShop4Public newValue) throws PersistenceException ;
     public CustomerArticleLst4Public getArticleLst() throws PersistenceException ;
     public void setArticleLst(CustomerArticleLst4Public newValue) throws PersistenceException ;
-    public void setShop(CustomerServiceShop4Public newValue) throws PersistenceException ;
     public ComponentManager4Public getComponentManager() throws PersistenceException ;
     public void setComponentManager(ComponentManager4Public newValue) throws PersistenceException ;
     public ProducerLst4Public getPrmanager() throws PersistenceException ;

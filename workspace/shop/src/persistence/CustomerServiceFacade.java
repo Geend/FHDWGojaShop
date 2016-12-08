@@ -28,10 +28,10 @@ public class CustomerServiceFacade{
     public CustomerService getCustomerService(long CustomerServiceId) throws PersistenceException{
         return null; //All data is in the cache!
     }
-    public void articleLstSet(long CustomerServiceId, CustomerArticleLst4Public articleLstVal) throws PersistenceException {
+    public void shopSet(long CustomerServiceId, CustomerServiceShop4Public shopVal) throws PersistenceException {
         
     }
-    public void shopSet(long CustomerServiceId, CustomerServiceShop4Public shopVal) throws PersistenceException {
+    public void articleLstSet(long CustomerServiceId, CustomerArticleLst4Public articleLstVal) throws PersistenceException {
         
     }
     public void componentManagerSet(long CustomerServiceId, ComponentManager4Public componentManagerVal) throws PersistenceException {

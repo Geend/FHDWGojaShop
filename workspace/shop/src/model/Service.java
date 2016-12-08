@@ -176,6 +176,10 @@ public abstract class Service extends PersistentObject implements PersistentServ
         this.changed = false;
         return result;
     }
+    public void reloadUI() 
+				throws PersistenceException{
+        getThis().signalChanged(true);
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
 

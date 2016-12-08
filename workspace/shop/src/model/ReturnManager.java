@@ -173,15 +173,6 @@ public class ReturnManager extends PersistentObject implements PersistentReturnM
     }
     
     
-    public void addArticleReturn(final ArticleReturn4Public articleReturn, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		AddArticleReturnCommand4Public command = model.meta.AddArticleReturnCommand.createAddArticleReturnCommand(now, now);
-		command.setArticleReturn(articleReturn);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
     public synchronized void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
@@ -190,17 +181,6 @@ public class ReturnManager extends PersistentObject implements PersistentReturnM
 			getThis().setSubService(subService);
 		}
 		subService.deregister(observee);
-    }
-    public OwnerService4Public getMyServer() 
-				throws PersistenceException{
-        OwnerServiceSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade
-										.inverseGetReturnManager(getThis().getId(), getThis().getClassId());
-		try {
-			return result.iterator().next();
-		} catch (java.util.NoSuchElementException nsee){
-			return null;
-		}
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -248,6 +228,10 @@ public class ReturnManager extends PersistentObject implements PersistentReturnM
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
         
+    }
+    public void removeArticleReturn(final ArticleReturn4Public articleReturn) 
+				throws PersistenceException{
+        getThis().getArticleReturn().removeAll(articleReturn);
     }
     
     

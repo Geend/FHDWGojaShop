@@ -18,6 +18,15 @@ public abstract class RemoteService extends RemoteServerMaster {
     }
  
 
+    public synchronized java.util.HashMap<?,?> reloadUI(){
+        try {
+            ((PersistentService)this.server).reloadUI();
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
 
 
 }

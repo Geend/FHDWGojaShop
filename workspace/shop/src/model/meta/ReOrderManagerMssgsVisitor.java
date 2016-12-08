@@ -5,11 +5,13 @@ public interface ReOrderManagerMssgsVisitor extends ReOrderManagerDOWNMssgsVisit
 
 interface ReOrderManagerDOWNMssgsVisitor  {
 
+    public void handleReOrderManagerFireChangeReOrderQuantifiedArticleMssgsMssg(ReOrderManagerFireChangeReOrderQuantifiedArticleMssgsMssg event) throws persistence.PersistenceException;
     
 }
 
 
 interface ReOrderManagerUPMssgsVisitor extends BackgroundTaskUPMssgsVisitor {
 
+    public void handleReOrderManagerFireChangeReOrderQuantifiedArticleMssgsMssg(ReOrderManagerFireChangeReOrderQuantifiedArticleMssgsMssg event) throws persistence.PersistenceException;
     
 }

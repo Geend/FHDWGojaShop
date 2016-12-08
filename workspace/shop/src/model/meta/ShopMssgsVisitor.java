@@ -5,6 +5,7 @@ public interface ShopMssgsVisitor extends ShopDOWNMssgsVisitor, ShopUPMssgsVisit
 
 interface ShopDOWNMssgsVisitor  {
 
+    public void handleShopAcceptOrderCustomerOrderManagerOrderMssg(ShopAcceptOrderCustomerOrderManagerOrderMssg event) throws persistence.PersistenceException;
     public void handleShopChangeArticleNameArticleWrapperStringMssg(ShopChangeArticleNameArticleWrapperStringMssg event) throws persistence.PersistenceException;
     public void handleShopChangeArticlePriceArticleWrapperFractionMssg(ShopChangeArticlePriceArticleWrapperFractionMssg event) throws persistence.PersistenceException;
     public void handleShopChangeCustomerDeliveryTimePriceCustomerDeliveryTimeFractionMssg(ShopChangeCustomerDeliveryTimePriceCustomerDeliveryTimeFractionMssg event) throws persistence.PersistenceException;
@@ -14,7 +15,8 @@ interface ShopDOWNMssgsVisitor  {
     public void handleShopMoveToComponentComponentContainerMssg(ShopMoveToComponentComponentContainerMssg event) throws persistence.PersistenceException;
     public void handleShopNewArticleComponentContainerStringFractionIntegerIntegerIntegerProducerMssg(ShopNewArticleComponentContainerStringFractionIntegerIntegerIntegerProducerMssg event) throws persistence.PersistenceException;
     public void handleShopNewProductGroupComponentContainerStringMssg(ShopNewProductGroupComponentContainerStringMssg event) throws persistence.PersistenceException;
-    public void handleShopNewProductGroupStringMssg(ShopNewProductGroupStringMssg event) throws persistence.PersistenceException;
+    public void handleShopOrderCartCustomerOrderManagerShoppingCartCustomerDeliveryTimeMssg(ShopOrderCartCustomerOrderManagerShoppingCartCustomerDeliveryTimeMssg event) throws persistence.PersistenceException;
+    public void handleShopPreOrderCartCustomerOrderManagerShoppingCartCustomerDeliveryTimeMssg(ShopPreOrderCartCustomerOrderManagerShoppingCartCustomerDeliveryTimeMssg event) throws persistence.PersistenceException;
     public void handleShopStartSellingArticleWrapperMssg(ShopStartSellingArticleWrapperMssg event) throws persistence.PersistenceException;
     public void handleShopStopSellingArticleWrapperMssg(ShopStopSellingArticleWrapperMssg event) throws persistence.PersistenceException;
     
@@ -23,6 +25,7 @@ interface ShopDOWNMssgsVisitor  {
 
 interface ShopUPMssgsVisitor  {
 
+    public void handleShopAcceptOrderCustomerOrderManagerOrderMssg(ShopAcceptOrderCustomerOrderManagerOrderMssg event) throws persistence.PersistenceException;
     public void handleShopChangeArticleNameArticleWrapperStringMssg(ShopChangeArticleNameArticleWrapperStringMssg event) throws persistence.PersistenceException;
     public void handleShopChangeArticlePriceArticleWrapperFractionMssg(ShopChangeArticlePriceArticleWrapperFractionMssg event) throws persistence.PersistenceException;
     public void handleShopChangeCustomerDeliveryTimePriceCustomerDeliveryTimeFractionMssg(ShopChangeCustomerDeliveryTimePriceCustomerDeliveryTimeFractionMssg event) throws persistence.PersistenceException;
@@ -32,7 +35,8 @@ interface ShopUPMssgsVisitor  {
     public void handleShopMoveToComponentComponentContainerMssg(ShopMoveToComponentComponentContainerMssg event) throws persistence.PersistenceException;
     public void handleShopNewArticleComponentContainerStringFractionIntegerIntegerIntegerProducerMssg(ShopNewArticleComponentContainerStringFractionIntegerIntegerIntegerProducerMssg event) throws persistence.PersistenceException;
     public void handleShopNewProductGroupComponentContainerStringMssg(ShopNewProductGroupComponentContainerStringMssg event) throws persistence.PersistenceException;
-    public void handleShopNewProductGroupStringMssg(ShopNewProductGroupStringMssg event) throws persistence.PersistenceException;
+    public void handleShopOrderCartCustomerOrderManagerShoppingCartCustomerDeliveryTimeMssg(ShopOrderCartCustomerOrderManagerShoppingCartCustomerDeliveryTimeMssg event) throws persistence.PersistenceException;
+    public void handleShopPreOrderCartCustomerOrderManagerShoppingCartCustomerDeliveryTimeMssg(ShopPreOrderCartCustomerOrderManagerShoppingCartCustomerDeliveryTimeMssg event) throws persistence.PersistenceException;
     public void handleShopStartSellingArticleWrapperMssg(ShopStartSellingArticleWrapperMssg event) throws persistence.PersistenceException;
     public void handleShopStopSellingArticleWrapperMssg(ShopStopSellingArticleWrapperMssg event) throws persistence.PersistenceException;
     

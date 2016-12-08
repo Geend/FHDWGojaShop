@@ -25,29 +25,47 @@ public class OwnerServiceICProxi extends ServiceICProxi implements PersistentOwn
     public void setShop(OwnerServiceShop4Public newValue) throws PersistenceException {
         ((PersistentOwnerService)this.getTheObject()).setShop(newValue);
     }
+    public ComponentManager4Public getComponentManager() throws PersistenceException {
+        return ((PersistentOwnerService)this.getTheObject()).getComponentManager();
+    }
+    public void setComponentManager(ComponentManager4Public newValue) throws PersistenceException {
+        ((PersistentOwnerService)this.getTheObject()).setComponentManager(newValue);
+    }
+    public ProducerLst4Public getPrmanager() throws PersistenceException {
+        return ((PersistentOwnerService)this.getTheObject()).getPrmanager();
+    }
+    public void setPrmanager(ProducerLst4Public newValue) throws PersistenceException {
+        ((PersistentOwnerService)this.getTheObject()).setPrmanager(newValue);
+    }
+    public CustomerDeliveryTimeManager4Public getCustomerDeliveryTimeManager() throws PersistenceException {
+        return ((PersistentOwnerService)this.getTheObject()).getCustomerDeliveryTimeManager();
+    }
+    public void setCustomerDeliveryTimeManager(CustomerDeliveryTimeManager4Public newValue) throws PersistenceException {
+        ((PersistentOwnerService)this.getTheObject()).setCustomerDeliveryTimeManager(newValue);
+    }
     public Settings4Public getSettings() throws PersistenceException {
         return ((PersistentOwnerService)this.getTheObject()).getSettings();
     }
     public void setSettings(Settings4Public newValue) throws PersistenceException {
         ((PersistentOwnerService)this.getTheObject()).setSettings(newValue);
     }
-    public ReOrderManager4Public getReOrderManager() throws PersistenceException {
-        return ((PersistentOwnerService)this.getTheObject()).getReOrderManager();
-    }
-    public void setReOrderManager(ReOrderManager4Public newValue) throws PersistenceException {
+    public void setReOrderManager(OwnerServiceReOrderManager4Public newValue) throws PersistenceException {
         ((PersistentOwnerService)this.getTheObject()).setReOrderManager(newValue);
     }
-    public OwnerOrderManager4Public getOwnerOrderManager() throws PersistenceException {
-        return ((PersistentOwnerService)this.getTheObject()).getOwnerOrderManager();
-    }
-    public void setOwnerOrderManager(OwnerOrderManager4Public newValue) throws PersistenceException {
-        ((PersistentOwnerService)this.getTheObject()).setOwnerOrderManager(newValue);
+    public void setOrderManager(OwnerServiceOrderManager4Public newValue) throws PersistenceException {
+        ((PersistentOwnerService)this.getTheObject()).setOrderManager(newValue);
     }
     public ReturnManager4Public getReturnManager() throws PersistenceException {
         return ((PersistentOwnerService)this.getTheObject()).getReturnManager();
     }
     public void setReturnManager(ReturnManager4Public newValue) throws PersistenceException {
         ((PersistentOwnerService)this.getTheObject()).setReturnManager(newValue);
+    }
+    public GlobalOrderArchive4Public getOrderArchive() throws PersistenceException {
+        return ((PersistentOwnerService)this.getTheObject()).getOrderArchive();
+    }
+    public void setOrderArchive(GlobalOrderArchive4Public newValue) throws PersistenceException {
+        ((PersistentOwnerService)this.getTheObject()).setOrderArchive(newValue);
     }
     public PersistentOwnerService getThis() throws PersistenceException {
         return ((PersistentOwnerService)this.getTheObject()).getThis();
@@ -119,6 +137,14 @@ public class OwnerServiceICProxi extends ServiceICProxi implements PersistentOwn
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).deregister(observee);
     }
+    public GlobalOrderManager4Public getOrderManager() 
+				throws PersistenceException{
+        return ((PersistentOwnerService)this.getTheObject()).getOrderManager();
+    }
+    public ReOrderManager4Public getReOrderManager() 
+				throws PersistenceException{
+        return ((PersistentOwnerService)this.getTheObject()).getReOrderManager();
+    }
     public Shop4Public getShop() 
 				throws PersistenceException{
         return ((PersistentOwnerService)this.getTheObject()).getShop();
@@ -134,6 +160,14 @@ public class OwnerServiceICProxi extends ServiceICProxi implements PersistentOwn
     public void register(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).register(observee);
+    }
+    public void setOrderManager(final GlobalOrderManager4Public orderManager) 
+				throws PersistenceException{
+        ((PersistentOwnerService)this.getTheObject()).setOrderManager(orderManager);
+    }
+    public void setReOrderManager(final ReOrderManager4Public reOrderManager) 
+				throws PersistenceException{
+        ((PersistentOwnerService)this.getTheObject()).setReOrderManager(reOrderManager);
     }
     public void setShop(final Shop4Public shop) 
 				throws PersistenceException{
@@ -235,13 +269,21 @@ public class OwnerServiceICProxi extends ServiceICProxi implements PersistentOwn
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).newProductGroup(parent, name);
     }
-    public void newProductGroup(final String name) 
-				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        ((PersistentOwnerService)this.getTheObject()).newProductGroup(name);
+    public void orderManager_update(final model.meta.GlobalOrderManagerMssgs event) 
+				throws PersistenceException{
+        ((PersistentOwnerService)this.getTheObject()).orderManager_update(event);
+    }
+    public void reOrderManager_update(final model.meta.ReOrderManagerMssgs event) 
+				throws PersistenceException{
+        ((PersistentOwnerService)this.getTheObject()).reOrderManager_update(event);
     }
     public void reduceArticleStock(final ArticleWrapper4Public article, final long quantity) 
 				throws model.NotEnoughStockException, PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).reduceArticleStock(article, quantity);
+    }
+    public void reloadUI() 
+				throws PersistenceException{
+        ((PersistentOwnerService)this.getTheObject()).reloadUI();
     }
     public void shop_update(final model.meta.ShopMssgs event) 
 				throws PersistenceException{

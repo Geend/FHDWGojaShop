@@ -41,9 +41,6 @@ public abstract class SubjInterfaceStandardVisitor implements SubjInterfaceVisit
     public void handleReOrderQuantifiedArticle(ReOrderQuantifiedArticle4Public reOrderQuantifiedArticle) throws PersistenceException{
         this.standardHandling(reOrderQuantifiedArticle);
     }
-    public void handleOwnerOrderManager(OwnerOrderManager4Public ownerOrderManager) throws PersistenceException{
-        this.standardHandling(ownerOrderManager);
-    }
     public void handleNotInSale(NotInSale4Public notInSale) throws PersistenceException{
         this.standardHandling(notInSale);
     }
@@ -67,6 +64,9 @@ public abstract class SubjInterfaceStandardVisitor implements SubjInterfaceVisit
     }
     public void handleComponentManager(ComponentManager4Public componentManager) throws PersistenceException{
         this.standardHandling(componentManager);
+    }
+    public void handleGlobalOrderArchive(GlobalOrderArchive4Public globalOrderArchive) throws PersistenceException{
+        this.standardHandling(globalOrderArchive);
     }
     public void handleShoppingCartQuantifiedArticle(ShoppingCartQuantifiedArticle4Public shoppingCartQuantifiedArticle) throws PersistenceException{
         this.standardHandling(shoppingCartQuantifiedArticle);
@@ -103,6 +103,9 @@ public abstract class SubjInterfaceStandardVisitor implements SubjInterfaceVisit
     }
     public void handleInSale(InSale4Public inSale) throws PersistenceException{
         this.standardHandling(inSale);
+    }
+    public void handleGlobalOrderManager(GlobalOrderManager4Public globalOrderManager) throws PersistenceException{
+        this.standardHandling(globalOrderManager);
     }
     public void handleSubj(Subj4Public subj) throws PersistenceException{
         this.standardHandling(subj);

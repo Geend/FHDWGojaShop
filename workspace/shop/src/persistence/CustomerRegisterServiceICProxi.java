@@ -152,6 +152,10 @@ public class CustomerRegisterServiceICProxi extends ServiceICProxi implements Pe
 				throws model.UserAlreadyExistsException, PersistenceException{
         ((PersistentCustomerRegisterService)this.getTheObject()).register(accountName, password);
     }
+    public void reloadUI() 
+				throws PersistenceException{
+        ((PersistentCustomerRegisterService)this.getTheObject()).reloadUI();
+    }
 
     
 }

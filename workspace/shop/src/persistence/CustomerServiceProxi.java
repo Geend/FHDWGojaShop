@@ -18,14 +18,14 @@ public class CustomerServiceProxi extends ServiceProxi implements PersistentCust
         return -278;
     }
     
+    public void setShop(CustomerServiceShop4Public newValue) throws PersistenceException {
+        ((PersistentCustomerService)this.getTheObject()).setShop(newValue);
+    }
     public CustomerArticleLst4Public getArticleLst() throws PersistenceException {
         return ((PersistentCustomerService)this.getTheObject()).getArticleLst();
     }
     public void setArticleLst(CustomerArticleLst4Public newValue) throws PersistenceException {
         ((PersistentCustomerService)this.getTheObject()).setArticleLst(newValue);
-    }
-    public void setShop(CustomerServiceShop4Public newValue) throws PersistenceException {
-        ((PersistentCustomerService)this.getTheObject()).setShop(newValue);
     }
     public ComponentManager4Public getComponentManager() throws PersistenceException {
         return ((PersistentCustomerService)this.getTheObject()).getComponentManager();
@@ -201,6 +201,10 @@ public class CustomerServiceProxi extends ServiceProxi implements PersistentCust
     public void disconnected() 
 				throws PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).disconnected();
+    }
+    public void emptyCart(final ShoppingCart4Public cart) 
+				throws PersistenceException{
+        ((PersistentCustomerService)this.getTheObject()).emptyCart(cart);
     }
     public void findArticle(final String name) 
 				throws PersistenceException{

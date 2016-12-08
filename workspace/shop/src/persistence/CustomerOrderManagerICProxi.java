@@ -70,29 +70,13 @@ public class CustomerOrderManagerICProxi extends OrderManagerICProxi implements 
     }
     
     
-    public void acceptOrder(final Order4Public order, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentCustomerOrderManager)this.getTheObject()).acceptOrder(order, invoker);
-    }
     public void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentCustomerOrderManager)this.getTheObject()).deregister(observee);
     }
-    public OrderManagerOrders4Public getOrders() 
-				throws PersistenceException{
-        return ((PersistentCustomerOrderManager)this.getTheObject()).getOrders();
-    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentCustomerOrderManager)this.getTheObject()).initialize(This, final$$Fields);
-    }
-    public void newOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentCustomerOrderManager)this.getTheObject()).newOrder(cart, customerDeliveryTime, invoker);
-    }
-    public void newPreOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentCustomerOrderManager)this.getTheObject()).newPreOrder(cart, customerDeliveryTime, invoker);
     }
     public void register(final ObsInterface observee) 
 				throws PersistenceException{
@@ -103,7 +87,7 @@ public class CustomerOrderManagerICProxi extends OrderManagerICProxi implements 
         ((PersistentCustomerOrderManager)this.getTheObject()).updateObservers(event);
     }
     public void acceptOrder(final Order4Public order) 
-				throws model.OrderNotYetArrivedException, model.NotEnoughMoneyException, PersistenceException{
+				throws model.OrderNotAcceptableException, model.NotEnoughMoneyException, PersistenceException{
         ((PersistentCustomerOrderManager)this.getTheObject()).acceptOrder(order);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
@@ -119,16 +103,12 @@ public class CustomerOrderManagerICProxi extends OrderManagerICProxi implements 
         ((PersistentCustomerOrderManager)this.getTheObject()).initializeOnInstantiation();
     }
     public void newOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.EmptyCartException, model.NotEnoughStockException, model.NotEnoughMoneyException, PersistenceException{
+				throws model.EmptyCartException, model.ArticleOrderException, model.NotEnoughMoneyException, PersistenceException{
         ((PersistentCustomerOrderManager)this.getTheObject()).newOrder(cart, customerDeliveryTime);
     }
     public void newPreOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.EmptyCartException, model.NotEnoughMoneyException, PersistenceException{
+				throws model.EmptyCartException, model.NotEnoughMoneyException, model.ArticleNotInSaleException, PersistenceException{
         ((PersistentCustomerOrderManager)this.getTheObject()).newPreOrder(cart, customerDeliveryTime);
-    }
-    public void orders_update(final model.meta.OrderMssgs event) 
-				throws PersistenceException{
-        ((PersistentCustomerOrderManager)this.getTheObject()).orders_update(event);
     }
 
     

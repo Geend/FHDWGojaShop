@@ -19,7 +19,7 @@ public class CustomerServiceOrderManagerICProxi extends PersistentInCacheProxiOp
     }
     
     public long getClassId() {
-        return 375;
+        return 448;
     }
     
     public CustomerService4Public getObserver() throws PersistenceException {

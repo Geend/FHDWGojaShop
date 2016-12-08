@@ -16,8 +16,6 @@ public interface ReturnManager4Public extends Anything, SubjInterface, AbstractP
     public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
-    public void addArticleReturn(final ArticleReturn4Public articleReturn, final Invoker invoker) 
-				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
     public void addArticleReturn(final ArticleReturn4Public articleReturn) 
@@ -27,6 +25,8 @@ public interface ReturnManager4Public extends Anything, SubjInterface, AbstractP
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
+				throws PersistenceException;
+    public void removeArticleReturn(final ArticleReturn4Public articleReturn) 
 				throws PersistenceException;
 
 }

@@ -46,6 +46,12 @@ public class NewProductGroupCommandICProxi extends PersistentInCacheProxi implem
     public void setCommandReceiver(Shop4Public newValue) throws PersistenceException {
         ((PersistentNewProductGroupCommand)this.getTheObject()).setCommandReceiver(newValue);
     }
+    public ProductGroup4Public getCommandResult() throws PersistenceException {
+        return ((PersistentNewProductGroupCommand)this.getTheObject()).getCommandResult();
+    }
+    public void setCommandResult(ProductGroup4Public newValue) throws PersistenceException {
+        ((PersistentNewProductGroupCommand)this.getTheObject()).setCommandResult(newValue);
+    }
     public CommonDate4Public getMyCommonDate() throws PersistenceException {
         return ((PersistentNewProductGroupCommand)this.getTheObject()).getMyCommonDate();
     }

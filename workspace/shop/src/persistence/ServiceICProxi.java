@@ -77,6 +77,10 @@ public abstract class ServiceICProxi extends PersistentInCacheProxiOptimistic im
 				throws PersistenceException{
         ((PersistentService)this.getTheObject()).initializeOnInstantiation();
     }
+    public void reloadUI() 
+				throws PersistenceException{
+        ((PersistentService)this.getTheObject()).reloadUI();
+    }
 
     
 }

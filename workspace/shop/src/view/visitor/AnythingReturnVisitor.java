@@ -15,6 +15,7 @@ public interface AnythingReturnVisitor<R> extends ArticleStateReturnVisitor<R> ,
     public R handleCustomerDeliveryTime(CustomerDeliveryTimeView customerDeliveryTime) throws ModelException;
     public R handleCustomerDeliveryTimeManager(CustomerDeliveryTimeManagerView customerDeliveryTimeManager) throws ModelException;
     public R handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;
+    public R handleGlobalOrderArchive(GlobalOrderArchiveView globalOrderArchive) throws ModelException;
     public R handleOrder(OrderView order) throws ModelException;
     public R handleProducer(ProducerView producer) throws ModelException;
     public R handleProducerLst(ProducerLstView producerLst) throws ModelException;

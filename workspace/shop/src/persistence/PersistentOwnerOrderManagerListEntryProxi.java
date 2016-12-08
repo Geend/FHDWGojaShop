@@ -1,5 +1,0 @@
-package persistence;
-
-public interface PersistentOwnerOrderManagerListEntryProxi extends PersistentOrderManagerListEntryProxi {
-
-}

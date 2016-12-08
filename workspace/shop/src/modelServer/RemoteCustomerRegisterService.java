@@ -35,6 +35,15 @@ public  class RemoteCustomerRegisterService extends RemoteService {
         }
     }
     
+    public synchronized java.util.HashMap<?,?> reloadUI(){
+        try {
+            ((PersistentCustomerRegisterService)this.server).reloadUI();
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
 
 
 }

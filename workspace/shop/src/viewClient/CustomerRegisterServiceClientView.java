@@ -312,6 +312,7 @@ public class CustomerRegisterServiceClientView extends BorderPane implements Exc
 
     interface MenuItemVisitor{
         ImageView handle(RegisterPRMTRStringPRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(ReloadUIPRMTRMenuItem menuItem);
     }
     private abstract class CustomerRegisterServiceMenuItem extends MenuItem{
         private CustomerRegisterServiceMenuItem(){
@@ -320,6 +321,11 @@ public class CustomerRegisterServiceClientView extends BorderPane implements Exc
         abstract protected ImageView accept(MenuItemVisitor visitor);
     }
     private class RegisterPRMTRStringPRMTRStringPRMTRMenuItem extends CustomerRegisterServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class ReloadUIPRMTRMenuItem extends CustomerRegisterServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -337,6 +343,27 @@ public class CustomerRegisterServiceClientView extends BorderPane implements Exc
             }
         });
         result.add(currentButton);
+        currentButton = new javafx.scene.control.Button("reloadUI");
+        currentButton.setGraphic(new ReloadUIPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                Alert confirm = new Alert(AlertType.CONFIRMATION);
+                confirm.setTitle(GUIConstants.ConfirmButtonText);
+                confirm.setHeaderText(null);
+                confirm.setContentText("reloadUI" + GUIConstants.ConfirmQuestionMark);
+                Optional<ButtonType> buttonResult = confirm.showAndWait();
+                if (buttonResult.get() == ButtonType.OK) {
+                    try {
+                        getConnection().reloadUI();
+                        getConnection().setEagerRefresh();
+                        
+                    }catch(ModelException me){
+                        handleException(me);
+                    }
+                }
+            }
+        });
+        result.add(currentButton);
         return result;
     }
     private ContextMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations, final Point2D menuPos) {
@@ -349,6 +376,27 @@ public class CustomerRegisterServiceClientView extends BorderPane implements Exc
                 final CustomerRegisterServiceRegisterStringStringMssgWizard wizard = new CustomerRegisterServiceRegisterStringStringMssgWizard("register");
                 wizard.setWidth(getNavigationPanel().getWidth());
                 wizard.showAndWait();
+            }
+        });
+        if (withStaticOperations) result.getItems().add(item);
+        item = new ReloadUIPRMTRMenuItem();
+        item.setText("(S) reloadUI");
+        item.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                Alert confirm = new Alert(AlertType.CONFIRMATION);
+                confirm.setTitle(GUIConstants.ConfirmButtonText);
+                confirm.setHeaderText(null);
+                confirm.setContentText("reloadUI" + GUIConstants.ConfirmQuestionMark);
+                Optional<ButtonType> buttonResult = confirm.showAndWait();
+                if (buttonResult.get() == ButtonType.OK) {
+                    try {
+                        getConnection().reloadUI();
+                        getConnection().setEagerRefresh();
+                        
+                    }catch(ModelException me){
+                        handleException(me);
+                    }
+                }
             }
         });
         if (withStaticOperations) result.getItems().add(item);

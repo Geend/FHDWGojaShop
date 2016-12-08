@@ -148,6 +148,10 @@ public class CustomerRegisterServiceProxi extends ServiceProxi implements Persis
 				throws model.UserAlreadyExistsException, PersistenceException{
         ((PersistentCustomerRegisterService)this.getTheObject()).register(accountName, password);
     }
+    public void reloadUI() 
+				throws PersistenceException{
+        ((PersistentCustomerRegisterService)this.getTheObject()).reloadUI();
+    }
 
     
 }

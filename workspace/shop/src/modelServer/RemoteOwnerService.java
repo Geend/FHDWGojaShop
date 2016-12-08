@@ -188,19 +188,6 @@ public  class RemoteOwnerService extends RemoteService {
         }
     }
     
-    public synchronized java.util.HashMap<?,?> newProductGroup(String name){
-        try {
-            ((PersistentOwnerService)this.server).newProductGroup(name);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }catch(model.DoubleDefinitionException e0){
-            return createExceptionResult(e0, this);
-        }catch(model.CycleException e1){
-            return createExceptionResult(e1, this);
-        }
-    }
-    
     public synchronized java.util.HashMap<?,?> reduceArticleStock(String articleProxiString, String quantityAsString){
         try {
             PersistentArticleWrapper article = (PersistentArticleWrapper)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
@@ -211,6 +198,15 @@ public  class RemoteOwnerService extends RemoteService {
             return createExceptionResult(pe);
         }catch(model.NotEnoughStockException e0){
             return createExceptionResult(e0, this);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> reloadUI(){
+        try {
+            ((PersistentOwnerService)this.server).reloadUI();
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
         }
     }
     

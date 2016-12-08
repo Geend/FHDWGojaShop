@@ -344,6 +344,7 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
         ImageView handle(DepositPRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(RemoveFromCartPRMTRShoppingCartQuantifiedArticlePRMTRMenuItem menuItem);
         ImageView handle(AddToCartPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem);
+        ImageView handle(EmptyCartPRMTRShoppingCartPRMTRMenuItem menuItem);
         ImageView handle(AcceptOrderPRMTROrderPRMTRMenuItem menuItem);
         ImageView handle(UnmarkForReturnPRMTROrderQuantifiedArticlePRMTRMenuItem menuItem);
         ImageView handle(PreOrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem menuItem);
@@ -393,6 +394,11 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
         }
     }
     private class AddToCartPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem extends CustomerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class EmptyCartPRMTRShoppingCartPRMTRMenuItem extends CustomerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -662,6 +668,27 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
                         wizard.setFirstArgument((ShoppingCartView)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+                item = new EmptyCartPRMTRShoppingCartPRMTRMenuItem();
+                item.setText("Leeren");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        Alert confirm = new Alert(AlertType.CONFIRMATION);
+                        confirm.setTitle(GUIConstants.ConfirmButtonText);
+                        confirm.setHeaderText(null);
+                        confirm.setContentText("Leeren" + GUIConstants.ConfirmQuestionMark);
+                        Optional<ButtonType> buttonResult = confirm.showAndWait();
+                        if (buttonResult.get() == ButtonType.OK) {
+                            try {
+                                getConnection().emptyCart((ShoppingCartView)selected);
+                                getConnection().setEagerRefresh();
+                                
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
                     }
                 });
                 result.getItems().add(item);
@@ -1100,6 +1127,11 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
 
 			@Override
 			public ImageView handle(AddToCartPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem) {
+				return null;
+			}
+
+			@Override
+			public ImageView handle(EmptyCartPRMTRShoppingCartPRMTRMenuItem menuItem) {
 				return null;
 			}
 

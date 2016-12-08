@@ -10,11 +10,11 @@ import model.visitor.*;
 public class ArticlesInReturnOrderState extends model.OrderStatus implements PersistentArticlesInReturnOrderState{
     
     
-    public static ArticlesInReturnOrderState4Public createArticlesInReturnOrderState(long ticksLeft) throws PersistenceException{
-        return createArticlesInReturnOrderState(ticksLeft,false);
+    public static ArticlesInReturnOrderState4Public createArticlesInReturnOrderState(ArticleReturn4Public articleReturn,long ticksLeft) throws PersistenceException{
+        return createArticlesInReturnOrderState(articleReturn,ticksLeft,false);
     }
     
-    public static ArticlesInReturnOrderState4Public createArticlesInReturnOrderState(long ticksLeft,boolean delayed$Persistence) throws PersistenceException {
+    public static ArticlesInReturnOrderState4Public createArticlesInReturnOrderState(ArticleReturn4Public articleReturn,long ticksLeft,boolean delayed$Persistence) throws PersistenceException {
         PersistentArticlesInReturnOrderState result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theArticlesInReturnOrderStateFacade
@@ -25,13 +25,14 @@ public class ArticlesInReturnOrderState extends model.OrderStatus implements Per
                 .newArticlesInReturnOrderState(ticksLeft,-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
+        final$$Fields.put("articleReturn", articleReturn);
         final$$Fields.put("ticksLeft", ticksLeft);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static ArticlesInReturnOrderState4Public createArticlesInReturnOrderState(long ticksLeft,boolean delayed$Persistence,ArticlesInReturnOrderState4Public This) throws PersistenceException {
+    public static ArticlesInReturnOrderState4Public createArticlesInReturnOrderState(ArticleReturn4Public articleReturn,long ticksLeft,boolean delayed$Persistence,ArticlesInReturnOrderState4Public This) throws PersistenceException {
         PersistentArticlesInReturnOrderState result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theArticlesInReturnOrderStateFacade
@@ -42,6 +43,7 @@ public class ArticlesInReturnOrderState extends model.OrderStatus implements Per
                 .newArticlesInReturnOrderState(ticksLeft,-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
+        final$$Fields.put("articleReturn", articleReturn);
         final$$Fields.put("ticksLeft", ticksLeft);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
@@ -52,6 +54,15 @@ public class ArticlesInReturnOrderState extends model.OrderStatus implements Per
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            AbstractPersistentRoot articleReturn = (AbstractPersistentRoot)this.getArticleReturn();
+            if (articleReturn != null) {
+                result.put("articleReturn", articleReturn.createProxiInformation(false, essentialLevel <= 1));
+                if(depth > 1) {
+                    articleReturn.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && articleReturn.hasEssentialFields())articleReturn.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
             result.put("ticksLeft", new Long(this.getTicksLeft()).toString());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
@@ -63,6 +74,7 @@ public class ArticlesInReturnOrderState extends model.OrderStatus implements Per
         ArticlesInReturnOrderState result = this;
         result = new ArticlesInReturnOrderState(this.subService, 
                                                 this.This, 
+                                                this.articleReturn, 
                                                 this.ticksLeft, 
                                                 this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -72,11 +84,13 @@ public class ArticlesInReturnOrderState extends model.OrderStatus implements Per
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
+    protected PersistentArticleReturn articleReturn;
     protected long ticksLeft;
     
-    public ArticlesInReturnOrderState(SubjInterface subService,PersistentOrderStatus This,long ticksLeft,long id) throws PersistenceException {
+    public ArticlesInReturnOrderState(SubjInterface subService,PersistentOrderStatus This,PersistentArticleReturn articleReturn,long ticksLeft,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super((SubjInterface)subService,(PersistentOrderStatus)This,id);
+        this.articleReturn = articleReturn;
         this.ticksLeft = ticksLeft;        
     }
     
@@ -93,9 +107,27 @@ public class ArticlesInReturnOrderState extends model.OrderStatus implements Per
         if (this.getClassId() == 361) ConnectionHandler.getTheConnectionHandler().theArticlesInReturnOrderStateFacade
             .newArticlesInReturnOrderState(ticksLeft,this.getId());
         super.store();
+        if(this.getArticleReturn() != null){
+            this.getArticleReturn().store();
+            ConnectionHandler.getTheConnectionHandler().theArticlesInReturnOrderStateFacade.articleReturnSet(this.getId(), getArticleReturn());
+        }
         
     }
     
+    public ArticleReturn4Public getArticleReturn() throws PersistenceException {
+        return this.articleReturn;
+    }
+    public void setArticleReturn(ArticleReturn4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.articleReturn)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.articleReturn = (PersistentArticleReturn)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theArticlesInReturnOrderStateFacade.articleReturnSet(this.getId(), newValue);
+        }
+    }
     public long getTicksLeft() throws PersistenceException {
         return this.ticksLeft;
     }
@@ -148,6 +180,7 @@ public class ArticlesInReturnOrderState extends model.OrderStatus implements Per
          return visitor.handleArticlesInReturnOrderState(this);
     }
     public int getLeafInfo() throws PersistenceException{
+        if (this.getArticleReturn() != null) return 1;
         return 0;
     }
     
@@ -165,6 +198,7 @@ public class ArticlesInReturnOrderState extends model.OrderStatus implements Per
 				throws PersistenceException{
         this.setThis((PersistentArticlesInReturnOrderState)This);
 		if(this.isTheSameAs(This)){
+			this.setArticleReturn((PersistentArticleReturn)final$$Fields.get("articleReturn"));
 			this.setTicksLeft((Long)final$$Fields.get("ticksLeft"));
 		}
     }

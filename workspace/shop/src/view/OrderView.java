@@ -14,7 +14,6 @@ public interface OrderView extends Anything, AbstractViewRoot {
     public void setTotalPrice(common.Fraction newValue) throws ModelException ;
     public OrderStatusView getState()throws ModelException;
     public void setState(OrderStatusView newValue) throws ModelException ;
-    public ArticleReturnView getMyOrder()throws ModelException;
     
     public void accept(AnythingVisitor visitor) throws ModelException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException;

@@ -18,8 +18,8 @@ public class ReOrderManagerProxi extends PersistentProxi implements PersistentRe
         return 327;
     }
     
-    public ReOrderManager_ReorderArticlesProxi getReorderArticles() throws PersistenceException {
-        return ((PersistentReOrderManager)this.getTheObject()).getReorderArticles();
+    public void setReorderArticles(ReOrderManagerReorderArticles4Public newValue) throws PersistenceException {
+        ((PersistentReOrderManager)this.getTheObject()).setReorderArticles(newValue);
     }
     public BackgroundTask4Public getMyCONCBackgroundTask() throws PersistenceException {
         return ((PersistentReOrderManager)this.getTheObject()).getMyCONCBackgroundTask();
@@ -79,21 +79,17 @@ public class ReOrderManagerProxi extends PersistentProxi implements PersistentRe
 				throws PersistenceException{
         ((PersistentReOrderManager)this.getTheObject()).deregister(observee);
     }
-    public OwnerService4Public getMyServer() 
+    public void fireChange(final model.meta.ReOrderQuantifiedArticleMssgs evnt) 
 				throws PersistenceException{
-        return ((PersistentReOrderManager)this.getTheObject()).getMyServer();
+        ((PersistentReOrderManager)this.getTheObject()).fireChange(evnt);
+    }
+    public ReOrderManagerReorderArticles4Public getReorderArticles() 
+				throws PersistenceException{
+        return ((PersistentReOrderManager)this.getTheObject()).getReorderArticles();
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentReOrderManager)this.getTheObject()).initialize(This, final$$Fields);
-    }
-    public void reOrderForPreorder(final ArticleWrapper4Public article, final long quantity, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentReOrderManager)this.getTheObject()).reOrderForPreorder(article, quantity, invoker);
-    }
-    public void reOrder(final ArticleWrapper4Public article, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentReOrderManager)this.getTheObject()).reOrder(article, invoker);
     }
     public void register(final ObsInterface observee) 
 				throws PersistenceException{
@@ -111,6 +107,10 @@ public class ReOrderManagerProxi extends PersistentProxi implements PersistentRe
 				throws PersistenceException{
         ((PersistentReOrderManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public void fireChangeImplementation(final model.meta.ReOrderQuantifiedArticleMssgs evnt) 
+				throws PersistenceException{
+        ((PersistentReOrderManager)this.getTheObject()).fireChangeImplementation(evnt);
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentReOrderManager)this.getTheObject()).initializeOnCreation();
@@ -123,9 +123,13 @@ public class ReOrderManagerProxi extends PersistentProxi implements PersistentRe
 				throws PersistenceException{
         ((PersistentReOrderManager)this.getTheObject()).reOrderForPreorder(article, quantity);
     }
-    public void reOrder(final ArticleWrapper4Public article) 
+    public void reOrderIfNecessary(final ArticleWrapper4Public article) 
 				throws PersistenceException{
-        ((PersistentReOrderManager)this.getTheObject()).reOrder(article);
+        ((PersistentReOrderManager)this.getTheObject()).reOrderIfNecessary(article);
+    }
+    public void reorderArticles_update(final model.meta.ReOrderQuantifiedArticleMssgs event) 
+				throws PersistenceException{
+        ((PersistentReOrderManager)this.getTheObject()).reorderArticles_update(event);
     }
     public void startTask(final long tickTime) 
 				throws PersistenceException{

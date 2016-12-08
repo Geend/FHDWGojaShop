@@ -15,7 +15,6 @@ public abstract class OwnerService$AuthoriseVisitor extends AnythingStandardVisi
     public abstract void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException;
     public abstract void handleReOrderQuantifiedArticle(PersistentReOrderQuantifiedArticle reOrderQuantifiedArticle) throws PersistenceException;
     public abstract void handleArticle(PersistentArticle article) throws PersistenceException;
-    public abstract void handleOwnerOrderManager(PersistentOwnerOrderManager ownerOrderManager) throws PersistenceException;
     public abstract void handleNotInSale(PersistentNotInSale notInSale) throws PersistenceException;
     public abstract void handleProcessingOrderState(PersistentProcessingOrderState processingOrderState) throws PersistenceException;
     public abstract void handleComponentContainerImplementation(PersistentComponentContainerImplementation componentContainerImplementation) throws PersistenceException;
@@ -23,6 +22,7 @@ public abstract class OwnerService$AuthoriseVisitor extends AnythingStandardVisi
     public abstract void handleOwnerService(PersistentOwnerService ownerService) throws PersistenceException;
     public abstract void handleFinishedOrderState(PersistentFinishedOrderState finishedOrderState) throws PersistenceException;
     public abstract void handleComponentManager(PersistentComponentManager componentManager) throws PersistenceException;
+    public abstract void handleGlobalOrderArchive(PersistentGlobalOrderArchive globalOrderArchive) throws PersistenceException;
     public abstract void handleCustomerDeliveryTimeManager(PersistentCustomerDeliveryTimeManager customerDeliveryTimeManager) throws PersistenceException;
     public abstract void handleNewCreated(PersistentNewCreated newCreated) throws PersistenceException;
     public abstract void handleSettings(PersistentSettings settings) throws PersistenceException;
@@ -31,6 +31,7 @@ public abstract class OwnerService$AuthoriseVisitor extends AnythingStandardVisi
     public abstract void handleOrderQuantifiedArticleNormalState(PersistentOrderQuantifiedArticleNormalState orderQuantifiedArticleNormalState) throws PersistenceException;
     public abstract void handleReturnQuantifiedArticle(PersistentReturnQuantifiedArticle returnQuantifiedArticle) throws PersistenceException;
     public abstract void handleInSale(PersistentInSale inSale) throws PersistenceException;
+    public abstract void handleGlobalOrderManager(PersistentGlobalOrderManager globalOrderManager) throws PersistenceException;
     public abstract void handleReOrderManager(PersistentReOrderManager reOrderManager) throws PersistenceException;
     public abstract void handleInTransitOrderState(PersistentInTransitOrderState inTransitOrderState) throws PersistenceException;
     public abstract void handleShop(PersistentShop shop) throws PersistenceException;

@@ -31,15 +31,7 @@ public interface Article4Public extends Anything, SubjInterface, AbstractPersist
     public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
-    public void increaseStock(final long quantity) 
-				throws PersistenceException;
-    public void increaseStock(final long quantity, final Invoker invoker) 
-				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
-				throws PersistenceException;
-    public void reduceStock(final long quantity) 
-				throws model.NotEnoughStockException, PersistenceException;
-    public void reduceStock(final long quantity, final Invoker invoker) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
@@ -49,13 +41,15 @@ public interface Article4Public extends Anything, SubjInterface, AbstractPersist
 				throws PersistenceException;
     public ArticleWrapper4Public getWrapper() 
 				throws PersistenceException;
-    public void increaseStockImplementation(final long quantity) 
+    public void increaseStock(final long quantity) 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
-    public void reduceStockImplementation(final long quantity) 
+    public void order(final long quantity) 
+				throws model.NotEnoughStockException, model.ArticleNotInSaleException, PersistenceException;
+    public void reduceStock(final long quantity) 
 				throws model.NotEnoughStockException, PersistenceException;
     public void startSelling() 
 				throws PersistenceException;

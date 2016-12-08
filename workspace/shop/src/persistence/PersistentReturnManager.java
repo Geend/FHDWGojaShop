@@ -8,8 +8,6 @@ public interface PersistentReturnManager extends Anything, SubjInterface, Abstra
     public PersistentReturnManager getThis() throws PersistenceException ;
     
     
-    public OwnerService4Public getMyServer() 
-				throws PersistenceException;
 
 }
 

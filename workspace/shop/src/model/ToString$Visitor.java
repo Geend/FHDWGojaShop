@@ -78,16 +78,18 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	}
 
+	@Override
+	public void handleGlobalOrderArchive(GlobalOrderArchive4Public globalOrderArchive) throws PersistenceException {
+		result = "Kundenbestellung-Archiv";
+	}
+
 
 	@Override
 	public void handleArticle(Article4Public article) throws PersistenceException {
 		//Needs no implemenation, because only ArticleWrapper are visible on the ui
 	}
 
-	@Override
-	public void handleOwnerOrderManager(OwnerOrderManager4Public ownerOrderManager) throws PersistenceException {
-		result = "Laufende Kunden-Bestellungen";
-	}
+
 
 
 	@Override
@@ -138,6 +140,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleCustomerAccount(CustomerAccount4Public customerAccount) throws PersistenceException {
 		result = "Kunde " + customerAccount.getName();
+	}
+
+	@Override
+	public void handleGlobalOrderManager(GlobalOrderManager4Public globalOrderManager) throws PersistenceException {
+		result = "Laufende Kunden-Bestellungen";
 	}
 
 	@Override
@@ -219,7 +226,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleArticlesInReturnOrderState(ArticlesInReturnOrderState4Public articlesInReturnOrderState) throws PersistenceException {
-
+		result = "Artikel in Retour";
 	}
 
 	@Override

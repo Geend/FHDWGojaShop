@@ -13,6 +13,7 @@ public interface SubjInterfaceReturnVisitor<R> extends ArticleStateReturnVisitor
     public R handleCustomerDeliveryTime(CustomerDeliveryTime4Public customerDeliveryTime) throws PersistenceException;
     public R handleCustomerDeliveryTimeManager(CustomerDeliveryTimeManager4Public customerDeliveryTimeManager) throws PersistenceException;
     public R handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException;
+    public R handleGlobalOrderArchive(GlobalOrderArchive4Public globalOrderArchive) throws PersistenceException;
     public R handleOrder(Order4Public order) throws PersistenceException;
     public R handleProducer(Producer4Public producer) throws PersistenceException;
     public R handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException;

@@ -353,21 +353,6 @@ public class Article extends PersistentObject implements PersistentArticle{
 			return null;
 		}
     }
-    public void increaseStock(final long quantity) 
-				throws PersistenceException{
-        model.meta.ArticleIncreaseStockIntegerMssg event = new model.meta.ArticleIncreaseStockIntegerMssg(quantity, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
-    }
-    public void increaseStock(final long quantity, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		IncreaseStockCommand4Public command = model.meta.IncreaseStockCommand.createIncreaseStockCommand(quantity, now, now);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentArticle)This);
@@ -379,21 +364,6 @@ public class Article extends PersistentObject implements PersistentArticle{
 			this.setProducerDeliveryTime((Long)final$$Fields.get("producerDeliveryTime"));
 			this.setProducer((PersistentProducer)final$$Fields.get("producer"));
 		}
-    }
-    public void reduceStock(final long quantity) 
-				throws model.NotEnoughStockException, PersistenceException{
-        model.meta.ArticleReduceStockIntegerMssg event = new model.meta.ArticleReduceStockIntegerMssg(quantity, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
-    }
-    public void reduceStock(final long quantity, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		ReduceStockCommand4Public command = model.meta.ReduceStockCommand.createReduceStockCommand(quantity, now, now);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public synchronized void register(final ObsInterface observee) 
 				throws PersistenceException{
@@ -432,7 +402,7 @@ public class Article extends PersistentObject implements PersistentArticle{
 				throws PersistenceException{
        return getThis().getMyWrapper();
     }
-    public void increaseStockImplementation(final long quantity) 
+    public void increaseStock(final long quantity) 
 				throws PersistenceException{
         getThis().setCurrentStock(getThis().getCurrentStock() + quantity);
 
@@ -458,6 +428,7 @@ public class Article extends PersistentObject implements PersistentArticle{
                 // Nothing special
             }
         });
+        
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -468,17 +439,43 @@ public class Article extends PersistentObject implements PersistentArticle{
         getThis().setState(NewCreated.createNewCreated());
 
     }
-    public void reduceStockImplementation(final long quantity) 
+    public void order(final long quantity) 
+				throws model.NotEnoughStockException, model.ArticleNotInSaleException, PersistenceException{
+        getThis().getState().accept(new ArticleStateExceptionVisitor<ArticleNotInSaleException>() {
+            @Override
+            public void handleInSale(InSale4Public inSale) throws PersistenceException {
+
+            }
+
+            @Override
+            public void handleNewCreated(NewCreated4Public newCreated) throws PersistenceException, ArticleNotInSaleException {
+                throw new ArticleNotInSaleException();
+            }
+
+            @Override
+            public void handleNotInSale(NotInSale4Public notInSale) throws PersistenceException, ArticleNotInSaleException {
+                throw new ArticleNotInSaleException();
+            }
+
+            @Override
+            public void handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException {
+
+            }
+        });
+
+        reduceStock(quantity);
+        
+    }
+    public void reduceStock(final long quantity) 
 				throws model.NotEnoughStockException, PersistenceException{
         if (getThis().getCurrentStock() >= quantity) {
             getThis().setCurrentStock(getThis().getCurrentStock() - quantity);
         } else {
-            throw new NotEnoughStockException(MessageFormat.format("Tried to reduce stock by {0}, but only {1} in stock", quantity, getThis().getCurrentStock()));
+            throw new NotEnoughStockException(getThis().getCurrentStock(), quantity);
         }
     }
     public void startSelling() 
 				throws PersistenceException{
-        //TODO! reorder articles if under minStock
         getThis().setState(getThis().getState().accept(new ArticleStateReturnVisitor<ArticleState4Public>() {
             @Override
             public ArticleState4Public handleInSale(InSale4Public inSale) throws PersistenceException {
@@ -500,6 +497,8 @@ public class Article extends PersistentObject implements PersistentArticle{
                 return InSale.createInSale();
             }
         }));
+
+        ReOrderManager.getTheReOrderManager().reOrderIfNecessary(getThis().getMyWrapper());
         
     }
     public void stopSelling() 

@@ -65,8 +65,6 @@ public interface OwnerService4Public extends Service4Public {
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException;
     public void newProductGroup(final ComponentContainer parent, final String name) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException;
-    public void newProductGroup(final String name) 
-				throws model.DoubleDefinitionException, model.CycleException, PersistenceException;
     public void reduceArticleStock(final ArticleWrapper4Public article, final long quantity) 
 				throws model.NotEnoughStockException, PersistenceException;
     public void startSelling(final ArticleWrapper4Public article) 

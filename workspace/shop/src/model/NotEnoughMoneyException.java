@@ -1,8 +1,11 @@
 
 package model;
 
+import common.Fraction;
 import persistence.*;
 import model.visitor.*;
+
+import java.text.MessageFormat;
 
 
 /* Additional import section end */
@@ -60,7 +63,9 @@ public class NotEnoughMoneyException extends model.UserException{
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
+    public NotEnoughMoneyException(Fraction needed, Fraction avaliable) throws PersistenceException {
+        super(MessageFormat.format("{0}€ benötigt, aber nur {1}€ vorhanden!", needed, avaliable));
+    }
     /* End of protected part that is not overridden by persistence generator */
     
 }

@@ -2,10 +2,11 @@ package persistence;
 
 import java.util.*;
 
-public class OrderList  extends OrderSearchList{
+public class OrderList {
 
+	protected Vector<Order4Public> data; //List of proxies
 	protected OrderList() {
-		super();
+		this.data = new Vector<Order4Public>();
 	}
 	public Iterator<Order4Public> iterator(PersistentListProxi<Order4Public> listProxi) {
 		return new PersistentListIterator<Order4Public>(listProxi, this.data);

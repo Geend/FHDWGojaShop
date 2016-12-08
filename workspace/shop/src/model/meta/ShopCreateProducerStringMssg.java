@@ -5,6 +5,7 @@ import persistence.*;
 public class ShopCreateProducerStringMssg implements ShopDOWNMssgs,ShopUPMssgs{
     
     private java.util.Date exctDte = null;
+    private persistence.Producer4Public rslt;
     private Exception excptn;
     public final persistence.PersistentShop rcvr;
     public final String name;
@@ -21,13 +22,13 @@ public class ShopCreateProducerStringMssg implements ShopDOWNMssgs,ShopUPMssgs{
         if (this.exctDte == null){
             this.exctDte = new java.util.Date();
             try{
-                this.rcvr.createProducerImplementation(this.name);
+                rslt = this.rcvr.createProducerImplementation(this.name);
             }catch(Exception exception){
                 this.excptn = exception;
             }
         }
     }
-    public synchronized void getResult() throws model.DoubleDefinitionException, PersistenceException {
+    public synchronized persistence.Producer4Public getResult() throws model.DoubleDefinitionException, PersistenceException {
         if(this.excptn != null) {
             if(this.excptn instanceof model.DoubleDefinitionException) throw (model.DoubleDefinitionException) this.excptn;
             if(this.excptn instanceof PersistenceException) throw (PersistenceException) this.excptn;
@@ -35,6 +36,7 @@ public class ShopCreateProducerStringMssg implements ShopDOWNMssgs,ShopUPMssgs{
             throw new Error(this.excptn);
             
         }
+        return this.rslt;
     }
     
 }

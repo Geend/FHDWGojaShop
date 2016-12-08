@@ -492,12 +492,12 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
         ImageView handle(CreateProducerPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(CreateCustomerDeliveryTimePRMTRStringPRMTRFractionPRMTRIntegerPRMTRMenuItem menuItem);
         ImageView handle(NewProductGroupPRMTRComponentContainerPRMTRStringPRMTRMenuItem menuItem);
-        ImageView handle(NewProductGroupPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(NewArticlePRMTRComponentContainerPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem menuItem);
         ImageView handle(StopSellingPRMTRArticleWrapperPRMTRMenuItem menuItem);
         ImageView handle(StartSellingPRMTRArticleWrapperPRMTRMenuItem menuItem);
         ImageView handle(IncreaseArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem);
         ImageView handle(ReduceArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem);
+        ImageView handle(ReloadUIPRMTRMenuItem menuItem);
         ImageView handle(MoveToPRMTRComponentPRMTRComponentContainerPRMTRMenuItem menuItem);
     }
     private abstract class OwnerServiceMenuItem extends MenuItem{
@@ -517,11 +517,6 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
         }
     }
     private class NewProductGroupPRMTRComponentContainerPRMTRStringPRMTRMenuItem extends OwnerServiceMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class NewProductGroupPRMTRStringPRMTRMenuItem extends OwnerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -547,6 +542,11 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
         }
     }
     private class ReduceArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem extends OwnerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class ReloadUIPRMTRMenuItem extends OwnerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -579,13 +579,24 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
             }
         });
         result.add(currentButton);
-        currentButton = new javafx.scene.control.Button("Neue Produktgruppe ... ");
-        currentButton.setGraphic(new NewProductGroupPRMTRStringPRMTRMenuItem().getGraphic());
+        currentButton = new javafx.scene.control.Button("reloadUI");
+        currentButton.setGraphic(new ReloadUIPRMTRMenuItem().getGraphic());
         currentButton.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
-                final OwnerServiceNewProductGroupStringMssgWizard wizard = new OwnerServiceNewProductGroupStringMssgWizard("Neue Produktgruppe");
-                wizard.setWidth(getNavigationPanel().getWidth());
-                wizard.showAndWait();
+                Alert confirm = new Alert(AlertType.CONFIRMATION);
+                confirm.setTitle(GUIConstants.ConfirmButtonText);
+                confirm.setHeaderText(null);
+                confirm.setContentText("reloadUI" + GUIConstants.ConfirmQuestionMark);
+                Optional<ButtonType> buttonResult = confirm.showAndWait();
+                if (buttonResult.get() == ButtonType.OK) {
+                    try {
+                        getConnection().reloadUI();
+                        getConnection().setEagerRefresh();
+                        
+                    }catch(ModelException me){
+                        handleException(me);
+                    }
+                }
             }
         });
         result.add(currentButton);
@@ -614,13 +625,24 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
             }
         });
         if (withStaticOperations) result.getItems().add(item);
-        item = new NewProductGroupPRMTRStringPRMTRMenuItem();
-        item.setText("(S) Neue Produktgruppe ... ");
+        item = new ReloadUIPRMTRMenuItem();
+        item.setText("(S) reloadUI");
         item.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
-                final OwnerServiceNewProductGroupStringMssgWizard wizard = new OwnerServiceNewProductGroupStringMssgWizard("Neue Produktgruppe");
-                wizard.setWidth(getNavigationPanel().getWidth());
-                wizard.showAndWait();
+                Alert confirm = new Alert(AlertType.CONFIRMATION);
+                confirm.setTitle(GUIConstants.ConfirmButtonText);
+                confirm.setHeaderText(null);
+                confirm.setContentText("reloadUI" + GUIConstants.ConfirmQuestionMark);
+                Optional<ButtonType> buttonResult = confirm.showAndWait();
+                if (buttonResult.get() == ButtonType.OK) {
+                    try {
+                        getConnection().reloadUI();
+                        getConnection().setEagerRefresh();
+                        
+                    }catch(ModelException me){
+                        handleException(me);
+                    }
+                }
             }
         });
         if (withStaticOperations) result.getItems().add(item);
@@ -1060,50 +1082,6 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 		
 	}
 
-	class OwnerServiceNewProductGroupStringMssgWizard extends Wizard {
-
-		protected OwnerServiceNewProductGroupStringMssgWizard(String operationName){
-			super(OwnerServiceClientView.this);
-			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new NewProductGroupPRMTRStringPRMTRMenuItem ().getGraphic());
-		}
-		protected void initialize(){
-			this.helpFileName = "OwnerServiceNewProductGroupStringMssgWizard.help";
-			super.initialize();		
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().newProductGroup(((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
-				getConnection().setEagerRefresh();
-				this.close();	
-			} catch(ModelException me){
-				handleException(me);
-				this.close();
-			}
-			catch(DoubleDefinitionException e) {
-				getStatusBar().setText(e.getMessage());
-			}
-			catch(CycleException e) {
-				getStatusBar().setText(e.getMessage());
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		protected boolean isModifying () {
-			return false;
-		}
-		protected void addParameters(){
-			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-	}
-
 	class OwnerServiceReduceArticleStockArticleWrapperIntegerMssgWizard extends Wizard {
 
 		protected OwnerServiceReduceArticleStockArticleWrapperIntegerMssgWizard(String operationName){
@@ -1158,10 +1136,7 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 
     private ImageView getIconForMenuItem(OwnerServiceMenuItem menuItem) {
         return menuItem.accept(new MenuItemVisitor() {
-            @Override
-            public ImageView handle(NewProductGroupPRMTRStringPRMTRMenuItem menuItem) {
-                return new ImageView(IconManager.getImage(IconConstants.NEW_PRODUCT_GROUP));
-            }
+         
 
             @Override
             public ImageView handle(NewArticlePRMTRComponentContainerPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem menuItem) {
@@ -1198,6 +1173,11 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 
             @Override
             public ImageView handle(ReduceArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem) {
+                return null;
+            }
+
+            @Override
+            public ImageView handle(ReloadUIPRMTRMenuItem menuItem) {
                 return null;
             }
 

@@ -5,8 +5,8 @@ import persistence.*;
 
 public abstract class OrderManagerStandardVisitor implements OrderManagerVisitor {
     
-    public void handleOwnerOrderManager(OwnerOrderManager4Public ownerOrderManager) throws PersistenceException{
-        this.standardHandling(ownerOrderManager);
+    public void handleGlobalOrderManager(GlobalOrderManager4Public globalOrderManager) throws PersistenceException{
+        this.standardHandling(globalOrderManager);
     }
     public void handleCustomerOrderManager(CustomerOrderManager4Public customerOrderManager) throws PersistenceException{
         this.standardHandling(customerOrderManager);

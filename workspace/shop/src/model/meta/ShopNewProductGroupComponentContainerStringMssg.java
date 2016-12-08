@@ -5,6 +5,7 @@ import persistence.*;
 public class ShopNewProductGroupComponentContainerStringMssg implements ShopDOWNMssgs,ShopUPMssgs{
     
     private java.util.Date exctDte = null;
+    private persistence.ProductGroup4Public rslt;
     private Exception excptn;
     public final persistence.PersistentShop rcvr;
     public final persistence.ComponentContainer parent;
@@ -24,13 +25,13 @@ public class ShopNewProductGroupComponentContainerStringMssg implements ShopDOWN
         if (this.exctDte == null){
             this.exctDte = new java.util.Date();
             try{
-                this.rcvr.newProductGroupImplementation(this.parent, this.name);
+                rslt = this.rcvr.newProductGroupImplementation(this.parent, this.name);
             }catch(Exception exception){
                 this.excptn = exception;
             }
         }
     }
-    public synchronized void getResult() throws model.DoubleDefinitionException, model.CycleException, PersistenceException {
+    public synchronized persistence.ProductGroup4Public getResult() throws model.DoubleDefinitionException, model.CycleException, PersistenceException {
         if(this.excptn != null) {
             if(this.excptn instanceof model.DoubleDefinitionException) throw (model.DoubleDefinitionException) this.excptn;
             if(this.excptn instanceof model.CycleException) throw (model.CycleException) this.excptn;
@@ -39,6 +40,7 @@ public class ShopNewProductGroupComponentContainerStringMssg implements ShopDOWN
             throw new Error(this.excptn);
             
         }
+        return this.rslt;
     }
     
 }

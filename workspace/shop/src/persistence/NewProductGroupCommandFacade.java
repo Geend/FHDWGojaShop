@@ -28,14 +28,14 @@ public class NewProductGroupCommandFacade{
     public PersistentNewProductGroupCommand newNewProductGroupCommand(String name,long idCreateIfLessZero) throws PersistenceException {
         if(idCreateIfLessZero > 0) return (PersistentNewProductGroupCommand)PersistentProxi.createProxi(idCreateIfLessZero, 409);
         long id = ConnectionHandler.getTheConnectionHandler().theNewProductGroupCommandFacade.getNextId();
-        NewProductGroupCommand result = new NewProductGroupCommand(null,name,null,null,null,id);
+        NewProductGroupCommand result = new NewProductGroupCommand(null,name,null,null,null,null,id);
         Cache.getTheCache().put(result);
         return (PersistentNewProductGroupCommand)PersistentProxi.createProxi(id, 409);
     }
     
     public PersistentNewProductGroupCommand newDelayedNewProductGroupCommand(String name) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theNewProductGroupCommandFacade.getNextId();
-        NewProductGroupCommand result = new NewProductGroupCommand(null,name,null,null,null,id);
+        NewProductGroupCommand result = new NewProductGroupCommand(null,name,null,null,null,null,id);
         Cache.getTheCache().put(result);
         return (PersistentNewProductGroupCommand)PersistentProxi.createProxi(id, 409);
     }
@@ -59,6 +59,9 @@ public class NewProductGroupCommandFacade{
         
     }
     public void commandReceiverSet(long NewProductGroupCommandId, Shop4Public commandReceiverVal) throws PersistenceException {
+        
+    }
+    public void commandResultSet(long NewProductGroupCommandId, ProductGroup4Public commandResultVal) throws PersistenceException {
         
     }
     public void myCommonDateSet(long NewProductGroupCommandId, CommonDate4Public myCommonDateVal) throws PersistenceException {

@@ -19,16 +19,10 @@ public interface CustomerOrderManager4Public extends OrderManager4Public {
     public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
-    public void acceptOrder(final Order4Public order, final Invoker invoker) 
-				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
-    public void newOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime, final Invoker invoker) 
-				throws PersistenceException;
-    public void newPreOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime, final Invoker invoker) 
-				throws PersistenceException;
     public void acceptOrder(final Order4Public order) 
-				throws model.OrderNotYetArrivedException, model.NotEnoughMoneyException, PersistenceException;
+				throws model.OrderNotAcceptableException, model.NotEnoughMoneyException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void initializeOnCreation() 
@@ -36,9 +30,9 @@ public interface CustomerOrderManager4Public extends OrderManager4Public {
     public void initializeOnInstantiation() 
 				throws PersistenceException;
     public void newOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.EmptyCartException, model.NotEnoughStockException, model.NotEnoughMoneyException, PersistenceException;
+				throws model.EmptyCartException, model.ArticleOrderException, model.NotEnoughMoneyException, PersistenceException;
     public void newPreOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.EmptyCartException, model.NotEnoughMoneyException, PersistenceException;
+				throws model.EmptyCartException, model.NotEnoughMoneyException, model.ArticleNotInSaleException, PersistenceException;
 
 }
 

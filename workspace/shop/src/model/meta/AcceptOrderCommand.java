@@ -36,16 +36,18 @@ public class AcceptOrderCommand extends PersistentObject implements PersistentAc
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
+    protected PersistentCustomerOrderManager manager;
     protected PersistentOrder order;
     protected Invoker invoker;
-    protected PersistentCustomerOrderManager commandReceiver;
+    protected PersistentShop commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public AcceptOrderCommand(PersistentOrder order,Invoker invoker,PersistentCustomerOrderManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
+    public AcceptOrderCommand(PersistentCustomerOrderManager manager,PersistentOrder order,Invoker invoker,PersistentShop commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
+        this.manager = manager;
         this.order = order;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
@@ -65,6 +67,10 @@ public class AcceptOrderCommand extends PersistentObject implements PersistentAc
         if (this.getClassId() == 360) ConnectionHandler.getTheConnectionHandler().theAcceptOrderCommandFacade
             .newAcceptOrderCommand(this.getId());
         super.store();
+        if(this.getManager() != null){
+            this.getManager().store();
+            ConnectionHandler.getTheConnectionHandler().theAcceptOrderCommandFacade.managerSet(this.getId(), getManager());
+        }
         if(this.getOrder() != null){
             this.getOrder().store();
             ConnectionHandler.getTheConnectionHandler().theAcceptOrderCommandFacade.orderSet(this.getId(), getOrder());
@@ -84,6 +90,20 @@ public class AcceptOrderCommand extends PersistentObject implements PersistentAc
         
     }
     
+    public CustomerOrderManager4Public getManager() throws PersistenceException {
+        return this.manager;
+    }
+    public void setManager(CustomerOrderManager4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.manager)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.manager = (PersistentCustomerOrderManager)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theAcceptOrderCommandFacade.managerSet(this.getId(), newValue);
+        }
+    }
     public Order4Public getOrder() throws PersistenceException {
         return this.order;
     }
@@ -112,15 +132,15 @@ public class AcceptOrderCommand extends PersistentObject implements PersistentAc
             ConnectionHandler.getTheConnectionHandler().theAcceptOrderCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
-    public CustomerOrderManager4Public getCommandReceiver() throws PersistenceException {
+    public Shop4Public getCommandReceiver() throws PersistenceException {
         return this.commandReceiver;
     }
-    public void setCommandReceiver(CustomerOrderManager4Public newValue) throws PersistenceException {
+    public void setCommandReceiver(Shop4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.commandReceiver)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.commandReceiver = (PersistentCustomerOrderManager)PersistentProxi.createProxi(objectId, classId);
+        this.commandReceiver = (PersistentShop)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theAcceptOrderCommandFacade.commandReceiverSet(this.getId(), newValue);
@@ -181,18 +201,6 @@ public class AcceptOrderCommand extends PersistentObject implements PersistentAc
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleAcceptOrderCommand(this);
     }
-    public void accept(CustomerOrderManagerCommandVisitor visitor) throws PersistenceException {
-        visitor.handleAcceptOrderCommand(this);
-    }
-    public <R> R accept(CustomerOrderManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAcceptOrderCommand(this);
-    }
-    public <E extends model.UserException>  void accept(CustomerOrderManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAcceptOrderCommand(this);
-    }
-    public <R, E extends model.UserException> R accept(CustomerOrderManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAcceptOrderCommand(this);
-    }
     public void accept(CommandVisitor visitor) throws PersistenceException {
         visitor.handleAcceptOrderCommand(this);
     }
@@ -205,7 +213,20 @@ public class AcceptOrderCommand extends PersistentObject implements PersistentAc
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleAcceptOrderCommand(this);
     }
+    public void accept(ShopCommandVisitor visitor) throws PersistenceException {
+        visitor.handleAcceptOrderCommand(this);
+    }
+    public <R> R accept(ShopCommandReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleAcceptOrderCommand(this);
+    }
+    public <E extends model.UserException>  void accept(ShopCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleAcceptOrderCommand(this);
+    }
+    public <R, E extends model.UserException> R accept(ShopCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleAcceptOrderCommand(this);
+    }
     public int getLeafInfo() throws PersistenceException{
+        if (this.getManager() != null) return 1;
         if (this.getOrder() != null) return 1;
         if (this.getCommandReceiver() != null) return 1;
         return 0;
@@ -223,9 +244,9 @@ public class AcceptOrderCommand extends PersistentObject implements PersistentAc
     public void execute() 
 				throws PersistenceException{
         try{
-			this.commandReceiver.acceptOrder(this.getOrder());
+			this.commandReceiver.acceptOrder(this.getManager(), this.getOrder());
 		}
-		catch(model.OrderNotYetArrivedException e){
+		catch(model.OrderNotAcceptableException e){
 			this.commandException = e;
 		}
 		catch(model.NotEnoughMoneyException e){

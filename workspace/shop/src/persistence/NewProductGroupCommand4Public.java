@@ -13,6 +13,7 @@ public interface NewProductGroupCommand4Public extends Anything, ShopCommand, Co
     public void setInvoker(Invoker newValue) throws PersistenceException ;
     public Shop4Public getCommandReceiver() throws PersistenceException ;
     public void setCommandReceiver(Shop4Public newValue) throws PersistenceException ;
+    public ProductGroup4Public getCommandResult() throws PersistenceException ;
     
     public void accept(CommonDateVisitor visitor) throws PersistenceException;
     public <R> R accept(CommonDateReturnVisitor<R>  visitor) throws PersistenceException;

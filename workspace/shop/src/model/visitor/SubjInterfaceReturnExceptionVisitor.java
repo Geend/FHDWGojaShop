@@ -13,6 +13,7 @@ public interface SubjInterfaceReturnExceptionVisitor<R, E extends model.UserExce
     public R handleCustomerDeliveryTime(CustomerDeliveryTime4Public customerDeliveryTime) throws PersistenceException, E;
     public R handleCustomerDeliveryTimeManager(CustomerDeliveryTimeManager4Public customerDeliveryTimeManager) throws PersistenceException, E;
     public R handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException, E;
+    public R handleGlobalOrderArchive(GlobalOrderArchive4Public globalOrderArchive) throws PersistenceException, E;
     public R handleOrder(Order4Public order) throws PersistenceException, E;
     public R handleProducer(Producer4Public producer) throws PersistenceException, E;
     public R handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException, E;

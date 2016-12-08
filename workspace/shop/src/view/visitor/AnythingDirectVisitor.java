@@ -63,6 +63,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleComponentManager(ComponentManagerView componentManager) throws ModelException;
     
+    public abstract void handleGlobalOrderArchive(GlobalOrderArchiveView globalOrderArchive) throws ModelException;
+    
     public abstract void handleCustomerArticleLst(CustomerArticleLstView customerArticleLst) throws ModelException;
     
     public abstract void handleCustomerDeliveryTimeManager(CustomerDeliveryTimeManagerView customerDeliveryTimeManager) throws ModelException;
@@ -99,8 +101,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCONCBackgroundTask(CONCBackgroundTaskView cONCBackgroundTask) throws ModelException{
         this.handleBackgroundTask(cONCBackgroundTask);
     }
-    public void handleOwnerOrderManager(OwnerOrderManagerView ownerOrderManager) throws ModelException{
-        this.handleBackgroundTask(ownerOrderManager);
+    public void handleGlobalOrderManager(GlobalOrderManagerView globalOrderManager) throws ModelException{
+        this.handleBackgroundTask(globalOrderManager);
     }
     public void handleReOrderManager(ReOrderManagerView reOrderManager) throws ModelException{
         this.handleBackgroundTask(reOrderManager);

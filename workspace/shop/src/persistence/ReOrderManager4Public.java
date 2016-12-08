@@ -19,13 +19,13 @@ public interface ReOrderManager4Public extends Anything, CONCBackgroundTask4Publ
     public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
+    public void fireChange(final model.meta.ReOrderQuantifiedArticleMssgs evnt) 
+				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
-    public void reOrderForPreorder(final ArticleWrapper4Public article, final long quantity, final Invoker invoker) 
-				throws PersistenceException;
-    public void reOrder(final ArticleWrapper4Public article, final Invoker invoker) 
-				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException;
+    public void fireChangeImplementation(final model.meta.ReOrderQuantifiedArticleMssgs evnt) 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
@@ -33,7 +33,7 @@ public interface ReOrderManager4Public extends Anything, CONCBackgroundTask4Publ
 				throws PersistenceException;
     public void reOrderForPreorder(final ArticleWrapper4Public article, final long quantity) 
 				throws PersistenceException;
-    public void reOrder(final ArticleWrapper4Public article) 
+    public void reOrderIfNecessary(final ArticleWrapper4Public article) 
 				throws PersistenceException;
 
 }

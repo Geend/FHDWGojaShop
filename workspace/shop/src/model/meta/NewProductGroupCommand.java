@@ -41,17 +41,19 @@ public class NewProductGroupCommand extends PersistentObject implements Persiste
     protected String name;
     protected Invoker invoker;
     protected PersistentShop commandReceiver;
+    protected PersistentProductGroup commandResult;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public NewProductGroupCommand(ComponentContainer parent,String name,Invoker invoker,PersistentShop commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
+    public NewProductGroupCommand(ComponentContainer parent,String name,Invoker invoker,PersistentShop commandReceiver,PersistentProductGroup commandResult,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.parent = parent;
         this.name = name;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
+        this.commandResult = commandResult;
         this.myCommonDate = myCommonDate;        
     }
     
@@ -79,6 +81,10 @@ public class NewProductGroupCommand extends PersistentObject implements Persiste
         if(this.getCommandReceiver() != null){
             this.getCommandReceiver().store();
             ConnectionHandler.getTheConnectionHandler().theNewProductGroupCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
+        }
+        if(this.getCommandResult() != null){
+            this.getCommandResult().store();
+            ConnectionHandler.getTheConnectionHandler().theNewProductGroupCommandFacade.commandResultSet(this.getId(), getCommandResult());
         }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
@@ -135,6 +141,20 @@ public class NewProductGroupCommand extends PersistentObject implements Persiste
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theNewProductGroupCommandFacade.commandReceiverSet(this.getId(), newValue);
+        }
+    }
+    public ProductGroup4Public getCommandResult() throws PersistenceException {
+        return this.commandResult;
+    }
+    public void setCommandResult(ProductGroup4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.commandResult)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.commandResult = (PersistentProductGroup)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theNewProductGroupCommandFacade.commandResultSet(this.getId(), newValue);
         }
     }
     public CommonDate4Public getMyCommonDate() throws PersistenceException {
@@ -219,6 +239,7 @@ public class NewProductGroupCommand extends PersistentObject implements Persiste
     public int getLeafInfo() throws PersistenceException{
         if (this.getParent() != null) return 1;
         if (this.getCommandReceiver() != null) return 1;
+        if (this.getCommandResult() != null) return 1;
         return 0;
     }
     
@@ -234,7 +255,7 @@ public class NewProductGroupCommand extends PersistentObject implements Persiste
     public void execute() 
 				throws PersistenceException{
         try{
-			this.commandReceiver.newProductGroup(this.getParent(), this.getName());
+			this.setCommandResult(this.commandReceiver.newProductGroup(this.getParent(), this.getName()));
 		}
 		catch(model.DoubleDefinitionException e){
 			this.commandException = e;

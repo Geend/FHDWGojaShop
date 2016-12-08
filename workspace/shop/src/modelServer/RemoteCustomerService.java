@@ -85,6 +85,16 @@ public  class RemoteCustomerService extends RemoteService {
         }
     }
     
+    public synchronized java.util.HashMap<?,?> emptyCart(String cartProxiString){
+        try {
+            PersistentShoppingCart cart = (PersistentShoppingCart)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(cartProxiString));
+            ((PersistentCustomerService)this.server).emptyCart(cart);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.HashMap<?,?> findArticle(String name){
         try {
             ((PersistentCustomerService)this.server).findArticle(name);

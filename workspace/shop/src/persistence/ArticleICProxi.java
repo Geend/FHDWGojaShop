@@ -114,25 +114,9 @@ public class ArticleICProxi extends PersistentInCacheProxiOptimistic implements 
 				throws PersistenceException{
         return ((PersistentArticle)this.getTheObject()).getMyWrapper();
     }
-    public void increaseStock(final long quantity) 
-				throws PersistenceException{
-        ((PersistentArticle)this.getTheObject()).increaseStock(quantity);
-    }
-    public void increaseStock(final long quantity, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentArticle)this.getTheObject()).increaseStock(quantity, invoker);
-    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentArticle)this.getTheObject()).initialize(This, final$$Fields);
-    }
-    public void reduceStock(final long quantity) 
-				throws model.NotEnoughStockException, PersistenceException{
-        ((PersistentArticle)this.getTheObject()).reduceStock(quantity);
-    }
-    public void reduceStock(final long quantity, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentArticle)this.getTheObject()).reduceStock(quantity, invoker);
     }
     public void register(final ObsInterface observee) 
 				throws PersistenceException{
@@ -158,9 +142,9 @@ public class ArticleICProxi extends PersistentInCacheProxiOptimistic implements 
 				throws PersistenceException{
         return ((PersistentArticle)this.getTheObject()).getWrapper();
     }
-    public void increaseStockImplementation(final long quantity) 
+    public void increaseStock(final long quantity) 
 				throws PersistenceException{
-        ((PersistentArticle)this.getTheObject()).increaseStockImplementation(quantity);
+        ((PersistentArticle)this.getTheObject()).increaseStock(quantity);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -170,9 +154,13 @@ public class ArticleICProxi extends PersistentInCacheProxiOptimistic implements 
 				throws PersistenceException{
         ((PersistentArticle)this.getTheObject()).initializeOnInstantiation();
     }
-    public void reduceStockImplementation(final long quantity) 
+    public void order(final long quantity) 
+				throws model.NotEnoughStockException, model.ArticleNotInSaleException, PersistenceException{
+        ((PersistentArticle)this.getTheObject()).order(quantity);
+    }
+    public void reduceStock(final long quantity) 
 				throws model.NotEnoughStockException, PersistenceException{
-        ((PersistentArticle)this.getTheObject()).reduceStockImplementation(quantity);
+        ((PersistentArticle)this.getTheObject()).reduceStock(quantity);
     }
     public void startSelling() 
 				throws PersistenceException{

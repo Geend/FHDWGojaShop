@@ -5,6 +5,7 @@ import model.visitor.*;
 
 public interface ArticlesInReturnOrderState4Public extends OrderStatus4Public {
     
+    public ArticleReturn4Public getArticleReturn() throws PersistenceException ;
     public long getTicksLeft() throws PersistenceException ;
     public void setTicksLeft(long newValue) throws PersistenceException ;
     

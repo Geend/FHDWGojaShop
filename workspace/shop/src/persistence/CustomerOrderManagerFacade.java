@@ -13,14 +13,14 @@ public class CustomerOrderManagerFacade{
     public PersistentCustomerOrderManager newCustomerOrderManager(long idCreateIfLessZero) throws PersistenceException {
         if(idCreateIfLessZero > 0) return (PersistentCustomerOrderManager)PersistentProxi.createProxi(idCreateIfLessZero, 308);
         long id = ConnectionHandler.getTheConnectionHandler().theOrderManagerFacade.getNextId();
-        CustomerOrderManager result = new CustomerOrderManager(null,null,null,null,id);
+        CustomerOrderManager result = new CustomerOrderManager(null,null,null,id);
         Cache.getTheCache().put(result);
         return (PersistentCustomerOrderManager)PersistentProxi.createProxi(id, 308);
     }
     
     public PersistentCustomerOrderManager newDelayedCustomerOrderManager() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theOrderManagerFacade.getNextId();
-        CustomerOrderManager result = new CustomerOrderManager(null,null,null,null,id);
+        CustomerOrderManager result = new CustomerOrderManager(null,null,null,id);
         Cache.getTheCache().put(result);
         return (PersistentCustomerOrderManager)PersistentProxi.createProxi(id, 308);
     }

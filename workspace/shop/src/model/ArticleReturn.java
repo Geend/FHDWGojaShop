@@ -255,8 +255,7 @@ public class ArticleReturn extends PersistentObject implements PersistentArticle
     
     public void addArticle(final ReturnQuantifiedArticle4Public orderQuantifiedArticle) 
 				throws PersistenceException{
-        //TODO: implement method: addArticle
-        
+        getThis().getReturnArticles().add(orderQuantifiedArticle);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

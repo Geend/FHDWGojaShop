@@ -15,6 +15,7 @@ public interface AnythingReturnExceptionVisitor<R, E extends view.UserException>
     public R handleCustomerDeliveryTime(CustomerDeliveryTimeView customerDeliveryTime) throws ModelException, E;
     public R handleCustomerDeliveryTimeManager(CustomerDeliveryTimeManagerView customerDeliveryTimeManager) throws ModelException, E;
     public R handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException, E;
+    public R handleGlobalOrderArchive(GlobalOrderArchiveView globalOrderArchive) throws ModelException, E;
     public R handleOrder(OrderView order) throws ModelException, E;
     public R handleProducer(ProducerView producer) throws ModelException, E;
     public R handleProducerLst(ProducerLstView producerLst) throws ModelException, E;

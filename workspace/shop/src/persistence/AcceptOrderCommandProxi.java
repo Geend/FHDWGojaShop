@@ -18,6 +18,12 @@ public class AcceptOrderCommandProxi extends PersistentProxi implements Persiste
         return 360;
     }
     
+    public CustomerOrderManager4Public getManager() throws PersistenceException {
+        return ((PersistentAcceptOrderCommand)this.getTheObject()).getManager();
+    }
+    public void setManager(CustomerOrderManager4Public newValue) throws PersistenceException {
+        ((PersistentAcceptOrderCommand)this.getTheObject()).setManager(newValue);
+    }
     public Order4Public getOrder() throws PersistenceException {
         return ((PersistentAcceptOrderCommand)this.getTheObject()).getOrder();
     }
@@ -30,10 +36,10 @@ public class AcceptOrderCommandProxi extends PersistentProxi implements Persiste
     public void setInvoker(Invoker newValue) throws PersistenceException {
         ((PersistentAcceptOrderCommand)this.getTheObject()).setInvoker(newValue);
     }
-    public CustomerOrderManager4Public getCommandReceiver() throws PersistenceException {
+    public Shop4Public getCommandReceiver() throws PersistenceException {
         return ((PersistentAcceptOrderCommand)this.getTheObject()).getCommandReceiver();
     }
-    public void setCommandReceiver(CustomerOrderManager4Public newValue) throws PersistenceException {
+    public void setCommandReceiver(Shop4Public newValue) throws PersistenceException {
         ((PersistentAcceptOrderCommand)this.getTheObject()).setCommandReceiver(newValue);
     }
     public CommonDate4Public getMyCommonDate() throws PersistenceException {
@@ -79,18 +85,6 @@ public class AcceptOrderCommandProxi extends PersistentProxi implements Persiste
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleAcceptOrderCommand(this);
     }
-    public void accept(CustomerOrderManagerCommandVisitor visitor) throws PersistenceException {
-        visitor.handleAcceptOrderCommand(this);
-    }
-    public <R> R accept(CustomerOrderManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAcceptOrderCommand(this);
-    }
-    public <E extends model.UserException>  void accept(CustomerOrderManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAcceptOrderCommand(this);
-    }
-    public <R, E extends model.UserException> R accept(CustomerOrderManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAcceptOrderCommand(this);
-    }
     public void accept(CommandVisitor visitor) throws PersistenceException {
         visitor.handleAcceptOrderCommand(this);
     }
@@ -101,6 +95,18 @@ public class AcceptOrderCommandProxi extends PersistentProxi implements Persiste
          visitor.handleAcceptOrderCommand(this);
     }
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleAcceptOrderCommand(this);
+    }
+    public void accept(ShopCommandVisitor visitor) throws PersistenceException {
+        visitor.handleAcceptOrderCommand(this);
+    }
+    public <R> R accept(ShopCommandReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleAcceptOrderCommand(this);
+    }
+    public <E extends model.UserException>  void accept(ShopCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleAcceptOrderCommand(this);
+    }
+    public <R, E extends model.UserException> R accept(ShopCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleAcceptOrderCommand(this);
     }
     

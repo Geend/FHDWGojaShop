@@ -8,11 +8,14 @@ public abstract class UserExceptionStandardVisitor implements UserExceptionVisit
     public void handleEmptyCartException(model.EmptyCartException emptyCartException) throws PersistenceException{
         this.standardHandling(emptyCartException);
     }
-    public void handleOrderNotYetArrivedException(model.OrderNotYetArrivedException orderNotYetArrivedException) throws PersistenceException{
-        this.standardHandling(orderNotYetArrivedException);
+    public void handleOrderNotAcceptableException(model.OrderNotAcceptableException orderNotAcceptableException) throws PersistenceException{
+        this.standardHandling(orderNotAcceptableException);
     }
     public void handleNotEnoughMoneyException(model.NotEnoughMoneyException notEnoughMoneyException) throws PersistenceException{
         this.standardHandling(notEnoughMoneyException);
+    }
+    public void handleArticleNotInSaleException(model.ArticleNotInSaleException articleNotInSaleException) throws PersistenceException{
+        this.standardHandling(articleNotInSaleException);
     }
     public void handleCycleException(model.CycleException cycleException) throws PersistenceException{
         this.standardHandling(cycleException);

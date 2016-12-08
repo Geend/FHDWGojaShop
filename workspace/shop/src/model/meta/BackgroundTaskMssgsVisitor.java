@@ -3,7 +3,7 @@ package model.meta;
 public interface BackgroundTaskMssgsVisitor extends BackgroundTaskDOWNMssgsVisitor, BackgroundTaskUPMssgsVisitor {}
 
 
-interface BackgroundTaskDOWNMssgsVisitor extends ReOrderManagerDOWNMssgsVisitor, OwnerOrderManagerDOWNMssgsVisitor, OrderManagerUPMssgsVisitor {
+interface BackgroundTaskDOWNMssgsVisitor extends GlobalOrderManagerDOWNMssgsVisitor, ReOrderManagerDOWNMssgsVisitor, OrderManagerUPMssgsVisitor {
 
     public void handleBackgroundTaskStepMssg(BackgroundTaskStepMssg event) throws persistence.PersistenceException;
     

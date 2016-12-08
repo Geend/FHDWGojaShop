@@ -12,8 +12,8 @@ public abstract class OrderManagerProxi extends PersistentProxi implements Persi
     }
     
     
-    public void setOrders(OrderManagerOrders4Public newValue) throws PersistenceException {
-        ((PersistentOrderManager)this.getTheObject()).setOrders(newValue);
+    public OrderManager_OrdersProxi getOrders() throws PersistenceException {
+        return ((PersistentOrderManager)this.getTheObject()).getOrders();
     }
     public SubjInterface getSubService() throws PersistenceException {
         return ((PersistentOrderManager)this.getTheObject()).getSubService();
@@ -28,10 +28,6 @@ public abstract class OrderManagerProxi extends PersistentProxi implements Persi
     public void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentOrderManager)this.getTheObject()).deregister(observee);
-    }
-    public OrderManagerOrders4Public getOrders() 
-				throws PersistenceException{
-        return ((PersistentOrderManager)this.getTheObject()).getOrders();
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -56,10 +52,6 @@ public abstract class OrderManagerProxi extends PersistentProxi implements Persi
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentOrderManager)this.getTheObject()).initializeOnInstantiation();
-    }
-    public void orders_update(final model.meta.OrderMssgs event) 
-				throws PersistenceException{
-        ((PersistentOrderManager)this.getTheObject()).orders_update(event);
     }
 
     

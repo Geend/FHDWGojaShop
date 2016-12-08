@@ -54,13 +54,31 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            AbstractPersistentRoot shop = (AbstractPersistentRoot)this.getShop();
-            if (shop != null) {
-                result.put("shop", shop.createProxiInformation(false, essentialLevel <= 1));
+            AbstractPersistentRoot componentManager = (AbstractPersistentRoot)this.getComponentManager();
+            if (componentManager != null) {
+                result.put("componentManager", componentManager.createProxiInformation(false, essentialLevel <= 1));
                 if(depth > 1) {
-                    shop.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                    componentManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
                 }else{
-                    if(forGUI && shop.hasEssentialFields())shop.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                    if(forGUI && componentManager.hasEssentialFields())componentManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot prmanager = (AbstractPersistentRoot)this.getPrmanager();
+            if (prmanager != null) {
+                result.put("prmanager", prmanager.createProxiInformation(false, essentialLevel <= 1));
+                if(depth > 1) {
+                    prmanager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && prmanager.hasEssentialFields())prmanager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot customerDeliveryTimeManager = (AbstractPersistentRoot)this.getCustomerDeliveryTimeManager();
+            if (customerDeliveryTimeManager != null) {
+                result.put("customerDeliveryTimeManager", customerDeliveryTimeManager.createProxiInformation(false, essentialLevel <= 1));
+                if(depth > 1) {
+                    customerDeliveryTimeManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && customerDeliveryTimeManager.hasEssentialFields())customerDeliveryTimeManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
             AbstractPersistentRoot settings = (AbstractPersistentRoot)this.getSettings();
@@ -81,13 +99,13 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
                     if(forGUI && reOrderManager.hasEssentialFields())reOrderManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
-            AbstractPersistentRoot ownerOrderManager = (AbstractPersistentRoot)this.getOwnerOrderManager();
-            if (ownerOrderManager != null) {
-                result.put("ownerOrderManager", ownerOrderManager.createProxiInformation(false, essentialLevel <= 1));
+            AbstractPersistentRoot orderManager = (AbstractPersistentRoot)this.getOrderManager();
+            if (orderManager != null) {
+                result.put("orderManager", orderManager.createProxiInformation(false, essentialLevel <= 1));
                 if(depth > 1) {
-                    ownerOrderManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                    orderManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
                 }else{
-                    if(forGUI && ownerOrderManager.hasEssentialFields())ownerOrderManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                    if(forGUI && orderManager.hasEssentialFields())orderManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
             AbstractPersistentRoot returnManager = (AbstractPersistentRoot)this.getReturnManager();
@@ -97,6 +115,15 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
                     returnManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
                 }else{
                     if(forGUI && returnManager.hasEssentialFields())returnManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot orderArchive = (AbstractPersistentRoot)this.getOrderArchive();
+            if (orderArchive != null) {
+                result.put("orderArchive", orderArchive.createProxiInformation(false, essentialLevel <= 1));
+                if(depth > 1) {
+                    orderArchive.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && orderArchive.hasEssentialFields())orderArchive.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
@@ -110,10 +137,14 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
         result = new OwnerService(this.subService, 
                                   this.This, 
                                   this.shop, 
+                                  this.componentManager, 
+                                  this.prmanager, 
+                                  this.customerDeliveryTimeManager, 
                                   this.settings, 
                                   this.reOrderManager, 
-                                  this.ownerOrderManager, 
+                                  this.orderManager, 
                                   this.returnManager, 
+                                  this.orderArchive, 
                                   this.getId());
         result.errors = this.errors.copy(result);
         result.errors = this.errors.copy(result);
@@ -125,19 +156,27 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
         return false;
     }
     protected PersistentOwnerServiceShop shop;
+    protected PersistentComponentManager componentManager;
+    protected PersistentProducerLst prmanager;
+    protected PersistentCustomerDeliveryTimeManager customerDeliveryTimeManager;
     protected PersistentSettings settings;
-    protected PersistentReOrderManager reOrderManager;
-    protected PersistentOwnerOrderManager ownerOrderManager;
+    protected PersistentOwnerServiceReOrderManager reOrderManager;
+    protected PersistentOwnerServiceOrderManager orderManager;
     protected PersistentReturnManager returnManager;
+    protected PersistentGlobalOrderArchive orderArchive;
     
-    public OwnerService(SubjInterface subService,PersistentService This,PersistentOwnerServiceShop shop,PersistentSettings settings,PersistentReOrderManager reOrderManager,PersistentOwnerOrderManager ownerOrderManager,PersistentReturnManager returnManager,long id) throws PersistenceException {
+    public OwnerService(SubjInterface subService,PersistentService This,PersistentOwnerServiceShop shop,PersistentComponentManager componentManager,PersistentProducerLst prmanager,PersistentCustomerDeliveryTimeManager customerDeliveryTimeManager,PersistentSettings settings,PersistentOwnerServiceReOrderManager reOrderManager,PersistentOwnerServiceOrderManager orderManager,PersistentReturnManager returnManager,PersistentGlobalOrderArchive orderArchive,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super((SubjInterface)subService,(PersistentService)This,id);
         this.shop = shop;
+        this.componentManager = componentManager;
+        this.prmanager = prmanager;
+        this.customerDeliveryTimeManager = customerDeliveryTimeManager;
         this.settings = settings;
         this.reOrderManager = reOrderManager;
-        this.ownerOrderManager = ownerOrderManager;
-        this.returnManager = returnManager;        
+        this.orderManager = orderManager;
+        this.returnManager = returnManager;
+        this.orderArchive = orderArchive;        
     }
     
     static public long getTypeId() {
@@ -157,21 +196,37 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
             this.shop.store();
             ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.shopSet(this.getId(), shop);
         }
+        if(this.getComponentManager() != null){
+            this.getComponentManager().store();
+            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.componentManagerSet(this.getId(), getComponentManager());
+        }
+        if(this.getPrmanager() != null){
+            this.getPrmanager().store();
+            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.prmanagerSet(this.getId(), getPrmanager());
+        }
+        if(this.getCustomerDeliveryTimeManager() != null){
+            this.getCustomerDeliveryTimeManager().store();
+            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.customerDeliveryTimeManagerSet(this.getId(), getCustomerDeliveryTimeManager());
+        }
         if(this.getSettings() != null){
             this.getSettings().store();
             ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.settingsSet(this.getId(), getSettings());
         }
-        if(this.getReOrderManager() != null){
-            this.getReOrderManager().store();
-            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.reOrderManagerSet(this.getId(), getReOrderManager());
+        if(this.reOrderManager != null){
+            this.reOrderManager.store();
+            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.reOrderManagerSet(this.getId(), reOrderManager);
         }
-        if(this.getOwnerOrderManager() != null){
-            this.getOwnerOrderManager().store();
-            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.ownerOrderManagerSet(this.getId(), getOwnerOrderManager());
+        if(this.orderManager != null){
+            this.orderManager.store();
+            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.orderManagerSet(this.getId(), orderManager);
         }
         if(this.getReturnManager() != null){
             this.getReturnManager().store();
             ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.returnManagerSet(this.getId(), getReturnManager());
+        }
+        if(this.getOrderArchive() != null){
+            this.getOrderArchive().store();
+            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.orderArchiveSet(this.getId(), getOrderArchive());
         }
         
     }
@@ -185,6 +240,48 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.shopSet(this.getId(), newValue);
+        }
+    }
+    public ComponentManager4Public getComponentManager() throws PersistenceException {
+        return this.componentManager;
+    }
+    public void setComponentManager(ComponentManager4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.componentManager)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.componentManager = (PersistentComponentManager)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.componentManagerSet(this.getId(), newValue);
+        }
+    }
+    public ProducerLst4Public getPrmanager() throws PersistenceException {
+        return this.prmanager;
+    }
+    public void setPrmanager(ProducerLst4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.prmanager)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.prmanager = (PersistentProducerLst)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.prmanagerSet(this.getId(), newValue);
+        }
+    }
+    public CustomerDeliveryTimeManager4Public getCustomerDeliveryTimeManager() throws PersistenceException {
+        return this.customerDeliveryTimeManager;
+    }
+    public void setCustomerDeliveryTimeManager(CustomerDeliveryTimeManager4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.customerDeliveryTimeManager)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.customerDeliveryTimeManager = (PersistentCustomerDeliveryTimeManager)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.customerDeliveryTimeManagerSet(this.getId(), newValue);
         }
     }
     public Settings4Public getSettings() throws PersistenceException {
@@ -201,32 +298,26 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
             ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.settingsSet(this.getId(), newValue);
         }
     }
-    public ReOrderManager4Public getReOrderManager() throws PersistenceException {
-        return this.reOrderManager;
-    }
-    public void setReOrderManager(ReOrderManager4Public newValue) throws PersistenceException {
+    public void setReOrderManager(OwnerServiceReOrderManager4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.reOrderManager)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.reOrderManager = (PersistentReOrderManager)PersistentProxi.createProxi(objectId, classId);
+        this.reOrderManager = (PersistentOwnerServiceReOrderManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.reOrderManagerSet(this.getId(), newValue);
         }
     }
-    public OwnerOrderManager4Public getOwnerOrderManager() throws PersistenceException {
-        return this.ownerOrderManager;
-    }
-    public void setOwnerOrderManager(OwnerOrderManager4Public newValue) throws PersistenceException {
+    public void setOrderManager(OwnerServiceOrderManager4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.ownerOrderManager)) return;
+        if(newValue.isTheSameAs(this.orderManager)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.ownerOrderManager = (PersistentOwnerOrderManager)PersistentProxi.createProxi(objectId, classId);
+        this.orderManager = (PersistentOwnerServiceOrderManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.ownerOrderManagerSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.orderManagerSet(this.getId(), newValue);
         }
     }
     public ReturnManager4Public getReturnManager() throws PersistenceException {
@@ -241,6 +332,20 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.returnManagerSet(this.getId(), newValue);
+        }
+    }
+    public GlobalOrderArchive4Public getOrderArchive() throws PersistenceException {
+        return this.orderArchive;
+    }
+    public void setOrderArchive(GlobalOrderArchive4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.orderArchive)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.orderArchive = (PersistentGlobalOrderArchive)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theOwnerServiceFacade.orderArchiveSet(this.getId(), newValue);
         }
     }
     public PersistentOwnerService getThis() throws PersistenceException {
@@ -312,11 +417,14 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
          return visitor.handleOwnerService(this);
     }
     public int getLeafInfo() throws PersistenceException{
+        if (this.getComponentManager() != null) return 1;
+        if (this.getPrmanager() != null) return 1;
+        if (this.getCustomerDeliveryTimeManager() != null) return 1;
         if (this.getSettings() != null) return 1;
         if (this.getReOrderManager() != null) return 1;
-        if (this.getOwnerOrderManager() != null) return 1;
+        if (this.getOrderManager() != null) return 1;
         if (this.getReturnManager() != null) return 1;
-        if (this.getShop() != null && this.getShop().getTheObject().getLeafInfo() != 0) return 1;
+        if (this.getOrderArchive() != null) return 1;
         return 0;
     }
     
@@ -329,6 +437,16 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
 			getThis().setSubService(subService);
 		}
 		subService.deregister(observee);
+    }
+    public GlobalOrderManager4Public getOrderManager() 
+				throws PersistenceException{
+        if (this.orderManager== null) return null;
+		return this.orderManager.getObservee();
+    }
+    public ReOrderManager4Public getReOrderManager() 
+				throws PersistenceException{
+        if (this.reOrderManager== null) return null;
+		return this.reOrderManager.getObservee();
     }
     public Shop4Public getShop() 
 				throws PersistenceException{
@@ -358,6 +476,22 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
 			getThis().setSubService(subService);
 		}
 		subService.register(observee);
+    }
+    public void setOrderManager(final GlobalOrderManager4Public orderManager) 
+				throws PersistenceException{
+        if (this.orderManager == null) {
+			this.setOrderManager(model.OwnerServiceOrderManager.createOwnerServiceOrderManager(this.isDelayed$Persistence()));
+			this.orderManager.setObserver(getThis());
+		}
+		this.orderManager.setObservee(orderManager);
+    }
+    public void setReOrderManager(final ReOrderManager4Public reOrderManager) 
+				throws PersistenceException{
+        if (this.reOrderManager == null) {
+			this.setReOrderManager(model.OwnerServiceReOrderManager.createOwnerServiceReOrderManager(this.isDelayed$Persistence()));
+			this.reOrderManager.setObserver(getThis());
+		}
+		this.reOrderManager.setObservee(reOrderManager);
     }
     public void setShop(final Shop4Public shop) 
 				throws PersistenceException{
@@ -443,7 +577,8 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
     }
     public void increaseArticleStock(final ArticleWrapper4Public article, final long quantity) 
 				throws PersistenceException{
-        article.getArticle().increaseStock(quantity,getThis());
+        //Method is only for testing
+        article.getArticle().increaseStock(quantity);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -451,10 +586,14 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
 
         getThis().setSettings(Settings.getTheSettings());
         getThis().setReOrderManager(ReOrderManager.getTheReOrderManager());
-        getThis().setOwnerOrderManager(OwnerOrderManager.getTheOwnerOrderManager());
+        getThis().setOrderManager(GlobalOrderManager.getTheGlobalOrderManager());
         getThis().setReturnManager(ReturnManager.getTheReturnManager());
         getThis().setShop(Shop.getTheShop());
-        BackgroundTaskManager.getTheBackgroundTaskManager().startTasks();
+        getThis().setComponentManager(ComponentManager.getTheComponentManager());
+        getThis().setPrmanager(ProducerLst.getTheProducerLst());
+        getThis().setCustomerDeliveryTimeManager(CustomerDeliveryTimeManager.getTheCustomerDeliveryTimeManager());
+
+        getThis().setOrderArchive(GlobalOrderArchive.getTheGlobalOrderArchive());
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
@@ -474,33 +613,32 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
         getThis().getShop().newProductGroup(parent, name, getThis());
 
     }
-    public void newProductGroup(final String name) 
-				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        getThis().getShop().newProductGroup(name);
+    public void orderManager_update(final model.meta.GlobalOrderManagerMssgs event) 
+				throws PersistenceException{
+        //TODO: implement method: orderManager_update
+        
+    }
+    public void reOrderManager_update(final model.meta.ReOrderManagerMssgs event) 
+				throws PersistenceException{
+        getThis().signalChanged(true);
     }
     public void reduceArticleStock(final ArticleWrapper4Public article, final long quantity) 
 				throws model.NotEnoughStockException, PersistenceException{
-        //TODO: implement method: reduceArticleStock
-        
+        //Only for testing
+        article.getArticle().reduceStock(quantity);
     }
-
-    public void startSelling(final ArticleWrapper4Public article) 
+    public void shop_update(final model.meta.ShopMssgs event) 
 				throws PersistenceException{
+        getThis().signalChanged(true);
+    }
+    /* Start of protected part that is not overridden by persistence generator */
+
+    public void startSelling(ArticleWrapper4Public article) throws PersistenceException {
         getThis().getShop().startSelling(article, getThis());
     }
-    public void stopSelling(final ArticleWrapper4Public article) 
-				throws PersistenceException{
-        getThis().getShop().stopSelling(article, getThis());
-    }
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
-    /* Start of protected part that is not overridden by persistence generator */
-    public void shop_update(final model.meta.ShopMssgs event)
-            throws PersistenceException{
-        getThis().signalChanged(true);
+    public void stopSelling(ArticleWrapper4Public article) throws PersistenceException {
+        getThis().getShop().stopSelling(article, getThis());
     }
 
     private boolean filter_startSelling(ArticleWrapper4Public anything) throws PersistenceException {

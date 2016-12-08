@@ -15,6 +15,7 @@ public interface AnythingVisitor extends ArticleStateVisitor,BackgroundTaskVisit
     public void handleCustomerDeliveryTime(CustomerDeliveryTimeView customerDeliveryTime) throws ModelException;
     public void handleCustomerDeliveryTimeManager(CustomerDeliveryTimeManagerView customerDeliveryTimeManager) throws ModelException;
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;
+    public void handleGlobalOrderArchive(GlobalOrderArchiveView globalOrderArchive) throws ModelException;
     public void handleOrder(OrderView order) throws ModelException;
     public void handleProducer(ProducerView producer) throws ModelException;
     public void handleProducerLst(ProducerLstView producerLst) throws ModelException;

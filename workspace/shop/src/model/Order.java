@@ -79,15 +79,6 @@ public class Order extends PersistentObject implements PersistentOrder{
                     if(forGUI && state.hasEssentialFields())state.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
-            AbstractPersistentRoot myOrder = (AbstractPersistentRoot)this.getMyOrder();
-            if (myOrder != null) {
-                result.put("myOrder", myOrder.createProxiInformation(false, essentialLevel <= 1));
-                if(depth > 1) {
-                    myOrder.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && myOrder.hasEssentialFields())myOrder.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -263,7 +254,6 @@ public class Order extends PersistentObject implements PersistentOrder{
     public int getLeafInfo() throws PersistenceException{
         if (this.getCustomerDeliveryTime() != null) return 1;
         if (this.getState() != null) return 1;
-        if (this.getMyOrder() != null) return 1;
         if (this.getArticles().getLength() > 0) return 1;
         return 0;
     }

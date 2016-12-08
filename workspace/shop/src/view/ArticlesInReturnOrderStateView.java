@@ -4,6 +4,8 @@ import view.visitor.*;
 
 public interface ArticlesInReturnOrderStateView extends OrderStatusView {
     
+    public ArticleReturnView getArticleReturn()throws ModelException;
+    public void setArticleReturn(ArticleReturnView newValue) throws ModelException ;
     public long getTicksLeft()throws ModelException;
     public void setTicksLeft(long newValue) throws ModelException ;
     
