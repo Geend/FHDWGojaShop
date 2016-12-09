@@ -49,6 +49,19 @@ public class CustomerDeliveryTimeFacade{
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
     }
+    public CustomerDeliveryTimeSearchList getCustomerDeliveryTimeByName(String name) throws PersistenceException {
+        name = name.replaceAll("%", ".*");
+        name = name.replaceAll("_", ".");
+        CustomerDeliveryTimeSearchList result = new CustomerDeliveryTimeSearchList();
+        java.util.Iterator<?> candidates;
+        candidates = Cache.getTheCache().iterator(234);
+        while (candidates.hasNext()){
+            PersistentCustomerDeliveryTime current = (PersistentCustomerDeliveryTime)((PersistentRoot)candidates.next()).getTheObject();
+            if (current != null && !current.isDltd() && !current.isDelayed$Persistence() && current.getName().matches(name))
+                result.add((PersistentCustomerDeliveryTime)PersistentProxi.createProxi(current.getId(), current.getClassId()));
+        }
+        return result;
+    }
     public void nameSet(long CustomerDeliveryTimeId, String nameVal) throws PersistenceException {
         
     }

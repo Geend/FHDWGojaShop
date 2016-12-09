@@ -211,9 +211,14 @@ public class OwnerServiceConnection extends ServiceConnection {
     }
     
     @SuppressWarnings("unchecked")
-    public synchronized void createCustomerDeliveryTime(String name, common.Fraction price, long time) throws ModelException, DoubleDefinitionException{
+    public synchronized void createCustomerDeliveryTime(CustomerDeliveryTimeManagerView customerDeliveryTimeManager, String name, common.Fraction price, long time) throws ModelException, DoubleDefinitionException, EmptyDefinitionException{
         try {
             Vector<Object> parameters = new Vector<Object>();
+            if (customerDeliveryTimeManager == null){
+                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
+            } else {
+                parameters.add(((view.objects.ViewProxi)customerDeliveryTimeManager).createProxiInformation());
+            }
             parameters.add(name);
             parameters.add(price.toString());
             parameters.add(new Long(time).toString());
@@ -223,6 +228,8 @@ public class OwnerServiceConnection extends ServiceConnection {
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -275)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -450)
+                    throw EmptyDefinitionException.fromHashtableToEmptyDefinitionException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new ModelException ("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")",0);
             }
         }catch(IOException ioe){
@@ -234,9 +241,14 @@ public class OwnerServiceConnection extends ServiceConnection {
     }
     
     @SuppressWarnings("unchecked")
-    public synchronized void createProducer(String name) throws ModelException, DoubleDefinitionException{
+    public synchronized void createProducer(ProducerLstView prmanager, String name) throws ModelException, DoubleDefinitionException, EmptyDefinitionException{
         try {
             Vector<Object> parameters = new Vector<Object>();
+            if (prmanager == null){
+                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
+            } else {
+                parameters.add(((view.objects.ViewProxi)prmanager).createProxiInformation());
+            }
             parameters.add(name);
             java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "createProducer", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
@@ -244,6 +256,8 @@ public class OwnerServiceConnection extends ServiceConnection {
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -275)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -450)
+                    throw EmptyDefinitionException.fromHashtableToEmptyDefinitionException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new ModelException ("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")",0);
             }
         }catch(IOException ioe){

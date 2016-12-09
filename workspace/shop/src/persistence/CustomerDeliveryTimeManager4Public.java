@@ -21,7 +21,7 @@ public interface CustomerDeliveryTimeManager4Public extends Anything, SubjInterf
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public CustomerDeliveryTime4Public createCustomerDeliveryTime(final String name, final common.Fraction price, final long time) 
-				throws model.DoubleDefinitionException, PersistenceException;
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 

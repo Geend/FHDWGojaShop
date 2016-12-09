@@ -350,8 +350,20 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
         Order4Public order = Order.createOrder(customerDeliveryTime, ProcessingOrderState.createProcessingOrderState());
 
         cart.getArticles().applyToAllException(shoppingCartQuantifiedArticle -> {
-
             ArticleWrapper4Public articleWrapper = shoppingCartQuantifiedArticle.getArticle();
+
+
+            Fraction perArticlePrice = shoppingCartQuantifiedArticle.getArticle().getArticle().getPrice();
+
+            OrderQuantifiedArticle4Public orderQuantifiedArticle =
+                    OrderQuantifiedArticle.createOrderQuantifiedArticle(
+                            shoppingCartQuantifiedArticle.getQuantity(),
+                            articleWrapper,
+                            perArticlePrice);
+
+            order.addArticle(orderQuantifiedArticle);
+
+
 
             Long requestedQuantity = shoppingCartQuantifiedArticle.getQuantity();
             Long currentStock =  shoppingCartQuantifiedArticle.getArticle().getArticle().getCurrentStock();
@@ -370,6 +382,7 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
                     throw new Error(e);
                 }
 
+                orderQuantifiedArticle.setState(OrderQuantifiedArticlePreOrder.createOrderQuantifiedArticlePreOrder(diff));
                 //Order what we still need + enough to have maxStock after delivery of the preOrder
                 ReOrderManager.getTheReOrderManager().reOrderForPreorder(articleWrapper, diff + articleWrapper.getArticle().getMaxStock());
 
@@ -385,15 +398,7 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
                 }
             }
 
-            Fraction perArticlePrice = shoppingCartQuantifiedArticle.getArticle().getArticle().getPrice();
 
-            OrderQuantifiedArticle4Public orderQuantifiedArticle =
-                    OrderQuantifiedArticle.createOrderQuantifiedArticle(
-                            shoppingCartQuantifiedArticle.getQuantity(),
-                            articleWrapper,
-                            perArticlePrice);
-
-            order.addArticle(orderQuantifiedArticle);
 
 
 

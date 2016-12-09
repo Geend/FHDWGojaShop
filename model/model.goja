@@ -27,7 +27,7 @@ server OwnerService extends Service {
 	GlobalOrderArchive orderArchive;
 
 	//Producer
-	void createProducer@@Hersteller_anlegen(String name) throws DoubleDefinitionException;
+	void createProducer@@Hersteller_anlegen(ProducerLst prmanager, String name) throws DoubleDefinitionException, EmptyDefinitionException;
 
 	//Articles
 	//TODO: Prevent article creation with same name and producer
@@ -49,7 +49,7 @@ server OwnerService extends Service {
 
 
 	//Customer Delivery Time
-	void createCustomerDeliveryTime@@Neue_Kundenlieferzeit(String name, Fraction price, Integer time) throws DoubleDefinitionException;
+	void createCustomerDeliveryTime@@Neue_Kundenlieferzeit(CustomerDeliveryTimeManager customerDeliveryTimeManager, String name, Fraction price, Integer time) throws DoubleDefinitionException, EmptyDefinitionException;
 	no-view void changeCustomerDeliveryTimePrice(CustomerDeliveryTime customerDeliveryTime, Fraction newValue);
 	no-view void changeCustomerDeliveryTimeTime(CustomerDeliveryTime customerDeliveryTime, Integer newValue);
 
@@ -90,8 +90,8 @@ server CustomerService extends Service {
 	void preOrder@@Vorbestellen(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime@@Versandart) throws NotEnoughMoneyException, EmptyCartException;
 	
 	void acceptOrder@@Lieferung_annehmen(Order order);
-	void markForReturn@@Als_Retour_markieren(OrderQuantifiedArticle article);
-	void unmarkForReturn@@Retour_markierung_entfernen(OrderQuantifiedArticle article);
+	void markForReturn@@Als_Retour_markieren(OrderQuantifiedArticle article checked);
+	void unmarkForReturn@@Retour_markierung_entfernen(OrderQuantifiedArticle article checked);
 
 	//Money
 	void deposit@@Einzahlen(Fraction amount);
@@ -118,7 +118,7 @@ singleton Shop{
 
 	//---Owner Operations---
 	//Producer
-	event Producer createProducer(String name) throws DoubleDefinitionException;
+	event Producer createProducer(String name) throws DoubleDefinitionException, EmptyDefinitionException;
 
 	//Articles
 	//TODO: Prevent article creation with same name and producer
@@ -135,7 +135,7 @@ singleton Shop{
 	active event void stopSelling(ArticleWrapper article);
 
 	//Customer Delivery Time
-	active event void createCustomerDeliveryTime##ccdt(String name, Fraction price, Integer time) throws DoubleDefinitionException;
+	active event void createCustomerDeliveryTime##ccdt(String name, Fraction price, Integer time) throws DoubleDefinitionException, EmptyDefinitionException;
 	active event void changeCustomerDeliveryTimePrice##ccdtp(CustomerDeliveryTime customerDeliveryTime, Fraction newValue);
 	active event void changeCustomerDeliveryTimeTime##ccdtt(CustomerDeliveryTime customerDeliveryTime, Integer newValue);
 
@@ -169,12 +169,12 @@ class CustomerArticleLst##cal {
 
 singleton ProducerLst {
 	public Producer ** currentProducer##currProd;
-	active Producer createProducer(String name) throws DoubleDefinitionException;
+	active Producer createProducer(String name) throws DoubleDefinitionException, EmptyDefinitionException;
 }
 
 singleton CustomerDeliveryTimeManager##cdtm {
 	public CustomerDeliveryTime ** customerDeliveryTimes##cdts;
-	CustomerDeliveryTime createCustomerDeliveryTime##ccdt(String name, Fraction price, Integer time) throws DoubleDefinitionException;
+	CustomerDeliveryTime createCustomerDeliveryTime##ccdt(String name, Fraction price, Integer time) throws DoubleDefinitionException, EmptyDefinitionException;
 }
 
 singleton Settings{
@@ -184,7 +184,7 @@ singleton Settings{
 }
 
 singleton ReOrderManager covers BackgroundTask{
-	observe ReOrderQuantifiedArticle ** reorderArticles;
+	ReOrderQuantifiedArticle ** reorderArticles;
 
 	//Reorders enough aricles to get back to maxStock
 	void reOrderIfNecessary##roin(ArticleWrapper article);
@@ -192,7 +192,9 @@ singleton ReOrderManager covers BackgroundTask{
 	//Reorders <<quantity>> amount of articles (used for preorders only)
 	void reOrderForPreorder##rofp(ArticleWrapper article, Integer quantity);
 
-	event	void fireChange(extern model.meta.ReOrderQuantifiedArticleMssgs evnt);
+
+
+	event void doReorderStep();
 }
 
 abstract class OrderManager{
@@ -222,7 +224,7 @@ singleton BackgroundTaskManager##btm{
 abstract class BackgroundTask{
 	void startTask(Integer tickTime);
 	void stopTask();
-	abstract event void step();
+	abstract void step();
 }
 
 singleton GlobalOrderManager##oom extends OrderManager covers BackgroundTask{
@@ -230,6 +232,12 @@ singleton GlobalOrderManager##oom extends OrderManager covers BackgroundTask{
 
 	//Set the state of the order to FinishedOrderState, removes the order from the GlobalOrderManager and adds it to the GlobalOrderArchive
 	void finishOrder(Order order);
+
+	event void handleOrderArticlesInReturnOrderState(Order order, ArticlesInReturnOrderState articlesInReturnOrderState);
+	event void handleOrderInTransitOrderState(Order order, InTransitOrderState inTransitOrderState);
+	event void handleOrderPreOrderState(Order order, PreOrderState preOrderState);
+	event void handleOrderWaitingForAcceptOrderState(Order order, WaitingForAcceptOrderState waitingForAcceptOrderState);
+
 }
 
 singleton GlobalOrderArchive##ooa{
@@ -391,7 +399,7 @@ class CustomerAccount{
 
 
 class CustomerDeliveryTime{
-	prior public String name;
+	prior public indexed String name;
 	prior public-write Fraction price;
 	prior public-write Integer deliveryTime;
 }

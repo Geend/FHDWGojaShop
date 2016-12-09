@@ -95,7 +95,7 @@ public class ShopProxi extends PersistentProxi implements PersistentShop{
         ((PersistentShop)this.getTheObject()).changeCustomerDeliveryTimeTime(customerDeliveryTime, newValue, invoker);
     }
     public void createCustomerDeliveryTime(final String name, final common.Fraction price, final long time) 
-				throws model.DoubleDefinitionException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
         ((PersistentShop)this.getTheObject()).createCustomerDeliveryTime(name, price, time);
     }
     public void createCustomerDeliveryTime(final String name, final common.Fraction price, final long time, final Invoker invoker) 
@@ -103,7 +103,7 @@ public class ShopProxi extends PersistentProxi implements PersistentShop{
         ((PersistentShop)this.getTheObject()).createCustomerDeliveryTime(name, price, time, invoker);
     }
     public Producer4Public createProducer(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
         return ((PersistentShop)this.getTheObject()).createProducer(name);
     }
     public void deregister(final ObsInterface observee) 
@@ -203,11 +203,11 @@ public class ShopProxi extends PersistentProxi implements PersistentShop{
         ((PersistentShop)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
     public void createCustomerDeliveryTimeImplementation(final String name, final common.Fraction price, final long time) 
-				throws model.DoubleDefinitionException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
         ((PersistentShop)this.getTheObject()).createCustomerDeliveryTimeImplementation(name, price, time);
     }
     public Producer4Public createProducerImplementation(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
         return ((PersistentShop)this.getTheObject()).createProducerImplementation(name);
     }
     public void initializeOnCreation() 

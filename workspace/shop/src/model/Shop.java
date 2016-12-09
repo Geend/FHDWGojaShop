@@ -247,7 +247,7 @@ public class Shop extends PersistentObject implements PersistentShop{
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public void createCustomerDeliveryTime(final String name, final common.Fraction price, final long time) 
-				throws model.DoubleDefinitionException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
         model.meta.ShopCreateCustomerDeliveryTimeStringFractionIntegerMssg event = new model.meta.ShopCreateCustomerDeliveryTimeStringFractionIntegerMssg(name, price, time, getThis());
 		event.execute();
 		getThis().updateObservers(event);
@@ -262,7 +262,7 @@ public class Shop extends PersistentObject implements PersistentShop{
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public Producer4Public createProducer(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
         model.meta.ShopCreateProducerStringMssg event = new model.meta.ShopCreateProducerStringMssg(name, getThis());
 		event.execute();
 		getThis().updateObservers(event);
@@ -449,11 +449,11 @@ public class Shop extends PersistentObject implements PersistentShop{
 
     }
     public void createCustomerDeliveryTimeImplementation(final String name, final common.Fraction price, final long time) 
-				throws model.DoubleDefinitionException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
         CustomerDeliveryTimeManager.getTheCustomerDeliveryTimeManager().createCustomerDeliveryTime(name, price, time);
     }
     public Producer4Public createProducerImplementation(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
         return ProducerLst.getTheProducerLst().createProducer(name);
     }
     public void initializeOnCreation() 

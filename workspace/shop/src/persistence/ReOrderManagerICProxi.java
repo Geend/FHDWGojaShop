@@ -22,8 +22,8 @@ public class ReOrderManagerICProxi extends PersistentInCacheProxiOptimistic impl
         return 327;
     }
     
-    public void setReorderArticles(ReOrderManagerReorderArticles4Public newValue) throws PersistenceException {
-        ((PersistentReOrderManager)this.getTheObject()).setReorderArticles(newValue);
+    public ReOrderManager_ReorderArticlesProxi getReorderArticles() throws PersistenceException {
+        return ((PersistentReOrderManager)this.getTheObject()).getReorderArticles();
     }
     public BackgroundTask4Public getMyCONCBackgroundTask() throws PersistenceException {
         return ((PersistentReOrderManager)this.getTheObject()).getMyCONCBackgroundTask();
@@ -83,13 +83,9 @@ public class ReOrderManagerICProxi extends PersistentInCacheProxiOptimistic impl
 				throws PersistenceException{
         ((PersistentReOrderManager)this.getTheObject()).deregister(observee);
     }
-    public void fireChange(final model.meta.ReOrderQuantifiedArticleMssgs evnt) 
+    public void doReorderStep() 
 				throws PersistenceException{
-        ((PersistentReOrderManager)this.getTheObject()).fireChange(evnt);
-    }
-    public ReOrderManagerReorderArticles4Public getReorderArticles() 
-				throws PersistenceException{
-        return ((PersistentReOrderManager)this.getTheObject()).getReorderArticles();
+        ((PersistentReOrderManager)this.getTheObject()).doReorderStep();
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -99,10 +95,6 @@ public class ReOrderManagerICProxi extends PersistentInCacheProxiOptimistic impl
 				throws PersistenceException{
         ((PersistentReOrderManager)this.getTheObject()).register(observee);
     }
-    public void step() 
-				throws PersistenceException{
-        ((PersistentReOrderManager)this.getTheObject()).step();
-    }
     public void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         ((PersistentReOrderManager)this.getTheObject()).updateObservers(event);
@@ -111,9 +103,9 @@ public class ReOrderManagerICProxi extends PersistentInCacheProxiOptimistic impl
 				throws PersistenceException{
         ((PersistentReOrderManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public void fireChangeImplementation(final model.meta.ReOrderQuantifiedArticleMssgs evnt) 
+    public void doReorderStepImplementation() 
 				throws PersistenceException{
-        ((PersistentReOrderManager)this.getTheObject()).fireChangeImplementation(evnt);
+        ((PersistentReOrderManager)this.getTheObject()).doReorderStepImplementation();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -131,17 +123,13 @@ public class ReOrderManagerICProxi extends PersistentInCacheProxiOptimistic impl
 				throws PersistenceException{
         ((PersistentReOrderManager)this.getTheObject()).reOrderIfNecessary(article);
     }
-    public void reorderArticles_update(final model.meta.ReOrderQuantifiedArticleMssgs event) 
-				throws PersistenceException{
-        ((PersistentReOrderManager)this.getTheObject()).reorderArticles_update(event);
-    }
     public void startTask(final long tickTime) 
 				throws PersistenceException{
         ((PersistentReOrderManager)this.getTheObject()).startTask(tickTime);
     }
-    public void stepImplementation() 
+    public void step() 
 				throws PersistenceException{
-        ((PersistentReOrderManager)this.getTheObject()).stepImplementation();
+        ((PersistentReOrderManager)this.getTheObject()).step();
     }
     public void stopTask() 
 				throws PersistenceException{

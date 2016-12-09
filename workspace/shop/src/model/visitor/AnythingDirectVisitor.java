@@ -122,8 +122,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleCustomerServiceShop(CustomerServiceShop4Public customerServiceShop) throws PersistenceException;
     
-    public abstract void handleReOrderManagerReorderArticles(ReOrderManagerReorderArticles4Public reOrderManagerReorderArticles) throws PersistenceException;
-    
     public abstract void handleShop(Shop4Public shop) throws PersistenceException;
     
     public abstract void handleProducer(Producer4Public producer) throws PersistenceException;

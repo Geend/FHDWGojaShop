@@ -610,48 +610,52 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
                 result.getItems().add(item);
             }
             if (selected instanceof OrderQuantifiedArticleView){
-                item = new MarkForReturnPRMTROrderQuantifiedArticlePRMTRMenuItem();
-                item.setText("Als Retour markieren");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        Alert confirm = new Alert(AlertType.CONFIRMATION);
-                        confirm.setTitle(GUIConstants.ConfirmButtonText);
-                        confirm.setHeaderText(null);
-                        confirm.setContentText("Als Retour markieren" + GUIConstants.ConfirmQuestionMark);
-                        Optional<ButtonType> buttonResult = confirm.showAndWait();
-                        if (buttonResult.get() == ButtonType.OK) {
-                            try {
-                                getConnection().markForReturn((OrderQuantifiedArticleView)selected);
-                                getConnection().setEagerRefresh();
-                                
-                            }catch(ModelException me){
-                                handleException(me);
+                if (filter_markForReturn((OrderQuantifiedArticleView) selected)) {
+                    item = new MarkForReturnPRMTROrderQuantifiedArticlePRMTRMenuItem();
+                    item.setText("Als Retour markieren");
+                    item.setOnAction(new EventHandler<ActionEvent>(){
+                        public void handle(javafx.event.ActionEvent e) {
+                            Alert confirm = new Alert(AlertType.CONFIRMATION);
+                            confirm.setTitle(GUIConstants.ConfirmButtonText);
+                            confirm.setHeaderText(null);
+                            confirm.setContentText("Als Retour markieren" + GUIConstants.ConfirmQuestionMark);
+                            Optional<ButtonType> buttonResult = confirm.showAndWait();
+                            if (buttonResult.get() == ButtonType.OK) {
+                                try {
+                                    getConnection().markForReturn((OrderQuantifiedArticleView)selected);
+                                    getConnection().setEagerRefresh();
+                                    
+                                }catch(ModelException me){
+                                    handleException(me);
+                                }
                             }
                         }
-                    }
-                });
-                result.getItems().add(item);
-                item = new UnmarkForReturnPRMTROrderQuantifiedArticlePRMTRMenuItem();
-                item.setText("Retour markierung entfernen");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        Alert confirm = new Alert(AlertType.CONFIRMATION);
-                        confirm.setTitle(GUIConstants.ConfirmButtonText);
-                        confirm.setHeaderText(null);
-                        confirm.setContentText("Retour markierung entfernen" + GUIConstants.ConfirmQuestionMark);
-                        Optional<ButtonType> buttonResult = confirm.showAndWait();
-                        if (buttonResult.get() == ButtonType.OK) {
-                            try {
-                                getConnection().unmarkForReturn((OrderQuantifiedArticleView)selected);
-                                getConnection().setEagerRefresh();
-                                
-                            }catch(ModelException me){
-                                handleException(me);
+                    });
+                    result.getItems().add(item);
+                }
+                if (filter_unmarkForReturn((OrderQuantifiedArticleView) selected)) {
+                    item = new UnmarkForReturnPRMTROrderQuantifiedArticlePRMTRMenuItem();
+                    item.setText("Retour markierung entfernen");
+                    item.setOnAction(new EventHandler<ActionEvent>(){
+                        public void handle(javafx.event.ActionEvent e) {
+                            Alert confirm = new Alert(AlertType.CONFIRMATION);
+                            confirm.setTitle(GUIConstants.ConfirmButtonText);
+                            confirm.setHeaderText(null);
+                            confirm.setContentText("Retour markierung entfernen" + GUIConstants.ConfirmQuestionMark);
+                            Optional<ButtonType> buttonResult = confirm.showAndWait();
+                            if (buttonResult.get() == ButtonType.OK) {
+                                try {
+                                    getConnection().unmarkForReturn((OrderQuantifiedArticleView)selected);
+                                    getConnection().setEagerRefresh();
+                                    
+                                }catch(ModelException me){
+                                    handleException(me);
+                                }
                             }
                         }
-                    }
-                });
-                result.getItems().add(item);
+                    });
+                    result.getItems().add(item);
+                }
             }
             if (selected instanceof ShoppingCartView){
                 item = new OrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem();
@@ -782,8 +786,14 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
     private void setPreCalculatedFilters(String switchOff) {
         this.preCalculatedFilters = switchOff;
     }
+    private boolean filter_markForReturn(OrderQuantifiedArticleView argument){
+        return this.getPreCalculatedFilters().contains("+++markForReturnPRMTROrderQuantifiedArticlePRMTR");
+    }
     private boolean filter_addToCart(ArticleWrapperView argument){
         return this.getPreCalculatedFilters().contains("+++addToCartPRMTRArticleWrapperPRMTRIntegerPRMTR");
+    }
+    private boolean filter_unmarkForReturn(OrderQuantifiedArticleView argument){
+        return this.getPreCalculatedFilters().contains("+++unmarkForReturnPRMTROrderQuantifiedArticlePRMTR");
     }
     
 	class CustomerServiceAddToCartArticleWrapperIntegerMssgWizard extends Wizard {

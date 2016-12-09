@@ -338,11 +338,6 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new CustomerServiceShopICProxi(objectId);
             }
         };
-        iCProxiFactories[331] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new ReOrderManagerReorderArticlesICProxi(objectId);
-            }
-        };
         iCProxiFactories[334] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new PreOrderCartCommandICProxi(objectId);

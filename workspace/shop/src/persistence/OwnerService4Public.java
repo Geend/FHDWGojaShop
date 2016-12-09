@@ -49,10 +49,10 @@ public interface OwnerService4Public extends Service4Public {
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
-    public void createCustomerDeliveryTime(final String name, final common.Fraction price, final long time) 
-				throws model.DoubleDefinitionException, PersistenceException;
-    public void createProducer(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException;
+    public void createCustomerDeliveryTime(final CustomerDeliveryTimeManager4Public customerDeliveryTimeManager, final String name, final common.Fraction price, final long time) 
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException;
+    public void createProducer(final ProducerLst4Public prmanager, final String name) 
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException;
     public Article4Public getArticle(final ArticleWrapper4Public wrapper) 
 				throws PersistenceException;
     public void increaseArticleStock(final ArticleWrapper4Public article, final long quantity) 

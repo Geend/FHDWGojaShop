@@ -221,13 +221,13 @@ public class OwnerServiceICProxi extends ServiceICProxi implements PersistentOwn
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public void createCustomerDeliveryTime(final String name, final common.Fraction price, final long time) 
-				throws model.DoubleDefinitionException, PersistenceException{
-        ((PersistentOwnerService)this.getTheObject()).createCustomerDeliveryTime(name, price, time);
+    public void createCustomerDeliveryTime(final CustomerDeliveryTimeManager4Public customerDeliveryTimeManager, final String name, final common.Fraction price, final long time) 
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
+        ((PersistentOwnerService)this.getTheObject()).createCustomerDeliveryTime(customerDeliveryTimeManager, name, price, time);
     }
-    public void createProducer(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
-        ((PersistentOwnerService)this.getTheObject()).createProducer(name);
+    public void createProducer(final ProducerLst4Public prmanager, final String name) 
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
+        ((PersistentOwnerService)this.getTheObject()).createProducer(prmanager, name);
     }
     public void disconnected() 
 				throws PersistenceException{

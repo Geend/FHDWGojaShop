@@ -108,27 +108,33 @@ public  class RemoteOwnerService extends RemoteService {
         }
     }
     
-    public synchronized java.util.HashMap<?,?> createCustomerDeliveryTime(String name, String priceAsString, String timeAsString){
+    public synchronized java.util.HashMap<?,?> createCustomerDeliveryTime(String customerDeliveryTimeManagerProxiString, String name, String priceAsString, String timeAsString){
         try {
+            PersistentCustomerDeliveryTimeManager customerDeliveryTimeManager = (PersistentCustomerDeliveryTimeManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(customerDeliveryTimeManagerProxiString));
             common.Fraction price = common.Fraction.parse(priceAsString);
             long time = new Long(timeAsString).longValue();
-            ((PersistentOwnerService)this.server).createCustomerDeliveryTime(name, price, time);
+            ((PersistentOwnerService)this.server).createCustomerDeliveryTime(customerDeliveryTimeManager, name, price, time);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
         }catch(model.DoubleDefinitionException e0){
             return createExceptionResult(e0, this);
+        }catch(model.EmptyDefinitionException e1){
+            return createExceptionResult(e1, this);
         }
     }
     
-    public synchronized java.util.HashMap<?,?> createProducer(String name){
+    public synchronized java.util.HashMap<?,?> createProducer(String prmanagerProxiString, String name){
         try {
-            ((PersistentOwnerService)this.server).createProducer(name);
+            PersistentProducerLst prmanager = (PersistentProducerLst)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(prmanagerProxiString));
+            ((PersistentOwnerService)this.server).createProducer(prmanager, name);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
         }catch(model.DoubleDefinitionException e0){
             return createExceptionResult(e0, this);
+        }catch(model.EmptyDefinitionException e1){
+            return createExceptionResult(e1, this);
         }
     }
     

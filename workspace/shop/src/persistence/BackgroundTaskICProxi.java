@@ -34,10 +34,6 @@ public abstract class BackgroundTaskICProxi extends PersistentInCacheProxiOptimi
 				throws PersistenceException{
         ((PersistentBackgroundTask)this.getTheObject()).register(observee);
     }
-    public void step() 
-				throws PersistenceException{
-        ((PersistentBackgroundTask)this.getTheObject()).step();
-    }
     public void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         ((PersistentBackgroundTask)this.getTheObject()).updateObservers(event);
@@ -58,9 +54,9 @@ public abstract class BackgroundTaskICProxi extends PersistentInCacheProxiOptimi
 				throws PersistenceException{
         ((PersistentBackgroundTask)this.getTheObject()).startTask(tickTime);
     }
-    public void stepImplementation() 
+    public void step() 
 				throws PersistenceException{
-        ((PersistentBackgroundTask)this.getTheObject()).stepImplementation();
+        ((PersistentBackgroundTask)this.getTheObject()).step();
     }
     public void stopTask() 
 				throws PersistenceException{

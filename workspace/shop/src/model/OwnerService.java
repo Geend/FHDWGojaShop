@@ -3,7 +3,6 @@ package model;
 
 import common.Fraction;
 import model.meta.BackgroundTaskStepMssg;
-import model.meta.ReOrderManagerFireChangeReOrderQuantifiedArticleMssgsMssg;
 import model.meta.ReOrderManagerMssgsVisitor;
 import model.meta.ShopAcceptOrderCustomerOrderManagerOrderMssg;
 import model.meta.ShopChangeArticleNameArticleWrapperStringMssg;
@@ -581,15 +580,14 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
     }
-    public void createCustomerDeliveryTime(final String name, final common.Fraction price, final long time) 
-				throws model.DoubleDefinitionException, PersistenceException{
-
+    public void createCustomerDeliveryTime(final CustomerDeliveryTimeManager4Public customerDeliveryTimeManager, final String name, final common.Fraction price, final long time) 
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
         getThis().getShop().createCustomerDeliveryTime(name, price, time, getThis());
+        
     }
-    public void createProducer(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
+    public void createProducer(final ProducerLst4Public prmanager, final String name) 
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
         getThis().getShop().createProducer(name);
-
     }
     public void disconnected() 
 				throws PersistenceException{
@@ -643,17 +641,7 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
     }
     public void reOrderManager_update(final model.meta.ReOrderManagerMssgs event) 
 				throws PersistenceException{
-        event.accept(new ReOrderManagerMssgsVisitor() {
-            @Override
-            public void handleBackgroundTaskStepMssg(BackgroundTaskStepMssg event) throws PersistenceException {
 
-            }
-
-            @Override
-            public void handleReOrderManagerFireChangeReOrderQuantifiedArticleMssgsMssg(ReOrderManagerFireChangeReOrderQuantifiedArticleMssgsMssg event) throws PersistenceException {
-
-            }
-        });
         getThis().signalChanged(true);
     }
     public void reduceArticleStock(final ArticleWrapper4Public article, final long quantity) 

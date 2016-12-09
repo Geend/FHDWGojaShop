@@ -23,7 +23,7 @@ public interface ProducerLst4Public extends Anything, SubjInterface, AbstractPer
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public Producer4Public createProducer(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException;
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 

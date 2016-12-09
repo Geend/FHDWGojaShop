@@ -72,10 +72,6 @@ public class CONCBackgroundTaskProxi extends BackgroundTaskProxi implements Pers
 				throws PersistenceException{
         ((PersistentCONCBackgroundTask)this.getTheObject()).register(observee);
     }
-    public void step() 
-				throws PersistenceException{
-        ((PersistentCONCBackgroundTask)this.getTheObject()).step();
-    }
     public void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         ((PersistentCONCBackgroundTask)this.getTheObject()).updateObservers(event);
@@ -96,9 +92,9 @@ public class CONCBackgroundTaskProxi extends BackgroundTaskProxi implements Pers
 				throws PersistenceException{
         ((PersistentCONCBackgroundTask)this.getTheObject()).startTask(tickTime);
     }
-    public void stepImplementation() 
+    public void step() 
 				throws PersistenceException{
-        ((PersistentCONCBackgroundTask)this.getTheObject()).stepImplementation();
+        ((PersistentCONCBackgroundTask)this.getTheObject()).step();
     }
     public void stopTask() 
 				throws PersistenceException{

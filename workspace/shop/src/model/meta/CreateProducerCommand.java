@@ -239,6 +239,9 @@ public class CreateProducerCommand extends PersistentObject implements Persisten
 		catch(model.DoubleDefinitionException e){
 			this.commandException = e;
 		}
+		catch(model.EmptyDefinitionException e){
+			this.commandException = e;
+		}
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{

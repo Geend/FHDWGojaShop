@@ -100,13 +100,6 @@ public abstract class BackgroundTask extends PersistentObject implements Persist
 		if(this.isTheSameAs(This)){
 		}
     }
-    public void step() 
-				throws PersistenceException{
-        model.meta.BackgroundTaskStepMssg event = new model.meta.BackgroundTaskStepMssg(getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
-    }
     
     
     // Start of section that contains operations that must be implemented.

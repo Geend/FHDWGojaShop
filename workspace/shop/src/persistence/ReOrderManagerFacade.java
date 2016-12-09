@@ -26,7 +26,7 @@ public class ReOrderManagerFacade{
 
     public PersistentReOrderManager getTheReOrderManager() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theReOrderManagerFacade.getNextId();
-        ReOrderManager result = new ReOrderManager(null, null, null, id);
+        ReOrderManager result = new ReOrderManager(null, null, id);
         PersistentInCacheProxi cached = Cache.getTheCache().putSingleton(result);
         return (PersistentReOrderManager)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().isTheSameAs(result) ? -1 : 1), 327);
     }
@@ -40,8 +40,14 @@ public class ReOrderManagerFacade{
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
     }
-    public void reorderArticlesSet(long ReOrderManagerId, ReOrderManagerReorderArticles4Public reorderArticlesVal) throws PersistenceException {
+    public long reorderArticlesAdd(long ReOrderManagerId, ReOrderQuantifiedArticle4Public reorderArticlesVal) throws PersistenceException {
+        return 0;
+    }
+    public void reorderArticlesRem(long reorderArticlesId) throws PersistenceException {
         
+    }
+    public ReOrderQuantifiedArticleList reorderArticlesGet(long ReOrderManagerId) throws PersistenceException {
+        return new ReOrderQuantifiedArticleList(); // remote access for initialization only!
     }
     public void ThisSet(long ReOrderManagerId, ReOrderManager4Public ThisVal) throws PersistenceException {
         

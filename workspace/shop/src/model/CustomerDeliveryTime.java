@@ -72,6 +72,11 @@ public class CustomerDeliveryTime extends PersistentObject implements Persistent
         return result;
     }
     
+    public static CustomerDeliveryTimeSearchList getCustomerDeliveryTimeByName(String name) throws PersistenceException{
+        return ConnectionHandler.getTheConnectionHandler().theCustomerDeliveryTimeFacade
+            .getCustomerDeliveryTimeByName(name);
+    }
+    
     public CustomerDeliveryTime provideCopy() throws PersistenceException{
         CustomerDeliveryTime result = this;
         result = new CustomerDeliveryTime(this.name, 

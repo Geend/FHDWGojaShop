@@ -200,9 +200,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCustomerServiceShop(CustomerServiceShop4Public customerServiceShop) throws PersistenceException{
         this.standardHandling(customerServiceShop);
     }
-    public void handleReOrderManagerReorderArticles(ReOrderManagerReorderArticles4Public reOrderManagerReorderArticles) throws PersistenceException{
-        this.standardHandling(reOrderManagerReorderArticles);
-    }
     public void handlePreOrderCartCommand(PreOrderCartCommand4Public preOrderCartCommand) throws PersistenceException{
         this.standardHandling(preOrderCartCommand);
     }

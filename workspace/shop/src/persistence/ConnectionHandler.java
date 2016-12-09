@@ -133,7 +133,6 @@ public class ConnectionHandler {
     public OwnerServiceOrderManagerFacade theOwnerServiceOrderManagerFacade;
     public SubjFacade theSubjFacade;
     public CustomerServiceShopFacade theCustomerServiceShopFacade;
-    public ReOrderManagerReorderArticlesFacade theReOrderManagerReorderArticlesFacade;
     public PreOrderCartCommandFacade thePreOrderCartCommandFacade;
     public ShoppingCartFacade theShoppingCartFacade;
     public OwnerServiceReOrderManagerFacade theOwnerServiceReOrderManagerFacade;
@@ -221,7 +220,6 @@ public class ConnectionHandler {
             this.theOwnerServiceOrderManagerFacade= new OwnerServiceOrderManagerFacade();
             this.theSubjFacade= new SubjFacade();
             this.theCustomerServiceShopFacade= new CustomerServiceShopFacade();
-            this.theReOrderManagerReorderArticlesFacade= new ReOrderManagerReorderArticlesFacade();
             this.thePreOrderCartCommandFacade= new PreOrderCartCommandFacade();
             this.theShoppingCartFacade= new ShoppingCartFacade();
             this.theOwnerServiceReOrderManagerFacade= new OwnerServiceReOrderManagerFacade();

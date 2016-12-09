@@ -201,6 +201,34 @@ public class GlobalOrderManager extends model.OrderManager implements Persistent
 		}
 		subService.deregister(observee);
     }
+    public void handleOrderArticlesInReturnOrderState(final Order4Public order, final ArticlesInReturnOrderState4Public articlesInReturnOrderState) 
+				throws PersistenceException{
+        model.meta.GlobalOrderManagerHandleOrderArticlesInReturnOrderStateOrderArticlesInReturnOrderStateMssg event = new model.meta.GlobalOrderManagerHandleOrderArticlesInReturnOrderStateOrderArticlesInReturnOrderStateMssg(order, articlesInReturnOrderState, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
+    public void handleOrderInTransitOrderState(final Order4Public order, final InTransitOrderState4Public inTransitOrderState) 
+				throws PersistenceException{
+        model.meta.GlobalOrderManagerHandleOrderInTransitOrderStateOrderInTransitOrderStateMssg event = new model.meta.GlobalOrderManagerHandleOrderInTransitOrderStateOrderInTransitOrderStateMssg(order, inTransitOrderState, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
+    public void handleOrderPreOrderState(final Order4Public order, final PreOrderState4Public preOrderState) 
+				throws PersistenceException{
+        model.meta.GlobalOrderManagerHandleOrderPreOrderStateOrderPreOrderStateMssg event = new model.meta.GlobalOrderManagerHandleOrderPreOrderStateOrderPreOrderStateMssg(order, preOrderState, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
+    public void handleOrderWaitingForAcceptOrderState(final Order4Public order, final WaitingForAcceptOrderState4Public waitingForAcceptOrderState) 
+				throws PersistenceException{
+        model.meta.GlobalOrderManagerHandleOrderWaitingForAcceptOrderStateOrderWaitingForAcceptOrderStateMssg event = new model.meta.GlobalOrderManagerHandleOrderWaitingForAcceptOrderStateOrderWaitingForAcceptOrderStateMssg(order, waitingForAcceptOrderState, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentGlobalOrderManager)This);
@@ -217,10 +245,6 @@ public class GlobalOrderManager extends model.OrderManager implements Persistent
 			getThis().setSubService(subService);
 		}
 		subService.register(observee);
-    }
-    public void step() 
-				throws PersistenceException{
-        this.getMyCONCBackgroundTask().step();
     }
     public synchronized void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
@@ -250,6 +274,97 @@ public class GlobalOrderManager extends model.OrderManager implements Persistent
         getThis().getOrders().filter(x -> !x.equals(order));
         GlobalOrderArchive.getTheGlobalOrderArchive().addOrder(order);
     }
+    public void handleOrderArticlesInReturnOrderStateImplementation(final Order4Public order, final ArticlesInReturnOrderState4Public articlesInReturnOrderState) 
+				throws PersistenceException{
+        if (articlesInReturnOrderState.getTicksLeft() == 1) {
+
+            articlesInReturnOrderState.getArticleReturn().getReturnArticles().applyToAll(article -> {
+                article.getArticle().getArticle().increaseStock(article.getQuantity());
+            });
+            ReturnManager.getTheReturnManager().removeArticleReturn(articlesInReturnOrderState.getArticleReturn());
+            order.setState(FinishedOrderState.createFinishedOrderState());
+
+        } else {
+            articlesInReturnOrderState.setTicksLeft(articlesInReturnOrderState.getTicksLeft() - 1);
+        }
+    }
+    public void handleOrderInTransitOrderStateImplementation(final Order4Public order, final InTransitOrderState4Public inTransitOrderState) 
+				throws PersistenceException{
+        if (inTransitOrderState.getTicksLeft() == 1) {
+            order.setState(WaitingForAcceptOrderState.createWaitingForAcceptOrderState(ShopConstants.CUSTOMER_DELIVERY_ACCEPT_TIME));
+        } else {
+            inTransitOrderState.setTicksLeft(inTransitOrderState.getTicksLeft() - 1);
+        }
+    }
+    public void handleOrderPreOrderStateImplementation(final Order4Public order, final PreOrderState4Public preOrderState) 
+				throws PersistenceException{
+        // TODO! Check if articles are available
+        Iterator<OrderQuantifiedArticle4Public> iterator = order.getArticles().iterator();
+
+
+        Boolean allPreOrdersFinished = true;
+        while(iterator.hasNext())
+        {
+            OrderQuantifiedArticle4Public article = iterator.next();
+
+            Boolean thisArticleIsFinished = article.getState().accept(new OrderQuantifiedArticleStateReturnVisitor<Boolean>() {
+                @Override
+                public Boolean handleOrderQuantifiedArticleMarkedForReturnState(OrderQuantifiedArticleMarkedForReturnState4Public orderQuantifiedArticleMarkedForReturnState)
+                        throws PersistenceException {
+                    return true;
+                }
+
+                @Override
+                public Boolean handleOrderQuantifiedArticleNormalState(OrderQuantifiedArticleNormalState4Public orderQuantifiedArticleNormalState) throws PersistenceException {
+                    return true;
+                }
+
+                @Override
+                public Boolean handleOrderQuantifiedArticlePreOrder(OrderQuantifiedArticlePreOrder4Public orderQuantifiedArticlePreOrder) throws PersistenceException {
+                    if (orderQuantifiedArticlePreOrder.getLeftQuantity() < article.getArticle().getArticle().getCurrentStock()) {
+                        try {
+                            article.getArticle().getArticle().reduceStock(orderQuantifiedArticlePreOrder.getLeftQuantity());
+                        } catch (NotEnoughStockException e) {
+                            // This shouldn't happen, because we just checked if we have enough stock
+                            throw new Error(e);
+                        }
+
+                        orderQuantifiedArticlePreOrder.setLeftQuantity(0);
+                        article.setState(OrderQuantifiedArticleNormalState.createOrderQuantifiedArticleNormalState());
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            });
+            if(!thisArticleIsFinished) {
+                allPreOrdersFinished = false;
+            }
+        }
+        if(allPreOrdersFinished)
+            order.setState(InTransitOrderState.createInTransitOrderState(order.getCustomerDeliveryTime().getDeliveryTime()));
+    }
+    public void handleOrderWaitingForAcceptOrderStateImplementation(final Order4Public order, final WaitingForAcceptOrderState4Public waitingForAcceptOrderState) 
+				throws PersistenceException{
+        // Wait for the client to accept the order
+        if (waitingForAcceptOrderState.getTicksLeft() == 1) {
+            // Return the entire order if the acceptTime elapsed
+            order.setState(FinishedOrderState.createFinishedOrderState());
+
+            ArticleReturn4Public articleReturn = ArticleReturn.createArticleReturn(order);
+
+            order.getArticles().applyToAll(article -> {
+                ReturnQuantifiedArticle4Public returnQuantifiedArticle4Public = ReturnQuantifiedArticle.createReturnQuantifiedArticle(article.getQuantity(), article.getArticle());
+
+                articleReturn.addArticle(returnQuantifiedArticle4Public);
+            });
+
+            ReturnManager.getTheReturnManager().addArticleReturn(articleReturn);
+
+        } else {
+            waitingForAcceptOrderState.setTicksLeft(waitingForAcceptOrderState.getTicksLeft() - 1);
+        }
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         super.initializeOnCreation();
@@ -264,7 +379,7 @@ public class GlobalOrderManager extends model.OrderManager implements Persistent
 				throws PersistenceException{
         this.getMyCONCBackgroundTask().startTask(tickTime);
     }
-    public void stepImplementation() 
+    public void step() 
 				throws PersistenceException{
         System.out.println(MessageFormat.format("Order Processing Tick. Currently {0} are being processed", getThis().getOrders().getLength()));
 
@@ -272,17 +387,7 @@ public class GlobalOrderManager extends model.OrderManager implements Persistent
             order.getState().accept(new OrderStatusVisitor() {
                 @Override
                 public void handleArticlesInReturnOrderState(ArticlesInReturnOrderState4Public articlesInReturnOrderState) throws PersistenceException {
-                    if (articlesInReturnOrderState.getTicksLeft() == 1) {
-
-                        articlesInReturnOrderState.getArticleReturn().getReturnArticles().applyToAll(article -> {
-                            article.getArticle().getArticle().increaseStock(article.getQuantity());
-                        });
-                        ReturnManager.getTheReturnManager().removeArticleReturn(articlesInReturnOrderState.getArticleReturn());
-                        order.setState(FinishedOrderState.createFinishedOrderState());
-
-                    } else {
-                        articlesInReturnOrderState.setTicksLeft(articlesInReturnOrderState.getTicksLeft() - 1);
-                    }
+                    handleOrderArticlesInReturnOrderState(order, articlesInReturnOrderState);
                 }
 
                 @Override
@@ -291,60 +396,12 @@ public class GlobalOrderManager extends model.OrderManager implements Persistent
 
                 @Override
                 public void handleInTransitOrderState(InTransitOrderState4Public inTransitOrderState) throws PersistenceException {
-                    if (inTransitOrderState.getTicksLeft() == 1) {
-                        order.setState(WaitingForAcceptOrderState.createWaitingForAcceptOrderState(ShopConstants.CUSTOMER_DELIVERY_ACCEPT_TIME));
-                    } else {
-                        inTransitOrderState.setTicksLeft(inTransitOrderState.getTicksLeft() - 1);
-                    }
+                    handleOrderInTransitOrderState(order, inTransitOrderState);
                 }
 
                 @Override
                 public void handlePreOrderState(PreOrderState4Public preOrderState) throws PersistenceException {
-                    // TODO! Check if articles are available
-                    Iterator<OrderQuantifiedArticle4Public> iterator = order.getArticles().iterator();
-
-
-                    Boolean unfinishedPreOrdersRemaining = false;
-                    while(iterator.hasNext())
-                    {
-                        OrderQuantifiedArticle4Public article = iterator.next();
-
-                        Boolean thisArticleIsFinished = article.getState().accept(new OrderQuantifiedArticleStateReturnVisitor<Boolean>() {
-                            @Override
-                            public Boolean handleOrderQuantifiedArticleMarkedForReturnState(OrderQuantifiedArticleMarkedForReturnState4Public orderQuantifiedArticleMarkedForReturnState)
-                                    throws PersistenceException {
-                                return true;
-                            }
-
-                            @Override
-                            public Boolean handleOrderQuantifiedArticleNormalState(OrderQuantifiedArticleNormalState4Public orderQuantifiedArticleNormalState) throws PersistenceException {
-                                return true;
-                            }
-
-                            @Override
-                            public Boolean handleOrderQuantifiedArticlePreOrder(OrderQuantifiedArticlePreOrder4Public orderQuantifiedArticlePreOrder) throws PersistenceException {
-                                if (orderQuantifiedArticlePreOrder.getLeftQuantity() < article.getArticle().getArticle().getCurrentStock()) {
-                                    try {
-                                        article.getArticle().getArticle().reduceStock(orderQuantifiedArticlePreOrder.getLeftQuantity());
-                                    } catch (NotEnoughStockException e) {
-                                        // This shouldn't happen, because we just checked if we have enough stock
-                                        throw new Error(e);
-                                    }
-
-                                    orderQuantifiedArticlePreOrder.setLeftQuantity(0);
-                                    article.setState(OrderQuantifiedArticleNormalState.createOrderQuantifiedArticleNormalState());
-                                    return true;
-                                } else {
-                                    return false;
-                                }
-                            }
-                        });
-                        if(!thisArticleIsFinished) {
-                            unfinishedPreOrdersRemaining = true;
-                        }
-                    }
-                    if(!unfinishedPreOrdersRemaining)
-                        order.setState(InTransitOrderState.createInTransitOrderState(order.getCustomerDeliveryTime().getDeliveryTime()));
+                    handleOrderPreOrderState(order, preOrderState);
                 }
 
                 @Override
@@ -354,24 +411,7 @@ public class GlobalOrderManager extends model.OrderManager implements Persistent
 
                 @Override
                 public void handleWaitingForAcceptOrderState(WaitingForAcceptOrderState4Public waitingForAcceptOrderState) throws PersistenceException {
-                    // Wait for the client to accept the order
-                    if (waitingForAcceptOrderState.getTicksLeft() == 1) {
-                        // Return the entire order if the acceptTime elapsed
-                        order.setState(FinishedOrderState.createFinishedOrderState());
-
-                        ArticleReturn4Public articleReturn = ArticleReturn.createArticleReturn(order);
-
-                        order.getArticles().applyToAll(article -> {
-                            ReturnQuantifiedArticle4Public returnQuantifiedArticle4Public = ReturnQuantifiedArticle.createReturnQuantifiedArticle(article.getQuantity(), article.getArticle());
-
-                            articleReturn.addArticle(returnQuantifiedArticle4Public);
-                        });
-
-                        ReturnManager.getTheReturnManager().addArticleReturn(articleReturn);
-
-                    } else {
-                        waitingForAcceptOrderState.setTicksLeft(waitingForAcceptOrderState.getTicksLeft() - 1);
-                    }
+                    handleOrderWaitingForAcceptOrderState(order, waitingForAcceptOrderState);
                 }
             });
         });
@@ -409,7 +449,6 @@ public class GlobalOrderManager extends model.OrderManager implements Persistent
                         return true;
                     }
                 }));
-
     }
     public void stopTask() 
 				throws PersistenceException{

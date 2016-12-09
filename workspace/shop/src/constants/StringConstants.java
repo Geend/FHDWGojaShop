@@ -12,4 +12,8 @@ public class StringConstants {
     public static final String ARTICLE_NAME_EMPTY_DEFINTION_EXCEPTION_TEXT = "Artikel Name darf nicht leer sein!";
     public static final String PRODUCT_GROUP_NAME_EMPTY_DEFINTION_EXCEPTION_TEXT = "Produktgruppen Name darf nicht leer sein!";
     public static final String PRODUCT_GROUP_DOUBLE_DEFINITION_EXCEPTION_MESSAGE = "Produktgruppe in dieser Produktgruppe bereits vorhanden!";
+    public static final String PRODUCER_NAME_EMPTY_DEFINITION_EXCEPTION_MESSAGE = "Hersteller Name darf nicht leer sein!";
+    public static final String CDT_NAME_DOUBLE_DEFINITION_EXCEPTION_MESSAGE = "Herstellerlieferzeit mit diesm Namen existiert bereits!";
+    public static final String CDT_NAME_EMPTY_DEFINITION_EXCEPTION_MESSAGEE = "Name darf nicht leer sein!";
+
 }

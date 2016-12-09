@@ -371,6 +371,10 @@ public class CustomerService extends model.Service implements PersistentCustomer
     public String customerService_Menu_Filter(final Anything anything) 
 				throws PersistenceException{
         String result = "+++";
+		if(anything instanceof OrderQuantifiedArticle4Public) {
+			if(this.filter_markForReturn((OrderQuantifiedArticle4Public)anything)) result = result + "markForReturnPRMTROrderQuantifiedArticlePRMTR+++";
+			if(this.filter_unmarkForReturn((OrderQuantifiedArticle4Public)anything)) result = result + "unmarkForReturnPRMTROrderQuantifiedArticlePRMTR+++";
+		}
 		if(anything instanceof ArticleWrapper4Public) {
 			if(this.filter_addToCart((ArticleWrapper4Public)anything)) result = result + "addToCartPRMTRArticleWrapperPRMTRIntegerPRMTR+++";
 		}
@@ -504,6 +508,7 @@ public class CustomerService extends model.Service implements PersistentCustomer
     }
     public void markForReturn(final OrderQuantifiedArticle4Public article) 
 				throws PersistenceException{
+        //TODO! Prevent as long as article gets preorderd
         article.markForReturn();
         getThis().signalChanged(true);
     }
@@ -547,6 +552,9 @@ public class CustomerService extends model.Service implements PersistentCustomer
     }
 
     /* Start of protected part that is not overridden by persistence generator */
+
+
+
     private boolean filter_addToCart(ArticleWrapper4Public anything) throws PersistenceException {
         return anything.getArticle().getState().accept(new ArticleStateReturnVisitor<Boolean>() {
             @Override
@@ -570,6 +578,46 @@ public class CustomerService extends model.Service implements PersistentCustomer
             }
         });
     }
+
+    private boolean filter_unmarkForReturn(OrderQuantifiedArticle4Public anything) throws PersistenceException {
+        return anything.getState().accept(new OrderQuantifiedArticleStateReturnVisitor<Boolean>() {
+            @Override
+            public Boolean handleOrderQuantifiedArticleMarkedForReturnState(OrderQuantifiedArticleMarkedForReturnState4Public orderQuantifiedArticleMarkedForReturnState) throws PersistenceException {
+                return true;
+            }
+
+            @Override
+            public Boolean handleOrderQuantifiedArticleNormalState(OrderQuantifiedArticleNormalState4Public orderQuantifiedArticleNormalState) throws PersistenceException {
+                return false;
+            }
+
+            @Override
+            public Boolean handleOrderQuantifiedArticlePreOrder(OrderQuantifiedArticlePreOrder4Public orderQuantifiedArticlePreOrder) throws PersistenceException {
+                return false; //TODO! In die doku schreiben
+            }
+        });
+    }
+
+    private boolean filter_markForReturn(OrderQuantifiedArticle4Public anything) throws PersistenceException {
+        return anything.getState().accept(new OrderQuantifiedArticleStateReturnVisitor<Boolean>() {
+            @Override
+            public Boolean handleOrderQuantifiedArticleMarkedForReturnState(OrderQuantifiedArticleMarkedForReturnState4Public orderQuantifiedArticleMarkedForReturnState) throws PersistenceException {
+                return false;
+            }
+
+            @Override
+            public Boolean handleOrderQuantifiedArticleNormalState(OrderQuantifiedArticleNormalState4Public orderQuantifiedArticleNormalState) throws PersistenceException {
+                return true;
+            }
+
+            @Override
+            public Boolean handleOrderQuantifiedArticlePreOrder(OrderQuantifiedArticlePreOrder4Public orderQuantifiedArticlePreOrder) throws PersistenceException {
+                return false;//TODO! In die doku schreiben
+            }
+        });
+
+    }
+
     /* End of protected part that is not overridden by persistence generator */
     
 }

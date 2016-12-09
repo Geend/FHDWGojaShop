@@ -36,11 +36,11 @@ public interface Shop4Public extends Anything, SubjInterface, AbstractPersistent
     public void changeCustomerDeliveryTimeTime(final CustomerDeliveryTime4Public customerDeliveryTime, final long newValue, final Invoker invoker) 
 				throws PersistenceException;
     public void createCustomerDeliveryTime(final String name, final common.Fraction price, final long time) 
-				throws model.DoubleDefinitionException, PersistenceException;
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException;
     public void createCustomerDeliveryTime(final String name, final common.Fraction price, final long time, final Invoker invoker) 
 				throws PersistenceException;
     public Producer4Public createProducer(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException;
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
     public void moveTo(final Component4Public component, final ComponentContainer newParentGroup) 
@@ -84,9 +84,9 @@ public interface Shop4Public extends Anything, SubjInterface, AbstractPersistent
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void createCustomerDeliveryTimeImplementation(final String name, final common.Fraction price, final long time) 
-				throws model.DoubleDefinitionException, PersistenceException;
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException;
     public Producer4Public createProducerImplementation(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException;
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
