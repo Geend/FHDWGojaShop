@@ -14,6 +14,8 @@ import persistence.*;
 
 import java.util.Iterator;
 
+import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
+
 /**
  * Created by A13531 on 05.12.2016.
  */

@@ -12,6 +12,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleOrderQuantifiedArticleNormalState(OrderQuantifiedArticleNormalStateView orderQuantifiedArticleNormalState) throws ModelException{
         this.handleOrderQuantifiedArticleState(orderQuantifiedArticleNormalState);
     }
+    public void handleOrderQuantifiedArticlePreOrder(OrderQuantifiedArticlePreOrderView orderQuantifiedArticlePreOrder) throws ModelException{
+        this.handleOrderQuantifiedArticleState(orderQuantifiedArticlePreOrder);
+    }
     public void handleOrderQuantifiedArticleMarkedForReturnState(OrderQuantifiedArticleMarkedForReturnStateView orderQuantifiedArticleMarkedForReturnState) throws ModelException{
         this.handleOrderQuantifiedArticleState(orderQuantifiedArticleMarkedForReturnState);
     }

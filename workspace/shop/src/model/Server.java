@@ -401,29 +401,17 @@ public class Server extends PersistentObject implements PersistentServer{
     public void initializeOnCreation() 
 				throws PersistenceException{
 
-
-
-
-        if (getThis().getUser().equals(common.RPCConstantsAndServices.AdministratorName)){
+        if (getThis().getUser().equals(common.RPCConstantsAndServices.AdministratorName)) {
             getThis().setService(OwnerService.createOwnerService());
             return;
         }
-        if (getThis().getUser().startsWith(common.RPCConstantsAndServices.Public) &&
-                getThis().getPassword().equals("")){
+        if (getThis().getUser().startsWith(common.RPCConstantsAndServices.Public) && getThis().getPassword().equals("")) {
             getThis().setService(CustomerRegisterService.createCustomerRegisterService());
             return;
         }
 
-        CustomerAccountSearchList accounts = CustomerAccount.getCustomerAccountByName(getThis().getUser());
-        if(accounts.getLength() == 0)
-        {
-            getThis().setService(CustomerService.createCustomerService(CustomerAccount.createCustomerAccount(getThis().getUser(), new Fraction(42), new Fraction(0))));
-        }
-        else if(accounts.getLength() == 1)
-        {
-            getThis().setService(CustomerService.createCustomerService(accounts.iterator().next()));
-        }
-
+        getThis().setService(CustomerService.createCustomerService(
+                CustomerAccount.createCustomerAccount(getThis().getUser(), Settings.getTheSettings().getNewCustomerDefaultBalance(), Settings.getTheSettings().getNewCustomerDefaultLimit())));
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{

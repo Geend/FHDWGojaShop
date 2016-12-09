@@ -86,6 +86,22 @@ public class GlobalOrderManagerICProxi extends OrderManagerICProxi implements Pe
 				throws PersistenceException{
         ((PersistentGlobalOrderManager)this.getTheObject()).deregister(observee);
     }
+    public void handleOrderArticlesInReturnOrderState(final Order4Public order, final ArticlesInReturnOrderState4Public articlesInReturnOrderState) 
+				throws PersistenceException{
+        ((PersistentGlobalOrderManager)this.getTheObject()).handleOrderArticlesInReturnOrderState(order, articlesInReturnOrderState);
+    }
+    public void handleOrderInTransitOrderState(final Order4Public order, final InTransitOrderState4Public inTransitOrderState) 
+				throws PersistenceException{
+        ((PersistentGlobalOrderManager)this.getTheObject()).handleOrderInTransitOrderState(order, inTransitOrderState);
+    }
+    public void handleOrderPreOrderState(final Order4Public order, final PreOrderState4Public preOrderState) 
+				throws PersistenceException{
+        ((PersistentGlobalOrderManager)this.getTheObject()).handleOrderPreOrderState(order, preOrderState);
+    }
+    public void handleOrderWaitingForAcceptOrderState(final Order4Public order, final WaitingForAcceptOrderState4Public waitingForAcceptOrderState) 
+				throws PersistenceException{
+        ((PersistentGlobalOrderManager)this.getTheObject()).handleOrderWaitingForAcceptOrderState(order, waitingForAcceptOrderState);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentGlobalOrderManager)this.getTheObject()).initialize(This, final$$Fields);
@@ -93,10 +109,6 @@ public class GlobalOrderManagerICProxi extends OrderManagerICProxi implements Pe
     public void register(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentGlobalOrderManager)this.getTheObject()).register(observee);
-    }
-    public void step() 
-				throws PersistenceException{
-        ((PersistentGlobalOrderManager)this.getTheObject()).step();
     }
     public void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
@@ -114,6 +126,22 @@ public class GlobalOrderManagerICProxi extends OrderManagerICProxi implements Pe
 				throws PersistenceException{
         ((PersistentGlobalOrderManager)this.getTheObject()).finishOrder(order);
     }
+    public void handleOrderArticlesInReturnOrderStateImplementation(final Order4Public order, final ArticlesInReturnOrderState4Public articlesInReturnOrderState) 
+				throws PersistenceException{
+        ((PersistentGlobalOrderManager)this.getTheObject()).handleOrderArticlesInReturnOrderStateImplementation(order, articlesInReturnOrderState);
+    }
+    public void handleOrderInTransitOrderStateImplementation(final Order4Public order, final InTransitOrderState4Public inTransitOrderState) 
+				throws PersistenceException{
+        ((PersistentGlobalOrderManager)this.getTheObject()).handleOrderInTransitOrderStateImplementation(order, inTransitOrderState);
+    }
+    public void handleOrderPreOrderStateImplementation(final Order4Public order, final PreOrderState4Public preOrderState) 
+				throws PersistenceException{
+        ((PersistentGlobalOrderManager)this.getTheObject()).handleOrderPreOrderStateImplementation(order, preOrderState);
+    }
+    public void handleOrderWaitingForAcceptOrderStateImplementation(final Order4Public order, final WaitingForAcceptOrderState4Public waitingForAcceptOrderState) 
+				throws PersistenceException{
+        ((PersistentGlobalOrderManager)this.getTheObject()).handleOrderWaitingForAcceptOrderStateImplementation(order, waitingForAcceptOrderState);
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentGlobalOrderManager)this.getTheObject()).initializeOnCreation();
@@ -126,9 +154,9 @@ public class GlobalOrderManagerICProxi extends OrderManagerICProxi implements Pe
 				throws PersistenceException{
         ((PersistentGlobalOrderManager)this.getTheObject()).startTask(tickTime);
     }
-    public void stepImplementation() 
+    public void step() 
 				throws PersistenceException{
-        ((PersistentGlobalOrderManager)this.getTheObject()).stepImplementation();
+        ((PersistentGlobalOrderManager)this.getTheObject()).step();
     }
     public void stopTask() 
 				throws PersistenceException{

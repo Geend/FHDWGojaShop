@@ -248,8 +248,6 @@ public class ComponentManager extends PersistentObject implements PersistentComp
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -257,15 +255,13 @@ public class ComponentManager extends PersistentObject implements PersistentComp
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
     }
     public ArticleWrapper4Public newArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
-				throws model.CycleException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, model.CycleException, PersistenceException{
        return getThis().getContainer().newArticle(name, price, minStock, maxStock, producerDeliveryTime, producer);
     }
     public ProductGroup4Public newProductGroup(final String name) 
-				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, model.CycleException, PersistenceException{
         return getThis().getContainer().newProductGroup(name);
     }
     public void removeComponent(final Component4Public component) 

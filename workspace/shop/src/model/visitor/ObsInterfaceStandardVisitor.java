@@ -5,9 +5,6 @@ import persistence.*;
 
 public abstract class ObsInterfaceStandardVisitor implements ObsInterfaceVisitor {
     
-    public void handleReOrderManagerReorderArticles(ReOrderManagerReorderArticles4Public reOrderManagerReorderArticles) throws PersistenceException{
-        this.standardHandling(reOrderManagerReorderArticles);
-    }
     public void handleOwnerServiceReOrderManager(OwnerServiceReOrderManager4Public ownerServiceReOrderManager) throws PersistenceException{
         this.standardHandling(ownerServiceReOrderManager);
     }

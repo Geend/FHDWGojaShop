@@ -1,6 +1,7 @@
 
 package model;
 
+import constants.StringConstants;
 import persistence.*;
 import model.visitor.*;
 
@@ -226,8 +227,11 @@ public class ProducerLst extends PersistentObject implements PersistentProducerL
         
     }
     public Producer4Public createProducer(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
 
+        if("".equals(name)){
+            throw new EmptyDefinitionException(StringConstants.PRODUCER_NAME_EMPTY_DEFINITION_EXCEPTION_MESSAGE);
+        }
         if(Producer.getProducerByName(name).getLength() > 0)
         {
             throw new DoubleDefinitionException(MessageFormat.format("Producer with name {0} already exists", name));

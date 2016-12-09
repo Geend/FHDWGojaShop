@@ -238,17 +238,13 @@ public class Settings extends PersistentObject implements PersistentSettings{
     
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        getThis().setNewCustomerDefaultBalance(new Fraction(42));
+        getThis().setNewCustomerDefaultBalance(new Fraction(1000));
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
     }
     
     

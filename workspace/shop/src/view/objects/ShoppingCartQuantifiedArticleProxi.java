@@ -20,7 +20,8 @@ public class ShoppingCartQuantifiedArticleProxi extends QuantifiedArticleProxi i
             article = view.objects.ViewProxi.createProxi(article$Info,connectionKey);
             article.setToString(article$Info.getToString());
         }
-        ShoppingCartQuantifiedArticleView result$$ = new ShoppingCartQuantifiedArticle((long)quantity,(ArticleWrapperView)article, this.getId(), this.getClassId());
+        common.Fraction price = common.Fraction.parse((String)resultTable.get("price"));
+        ShoppingCartQuantifiedArticleView result$$ = new ShoppingCartQuantifiedArticle((long)quantity,(ArticleWrapperView)article,(common.Fraction)price, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -43,6 +44,9 @@ public class ShoppingCartQuantifiedArticleProxi extends QuantifiedArticleProxi i
         return -1;
     }
     
+    public common.Fraction getPrice()throws ModelException{
+        return ((ShoppingCartQuantifiedArticle)this.getTheObject()).getPrice();
+    }
     
     public void accept(QuantifiedArticleVisitor visitor) throws ModelException {
         visitor.handleShoppingCartQuantifiedArticle(this);
@@ -70,7 +74,7 @@ public class ShoppingCartQuantifiedArticleProxi extends QuantifiedArticleProxi i
     }
     
     public boolean hasTransientFields(){
-        return false;
+        return true;
     }
     
     public javafx.scene.image.Image getImage(){

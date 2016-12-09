@@ -5,8 +5,8 @@ import persistence.*;
 
 public abstract class Server$AuthoriseVisitor extends AnythingStandardVisitor{
     
-    public abstract void handleProducerLst(PersistentProducerLst producerLst) throws PersistenceException;
     public abstract void handlePreOrderState(PersistentPreOrderState preOrderState) throws PersistenceException;
+    public abstract void handleProducerLst(PersistentProducerLst producerLst) throws PersistenceException;
     public abstract void handleCONCBackgroundTask(PersistentCONCBackgroundTask cONCBackgroundTask) throws PersistenceException;
     public abstract void handleProductGroup(PersistentProductGroup productGroup) throws PersistenceException;
     public abstract void handleReturnManager(PersistentReturnManager returnManager) throws PersistenceException;
@@ -35,9 +35,10 @@ public abstract class Server$AuthoriseVisitor extends AnythingStandardVisitor{
     public abstract void handleGlobalOrderManager(PersistentGlobalOrderManager globalOrderManager) throws PersistenceException;
     public abstract void handleInTransitOrderState(PersistentInTransitOrderState inTransitOrderState) throws PersistenceException;
     public abstract void handleReOrderManager(PersistentReOrderManager reOrderManager) throws PersistenceException;
-    public abstract void handleProducer(PersistentProducer producer) throws PersistenceException;
     public abstract void handleShoppingCart(PersistentShoppingCart shoppingCart) throws PersistenceException;
+    public abstract void handleProducer(PersistentProducer producer) throws PersistenceException;
     public abstract void handleArticlesInReturnOrderState(PersistentArticlesInReturnOrderState articlesInReturnOrderState) throws PersistenceException;
+    public abstract void handleOrderQuantifiedArticlePreOrder(PersistentOrderQuantifiedArticlePreOrder orderQuantifiedArticlePreOrder) throws PersistenceException;
     public abstract void handleArticleReturn(PersistentArticleReturn articleReturn) throws PersistenceException;
     public abstract void handleOrderQuantifiedArticleMarkedForReturnState(PersistentOrderQuantifiedArticleMarkedForReturnState orderQuantifiedArticleMarkedForReturnState) throws PersistenceException;
     public abstract void handleCustomerOrderManager(PersistentCustomerOrderManager customerOrderManager) throws PersistenceException;

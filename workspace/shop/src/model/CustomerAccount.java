@@ -325,7 +325,8 @@ public class CustomerAccount extends PersistentObject implements PersistentCusto
     public void debit(final common.Fraction amount) 
 				throws model.NotEnoughMoneyException, PersistenceException{
 
-        if(getThis().getBalance().isLess(amount)){
+        //TODO! Test if limit works correctly
+        if(getThis().getBalance().add(getThis().getLimit()).isLess(amount)){
             throw new NotEnoughMoneyException(MessageFormat.format("Nicht genug geld ({0}€) für Abbuchung von {1}€",getThis().getBalance(), amount));
         }
         else{

@@ -321,6 +321,7 @@ public class Cache {
 		this.number2NameMap.put(232, "OrderQuantifiedArticle");
 		this.number2NameMap.put(355, "OrderQuantifiedArticleMarkedForReturnState");
 		this.number2NameMap.put(356, "OrderQuantifiedArticleNormalState");
+		this.number2NameMap.put(451, "OrderQuantifiedArticlePreOrder");
 		this.number2NameMap.put(-276, "OwnerService");
 		this.number2NameMap.put(444, "OwnerServiceOrderManager");
 		this.number2NameMap.put(442, "OwnerServiceReOrderManager");
@@ -332,7 +333,6 @@ public class Cache {
 		this.number2NameMap.put(210, "ProducerLst");
 		this.number2NameMap.put(121, "ProductGroup");
 		this.number2NameMap.put(327, "ReOrderManager");
-		this.number2NameMap.put(432, "ReOrderManagerReorderArticles");
 		this.number2NameMap.put(326, "ReOrderQuantifiedArticle");
 		this.number2NameMap.put(267, "RegisterCommand");
 		this.number2NameMap.put(193, "RemainingStock");

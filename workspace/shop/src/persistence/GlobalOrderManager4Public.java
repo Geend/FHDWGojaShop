@@ -23,6 +23,14 @@ public interface GlobalOrderManager4Public extends CONCBackgroundTask4Public, Or
     public <E extends model.UserException>  void accept(BackgroundTaskExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(BackgroundTaskReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
+    public void handleOrderArticlesInReturnOrderState(final Order4Public order, final ArticlesInReturnOrderState4Public articlesInReturnOrderState) 
+				throws PersistenceException;
+    public void handleOrderInTransitOrderState(final Order4Public order, final InTransitOrderState4Public inTransitOrderState) 
+				throws PersistenceException;
+    public void handleOrderPreOrderState(final Order4Public order, final PreOrderState4Public preOrderState) 
+				throws PersistenceException;
+    public void handleOrderWaitingForAcceptOrderState(final Order4Public order, final WaitingForAcceptOrderState4Public waitingForAcceptOrderState) 
+				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
     public void addOrder(final Order4Public order) 
@@ -30,6 +38,14 @@ public interface GlobalOrderManager4Public extends CONCBackgroundTask4Public, Or
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void finishOrder(final Order4Public order) 
+				throws PersistenceException;
+    public void handleOrderArticlesInReturnOrderStateImplementation(final Order4Public order, final ArticlesInReturnOrderState4Public articlesInReturnOrderState) 
+				throws PersistenceException;
+    public void handleOrderInTransitOrderStateImplementation(final Order4Public order, final InTransitOrderState4Public inTransitOrderState) 
+				throws PersistenceException;
+    public void handleOrderPreOrderStateImplementation(final Order4Public order, final PreOrderState4Public preOrderState) 
+				throws PersistenceException;
+    public void handleOrderWaitingForAcceptOrderStateImplementation(final Order4Public order, final WaitingForAcceptOrderState4Public waitingForAcceptOrderState) 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;

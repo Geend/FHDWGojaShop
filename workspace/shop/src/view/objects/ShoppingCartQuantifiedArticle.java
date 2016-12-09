@@ -9,10 +9,12 @@ import view.visitor.*;
 
 public class ShoppingCartQuantifiedArticle extends view.objects.QuantifiedArticle implements ShoppingCartQuantifiedArticleView{
     
+    protected common.Fraction price;
     
-    public ShoppingCartQuantifiedArticle(long quantity,ArticleWrapperView article,long id, long classId) {
+    public ShoppingCartQuantifiedArticle(long quantity,ArticleWrapperView article,common.Fraction price,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((long)quantity,(ArticleWrapperView)article,id, classId);        
+        super((long)quantity,(ArticleWrapperView)article,id, classId);
+        this.price = price;        
     }
     
     static public long getTypeId() {
@@ -23,6 +25,9 @@ public class ShoppingCartQuantifiedArticle extends view.objects.QuantifiedArticl
         return getTypeId();
     }
     
+    public common.Fraction getPrice()throws ModelException{
+        return this.price;
+    }
     
     public void accept(QuantifiedArticleVisitor visitor) throws ModelException {
         visitor.handleShoppingCartQuantifiedArticle(this);
@@ -76,8 +81,12 @@ public class ShoppingCartQuantifiedArticle extends view.objects.QuantifiedArticl
     public int getQuantityIndex() throws ModelException {
         return 0;
     }
+    public int getPriceIndex() throws ModelException {
+        return 0 + 1;
+    }
     public int getRowCount(){
         return 0 
+            + 1
             + 1;
     }
     public Object getValueAt(int rowIndex, int columnIndex){
@@ -85,8 +94,12 @@ public class ShoppingCartQuantifiedArticle extends view.objects.QuantifiedArticl
             if(columnIndex == 0){
                 if(rowIndex == 0) return "quantity";
                 rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return "price";
+                rowIndex = rowIndex - 1;
             } else {
                 if(rowIndex == 0) return new Long(getQuantity());
+                rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return this.getPrice();
                 rowIndex = rowIndex - 1;
             }
             throw new ModelException("Table index out of bounds!", -1);
@@ -104,9 +117,10 @@ public class ShoppingCartQuantifiedArticle extends view.objects.QuantifiedArticl
             return;
         }
         rowIndex = rowIndex - 1;
+        rowIndex = rowIndex - 1;
     }
     public boolean hasTransientFields(){
-        return false;
+        return true;
     }
     /* Start of protected part that is not overridden by persistence generator */
     

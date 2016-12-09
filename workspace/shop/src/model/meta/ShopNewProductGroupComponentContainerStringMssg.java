@@ -31,9 +31,10 @@ public class ShopNewProductGroupComponentContainerStringMssg implements ShopDOWN
             }
         }
     }
-    public synchronized persistence.ProductGroup4Public getResult() throws model.DoubleDefinitionException, model.CycleException, PersistenceException {
+    public synchronized persistence.ProductGroup4Public getResult() throws model.DoubleDefinitionException, model.EmptyDefinitionException, model.CycleException, PersistenceException {
         if(this.excptn != null) {
             if(this.excptn instanceof model.DoubleDefinitionException) throw (model.DoubleDefinitionException) this.excptn;
+            if(this.excptn instanceof model.EmptyDefinitionException) throw (model.EmptyDefinitionException) this.excptn;
             if(this.excptn instanceof model.CycleException) throw (model.CycleException) this.excptn;
             if(this.excptn instanceof PersistenceException) throw (PersistenceException) this.excptn;
             if(this.excptn instanceof RuntimeException) throw (RuntimeException) this.excptn;

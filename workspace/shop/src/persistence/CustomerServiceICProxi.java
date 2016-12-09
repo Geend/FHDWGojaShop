@@ -37,12 +37,6 @@ public class CustomerServiceICProxi extends ServiceICProxi implements Persistent
     public void setComponentManager(ComponentManager4Public newValue) throws PersistenceException {
         ((PersistentCustomerService)this.getTheObject()).setComponentManager(newValue);
     }
-    public ProducerLst4Public getPrmanager() throws PersistenceException {
-        return ((PersistentCustomerService)this.getTheObject()).getPrmanager();
-    }
-    public void setPrmanager(ProducerLst4Public newValue) throws PersistenceException {
-        ((PersistentCustomerService)this.getTheObject()).setPrmanager(newValue);
-    }
     public CustomerDeliveryTimeManager4Public getCustomerDeliveryTimeManager() throws PersistenceException {
         return ((PersistentCustomerService)this.getTheObject()).getCustomerDeliveryTimeManager();
     }

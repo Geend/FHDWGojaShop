@@ -12,6 +12,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleOrderQuantifiedArticleNormalState(OrderQuantifiedArticleNormalState4Public orderQuantifiedArticleNormalState) throws PersistenceException{
         this.handleOrderQuantifiedArticleState(orderQuantifiedArticleNormalState);
     }
+    public void handleOrderQuantifiedArticlePreOrder(OrderQuantifiedArticlePreOrder4Public orderQuantifiedArticlePreOrder) throws PersistenceException{
+        this.handleOrderQuantifiedArticleState(orderQuantifiedArticlePreOrder);
+    }
     public void handleOrderQuantifiedArticleMarkedForReturnState(OrderQuantifiedArticleMarkedForReturnState4Public orderQuantifiedArticleMarkedForReturnState) throws PersistenceException{
         this.handleOrderQuantifiedArticleState(orderQuantifiedArticleMarkedForReturnState);
     }
@@ -118,8 +121,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
         this.handleBackgroundTask(reOrderManager);
     }
     public abstract void handleCustomerServiceShop(CustomerServiceShop4Public customerServiceShop) throws PersistenceException;
-    
-    public abstract void handleReOrderManagerReorderArticles(ReOrderManagerReorderArticles4Public reOrderManagerReorderArticles) throws PersistenceException;
     
     public abstract void handleShop(Shop4Public shop) throws PersistenceException;
     
