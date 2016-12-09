@@ -133,12 +133,12 @@ public class ConnectionHandler {
     public OwnerServiceOrderManagerFacade theOwnerServiceOrderManagerFacade;
     public SubjFacade theSubjFacade;
     public CustomerServiceShopFacade theCustomerServiceShopFacade;
-    public ReOrderManagerReorderArticlesFacade theReOrderManagerReorderArticlesFacade;
     public PreOrderCartCommandFacade thePreOrderCartCommandFacade;
     public ShoppingCartFacade theShoppingCartFacade;
     public OwnerServiceReOrderManagerFacade theOwnerServiceReOrderManagerFacade;
     public ArticlesInReturnOrderStateFacade theArticlesInReturnOrderStateFacade;
     public ChangeArticleQuantityCommandFacade theChangeArticleQuantityCommandFacade;
+    public OrderQuantifiedArticlePreOrderFacade theOrderQuantifiedArticlePreOrderFacade;
     public ArticleStateFacade theArticleStateFacade;
     public CustomerOrderManagerFacade theCustomerOrderManagerFacade;
     public ChangeCustomerDeliveryTimePriceCommandFacade theChangeCustomerDeliveryTimePriceCommandFacade;
@@ -220,12 +220,12 @@ public class ConnectionHandler {
             this.theOwnerServiceOrderManagerFacade= new OwnerServiceOrderManagerFacade();
             this.theSubjFacade= new SubjFacade();
             this.theCustomerServiceShopFacade= new CustomerServiceShopFacade();
-            this.theReOrderManagerReorderArticlesFacade= new ReOrderManagerReorderArticlesFacade();
             this.thePreOrderCartCommandFacade= new PreOrderCartCommandFacade();
             this.theShoppingCartFacade= new ShoppingCartFacade();
             this.theOwnerServiceReOrderManagerFacade= new OwnerServiceReOrderManagerFacade();
             this.theArticlesInReturnOrderStateFacade= new ArticlesInReturnOrderStateFacade();
             this.theChangeArticleQuantityCommandFacade= new ChangeArticleQuantityCommandFacade();
+            this.theOrderQuantifiedArticlePreOrderFacade= new OrderQuantifiedArticlePreOrderFacade();
             this.theArticleStateFacade= new ArticleStateFacade();
             this.theCustomerOrderManagerFacade= new CustomerOrderManagerFacade();
             this.theChangeCustomerDeliveryTimePriceCommandFacade= new ChangeCustomerDeliveryTimePriceCommandFacade();

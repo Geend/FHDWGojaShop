@@ -30,7 +30,12 @@ Einzeltestverzeichnis
   - [Leere Produktgruppe](#EmptyProductGroupNameTest)
   - [Doppelte Produktgruppe](#DoubleProductGroupNameTest)
   - [Ändern der Artikelbezeichnung](#ChangeArticleNameTest)
+  - [Ändern zu einer leeren Artikelbezeichnung](#ChangeToEmptyArticleNameTest)
   - [Verschieben eines Artikels in eine andere Produktgruppe](#MoveArticelToOtherProductGroupTest)
+  - [Verschieben einer Produktgruppe in eine andere](#MoveProductGroupTest)
+  - [Anlegen eines Artikels mit anschließender Preisänderung](#CreateArticleAndChangePrice)
+  - [Negativer Preis](#NegativeArticlePriceTest)
+  - [Zu einem negativen Preis ändern](#ChangeToNegativeArticlePriceTest)
 
 ### Artikeltests
 
@@ -54,11 +59,23 @@ Testfall zum Anlegen zweier Artikel mit derselben Bezeichnung unter einem Herste
 
 Testfall zum Ändern einer Artikelbezeichnung.
 
+#### ChangeToEmptyArticleNameTest
+
+> **Eigenentscheidung:** Die Artikelbezeichnung darf nicht leer sein.
+
+Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch einer Artikelbezeichnung einen leeren Text zuzuweisen.
+
 #### MoveArticelToOtherProductGroupTest
 
 >  **Zitat:** [...] Die Nummer eines Artikels kann nicht geändert werden, jedoch die Bezeichnung und die Einordnung in Produktgruppen [...]
 
 Testfall zum Verschieben eines Artikels von einer Produktgruppe in eine andere.
+
+#### MoveProductGroupTest
+
+> **Eigenentscheidung:** Artikel können beliebig unter andere Produktgruppen verschoben werden. Dies soll auch für die Produktgruppen selbst gelten.
+
+Testfall zum Verschieben einer Produktgruppe in eine andere.
 
 #### EmptyProductGroupNameTest
 
@@ -71,3 +88,21 @@ Testfall zum Anlegen einer Produktgruppen mit einer leeren Bezeichnung.
 > **Eigenentscheidung:** Es darf keine Produktgruppen mit dergleichen Bezeichnung geben.
 
 Testfall zum Anlegen zweier Produktgruppen mit derselben Bezeichnung unter einem Hersteller.
+
+#### CreateArticleAndChangePrice
+
+> **Zitat:** [...] Jeder Artikel hat einen Preis pro Stück, der sich im Laufe der Zeit ändern kann. [...]
+
+Testfall zum Anlegen eines Artikels und anschließenden Ändern des Preises.
+
+#### NegativeArticlePriceTest
+
+> **Eigenentscheidung:** Es darf keine negativen Preise/Geschenke im Shop auftauchen. Daher müssen negative Zahlen beim Preis unterbunden werden.
+
+Testfall zum Überprüfen des Preises, da dieser nicht negativ sein darf.
+
+#### ChangeToNegativeArticlePriceTest
+
+> **Eigenentscheidung:** Ein Preis darf auch nicht in einen negativen Preis geändert werden.
+
+Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch einem Artikelpreis einen negativen Wert zuzuweisen.

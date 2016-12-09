@@ -247,7 +247,7 @@ public class Shop extends PersistentObject implements PersistentShop{
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public void createCustomerDeliveryTime(final String name, final common.Fraction price, final long time) 
-				throws model.DoubleDefinitionException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
         model.meta.ShopCreateCustomerDeliveryTimeStringFractionIntegerMssg event = new model.meta.ShopCreateCustomerDeliveryTimeStringFractionIntegerMssg(name, price, time, getThis());
 		event.execute();
 		getThis().updateObservers(event);
@@ -262,7 +262,7 @@ public class Shop extends PersistentObject implements PersistentShop{
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public Producer4Public createProducer(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
         model.meta.ShopCreateProducerStringMssg event = new model.meta.ShopCreateProducerStringMssg(name, getThis());
 		event.execute();
 		getThis().updateObservers(event);
@@ -301,7 +301,7 @@ public class Shop extends PersistentObject implements PersistentShop{
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public ArticleWrapper4Public newArticle(final ComponentContainer parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
-				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, model.CycleException, PersistenceException{
         model.meta.ShopNewArticleComponentContainerStringFractionIntegerIntegerIntegerProducerMssg event = new model.meta.ShopNewArticleComponentContainerStringFractionIntegerIntegerIntegerProducerMssg(parent, name, price, minStock, maxStock, producerDeliveryTime, producer, getThis());
 		event.execute();
 		getThis().updateObservers(event);
@@ -318,7 +318,7 @@ public class Shop extends PersistentObject implements PersistentShop{
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public ProductGroup4Public newProductGroup(final ComponentContainer parent, final String name) 
-				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, model.CycleException, PersistenceException{
         model.meta.ShopNewProductGroupComponentContainerStringMssg event = new model.meta.ShopNewProductGroupComponentContainerStringMssg(parent, name, getThis());
 		event.execute();
 		getThis().updateObservers(event);
@@ -449,11 +449,11 @@ public class Shop extends PersistentObject implements PersistentShop{
 
     }
     public void createCustomerDeliveryTimeImplementation(final String name, final common.Fraction price, final long time) 
-				throws model.DoubleDefinitionException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
         CustomerDeliveryTimeManager.getTheCustomerDeliveryTimeManager().createCustomerDeliveryTime(name, price, time);
     }
     public Producer4Public createProducerImplementation(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
         return ProducerLst.getTheProducerLst().createProducer(name);
     }
     public void initializeOnCreation() 
@@ -472,12 +472,12 @@ public class Shop extends PersistentObject implements PersistentShop{
         component.moveTo(newParentGroup);
     }
     public ArticleWrapper4Public newArticleImplementation(final ComponentContainer parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
-				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, model.CycleException, PersistenceException{
         return parent.newArticle(name, price, minStock, maxStock, producerDeliveryTime, producer);
 
     }
     public ProductGroup4Public newProductGroupImplementation(final ComponentContainer parent, final String name) 
-				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, model.CycleException, PersistenceException{
         return parent.newProductGroup(name);
     }
     public void orderCartImplementation(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
@@ -531,6 +531,8 @@ public class Shop extends PersistentObject implements PersistentShop{
 
         } catch (CycleException | DoubleDefinitionException e) {
             throw new Error(e);
+        } catch (EmptyDefinitionException e) {
+            e.printStackTrace();
         }
 
 

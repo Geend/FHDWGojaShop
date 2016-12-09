@@ -10,8 +10,6 @@ public interface CustomerServiceView extends ServiceView {
     public void setArticleLst(CustomerArticleLstView newValue) throws ModelException ;
     public ComponentManagerView getComponentManager()throws ModelException;
     public void setComponentManager(ComponentManagerView newValue) throws ModelException ;
-    public ProducerLstView getPrmanager()throws ModelException;
-    public void setPrmanager(ProducerLstView newValue) throws ModelException ;
     public CustomerDeliveryTimeManagerView getCustomerDeliveryTimeManager()throws ModelException;
     public void setCustomerDeliveryTimeManager(CustomerDeliveryTimeManagerView newValue) throws ModelException ;
     public CustomerAccountView getAccount()throws ModelException;

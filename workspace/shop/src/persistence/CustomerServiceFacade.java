@@ -13,14 +13,14 @@ public class CustomerServiceFacade{
     public PersistentCustomerService newCustomerService(long idCreateIfLessZero) throws PersistenceException {
         if(idCreateIfLessZero > 0) return (PersistentCustomerService)PersistentProxi.createProxi(idCreateIfLessZero, -278);
         long id = ConnectionHandler.getTheConnectionHandler().theServiceFacade.getNextId();
-        CustomerService result = new CustomerService(null,null,null,null,null,null,null,null,null,null,id);
+        CustomerService result = new CustomerService(null,null,null,null,null,null,null,null,null,id);
         Cache.getTheCache().put(result);
         return (PersistentCustomerService)PersistentProxi.createProxi(id, -278);
     }
     
     public PersistentCustomerService newDelayedCustomerService() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theServiceFacade.getNextId();
-        CustomerService result = new CustomerService(null,null,null,null,null,null,null,null,null,null,id);
+        CustomerService result = new CustomerService(null,null,null,null,null,null,null,null,null,id);
         Cache.getTheCache().put(result);
         return (PersistentCustomerService)PersistentProxi.createProxi(id, -278);
     }
@@ -35,9 +35,6 @@ public class CustomerServiceFacade{
         
     }
     public void componentManagerSet(long CustomerServiceId, ComponentManager4Public componentManagerVal) throws PersistenceException {
-        
-    }
-    public void prmanagerSet(long CustomerServiceId, ProducerLst4Public prmanagerVal) throws PersistenceException {
         
     }
     public void customerDeliveryTimeManagerSet(long CustomerServiceId, CustomerDeliveryTimeManager4Public customerDeliveryTimeManagerVal) throws PersistenceException {

@@ -317,6 +317,9 @@ public class NewArticleCommand extends PersistentObject implements PersistentNew
 		catch(model.DoubleDefinitionException e){
 			this.commandException = e;
 		}
+		catch(model.EmptyDefinitionException e){
+			this.commandException = e;
+		}
 		catch(model.CycleException e){
 			this.commandException = e;
 		}

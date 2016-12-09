@@ -29,13 +29,6 @@ public class CustomerServiceProxi extends ServiceProxi implements CustomerServic
             componentManager = view.objects.ViewProxi.createProxi(componentManager$Info,connectionKey);
             componentManager.setToString(componentManager$Info.getToString());
         }
-        ViewProxi prmanager = null;
-        String prmanager$String = (String)resultTable.get("prmanager");
-        if (prmanager$String != null) {
-            common.ProxiInformation prmanager$Info = common.RPCConstantsAndServices.createProxiInformation(prmanager$String);
-            prmanager = view.objects.ViewProxi.createProxi(prmanager$Info,connectionKey);
-            prmanager.setToString(prmanager$Info.getToString());
-        }
         ViewProxi customerDeliveryTimeManager = null;
         String customerDeliveryTimeManager$String = (String)resultTable.get("customerDeliveryTimeManager");
         if (customerDeliveryTimeManager$String != null) {
@@ -64,7 +57,7 @@ public class CustomerServiceProxi extends ServiceProxi implements CustomerServic
             orderManager = view.objects.ViewProxi.createProxi(orderManager$Info,connectionKey);
             orderManager.setToString(orderManager$Info.getToString());
         }
-        CustomerServiceView result$$ = new CustomerService(errors,(CustomerArticleLstView)articleLst,(ComponentManagerView)componentManager,(ProducerLstView)prmanager,(CustomerDeliveryTimeManagerView)customerDeliveryTimeManager,(CustomerAccountView)account,(ShoppingCartView)cart,(CustomerOrderManagerView)orderManager, this.getId(), this.getClassId());
+        CustomerServiceView result$$ = new CustomerService(errors,(CustomerArticleLstView)articleLst,(ComponentManagerView)componentManager,(CustomerDeliveryTimeManagerView)customerDeliveryTimeManager,(CustomerAccountView)account,(ShoppingCartView)cart,(CustomerOrderManagerView)orderManager, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -78,8 +71,6 @@ public class CustomerServiceProxi extends ServiceProxi implements CustomerServic
         if(this.getArticleLst() != null) index = index - 1;
         if(index == 0 && this.getComponentManager() != null) return new ComponentManagerCustomerServiceWrapper(this, originalIndex, (ViewRoot)this.getComponentManager());
         if(this.getComponentManager() != null) index = index - 1;
-        if(index == 0 && this.getPrmanager() != null) return new PrmanagerCustomerServiceWrapper(this, originalIndex, (ViewRoot)this.getPrmanager());
-        if(this.getPrmanager() != null) index = index - 1;
         if(index == 0 && this.getCustomerDeliveryTimeManager() != null) return new CustomerDeliveryTimeManagerCustomerServiceWrapper(this, originalIndex, (ViewRoot)this.getCustomerDeliveryTimeManager());
         if(this.getCustomerDeliveryTimeManager() != null) index = index - 1;
         if(index == 0 && this.getAccount() != null) return new AccountCustomerServiceWrapper(this, originalIndex, (ViewRoot)this.getAccount());
@@ -94,7 +85,6 @@ public class CustomerServiceProxi extends ServiceProxi implements CustomerServic
         return 0 
             + (this.getArticleLst() == null ? 0 : 1)
             + (this.getComponentManager() == null ? 0 : 1)
-            + (this.getPrmanager() == null ? 0 : 1)
             + (this.getCustomerDeliveryTimeManager() == null ? 0 : 1)
             + (this.getAccount() == null ? 0 : 1)
             + (this.getCart() == null ? 0 : 1)
@@ -105,7 +95,6 @@ public class CustomerServiceProxi extends ServiceProxi implements CustomerServic
         return true 
             && (this.getArticleLst() == null ? true : false)
             && (this.getComponentManager() == null ? true : false)
-            && (this.getPrmanager() == null ? true : false)
             && (this.getCustomerDeliveryTimeManager() == null ? true : false)
             && (this.getAccount() == null ? true : false)
             && (this.getCart() == null ? true : false)
@@ -117,8 +106,6 @@ public class CustomerServiceProxi extends ServiceProxi implements CustomerServic
         if(this.getArticleLst() != null) result = result + 1;
         if(this.getComponentManager() != null && this.getComponentManager().equals(child)) return result;
         if(this.getComponentManager() != null) result = result + 1;
-        if(this.getPrmanager() != null && this.getPrmanager().equals(child)) return result;
-        if(this.getPrmanager() != null) result = result + 1;
         if(this.getCustomerDeliveryTimeManager() != null && this.getCustomerDeliveryTimeManager().equals(child)) return result;
         if(this.getCustomerDeliveryTimeManager() != null) result = result + 1;
         if(this.getAccount() != null && this.getAccount().equals(child)) return result;
@@ -141,12 +128,6 @@ public class CustomerServiceProxi extends ServiceProxi implements CustomerServic
     }
     public void setComponentManager(ComponentManagerView newValue) throws ModelException {
         ((CustomerService)this.getTheObject()).setComponentManager(newValue);
-    }
-    public ProducerLstView getPrmanager()throws ModelException{
-        return ((CustomerService)this.getTheObject()).getPrmanager();
-    }
-    public void setPrmanager(ProducerLstView newValue) throws ModelException {
-        ((CustomerService)this.getTheObject()).setPrmanager(newValue);
     }
     public CustomerDeliveryTimeManagerView getCustomerDeliveryTimeManager()throws ModelException{
         return ((CustomerService)this.getTheObject()).getCustomerDeliveryTimeManager();

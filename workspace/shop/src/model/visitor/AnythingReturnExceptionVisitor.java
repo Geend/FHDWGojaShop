@@ -44,7 +44,6 @@ public interface AnythingReturnExceptionVisitor<R, E extends model.UserException
     public R handleProducer(Producer4Public producer) throws PersistenceException, E;
     public R handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException, E;
     public R handleReOrderManager(ReOrderManager4Public reOrderManager) throws PersistenceException, E;
-    public R handleReOrderManagerReorderArticles(ReOrderManagerReorderArticles4Public reOrderManagerReorderArticles) throws PersistenceException, E;
     public R handleRegisterCommand(RegisterCommand4Public registerCommand) throws PersistenceException, E;
     public R handleRemoveArticleCommand(RemoveArticleCommand4Public removeArticleCommand) throws PersistenceException, E;
     public R handleReturnManager(ReturnManager4Public returnManager) throws PersistenceException, E;

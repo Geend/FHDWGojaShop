@@ -2,11 +2,10 @@ package persistence;
 
 import java.util.*;
 
-public class CustomerDeliveryTimeList {
+public class CustomerDeliveryTimeList  extends CustomerDeliveryTimeSearchList{
 
-	protected Vector<CustomerDeliveryTime4Public> data; //List of proxies
 	protected CustomerDeliveryTimeList() {
-		this.data = new Vector<CustomerDeliveryTime4Public>();
+		super();
 	}
 	public Iterator<CustomerDeliveryTime4Public> iterator(PersistentListProxi<CustomerDeliveryTime4Public> listProxi) {
 		return new PersistentListIterator<CustomerDeliveryTime4Public>(listProxi, this.data);

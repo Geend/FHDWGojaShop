@@ -1,9 +1,6 @@
 package test;
 
-import model.DoubleDefinitionException;
-import model.OwnerService;
-import model.ProducerLst;
-import model.Server;
+import model.*;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
@@ -71,7 +68,7 @@ public class TestProducer {
     @Test
     public void testCreateProducerWithSameName() throws Exception {
         exception.expect(DoubleDefinitionException.class);
-        ProducerLst.getTheProducerLst().createProducer("Test");
-        ProducerLst.getTheProducerLst().createProducer("Test");
+        Shop.getTheShop().createProducer("Test");
+        Shop.getTheShop().createProducer("Test");
     }
 }

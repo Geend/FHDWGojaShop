@@ -162,13 +162,7 @@ public abstract class OrderManager extends PersistentObject implements Persisten
 
     /* Start of protected part that is not overridden by persistence generator */
 
-    public void fireChangeImplementation(OrderMssgs evnt) throws PersistenceException {
 
-    }
-
-    public void orders_update(OrderMssgs event) throws PersistenceException {
-
-    }
     /* End of protected part that is not overridden by persistence generator */
     
 }

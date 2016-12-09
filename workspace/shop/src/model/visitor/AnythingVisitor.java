@@ -44,7 +44,6 @@ public interface AnythingVisitor extends ArticleStateVisitor,BackgroundTaskVisit
     public void handleProducer(Producer4Public producer) throws PersistenceException;
     public void handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException;
     public void handleReOrderManager(ReOrderManager4Public reOrderManager) throws PersistenceException;
-    public void handleReOrderManagerReorderArticles(ReOrderManagerReorderArticles4Public reOrderManagerReorderArticles) throws PersistenceException;
     public void handleRegisterCommand(RegisterCommand4Public registerCommand) throws PersistenceException;
     public void handleRemoveArticleCommand(RemoveArticleCommand4Public removeArticleCommand) throws PersistenceException;
     public void handleReturnManager(ReturnManager4Public returnManager) throws PersistenceException;

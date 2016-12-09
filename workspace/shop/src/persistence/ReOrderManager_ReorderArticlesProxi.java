@@ -4,12 +4,12 @@ import model.*;
 
 import java.util.Iterator;
 
-public class ReOrderManagerReorderArticles_ObserveeProxi extends PersistentListProxi<ReOrderQuantifiedArticle4Public> {
+public class ReOrderManager_ReorderArticlesProxi extends PersistentListProxi<ReOrderQuantifiedArticle4Public> {
 
   	private ReOrderQuantifiedArticleList list;
-  	private ReOrderManagerReorderArticles owner;
+  	private ReOrderManager owner;
 
-  	public ReOrderManagerReorderArticles_ObserveeProxi(ReOrderManagerReorderArticles owner) {
+  	public ReOrderManager_ReorderArticlesProxi(ReOrderManager owner) {
     	this.owner = owner;
   	}
   	public ReOrderQuantifiedArticleList getList() throws PersistenceException{
@@ -19,7 +19,7 @@ public class ReOrderManagerReorderArticles_ObserveeProxi extends PersistentListP
       		} else {
         		this.list = ConnectionHandler
                 		    .getTheConnectionHandler()
-                      		.theReOrderManagerReorderArticlesFacade.observeeGet(this.owner.getId());
+                      		.theReOrderManagerFacade.reorderArticlesGet(this.owner.getId());
       		}
       		this.data = this.list.data;
     	}
@@ -37,23 +37,23 @@ public class ReOrderManagerReorderArticles_ObserveeProxi extends PersistentListP
       		long entryId = 0;
       		if (!this.owner.isDelayed$Persistence()) {
         		entry.store();  	
-        		entryId = ConnectionHandler.getTheConnectionHandler().theReOrderManagerReorderArticlesFacade
-        	               	.observeeAdd(owner.getId(), entry);
+        		entryId = ConnectionHandler.getTheConnectionHandler().theReOrderManagerFacade
+        	               	.reorderArticlesAdd(owner.getId(), entry);
       		}
       		list.add((ReOrderQuantifiedArticle4Public)PersistentProxi.createListEntryProxi(entry.getId(),
             		                   entry.getClassId(),
         	    	                   entryId));
-      		entry.register(this.owner);
+      		
     	}
   	}
   	protected void remove(PersistentListEntryProxi entry) throws PersistenceException {
     	if (!this.owner.isDelayed$Persistence()) {
-      		ConnectionHandler.getTheConnectionHandler().theReOrderManagerReorderArticlesFacade.observeeRem(entry.getListEntryId());
+      		ConnectionHandler.getTheConnectionHandler().theReOrderManagerFacade.reorderArticlesRem(entry.getListEntryId());
     	}
-    	((ReOrderQuantifiedArticle4Public)entry).deregister(this.owner);
+    	
   	}
-  	public ReOrderManagerReorderArticles_ObserveeProxi copy(ReOrderManagerReorderArticles owner) throws PersistenceException {
-  		ReOrderManagerReorderArticles_ObserveeProxi result = new ReOrderManagerReorderArticles_ObserveeProxi(owner);
+  	public ReOrderManager_ReorderArticlesProxi copy(ReOrderManager owner) throws PersistenceException {
+  		ReOrderManager_ReorderArticlesProxi result = new ReOrderManager_ReorderArticlesProxi(owner);
   		result.list = this.getList().copy();
   		return result;
   	}	 
@@ -62,8 +62,8 @@ public class ReOrderManagerReorderArticles_ObserveeProxi extends PersistentListP
   		while (entries.hasNext()){
   			ReOrderQuantifiedArticle4Public current = entries.next();
   			current.store();
-      		long entryId = ConnectionHandler.getTheConnectionHandler().theReOrderManagerReorderArticlesFacade
-            	           .observeeAdd(owner.getId(), current);
+      		long entryId = ConnectionHandler.getTheConnectionHandler().theReOrderManagerFacade
+            	           .reorderArticlesAdd(owner.getId(), current);
         	((PersistentListEntryProxi)current).setListEntryId(entryId);
 		}
 	}

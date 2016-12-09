@@ -233,19 +233,13 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
 			@Override
 			public void handleShoppingCartQuantifiedArticle(ShoppingCartQuantifiedArticleView shoppingCartQuantifiedArticle) throws ModelException {
 
-
 				ShoppingCartQuantifiedArticleDefaultDetailPanel panel = new ShoppingCartQuantifiedArticleDefaultDetailPanel(CustomerServiceClientView.this, shoppingCartQuantifiedArticle);
 
 				//TODO! fix this...
-				panel.registerUpdater(ShoppingCartQuantifiedArticleDefaultDetailPanel.QuantifiedArticle$$quantity, new StandardUpdater() {
+				panel.registerUpdater(ShoppingCartQuantifiedArticleDefaultDetailPanel.QuantifiedArticle$$quantity, new UpdaterForInteger() {
 					@Override
 					public void update(String text) throws ModelException {
 						getConnection().changeArticleQuantity(shoppingCartQuantifiedArticle, Integer.getInteger(text));
-					}
-
-					@Override
-					public boolean check(String text) throws ModelException {
-						return true;
 					}
 				});
 
@@ -336,6 +330,7 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
 
 
     interface MenuItemVisitor{
+        ImageView handle(ReloadUIPRMTRMenuItem menuItem);
         ImageView handle(MarkForReturnPRMTROrderQuantifiedArticlePRMTRMenuItem menuItem);
         ImageView handle(ChangeArticleQuantityPRMTRShoppingCartQuantifiedArticlePRMTRIntegerPRMTRMenuItem menuItem);
         ImageView handle(FindArticlePRMTRStringPRMTRMenuItem menuItem);
@@ -350,13 +345,17 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
         ImageView handle(PreOrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem menuItem);
         ImageView handle(ClearErrorPRMTRErrorDisplayPRMTRMenuItem menuItem);
         ImageView handle(ClearPRMTRMenuItem menuItem);
-        ImageView handle(ReloadUIPRMTRMenuItem menuItem);
     }
     private abstract class CustomerServiceMenuItem extends MenuItem{
         private CustomerServiceMenuItem(){
             this.setGraphic(getIconForMenuItem(this));
         }
         abstract protected ImageView accept(MenuItemVisitor visitor);
+    }
+    private class ReloadUIPRMTRMenuItem extends CustomerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
     }
     private class MarkForReturnPRMTROrderQuantifiedArticlePRMTRMenuItem extends CustomerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
@@ -428,14 +427,30 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
             return visitor.handle(this);
         }
     }
-    private class ReloadUIPRMTRMenuItem extends CustomerServiceMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
     private java.util.Vector<javafx.scene.control.Button> getToolButtonsForStaticOperations() {
         java.util.Vector<javafx.scene.control.Button> result = new java.util.Vector<javafx.scene.control.Button>();
         javafx.scene.control.Button currentButton = null;
+        currentButton = new javafx.scene.control.Button("Aktualisieren");
+        currentButton.setGraphic(new ReloadUIPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                Alert confirm = new Alert(AlertType.CONFIRMATION);
+                confirm.setTitle(GUIConstants.ConfirmButtonText);
+                confirm.setHeaderText(null);
+                confirm.setContentText("Aktualisieren" + GUIConstants.ConfirmQuestionMark);
+                Optional<ButtonType> buttonResult = confirm.showAndWait();
+                if (buttonResult.get() == ButtonType.OK) {
+                    try {
+                        getConnection().reloadUI();
+                        getConnection().setEagerRefresh();
+                        
+                    }catch(ModelException me){
+                        handleException(me);
+                    }
+                }
+            }
+        });
+        result.add(currentButton);
         currentButton = new javafx.scene.control.Button("Artikel suchen ... ");
         currentButton.setGraphic(new FindArticlePRMTRStringPRMTRMenuItem().getGraphic());
         currentButton.setOnAction(new EventHandler<ActionEvent>(){
@@ -487,14 +502,19 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
             }
         });
         result.add(currentButton);
-        currentButton = new javafx.scene.control.Button("reloadUI");
-        currentButton.setGraphic(new ReloadUIPRMTRMenuItem().getGraphic());
-        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+        return result;
+    }
+    private ContextMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations, final Point2D menuPos) {
+        final ContextMenu result = new ContextMenu();
+        MenuItem item = null;
+        item = new ReloadUIPRMTRMenuItem();
+        item.setText("(S) Aktualisieren");
+        item.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
                 Alert confirm = new Alert(AlertType.CONFIRMATION);
                 confirm.setTitle(GUIConstants.ConfirmButtonText);
                 confirm.setHeaderText(null);
-                confirm.setContentText("reloadUI" + GUIConstants.ConfirmQuestionMark);
+                confirm.setContentText("Aktualisieren" + GUIConstants.ConfirmQuestionMark);
                 Optional<ButtonType> buttonResult = confirm.showAndWait();
                 if (buttonResult.get() == ButtonType.OK) {
                     try {
@@ -507,12 +527,7 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
                 }
             }
         });
-        result.add(currentButton);
-        return result;
-    }
-    private ContextMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations, final Point2D menuPos) {
-        final ContextMenu result = new ContextMenu();
-        MenuItem item = null;
+        if (withStaticOperations) result.getItems().add(item);
         item = new FindArticlePRMTRStringPRMTRMenuItem();
         item.setText("(S) Artikel suchen ... ");
         item.setOnAction(new EventHandler<ActionEvent>(){
@@ -564,27 +579,6 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
             }
         });
         if (withStaticOperations) result.getItems().add(item);
-        item = new ReloadUIPRMTRMenuItem();
-        item.setText("(S) reloadUI");
-        item.setOnAction(new EventHandler<ActionEvent>(){
-            public void handle(javafx.event.ActionEvent e) {
-                Alert confirm = new Alert(AlertType.CONFIRMATION);
-                confirm.setTitle(GUIConstants.ConfirmButtonText);
-                confirm.setHeaderText(null);
-                confirm.setContentText("reloadUI" + GUIConstants.ConfirmQuestionMark);
-                Optional<ButtonType> buttonResult = confirm.showAndWait();
-                if (buttonResult.get() == ButtonType.OK) {
-                    try {
-                        getConnection().reloadUI();
-                        getConnection().setEagerRefresh();
-                        
-                    }catch(ModelException me){
-                        handleException(me);
-                    }
-                }
-            }
-        });
-        if (withStaticOperations) result.getItems().add(item);
         if (selected != null){
             try {
                 this.setPreCalculatedFilters(this.getConnection().customerService_Menu_Filter((Anything)selected));
@@ -616,48 +610,52 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
                 result.getItems().add(item);
             }
             if (selected instanceof OrderQuantifiedArticleView){
-                item = new MarkForReturnPRMTROrderQuantifiedArticlePRMTRMenuItem();
-                item.setText("Als Retour markieren");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        Alert confirm = new Alert(AlertType.CONFIRMATION);
-                        confirm.setTitle(GUIConstants.ConfirmButtonText);
-                        confirm.setHeaderText(null);
-                        confirm.setContentText("Als Retour markieren" + GUIConstants.ConfirmQuestionMark);
-                        Optional<ButtonType> buttonResult = confirm.showAndWait();
-                        if (buttonResult.get() == ButtonType.OK) {
-                            try {
-                                getConnection().markForReturn((OrderQuantifiedArticleView)selected);
-                                getConnection().setEagerRefresh();
-                                
-                            }catch(ModelException me){
-                                handleException(me);
+                if (filter_markForReturn((OrderQuantifiedArticleView) selected)) {
+                    item = new MarkForReturnPRMTROrderQuantifiedArticlePRMTRMenuItem();
+                    item.setText("Als Retour markieren");
+                    item.setOnAction(new EventHandler<ActionEvent>(){
+                        public void handle(javafx.event.ActionEvent e) {
+                            Alert confirm = new Alert(AlertType.CONFIRMATION);
+                            confirm.setTitle(GUIConstants.ConfirmButtonText);
+                            confirm.setHeaderText(null);
+                            confirm.setContentText("Als Retour markieren" + GUIConstants.ConfirmQuestionMark);
+                            Optional<ButtonType> buttonResult = confirm.showAndWait();
+                            if (buttonResult.get() == ButtonType.OK) {
+                                try {
+                                    getConnection().markForReturn((OrderQuantifiedArticleView)selected);
+                                    getConnection().setEagerRefresh();
+                                    
+                                }catch(ModelException me){
+                                    handleException(me);
+                                }
                             }
                         }
-                    }
-                });
-                result.getItems().add(item);
-                item = new UnmarkForReturnPRMTROrderQuantifiedArticlePRMTRMenuItem();
-                item.setText("Retour markierung entfernen");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        Alert confirm = new Alert(AlertType.CONFIRMATION);
-                        confirm.setTitle(GUIConstants.ConfirmButtonText);
-                        confirm.setHeaderText(null);
-                        confirm.setContentText("Retour markierung entfernen" + GUIConstants.ConfirmQuestionMark);
-                        Optional<ButtonType> buttonResult = confirm.showAndWait();
-                        if (buttonResult.get() == ButtonType.OK) {
-                            try {
-                                getConnection().unmarkForReturn((OrderQuantifiedArticleView)selected);
-                                getConnection().setEagerRefresh();
-                                
-                            }catch(ModelException me){
-                                handleException(me);
+                    });
+                    result.getItems().add(item);
+                }
+                if (filter_unmarkForReturn((OrderQuantifiedArticleView) selected)) {
+                    item = new UnmarkForReturnPRMTROrderQuantifiedArticlePRMTRMenuItem();
+                    item.setText("Retour markierung entfernen");
+                    item.setOnAction(new EventHandler<ActionEvent>(){
+                        public void handle(javafx.event.ActionEvent e) {
+                            Alert confirm = new Alert(AlertType.CONFIRMATION);
+                            confirm.setTitle(GUIConstants.ConfirmButtonText);
+                            confirm.setHeaderText(null);
+                            confirm.setContentText("Retour markierung entfernen" + GUIConstants.ConfirmQuestionMark);
+                            Optional<ButtonType> buttonResult = confirm.showAndWait();
+                            if (buttonResult.get() == ButtonType.OK) {
+                                try {
+                                    getConnection().unmarkForReturn((OrderQuantifiedArticleView)selected);
+                                    getConnection().setEagerRefresh();
+                                    
+                                }catch(ModelException me){
+                                    handleException(me);
+                                }
                             }
                         }
-                    }
-                });
-                result.getItems().add(item);
+                    });
+                    result.getItems().add(item);
+                }
             }
             if (selected instanceof ShoppingCartView){
                 item = new OrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem();
@@ -788,8 +786,14 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
     private void setPreCalculatedFilters(String switchOff) {
         this.preCalculatedFilters = switchOff;
     }
+    private boolean filter_markForReturn(OrderQuantifiedArticleView argument){
+        return this.getPreCalculatedFilters().contains("+++markForReturnPRMTROrderQuantifiedArticlePRMTR");
+    }
     private boolean filter_addToCart(ArticleWrapperView argument){
         return this.getPreCalculatedFilters().contains("+++addToCartPRMTRArticleWrapperPRMTRIntegerPRMTR");
+    }
+    private boolean filter_unmarkForReturn(OrderQuantifiedArticleView argument){
+        return this.getPreCalculatedFilters().contains("+++unmarkForReturnPRMTROrderQuantifiedArticlePRMTR");
     }
     
 	class CustomerServiceAddToCartArticleWrapperIntegerMssgWizard extends Wizard {

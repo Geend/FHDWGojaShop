@@ -3,7 +3,7 @@ package persistence;
 
 /* Additional import section end */
 
-public interface ReOrderManagerReorderArticlesCommand extends  Command {
+public interface OrderQuantifiedArticlePreOrderCommand extends  Command {
     
     
 

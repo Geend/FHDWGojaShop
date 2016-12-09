@@ -123,6 +123,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 			}
 
+			@Override
+			public void handleOrderQuantifiedArticlePreOrder(OrderQuantifiedArticlePreOrder4Public orderQuantifiedArticlePreOrder) throws PersistenceException {
+				result += " (wird vorbestellt)";
+			}
+
 
 		});
 	}
@@ -227,6 +232,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleArticlesInReturnOrderState(ArticlesInReturnOrderState4Public articlesInReturnOrderState) throws PersistenceException {
 		result = "Artikel in Retour";
+	}
+
+	@Override
+	public void handleOrderQuantifiedArticlePreOrder(OrderQuantifiedArticlePreOrder4Public orderQuantifiedArticlePreOrder) throws PersistenceException {
+		result = "wird vorbestellt";
 	}
 
 	@Override

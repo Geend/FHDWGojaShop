@@ -185,6 +185,10 @@ public class OwnerServiceProxi extends ServiceProxi implements PersistentOwnerSe
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).changeArticlePrice(article, newPrice);
     }
+    public void changeArticleProducerDeliveryTime(final ArticleWrapper4Public article, final long newValue) 
+				throws PersistenceException{
+        ((PersistentOwnerService)this.getTheObject()).changeArticleProducerDeliveryTime(article, newValue);
+    }
     public void changeCustomerDeliveryTimePrice(final CustomerDeliveryTime4Public customerDeliveryTime, final common.Fraction newValue) 
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).changeCustomerDeliveryTimePrice(customerDeliveryTime, newValue);
@@ -213,13 +217,13 @@ public class OwnerServiceProxi extends ServiceProxi implements PersistentOwnerSe
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public void createCustomerDeliveryTime(final String name, final common.Fraction price, final long time) 
-				throws model.DoubleDefinitionException, PersistenceException{
-        ((PersistentOwnerService)this.getTheObject()).createCustomerDeliveryTime(name, price, time);
+    public void createCustomerDeliveryTime(final CustomerDeliveryTimeManager4Public customerDeliveryTimeManager, final String name, final common.Fraction price, final long time) 
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
+        ((PersistentOwnerService)this.getTheObject()).createCustomerDeliveryTime(customerDeliveryTimeManager, name, price, time);
     }
-    public void createProducer(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
-        ((PersistentOwnerService)this.getTheObject()).createProducer(name);
+    public void createProducer(final ProducerLst4Public prmanager, final String name) 
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
+        ((PersistentOwnerService)this.getTheObject()).createProducer(prmanager, name);
     }
     public void disconnected() 
 				throws PersistenceException{

@@ -64,7 +64,7 @@ public class ReOrderManager extends PersistentObject implements PersistentReOrde
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            result.put("reorderArticles", this.getReorderArticles().getObservee().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
+            result.put("reorderArticles", this.getReorderArticles().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
             AbstractPersistentRoot myCONCBackgroundTask = (AbstractPersistentRoot)this.getMyCONCBackgroundTask();
             if (myCONCBackgroundTask != null) {
                 result.put("myCONCBackgroundTask", myCONCBackgroundTask.createProxiInformation(false, essentialLevel <= 1));
@@ -82,10 +82,10 @@ public class ReOrderManager extends PersistentObject implements PersistentReOrde
     
     public ReOrderManager provideCopy() throws PersistenceException{
         ReOrderManager result = this;
-        result = new ReOrderManager(this.reorderArticles, 
-                                    this.This, 
+        result = new ReOrderManager(this.This, 
                                     this.myCONCBackgroundTask, 
                                     this.getId());
+        result.reorderArticles = this.reorderArticles.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -93,14 +93,14 @@ public class ReOrderManager extends PersistentObject implements PersistentReOrde
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
-    protected PersistentReOrderManagerReorderArticles reorderArticles;
+    protected ReOrderManager_ReorderArticlesProxi reorderArticles;
     protected PersistentReOrderManager This;
     protected PersistentBackgroundTask myCONCBackgroundTask;
     
-    public ReOrderManager(PersistentReOrderManagerReorderArticles reorderArticles,PersistentReOrderManager This,PersistentBackgroundTask myCONCBackgroundTask,long id) throws PersistenceException {
+    public ReOrderManager(PersistentReOrderManager This,PersistentBackgroundTask myCONCBackgroundTask,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.reorderArticles = reorderArticles;
+        this.reorderArticles = new ReOrderManager_ReorderArticlesProxi(this);
         if (This != null && !(this.isTheSameAs(This))) this.This = This;
         this.myCONCBackgroundTask = myCONCBackgroundTask;        
     }
@@ -117,16 +117,8 @@ public class ReOrderManager extends PersistentObject implements PersistentReOrde
         // Singletons cannot be delayed!
     }
     
-    public void setReorderArticles(ReOrderManagerReorderArticles4Public newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.reorderArticles)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.reorderArticles = (PersistentReOrderManagerReorderArticles)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theReOrderManagerFacade.reorderArticlesSet(this.getId(), newValue);
-        }
+    public ReOrderManager_ReorderArticlesProxi getReorderArticles() throws PersistenceException {
+        return this.reorderArticles;
     }
     protected void setThis(PersistentReOrderManager newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -212,7 +204,7 @@ public class ReOrderManager extends PersistentObject implements PersistentReOrde
          return visitor.handleReOrderManager(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getReorderArticles().getObservee().getLength() > 0) return 1;
+        if (this.getReorderArticles().getLength() > 0) return 1;
         return 0;
     }
     
@@ -226,20 +218,12 @@ public class ReOrderManager extends PersistentObject implements PersistentReOrde
 		}
 		subService.deregister(observee);
     }
-    public void fireChange(final model.meta.ReOrderQuantifiedArticleMssgs evnt) 
+    public void doReorderStep() 
 				throws PersistenceException{
-        model.meta.ReOrderManagerFireChangeReOrderQuantifiedArticleMssgsMssg event = new model.meta.ReOrderManagerFireChangeReOrderQuantifiedArticleMssgsMssg(evnt, getThis());
+        model.meta.ReOrderManagerDoReorderStepMssg event = new model.meta.ReOrderManagerDoReorderStepMssg(getThis());
 		event.execute();
 		getThis().updateObservers(event);
 		event.getResult();
-    }
-    public ReOrderManagerReorderArticles4Public getReorderArticles() 
-				throws PersistenceException{
-        if (this.reorderArticles == null) {
-			this.setReorderArticles(model.ReOrderManagerReorderArticles.createReOrderManagerReorderArticles(this.isDelayed$Persistence()));
-			this.reorderArticles.setObserver(this);
-		}
-		return this.reorderArticles;
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -258,10 +242,6 @@ public class ReOrderManager extends PersistentObject implements PersistentReOrde
 		}
 		subService.register(observee);
     }
-    public void step() 
-				throws PersistenceException{
-        this.getMyCONCBackgroundTask().step();
-    }
     public synchronized void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
@@ -278,9 +258,18 @@ public class ReOrderManager extends PersistentObject implements PersistentReOrde
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
     }
-    public void fireChangeImplementation(final model.meta.ReOrderQuantifiedArticleMssgs evnt) 
+    public void doReorderStepImplementation() 
 				throws PersistenceException{
-        //TODO: implement method: fireChangeImplementation
+
+        getThis().getReorderArticles().applyToAll(orderArticle -> {
+            orderArticle.setCountdown(orderArticle.getCountdown() - 1);
+            if (orderArticle.getCountdown() == 0) {
+                Article4Public article = orderArticle.getArticle().getArticle();
+                article.setCurrentStock(article.getCurrentStock() + orderArticle.getQuantity());
+            }
+        });
+
+        getThis().getReorderArticles().filter(orderArticle -> orderArticle.getCountdown() != 0);
         
     }
     public void initializeOnCreation() 
@@ -323,31 +312,18 @@ public class ReOrderManager extends PersistentObject implements PersistentReOrde
             });
         }
     }
-    public void reorderArticles_update(final model.meta.ReOrderQuantifiedArticleMssgs event) 
-				throws PersistenceException{
-        fireChange(event);
-    }
     public void startTask(final long tickTime) 
 				throws PersistenceException{
         //TODO Check delegation to abstract class and overwrite if necessary!
         this.getMyCONCBackgroundTask().startTask(tickTime);
     }
-    public void stepImplementation() 
+    public void step() 
 				throws PersistenceException{
         System.out.println(MessageFormat.format("Reorder Tick. Currently {0} articles are getting reorderd", getThis().getReorderArticles().getLength()));
 
+        if(getReorderArticles().getLength() > 0)
+            doReorderStep();
 
-        getThis().getReorderArticles().applyToAll(orderArticle -> {
-            orderArticle.setCountdown(orderArticle.getCountdown() - 1);
-            if (orderArticle.getCountdown() == 0) {
-                Article4Public article = orderArticle.getArticle().getArticle();
-                article.setCurrentStock(article.getCurrentStock() + orderArticle.getQuantity());
-            }
-        });
-
-        getThis().getReorderArticles().filter(orderArticle -> orderArticle.getCountdown() != 0);
-
-        //getThis().getMyServer().signalChanged(true);
     }
     public void stopTask() 
 				throws PersistenceException{

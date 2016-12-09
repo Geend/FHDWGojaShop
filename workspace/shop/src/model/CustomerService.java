@@ -70,15 +70,6 @@ public class CustomerService extends model.Service implements PersistentCustomer
                     if(forGUI && componentManager.hasEssentialFields())componentManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
-            AbstractPersistentRoot prmanager = (AbstractPersistentRoot)this.getPrmanager();
-            if (prmanager != null) {
-                result.put("prmanager", prmanager.createProxiInformation(false, essentialLevel <= 1));
-                if(depth > 1) {
-                    prmanager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && prmanager.hasEssentialFields())prmanager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
             AbstractPersistentRoot customerDeliveryTimeManager = (AbstractPersistentRoot)this.getCustomerDeliveryTimeManager();
             if (customerDeliveryTimeManager != null) {
                 result.put("customerDeliveryTimeManager", customerDeliveryTimeManager.createProxiInformation(false, essentialLevel <= 1));
@@ -128,7 +119,6 @@ public class CustomerService extends model.Service implements PersistentCustomer
                                      this.shop, 
                                      this.articleLst, 
                                      this.componentManager, 
-                                     this.prmanager, 
                                      this.customerDeliveryTimeManager, 
                                      this.account, 
                                      this.cart, 
@@ -146,19 +136,17 @@ public class CustomerService extends model.Service implements PersistentCustomer
     protected PersistentCustomerServiceShop shop;
     protected PersistentCustomerArticleLst articleLst;
     protected PersistentComponentManager componentManager;
-    protected PersistentProducerLst prmanager;
     protected PersistentCustomerDeliveryTimeManager customerDeliveryTimeManager;
     protected PersistentCustomerAccount account;
     protected PersistentShoppingCart cart;
     protected PersistentCustomerServiceOrderManager orderManager;
     
-    public CustomerService(SubjInterface subService,PersistentService This,PersistentCustomerServiceShop shop,PersistentCustomerArticleLst articleLst,PersistentComponentManager componentManager,PersistentProducerLst prmanager,PersistentCustomerDeliveryTimeManager customerDeliveryTimeManager,PersistentCustomerAccount account,PersistentShoppingCart cart,PersistentCustomerServiceOrderManager orderManager,long id) throws PersistenceException {
+    public CustomerService(SubjInterface subService,PersistentService This,PersistentCustomerServiceShop shop,PersistentCustomerArticleLst articleLst,PersistentComponentManager componentManager,PersistentCustomerDeliveryTimeManager customerDeliveryTimeManager,PersistentCustomerAccount account,PersistentShoppingCart cart,PersistentCustomerServiceOrderManager orderManager,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super((SubjInterface)subService,(PersistentService)This,id);
         this.shop = shop;
         this.articleLst = articleLst;
         this.componentManager = componentManager;
-        this.prmanager = prmanager;
         this.customerDeliveryTimeManager = customerDeliveryTimeManager;
         this.account = account;
         this.cart = cart;
@@ -189,10 +177,6 @@ public class CustomerService extends model.Service implements PersistentCustomer
         if(this.getComponentManager() != null){
             this.getComponentManager().store();
             ConnectionHandler.getTheConnectionHandler().theCustomerServiceFacade.componentManagerSet(this.getId(), getComponentManager());
-        }
-        if(this.getPrmanager() != null){
-            this.getPrmanager().store();
-            ConnectionHandler.getTheConnectionHandler().theCustomerServiceFacade.prmanagerSet(this.getId(), getPrmanager());
         }
         if(this.getCustomerDeliveryTimeManager() != null){
             this.getCustomerDeliveryTimeManager().store();
@@ -250,20 +234,6 @@ public class CustomerService extends model.Service implements PersistentCustomer
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCustomerServiceFacade.componentManagerSet(this.getId(), newValue);
-        }
-    }
-    public ProducerLst4Public getPrmanager() throws PersistenceException {
-        return this.prmanager;
-    }
-    public void setPrmanager(ProducerLst4Public newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.prmanager)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.prmanager = (PersistentProducerLst)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theCustomerServiceFacade.prmanagerSet(this.getId(), newValue);
         }
     }
     public CustomerDeliveryTimeManager4Public getCustomerDeliveryTimeManager() throws PersistenceException {
@@ -390,7 +360,6 @@ public class CustomerService extends model.Service implements PersistentCustomer
     public int getLeafInfo() throws PersistenceException{
         if (this.getArticleLst() != null) return 1;
         if (this.getComponentManager() != null) return 1;
-        if (this.getPrmanager() != null) return 1;
         if (this.getCustomerDeliveryTimeManager() != null) return 1;
         if (this.getAccount() != null) return 1;
         if (this.getCart() != null) return 1;
@@ -402,6 +371,10 @@ public class CustomerService extends model.Service implements PersistentCustomer
     public String customerService_Menu_Filter(final Anything anything) 
 				throws PersistenceException{
         String result = "+++";
+		if(anything instanceof OrderQuantifiedArticle4Public) {
+			if(this.filter_markForReturn((OrderQuantifiedArticle4Public)anything)) result = result + "markForReturnPRMTROrderQuantifiedArticlePRMTR+++";
+			if(this.filter_unmarkForReturn((OrderQuantifiedArticle4Public)anything)) result = result + "unmarkForReturnPRMTROrderQuantifiedArticlePRMTR+++";
+		}
 		if(anything instanceof ArticleWrapper4Public) {
 			if(this.filter_addToCart((ArticleWrapper4Public)anything)) result = result + "addToCartPRMTRArticleWrapperPRMTRIntegerPRMTR+++";
 		}
@@ -482,7 +455,6 @@ public class CustomerService extends model.Service implements PersistentCustomer
     }
     public void changeArticleQuantity(final ShoppingCartQuantifiedArticle4Public article, final long newQuantity) 
 				throws PersistenceException{
-
         article.changeArticleQuantity(newQuantity, getThis());
     }
     public void clearError(final ErrorDisplay4Public error) 
@@ -521,10 +493,11 @@ public class CustomerService extends model.Service implements PersistentCustomer
     public void initializeOnCreation() 
 				throws PersistenceException{
         super.initializeOnCreation();
+
+        //getThis().setAccount(CustomerAccount.getCustomerAccountByName());
         getThis().setCart(ShoppingCart.createShoppingCart());
         getThis().setShop(Shop.getTheShop());
         getThis().setComponentManager(ComponentManager.getTheComponentManager());
-        getThis().setPrmanager(ProducerLst.getTheProducerLst());
         getThis().setCustomerDeliveryTimeManager(CustomerDeliveryTimeManager.getTheCustomerDeliveryTimeManager());
         getThis().setOrderManager(CustomerOrderManager.createCustomerOrderManager(getThis().getAccount()));
         getThis().setArticleLst(CustomerArticleLst.createCustomerArticleLst());
@@ -535,6 +508,7 @@ public class CustomerService extends model.Service implements PersistentCustomer
     }
     public void markForReturn(final OrderQuantifiedArticle4Public article) 
 				throws PersistenceException{
+        //TODO! Prevent as long as article gets preorderd
         article.markForReturn();
         getThis().signalChanged(true);
     }
@@ -578,6 +552,9 @@ public class CustomerService extends model.Service implements PersistentCustomer
     }
 
     /* Start of protected part that is not overridden by persistence generator */
+
+
+
     private boolean filter_addToCart(ArticleWrapper4Public anything) throws PersistenceException {
         return anything.getArticle().getState().accept(new ArticleStateReturnVisitor<Boolean>() {
             @Override
@@ -601,6 +578,46 @@ public class CustomerService extends model.Service implements PersistentCustomer
             }
         });
     }
+
+    private boolean filter_unmarkForReturn(OrderQuantifiedArticle4Public anything) throws PersistenceException {
+        return anything.getState().accept(new OrderQuantifiedArticleStateReturnVisitor<Boolean>() {
+            @Override
+            public Boolean handleOrderQuantifiedArticleMarkedForReturnState(OrderQuantifiedArticleMarkedForReturnState4Public orderQuantifiedArticleMarkedForReturnState) throws PersistenceException {
+                return true;
+            }
+
+            @Override
+            public Boolean handleOrderQuantifiedArticleNormalState(OrderQuantifiedArticleNormalState4Public orderQuantifiedArticleNormalState) throws PersistenceException {
+                return false;
+            }
+
+            @Override
+            public Boolean handleOrderQuantifiedArticlePreOrder(OrderQuantifiedArticlePreOrder4Public orderQuantifiedArticlePreOrder) throws PersistenceException {
+                return false; //TODO! In die doku schreiben
+            }
+        });
+    }
+
+    private boolean filter_markForReturn(OrderQuantifiedArticle4Public anything) throws PersistenceException {
+        return anything.getState().accept(new OrderQuantifiedArticleStateReturnVisitor<Boolean>() {
+            @Override
+            public Boolean handleOrderQuantifiedArticleMarkedForReturnState(OrderQuantifiedArticleMarkedForReturnState4Public orderQuantifiedArticleMarkedForReturnState) throws PersistenceException {
+                return false;
+            }
+
+            @Override
+            public Boolean handleOrderQuantifiedArticleNormalState(OrderQuantifiedArticleNormalState4Public orderQuantifiedArticleNormalState) throws PersistenceException {
+                return true;
+            }
+
+            @Override
+            public Boolean handleOrderQuantifiedArticlePreOrder(OrderQuantifiedArticlePreOrder4Public orderQuantifiedArticlePreOrder) throws PersistenceException {
+                return false;//TODO! In die doku schreiben
+            }
+        });
+
+    }
+
     /* End of protected part that is not overridden by persistence generator */
     
 }

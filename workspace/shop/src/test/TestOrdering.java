@@ -8,6 +8,7 @@ import model.CustomerAccount;
 import model.CustomerDeliveryTime;
 import model.CustomerOrderManager;
 import model.DoubleDefinitionException;
+import model.EmptyDefinitionException;
 import model.OrderManager;
 import model.ProducerLst;
 import model.ShoppingCart;
@@ -68,6 +69,8 @@ public class TestOrdering {
         } catch (PersistenceException e) {
             throw new Error(e);
         } catch (DoubleDefinitionException e) {
+            e.printStackTrace();
+        } catch (EmptyDefinitionException e) {
             e.printStackTrace();
         }
     }

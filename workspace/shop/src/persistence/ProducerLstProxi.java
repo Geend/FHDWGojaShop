@@ -82,7 +82,7 @@ public class ProducerLstProxi extends PersistentProxi implements PersistentProdu
         ((PersistentProducerLst)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
     public Producer4Public createProducer(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
         return ((PersistentProducerLst)this.getTheObject()).createProducer(name);
     }
     public void initializeOnCreation() 

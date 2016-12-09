@@ -2,29 +2,26 @@ package model.meta;
 
 import persistence.*;
 
-public class ReOrderManagerFireChangeReOrderQuantifiedArticleMssgsMssg implements ReOrderManagerDOWNMssgs,ReOrderManagerUPMssgs{
+public class ReOrderManagerDoReorderStepMssg implements ReOrderManagerDOWNMssgs,ReOrderManagerUPMssgs{
     
     private java.util.Date exctDte = null;
     private Exception excptn;
     public final persistence.PersistentReOrderManager rcvr;
-    public final model.meta.ReOrderQuantifiedArticleMssgs evnt;
     
-    public ReOrderManagerFireChangeReOrderQuantifiedArticleMssgsMssg(model.meta.ReOrderQuantifiedArticleMssgs evnt,
-                                                                     persistence.PersistentReOrderManager rcvr){
-        this.evnt = evnt;
+    public ReOrderManagerDoReorderStepMssg(persistence.PersistentReOrderManager rcvr){
         this.rcvr = rcvr;
     }
     public void accept(ReOrderManagerMssgsVisitor visitor) throws PersistenceException{
-        visitor.handleReOrderManagerFireChangeReOrderQuantifiedArticleMssgsMssg(this);
+        visitor.handleReOrderManagerDoReorderStepMssg(this);
     }
     public void accept(BackgroundTaskMssgsVisitor visitor) throws PersistenceException{
-        visitor.handleReOrderManagerFireChangeReOrderQuantifiedArticleMssgsMssg(this);
+        visitor.handleReOrderManagerDoReorderStepMssg(this);
     }
     public synchronized void execute() {
         if (this.exctDte == null){
             this.exctDte = new java.util.Date();
             try{
-                this.rcvr.fireChangeImplementation(this.evnt);
+                this.rcvr.doReorderStepImplementation();
             }catch(Exception exception){
                 this.excptn = exception;
             }

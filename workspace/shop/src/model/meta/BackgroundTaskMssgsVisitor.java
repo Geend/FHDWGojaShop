@@ -5,13 +5,11 @@ public interface BackgroundTaskMssgsVisitor extends BackgroundTaskDOWNMssgsVisit
 
 interface BackgroundTaskDOWNMssgsVisitor extends GlobalOrderManagerDOWNMssgsVisitor, ReOrderManagerDOWNMssgsVisitor, OrderManagerUPMssgsVisitor {
 
-    public void handleBackgroundTaskStepMssg(BackgroundTaskStepMssg event) throws persistence.PersistenceException;
     
 }
 
 
 interface BackgroundTaskUPMssgsVisitor  {
 
-    public void handleBackgroundTaskStepMssg(BackgroundTaskStepMssg event) throws persistence.PersistenceException;
     
 }

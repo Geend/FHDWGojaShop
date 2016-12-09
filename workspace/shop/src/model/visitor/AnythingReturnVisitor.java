@@ -44,7 +44,6 @@ public interface AnythingReturnVisitor<R> extends ArticleStateReturnVisitor<R> ,
     public R handleProducer(Producer4Public producer) throws PersistenceException;
     public R handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException;
     public R handleReOrderManager(ReOrderManager4Public reOrderManager) throws PersistenceException;
-    public R handleReOrderManagerReorderArticles(ReOrderManagerReorderArticles4Public reOrderManagerReorderArticles) throws PersistenceException;
     public R handleRegisterCommand(RegisterCommand4Public registerCommand) throws PersistenceException;
     public R handleRemoveArticleCommand(RemoveArticleCommand4Public removeArticleCommand) throws PersistenceException;
     public R handleReturnManager(ReturnManager4Public returnManager) throws PersistenceException;

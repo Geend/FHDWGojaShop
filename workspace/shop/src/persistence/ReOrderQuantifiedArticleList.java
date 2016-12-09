@@ -2,10 +2,11 @@ package persistence;
 
 import java.util.*;
 
-public class ReOrderQuantifiedArticleList  extends ReOrderQuantifiedArticleSearchList{
+public class ReOrderQuantifiedArticleList {
 
+	protected Vector<ReOrderQuantifiedArticle4Public> data; //List of proxies
 	protected ReOrderQuantifiedArticleList() {
-		super();
+		this.data = new Vector<ReOrderQuantifiedArticle4Public>();
 	}
 	public Iterator<ReOrderQuantifiedArticle4Public> iterator(PersistentListProxi<ReOrderQuantifiedArticle4Public> listProxi) {
 		return new PersistentListIterator<ReOrderQuantifiedArticle4Public>(listProxi, this.data);

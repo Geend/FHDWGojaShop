@@ -44,7 +44,6 @@ public interface AnythingExceptionVisitor<E extends model.UserException> extends
     public void handleProducer(Producer4Public producer) throws PersistenceException, E;
     public void handleProducerLst(ProducerLst4Public producerLst) throws PersistenceException, E;
     public void handleReOrderManager(ReOrderManager4Public reOrderManager) throws PersistenceException, E;
-    public void handleReOrderManagerReorderArticles(ReOrderManagerReorderArticles4Public reOrderManagerReorderArticles) throws PersistenceException, E;
     public void handleRegisterCommand(RegisterCommand4Public registerCommand) throws PersistenceException, E;
     public void handleRemoveArticleCommand(RemoveArticleCommand4Public removeArticleCommand) throws PersistenceException, E;
     public void handleReturnManager(ReturnManager4Public returnManager) throws PersistenceException, E;
