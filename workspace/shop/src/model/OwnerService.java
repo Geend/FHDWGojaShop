@@ -2,7 +2,6 @@
 package model;
 
 import common.Fraction;
-import model.meta.BackgroundTaskStepMssg;
 import model.meta.ReOrderManagerMssgsVisitor;
 import model.meta.ShopAcceptOrderCustomerOrderManagerOrderMssg;
 import model.meta.ShopChangeArticleNameArticleWrapperStringMssg;
