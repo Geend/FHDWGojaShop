@@ -1,31 +1,17 @@
 package test;
 
-import model.*;
 import org.junit.AfterClass;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
-import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import persistence.Cache;
-import persistence.OwnerService4Public;
 import persistence.PersistenceException;
-import persistence.PersistentServer;
-import persistence.Producer4Public;
-import persistence.Server4Public;
-
-import java.io.IOException;
-import java.sql.SQLException;
-
-import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
-import static org.junit.Assert.fail;
 
 /**
- * Created by A13531 on 05.12.2016.
+ * Created by nutzer on 12/9/16.
  */
-public class TestProducer {
-
+public class TestSzenario {
     @BeforeClass
     public static void initialiseFramework() {
         try {
@@ -57,18 +43,4 @@ public class TestProducer {
 
     @Rule
     public final ExpectedException exception = ExpectedException.none();
-
-
-    @Test
-    public void testCreateProducer() throws Exception {
-        Producer4Public producer4Public = ProducerLst.getTheProducerLst().createProducer("Test");
-        Assert.assertEquals(producer4Public,  ProducerLst.getTheProducerLst().getCurrentProducer().getList().iterator().next());
-    }
-
-    @Test
-    public void testCreateProducerWithSameName() throws Exception {
-        exception.expect(DoubleDefinitionException.class);
-        Shop.getTheShop().createProducer("Test");
-        Shop.getTheShop().createProducer("Test");
-    }
 }

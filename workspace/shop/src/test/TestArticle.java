@@ -124,9 +124,17 @@ public class TestArticle {
     public void MoveArticelToOtherProductGroupTest() throws Exception {
         Producer4Public producer = ProducerLst.getTheProducerLst().createProducer("Test");
         ArticleWrapper4Public testArt1 = ComponentManager.getTheComponentManager().newArticle("Toast", new Fraction(5),10, 100, 4, producer);
-        ProductGroup4Public testProdGruppe1 = ComponentManager.getTheComponentManager().newProductGroup("ProduktgruppeTest");
+        PersistentProductGroup testProdGruppe1 = (PersistentProductGroup)ComponentManager.getTheComponentManager().newProductGroup("ProduktgruppeTest");
         testArt1.moveTo(testProdGruppe1);
+        Iterator<Component4Public> itr = testProdGruppe1.getContainer().getComponents().iterator();
+        while (itr.hasNext()) {
+            Component4Public comp = itr.next();
+            if (comp instanceof ArticleWrapperListEntryProxi) {
+                PersistentArticleWrapper art = (PersistentArticleWrapper)comp;
+                if(Long.compare(art.getId(), testArt1.getId()) == 0)
+                    return;
+            }
+        }
         assert false;
-        //TODO! Test product group has moved Assert.assertEquals(testProdGruppe1.getName(), ComponentManager.getTheComponentManager().);
     }
 }
