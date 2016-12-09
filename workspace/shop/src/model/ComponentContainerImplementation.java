@@ -1,6 +1,7 @@
 
 package model;
 
+import constants.StringConstants;
 import persistence.*;
 import model.visitor.*;
 
@@ -8,7 +9,7 @@ import model.visitor.*;
 /* Additional import section end */
 
 public class ComponentContainerImplementation extends PersistentObject implements PersistentComponentContainerImplementation{
-    
+
     /** Throws persistence exception if the object with the given id does not exist. */
     public static ComponentContainerImplementation4Public getById(long objectId) throws PersistenceException{
         long classId = ConnectionHandler.getTheConnectionHandler().theComponentContainerImplementationFacade.getClass(objectId);
@@ -281,26 +282,52 @@ public class ComponentContainerImplementation extends PersistentObject implement
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-
     }
     public ArticleWrapper4Public newArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
-				throws model.CycleException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, model.CycleException, PersistenceException{
+
+        if("".equals(name)) {
+            throw new EmptyDefinitionException(StringConstants.ARTICLE_NAME_EMPTY_DEFINTION_EXCEPTION_TEXT);
+        }
+
+        Article.getArticleByName(name).applyToAllException(article ->{
+            if(article.getProducer().equals(producer)){
+                throw new DoubleDefinitionException(StringConstants.ARTICLE_DOUBLE_DEFINITION_EXCEPTION_MESSAGE);
+            }
+        });
         ArticleWrapper4Public articleWrapper = ArticleWrapper.createArticleWrapper(getThis(),
                 Article.createArticle(name, price, minStock, maxStock, producerDeliveryTime, producer));
         getThis().addComponent(articleWrapper);
         return articleWrapper;
     }
     public ProductGroup4Public newProductGroup(final String name) 
-				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, model.CycleException, PersistenceException{
+
+        if("".equals(name)) {
+            throw new EmptyDefinitionException(StringConstants.PRODUCT_GROUP_NAME_EMPTY_DEFINTION_EXCEPTION_TEXT);
+        }
+
+        getThis().getComponents().applyToAllException(component->
+        component.accept(new ComponentExceptionVisitor<DoubleDefinitionException>() {
+            @Override
+            public void handleArticleWrapper(ArticleWrapper4Public articleWrapper) throws PersistenceException, DoubleDefinitionException {
+
+            }
+
+            @Override
+            public void handleProductGroup(ProductGroup4Public productGroup) throws PersistenceException, DoubleDefinitionException {
+                if(productGroup.getName().equals(name))
+                    throw new DoubleDefinitionException(StringConstants.PRODUCT_GROUP_DOUBLE_DEFINITION_EXCEPTION_MESSAGE);
+            }
+        }));
+
+
         ProductGroup4Public productGroup = ProductGroup.createProductGroup(getThis(), name);
         getThis().addComponent(productGroup);
         return productGroup;

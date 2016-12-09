@@ -122,8 +122,8 @@ singleton Shop{
 
 	//Articles
 	//TODO: Prevent article creation with same name and producer
-	active event ArticleWrapper newArticle(ComponentContainer parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException, DoubleDefinitionException;
-	active event ProductGroup newProductGroup(ComponentContainer parent, String name) throws CycleException, DoubleDefinitionException;
+	active event ArticleWrapper newArticle(ComponentContainer parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException, DoubleDefinitionException, EmptyDefinitionException;
+	active event ProductGroup newProductGroup(ComponentContainer parent, String name) throws CycleException, DoubleDefinitionException, EmptyDefinitionException;
 
 	
 	active event void moveTo(Component component, ComponentContainer newParentGroup)throws CycleException;
@@ -264,8 +264,8 @@ interface ComponentContainer{
    void removeComponent(Component component);
 	void addComponent(Component component) throws CycleException;
 
-	ProductGroup newProductGroup##cspg(String name) throws CycleException, DoubleDefinitionException;
-	ArticleWrapper newArticle(String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException;
+	ProductGroup newProductGroup##cspg(String name) throws CycleException, DoubleDefinitionException, EmptyDefinitionException;
+	ArticleWrapper newArticle(String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException, DoubleDefinitionException, EmptyDefinitionException;
 }
 
 class ComponentContainerImplementation##cci implements ComponentContainer{

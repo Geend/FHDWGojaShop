@@ -127,7 +127,7 @@ public class ShopICProxi extends PersistentInCacheProxiOptimistic implements Per
         ((PersistentShop)this.getTheObject()).moveTo(component, newParentGroup, invoker);
     }
     public ArticleWrapper4Public newArticle(final ComponentContainer parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
-				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, model.CycleException, PersistenceException{
         return ((PersistentShop)this.getTheObject()).newArticle(parent, name, price, minStock, maxStock, producerDeliveryTime, producer);
     }
     public void newArticle(final ComponentContainer parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer, final Invoker invoker) 
@@ -135,7 +135,7 @@ public class ShopICProxi extends PersistentInCacheProxiOptimistic implements Per
         ((PersistentShop)this.getTheObject()).newArticle(parent, name, price, minStock, maxStock, producerDeliveryTime, producer, invoker);
     }
     public ProductGroup4Public newProductGroup(final ComponentContainer parent, final String name) 
-				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, model.CycleException, PersistenceException{
         return ((PersistentShop)this.getTheObject()).newProductGroup(parent, name);
     }
     public void newProductGroup(final ComponentContainer parent, final String name, final Invoker invoker) 
@@ -227,11 +227,11 @@ public class ShopICProxi extends PersistentInCacheProxiOptimistic implements Per
         ((PersistentShop)this.getTheObject()).moveToImplementation(component, newParentGroup);
     }
     public ArticleWrapper4Public newArticleImplementation(final ComponentContainer parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
-				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, model.CycleException, PersistenceException{
         return ((PersistentShop)this.getTheObject()).newArticleImplementation(parent, name, price, minStock, maxStock, producerDeliveryTime, producer);
     }
     public ProductGroup4Public newProductGroupImplementation(final ComponentContainer parent, final String name) 
-				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
+				throws model.DoubleDefinitionException, model.EmptyDefinitionException, model.CycleException, PersistenceException{
         return ((PersistentShop)this.getTheObject()).newProductGroupImplementation(parent, name);
     }
     public void orderCartImplementation(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
