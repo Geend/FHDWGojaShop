@@ -27,6 +27,7 @@ public class OrderQuantifiedArticleStateFacade{
     public long getClass(long objectId) throws PersistenceException{
         if(Cache.getTheCache().contains(objectId, 356)) return 356;
         if(Cache.getTheCache().contains(objectId, 355)) return 355;
+        if(Cache.getTheCache().contains(objectId, 451)) return 451;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

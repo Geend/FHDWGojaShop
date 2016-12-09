@@ -238,8 +238,6 @@ public class Settings extends PersistentObject implements PersistentSettings{
     
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -247,8 +245,6 @@ public class Settings extends PersistentObject implements PersistentSettings{
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
     }
     
     

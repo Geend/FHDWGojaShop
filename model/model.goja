@@ -40,6 +40,7 @@ server OwnerService extends Service {
 
 	no-view void changeArticleName(ArticleWrapper article, String newName);
 	no-view void changeArticlePrice(ArticleWrapper article, Fraction newPrice);
+	no-view void changeArticleProducerDeliveryTime(ArticleWrapper article, Integer newValue);
 
 	void startSelling@@Verkauf_starten(ArticleWrapper article checked);
 	void stopSelling@@Verkauf_beenden(ArticleWrapper article checked);
@@ -72,7 +73,6 @@ server CustomerService extends Service {
 
 	CustomerArticleLst articleLst;
 	ComponentManager componentManager;
-	ProducerLst prmanager;
 	CustomerDeliveryTimeManager customerDeliveryTimeManager##cdtm;
 
 	prior CustomerAccount account;
@@ -212,7 +212,6 @@ class CustomerOrderManager##com extends OrderManager{
 }
 
 singleton BackgroundTaskManager##btm{
-
 	BackgroundTask ** tasks;
 	void addTask(BackgroundTask task);
 	void startTasks();
@@ -338,11 +337,13 @@ abstract class QuantifiedArticle{
 
 class ShoppingCartQuantifiedArticle##scqa extends QuantifiedArticle{
 	active void changeArticleQuantity##caq(Integer newQuantity);
+
+	derived Fraction price;
 }
 
 class OrderQuantifiedArticle##oqa extends QuantifiedArticle{
 	prior public Fraction articlePriceAtOrderTime##apatot;
-	public no-view OrderQuantifiedArticleState state;
+	public-write no-view OrderQuantifiedArticleState state;
 	void markForReturn();
 	void unmarkForReturn();
 
@@ -354,6 +355,10 @@ class OrderQuantifiedArticleNormalState##ooans extends OrderQuantifiedArticleSta
 }
 class OrderQuantifiedArticleMarkedForReturnState##ooamafrs extends OrderQuantifiedArticleState{
 }
+class OrderQuantifiedArticlePreOrder##ooapo extends OrderQuantifiedArticleState{
+	public-write prior Integer leftQuantity;
+}
+
 
 
 
@@ -425,6 +430,7 @@ class InTransitOrderState##itos extends OrderStatus{
 }
 
 class PreOrderState extends OrderStatus{
+
 }
 class WaitingForAcceptOrderState##wfao extends OrderStatus{
 	public-write prior Integer ticksLeft;

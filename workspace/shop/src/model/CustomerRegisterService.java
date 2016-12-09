@@ -272,9 +272,7 @@ public class CustomerRegisterService extends model.Service implements Persistent
         if(Server.getServerByUser(accountName).getLength() == 0){
             Server.createServer(password, accountName,0l, Timestamp.from(Instant.now()));
 
-            CustomerAccount.createCustomerAccount(accountName,
-                    Settings.getTheSettings().getNewCustomerDefaultBalance(),
-                    Settings.getTheSettings().getNewCustomerDefaultLimit());
+
         }
         else {
             throw new UserAlreadyExistsException(MessageFormat.format("User with name {0} already exists", accountName));

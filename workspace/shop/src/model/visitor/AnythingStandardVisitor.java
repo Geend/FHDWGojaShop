@@ -218,6 +218,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleChangeArticleQuantityCommand(ChangeArticleQuantityCommand4Public changeArticleQuantityCommand) throws PersistenceException{
         this.standardHandling(changeArticleQuantityCommand);
     }
+    public void handleOrderQuantifiedArticlePreOrder(OrderQuantifiedArticlePreOrder4Public orderQuantifiedArticlePreOrder) throws PersistenceException{
+        this.standardHandling(orderQuantifiedArticlePreOrder);
+    }
     public void handleCustomerOrderManager(CustomerOrderManager4Public customerOrderManager) throws PersistenceException{
         this.standardHandling(customerOrderManager);
     }

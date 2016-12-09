@@ -8,6 +8,9 @@ public abstract class OrderQuantifiedArticleStateStandardVisitor implements Orde
     public void handleOrderQuantifiedArticleNormalState(OrderQuantifiedArticleNormalStateView orderQuantifiedArticleNormalState) throws ModelException{
         this.standardHandling(orderQuantifiedArticleNormalState);
     }
+    public void handleOrderQuantifiedArticlePreOrder(OrderQuantifiedArticlePreOrderView orderQuantifiedArticlePreOrder) throws ModelException{
+        this.standardHandling(orderQuantifiedArticlePreOrder);
+    }
     public void handleOrderQuantifiedArticleMarkedForReturnState(OrderQuantifiedArticleMarkedForReturnStateView orderQuantifiedArticleMarkedForReturnState) throws ModelException{
         this.standardHandling(orderQuantifiedArticleMarkedForReturnState);
     }

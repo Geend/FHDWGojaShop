@@ -297,6 +297,14 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
                         return true;
                     }
                 });
+
+                panel.registerUpdater(ArticleDefaultDetailPanel.Article$$producerDeliveryTime, new UpdaterForInteger() {
+                    @Override
+                    public void update(String text) throws ModelException {
+                        getConnection().changeArticleProducerDeliveryTime(articleWrapper, Integer.parseInt(text));
+                    }
+                });
+
                 result = panel;
 
             }

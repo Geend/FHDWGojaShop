@@ -27,6 +27,8 @@ public interface ShoppingCartQuantifiedArticle4Public extends QuantifiedArticle4
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
+    public common.Fraction getPrice() 
+				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 

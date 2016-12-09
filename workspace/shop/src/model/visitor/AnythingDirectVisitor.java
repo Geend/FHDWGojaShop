@@ -12,6 +12,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleOrderQuantifiedArticleNormalState(OrderQuantifiedArticleNormalState4Public orderQuantifiedArticleNormalState) throws PersistenceException{
         this.handleOrderQuantifiedArticleState(orderQuantifiedArticleNormalState);
     }
+    public void handleOrderQuantifiedArticlePreOrder(OrderQuantifiedArticlePreOrder4Public orderQuantifiedArticlePreOrder) throws PersistenceException{
+        this.handleOrderQuantifiedArticleState(orderQuantifiedArticlePreOrder);
+    }
     public void handleOrderQuantifiedArticleMarkedForReturnState(OrderQuantifiedArticleMarkedForReturnState4Public orderQuantifiedArticleMarkedForReturnState) throws PersistenceException{
         this.handleOrderQuantifiedArticleState(orderQuantifiedArticleMarkedForReturnState);
     }

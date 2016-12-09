@@ -321,6 +321,7 @@ public class Cache {
 		this.number2NameMap.put(232, "OrderQuantifiedArticle");
 		this.number2NameMap.put(355, "OrderQuantifiedArticleMarkedForReturnState");
 		this.number2NameMap.put(356, "OrderQuantifiedArticleNormalState");
+		this.number2NameMap.put(451, "OrderQuantifiedArticlePreOrder");
 		this.number2NameMap.put(-276, "OwnerService");
 		this.number2NameMap.put(444, "OwnerServiceOrderManager");
 		this.number2NameMap.put(442, "OwnerServiceReOrderManager");

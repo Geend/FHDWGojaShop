@@ -128,11 +128,11 @@ public abstract class BackgroundTask extends PersistentObject implements Persist
     
     public void startTask(final long tickTime) 
 				throws PersistenceException{
-        continueTransits = true;
+        continueTask = true;
 
         Thread backgroundThread = new Thread(() -> {
             try {
-                while (continueTransits) {
+                while (continueTask) {
                     step();
                     Thread.sleep(tickTime);
                 }
@@ -145,11 +145,11 @@ public abstract class BackgroundTask extends PersistentObject implements Persist
     }
     public void stopTask() 
 				throws PersistenceException{
-        continueTransits = false;
+        continueTask = false;
     }
 
     /* Start of protected part that is not overridden by persistence generator */
-    private Boolean continueTransits;
+    private Boolean continueTask;
 
     /* End of protected part that is not overridden by persistence generator */
     

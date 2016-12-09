@@ -2,6 +2,24 @@
 package model;
 
 import common.Fraction;
+import model.meta.BackgroundTaskStepMssg;
+import model.meta.ReOrderManagerFireChangeReOrderQuantifiedArticleMssgsMssg;
+import model.meta.ReOrderManagerMssgsVisitor;
+import model.meta.ShopAcceptOrderCustomerOrderManagerOrderMssg;
+import model.meta.ShopChangeArticleNameArticleWrapperStringMssg;
+import model.meta.ShopChangeArticlePriceArticleWrapperFractionMssg;
+import model.meta.ShopChangeCustomerDeliveryTimePriceCustomerDeliveryTimeFractionMssg;
+import model.meta.ShopChangeCustomerDeliveryTimeTimeCustomerDeliveryTimeIntegerMssg;
+import model.meta.ShopCreateCustomerDeliveryTimeStringFractionIntegerMssg;
+import model.meta.ShopCreateProducerStringMssg;
+import model.meta.ShopMoveToComponentComponentContainerMssg;
+import model.meta.ShopMssgsVisitor;
+import model.meta.ShopNewArticleComponentContainerStringFractionIntegerIntegerIntegerProducerMssg;
+import model.meta.ShopNewProductGroupComponentContainerStringMssg;
+import model.meta.ShopOrderCartCustomerOrderManagerShoppingCartCustomerDeliveryTimeMssg;
+import model.meta.ShopPreOrderCartCustomerOrderManagerShoppingCartCustomerDeliveryTimeMssg;
+import model.meta.ShopStartSellingArticleWrapperMssg;
+import model.meta.ShopStopSellingArticleWrapperMssg;
 import persistence.*;
 import model.visitor.*;
 
@@ -522,6 +540,11 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
 				throws PersistenceException{
        getThis().getShop().changeArticlePrice(article, newPrice, getThis());
     }
+    public void changeArticleProducerDeliveryTime(final ArticleWrapper4Public article, final long newValue) 
+				throws PersistenceException{
+        article.getArticle().setProducerDeliveryTime(newValue);
+        getThis().signalChanged(true);
+    }
     public void changeCustomerDeliveryTimePrice(final CustomerDeliveryTime4Public customerDeliveryTime, final common.Fraction newValue) 
 				throws PersistenceException{
         customerDeliveryTime.setPrice(newValue);
@@ -615,11 +638,22 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
     }
     public void orderManager_update(final model.meta.GlobalOrderManagerMssgs event) 
 				throws PersistenceException{
-        //TODO: implement method: orderManager_update
+        getThis().signalChanged(true);
         
     }
     public void reOrderManager_update(final model.meta.ReOrderManagerMssgs event) 
 				throws PersistenceException{
+        event.accept(new ReOrderManagerMssgsVisitor() {
+            @Override
+            public void handleBackgroundTaskStepMssg(BackgroundTaskStepMssg event) throws PersistenceException {
+
+            }
+
+            @Override
+            public void handleReOrderManagerFireChangeReOrderQuantifiedArticleMssgsMssg(ReOrderManagerFireChangeReOrderQuantifiedArticleMssgsMssg event) throws PersistenceException {
+
+            }
+        });
         getThis().signalChanged(true);
     }
     public void reduceArticleStock(final ArticleWrapper4Public article, final long quantity) 
@@ -629,6 +663,7 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
     }
     public void shop_update(final model.meta.ShopMssgs event) 
 				throws PersistenceException{
+
         getThis().signalChanged(true);
     }
     /* Start of protected part that is not overridden by persistence generator */

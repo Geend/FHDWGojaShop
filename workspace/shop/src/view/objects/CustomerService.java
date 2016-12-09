@@ -12,18 +12,16 @@ public class CustomerService extends view.objects.Service implements CustomerSer
     
     protected CustomerArticleLstView articleLst;
     protected ComponentManagerView componentManager;
-    protected ProducerLstView prmanager;
     protected CustomerDeliveryTimeManagerView customerDeliveryTimeManager;
     protected CustomerAccountView account;
     protected ShoppingCartView cart;
     protected CustomerOrderManagerView orderManager;
     
-    public CustomerService(java.util.Vector<ErrorDisplayView> errors,CustomerArticleLstView articleLst,ComponentManagerView componentManager,ProducerLstView prmanager,CustomerDeliveryTimeManagerView customerDeliveryTimeManager,CustomerAccountView account,ShoppingCartView cart,CustomerOrderManagerView orderManager,long id, long classId) {
+    public CustomerService(java.util.Vector<ErrorDisplayView> errors,CustomerArticleLstView articleLst,ComponentManagerView componentManager,CustomerDeliveryTimeManagerView customerDeliveryTimeManager,CustomerAccountView account,ShoppingCartView cart,CustomerOrderManagerView orderManager,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(errors,id, classId);
         this.articleLst = articleLst;
         this.componentManager = componentManager;
-        this.prmanager = prmanager;
         this.customerDeliveryTimeManager = customerDeliveryTimeManager;
         this.account = account;
         this.cart = cart;
@@ -49,12 +47,6 @@ public class CustomerService extends view.objects.Service implements CustomerSer
     }
     public void setComponentManager(ComponentManagerView newValue) throws ModelException {
         this.componentManager = newValue;
-    }
-    public ProducerLstView getPrmanager()throws ModelException{
-        return this.prmanager;
-    }
-    public void setPrmanager(ProducerLstView newValue) throws ModelException {
-        this.prmanager = newValue;
     }
     public CustomerDeliveryTimeManagerView getCustomerDeliveryTimeManager()throws ModelException{
         return this.customerDeliveryTimeManager;
@@ -131,10 +123,6 @@ public class CustomerService extends view.objects.Service implements CustomerSer
         if (componentManager != null) {
             ((ViewProxi)componentManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(componentManager.getClassId(), componentManager.getId())));
         }
-        ProducerLstView prmanager = this.getPrmanager();
-        if (prmanager != null) {
-            ((ViewProxi)prmanager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(prmanager.getClassId(), prmanager.getId())));
-        }
         CustomerDeliveryTimeManagerView customerDeliveryTimeManager = this.getCustomerDeliveryTimeManager();
         if (customerDeliveryTimeManager != null) {
             ((ViewProxi)customerDeliveryTimeManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(customerDeliveryTimeManager.getClassId(), customerDeliveryTimeManager.getId())));
@@ -162,8 +150,6 @@ public class CustomerService extends view.objects.Service implements CustomerSer
         if(this.getArticleLst() != null) index = index - 1;
         if(index == 0 && this.getComponentManager() != null) return new ComponentManagerCustomerServiceWrapper(this, originalIndex, (ViewRoot)this.getComponentManager());
         if(this.getComponentManager() != null) index = index - 1;
-        if(index == 0 && this.getPrmanager() != null) return new PrmanagerCustomerServiceWrapper(this, originalIndex, (ViewRoot)this.getPrmanager());
-        if(this.getPrmanager() != null) index = index - 1;
         if(index == 0 && this.getCustomerDeliveryTimeManager() != null) return new CustomerDeliveryTimeManagerCustomerServiceWrapper(this, originalIndex, (ViewRoot)this.getCustomerDeliveryTimeManager());
         if(this.getCustomerDeliveryTimeManager() != null) index = index - 1;
         if(index == 0 && this.getAccount() != null) return new AccountCustomerServiceWrapper(this, originalIndex, (ViewRoot)this.getAccount());
@@ -178,7 +164,6 @@ public class CustomerService extends view.objects.Service implements CustomerSer
         return 0 
             + (this.getArticleLst() == null ? 0 : 1)
             + (this.getComponentManager() == null ? 0 : 1)
-            + (this.getPrmanager() == null ? 0 : 1)
             + (this.getCustomerDeliveryTimeManager() == null ? 0 : 1)
             + (this.getAccount() == null ? 0 : 1)
             + (this.getCart() == null ? 0 : 1)
@@ -188,7 +173,6 @@ public class CustomerService extends view.objects.Service implements CustomerSer
         return true 
             && (this.getArticleLst() == null ? true : false)
             && (this.getComponentManager() == null ? true : false)
-            && (this.getPrmanager() == null ? true : false)
             && (this.getCustomerDeliveryTimeManager() == null ? true : false)
             && (this.getAccount() == null ? true : false)
             && (this.getCart() == null ? true : false)
@@ -200,8 +184,6 @@ public class CustomerService extends view.objects.Service implements CustomerSer
         if(this.getArticleLst() != null) result = result + 1;
         if(this.getComponentManager() != null && this.getComponentManager().equals(child)) return result;
         if(this.getComponentManager() != null) result = result + 1;
-        if(this.getPrmanager() != null && this.getPrmanager().equals(child)) return result;
-        if(this.getPrmanager() != null) result = result + 1;
         if(this.getCustomerDeliveryTimeManager() != null && this.getCustomerDeliveryTimeManager().equals(child)) return result;
         if(this.getCustomerDeliveryTimeManager() != null) result = result + 1;
         if(this.getAccount() != null && this.getAccount().equals(child)) return result;

@@ -326,6 +326,7 @@ public class ReOrderManager extends PersistentObject implements PersistentReOrde
     public void reorderArticles_update(final model.meta.ReOrderQuantifiedArticleMssgs event) 
 				throws PersistenceException{
         fireChange(event);
+        System.out.println("reorderArticles_update");
     }
     public void startTask(final long tickTime) 
 				throws PersistenceException{
@@ -347,7 +348,6 @@ public class ReOrderManager extends PersistentObject implements PersistentReOrde
 
         getThis().getReorderArticles().filter(orderArticle -> orderArticle.getCountdown() != 0);
 
-        //getThis().getMyServer().signalChanged(true);
     }
     public void stopTask() 
 				throws PersistenceException{

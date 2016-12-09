@@ -275,6 +275,11 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
                 public void handleOrderQuantifiedArticleNormalState(OrderQuantifiedArticleNormalState4Public orderQuantifiedArticleNormalState) throws PersistenceException {
                     System.out.println("t");
                 }
+
+                @Override
+                public void handleOrderQuantifiedArticlePreOrder(OrderQuantifiedArticlePreOrder4Public orderQuantifiedArticlePreOrder) throws PersistenceException {
+
+                }
             });
         });
 

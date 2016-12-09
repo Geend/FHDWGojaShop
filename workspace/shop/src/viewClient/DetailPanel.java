@@ -1317,6 +1317,9 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleArticlesInReturnOrderState(view.ArticlesInReturnOrderStateView object){
         result = new ArticlesInReturnOrderStateDefaultDetailPanel(handler, object);
     }
+    public void handleOrderQuantifiedArticlePreOrder(view.OrderQuantifiedArticlePreOrderView object){
+        result = new OrderQuantifiedArticlePreOrderDefaultDetailPanel(handler, object);
+    }
     public void handleCustomerOrderManager(view.CustomerOrderManagerView object){
         result = new CustomerOrderManagerDefaultDetailPanel(handler, object);
     }
@@ -1380,7 +1383,6 @@ class CustomerServiceDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String CustomerService$$articleLst = "CustomerService$$articleLst";
     protected static final String CustomerService$$componentManager = "CustomerService$$componentManager";
-    protected static final String CustomerService$$prmanager = "CustomerService$$prmanager";
     protected static final String CustomerService$$customerDeliveryTimeManager = "CustomerService$$customerDeliveryTimeManager";
     protected static final String CustomerService$$account = "CustomerService$$account";
     protected static final String CustomerService$$cart = "CustomerService$$cart";
@@ -2081,6 +2083,7 @@ class CustomerArticleLstDefaultDetailPanel extends DefaultDetailPanel{
 class ShoppingCartQuantifiedArticleDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String QuantifiedArticle$$quantity = "QuantifiedArticle$$quantity";
+    protected static final String ShoppingCartQuantifiedArticle$$price = "ShoppingCartQuantifiedArticle$$price";
     
     protected ShoppingCartQuantifiedArticleDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -2090,6 +2093,13 @@ class ShoppingCartQuantifiedArticleDefaultDetailPanel extends DefaultDetailPanel
             BaseTypePanel panel = new IntegerPanel(this, "quantity", this.getAnything().getQuantity());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(QuantifiedArticle$$quantity, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new FractionPanel(this, "price", this.getAnything().getPrice());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(ShoppingCartQuantifiedArticle$$price, panel);
         }catch(ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }
@@ -2220,6 +2230,28 @@ class ArticlesInReturnOrderStateDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ArticlesInReturnOrderStateView getAnything(){
         return (view.ArticlesInReturnOrderStateView)this.anything;
+    }
+}
+
+class OrderQuantifiedArticlePreOrderDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String OrderQuantifiedArticlePreOrder$$leftQuantity = "OrderQuantifiedArticlePreOrder$$leftQuantity";
+    
+    protected OrderQuantifiedArticlePreOrderDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new IntegerPanel(this, "leftQuantity", this.getAnything().getLeftQuantity());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(OrderQuantifiedArticlePreOrder$$leftQuantity, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.OrderQuantifiedArticlePreOrderView getAnything(){
+        return (view.OrderQuantifiedArticlePreOrderView)this.anything;
     }
 }
 

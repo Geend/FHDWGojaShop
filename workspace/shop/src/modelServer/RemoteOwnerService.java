@@ -45,6 +45,17 @@ public  class RemoteOwnerService extends RemoteService {
         }
     }
     
+    public synchronized java.util.HashMap<?,?> changeArticleProducerDeliveryTime(String articleProxiString, String newValueAsString){
+        try {
+            PersistentArticleWrapper article = (PersistentArticleWrapper)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
+            long newValue = new Long(newValueAsString).longValue();
+            ((PersistentOwnerService)this.server).changeArticleProducerDeliveryTime(article, newValue);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.HashMap<?,?> changeCustomerDeliveryTimePrice(String customerDeliveryTimeProxiString, String newValueAsString){
         try {
             PersistentCustomerDeliveryTime customerDeliveryTime = (PersistentCustomerDeliveryTime)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(customerDeliveryTimeProxiString));

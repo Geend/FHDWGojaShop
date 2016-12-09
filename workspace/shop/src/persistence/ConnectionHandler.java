@@ -139,6 +139,7 @@ public class ConnectionHandler {
     public OwnerServiceReOrderManagerFacade theOwnerServiceReOrderManagerFacade;
     public ArticlesInReturnOrderStateFacade theArticlesInReturnOrderStateFacade;
     public ChangeArticleQuantityCommandFacade theChangeArticleQuantityCommandFacade;
+    public OrderQuantifiedArticlePreOrderFacade theOrderQuantifiedArticlePreOrderFacade;
     public ArticleStateFacade theArticleStateFacade;
     public CustomerOrderManagerFacade theCustomerOrderManagerFacade;
     public ChangeCustomerDeliveryTimePriceCommandFacade theChangeCustomerDeliveryTimePriceCommandFacade;
@@ -226,6 +227,7 @@ public class ConnectionHandler {
             this.theOwnerServiceReOrderManagerFacade= new OwnerServiceReOrderManagerFacade();
             this.theArticlesInReturnOrderStateFacade= new ArticlesInReturnOrderStateFacade();
             this.theChangeArticleQuantityCommandFacade= new ChangeArticleQuantityCommandFacade();
+            this.theOrderQuantifiedArticlePreOrderFacade= new OrderQuantifiedArticlePreOrderFacade();
             this.theArticleStateFacade= new ArticleStateFacade();
             this.theCustomerOrderManagerFacade= new CustomerOrderManagerFacade();
             this.theChangeCustomerDeliveryTimePriceCommandFacade= new ChangeCustomerDeliveryTimePriceCommandFacade();

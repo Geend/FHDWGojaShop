@@ -9,7 +9,7 @@ import model.visitor.*;
 /* Additional import section end */
 
 public class ComponentContainerImplementation extends PersistentObject implements PersistentComponentContainerImplementation{
-
+    
     /** Throws persistence exception if the object with the given id does not exist. */
     public static ComponentContainerImplementation4Public getById(long objectId) throws PersistenceException{
         long classId = ConnectionHandler.getTheConnectionHandler().theComponentContainerImplementationFacade.getClass(objectId);

@@ -189,6 +189,10 @@ public class OwnerServiceICProxi extends ServiceICProxi implements PersistentOwn
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).changeArticlePrice(article, newPrice);
     }
+    public void changeArticleProducerDeliveryTime(final ArticleWrapper4Public article, final long newValue) 
+				throws PersistenceException{
+        ((PersistentOwnerService)this.getTheObject()).changeArticleProducerDeliveryTime(article, newValue);
+    }
     public void changeCustomerDeliveryTimePrice(final CustomerDeliveryTime4Public customerDeliveryTime, final common.Fraction newValue) 
 				throws PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).changeCustomerDeliveryTimePrice(customerDeliveryTime, newValue);

@@ -88,6 +88,10 @@ public class ShoppingCartQuantifiedArticleProxi extends QuantifiedArticleProxi i
 				throws PersistenceException{
         ((PersistentShoppingCartQuantifiedArticle)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public common.Fraction getPrice() 
+				throws PersistenceException{
+        return ((PersistentShoppingCartQuantifiedArticle)this.getTheObject()).getPrice();
+    }
     public void increaseQuantity(final long amount) 
 				throws PersistenceException{
         ((PersistentShoppingCartQuantifiedArticle)this.getTheObject()).increaseQuantity(amount);

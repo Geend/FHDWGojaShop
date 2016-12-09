@@ -7,6 +7,7 @@ public interface OrderQuantifiedArticle4Public extends QuantifiedArticle4Public 
     
     public common.Fraction getArticlePriceAtOrderTime() throws PersistenceException ;
     public OrderQuantifiedArticleState4Public getState() throws PersistenceException ;
+    public void setState(OrderQuantifiedArticleState4Public newValue) throws PersistenceException ;
     
     public void accept(QuantifiedArticleVisitor visitor) throws PersistenceException;
     public <R> R accept(QuantifiedArticleReturnVisitor<R>  visitor) throws PersistenceException;

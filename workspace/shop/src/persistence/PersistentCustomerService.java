@@ -8,8 +8,6 @@ public interface PersistentCustomerService extends PersistentService, CustomerSe
     public void setArticleLst(CustomerArticleLst4Public newValue) throws PersistenceException ;
     public ComponentManager4Public getComponentManager() throws PersistenceException ;
     public void setComponentManager(ComponentManager4Public newValue) throws PersistenceException ;
-    public ProducerLst4Public getPrmanager() throws PersistenceException ;
-    public void setPrmanager(ProducerLst4Public newValue) throws PersistenceException ;
     public CustomerDeliveryTimeManager4Public getCustomerDeliveryTimeManager() throws PersistenceException ;
     public void setCustomerDeliveryTimeManager(CustomerDeliveryTimeManager4Public newValue) throws PersistenceException ;
     public CustomerAccount4Public getAccount() throws PersistenceException ;

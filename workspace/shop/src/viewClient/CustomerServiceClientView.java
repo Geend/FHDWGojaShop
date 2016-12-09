@@ -233,19 +233,13 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
 			@Override
 			public void handleShoppingCartQuantifiedArticle(ShoppingCartQuantifiedArticleView shoppingCartQuantifiedArticle) throws ModelException {
 
-
 				ShoppingCartQuantifiedArticleDefaultDetailPanel panel = new ShoppingCartQuantifiedArticleDefaultDetailPanel(CustomerServiceClientView.this, shoppingCartQuantifiedArticle);
 
 				//TODO! fix this...
-				panel.registerUpdater(ShoppingCartQuantifiedArticleDefaultDetailPanel.QuantifiedArticle$$quantity, new StandardUpdater() {
+				panel.registerUpdater(ShoppingCartQuantifiedArticleDefaultDetailPanel.QuantifiedArticle$$quantity, new UpdaterForInteger() {
 					@Override
 					public void update(String text) throws ModelException {
 						getConnection().changeArticleQuantity(shoppingCartQuantifiedArticle, Integer.getInteger(text));
-					}
-
-					@Override
-					public boolean check(String text) throws ModelException {
-						return true;
 					}
 				});
 

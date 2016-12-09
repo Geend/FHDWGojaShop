@@ -19,7 +19,7 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
 	
   private static ListProxiFactory [] getTheListProxiFactories(){
 	if (listProxiFactories == null){
-		listProxiFactories = new ListProxiFactory[350];
+		listProxiFactories = new ListProxiFactory[352];
         listProxiFactories[109] = new ListProxiFactory(){
             AbstractPersistentRoot create(long objectId, long entryId){
                 return new ProducerLstListEntryProxi(objectId, entryId);
@@ -375,6 +375,11 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
                 return new ChangeArticleQuantityCommandListEntryProxi(objectId, entryId);
             }
         };
+        listProxiFactories[350] = new ListProxiFactory(){
+            AbstractPersistentRoot create(long objectId, long entryId){
+                return new OrderQuantifiedArticlePreOrderListEntryProxi(objectId, entryId);
+            }
+        };
         listProxiFactories[207] = new ListProxiFactory(){
             AbstractPersistentRoot create(long objectId, long entryId){
                 return new CustomerOrderManagerListEntryProxi(objectId, entryId);
@@ -400,7 +405,7 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
   }
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [350];
+		proxiFactories = new ProxiFactory [352];
         proxiFactories[109] = new ProxiFactory(){
             AbstractPersistentRoot create(long objectId){
                 return new ProducerLstProxi(objectId);
@@ -754,6 +759,11 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
         proxiFactories[193] = new ProxiFactory(){
             AbstractPersistentRoot create(long objectId){
                 return new ChangeArticleQuantityCommandProxi(objectId);
+            }
+        };
+        proxiFactories[350] = new ProxiFactory(){
+            AbstractPersistentRoot create(long objectId){
+                return new OrderQuantifiedArticlePreOrderProxi(objectId);
             }
         };
         proxiFactories[207] = new ProxiFactory(){
