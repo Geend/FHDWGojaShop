@@ -7,12 +7,12 @@ server Server {
 
 abstract server Service {
 	//Refresh
-	void reloadUI();
+	void reloadUI@@Aktualisieren();
 }
 
 server OwnerService extends Service {
 
-	//Manager	
+	//Manager
 	server-only observe Shop shop;
 
    ComponentManager componentManager;
@@ -34,7 +34,7 @@ server OwnerService extends Service {
 	void newArticle@@Neuer_Artikel(ComponentContainer parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException, DoubleDefinitionException;
 	void newProductGroup@@Neue_Produktgruppe(ComponentContainer parent, String name) throws CycleException, DoubleDefinitionException;
 	//void newProductGroup@@Neue_Produktgruppe(String name) throws DoubleDefinitionException, CycleException;
-	
+
 	void moveTo@@verschieben(Component component, ComponentContainer newParentGroup)throws CycleException;
 
 
@@ -88,7 +88,7 @@ server CustomerService extends Service {
 	//Ordering
 	void order@@Bestellen(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime@@Versandart) throws NotEnoughStockException, NotEnoughMoneyException, EmptyCartException;
 	void preOrder@@Vorbestellen(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime@@Versandart) throws NotEnoughMoneyException, EmptyCartException;
-	
+
 	void acceptOrder@@Lieferung_annehmen(Order order);
 	void markForReturn@@Als_Retour_markieren(OrderQuantifiedArticle article checked);
 	void unmarkForReturn@@Retour_markierung_entfernen(OrderQuantifiedArticle article checked);
@@ -125,7 +125,7 @@ singleton Shop{
 	active event ArticleWrapper newArticle(ComponentContainer parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException, DoubleDefinitionException, EmptyDefinitionException;
 	active event ProductGroup newProductGroup(ComponentContainer parent, String name) throws CycleException, DoubleDefinitionException, EmptyDefinitionException;
 
-	
+
 	active event void moveTo(Component component, ComponentContainer newParentGroup)throws CycleException;
 
 	active event void changeArticleName(ArticleWrapper article, String newName);
@@ -162,7 +162,7 @@ singleton Shop{
 // manager relevant classes -- region begin
 class CustomerArticleLst##cal {
 	public ArticleWrapper ** articles;
-	
+
 	void find(String name);
 	void clear();
 }
@@ -200,7 +200,7 @@ singleton ReOrderManager covers BackgroundTask{
 abstract class OrderManager{
 	public Order ** orders;
 
-	
+
 }
 
 class CustomerOrderManager##com extends OrderManager{
@@ -267,7 +267,7 @@ abstract class Component{
 	void moveTo(ComponentContainer container) throws CycleException;
 }
 
-interface ComponentContainer{ 
+interface ComponentContainer{
    void removeComponent(Component component);
 	void addComponent(Component component) throws CycleException;
 
@@ -305,7 +305,7 @@ class Article{
 
 	derived String currentState@@Status;
 	derived String producerName@@Hersteller;
-	
+
 	void reduceStock(Integer quantity) throws NotEnoughStockException;
 	void increaseStock(Integer quantity);
 
@@ -391,9 +391,9 @@ class CustomerAccount{
 	ShoppingCart shoppingCart;
 
 	active void deposit(Fraction amount);
-	active void withdraw(Fraction amount) throws NotEnoughMoneyException;	
+	active void withdraw(Fraction amount) throws NotEnoughMoneyException;
 
-	active void debit(Fraction amount) throws NotEnoughMoneyException;	
+	active void debit(Fraction amount) throws NotEnoughMoneyException;
 
 }
 
@@ -418,7 +418,7 @@ class Order{
 	void addArticle(OrderQuantifiedArticle orderQuantifiedArticle);
 
 	public-write Fraction totalPrice;
-	
+
 	prior public-write OrderStatus state;
 }
 
@@ -459,6 +459,7 @@ class FinishedOrderState##fos extends OrderStatus{
 
 
 abstract exception ArticleOrderException{}
+exception InvalidInputException{}
 exception EmptyDefinitionException{}
 exception DoubleDefinitionException{}
 exception UserAlreadyExistsException{}

@@ -8,6 +8,9 @@ public abstract class UserExceptionStandardVisitor implements UserExceptionVisit
     public void handleEmptyCartException(EmptyCartException emptyCartException) throws ModelException{
         this.standardHandling(emptyCartException);
     }
+    public void handleInvalidInputException(InvalidInputException invalidInputException) throws ModelException{
+        this.standardHandling(invalidInputException);
+    }
     public void handleOrderNotAcceptableException(OrderNotAcceptableException orderNotAcceptableException) throws ModelException{
         this.standardHandling(orderNotAcceptableException);
     }
@@ -26,11 +29,11 @@ public abstract class UserExceptionStandardVisitor implements UserExceptionVisit
     public void handleUserAlreadyExistsException(UserAlreadyExistsException userAlreadyExistsException) throws ModelException{
         this.standardHandling(userAlreadyExistsException);
     }
-    public void handleRestrictionException(RestrictionException restrictionException) throws ModelException{
-        this.standardHandling(restrictionException);
-    }
     public void handleDoubleDefinitionException(DoubleDefinitionException doubleDefinitionException) throws ModelException{
         this.standardHandling(doubleDefinitionException);
+    }
+    public void handleRestrictionException(RestrictionException restrictionException) throws ModelException{
+        this.standardHandling(restrictionException);
     }
     public void handleEmptyDefinitionException(EmptyDefinitionException emptyDefinitionException) throws ModelException{
         this.standardHandling(emptyDefinitionException);

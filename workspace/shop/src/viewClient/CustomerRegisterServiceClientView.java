@@ -311,8 +311,8 @@ public class CustomerRegisterServiceClientView extends BorderPane implements Exc
 
 
     interface MenuItemVisitor{
-        ImageView handle(RegisterPRMTRStringPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(ReloadUIPRMTRMenuItem menuItem);
+        ImageView handle(RegisterPRMTRStringPRMTRStringPRMTRMenuItem menuItem);
     }
     private abstract class CustomerRegisterServiceMenuItem extends MenuItem{
         private CustomerRegisterServiceMenuItem(){
@@ -320,12 +320,12 @@ public class CustomerRegisterServiceClientView extends BorderPane implements Exc
         }
         abstract protected ImageView accept(MenuItemVisitor visitor);
     }
-    private class RegisterPRMTRStringPRMTRStringPRMTRMenuItem extends CustomerRegisterServiceMenuItem{
+    private class ReloadUIPRMTRMenuItem extends CustomerRegisterServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
     }
-    private class ReloadUIPRMTRMenuItem extends CustomerRegisterServiceMenuItem{
+    private class RegisterPRMTRStringPRMTRStringPRMTRMenuItem extends CustomerRegisterServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -333,6 +333,27 @@ public class CustomerRegisterServiceClientView extends BorderPane implements Exc
     private java.util.Vector<javafx.scene.control.Button> getToolButtonsForStaticOperations() {
         java.util.Vector<javafx.scene.control.Button> result = new java.util.Vector<javafx.scene.control.Button>();
         javafx.scene.control.Button currentButton = null;
+        currentButton = new javafx.scene.control.Button("Aktualisieren");
+        currentButton.setGraphic(new ReloadUIPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                Alert confirm = new Alert(AlertType.CONFIRMATION);
+                confirm.setTitle(GUIConstants.ConfirmButtonText);
+                confirm.setHeaderText(null);
+                confirm.setContentText("Aktualisieren" + GUIConstants.ConfirmQuestionMark);
+                Optional<ButtonType> buttonResult = confirm.showAndWait();
+                if (buttonResult.get() == ButtonType.OK) {
+                    try {
+                        getConnection().reloadUI();
+                        getConnection().setEagerRefresh();
+                        
+                    }catch(ModelException me){
+                        handleException(me);
+                    }
+                }
+            }
+        });
+        result.add(currentButton);
         currentButton = new javafx.scene.control.Button("register ... ");
         currentButton.setGraphic(new RegisterPRMTRStringPRMTRStringPRMTRMenuItem().getGraphic());
         currentButton.setOnAction(new EventHandler<ActionEvent>(){
@@ -343,14 +364,19 @@ public class CustomerRegisterServiceClientView extends BorderPane implements Exc
             }
         });
         result.add(currentButton);
-        currentButton = new javafx.scene.control.Button("reloadUI");
-        currentButton.setGraphic(new ReloadUIPRMTRMenuItem().getGraphic());
-        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+        return result;
+    }
+    private ContextMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations, final Point2D menuPos) {
+        final ContextMenu result = new ContextMenu();
+        MenuItem item = null;
+        item = new ReloadUIPRMTRMenuItem();
+        item.setText("(S) Aktualisieren");
+        item.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
                 Alert confirm = new Alert(AlertType.CONFIRMATION);
                 confirm.setTitle(GUIConstants.ConfirmButtonText);
                 confirm.setHeaderText(null);
-                confirm.setContentText("reloadUI" + GUIConstants.ConfirmQuestionMark);
+                confirm.setContentText("Aktualisieren" + GUIConstants.ConfirmQuestionMark);
                 Optional<ButtonType> buttonResult = confirm.showAndWait();
                 if (buttonResult.get() == ButtonType.OK) {
                     try {
@@ -363,12 +389,7 @@ public class CustomerRegisterServiceClientView extends BorderPane implements Exc
                 }
             }
         });
-        result.add(currentButton);
-        return result;
-    }
-    private ContextMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations, final Point2D menuPos) {
-        final ContextMenu result = new ContextMenu();
-        MenuItem item = null;
+        if (withStaticOperations) result.getItems().add(item);
         item = new RegisterPRMTRStringPRMTRStringPRMTRMenuItem();
         item.setText("(S) register ... ");
         item.setOnAction(new EventHandler<ActionEvent>(){
@@ -376,27 +397,6 @@ public class CustomerRegisterServiceClientView extends BorderPane implements Exc
                 final CustomerRegisterServiceRegisterStringStringMssgWizard wizard = new CustomerRegisterServiceRegisterStringStringMssgWizard("register");
                 wizard.setWidth(getNavigationPanel().getWidth());
                 wizard.showAndWait();
-            }
-        });
-        if (withStaticOperations) result.getItems().add(item);
-        item = new ReloadUIPRMTRMenuItem();
-        item.setText("(S) reloadUI");
-        item.setOnAction(new EventHandler<ActionEvent>(){
-            public void handle(javafx.event.ActionEvent e) {
-                Alert confirm = new Alert(AlertType.CONFIRMATION);
-                confirm.setTitle(GUIConstants.ConfirmButtonText);
-                confirm.setHeaderText(null);
-                confirm.setContentText("reloadUI" + GUIConstants.ConfirmQuestionMark);
-                Optional<ButtonType> buttonResult = confirm.showAndWait();
-                if (buttonResult.get() == ButtonType.OK) {
-                    try {
-                        getConnection().reloadUI();
-                        getConnection().setEagerRefresh();
-                        
-                    }catch(ModelException me){
-                        handleException(me);
-                    }
-                }
             }
         });
         if (withStaticOperations) result.getItems().add(item);

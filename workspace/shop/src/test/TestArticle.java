@@ -117,6 +117,18 @@ public class TestArticle {
     }
 
     /**
+     * Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch einer Artikelbezeichnung einen leeren Text zuzuweisen.
+     * @throws Exception
+     */
+    @Test
+    public void ChangeToEmptyArticleNameTest() throws Exception {
+        exception.expect(InvalidInputException.class);
+        String newName = "";
+        ArticleWrapper4Public article = TestPreparations.createTestArticle();
+        Shop.getTheShop().changeArticleName(article, newName);
+    }
+
+    /**
      * Testfall zum Verschieben eines Artikels von einer Produktgruppe in eine andere.
      * @throws Exception
      */
@@ -137,4 +149,63 @@ public class TestArticle {
         }
         assert false;
     }
+
+    /**
+     * Testfall zum Verschieben einer Produktgruppe in eine andere.
+     * @throws Exception
+     */
+    @Test
+    public void MoveProductGroupTest() throws Exception {
+        PersistentProductGroup testProdGruppe1 = (PersistentProductGroup)TestPreparations.createProductGroup();
+        PersistentProductGroup testRootGroup = (PersistentProductGroup)TestPreparations.createProductGroup("rootGroup");
+        testProdGruppe1.moveTo(testRootGroup);
+        Iterator<Component4Public> itr = testRootGroup.getContainer().getComponents().iterator();
+        while (itr.hasNext()) {
+            Component4Public comp = itr.next();
+            if (comp instanceof ProductGroupListEntryProxi) {
+                PersistentProductGroup group = (PersistentProductGroup)comp;
+                if(Long.compare(group.getId(), testProdGruppe1.getId()) == 0)
+                    return;
+            }
+        }
+        assert false;
+    }
+
+    /**
+     * Testfall zum Anlegen eines Artikels und anschließenden Ändern des Preises.
+     * @throws Exception
+     */
+    @Test
+    public void CreateArticleAndChangePrice() throws Exception {
+        Producer4Public producer = ProducerLst.getTheProducerLst().createProducer("Test");
+        Fraction preis = new Fraction(5);
+        Fraction neuPreis = new Fraction(11);
+        ArticleWrapper4Public testArt1 = ComponentManager.getTheComponentManager().newArticle("Toast", preis,10, 100, 4, producer);
+        Shop.getTheShop().changeArticlePrice(testArt1, neuPreis);
+        Assert.assertEquals(neuPreis, testArt1.getPrice());
+    }
+
+    /**
+     * Testfall zum Überprüfen des Preises, da dieser nicht negativ sein darf.
+     * @throws Exception
+     */
+    @Test
+    public void NegativeArticlePriceTest() throws Exception {
+        exception.expect(InvalidInputException.class);
+        Producer4Public producer = ProducerLst.getTheProducerLst().createProducer("Test");
+        Fraction preis = new Fraction(-5);
+        ArticleWrapper4Public testArt1 = ComponentManager.getTheComponentManager().newArticle("Toast", preis,10, 100, 4, producer);
+    }
+
+    /**
+     * Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch einem Artikelpreis einen negativen Wert zuzuweisen.
+     * @throws Exception
+     */
+    @Test
+    public void ChangeToNegativeArticlePriceTest() throws Exception {
+        exception.expect(InvalidInputException.class);
+        ArticleWrapper4Public article = TestPreparations.createTestArticle();
+        Shop.getTheShop().changeArticlePrice(article, new Fraction(-10));
+    }
+
 }

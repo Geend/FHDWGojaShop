@@ -7,6 +7,8 @@ public abstract class UserExceptionDirectVisitor implements UserExceptionVisitor
     
     public abstract void handleEmptyCartException(model.EmptyCartException emptyCartException) throws PersistenceException;
     
+    public abstract void handleInvalidInputException(model.InvalidInputException invalidInputException) throws PersistenceException;
+    
     public abstract void handleOrderNotAcceptableException(model.OrderNotAcceptableException orderNotAcceptableException) throws PersistenceException;
     
     public abstract void handleNotEnoughMoneyException(model.NotEnoughMoneyException notEnoughMoneyException) throws PersistenceException;
@@ -23,9 +25,9 @@ public abstract class UserExceptionDirectVisitor implements UserExceptionVisitor
     }
     public abstract void handleUserAlreadyExistsException(model.UserAlreadyExistsException userAlreadyExistsException) throws PersistenceException;
     
-    public abstract void handleRestrictionException(model.RestrictionException restrictionException) throws PersistenceException;
-    
     public abstract void handleDoubleDefinitionException(model.DoubleDefinitionException doubleDefinitionException) throws PersistenceException;
+    
+    public abstract void handleRestrictionException(model.RestrictionException restrictionException) throws PersistenceException;
     
     public abstract void handleEmptyDefinitionException(model.EmptyDefinitionException emptyDefinitionException) throws PersistenceException;
     

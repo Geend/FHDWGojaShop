@@ -500,6 +500,7 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 
 
     interface MenuItemVisitor{
+        ImageView handle(ReloadUIPRMTRMenuItem menuItem);
         ImageView handle(CreateProducerPRMTRProducerLstPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(CreateCustomerDeliveryTimePRMTRCustomerDeliveryTimeManagerPRMTRStringPRMTRFractionPRMTRIntegerPRMTRMenuItem menuItem);
         ImageView handle(NewProductGroupPRMTRComponentContainerPRMTRStringPRMTRMenuItem menuItem);
@@ -508,7 +509,6 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
         ImageView handle(StartSellingPRMTRArticleWrapperPRMTRMenuItem menuItem);
         ImageView handle(IncreaseArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem);
         ImageView handle(ReduceArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem);
-        ImageView handle(ReloadUIPRMTRMenuItem menuItem);
         ImageView handle(MoveToPRMTRComponentPRMTRComponentContainerPRMTRMenuItem menuItem);
     }
     private abstract class OwnerServiceMenuItem extends MenuItem{
@@ -516,6 +516,11 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
             this.setGraphic(getIconForMenuItem(this));
         }
         abstract protected ImageView accept(MenuItemVisitor visitor);
+    }
+    private class ReloadUIPRMTRMenuItem extends OwnerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
     }
     private class CreateProducerPRMTRProducerLstPRMTRStringPRMTRMenuItem extends OwnerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
@@ -557,11 +562,6 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
             return visitor.handle(this);
         }
     }
-    private class ReloadUIPRMTRMenuItem extends OwnerServiceMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
     private class MoveToPRMTRComponentPRMTRComponentContainerPRMTRMenuItem extends OwnerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
@@ -570,14 +570,14 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
     private java.util.Vector<javafx.scene.control.Button> getToolButtonsForStaticOperations() {
         java.util.Vector<javafx.scene.control.Button> result = new java.util.Vector<javafx.scene.control.Button>();
         javafx.scene.control.Button currentButton = null;
-        currentButton = new javafx.scene.control.Button("reloadUI");
+        currentButton = new javafx.scene.control.Button("Aktualisieren");
         currentButton.setGraphic(new ReloadUIPRMTRMenuItem().getGraphic());
         currentButton.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
                 Alert confirm = new Alert(AlertType.CONFIRMATION);
                 confirm.setTitle(GUIConstants.ConfirmButtonText);
                 confirm.setHeaderText(null);
-                confirm.setContentText("reloadUI" + GUIConstants.ConfirmQuestionMark);
+                confirm.setContentText("Aktualisieren" + GUIConstants.ConfirmQuestionMark);
                 Optional<ButtonType> buttonResult = confirm.showAndWait();
                 if (buttonResult.get() == ButtonType.OK) {
                     try {
@@ -597,13 +597,13 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
         final ContextMenu result = new ContextMenu();
         MenuItem item = null;
         item = new ReloadUIPRMTRMenuItem();
-        item.setText("(S) reloadUI");
+        item.setText("(S) Aktualisieren");
         item.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
                 Alert confirm = new Alert(AlertType.CONFIRMATION);
                 confirm.setTitle(GUIConstants.ConfirmButtonText);
                 confirm.setHeaderText(null);
-                confirm.setContentText("reloadUI" + GUIConstants.ConfirmQuestionMark);
+                confirm.setContentText("Aktualisieren" + GUIConstants.ConfirmQuestionMark);
                 Optional<ButtonType> buttonResult = confirm.showAndWait();
                 if (buttonResult.get() == ButtonType.OK) {
                     try {
