@@ -459,6 +459,7 @@ class FinishedOrderState##fos extends OrderStatus{
 
 
 abstract exception ArticleOrderException{}
+exception InvalidMoveException{}
 exception InvalidInputException{}
 exception EmptyDefinitionException{}
 exception DoubleDefinitionException{}

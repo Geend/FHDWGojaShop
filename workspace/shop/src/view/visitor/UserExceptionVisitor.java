@@ -10,6 +10,7 @@ public interface UserExceptionVisitor extends ArticleOrderExceptionVisitor{
     public void handleEmptyCartException(EmptyCartException emptyCartException) throws ModelException;
     public void handleEmptyDefinitionException(EmptyDefinitionException emptyDefinitionException) throws ModelException;
     public void handleInvalidInputException(InvalidInputException invalidInputException) throws ModelException;
+    public void handleInvalidMoveException(InvalidMoveException invalidMoveException) throws ModelException;
     public void handleNotEnoughMoneyException(NotEnoughMoneyException notEnoughMoneyException) throws ModelException;
     public void handleOrderNotAcceptableException(OrderNotAcceptableException orderNotAcceptableException) throws ModelException;
     public void handleRestrictionException(RestrictionException restrictionException) throws ModelException;
