@@ -48,13 +48,13 @@ Einzeltestverzeichnis
 
 ### Artikeltests
 
-#### EmptyArticleNameTest
+#### EmptyArticleNameTest<a name="EmptyArticleNameTest"></a>
 
 > **Eigenentscheidung:** Es darf keine Artikel mit leerer Bezeichnung geben.
 
 Testfall zum Anlegen eines Artikels mit einer leeren Bezeichnung.
 
-#### DoubleArticleNameTest
+#### DoubleArticleNameTest<a name="DoubleArticleNameTest"></a>
 
 > **Zitat:** [...] Daneben hat jeder Artikel eine Bezeichnung,
 die erst zusammen mit dem Hersteller den Artikel
@@ -62,109 +62,109 @@ eindeutig identifiziert [...]
 
 Testfall zum Anlegen zweier Artikel mit derselben Bezeichnung unter einem Hersteller.
 
-#### ChangeArticleNameTest
+#### ChangeArticleNameTest<a name="ChangeArticleNameTest"></a>
 
 >  **Zitat:** [...] Die Nummer eines Artikels kann nicht geändert werden, jedoch die Bezeichnung und die Einordnung in Produktgruppen [...]
 
 Testfall zum Ändern einer Artikelbezeichnung.
 
-#### ChangeToEmptyArticleNameTest
+#### ChangeToEmptyArticleNameTest<a name="ChangeToEmptyArticleNameTest"></a>
 
 > **Eigenentscheidung:** Die Artikelbezeichnung darf nicht leer sein.
 
 Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch einer Artikelbezeichnung einen leeren Text zuzuweisen.
 
-#### MoveArticelToOtherProductGroupTest
+#### MoveArticelToOtherProductGroupTest<a name="MoveArticelToOtherProductGroupTest"></a>
 
 >  **Zitat:** [...] Die Nummer eines Artikels kann nicht geändert werden, jedoch die Bezeichnung und die Einordnung in Produktgruppen [...]
 
 Testfall zum Verschieben eines Artikels von einer Produktgruppe in eine andere.
 
-#### MoveProductGroupTest
+#### MoveProductGroupTest<a name="MoveProductGroupTest"></a>
 
 > **Eigenentscheidung:** Artikel können beliebig unter andere Produktgruppen verschoben werden. Dies soll auch für die Produktgruppen selbst gelten.
 
 Testfall zum Verschieben einer Produktgruppe in eine andere.
 
-#### MoveProductGroupToChildTest
+#### MoveProductGroupToChildTest<a name="MoveProductGroupToChildTest"></a>
 
 > **Eigenentscheidung:** Das Verschieben einer Produktgruppe in eine untergeordneten dieser Gruppe muss unterbunden werden.
 
 Testfall zum Verschieben einer Produktgruppe in eine untergeordnete Gruppe dieser Produktgruppe. Es sollte eine Exception ausgelöst werden, da dieses Vorgehen so nicht möglich ist.
 
-#### MoveProductGroupIntoItselfTest
+#### MoveProductGroupIntoItselfTest<a name="MoveProductGroupIntoItselfTest"></a>
 
 > **Eigenentscheidung:** Das Verschieben einer Produktgruppe in sich selbst muss unterbunden werden.
 
 Testfall zum Verschieben einer Produktgruppe in sich selbst. Es sollte eine Exception ausgelöst werden, da dieses Vorgehen so nicht sinnvoll ist.
 
-#### EmptyProductGroupNameTest
+#### EmptyProductGroupNameTest<a name="EmptyProductGroupNameTest"></a>
 
 > **Eigenentscheidung:** Es darf keine Produktgruppen mit leerer Bezeichnung geben.
 
 Testfall zum Anlegen einer Produktgruppen mit einer leeren Bezeichnung.
 
-#### DoubleProductGroupNameTest
+#### DoubleProductGroupNameTest<a name="DoubleProductGroupNameTest"></a>
 
 > **Eigenentscheidung:** Es darf keine Produktgruppen mit dergleichen Bezeichnung geben.
 
 Testfall zum Anlegen zweier Produktgruppen mit derselben Bezeichnung unter einem Hersteller.
 
-#### CreateArticleAndChangePrice
+#### CreateArticleAndChangePrice<a name="CreateArticleAndChangePrice"></a>
 
 > **Zitat:** [...] Jeder Artikel hat einen Preis pro Stück, der sich im Laufe der Zeit ändern kann. [...]
 
 Testfall zum Anlegen eines Artikels und anschließenden Ändern des Preises.
 
-#### NegativeArticlePriceTest
+#### NegativeArticlePriceTest<a name="NegativeArticlePriceTest"></a>
 
 > **Eigenentscheidung:** Es darf keine negativen Preise/Geschenke im Shop auftauchen. Daher müssen negative Zahlen beim Preis unterbunden werden.
 
 Testfall zum Überprüfen des Preises, da dieser nicht negativ sein darf.
 
-#### ChangeToNegativeArticlePriceTest
+#### ChangeToNegativeArticlePriceTest<a name="ChangeToNegativeArticlePriceTest"></a>
 
 > **Eigenentscheidung:** Ein Preis darf auch nicht in einen negativen Preis geändert werden.
 
 Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch einem Artikelpreis einen negativen Wert zuzuweisen.
 
-#### CreateArticleWithNegativeDeliveryTimeTest
+#### CreateArticleWithNegativeDeliveryTimeTest<a name="CreateArticleWithNegativeDeliveryTimeTest"></a>
 
 > **Logik:** Auch beim Anlegen eines Artikels darf keine negative Lieferzeit eingegeben werden.
 
 Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eimem Artikel eine negative Lieferzeit zuzuweisen.
 
-#### ChangeArticleDeliveryTimeNegativeTest
+#### ChangeArticleDeliveryTimeNegativeTest<a name="ChangeArticleDeliveryTimeNegativeTest"></a>
 
 > **Logik:** Die Lieferzeit sollte nicht negativ sein (egal, bei welcher Zeiteinheit).
 
 Testfall zum Ändern der Lieferzeit des Artikels ins Negative.
 
-#### CreateArticleWithZeroDeliveryTimeTest
+#### CreateArticleWithZeroDeliveryTimeTest<a name="CreateArticleWithZeroDeliveryTimeTest"></a>
 
 > **Logik:** Auch beim Anlegen eines Artikels darf keine Lieferzeit, die 0 ist, eingegeben werden.
 
 Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eimem Artikel eine Lieferzeit von 0 zuzuweisen.
 
-#### ChangeArticleDeliveryTimeZeroTest
+#### ChangeArticleDeliveryTimeZeroTest<a name="ChangeArticleDeliveryTimeZeroTest"></a>
 
 > **Logik:** Die Lieferzeit sollte nicht 0 sein (egal, bei welcher Zeiteinheit).
 
 Testfall zum Ändern der Lieferzeit des Artikels zu 0.
 
-#### CreateNegativeArticleMinStockTest
+#### CreateNegativeArticleMinStockTest<a name="CreateNegativeArticleMinStockTest"></a>
 
 > **Logik:** Es darf keinen negativen Mindestlagerbestand geben.
 
 Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eimem Artikel einen negativen Mindestlagerbestand zuzuweisen.
 
-#### CreateNegativeArticleMaxStockTest
+#### CreateNegativeArticleMaxStockTest<a name="CreateNegativeArticleMaxStockTest"></a>
 
 > **Logik:** Es darf keinen negativen Maximallagerbestand geben.
 
 Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eimem Artikel einen negativen Maximallagerbestand zuzuweisen.
 
-#### CreateArticleWithInvalidStockTest
+#### CreateArticleWithInvalidStockTest<a name="CreateArticleWithInvalidStockTest"></a>
 
 > **Logik:** Es darf keinen Artikel geben, bei dem der Mindestlagerbestand größer ist als der Maximallagerbestand.
 
