@@ -76,6 +76,56 @@ public class TestPreparations {
     }
 
     /**
+     * Liefert ein gültiges Kundenkonto zurück.
+     * @return
+     * @throws Exception
+     */
+    public static CustomerAccount4Public createCustomerAccount() throws Exception {
+        return createCustomerAccount("TestUser", new Fraction(100), new Fraction(10));
+    }
+
+    /**
+     * creates a new shopping cart.
+     * @return
+     * @throws Exception
+     */
+    public static ShoppingCart4Public createShoppingCart() throws Exception {
+        return ShoppingCart.createShoppingCart();
+    }
+
+    /**
+     * Erzeugt einen Warenkorbeintrag anhand der Parameter.
+     * @param quantity
+     * @param article
+     * @return
+     * @throws Exception
+     */
+    public static ShoppingCartQuantifiedArticle4Public createShoppingCartEntry(int quantity, ArticleWrapper4Public article) throws Exception {
+        return ShoppingCartQuantifiedArticle.createShoppingCartQuantifiedArticle(quantity, article);
+    }
+
+    /**
+     * Gibt einen Artikel für den Verkauf frei.
+     * @param article
+     * @throws Exception
+     */
+    public static void StartShopSelling(ArticleWrapper4Public article) throws Exception {
+        Shop.getTheShop().startSelling(article);
+    }
+
+    /**
+     * Erstellt einen Testbenutzer anhand des Namens, des Kundenkontostands und des Limits.
+     * @param name
+     * @param balance
+     * @param limit
+     * @return
+     * @throws Exception
+     */
+    public static CustomerAccount4Public createCustomerAccount(String name, Fraction balance, Fraction limit) throws Exception {
+        return CustomerAccount.createCustomerAccount(name, balance, limit);
+    }
+
+    /**
      * Liefert einen Iterator auf der Liste aller aktuellen Komponenten zurück.
      * @return
      * @throws Exception
