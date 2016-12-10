@@ -24,14 +24,14 @@ In diesem Bereich werden die kleinen Testfälle zu einzelnen Funktion notiert.
 
 Einzeltestverzeichnis
 
-- [Artikeltests](#Artikeltests)
+- [Artikeltests](#articleTests)
   - [Leere Artikelbezeichnung](#EmptyArticleNameTest)
   - [Doppelte Artikelbezeichnung](#DoubleArticleNameTest)
   - [Leere Produktgruppe](#EmptyProductGroupNameTest)
   - [Doppelte Produktgruppe](#DoubleProductGroupNameTest)
   - [Ändern der Artikelbezeichnung](#ChangeArticleNameTest)
   - [Ändern zu einer leeren Artikelbezeichnung](#ChangeToEmptyArticleNameTest)
-  - [Verschieben eines Artikels in eine andere Produktgruppe](#MoveArticelToOtherProductGroupTest)
+  - [Verschieben eines Artikels in eine andere Produktgruppe](#MoveArticleToOtherProductGroupTest)
   - [Verschieben einer Produktgruppe in eine andere](#MoveProductGroupTest)
   - [Verschieben einer Produktgruppe in eine seiner Untergeordneten](#MoveProductGroupToChildTest)
   - [Verschieben einer Produktgruppe in sich selbst](#MoveProductGroupIntoItselfTest)
@@ -45,8 +45,22 @@ Einzeltestverzeichnis
   - [Mindestlagerbestand eines Artikels negativ anlegen](#CreateNegativeArticleMinStockTest)
   - [Maximallagerbestand eines Artikels negativ anlegen](#CreateNegativeArticleMaxStockTest)
   - [Maximallagerbestand anlegen, der kleiner ist als der Mindestlagerbestand](#CreateArticleWithInvalidStockTest)
+- [Kundenlieferzeit - Tests](#CustomerDeliveryTimeTests)
+  - [Kundenlieferzeit anlegen](#CreateCustomerDeliveryTimeTest)
+  - [Kundenlieferzeit anlegen mit leerem Namen](#CreateCustomerDeliveryTimeEmptyNameTest)
+  - [Kundenlieferzeit anlegen mit negativem Preis](#CreateCustomerDeliveryTimeInvalidPriceTest)
+  - [Kundenlieferzeit anlegen mit ungültigerZeit](#CreateCustomerDeliveryTimeInvalidTimeTest)
+  - [Kundenlieferzeit ändern zu ungültigem Preis](#ChangeCustomerDeliveryTimeInvalidPriceTest)
+  - [Kundenlieferzeit ändern zu ungültiger Zeit](#ChangeCustomerDeliveryTimeInvalidTimeTest)
+  - [Kundenlieferzeit doppelt anlegen mit gleichem Namen](#CreateCustomerDeliveryTimeSameNameTest)
+  - [Kundenlieferzeit doppelt anlegen mit gleicher Lieferzeit](#CreateCustomerDeliveryTimeSameTimeTest)
+  - [Kundenlieferzeit Zeit ändern in eine, die schon existiert](#ChangeCustomerDeliveryTimeExistTimeTest)
+- [Einstellungen - Tests](#SettingsTests)
+  - [ungültiger Kundenkonto Startbetrag](#CustomerDefaultBalanceInvalidTest)
+  - [ungültiges Kundenkonto Limit](#CustomerLimitBalanceInvalidTest)
+  - [ungültiger Retour-Prozentsatz](#CustomerInvalidRetourPercentageTest)
 
-### Artikeltests
+### Artikeltests<a name="articleTests"></a>
 
 #### EmptyArticleNameTest<a name="EmptyArticleNameTest"></a>
 
@@ -74,7 +88,7 @@ Testfall zum Ändern einer Artikelbezeichnung.
 
 Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch einer Artikelbezeichnung einen leeren Text zuzuweisen.
 
-#### MoveArticelToOtherProductGroupTest<a name="MoveArticelToOtherProductGroupTest"></a>
+#### MoveArticleToOtherProductGroupTest<a name="MoveArticleToOtherProductGroupTest"></a>
 
 >  **Zitat:** [...] Die Nummer eines Artikels kann nicht geändert werden, jedoch die Bezeichnung und die Einordnung in Produktgruppen [...]
 
@@ -169,3 +183,79 @@ Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eimem Arti
 > **Logik:** Es darf keinen Artikel geben, bei dem der Mindestlagerbestand größer ist als der Maximallagerbestand.
 
 Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eimem Artikel einen Maximallagerbestand zuzuweisen, der kleiner ist als sein Mindestlagerbestand.
+
+### Kundenlieferzeit<a name="CustomerDeliveryTimeTests"></a>
+
+#### CreateCustomerDeliveryTimeTest<a name="CreateCustomerDeliveryTimeTest"></a>
+
+> **Zitat:** [...] Den Kunden werden verschiedene Kundenlieferzeiten angeboten. [...]
+
+Testfall zum Anlegen einer gültigen Kundenlieferzeit.
+
+#### CreateCustomerDeliveryTimeEmptyNameTest<a name="CreateCustomerDeliveryTimeEmptyNameTest"></a>
+
+> **Eigenentscheidung:** Es darf keine Kundenlieferzeit geben, die einen leeren Namen hat.
+
+Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eine Kundenlieferzeit mit leerem Namen anzulegen.
+
+#### CreateCustomerDeliveryTimeInvalidPriceTest<a name="CreateCustomerDeliveryTimeInvalidPriceTest"></a>
+
+> **Logik:** Es darf keine Kundenlieferzeit geben, die einen negativen Preis hat.
+
+Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eine Kundenlieferzeit mit negativem Preis anzulegen.
+
+#### CreateCustomerDeliveryTimeInvalidTimeTest<a name="CreateCustomerDeliveryTimeInvalidTimeTest"></a>
+
+> **Logik:** Es darf keine Kundenlieferzeit geben, die eine ungültige Zeit hat.
+
+Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eine Kundenlieferzeit mit ungültiger Zeit anzulegen.
+
+#### ChangeCustomerDeliveryTimeInvalidPriceTest<a name="ChangeCustomerDeliveryTimeInvalidPriceTest"></a>
+
+> **Logik:** Die Kundenlieferzeit darf keinen Preis bekommen, der ungültig ist.
+
+Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch den Preis einer Kundenlieferzeit ungültig zu verändern.
+
+#### ChangeCustomerDeliveryTimeInvalidTimeTest<a name="ChangeCustomerDeliveryTimeInvalidTimeTest"></a>
+
+> **Logik:** Die Kundenlieferzeit darf keine Zeit bekommen, die ungültig ist.
+
+Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch die Lieferzeit einer Kundenlieferzeit ungültig zu verändern.
+
+#### CreateCustomerDeliveryTimeSameNameTest<a name="CreateCustomerDeliveryTimeSameNameTest"></a>
+
+> **Eigenentscheidung:** Die Kundenlieferzeitobjekte dürfen anhand ihres Namens nur einmal vorkommen.
+
+Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eine Kundenlieferzeit anzulegen, die es mit dem gleichen Namen schon gibt.
+
+#### CreateCustomerDeliveryTimeSameTimeTest<a name="CreateCustomerDeliveryTimeSameTimeTest"></a>
+
+> **Eigenentscheidung:** Die Kundenlieferzeitobjekte dürfen anhand ihrer Lieferzeit nur einmal vorkommen.
+
+Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eine Kundenlieferzeit anzulegen, die es mit der gleichen Lieferzeit schon gibt.
+
+#### ChangeCustomerDeliveryTimeExistTimeTest<a name="ChangeCustomerDeliveryTimeExistTimeTest"></a>
+
+> **Eigenentscheidung:** Die Kundenlieferzeitobjekte dürfen anhand ihrer Lieferzeit nur einmal vorkommen.
+
+Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch die Lieferzeit einer Kundenlieferzeit auf einen Wert zu setzen, den es in einem anderen Kundenlieferzeit Objekt schon gibt.
+
+### Einstellungen - Tests<a name="SettingsTests"></a>
+
+#### CustomerDefaultBalanceInvalidTest<a name="CustomerDefaultBalanceInvalidTest"></a>
+
+> **Logik:** Das Kundenkonto darf keinen negativen Betrag beim Anlegen haben.
+
+Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch den Kundenkontostartbetrag negativ zu setzen.
+
+#### CustomerLimitBalanceInvalidTest<a name="CustomerLimitBalanceInvalidTest"></a>
+
+> **Logik:** Das Kundenkonto darf kein negatives Limit haben.
+
+Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch das Kundenkontolimit negativ zu setzen.
+
+#### CustomerInvalidRetourPercentageTest<a name="CustomerInvalidRetourPercentageTest"></a>
+
+> **Logik:** Es darf keinen negativen Retour-Prozentsatz geben.
+
+Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch das den Retour-Prozentsatz negativ zu setzen.

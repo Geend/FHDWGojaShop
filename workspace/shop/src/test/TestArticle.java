@@ -61,9 +61,9 @@ public class TestArticle {
     @Test
     public void DoubleArticleNameTest() throws Exception {
         exception.expect(DoubleDefinitionException.class);
-        Producer4Public producer = ProducerLst.getTheProducerLst().createProducer("Test");
-        ArticleWrapper4Public testArt1 = ComponentManager.getTheComponentManager().newArticle("TestArt", new Fraction(5),10, 100, 4, producer);
-        ArticleWrapper4Public testArt2 = ComponentManager.getTheComponentManager().newArticle("TestArt", new Fraction(5),10, 100, 4, producer);
+        Producer4Public producer = TestPreparations.createTestProducer();
+        ArticleWrapper4Public testArt1 = TestPreparations.createTestArticle("TestArt", new Fraction(5),10, 100, 4, producer);
+        ArticleWrapper4Public testArt2 = TestPreparations.createTestArticle("TestArt", new Fraction(5),10, 100, 4, producer);
     }
 
     /**
@@ -73,9 +73,9 @@ public class TestArticle {
     @Test
     public void EmptyArticleNameTest() throws Exception {
         exception.expect(EmptyDefinitionException.class);
-        Producer4Public producer = ProducerLst.getTheProducerLst().createProducer("Test");
-        ArticleWrapper4Public testArt1 = ComponentManager.getTheComponentManager().newArticle("", new Fraction(5),10, 100, 4, producer);
-        ArticleWrapper4Public testArt2 = ComponentManager.getTheComponentManager().newArticle(" ", new Fraction(5),10, 100, 4, producer);
+        Producer4Public producer = TestPreparations.createTestProducer();
+        ArticleWrapper4Public testArt1 = TestPreparations.createTestArticle("", new Fraction(5),10, 100, 4, producer);
+        ArticleWrapper4Public testArt2 = TestPreparations.createTestArticle(" ", new Fraction(5),10, 100, 4, producer);
     }
 
     /**
@@ -85,10 +85,9 @@ public class TestArticle {
     @Test
     public void DoubleProductGroupNameTest() throws Exception {
         exception.expect(DoubleDefinitionException.class);
-        Producer4Public producer = ProducerLst.getTheProducerLst().createProducer("Test");
         String groupName = "TestGrp";
-        ProductGroup4Public testGr1 = ComponentManager.getTheComponentManager().newProductGroup(groupName);
-        ProductGroup4Public testGr2 = ComponentManager.getTheComponentManager().newProductGroup(groupName);
+        ProductGroup4Public testGr1 = TestPreparations.createProductGroup(groupName);
+        ProductGroup4Public testGr2 = TestPreparations.createProductGroup(groupName);
     }
 
     /**
@@ -98,9 +97,8 @@ public class TestArticle {
     @Test
     public void EmptyProductGroupNameTest() throws Exception {
         exception.expect(EmptyDefinitionException.class);
-        Producer4Public producer = ProducerLst.getTheProducerLst().createProducer("Test");
-        ProductGroup4Public testGr1 = ComponentManager.getTheComponentManager().newProductGroup("");
-        ProductGroup4Public testGr2 = ComponentManager.getTheComponentManager().newProductGroup(" ");
+        ProductGroup4Public testGr1 = TestPreparations.createProductGroup("");
+        ProductGroup4Public testGr2 = TestPreparations.createProductGroup(" ");
     }
 
     /**
@@ -110,8 +108,7 @@ public class TestArticle {
     @Test
     public void ChangeArticleNameTest() throws Exception {
         String newName = "Brot";
-        Producer4Public producer = ProducerLst.getTheProducerLst().createProducer("Test");
-        ArticleWrapper4Public testArt1 = ComponentManager.getTheComponentManager().newArticle("Toast", new Fraction(5),10, 100, 4, producer);
+        ArticleWrapper4Public testArt1 = TestPreparations.createTestArticle();
         Shop.getTheShop().changeArticleName(testArt1, newName);
         Assert.assertEquals(newName, testArt1.getName());
     }
@@ -133,12 +130,11 @@ public class TestArticle {
      * @throws Exception
      */
     @Test
-    public void MoveArticelToOtherProductGroupTest() throws Exception {
-        Producer4Public producer = ProducerLst.getTheProducerLst().createProducer("Test");
-        ArticleWrapper4Public testArt1 = ComponentManager.getTheComponentManager().newArticle("Toast", new Fraction(5),10, 100, 4, producer);
-        PersistentProductGroup testProdGruppe1 = (PersistentProductGroup)ComponentManager.getTheComponentManager().newProductGroup("ProduktgruppeTest");
+    public void MoveArticleToOtherProductGroupTest() throws Exception {
+        ArticleWrapper4Public testArt1 = TestPreparations.createTestArticle();
+        ProductGroup4Public testProdGruppe1 = TestPreparations.createProductGroup("ProduktgruppeTest");
         testArt1.moveTo(testProdGruppe1);
-        Iterator<Component4Public> itr = testProdGruppe1.getContainer().getComponents().iterator();
+        Iterator<Component4Public> itr = TestPreparations.getComponentList(testProdGruppe1);
         while (itr.hasNext()) {
             Component4Public comp = itr.next();
             if (comp instanceof ArticleWrapperListEntryProxi) {
@@ -156,10 +152,10 @@ public class TestArticle {
      */
     @Test
     public void MoveProductGroupTest() throws Exception {
-        PersistentProductGroup testProdGruppe1 = (PersistentProductGroup)TestPreparations.createProductGroup();
-        PersistentProductGroup testRootGroup = (PersistentProductGroup)TestPreparations.createProductGroup("rootGroup");
+        ProductGroup4Public testProdGruppe1 = TestPreparations.createProductGroup();
+        ProductGroup4Public testRootGroup = TestPreparations.createProductGroup("rootGroup");
         testProdGruppe1.moveTo(testRootGroup);
-        Iterator<Component4Public> itr = testRootGroup.getContainer().getComponents().iterator();
+        Iterator<Component4Public> itr = TestPreparations.getComponentList(testRootGroup);
         while (itr.hasNext()) {
             Component4Public comp = itr.next();
             if (comp instanceof ProductGroupListEntryProxi) {
@@ -178,8 +174,8 @@ public class TestArticle {
     @Test
     public void MoveProductGroupToChildTest() throws Exception {
         exception.expect(InvalidMoveException.class);
-        PersistentProductGroup rootGroup = (PersistentProductGroup)TestPreparations.createProductGroup("rootGroup");
-        PersistentProductGroup childGroup = (PersistentProductGroup)TestPreparations.createProductGroup("childGroup");
+        ProductGroup4Public rootGroup = TestPreparations.createProductGroup("rootGroup");
+        ProductGroup4Public childGroup = TestPreparations.createProductGroup("childGroup");
         rootGroup.addComponent(childGroup);
         rootGroup.moveTo(childGroup);
     }
@@ -190,10 +186,9 @@ public class TestArticle {
      */
     @Test
     public void CreateArticleAndChangePrice() throws Exception {
-        Producer4Public producer = ProducerLst.getTheProducerLst().createProducer("Test");
         Fraction preis = new Fraction(5);
         Fraction neuPreis = new Fraction(11);
-        ArticleWrapper4Public testArt1 = ComponentManager.getTheComponentManager().newArticle("Toast", preis,10, 100, 4, producer);
+        ArticleWrapper4Public testArt1 = TestPreparations.createTestArticle("Toast", preis,10, 100, 4, TestPreparations.createTestProducer());
         Shop.getTheShop().changeArticlePrice(testArt1, neuPreis);
         Assert.assertEquals(neuPreis, testArt1.getPrice());
     }
@@ -205,9 +200,8 @@ public class TestArticle {
     @Test
     public void NegativeArticlePriceTest() throws Exception {
         exception.expect(InvalidInputException.class);
-        Producer4Public producer = ProducerLst.getTheProducerLst().createProducer("Test");
         Fraction preis = new Fraction(-5);
-        ArticleWrapper4Public testArt1 = ComponentManager.getTheComponentManager().newArticle("Toast", preis,10, 100, 4, producer);
+        ArticleWrapper4Public testArt1 = TestPreparations.createTestArticle("Toast", preis,10, 100, 4, TestPreparations.createTestProducer());
     }
 
     /**

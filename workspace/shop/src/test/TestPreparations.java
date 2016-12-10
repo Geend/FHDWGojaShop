@@ -1,9 +1,7 @@
 package test;
 
 import common.Fraction;
-import model.ComponentContainerImplementation;
-import model.ComponentManager;
-import model.Shop;
+import model.*;
 import persistence.*;
 
 import java.util.Iterator;
@@ -19,7 +17,16 @@ public class TestPreparations {
      * @throws Exception
      */
     public static ArticleWrapper4Public createTestArticle() throws Exception {
-        return ComponentManager.getTheComponentManager().newArticle("TestArt", new Fraction(5),10, 100, 4, createTestProducer());
+        return createTestArticle("TestArt", new Fraction(5),10, 100, 4, createTestProducer());
+    }
+
+    /**
+     * Erzeugt einen Testartikel mit angegebenen Parametern.
+     * @return
+     * @throws Exception
+     */
+    public static ArticleWrapper4Public createTestArticle(String name, Fraction price, int minStock, int maxStock, int producerDeliveryTime, Producer4Public producer) throws Exception {
+        return ComponentManager.getTheComponentManager().newArticle(name, price,minStock, maxStock, producerDeliveryTime, producer);
     }
 
     /**
@@ -51,11 +58,48 @@ public class TestPreparations {
     }
 
     /**
+     * Erzeugt ein gültiges Kundenlieferzeit Testobjekt.
+     * @return
+     * @throws Exception
+     */
+    public static CustomerDeliveryTime4Public createCustomerDeliveryTime() throws Exception {
+        return createCustomerDeliveryTime("TestCustomerDeliveryTime", new Fraction(3), 3);
+    }
+
+    /**
+     * Erzeugt ein Kundenlieferzeit Testobjekt mit den mitgegeben Parametern.
+     * @return
+     * @throws Exception
+     */
+    public static CustomerDeliveryTime4Public createCustomerDeliveryTime(String name, Fraction price, int time) throws Exception {
+        return CustomerDeliveryTimeManager.getTheCustomerDeliveryTimeManager().createCustomerDeliveryTime(name, price, time);
+    }
+
+    /**
      * Liefert einen Iterator auf der Liste aller aktuellen Komponenten zurück.
      * @return
      * @throws Exception
      */
     public static Iterator<Component4Public> getComponentList() throws Exception {
         return ((PersistentComponentManager)ComponentManager.getTheComponentManager()).getContainer().getComponents().iterator();
+    }
+
+    /**
+     * Liefert einen Iterator auf der Liste aller Komponenten, die innerhalb der mitgegeben Gruppe sind, zurück.
+     * @param group
+     * @return
+     * @throws Exception
+     */
+    public static Iterator<Component4Public> getComponentList(ProductGroup4Public group) throws Exception {
+        return ((PersistentProductGroup)group).getContainer().getComponents().iterator();
+    }
+
+    /**
+     * Liefert einen Iterator auf der Liste aller aktuellen Kundenlieferzeit-Objekte.
+     * @return
+     * @throws Exception
+     */
+    public static Iterator<CustomerDeliveryTime4Public> getCustomerDeliveryTimes() throws Exception {
+        return CustomerDeliveryTimeManager.getTheCustomerDeliveryTimeManager().getCustomerDeliveryTimes().iterator();
     }
 }
