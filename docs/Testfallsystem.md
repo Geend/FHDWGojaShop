@@ -14,15 +14,15 @@ Hierzu ist kein Testfall nötig, da wir beim Anlegen eines neuen Artikels die in
 
 ### CycleErrorTest
 
-> Jeder Artikel wird in hierarchisch angeordnete Produktgruppen eingeordnet, damit er über diesen Weg für den Kunden leicht auffindbar ist
+> **Zitat:** [...] Jeder Artikel wird in hierarchisch angeordnete Produktgruppen eingeordnet, damit er über diesen Weg für den Kunden leicht auffindbar ist [...]
 
 Bei einer hierarchischen Struktur könnten Zyklen entstehen. Diese Problematik wird ebenfalls durch das Gojasystem erkannt und entsprechend mit einer Fehlermeldung versehen.
 
-## Einzeltestfälle
+**Szenarienverzeichnis**
 
-In diesem Bereich werden die kleinen Testfälle zu einzelnen Funktion notiert.
+- [Szenario 1 (Preisänderungsproblematik)](#priceChangeSzenario)
 
-Einzeltestverzeichnis
+**Einzeltestverzeichnis**
 
 - [Artikeltests](#articleTests)
   - [Leere Artikelbezeichnung](#EmptyArticleNameTest)
@@ -59,6 +59,35 @@ Einzeltestverzeichnis
   - [ungültiger Kundenkonto Startbetrag](#CustomerDefaultBalanceInvalidTest)
   - [ungültiges Kundenkonto Limit](#CustomerLimitBalanceInvalidTest)
   - [ungültiger Retour-Prozentsatz](#CustomerInvalidRetourPercentageTest)
+
+## Szenarien<a name="szenarioTests"></a>
+
+In diesem Bereich werden ganze Szenarien getestet (Abfolgen von verschiedenen simulierten Handlungen).
+
+### Szenario 1 (Preisänderungsproblematik)<a name="priceChangeSzenario"></a>
+
+> **Zitat:** Jeder Artikel hat einen Preis pro Stück, der sich im Laufe der Zeit ändern kann.
+
+In diesem Szenario wird folgendes passieren:
+- Ein Kundenkonto wird angelegt (100€)
+- Ein Produzent wird erzeugt (Bauer Balder)
+- Ein Artikel wird erzeugt (Erdbeere, 0.05€, Produktlieferzeit: 2, Mindestlagerbestand: 100, Maximallagerbestand: 10000, Produzent: Bauer Balder)
+- Der Artikel wird für den Verkauf freigegeben
+- Zwei Tage warten, bis das Lager gefüllt wurde
+- ein Warenkorb wird erzeugt
+- Der Artikel wird in den Wahrenkorb gelegt (Anzahl: 1000)
+- Eine Kundenlieferzeit wird angelegt (Supertransport, Zeit: 3, Preis: 2€)
+- Der Artikel wird bestellt (Supertransport)
+- Der Preis des Artikels wird auf 0,07€ erhöht
+- Der Artikel wird versendet
+- Der Artikel wird vom Kunden angenommen
+
+Das wird kontrolliert
+- Es wurden vom Kundenkonto exakt 52€ (Preis + Versand) abgezogen
+
+## Einzeltestfälle<a name="singleTests"></a>
+
+In diesem Bereich werden die kleinen Testfälle zu einzelnen Funktion notiert.
 
 ### Artikeltests<a name="articleTests"></a>
 
