@@ -172,6 +172,19 @@ public class TestArticle {
     }
 
     /**
+     * Testfall zum Verschieben einer Produktgruppe in eine untergeordnete Gruppe dieser Produktgruppe. Es sollte eine Exception ausgelöst werden, da dieses Vorgehen so nicht möglich ist.
+     * @throws Exception
+     */
+    @Test
+    public void MoveProductGroupToChildTest() throws Exception {
+        exception.expect(InvalidMoveException.class);
+        PersistentProductGroup rootGroup = (PersistentProductGroup)TestPreparations.createProductGroup("rootGroup");
+        PersistentProductGroup childGroup = (PersistentProductGroup)TestPreparations.createProductGroup("childGroup");
+        rootGroup.addComponent(childGroup);
+        rootGroup.moveTo(childGroup);
+    }
+
+    /**
      * Testfall zum Anlegen eines Artikels und anschließenden Ändern des Preises.
      * @throws Exception
      */
@@ -206,6 +219,94 @@ public class TestArticle {
         exception.expect(InvalidInputException.class);
         ArticleWrapper4Public article = TestPreparations.createTestArticle();
         Shop.getTheShop().changeArticlePrice(article, new Fraction(-10));
+    }
+
+    /**
+     * Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eimem Artikel eine negative Lieferzeit zuzuweisen.
+     * @throws Exception
+     */
+    @Test
+    public void CreateArticleWithNegativeDeliveryTimeTest() throws Exception {
+        exception.expect(InvalidInputException.class);
+        Producer4Public producer = TestPreparations.createTestProducer();
+        ArticleWrapper4Public testArt1 = ComponentManager.getTheComponentManager().newArticle("Toast", new Fraction(3),10, 100, -3, producer);
+    }
+
+    /**
+     * Testfall zum Ändern der Lieferzeit des Artikels ins Negative.
+     * @throws Exception
+     */
+    @Test
+    public void ChangeArticleDeliveryTimeNegativeTest() throws Exception {
+        exception.expect(InvalidInputException.class);
+        ArticleWrapper4Public article = TestPreparations.createTestArticle();
+        article.getArticle().setProducerDeliveryTime(-3);
+    }
+
+    /**
+     * Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eimem Artikel eine Lieferzeit von 0 zuzuweisen.
+     * @throws Exception
+     */
+    @Test
+    public void CreateArticleWithZeroDeliveryTimeTest() throws Exception {
+        exception.expect(InvalidInputException.class);
+        Producer4Public producer = TestPreparations.createTestProducer();
+        ArticleWrapper4Public testArt1 = ComponentManager.getTheComponentManager().newArticle("Toast", new Fraction(3),10, 100, 0, producer);
+    }
+
+    /**
+     * Testfall zum Ändern der Lieferzeit des Artikels zu 0.
+     * @throws Exception
+     */
+    @Test
+    public void ChangeArticleDeliveryTimeZeroTest() throws Exception {
+        exception.expect(InvalidInputException.class);
+        ArticleWrapper4Public article = TestPreparations.createTestArticle();
+        article.getArticle().setProducerDeliveryTime(0);
+    }
+
+    /**
+     * Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eimem Artikel einen negativen Mindestlagerbestand zuzuweisen.
+     * @throws Exception
+     */
+    @Test
+    public void CreateNegativeArticleMinStockTest() throws Exception {
+        exception.expect(InvalidInputException.class);
+        Producer4Public producer = TestPreparations.createTestProducer();
+        ArticleWrapper4Public testArt1 = ComponentManager.getTheComponentManager().newArticle("Toast", new Fraction(3),-5, 100, 0, producer);
+    }
+
+    /**
+     * Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eimem Artikel einen negativen Maximallagerbestand zuzuweisen.
+     * @throws Exception
+     */
+    @Test
+    public void CreateNegativeArticleMaxStockTest() throws Exception {
+        exception.expect(InvalidInputException.class);
+        Producer4Public producer = TestPreparations.createTestProducer();
+        ArticleWrapper4Public testArt1 = ComponentManager.getTheComponentManager().newArticle("Toast", new Fraction(3),3, -3, 0, producer);
+    }
+
+    /**
+     * Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eimem Artikel einen Maximallagerbestand zuzuweisen, der kleiner ist als sein Mindestlagerbestand.
+     * @throws Exception
+     */
+    @Test
+    public void CreateArticleWithInvalidStockTest() throws Exception {
+        exception.expect(InvalidInputException.class);
+        Producer4Public producer = TestPreparations.createTestProducer();
+        ArticleWrapper4Public testArt1 = ComponentManager.getTheComponentManager().newArticle("Toast", new Fraction(3),4, 3, 0, producer);
+    }
+
+    /**
+     * Testfall zum Verschieben einer Produktgruppe in sich selbst. Es sollte eine Exception ausgelöst werden, da dieses Vorgehen so nicht sinnvoll ist.
+     * @throws Exception
+     */
+    @Test
+    public void MoveProductGroupIntoItselfTest() throws Exception {
+        exception.expect(InvalidMoveException.class);
+        ProductGroup4Public rootGroup = TestPreparations.createProductGroup("root");
+        rootGroup.moveTo(rootGroup);
     }
 
 }

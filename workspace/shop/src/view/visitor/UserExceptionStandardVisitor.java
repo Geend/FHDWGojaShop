@@ -38,5 +38,8 @@ public abstract class UserExceptionStandardVisitor implements UserExceptionVisit
     public void handleEmptyDefinitionException(EmptyDefinitionException emptyDefinitionException) throws ModelException{
         this.standardHandling(emptyDefinitionException);
     }
+    public void handleInvalidMoveException(InvalidMoveException invalidMoveException) throws ModelException{
+        this.standardHandling(invalidMoveException);
+    }
     protected abstract void standardHandling(UserException userException) throws ModelException;
 }
