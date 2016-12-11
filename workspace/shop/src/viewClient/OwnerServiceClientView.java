@@ -37,24 +37,7 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
-import view.Anything;
-import view.ArticleView;
-import view.ArticleWrapperView;
-import view.ComponentContainer;
-import view.ComponentView;
-import view.CustomerDeliveryTimeManagerView;
-import view.CustomerDeliveryTimeView;
-import view.CycleException;
-import view.DoubleDefinitionException;
-import view.EmptyDefinitionException;
-import view.ModelException;
-import view.NotEnoughStockException;
-import view.OwnerServiceView;
-import view.ProducerLstView;
-import view.ProducerView;
-import view.ProductGroupView;
-import view.SettingsView;
-import view.UserException;
+import view.*;
 import view.objects.OwnerService;
 import view.objects.ViewObjectInTree;
 import view.objects.ViewRoot;
@@ -802,7 +785,7 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 			catch(DoubleDefinitionException e) {
 				getStatusBar().setText(e.getMessage());
 			}
-			catch(EmptyDefinitionException e) {
+			catch(InvalidInputException e) {
 				getStatusBar().setText(e.getMessage());
 			}
 			
@@ -857,7 +840,7 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 			catch(DoubleDefinitionException e) {
 				getStatusBar().setText(e.getMessage());
 			}
-			catch(EmptyDefinitionException e) {
+			catch(InvalidInputException e) {
 				getStatusBar().setText(e.getMessage());
 			}
 			

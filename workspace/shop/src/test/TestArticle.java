@@ -72,7 +72,7 @@ public class TestArticle {
      */
     @Test
     public void EmptyArticleNameTest() throws Exception {
-        exception.expect(EmptyDefinitionException.class);
+        exception.expect(InvalidInputException.class);
         Producer4Public producer = TestPreparations.createTestProducer();
         ArticleWrapper4Public testArt1 = TestPreparations.createTestArticle("", new Fraction(5),10, 100, 4, producer);
         ArticleWrapper4Public testArt2 = TestPreparations.createTestArticle(" ", new Fraction(5),10, 100, 4, producer);
@@ -96,7 +96,7 @@ public class TestArticle {
      */
     @Test
     public void EmptyProductGroupNameTest() throws Exception {
-        exception.expect(EmptyDefinitionException.class);
+        exception.expect(InvalidInputException.class);
         ProductGroup4Public testGr1 = TestPreparations.createProductGroup("");
         ProductGroup4Public testGr2 = TestPreparations.createProductGroup(" ");
     }

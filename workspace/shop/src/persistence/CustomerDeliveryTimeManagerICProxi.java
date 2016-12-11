@@ -82,7 +82,7 @@ public class CustomerDeliveryTimeManagerICProxi extends PersistentInCacheProxiOp
         ((PersistentCustomerDeliveryTimeManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
     public CustomerDeliveryTime4Public createCustomerDeliveryTime(final String name, final common.Fraction price, final long time) 
-				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
+				throws model.DoubleDefinitionException, model.InvalidInputException, PersistenceException{
         return ((PersistentCustomerDeliveryTimeManager)this.getTheObject()).createCustomerDeliveryTime(name, price, time);
     }
     public void initializeOnCreation() 

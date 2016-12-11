@@ -233,8 +233,12 @@ public class ChangeArticleNameCommand extends PersistentObject implements Persis
     }
     public void execute() 
 				throws PersistenceException{
-        this.commandReceiver.changeArticleName(this.getArticle(), this.getNewName());
-		
+        try{
+			this.commandReceiver.changeArticleName(this.getArticle(), this.getNewName());
+		}
+		catch(model.InvalidInputException e){
+			this.commandException = e;
+		}
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{

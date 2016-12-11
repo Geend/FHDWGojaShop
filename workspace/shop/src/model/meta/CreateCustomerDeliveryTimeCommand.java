@@ -236,7 +236,7 @@ public class CreateCustomerDeliveryTimeCommand extends PersistentObject implemen
 		catch(model.DoubleDefinitionException e){
 			this.commandException = e;
 		}
-		catch(model.EmptyDefinitionException e){
+		catch(model.InvalidInputException e){
 			this.commandException = e;
 		}
     }

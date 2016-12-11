@@ -27,7 +27,7 @@ server OwnerService extends Service {
 	GlobalOrderArchive orderArchive;
 
 	//Producer
-	void createProducer@@Hersteller_anlegen(ProducerLst prmanager, String name) throws DoubleDefinitionException, EmptyDefinitionException;
+	void createProducer@@Hersteller_anlegen(ProducerLst prmanager, String name) throws DoubleDefinitionException, InvalidInputException;
 
 	//Articles
 	//TODO: Prevent article creation with same name and producer
@@ -49,7 +49,7 @@ server OwnerService extends Service {
 
 
 	//Customer Delivery Time
-	void createCustomerDeliveryTime@@Neue_Kundenlieferzeit(CustomerDeliveryTimeManager customerDeliveryTimeManager, String name, Fraction price, Integer time) throws DoubleDefinitionException, EmptyDefinitionException;
+	void createCustomerDeliveryTime@@Neue_Kundenlieferzeit(CustomerDeliveryTimeManager customerDeliveryTimeManager, String name, Fraction price, Integer time) throws DoubleDefinitionException, InvalidInputException;
 	no-view void changeCustomerDeliveryTimePrice(CustomerDeliveryTime customerDeliveryTime, Fraction newValue);
 	no-view void changeCustomerDeliveryTimeTime(CustomerDeliveryTime customerDeliveryTime, Integer newValue);
 
@@ -118,24 +118,24 @@ singleton Shop{
 
 	//---Owner Operations---
 	//Producer
-	event Producer createProducer(String name) throws DoubleDefinitionException, EmptyDefinitionException;
+	event Producer createProducer(String name) throws DoubleDefinitionException, InvalidInputException;
 
 	//Articles
 	//TODO: Prevent article creation with same name and producer
-	active event ArticleWrapper newArticle(ComponentContainer parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException, DoubleDefinitionException, EmptyDefinitionException;
-	active event ProductGroup newProductGroup(ComponentContainer parent, String name) throws CycleException, DoubleDefinitionException, EmptyDefinitionException;
+	active event ArticleWrapper newArticle(ComponentContainer parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException, DoubleDefinitionException, InvalidInputException;
+	active event ProductGroup newProductGroup(ComponentContainer parent, String name) throws CycleException, DoubleDefinitionException, InvalidInputException;
 
 
 	active event void moveTo(Component component, ComponentContainer newParentGroup)throws CycleException;
 
-	active event void changeArticleName(ArticleWrapper article, String newName);
+	active event void changeArticleName(ArticleWrapper article, String newName) throws InvalidInputException;
 	active event void changeArticlePrice##cap(ArticleWrapper article, Fraction newPrice);
 
 	active event void startSelling(ArticleWrapper article);
 	active event void stopSelling(ArticleWrapper article);
 
 	//Customer Delivery Time
-	active event void createCustomerDeliveryTime##ccdt(String name, Fraction price, Integer time) throws DoubleDefinitionException, EmptyDefinitionException;
+	active event void createCustomerDeliveryTime##ccdt(String name, Fraction price, Integer time) throws DoubleDefinitionException, InvalidInputException;
 	active event void changeCustomerDeliveryTimePrice##ccdtp(CustomerDeliveryTime customerDeliveryTime, Fraction newValue);
 	active event void changeCustomerDeliveryTimeTime##ccdtt(CustomerDeliveryTime customerDeliveryTime, Integer newValue);
 
@@ -169,12 +169,12 @@ class CustomerArticleLst##cal {
 
 singleton ProducerLst {
 	public Producer ** currentProducer##currProd;
-	active Producer createProducer(String name) throws DoubleDefinitionException, EmptyDefinitionException;
+	active Producer createProducer(String name) throws DoubleDefinitionException, InvalidInputException;
 }
 
 singleton CustomerDeliveryTimeManager##cdtm {
 	public CustomerDeliveryTime ** customerDeliveryTimes##cdts;
-	CustomerDeliveryTime createCustomerDeliveryTime##ccdt(String name, Fraction price, Integer time) throws DoubleDefinitionException, EmptyDefinitionException;
+	CustomerDeliveryTime createCustomerDeliveryTime##ccdt(String name, Fraction price, Integer time) throws DoubleDefinitionException, InvalidInputException;
 }
 
 singleton Settings{
@@ -271,8 +271,8 @@ interface ComponentContainer{
    void removeComponent(Component component);
 	void addComponent(Component component) throws CycleException;
 
-	ProductGroup newProductGroup##cspg(String name) throws CycleException, DoubleDefinitionException, EmptyDefinitionException;
-	ArticleWrapper newArticle(String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException, DoubleDefinitionException, EmptyDefinitionException;
+	ProductGroup newProductGroup##cspg(String name) throws CycleException, DoubleDefinitionException, InvalidInputException;
+	ArticleWrapper newArticle(String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException, DoubleDefinitionException, InvalidInputException;
 }
 
 class ComponentContainerImplementation##cci implements ComponentContainer{
@@ -461,7 +461,7 @@ class FinishedOrderState##fos extends OrderStatus{
 abstract exception ArticleOrderException{}
 exception InvalidMoveException{}
 exception InvalidInputException{}
-exception EmptyDefinitionException{}
+//exception EmptyDefinitionException{}
 exception DoubleDefinitionException{}
 exception UserAlreadyExistsException{}
 

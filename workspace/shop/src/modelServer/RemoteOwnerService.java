@@ -119,7 +119,7 @@ public  class RemoteOwnerService extends RemoteService {
             return createExceptionResult(pe);
         }catch(model.DoubleDefinitionException e0){
             return createExceptionResult(e0, this);
-        }catch(model.EmptyDefinitionException e1){
+        }catch(model.InvalidInputException e1){
             return createExceptionResult(e1, this);
         }
     }
@@ -133,7 +133,7 @@ public  class RemoteOwnerService extends RemoteService {
             return createExceptionResult(pe);
         }catch(model.DoubleDefinitionException e0){
             return createExceptionResult(e0, this);
-        }catch(model.EmptyDefinitionException e1){
+        }catch(model.InvalidInputException e1){
             return createExceptionResult(e1, this);
         }
     }

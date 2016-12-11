@@ -215,10 +215,10 @@ public class CustomerDeliveryTimeManager extends PersistentObject implements Per
 				throws PersistenceException{
     }
     public CustomerDeliveryTime4Public createCustomerDeliveryTime(final String name, final common.Fraction price, final long time) 
-				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
+				throws model.DoubleDefinitionException, model.InvalidInputException, PersistenceException{
 
         if("".equals(name)) {
-            throw new EmptyDefinitionException(StringConstants.CDT_NAME_EMPTY_DEFINITION_EXCEPTION_MESSAGEE);
+            throw new InvalidInputException(StringConstants.CDT_NAME_EMPTY_DEFINITION_EXCEPTION_MESSAGEE);
         }
         if(CustomerDeliveryTime.getCustomerDeliveryTimeByName(name).getLength() > 0){
             throw new DoubleDefinitionException(StringConstants.CDT_NAME_DOUBLE_DEFINITION_EXCEPTION_MESSAGE);

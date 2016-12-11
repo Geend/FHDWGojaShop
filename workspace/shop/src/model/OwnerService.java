@@ -580,12 +580,12 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
 				throws PersistenceException{
     }
     public void createCustomerDeliveryTime(final CustomerDeliveryTimeManager4Public customerDeliveryTimeManager, final String name, final common.Fraction price, final long time) 
-				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
+				throws model.DoubleDefinitionException, model.InvalidInputException, PersistenceException{
         getThis().getShop().createCustomerDeliveryTime(name, price, time, getThis());
         
     }
     public void createProducer(final ProducerLst4Public prmanager, final String name) 
-				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
+				throws model.DoubleDefinitionException, model.InvalidInputException, PersistenceException{
         getThis().getShop().createProducer(name);
     }
     public void disconnected() 

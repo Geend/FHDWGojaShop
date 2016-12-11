@@ -257,11 +257,11 @@ public class ComponentManager extends PersistentObject implements PersistentComp
 				throws PersistenceException{
     }
     public ArticleWrapper4Public newArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
-				throws model.DoubleDefinitionException, model.EmptyDefinitionException, model.CycleException, PersistenceException{
+				throws model.DoubleDefinitionException, model.InvalidInputException, model.CycleException, PersistenceException{
        return getThis().getContainer().newArticle(name, price, minStock, maxStock, producerDeliveryTime, producer);
     }
     public ProductGroup4Public newProductGroup(final String name) 
-				throws model.DoubleDefinitionException, model.EmptyDefinitionException, model.CycleException, PersistenceException{
+				throws model.DoubleDefinitionException, model.InvalidInputException, model.CycleException, PersistenceException{
         return getThis().getContainer().newProductGroup(name);
     }
     public void removeComponent(final Component4Public component) 

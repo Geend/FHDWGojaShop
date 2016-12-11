@@ -29,8 +29,6 @@ public abstract class UserExceptionDirectVisitor implements UserExceptionVisitor
     
     public abstract void handleRestrictionException(RestrictionException restrictionException) throws ModelException;
     
-    public abstract void handleEmptyDefinitionException(EmptyDefinitionException emptyDefinitionException) throws ModelException;
-    
     public abstract void handleInvalidMoveException(InvalidMoveException invalidMoveException) throws ModelException;
     
     
