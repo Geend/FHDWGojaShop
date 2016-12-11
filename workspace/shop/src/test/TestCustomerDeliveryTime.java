@@ -134,13 +134,9 @@ public class TestCustomerDeliveryTime {
     @Test
     public void ChangeCustomerDeliveryTimeExistTimeTest() throws Exception {
         exception.expect(InvalidInputException.class);
-        TestPreparations.createCustomerDeliveryTime("Hallo", new Fraction(1), 4);
+        CustomerDeliveryTime4Public c = TestPreparations.createCustomerDeliveryTime("Hallo", new Fraction(1), 4);
         TestPreparations.createCustomerDeliveryTime("Hullo", new Fraction(3), 1);
-
-        TestPreparations.getCustomerDeliveryTimes().applyToAllException(c -> {
-            if(c.getName().equals("Hallo"))
-                Shop.getTheShop().changeCustomerDeliveryTimeTime(c, 1);
-        });
+        Shop.getTheShop().changeCustomerDeliveryTimeTime(c, 1);
     }
 
 }
