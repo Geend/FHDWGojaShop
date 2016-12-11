@@ -12,6 +12,7 @@ import org.junit.rules.ExpectedException;
 
 import persistence.*;
 
+import java.math.BigInteger;
 import java.util.Iterator;
 
 import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
@@ -303,4 +304,76 @@ public class TestArticle {
         rootGroup.moveTo(rootGroup);
     }
 
+    /**
+     * Testfall zum Überprüfen, ob er Artikel aus dem Warenkorb verschwindet, wenn man dessen Anzahl auf 0 setzt.
+     * @throws Exception
+     */
+    @Test
+    public void SetArticleAmountZeroTest() throws Exception {
+        Producer4Public producer = TestPreparations.createTestProducer();
+        ArticleWrapper4Public article = TestPreparations.createTestArticle("Erdbeere", new Fraction(1), 10, 100, 2, producer);
+        TestPreparations.StartShopSelling(article);
+        ShoppingCart4Public sh = TestPreparations.createShoppingCart();
+        ShoppingCartQuantifiedArticle4Public shE = TestPreparations.createShoppingCartEntry(10, article);
+        sh.addArticle(shE);
+        shE.changeArticleQuantity(0);
+        Assert.assertEquals(0, sh.getArticles().getLength());
+    }
+
+    /**
+     * Testfall, der überprüft, ob verhindert wird, dass ein Artikelname zu einem geändert wird, der bei demselben
+     Hersteller schon existiert.
+     * @throws Exception
+     */
+    @Test
+    public void ChangeArticleNameExistTest() throws Exception {
+        exception.expect(DoubleDefinitionException.class);
+        Producer4Public producer = TestPreparations.createTestProducer();
+        ArticleWrapper4Public article1 = TestPreparations.createTestArticle("Erdbeere", new Fraction(1), 10, 100, 2, producer);
+        ArticleWrapper4Public article2 = TestPreparations.createTestArticle("Banane", new Fraction(1), 10, 100, 2, producer);
+        Shop.getTheShop().changeArticleName(article2, "Erdbeere");
+    }
+
+    /**
+     * Testfall, der überprüft, ob der Benutzer versucht, die Anzahl eines Artikels im Warenkorb auf einen negativen Wert zu setzen.
+     * @throws Exception
+     */
+    @Test
+    public void SetArticleAmountNegativeTest() throws Exception {
+        exception.expect(InvalidInputException.class);
+        Producer4Public producer = TestPreparations.createTestProducer();
+        ArticleWrapper4Public article = TestPreparations.createTestArticle("Erdbeere", new Fraction(1), 10, 100, 2, producer);
+        TestPreparations.StartShopSelling(article);
+        ShoppingCart4Public sh = TestPreparations.createShoppingCart();
+        ShoppingCartQuantifiedArticle4Public shE = TestPreparations.createShoppingCartEntry(10, article);
+        sh.addArticle(shE);
+        shE.changeArticleQuantity(-1);
+    }
+
+    @Test
+    public void changeProducerDeliveryTimeNegativeTest() throws Exception {
+        exception.expect(InvalidInputException.class);
+        Producer4Public producer = TestPreparations.createTestProducer();
+        try {
+            TestPreparations.createTestArticle("Erdbeere", new Fraction(1), 10, 100, -1, producer);
+            assert false;
+        } catch (Exception ex) {
+            try {
+                TestPreparations.createTestArticle("Erdbeere", new Fraction(1), 10, 100, 0, producer);
+                assert false;
+            } catch (Exception e) {
+                try {
+                    TestPreparations.createTestArticle().getArticle().changeProducerDeliveryTime(-1);
+                    assert false;
+                } catch (Exception exx) {
+                    try {
+                        TestPreparations.createTestArticle().getArticle().changeProducerDeliveryTime(0);
+                        assert false;
+                    } catch (Exception rex) {
+                        return;
+                    }
+                }
+            }
+        }
+    }
 }
