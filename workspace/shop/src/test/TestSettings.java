@@ -53,7 +53,6 @@ public class TestSettings {
     @Test
     public void CustomerLimitBalanceInvalidTest() throws Exception {
         exception.expect(InvalidInputException.class);
-        //TODO! Are limits always positiv or negative?
         Settings.getTheSettings().changeNewCustomerDefaultLimit(new Fraction(-1));
     }
 

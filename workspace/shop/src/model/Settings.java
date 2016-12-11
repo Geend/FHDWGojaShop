@@ -10,7 +10,7 @@ import model.visitor.*;
 /* Additional import section end */
 
 public class Settings extends PersistentObject implements PersistentSettings{
-
+    
     private static Settings4Public theSettings = null;
     public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
