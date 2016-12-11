@@ -126,17 +126,4 @@ public class TestCustomerDeliveryTime {
         TestPreparations.createCustomerDeliveryTime("Hi", new Fraction(2), 2);
     }
 
-
-    /**
-     * Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch die Lieferzeit einer Kundenlieferzeit auf einen Wert zu setzen, den es in einem anderen Kundenlieferzeit Objekt schon gibt.
-     * @throws Exception
-     */
-    @Test
-    public void ChangeCustomerDeliveryTimeExistTimeTest() throws Exception {
-        exception.expect(InvalidInputException.class);
-        CustomerDeliveryTime4Public c = TestPreparations.createCustomerDeliveryTime("Hallo", new Fraction(1), 4);
-        TestPreparations.createCustomerDeliveryTime("Hullo", new Fraction(3), 1);
-        Shop.getTheShop().changeCustomerDeliveryTimeTime(c, 1);
-    }
-
 }
