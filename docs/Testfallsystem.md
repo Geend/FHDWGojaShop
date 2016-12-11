@@ -54,7 +54,6 @@ Bei einer hierarchischen Struktur könnten Zyklen entstehen. Diese Problematik w
   - [Kundenlieferzeit ändern zu ungültiger Zeit](#ChangeCustomerDeliveryTimeInvalidTimeTest)
   - [Kundenlieferzeit doppelt anlegen mit gleichem Namen](#CreateCustomerDeliveryTimeSameNameTest)
   - [Kundenlieferzeit doppelt anlegen mit gleicher Lieferzeit](#CreateCustomerDeliveryTimeSameTimeTest)
-  - [Kundenlieferzeit Zeit ändern in eine, die schon existiert](#ChangeCustomerDeliveryTimeExistTimeTest)
 - [Einstellungen - Tests](#SettingsTests)
   - [ungültiger Kundenkonto Startbetrag](#CustomerDefaultBalanceInvalidTest)
   - [ungültiges Kundenkonto Limit](#CustomerLimitBalanceInvalidTest)
@@ -262,12 +261,6 @@ Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eine Kunde
 > **Eigenentscheidung:** Die Kundenlieferzeitobjekte dürfen anhand ihrer Lieferzeit nur einmal vorkommen.
 
 Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eine Kundenlieferzeit anzulegen, die es mit der gleichen Lieferzeit schon gibt.
-
-#### ChangeCustomerDeliveryTimeExistTimeTest<a name="ChangeCustomerDeliveryTimeExistTimeTest"></a>
-
-> **Eigenentscheidung:** Die Kundenlieferzeitobjekte dürfen anhand ihrer Lieferzeit nur einmal vorkommen.
-
-Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch die Lieferzeit einer Kundenlieferzeit auf einen Wert zu setzen, den es in einem anderen Kundenlieferzeit Objekt schon gibt.
 
 ### Einstellungen - Tests<a name="SettingsTests"></a>
 
