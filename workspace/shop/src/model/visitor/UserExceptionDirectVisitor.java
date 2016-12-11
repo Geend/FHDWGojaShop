@@ -29,8 +29,6 @@ public abstract class UserExceptionDirectVisitor implements UserExceptionVisitor
     
     public abstract void handleRestrictionException(model.RestrictionException restrictionException) throws PersistenceException;
     
-    public abstract void handleEmptyDefinitionException(model.EmptyDefinitionException emptyDefinitionException) throws PersistenceException;
-    
     public abstract void handleInvalidMoveException(model.InvalidMoveException invalidMoveException) throws PersistenceException;
     
     

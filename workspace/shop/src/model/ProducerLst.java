@@ -227,10 +227,10 @@ public class ProducerLst extends PersistentObject implements PersistentProducerL
         
     }
     public Producer4Public createProducer(final String name) 
-				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
+				throws model.DoubleDefinitionException, model.InvalidInputException, PersistenceException{
 
         if("".equals(name)){
-            throw new EmptyDefinitionException(StringConstants.PRODUCER_NAME_EMPTY_DEFINITION_EXCEPTION_MESSAGE);
+            throw new InvalidInputException(StringConstants.PRODUCER_NAME_EMPTY_DEFINITION_EXCEPTION_MESSAGE);
         }
         if(Producer.getProducerByName(name).getLength() > 0)
         {

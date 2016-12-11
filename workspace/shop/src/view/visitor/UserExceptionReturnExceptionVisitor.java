@@ -8,7 +8,6 @@ public interface UserExceptionReturnExceptionVisitor<R, E extends view.UserExcep
     public R handleCycleException(CycleException cycleException) throws ModelException, E;
     public R handleDoubleDefinitionException(DoubleDefinitionException doubleDefinitionException) throws ModelException, E;
     public R handleEmptyCartException(EmptyCartException emptyCartException) throws ModelException, E;
-    public R handleEmptyDefinitionException(EmptyDefinitionException emptyDefinitionException) throws ModelException, E;
     public R handleInvalidInputException(InvalidInputException invalidInputException) throws ModelException, E;
     public R handleInvalidMoveException(InvalidMoveException invalidMoveException) throws ModelException, E;
     public R handleNotEnoughMoneyException(NotEnoughMoneyException notEnoughMoneyException) throws ModelException, E;

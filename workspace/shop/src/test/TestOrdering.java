@@ -1,18 +1,7 @@
 package test;
 
 import common.Fraction;
-import model.Article;
-import model.ArticleWrapper;
-import model.ComponentManager;
-import model.CustomerAccount;
-import model.CustomerDeliveryTime;
-import model.CustomerOrderManager;
-import model.DoubleDefinitionException;
-import model.EmptyDefinitionException;
-import model.OrderManager;
-import model.ProducerLst;
-import model.ShoppingCart;
-import model.ShoppingCartQuantifiedArticle;
+import model.*;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -70,7 +59,7 @@ public class TestOrdering {
             throw new Error(e);
         } catch (DoubleDefinitionException e) {
             e.printStackTrace();
-        } catch (EmptyDefinitionException e) {
+        } catch (InvalidInputException e) {
             e.printStackTrace();
         }
     }

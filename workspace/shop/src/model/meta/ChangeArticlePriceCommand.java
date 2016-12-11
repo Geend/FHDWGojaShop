@@ -231,8 +231,12 @@ public class ChangeArticlePriceCommand extends PersistentObject implements Persi
     }
     public void execute() 
 				throws PersistenceException{
-        this.commandReceiver.changeArticlePrice(this.getArticle(), this.getNewPrice());
-		
+        try{
+			this.commandReceiver.changeArticlePrice(this.getArticle(), this.getNewPrice());
+		}
+		catch(model.InvalidInputException e){
+			this.commandException = e;
+		}
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{

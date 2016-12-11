@@ -145,15 +145,15 @@ public class ProductGroupProxi extends ComponentProxi implements PersistentProdu
         ((PersistentProductGroup)this.getTheObject()).initializeOnInstantiation();
     }
     public void moveTo(final ComponentContainer container) 
-				throws model.CycleException, PersistenceException{
+				throws model.InvalidMoveException, model.CycleException, PersistenceException{
         ((PersistentProductGroup)this.getTheObject()).moveTo(container);
     }
     public ArticleWrapper4Public newArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
-				throws model.DoubleDefinitionException, model.EmptyDefinitionException, model.CycleException, PersistenceException{
+				throws model.DoubleDefinitionException, model.InvalidInputException, model.CycleException, PersistenceException{
         return ((PersistentProductGroup)this.getTheObject()).newArticle(name, price, minStock, maxStock, producerDeliveryTime, producer);
     }
     public ProductGroup4Public newProductGroup(final String name) 
-				throws model.DoubleDefinitionException, model.EmptyDefinitionException, model.CycleException, PersistenceException{
+				throws model.DoubleDefinitionException, model.InvalidInputException, model.CycleException, PersistenceException{
         return ((PersistentProductGroup)this.getTheObject()).newProductGroup(name);
     }
     public void removeComponent(final Component4Public component) 

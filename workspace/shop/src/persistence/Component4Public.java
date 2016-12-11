@@ -20,7 +20,7 @@ public interface Component4Public extends Anything, CompHierarchyHIERARCHY, Subj
     public void initializeOnInstantiation() 
 				throws PersistenceException;
     public void moveTo(final ComponentContainer container) 
-				throws model.CycleException, PersistenceException;
+				throws model.InvalidMoveException, model.CycleException, PersistenceException;
 
 }
 

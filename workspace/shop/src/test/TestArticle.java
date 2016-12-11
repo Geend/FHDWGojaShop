@@ -72,7 +72,7 @@ public class TestArticle {
      */
     @Test
     public void EmptyArticleNameTest() throws Exception {
-        exception.expect(EmptyDefinitionException.class);
+        exception.expect(InvalidInputException.class);
         Producer4Public producer = TestPreparations.createTestProducer();
         ArticleWrapper4Public testArt1 = TestPreparations.createTestArticle("", new Fraction(5),10, 100, 4, producer);
         ArticleWrapper4Public testArt2 = TestPreparations.createTestArticle(" ", new Fraction(5),10, 100, 4, producer);
@@ -96,7 +96,7 @@ public class TestArticle {
      */
     @Test
     public void EmptyProductGroupNameTest() throws Exception {
-        exception.expect(EmptyDefinitionException.class);
+        exception.expect(InvalidInputException.class);
         ProductGroup4Public testGr1 = TestPreparations.createProductGroup("");
         ProductGroup4Public testGr2 = TestPreparations.createProductGroup(" ");
     }
@@ -216,7 +216,7 @@ public class TestArticle {
     }
 
     /**
-     * Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eimem Artikel eine negative Lieferzeit zuzuweisen.
+     * Testfall zum Überprüfen einer erwarteten Fehlermeldung beimVersuch eimem Artikel eine negative Lieferzeit zuzuweisen.
      * @throws Exception
      */
     @Test
@@ -234,7 +234,7 @@ public class TestArticle {
     public void ChangeArticleDeliveryTimeNegativeTest() throws Exception {
         exception.expect(InvalidInputException.class);
         ArticleWrapper4Public article = TestPreparations.createTestArticle();
-        article.getArticle().setProducerDeliveryTime(-3);
+        article.getArticle().changeProducerDeliveryTime(-3);
     }
 
     /**
@@ -256,7 +256,7 @@ public class TestArticle {
     public void ChangeArticleDeliveryTimeZeroTest() throws Exception {
         exception.expect(InvalidInputException.class);
         ArticleWrapper4Public article = TestPreparations.createTestArticle();
-        article.getArticle().setProducerDeliveryTime(0);
+        article.getArticle().changeProducerDeliveryTime(0);
     }
 
     /**

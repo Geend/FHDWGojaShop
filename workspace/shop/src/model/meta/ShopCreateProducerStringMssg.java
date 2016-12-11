@@ -28,10 +28,10 @@ public class ShopCreateProducerStringMssg implements ShopDOWNMssgs,ShopUPMssgs{
             }
         }
     }
-    public synchronized persistence.Producer4Public getResult() throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException {
+    public synchronized persistence.Producer4Public getResult() throws model.DoubleDefinitionException, model.InvalidInputException, PersistenceException {
         if(this.excptn != null) {
             if(this.excptn instanceof model.DoubleDefinitionException) throw (model.DoubleDefinitionException) this.excptn;
-            if(this.excptn instanceof model.EmptyDefinitionException) throw (model.EmptyDefinitionException) this.excptn;
+            if(this.excptn instanceof model.InvalidInputException) throw (model.InvalidInputException) this.excptn;
             if(this.excptn instanceof PersistenceException) throw (PersistenceException) this.excptn;
             if(this.excptn instanceof RuntimeException) throw (RuntimeException) this.excptn;
             throw new Error(this.excptn);

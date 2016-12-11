@@ -8,7 +8,6 @@ public interface UserExceptionReturnVisitor<R> extends ArticleOrderExceptionRetu
     public R handleCycleException(CycleException cycleException) throws ModelException;
     public R handleDoubleDefinitionException(DoubleDefinitionException doubleDefinitionException) throws ModelException;
     public R handleEmptyCartException(EmptyCartException emptyCartException) throws ModelException;
-    public R handleEmptyDefinitionException(EmptyDefinitionException emptyDefinitionException) throws ModelException;
     public R handleInvalidInputException(InvalidInputException invalidInputException) throws ModelException;
     public R handleInvalidMoveException(InvalidMoveException invalidMoveException) throws ModelException;
     public R handleNotEnoughMoneyException(NotEnoughMoneyException notEnoughMoneyException) throws ModelException;

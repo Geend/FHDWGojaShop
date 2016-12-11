@@ -8,7 +8,6 @@ public interface Article4Public extends Anything, SubjInterface, AbstractPersist
     public String getName() throws PersistenceException ;
     public void setName(String newValue) throws PersistenceException ;
     public common.Fraction getPrice() throws PersistenceException ;
-    public void setPrice(common.Fraction newValue) throws PersistenceException ;
     public long getMinStock() throws PersistenceException ;
     public void setMinStock(long newValue) throws PersistenceException ;
     public long getMaxStock() throws PersistenceException ;
@@ -16,7 +15,6 @@ public interface Article4Public extends Anything, SubjInterface, AbstractPersist
     public long getCurrentStock() throws PersistenceException ;
     public void setCurrentStock(long newValue) throws PersistenceException ;
     public long getProducerDeliveryTime() throws PersistenceException ;
-    public void setProducerDeliveryTime(long newValue) throws PersistenceException ;
     public Producer4Public getProducer() throws PersistenceException ;
     public void setProducer(Producer4Public newValue) throws PersistenceException ;
     public ArticleState4Public getState() throws PersistenceException ;
@@ -33,6 +31,10 @@ public interface Article4Public extends Anything, SubjInterface, AbstractPersist
     
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
+    public void changePrice(final common.Fraction newValue) 
+				throws model.InvalidInputException, PersistenceException;
+    public void changeProducerDeliveryTime(final long newValue) 
+				throws model.InvalidInputException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public String getCurrentState() 

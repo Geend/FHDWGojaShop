@@ -42,6 +42,8 @@ public  class RemoteOwnerService extends RemoteService {
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
+        }catch(model.InvalidInputException e0){
+            return createExceptionResult(e0, this);
         }
     }
     
@@ -53,6 +55,8 @@ public  class RemoteOwnerService extends RemoteService {
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
+        }catch(model.InvalidInputException e0){
+            return createExceptionResult(e0, this);
         }
     }
     
@@ -119,7 +123,7 @@ public  class RemoteOwnerService extends RemoteService {
             return createExceptionResult(pe);
         }catch(model.DoubleDefinitionException e0){
             return createExceptionResult(e0, this);
-        }catch(model.EmptyDefinitionException e1){
+        }catch(model.InvalidInputException e1){
             return createExceptionResult(e1, this);
         }
     }
@@ -133,7 +137,7 @@ public  class RemoteOwnerService extends RemoteService {
             return createExceptionResult(pe);
         }catch(model.DoubleDefinitionException e0){
             return createExceptionResult(e0, this);
-        }catch(model.EmptyDefinitionException e1){
+        }catch(model.InvalidInputException e1){
             return createExceptionResult(e1, this);
         }
     }

@@ -290,10 +290,20 @@ public class ComponentContainerImplementation extends PersistentObject implement
 				throws PersistenceException{
     }
     public ArticleWrapper4Public newArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
-				throws model.DoubleDefinitionException, model.EmptyDefinitionException, model.CycleException, PersistenceException{
+				throws model.DoubleDefinitionException, model.InvalidInputException, model.CycleException, PersistenceException{
 
         if("".equals(name)) {
-            throw new EmptyDefinitionException(StringConstants.ARTICLE_NAME_EMPTY_DEFINTION_EXCEPTION_TEXT);
+            throw new InvalidInputException(StringConstants.ARTICLE_NAME_EMPTY_DEFINTION_EXCEPTION_TEXT);
+        }
+        if(minStock < 0){
+            throw new InvalidInputException(StringConstants.NEW_ARTICLE_MIN_STOCK_NOT_NEGATIVE_MESSAGE);
+        }
+        if(maxStock < 0) {
+            throw new InvalidInputException(StringConstants.NEW_ARTICLE_MAX_STOCK_NOT_NEGATIVE_MESSAGE);
+        }
+        if(maxStock<minStock)//TODO <=?
+        {
+            throw new InvalidInputException(StringConstants.NEW_ARTICLE_MAX_STOCK_NOT_BELOW_MIN_STOCK_MESSAGE);
         }
 
         Article.getArticleByName(name).applyToAllException(article ->{
@@ -307,10 +317,10 @@ public class ComponentContainerImplementation extends PersistentObject implement
         return articleWrapper;
     }
     public ProductGroup4Public newProductGroup(final String name) 
-				throws model.DoubleDefinitionException, model.EmptyDefinitionException, model.CycleException, PersistenceException{
+				throws model.DoubleDefinitionException, model.InvalidInputException, model.CycleException, PersistenceException{
 
         if("".equals(name)) {
-            throw new EmptyDefinitionException(StringConstants.PRODUCT_GROUP_NAME_EMPTY_DEFINTION_EXCEPTION_TEXT);
+            throw new InvalidInputException(StringConstants.PRODUCT_GROUP_NAME_EMPTY_DEFINTION_EXCEPTION_TEXT);
         }
 
         getThis().getComponents().applyToAllException(component->

@@ -30,8 +30,9 @@ public class ShopChangeArticleNameArticleWrapperStringMssg implements ShopDOWNMs
             }
         }
     }
-    public synchronized void getResult() throws PersistenceException {
+    public synchronized void getResult() throws model.InvalidInputException, PersistenceException {
         if(this.excptn != null) {
+            if(this.excptn instanceof model.InvalidInputException) throw (model.InvalidInputException) this.excptn;
             if(this.excptn instanceof PersistenceException) throw (PersistenceException) this.excptn;
             if(this.excptn instanceof RuntimeException) throw (RuntimeException) this.excptn;
             throw new Error(this.excptn);

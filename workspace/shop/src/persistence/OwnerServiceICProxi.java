@@ -186,11 +186,11 @@ public class OwnerServiceICProxi extends ServiceICProxi implements PersistentOwn
         ((PersistentOwnerService)this.getTheObject()).changeArticleName(article, newName);
     }
     public void changeArticlePrice(final ArticleWrapper4Public article, final common.Fraction newPrice) 
-				throws PersistenceException{
+				throws model.InvalidInputException, PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).changeArticlePrice(article, newPrice);
     }
     public void changeArticleProducerDeliveryTime(final ArticleWrapper4Public article, final long newValue) 
-				throws PersistenceException{
+				throws model.InvalidInputException, PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).changeArticleProducerDeliveryTime(article, newValue);
     }
     public void changeCustomerDeliveryTimePrice(final CustomerDeliveryTime4Public customerDeliveryTime, final common.Fraction newValue) 
@@ -222,11 +222,11 @@ public class OwnerServiceICProxi extends ServiceICProxi implements PersistentOwn
         ((PersistentOwnerService)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
     public void createCustomerDeliveryTime(final CustomerDeliveryTimeManager4Public customerDeliveryTimeManager, final String name, final common.Fraction price, final long time) 
-				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
+				throws model.DoubleDefinitionException, model.InvalidInputException, PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).createCustomerDeliveryTime(customerDeliveryTimeManager, name, price, time);
     }
     public void createProducer(final ProducerLst4Public prmanager, final String name) 
-				throws model.DoubleDefinitionException, model.EmptyDefinitionException, PersistenceException{
+				throws model.DoubleDefinitionException, model.InvalidInputException, PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).createProducer(prmanager, name);
     }
     public void disconnected() 
