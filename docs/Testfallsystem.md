@@ -2,7 +2,13 @@
 
 ## Testfallsystem
 
-TODO
+noch nen testfall falles es den noch nicht gibt: Anzahl von Artikeln im Warenkorb auf 0 setzten. verschwindet der dann?
+
+noch was: kann changeArticleName dafür sorgen, dass es zwei artikel mit gleichem namen von einem hersteller gibt?
+
+Artikel bestllen, der freigegeben wurde, aber noch nix im Lager hat
+
+5 Tage nix machen -> automatische Retoure.
 
 ## Nicht benötigte Tests
 
@@ -105,9 +111,9 @@ Danach sollte eine Fehlermeldung erscheinen, da diese Aktion nicht erlaubt ist.
 > Diese Auffüllung soll genau dann eintreten, wenn vom Zeitpunkt der Nachbestellung die für diesen Artikel festgelegte Herstellerliefer-zeit verstrichen ist.
 
 In diesem Szenario wird folgendes passieren:
-- Ein Kundenkonto wird angelegt (100€)
+- Ein Kundenkonto wird angelegt (200€)
 - Ein Produzent wird erzeugt (Bauer Balder)
-- Ein Artikel wird erzeugt (Erdbeere, 0.05€, Produktlieferzeit: 2, Mindestlagerbestand: 10, Maximallagerbestand: 100, Produzent: Bauer Balder)
+- Ein Artikel wird erzeugt (Erdbeere, 1€, Produktlieferzeit: 2, Mindestlagerbestand: 10, Maximallagerbestand: 100, Produzent: Bauer Balder)
 - Der Artikel wird für den Verkauf freigegeben
 - Zwei Tage warten, bis das Lager gefüllt wurde
 - ein Warenkorb wird erzeugt
@@ -119,15 +125,55 @@ In diesem Szenario wird folgendes passieren:
 - Drei Tage warten
 - Der Artikel wird angenommen
 
-Es sind danach genau 100 Artikel im Lager und der Kunde hat nur noch 491€ auf dem Konto.
+Es sind danach genau 100 Artikel im Lager und der Kunde hat nur noch 97€ auf dem Konto.
 
 ### Szenario 4 (Retourproblem)<a name="retourSzenario1"></a>
 
-> **Eigenentscheidung:**
+In diesem Szenario wird folgendes passieren:
+- Ein Kundenkonto wird angelegt (200€)
+- Ein Produzent wird erzeugt (Bauer Balder)
+- Der Retourprozentwert wird auf 10% eingestellt (1/10)
+- Ein Artikel wird erzeugt (Erdbeere, 1€, Produktlieferzeit: 2, Mindestlagerbestand: 10, Maximallagerbestand: 100, Produzent: Bauer Balder)
+- Der Artikel wird für den Verkauf freigegeben
+- Zwei Tage warten, bis das Lager gefüllt wurde
+- ein Warenkorb wird erzeugt
+- Der Artikel wird in den Wahrenkorb gelegt (Anzahl: 10)
+- Eine Kundenlieferzeit wird angelegt (Supertransport, Zeit: 3, Preis: 2€)
+- Der Artikel wird bestellt (Supertransport)
+- Der Retourprozentwert wird auf 20% erhöht (1/5)
+- Der Artikel wird versendet
+- Ein Tag warten
+- Den Artikel als Retour markieren
+- Zwei Tage warten
+- Der Artikel wird angenommen (als Retour zurückgeschickt)
+- Fünf Tage warten (je nach dem, was in der ShopConstant eingestellt ist)
+
+Das Lager ist wieder entsprechend gefüllt (Anzahl: 100), das Kundenkonto hat
+200€ - 10 * 1€ * 0.1 = 199€, da es von dem geänderten Retourprozentwert nicht betroffen ist.
 
 ### Szenario 5 (Retourproblem)<a name="retourSzenario2"></a>
 
-Test des Retourprozent.
+In diesem Szenario wird folgendes passieren:
+- Ein Kundenkonto wird angelegt (200€)
+- Ein Produzent wird erzeugt (Bauer Balder)
+- Der Retourprozentwert wird auf 10% eingestellt (1/10)
+- Ein Artikel wird erzeugt (Erdbeere, 1€, Produktlieferzeit: 2, Mindestlagerbestand: 10, Maximallagerbestand: 100, Produzent: Bauer Balder)
+- Noch ein Artikel wird erzeugt (Banane, 2€, Produktlieferzeit: 2, Mindestlagerbestand: 10, Maximallagerbestand: 100, Produzent: Bauer Balder)
+- Beide Artikel werden für den Verkauf freigegeben
+- Zwei Tage warten, bis das Lager gefüllt wurde
+- ein Warenkorb wird erzeugt
+- Der Artikel "Erdbeere" wird in den Wahrenkorb gelegt (Anzahl: 10)
+- Der Artikel "Banane" wird in den Wahrenkorb gelegt (Anzahl: 10)
+- Eine Kundenlieferzeit wird angelegt (Supertransport, Zeit: 3, Preis: 2€)
+- Der Warenkorb wird bestellt (Supertransport)
+- Beide Artikel werden versendet
+- Ein Tag warten
+- Den Artikel "Banane" als Retour markieren
+- Zwei Tage warten
+- Die Bestellung annehmen (Retour wird zurückgeschickt)
+- Fünf Tage warten (je nach dem, was in der ShopConstant eingestellt ist)
+
+Auf dem Kundenkonto sind 200€ - 10 * 1€ - 10 * 2€ * 0.1 = 188€
 
 ### Szenario 6 (Limitproblem)<a name="limitSzenario1"></a>
 

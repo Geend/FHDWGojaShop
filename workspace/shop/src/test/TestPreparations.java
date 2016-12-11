@@ -153,14 +153,4 @@ public class TestPreparations {
         return CustomerDeliveryTimeManager.getTheCustomerDeliveryTimeManager().getCustomerDeliveryTimes();
     }
 
-    /**
-     * Liefert die Liste aller Bestellungen zurück.
-     * @param orderManager
-     * @return
-     * @throws Exception
-     */
-    public static OrderManager_OrdersProxi getOrders(CustomerOrderManager4Public orderManager) throws Exception {
-        return orderManager.getOrders();
-    }
-
 }
