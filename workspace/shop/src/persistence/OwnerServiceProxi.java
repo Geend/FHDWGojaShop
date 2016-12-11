@@ -182,11 +182,11 @@ public class OwnerServiceProxi extends ServiceProxi implements PersistentOwnerSe
         ((PersistentOwnerService)this.getTheObject()).changeArticleName(article, newName);
     }
     public void changeArticlePrice(final ArticleWrapper4Public article, final common.Fraction newPrice) 
-				throws PersistenceException{
+				throws model.InvalidInputException, PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).changeArticlePrice(article, newPrice);
     }
     public void changeArticleProducerDeliveryTime(final ArticleWrapper4Public article, final long newValue) 
-				throws PersistenceException{
+				throws model.InvalidInputException, PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).changeArticleProducerDeliveryTime(article, newValue);
     }
     public void changeCustomerDeliveryTimePrice(final CustomerDeliveryTime4Public customerDeliveryTime, final common.Fraction newValue) 

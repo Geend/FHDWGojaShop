@@ -295,6 +295,16 @@ public class ComponentContainerImplementation extends PersistentObject implement
         if("".equals(name)) {
             throw new InvalidInputException(StringConstants.ARTICLE_NAME_EMPTY_DEFINTION_EXCEPTION_TEXT);
         }
+        if(minStock < 0){
+            throw new InvalidInputException(StringConstants.NEW_ARTICLE_MIN_STOCK_NOT_NEGATIVE_MESSAGE);
+        }
+        if(maxStock < 0) {
+            throw new InvalidInputException(StringConstants.NEW_ARTICLE_MAX_STOCK_NOT_NEGATIVE_MESSAGE);
+        }
+        if(maxStock<minStock)//TODO <=?
+        {
+            throw new InvalidInputException(StringConstants.NEW_ARTICLE_MAX_STOCK_NOT_BELOW_MIN_STOCK_MESSAGE);
+        }
 
         Article.getArticleByName(name).applyToAllException(article ->{
             if(article.getProducer().equals(producer)){

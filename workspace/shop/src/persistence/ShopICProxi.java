@@ -75,7 +75,7 @@ public class ShopICProxi extends PersistentInCacheProxiOptimistic implements Per
         ((PersistentShop)this.getTheObject()).changeArticleName(article, newName, invoker);
     }
     public void changeArticlePrice(final ArticleWrapper4Public article, final common.Fraction newPrice) 
-				throws PersistenceException{
+				throws model.InvalidInputException, PersistenceException{
         ((PersistentShop)this.getTheObject()).changeArticlePrice(article, newPrice);
     }
     public void changeArticlePrice(final ArticleWrapper4Public article, final common.Fraction newPrice, final Invoker invoker) 
@@ -119,7 +119,7 @@ public class ShopICProxi extends PersistentInCacheProxiOptimistic implements Per
         ((PersistentShop)this.getTheObject()).initialize(This, final$$Fields);
     }
     public void moveTo(final Component4Public component, final ComponentContainer newParentGroup) 
-				throws model.CycleException, PersistenceException{
+				throws model.InvalidMoveException, model.CycleException, PersistenceException{
         ((PersistentShop)this.getTheObject()).moveTo(component, newParentGroup);
     }
     public void moveTo(final Component4Public component, final ComponentContainer newParentGroup, final Invoker invoker) 
@@ -191,7 +191,7 @@ public class ShopICProxi extends PersistentInCacheProxiOptimistic implements Per
         ((PersistentShop)this.getTheObject()).changeArticleNameImplementation(article, newName);
     }
     public void changeArticlePriceImplementation(final ArticleWrapper4Public article, final common.Fraction newPrice) 
-				throws PersistenceException{
+				throws model.InvalidInputException, PersistenceException{
         ((PersistentShop)this.getTheObject()).changeArticlePriceImplementation(article, newPrice);
     }
     public void changeCustomerDeliveryTimePriceImplementation(final CustomerDeliveryTime4Public customerDeliveryTime, final common.Fraction newValue) 
@@ -223,7 +223,7 @@ public class ShopICProxi extends PersistentInCacheProxiOptimistic implements Per
         ((PersistentShop)this.getTheObject()).initializeOnInstantiation();
     }
     public void moveToImplementation(final Component4Public component, final ComponentContainer newParentGroup) 
-				throws model.CycleException, PersistenceException{
+				throws model.InvalidMoveException, model.CycleException, PersistenceException{
         ((PersistentShop)this.getTheObject()).moveToImplementation(component, newParentGroup);
     }
     public ArticleWrapper4Public newArticleImplementation(final ComponentContainer parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 

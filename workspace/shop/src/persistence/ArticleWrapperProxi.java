@@ -131,7 +131,7 @@ public class ArticleWrapperProxi extends ComponentProxi implements PersistentArt
         ((PersistentArticleWrapper)this.getTheObject()).initializeOnInstantiation();
     }
     public void moveTo(final ComponentContainer container) 
-				throws model.CycleException, PersistenceException{
+				throws model.InvalidMoveException, model.CycleException, PersistenceException{
         ((PersistentArticleWrapper)this.getTheObject()).moveTo(container);
     }
 

@@ -64,7 +64,8 @@ public class OwnerServiceConnection extends ServiceConnection {
         
     }
     
-    public synchronized void changeArticlePrice(ArticleWrapperView article, common.Fraction newPrice) throws ModelException{
+    @SuppressWarnings("unchecked")
+    public synchronized void changeArticlePrice(ArticleWrapperView article, common.Fraction newPrice) throws ModelException, InvalidInputException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             if (article == null){
@@ -77,6 +78,8 @@ public class OwnerServiceConnection extends ServiceConnection {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -453)
+                    throw InvalidInputException.fromHashtableToInvalidInputException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new ModelException ("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")",0);
             }
         }catch(IOException ioe){
@@ -87,7 +90,8 @@ public class OwnerServiceConnection extends ServiceConnection {
         
     }
     
-    public synchronized void changeArticleProducerDeliveryTime(ArticleWrapperView article, long newValue) throws ModelException{
+    @SuppressWarnings("unchecked")
+    public synchronized void changeArticleProducerDeliveryTime(ArticleWrapperView article, long newValue) throws ModelException, InvalidInputException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             if (article == null){
@@ -100,6 +104,8 @@ public class OwnerServiceConnection extends ServiceConnection {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -453)
+                    throw InvalidInputException.fromHashtableToInvalidInputException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new ModelException ("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")",0);
             }
         }catch(IOException ioe){

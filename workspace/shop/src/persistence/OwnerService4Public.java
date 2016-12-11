@@ -34,9 +34,9 @@ public interface OwnerService4Public extends Service4Public {
     public void changeArticleName(final ArticleWrapper4Public article, final String newName) 
 				throws PersistenceException;
     public void changeArticlePrice(final ArticleWrapper4Public article, final common.Fraction newPrice) 
-				throws PersistenceException;
+				throws model.InvalidInputException, PersistenceException;
     public void changeArticleProducerDeliveryTime(final ArticleWrapper4Public article, final long newValue) 
-				throws PersistenceException;
+				throws model.InvalidInputException, PersistenceException;
     public void changeCustomerDeliveryTimePrice(final CustomerDeliveryTime4Public customerDeliveryTime, final common.Fraction newValue) 
 				throws PersistenceException;
     public void changeCustomerDeliveryTimeTime(final CustomerDeliveryTime4Public customerDeliveryTime, final long newValue) 

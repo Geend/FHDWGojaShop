@@ -39,8 +39,8 @@ server OwnerService extends Service {
 
 
 	no-view void changeArticleName(ArticleWrapper article, String newName);
-	no-view void changeArticlePrice(ArticleWrapper article, Fraction newPrice);
-	no-view void changeArticleProducerDeliveryTime(ArticleWrapper article, Integer newValue);
+	no-view void changeArticlePrice(ArticleWrapper article, Fraction newPrice) throws InvalidInputException;
+	no-view void changeArticleProducerDeliveryTime(ArticleWrapper article, Integer newValue) throws InvalidInputException;
 
 	void startSelling@@Verkauf_starten(ArticleWrapper article checked);
 	void stopSelling@@Verkauf_beenden(ArticleWrapper article checked);
@@ -126,10 +126,10 @@ singleton Shop{
 	active event ProductGroup newProductGroup(ComponentContainer parent, String name) throws CycleException, DoubleDefinitionException, InvalidInputException;
 
 
-	active event void moveTo(Component component, ComponentContainer newParentGroup)throws CycleException;
+	active event void moveTo(Component component, ComponentContainer newParentGroup)throws CycleException, InvalidMoveException;
 
 	active event void changeArticleName(ArticleWrapper article, String newName) throws InvalidInputException;
-	active event void changeArticlePrice##cap(ArticleWrapper article, Fraction newPrice);
+	active event void changeArticlePrice##cap(ArticleWrapper article, Fraction newPrice) throws InvalidInputException;
 
 	active event void startSelling(ArticleWrapper article);
 	active event void stopSelling(ArticleWrapper article);
@@ -264,7 +264,7 @@ singleton ComponentManager implements ComponentContainer{
 
 abstract class Component{
 	prior no-view ComponentContainer parent;
-	void moveTo(ComponentContainer container) throws CycleException;
+	void moveTo(ComponentContainer container) throws CycleException, InvalidMoveException;
 }
 
 interface ComponentContainer{
@@ -294,11 +294,11 @@ class ArticleWrapper extends Component{
 class Article{
 	public-write prior indexed String name@@Name;
 
-	public-write prior Fraction price@@Preis;
+	public prior Fraction price@@Preis;
 	public-write prior Integer minStock@@Mindestlagerbestand;
 	public-write prior Integer maxStock@@Maximallagerbestand;
 	public-write Integer currentStock@@Lagerbestand;
-	public-write prior Integer producerDeliveryTime@@Herstellerlieferzeit;
+	public prior Integer producerDeliveryTime@@Herstellerlieferzeit;
 
 	public-write no-view prior Producer producer;
 	public-write no-view ArticleState state;
@@ -314,6 +314,9 @@ class Article{
 	void startSelling();
 	void stopSelling();
 
+
+	void changePrice(Fraction newValue) throws InvalidInputException;
+	void changeProducerDeliveryTime(Integer newValue) throws InvalidInputException;
 	//Report a goja bug? one-to-one wrapper not accessible despite being public
 	derived ArticleWrapper wrapper;
 }
@@ -460,8 +463,8 @@ class FinishedOrderState##fos extends OrderStatus{
 
 abstract exception ArticleOrderException{}
 exception InvalidMoveException{}
-exception InvalidInputException{}
-//exception EmptyDefinitionException{}
+exception InvalidInputException{} //TODO: Isn't the CycleException enough?
+
 exception DoubleDefinitionException{}
 exception UserAlreadyExistsException{}
 

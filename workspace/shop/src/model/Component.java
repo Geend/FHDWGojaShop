@@ -148,7 +148,9 @@ public abstract class Component extends PersistentObject implements PersistentCo
     // Start of section that contains overridden operations only.
     
     public void moveTo(final ComponentContainer container) 
-				throws model.CycleException, PersistenceException{
+				throws model.InvalidMoveException, model.CycleException, PersistenceException{
+        if(getThis().equals(container))
+            throw new InvalidMoveException("Container kann nicht in sich selbst verschoben werden!");
         getThis().getParent().removeComponent(getThis());
         container.addComponent(getThis());
         getThis().setParent(container);

@@ -535,12 +535,12 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
        getThis().getShop().changeArticleName(article, newName, getThis());
     }
     public void changeArticlePrice(final ArticleWrapper4Public article, final common.Fraction newPrice) 
-				throws PersistenceException{
+				throws model.InvalidInputException, PersistenceException{
        getThis().getShop().changeArticlePrice(article, newPrice, getThis());
     }
     public void changeArticleProducerDeliveryTime(final ArticleWrapper4Public article, final long newValue) 
-				throws PersistenceException{
-        article.getArticle().setProducerDeliveryTime(newValue);
+				throws model.InvalidInputException, PersistenceException{
+        article.getArticle().changeProducerDeliveryTime(newValue);
         getThis().signalChanged(true);
     }
     public void changeCustomerDeliveryTimePrice(final CustomerDeliveryTime4Public customerDeliveryTime, final common.Fraction newValue) 

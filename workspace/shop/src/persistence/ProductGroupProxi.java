@@ -145,7 +145,7 @@ public class ProductGroupProxi extends ComponentProxi implements PersistentProdu
         ((PersistentProductGroup)this.getTheObject()).initializeOnInstantiation();
     }
     public void moveTo(final ComponentContainer container) 
-				throws model.CycleException, PersistenceException{
+				throws model.InvalidMoveException, model.CycleException, PersistenceException{
         ((PersistentProductGroup)this.getTheObject()).moveTo(container);
     }
     public ArticleWrapper4Public newArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 

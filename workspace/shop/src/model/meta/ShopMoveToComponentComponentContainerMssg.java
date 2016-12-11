@@ -30,8 +30,9 @@ public class ShopMoveToComponentComponentContainerMssg implements ShopDOWNMssgs,
             }
         }
     }
-    public synchronized void getResult() throws model.CycleException, PersistenceException {
+    public synchronized void getResult() throws model.InvalidMoveException, model.CycleException, PersistenceException {
         if(this.excptn != null) {
+            if(this.excptn instanceof model.InvalidMoveException) throw (model.InvalidMoveException) this.excptn;
             if(this.excptn instanceof model.CycleException) throw (model.CycleException) this.excptn;
             if(this.excptn instanceof PersistenceException) throw (PersistenceException) this.excptn;
             if(this.excptn instanceof RuntimeException) throw (RuntimeException) this.excptn;

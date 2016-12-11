@@ -2,6 +2,7 @@
 package model;
 
 import common.Fraction;
+import constants.StringConstants;
 import persistence.*;
 import model.visitor.*;
 
@@ -387,6 +388,20 @@ public class Article extends PersistentObject implements PersistentArticle{
     
     // Start of section that contains operations that must be implemented.
     
+    public void changePrice(final common.Fraction newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        if(newValue.isLess(Fraction.Null))
+            throw new InvalidInputException(StringConstants.ARICLE_PRICE_NOT_NEGATIVE_MESSAGE);
+
+        getThis().setPrice(newValue);
+    }
+    public void changeProducerDeliveryTime(final long newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        if(newValue < 1){
+            throw new InvalidInputException(StringConstants.PDT_GREATER_THAN_ZERO_MESSAGE);
+        }
+        getThis().setProducerDeliveryTime(newValue);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
     }

@@ -122,6 +122,14 @@ public class ArticleProxi extends PersistentProxi implements PersistentArticle{
 				throws PersistenceException{
         ((PersistentArticle)this.getTheObject()).updateObservers(event);
     }
+    public void changePrice(final common.Fraction newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        ((PersistentArticle)this.getTheObject()).changePrice(newValue);
+    }
+    public void changeProducerDeliveryTime(final long newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        ((PersistentArticle)this.getTheObject()).changeProducerDeliveryTime(newValue);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentArticle)this.getTheObject()).copyingPrivateUserAttributes(copy);

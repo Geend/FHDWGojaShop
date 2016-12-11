@@ -216,7 +216,7 @@ public class TestArticle {
     }
 
     /**
-     * Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eimem Artikel eine negative Lieferzeit zuzuweisen.
+     * Testfall zum Überprüfen einer erwarteten Fehlermeldung beimVersuch eimem Artikel eine negative Lieferzeit zuzuweisen.
      * @throws Exception
      */
     @Test
@@ -234,7 +234,7 @@ public class TestArticle {
     public void ChangeArticleDeliveryTimeNegativeTest() throws Exception {
         exception.expect(InvalidInputException.class);
         ArticleWrapper4Public article = TestPreparations.createTestArticle();
-        article.getArticle().setProducerDeliveryTime(-3);
+        article.getArticle().changeProducerDeliveryTime(-3);
     }
 
     /**
@@ -256,7 +256,7 @@ public class TestArticle {
     public void ChangeArticleDeliveryTimeZeroTest() throws Exception {
         exception.expect(InvalidInputException.class);
         ArticleWrapper4Public article = TestPreparations.createTestArticle();
-        article.getArticle().setProducerDeliveryTime(0);
+        article.getArticle().changeProducerDeliveryTime(0);
     }
 
     /**

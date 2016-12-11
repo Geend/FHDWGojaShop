@@ -16,4 +16,9 @@ public class StringConstants {
     public static final String CDT_NAME_DOUBLE_DEFINITION_EXCEPTION_MESSAGE = "Herstellerlieferzeit mit diesm Namen existiert bereits!";
     public static final String CDT_NAME_EMPTY_DEFINITION_EXCEPTION_MESSAGEE = "Name darf nicht leer sein!";
 
+    public static final String NEW_ARTICLE_MIN_STOCK_NOT_NEGATIVE_MESSAGE = "Mindestlagerbestand darf nicht negativ sein!";
+    public static final String NEW_ARTICLE_MAX_STOCK_NOT_NEGATIVE_MESSAGE = "Maximallagerbestand darf nicht negativ sein!";
+    public static final String NEW_ARTICLE_MAX_STOCK_NOT_BELOW_MIN_STOCK_MESSAGE = "Maximallagerbestand muss größer als Mindenstlagerbestand sein!";
+    public static final String ARICLE_PRICE_NOT_NEGATIVE_MESSAGE = "Artikelpreis darf nicht negativ sein!";
+    public static final String PDT_GREATER_THAN_ZERO_MESSAGE = "Herstellerlieferzeit muss größer als 0 sein.";
 }

@@ -273,8 +273,14 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
                     @Override
                     public void update(String text) throws ModelException {
 
-                        getConnection().changeArticlePrice(articleWrapper,
-                                Fraction.parse(text));
+                        try {
+                            getConnection().changeArticlePrice(articleWrapper,
+                                    Fraction.parse(text));
+                        } catch (InvalidInputException e) {
+                            //TODO! Proper error handling
+
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
@@ -287,7 +293,12 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
                 panel.registerUpdater(ArticleDefaultDetailPanel.Article$$producerDeliveryTime, new UpdaterForInteger() {
                     @Override
                     public void update(String text) throws ModelException {
-                        getConnection().changeArticleProducerDeliveryTime(articleWrapper, Integer.parseInt(text));
+                        try {
+                            getConnection().changeArticleProducerDeliveryTime(articleWrapper, Integer.parseInt(text));
+                        } catch (InvalidInputException e) {
+                            //TODO! Proper error handling
+                            e.printStackTrace();
+                        }
                     }
                 });
 
