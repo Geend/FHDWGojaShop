@@ -77,11 +77,14 @@ public class TestSzenario {
         sh.addArticle(shE);
         CustomerDeliveryTime4Public ctd = TestPreparations.createCustomerDeliveryTime("Supertransport", new Fraction(2), 3);
         CustomerOrderManager4Public customerOrderManager = CustomerOrderManager.createCustomerOrderManager(customer);
-        //Order4Public order = customerOrderManager.newOrder(sh, ctd);
+        customerOrderManager.newOrder(sh, ctd);
         Shop.getTheShop().changeArticlePrice(article, new Fraction(new BigInteger("1"), new BigInteger("10")));
         GlobalOrderManager.getTheGlobalOrderManager().step();
         GlobalOrderManager.getTheGlobalOrderManager().step();
-        //Shop.getTheShop().acceptOrder(customerOrderManager, order);
-        //TODO! Finish it!
+        GlobalOrderManager.getTheGlobalOrderManager().step();
+        TestPreparations.getOrders(customerOrderManager).applyToAllException(o -> {
+            Shop.getTheShop().acceptOrder(customerOrderManager, o);
+        });
+        Assert.assertEquals(new Fraction(48), customer.getBalance());
     }
 }
