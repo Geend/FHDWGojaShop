@@ -126,30 +126,30 @@ public class TestPreparations {
     }
 
     /**
-     * Liefert einen Iterator auf der Liste aller aktuellen Komponenten zurück.
+     * Liefert die Liste aller aktuellen Komponenten zurück.
      * @return
      * @throws Exception
      */
-    public static Iterator<Component4Public> getComponentList() throws Exception {
-        return ((PersistentComponentManager)ComponentManager.getTheComponentManager()).getContainer().getComponents().iterator();
+    public static ComponentContainerImplementation_ComponentsProxi getComponentList() throws Exception {
+        return ((PersistentComponentManager)ComponentManager.getTheComponentManager()).getContainer().getComponents();
     }
 
     /**
-     * Liefert einen Iterator auf der Liste aller Komponenten, die innerhalb der mitgegeben Gruppe sind, zurück.
+     * Liefert die Liste aller Komponenten, die innerhalb der mitgegeben Gruppe sind, zurück.
      * @param group
      * @return
      * @throws Exception
      */
-    public static Iterator<Component4Public> getComponentList(ProductGroup4Public group) throws Exception {
-        return ((PersistentProductGroup)group).getContainer().getComponents().iterator();
+    public static ComponentContainerImplementation_ComponentsProxi getComponentList(ProductGroup4Public group) throws Exception {
+        return ((PersistentProductGroup)group).getContainer().getComponents();
     }
 
     /**
-     * Liefert einen Iterator auf der Liste aller aktuellen Kundenlieferzeit-Objekte.
+     * Liefert die Liste aller aktuellen Kundenlieferzeit-Objekte.
      * @return
      * @throws Exception
      */
-    public static Iterator<CustomerDeliveryTime4Public> getCustomerDeliveryTimes() throws Exception {
-        return CustomerDeliveryTimeManager.getTheCustomerDeliveryTimeManager().getCustomerDeliveryTimes().iterator();
+    public static CustomerDeliveryTimeManager_CustomerDeliveryTimesProxi getCustomerDeliveryTimes() throws Exception {
+        return CustomerDeliveryTimeManager.getTheCustomerDeliveryTimeManager().getCustomerDeliveryTimes();
     }
 }

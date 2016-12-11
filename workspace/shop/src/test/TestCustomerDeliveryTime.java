@@ -55,7 +55,7 @@ public class TestCustomerDeliveryTime {
     @Test
     public void CreateCustomerDeliveryTimeTest() throws Exception {
         CustomerDeliveryTime4Public cdt = TestPreparations.createCustomerDeliveryTime();
-        Iterator<CustomerDeliveryTime4Public> itr = TestPreparations.getCustomerDeliveryTimes();
+        Iterator<CustomerDeliveryTime4Public> itr = TestPreparations.getCustomerDeliveryTimes().iterator();
         while (itr.hasNext()) {
             if(Long.compare(cdt.getId(), itr.next().getId()) == 0)
                 return;
@@ -101,13 +101,9 @@ public class TestCustomerDeliveryTime {
     public void ChangeCustomerDeliveryTimeInvalidPriceTest() throws Exception {
         exception.expect(InvalidInputException.class);
         TestPreparations.createCustomerDeliveryTime("Hi", new Fraction(1), 1);
-
-        //TODO! Use applyToAll instead of Iterator due to ConcurrentModificationExceptions
-        Iterator<CustomerDeliveryTime4Public> itr = TestPreparations.getCustomerDeliveryTimes();
-        while(itr.hasNext()) {
-            CustomerDeliveryTime4Public c = itr.next();
+        TestPreparations.getCustomerDeliveryTimes().applyToAllException(c -> {
             Shop.getTheShop().changeCustomerDeliveryTimePrice(c, new Fraction(-1));
-        }
+        });
     }
 
     /**
@@ -118,11 +114,10 @@ public class TestCustomerDeliveryTime {
     public void ChangeCustomerDeliveryTimeInvalidTimeTest() throws Exception {
         exception.expect(InvalidInputException.class);
         TestPreparations.createCustomerDeliveryTime("Hi", new Fraction(1), 1);
-        Iterator<CustomerDeliveryTime4Public> itr = TestPreparations.getCustomerDeliveryTimes();
-        while(itr.hasNext()) {
-            CustomerDeliveryTime4Public c = itr.next();
+        TestPreparations.getCustomerDeliveryTimes().applyToAllException(c ->
+        {
             Shop.getTheShop().changeCustomerDeliveryTimeTime(c, -1);
-        }
+        });
     }
 
     /**
@@ -147,13 +142,10 @@ public class TestCustomerDeliveryTime {
         TestPreparations.createCustomerDeliveryTime("Hallo", new Fraction(1), 4);
         TestPreparations.createCustomerDeliveryTime("Hullo", new Fraction(3), 1);
 
-        //TODO! Use applyToAll instead of Iterator due to ConcurrentModificationExceptions
-        Iterator<CustomerDeliveryTime4Public> itr = TestPreparations.getCustomerDeliveryTimes();
-        while(itr.hasNext()) {
-            CustomerDeliveryTime4Public c = itr.next();
+        TestPreparations.getCustomerDeliveryTimes().applyToAllException(c -> {
             if(c.getName().equals("Hallo"))
                 Shop.getTheShop().changeCustomerDeliveryTimeTime(c, 1);
-        }
+        });
     }
 
 }

@@ -134,7 +134,7 @@ public class TestArticle {
         ArticleWrapper4Public testArt1 = TestPreparations.createTestArticle();
         ProductGroup4Public testProdGruppe1 = TestPreparations.createProductGroup("ProduktgruppeTest");
         testArt1.moveTo(testProdGruppe1);
-        Iterator<Component4Public> itr = TestPreparations.getComponentList(testProdGruppe1);
+        Iterator<Component4Public> itr = TestPreparations.getComponentList(testProdGruppe1).iterator();
         while (itr.hasNext()) {
             Component4Public comp = itr.next();
             if (comp instanceof ArticleWrapperListEntryProxi) {
@@ -155,7 +155,7 @@ public class TestArticle {
         ProductGroup4Public testProdGruppe1 = TestPreparations.createProductGroup();
         ProductGroup4Public testRootGroup = TestPreparations.createProductGroup("rootGroup");
         testProdGruppe1.moveTo(testRootGroup);
-        Iterator<Component4Public> itr = TestPreparations.getComponentList(testRootGroup);
+        Iterator<Component4Public> itr = TestPreparations.getComponentList(testRootGroup).iterator();
         while (itr.hasNext()) {
             Component4Public comp = itr.next();
             if (comp instanceof ProductGroupListEntryProxi) {
