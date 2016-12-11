@@ -162,4 +162,5 @@ public class TestPreparations {
     public static OrderManager_OrdersProxi getOrders(CustomerOrderManager4Public orderManager) throws Exception {
         return orderManager.getOrders();
     }
+
 }

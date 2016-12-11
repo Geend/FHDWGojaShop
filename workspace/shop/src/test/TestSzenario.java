@@ -87,4 +87,79 @@ public class TestSzenario {
         });
         Assert.assertEquals(new Fraction(48), customer.getBalance());
     }
+
+    /**
+     * In diesem Szenario wird folgendes passieren:
+     - Ein Kundenkonto wird angelegt (100€)
+     - Ein Produzent wird erzeugt (Bauer Balder)
+     - Ein Artikel wird erzeugt (Erdbeere, 0.05€, Produktlieferzeit: 2, Mindestlagerbestand: 10, Maximallagerbestand: 100, Produzent: Bauer Balder)
+     - Der Artikel wird für den Verkauf freigegeben
+     - Zwei Tage warten, bis das Lager gefüllt wurde
+     - ein Warenkorb wird erzeugt
+     - Der Artikel wird in den Wahrenkorb gelegt (Anzahl: 101)
+     - Eine Kundenlieferzeit wird angelegt (Supertransport, Zeit: 3, Preis: 2€)
+     - Der Artikel wird bestellt (Supertransport)
+
+     Danach sollte eine Fehlermeldung erscheinen, da diese Aktion nicht erlaubt ist.
+     * @throws Exception
+     */
+    @Test
+    public void warehouseSzenario1() throws Exception {
+        exception.expect(NotEnoughStockException.class);
+        CustomerAccount4Public customer = TestPreparations.createCustomerAccount("TestUser", new Fraction(100), new Fraction(0));
+        Producer4Public producer = TestPreparations.createTestProducer();
+        ArticleWrapper4Public article = TestPreparations.createTestArticle("Erdbeere", new Fraction(new BigInteger("1"), new BigInteger("20")), 10, 100, 2, producer);
+        TestPreparations.StartShopSelling(article);
+        BackgroundTaskManager.getTheBackgroundTaskManager().step();
+        BackgroundTaskManager.getTheBackgroundTaskManager().step();
+        ShoppingCart4Public sh = TestPreparations.createShoppingCart();
+        ShoppingCartQuantifiedArticle4Public shE = TestPreparations.createShoppingCartEntry(101, article);
+        sh.addArticle(shE);
+        CustomerDeliveryTime4Public ctd = TestPreparations.createCustomerDeliveryTime("Supertransport", new Fraction(2), 3);
+        CustomerOrderManager4Public customerOrderManager = CustomerOrderManager.createCustomerOrderManager(customer);
+        customerOrderManager.newOrder(sh, ctd);
+    }
+
+    /**
+     * In diesem Szenario wird folgendes passieren:
+     - Ein Kundenkonto wird angelegt (100€)
+     - Ein Produzent wird erzeugt (Bauer Balder)
+     - Ein Artikel wird erzeugt (Erdbeere, 0.05€, Produktlieferzeit: 2, Mindestlagerbestand: 10, Maximallagerbestand: 100, Produzent: Bauer Balder)
+     - Der Artikel wird für den Verkauf freigegeben
+     - Zwei Tage warten, bis das Lager gefüllt wurde
+     - ein Warenkorb wird erzeugt
+     - Der Artikel wird in den Wahrenkorb gelegt (Anzahl: 101)
+     - Eine Kundenlieferzeit wird angelegt (Supertransport, Zeit: 3, Preis: 2€)
+     - Der Artikel wird vorbestellt (Supertransport)
+     - Zwei Tage warten, bis die Nachbestellung eingetroffen ist
+     - Der Artikel wird versendet
+     - Drei Tage warten
+     - Der Artikel wird angenommen
+
+     Es sind danach genau 100 Artikel im Lager und der Kunde hat nur noch 491€ auf dem Konto.
+     * @throws Exception
+     */
+    @Test
+    public void warehouseSzenario2() throws Exception {
+        exception.expect(NotEnoughStockException.class);
+        CustomerAccount4Public customer = TestPreparations.createCustomerAccount("TestUser", new Fraction(100), new Fraction(0));
+        Producer4Public producer = TestPreparations.createTestProducer();
+        ArticleWrapper4Public article = TestPreparations.createTestArticle("Erdbeere", new Fraction(new BigInteger("1"), new BigInteger("20")), 10, 100, 2, producer);
+        TestPreparations.StartShopSelling(article);
+        BackgroundTaskManager.getTheBackgroundTaskManager().step();
+        BackgroundTaskManager.getTheBackgroundTaskManager().step();
+        ShoppingCart4Public sh = TestPreparations.createShoppingCart();
+        ShoppingCartQuantifiedArticle4Public shE = TestPreparations.createShoppingCartEntry(101, article);
+        sh.addArticle(shE);
+        CustomerDeliveryTime4Public ctd = TestPreparations.createCustomerDeliveryTime("Supertransport", new Fraction(2), 3);
+        CustomerOrderManager4Public customerOrderManager = CustomerOrderManager.createCustomerOrderManager(customer);
+        customerOrderManager.newPreOrder(sh, ctd);
+        BackgroundTaskManager.getTheBackgroundTaskManager().step();
+        BackgroundTaskManager.getTheBackgroundTaskManager().step();
+        BackgroundTaskManager.getTheBackgroundTaskManager().step();
+        Order4Public order4Public = TestPreparations.getOrders(customerOrderManager).iterator().next();
+        Shop.getTheShop().acceptOrder(customerOrderManager, order4Public);
+        Assert.assertEquals(new Fraction(48), customer.getBalance());
+        //TODO! Finish it.
+    }
 }
