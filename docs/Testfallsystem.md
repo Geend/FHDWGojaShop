@@ -12,15 +12,13 @@ TODO
 
 Hierzu ist kein Testfall nötig, da wir beim Anlegen eines neuen Artikels die interne ID des Gojasystems verwenden.
 
-### CycleErrorTest
-
-> **Zitat:** [...] Jeder Artikel wird in hierarchisch angeordnete Produktgruppen eingeordnet, damit er über diesen Weg für den Kunden leicht auffindbar ist [...]
-
-Bei einer hierarchischen Struktur könnten Zyklen entstehen. Diese Problematik wird ebenfalls durch das Gojasystem erkannt und entsprechend mit einer Fehlermeldung versehen.
-
 **Szenarienverzeichnis**
 
 - [Szenario 1 (Preisänderungsproblematik)](#priceChangeSzenario)
+- [Szenario 2 (Lagerproblematik 1)](#warehouseSzenario1)
+- [Szenario 3 (Lagerproblematik 2)](#warehouseSzenario2)
+- [Szenario 4 (Retourproblem)](#retourSzenario1)
+- [Szenario 5 (Limitproblem)](#limitSzenario1)
 
 **Einzeltestverzeichnis**
 
@@ -53,7 +51,6 @@ Bei einer hierarchischen Struktur könnten Zyklen entstehen. Diese Problematik w
   - [Kundenlieferzeit ändern zu ungültigem Preis](#ChangeCustomerDeliveryTimeInvalidPriceTest)
   - [Kundenlieferzeit ändern zu ungültiger Zeit](#ChangeCustomerDeliveryTimeInvalidTimeTest)
   - [Kundenlieferzeit doppelt anlegen mit gleichem Namen](#CreateCustomerDeliveryTimeSameNameTest)
-  - [Kundenlieferzeit doppelt anlegen mit gleicher Lieferzeit](#CreateCustomerDeliveryTimeSameTimeTest)
 - [Einstellungen - Tests](#SettingsTests)
   - [ungültiger Kundenkonto Startbetrag](#CustomerDefaultBalanceInvalidTest)
   - [ungültiges Kundenkonto Limit](#CustomerLimitBalanceInvalidTest)
@@ -83,6 +80,53 @@ In diesem Szenario wird folgendes passieren:
 
 Das wird kontrolliert
 - Es wurden vom Kundenkonto exakt 52€ (Preis + Versand) abgezogen
+
+### Szenario 2 (Lagerproblematik1)<a name="warehouseSzenario1"></a>
+
+> **Eigenentscheidung:** Es können nicht mehr Produkte bestellt werden, als aktuell im Lager vorhanden sind.
+
+In diesem Szenario wird folgendes passieren:
+- Ein Kundenkonto wird angelegt (100€)
+- Ein Produzent wird erzeugt (Bauer Balder)
+- Ein Artikel wird erzeugt (Erdbeere, 0.05€, Produktlieferzeit: 2, Mindestlagerbestand: 10, Maximallagerbestand: 100, Produzent: Bauer Balder)
+- Der Artikel wird für den Verkauf freigegeben
+- Zwei Tage warten, bis das Lager gefüllt wurde
+- ein Warenkorb wird erzeugt
+- Der Artikel wird in den Wahrenkorb gelegt (Anzahl: 101)
+- Eine Kundenlieferzeit wird angelegt (Supertransport, Zeit: 3, Preis: 2€)
+- Der Artikel wird bestellt (Supertransport)
+
+Danach sollte eine Fehlermeldung erscheinen, da diese Aktion nicht erlaubt ist.
+
+### Szenario 3 (Lagerproblematik2)<a name="warehouseSzenario2"></a>
+
+> **Zitat:** Ist der Mindestlagerbestand unterschritten, wird automatisch eine Bestellung ausgelöst, die wieder auf den Maximallagerbestand auffüllt.
+> Diese Auffüllung soll genau dann eintreten, wenn vom Zeitpunkt der Nachbestellung die für diesen Artikel festgelegte Herstellerliefer-zeit verstrichen ist.
+
+In diesem Szenario wird folgendes passieren:
+- Ein Kundenkonto wird angelegt (100€)
+- Ein Produzent wird erzeugt (Bauer Balder)
+- Ein Artikel wird erzeugt (Erdbeere, 0.05€, Produktlieferzeit: 2, Mindestlagerbestand: 10, Maximallagerbestand: 100, Produzent: Bauer Balder)
+- Der Artikel wird für den Verkauf freigegeben
+- Zwei Tage warten, bis das Lager gefüllt wurde
+- ein Warenkorb wird erzeugt
+- Der Artikel wird in den Wahrenkorb gelegt (Anzahl: 101)
+- Eine Kundenlieferzeit wird angelegt (Supertransport, Zeit: 3, Preis: 2€)
+- Der Artikel wird vorbestellt (Supertransport)
+- Zwei Tage warten, bis die Nachbestellung eingetroffen ist
+- Der Artikel wird versendet
+- Drei Tage warten
+- Der Artikel wird angenommen
+
+Es sind danach genau 100 Artikel im Lager und der Kunde hat nur noch 491€ auf dem Konto.
+
+### Szenario 4 (Retourproblem)<a name="retourSzenario1"></a>
+
+> **Eigenentscheidung:**
+
+### Szenario 5 (Limitproblem)<a name="limitSzenario1"></a>
+
+> **Logik:** Das Limit des Kontos darf nicht unterschritten werden beim Bestellen.
 
 ## Einzeltestfälle<a name="singleTests"></a>
 
@@ -255,12 +299,6 @@ Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch die Liefer
 > **Eigenentscheidung:** Die Kundenlieferzeitobjekte dürfen anhand ihres Namens nur einmal vorkommen.
 
 Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eine Kundenlieferzeit anzulegen, die es mit dem gleichen Namen schon gibt.
-
-#### CreateCustomerDeliveryTimeSameTimeTest<a name="CreateCustomerDeliveryTimeSameTimeTest"></a>
-
-> **Eigenentscheidung:** Die Kundenlieferzeitobjekte dürfen anhand ihrer Lieferzeit nur einmal vorkommen.
-
-Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eine Kundenlieferzeit anzulegen, die es mit der gleichen Lieferzeit schon gibt.
 
 ### Einstellungen - Tests<a name="SettingsTests"></a>
 
