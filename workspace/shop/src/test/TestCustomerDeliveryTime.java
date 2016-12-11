@@ -100,10 +100,8 @@ public class TestCustomerDeliveryTime {
     @Test
     public void ChangeCustomerDeliveryTimeInvalidPriceTest() throws Exception {
         exception.expect(InvalidInputException.class);
-        TestPreparations.createCustomerDeliveryTime("Hi", new Fraction(1), 1);
-        TestPreparations.getCustomerDeliveryTimes().applyToAllException(c -> {
-            Shop.getTheShop().changeCustomerDeliveryTimePrice(c, new Fraction(-1));
-        });
+        CustomerDeliveryTime4Public c = TestPreparations.createCustomerDeliveryTime("Hi", new Fraction(1), 1);
+        Shop.getTheShop().changeCustomerDeliveryTimePrice(c, new Fraction(-1));
     }
 
     /**
@@ -113,11 +111,8 @@ public class TestCustomerDeliveryTime {
     @Test
     public void ChangeCustomerDeliveryTimeInvalidTimeTest() throws Exception {
         exception.expect(InvalidInputException.class);
-        TestPreparations.createCustomerDeliveryTime("Hi", new Fraction(1), 1);
-        TestPreparations.getCustomerDeliveryTimes().applyToAllException(c ->
-        {
-            Shop.getTheShop().changeCustomerDeliveryTimeTime(c, -1);
-        });
+        CustomerDeliveryTime4Public c = TestPreparations.createCustomerDeliveryTime("Hi", new Fraction(1), 1);
+        Shop.getTheShop().changeCustomerDeliveryTimeTime(c, -1);
     }
 
     /**
