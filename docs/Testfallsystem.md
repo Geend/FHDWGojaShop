@@ -18,7 +18,8 @@ Hierzu ist kein Testfall nötig, da wir beim Anlegen eines neuen Artikels die in
 - [Szenario 2 (Lagerproblematik 1)](#warehouseSzenario1)
 - [Szenario 3 (Lagerproblematik 2)](#warehouseSzenario2)
 - [Szenario 4 (Retourproblem)](#retourSzenario1)
-- [Szenario 5 (Limitproblem)](#limitSzenario1)
+- [Szenario 5 (Retourproblem)](#retourSzenario2)
+- [Szenario 6 (Limitproblem)](#limitSzenario1)
 
 **Einzeltestverzeichnis**
 
@@ -124,7 +125,11 @@ Es sind danach genau 100 Artikel im Lager und der Kunde hat nur noch 491€ auf 
 
 > **Eigenentscheidung:**
 
-### Szenario 5 (Limitproblem)<a name="limitSzenario1"></a>
+### Szenario 5 (Retourproblem)<a name="retourSzenario2"></a>
+
+Test des Retourprozent.
+
+### Szenario 6 (Limitproblem)<a name="limitSzenario1"></a>
 
 > **Logik:** Das Limit des Kontos darf nicht unterschritten werden beim Bestellen.
 
