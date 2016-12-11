@@ -114,6 +114,15 @@ public class TestPreparations {
     }
 
     /**
+     * Nimmt einen Artikel aus dem normalen Verkauf, aber deklariert ihn noch als Restposten (ohne Nachbestellung)
+     * @param article
+     * @throws Exception
+     */
+    public static void StopShopSelling(ArticleWrapper4Public article) throws Exception {
+        Shop.getTheShop().stopSelling(article);
+    }
+
+    /**
      * Erstellt einen Testbenutzer anhand des Namens, des Kundenkontostands und des Limits.
      * @param name
      * @param balance
@@ -151,16 +160,6 @@ public class TestPreparations {
      */
     public static CustomerDeliveryTimeManager_CustomerDeliveryTimesProxi getCustomerDeliveryTimes() throws Exception {
         return CustomerDeliveryTimeManager.getTheCustomerDeliveryTimeManager().getCustomerDeliveryTimes();
-    }
-
-    /**
-     * Liefert die Liste aller Bestellungen zurück.
-     * @param orderManager
-     * @return
-     * @throws Exception
-     */
-    public static OrderManager_OrdersProxi getOrders(CustomerOrderManager4Public orderManager) throws Exception {
-        return orderManager.getOrders();
     }
 
 }

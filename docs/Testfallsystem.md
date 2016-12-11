@@ -2,7 +2,7 @@
 
 ## Testfallsystem
 
-TODO
+Dies ist eine Übersicht zu den durchführbaren Testfällen.
 
 ## Nicht benötigte Tests
 
@@ -18,7 +18,11 @@ Hierzu ist kein Testfall nötig, da wir beim Anlegen eines neuen Artikels die in
 - [Szenario 2 (Lagerproblematik 1)](#warehouseSzenario1)
 - [Szenario 3 (Lagerproblematik 2)](#warehouseSzenario2)
 - [Szenario 4 (Retourproblem)](#retourSzenario1)
-- [Szenario 5 (Limitproblem)](#limitSzenario1)
+- [Szenario 5 (Retourproblem)](#retourSzenario2)
+- [Szenario 6 (Limitproblem)](#limitSzenario1)
+- [Szenario 7 (Lagerproblematik 3)](#warehouseSzenario3)
+- [Szenario 8 (Kundenversäumnis)](#customerDidNothingSzenario)
+- [Szenario 9 (Restlagerbstände)](#restArticleSzeanrio)
 
 **Einzeltestverzeichnis**
 
@@ -43,6 +47,10 @@ Hierzu ist kein Testfall nötig, da wir beim Anlegen eines neuen Artikels die in
   - [Mindestlagerbestand eines Artikels negativ anlegen](#CreateNegativeArticleMinStockTest)
   - [Maximallagerbestand eines Artikels negativ anlegen](#CreateNegativeArticleMaxStockTest)
   - [Maximallagerbestand anlegen, der kleiner ist als der Mindestlagerbestand](#CreateArticleWithInvalidStockTest)
+  - [Artikelanzahl im Warenkorb auf 0 setzen](#SetArticleAmountZeroTest)
+  - [Artikelanzahl im Warenkorb negativ setzen](#SetArticleAmountNegativeTest)
+  - [Artikelnamen auf einen Namen ändern, der schon existiert](#ChangeArticleNameExistTest)
+  - [Herstellerlieferzeit negativ setzen](#ChangeProducerDeliveryTimeNegativeTest)
 - [Kundenlieferzeit - Tests](#CustomerDeliveryTimeTests)
   - [Kundenlieferzeit anlegen](#CreateCustomerDeliveryTimeTest)
   - [Kundenlieferzeit anlegen mit leerem Namen](#CreateCustomerDeliveryTimeEmptyNameTest)
@@ -75,7 +83,7 @@ In diesem Szenario wird folgendes passieren:
 - Eine Kundenlieferzeit wird angelegt (Supertransport, Zeit: 3, Preis: 2€)
 - Der Artikel wird bestellt (Supertransport)
 - Der Preis des Artikels wird auf 0,07€ erhöht
-- Der Artikel wird versendet
+- Der Artikel wird versandt
 - Der Artikel wird vom Kunden angenommen
 
 Das wird kontrolliert
@@ -104,9 +112,9 @@ Danach sollte eine Fehlermeldung erscheinen, da diese Aktion nicht erlaubt ist.
 > Diese Auffüllung soll genau dann eintreten, wenn vom Zeitpunkt der Nachbestellung die für diesen Artikel festgelegte Herstellerliefer-zeit verstrichen ist.
 
 In diesem Szenario wird folgendes passieren:
-- Ein Kundenkonto wird angelegt (100€)
+- Ein Kundenkonto wird angelegt (200€)
 - Ein Produzent wird erzeugt (Bauer Balder)
-- Ein Artikel wird erzeugt (Erdbeere, 0.05€, Produktlieferzeit: 2, Mindestlagerbestand: 10, Maximallagerbestand: 100, Produzent: Bauer Balder)
+- Ein Artikel wird erzeugt (Erdbeere, 1€, Produktlieferzeit: 2, Mindestlagerbestand: 10, Maximallagerbestand: 100, Produzent: Bauer Balder)
 - Der Artikel wird für den Verkauf freigegeben
 - Zwei Tage warten, bis das Lager gefüllt wurde
 - ein Warenkorb wird erzeugt
@@ -114,19 +122,138 @@ In diesem Szenario wird folgendes passieren:
 - Eine Kundenlieferzeit wird angelegt (Supertransport, Zeit: 3, Preis: 2€)
 - Der Artikel wird vorbestellt (Supertransport)
 - Zwei Tage warten, bis die Nachbestellung eingetroffen ist
-- Der Artikel wird versendet
+- Der Artikel wird versandt
 - Drei Tage warten
 - Der Artikel wird angenommen
 
-Es sind danach genau 100 Artikel im Lager und der Kunde hat nur noch 491€ auf dem Konto.
+Es sind danach genau 100 Artikel im Lager und der Kunde hat nur noch 97€ auf dem Konto.
 
 ### Szenario 4 (Retourproblem)<a name="retourSzenario1"></a>
 
-> **Eigenentscheidung:**
+In diesem Szenario wird folgendes passieren:
+- Ein Kundenkonto wird angelegt (200€)
+- Ein Produzent wird erzeugt (Bauer Balder)
+- Der Retourprozentwert wird auf 10% eingestellt (1/10)
+- Ein Artikel wird erzeugt (Erdbeere, 1€, Produktlieferzeit: 2, Mindestlagerbestand: 10, Maximallagerbestand: 100, Produzent: Bauer Balder)
+- Der Artikel wird für den Verkauf freigegeben
+- Zwei Tage warten, bis das Lager gefüllt wurde
+- ein Warenkorb wird erzeugt
+- Der Artikel wird in den Wahrenkorb gelegt (Anzahl: 10)
+- Eine Kundenlieferzeit wird angelegt (Supertransport, Zeit: 3, Preis: 2€)
+- Der Artikel wird bestellt (Supertransport)
+- Der Retourprozentwert wird auf 20% erhöht (1/5)
+- Der Artikel wird versandt
+- Ein Tag warten
+- Den Artikel als Retour markieren
+- Zwei Tage warten
+- Der Artikel wird angenommen (als Retour zurückgeschickt)
+- Fünf Tage warten (je nach dem, was in der ShopConstant eingestellt ist)
 
-### Szenario 5 (Limitproblem)<a name="limitSzenario1"></a>
+Das Lager ist wieder entsprechend gefüllt (Anzahl: 100), das Kundenkonto hat
+200€ - 10 * 1€ * 0.1 - 2€ (Versand) = 197€, da es von dem geänderten Retourprozentwert nicht betroffen ist.
+
+### Szenario 5 (Retourproblem)<a name="retourSzenario2"></a>
+
+In diesem Szenario wird folgendes passieren:
+- Ein Kundenkonto wird angelegt (200€)
+- Ein Produzent wird erzeugt (Bauer Balder)
+- Der Retourprozentwert wird auf 10% eingestellt (1/10)
+- Ein Artikel wird erzeugt (Erdbeere, 1€, Produktlieferzeit: 2, Mindestlagerbestand: 10, Maximallagerbestand: 100, Produzent: Bauer Balder)
+- Noch ein Artikel wird erzeugt (Banane, 2€, Produktlieferzeit: 2, Mindestlagerbestand: 10, Maximallagerbestand: 100, Produzent: Bauer Balder)
+- Beide Artikel werden für den Verkauf freigegeben
+- Zwei Tage warten, bis das Lager gefüllt wurde
+- ein Warenkorb wird erzeugt
+- Der Artikel "Erdbeere" wird in den Wahrenkorb gelegt (Anzahl: 10)
+- Der Artikel "Banane" wird in den Wahrenkorb gelegt (Anzahl: 10)
+- Eine Kundenlieferzeit wird angelegt (Supertransport, Zeit: 3, Preis: 2€)
+- Der Warenkorb wird bestellt (Supertransport)
+- Beide Artikel werden versandt
+- Ein Tag warten
+- Den Artikel "Banane" als Retour markieren
+- Zwei Tage warten
+- Die Bestellung annehmen (Retour wird zurückgeschickt)
+- Fünf Tage warten (je nach dem, was in der ShopConstant eingestellt ist)
+
+Auf dem Kundenkonto sind 200€ - 10 * 1€ - 10 * 2€ * 0.1 - 2€ (Versand) = 186€
+
+### Szenario 6 (Limitproblem)<a name="limitSzenario1"></a>
 
 > **Logik:** Das Limit des Kontos darf nicht unterschritten werden beim Bestellen.
+
+In diesem Szenario wird folgendes passieren:
+- Ein Kundenkonto wird angelegt (100€, Limit: 100€)
+- Ein Produzent wird erzeugt (Bauer Balder)
+- Ein Artikel wird erzeugt (Erdbeere, 10€, Produktlieferzeit: 2, Mindestlagerbestand: 10, Maximallagerbestand: 100, Produzent: Bauer Balder)
+- Der Artikel wird für den Verkauf freigegeben
+- Zwei Tage warten, bis das Lager gefüllt wurde
+- ein Warenkorb wird erzeugt
+- Der Artikel "Erdbeere" wird in den Wahrenkorb gelegt (Anzahl: 20)
+- Eine Kundenlieferzeit wird angelegt (Supertransport, Zeit: 3, Preis: 2€)
+- Der Warenkorb wird bestellt (Supertransport)
+
+Es wird erwartet, dass keine Fehlermeldung kommt, die sagt, dass das Limit des Kundenkontos unterschritten würde bei der Bestellung,
+da das Limit noch nicht unterschritten wurde.
+
+### Szenario 7 (Lagerproblematik3)<a name="warehouseSzenario3"></a>
+
+In diesem Szenario wird folgendes passieren:
+- Ein Kundenkonto wird angelegt (200€)
+- Ein Produzent wird erzeugt (Bauer Balder)
+- Ein Artikel wird erzeugt (Erdbeere, 1€, Produktlieferzeit: 2, Mindestlagerbestand: 10, Maximallagerbestand: 100, Produzent: Bauer Balder)
+- Noch ein Artikel wird erzeugt (Banane, 2€, Produktlieferzeit: 3, Mindestlagerbestand: 10, Maximallagerbestand: 100, Produzent: Bauer Balder)
+- Beide Artikel werden für den Verkauf freigegeben
+- Zwei Tage warten, bis das Lager des ersten Artikels gefüllt wurde
+- ein Warenkorb wird erzeugt
+- Der Artikel "Erdbeere" wird in den Wahrenkorb gelegt (Anzahl: 10)
+- Der Artikel "Banane" wird in den Wahrenkorb gelegt (Anzahl: 10)
+- Eine Kundenlieferzeit wird angelegt (Supertransport, Zeit: 3, Preis: 2€)
+- Der Warenkorb wird bestellt (Supertransport)
+
+Es wird erwartet, dass eine Fehlermeldung kommt, die sagt, dass das Lager nicht genügend Ware gelagert hat.
+
+### Szenario 8 (Kundenversäumnis)<a name="customerDidNothingSzenario"></a>
+
+In diesem Szenario wird folgendes passieren:
+- Ein Kundenkonto wird angelegt (200€)
+- Ein Produzent wird erzeugt (Bauer Balder)
+- Der Retourprozentwert wird auf 10% eingestellt (1/10)
+- Ein Artikel wird erzeugt (Erdbeere, 1€, Produktlieferzeit: 2, Mindestlagerbestand: 10, Maximallagerbestand: 100, Produzent: Bauer Balder)
+- Der Artikel wird für den Verkauf freigegeben
+- Zwei Tage warten, bis das Lager gefüllt wurde
+- Der Artikel wird aus dem Sortiment genommen, aber Restlagerbestände können noch gekauft werden
+- ein Warenkorb wird erzeugt
+- Der Artikel "Erdbeere" wird in den Wahrenkorb gelegt (Anzahl: 10)
+- Eine Kundenlieferzeit wird angelegt (Supertransport, Zeit: 3, Preis: 2€)
+- Der Warenkorb wird bestellt (Supertransport)
+- Der Artikel werden versandt
+- Drei Tage warten auf den Versand
+- Fünf Tage warten (jedenfalls die Einstellung in den ShopConstants ist für gewöhnlich 5 Tage)
+- Die Retour wird automatisch durchgeführt
+- Fünf Tage warten (je nach dem, was in der ShopConstant eingestellt ist)
+
+Auf dem Kundenkonto sind 200€ - 10 * 1€ * 0.1 - 2€ (Versand) = 197€
+
+### Szenario 9 (Restlagerbstände)<a name="restArticleSzeanrio"></a>
+
+In diesem Szenario wird folgendes passieren:
+- Ein Kundenkonto wird angelegt (200€)
+- Ein Produzent wird erzeugt (Bauer Balder)
+- Der Retourprozentwert wird auf 10% eingestellt (1/10)
+- Ein Artikel wird erzeugt (Erdbeere, 1€, Produktlieferzeit: 2, Mindestlagerbestand: 10, Maximallagerbestand: 100, Produzent: Bauer Balder)
+- Der Artikel wird für den Verkauf freigegeben
+- Zwei Tage warten, bis das Lager gefüllt wurde
+- Der Artikel wird als Restposten deklariert
+- ein Warenkorb wird erzeugt
+- Der Artikel "Erdbeere" wird in den Wahrenkorb gelegt (Anzahl: 10)
+- Eine Kundenlieferzeit wird angelegt (Supertransport, Zeit: 3, Preis: 2€)
+- Der Warenkorb wird bestellt (Supertransport)
+- Der Artikel wird versandt
+- Drei Tage warten auf den Versand
+- Die Bestellung annehmen
+- Zwei Tage warten (die Dauer der Nachbestellung für den Artikel, die ja nicht stattfinden darf)
+
+Auf dem Kundenkonto sind 200€ - 10 * 1€ - 2€ (Versand) = 188€
+Im Lager sind 90 Exemplare
 
 ## Einzeltestfälle<a name="singleTests"></a>
 
@@ -255,6 +382,33 @@ Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eimem Arti
 > **Logik:** Es darf keinen Artikel geben, bei dem der Mindestlagerbestand größer ist als der Maximallagerbestand.
 
 Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eimem Artikel einen Maximallagerbestand zuzuweisen, der kleiner ist als sein Mindestlagerbestand.
+
+#### SetArticleAmountZeroTest<a name="SetArticleAmountZeroTest"></a>
+
+> **Eigenentscheidung:** Der Artikel wird aus dem Warebnkorb entfernt, wenn die Anzahl auf 0 gesetzt wird.
+
+Testfall zum Überprüfen, ob er Artikel aus dem Warenkorb verschwindet, wenn man dessen Anzahl auf 0 setzt.
+
+#### ChangeArticleNameExistTest<a name="ChangeArticleNameExistTest"></a>
+
+> **Zitat:** [...] Daneben hat jeder Artikel eine Bezeichnung,
+die erst zusammen mit dem Hersteller den Artikel
+eindeutig identifiziert [...]
+
+Testfall, der überprüft, ob verhindert wird, dass ein Artikelname zu einem geändert wird, der bei demselben
+Hersteller schon existiert.
+
+#### SetArticleAmountNegativeTest<a name="SetArticleAmountNegativeTest"></a>
+
+> **Logik:** Die Anzahl eines Artikels im Warenkorb kann nicht negativ sein.
+
+Testfall, der überprüft, ob der Benutzer versucht, die Anzahl eines Artikels im Warenkorb auf einen negativen Wert zu setzen.
+
+#### ChangeProducerDeliveryTimeNegativeTest<a name="ChangeProducerDeliveryTimeNegativeTest"></a>
+
+> **Logik:** Die Herstellerlieferzeit eines Artikels kann nicht negativ oder 0 sein.
+
+Testfall, der überprüft, ob jemand versucht die Herstellerlieferzeit negativ oder 0 zu setzen.
 
 ### Kundenlieferzeit<a name="CustomerDeliveryTimeTests"></a>
 
