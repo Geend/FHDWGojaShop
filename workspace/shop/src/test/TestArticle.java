@@ -173,7 +173,7 @@ public class TestArticle {
      */
     @Test
     public void MoveProductGroupToChildTest() throws Exception {
-        exception.expect(InvalidMoveException.class);
+        exception.expect(CycleException.class);
         ProductGroup4Public rootGroup = TestPreparations.createProductGroup("rootGroup");
         ProductGroup4Public childGroup = TestPreparations.createProductGroup("childGroup");
         rootGroup.addComponent(childGroup);
@@ -298,7 +298,7 @@ public class TestArticle {
      */
     @Test
     public void MoveProductGroupIntoItselfTest() throws Exception {
-        exception.expect(InvalidMoveException.class);
+        exception.expect(CycleException.class);
         ProductGroup4Public rootGroup = TestPreparations.createProductGroup("root");
         rootGroup.moveTo(rootGroup);
     }

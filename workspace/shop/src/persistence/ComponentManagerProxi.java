@@ -21,7 +21,7 @@ public class ComponentManagerProxi extends PersistentProxi implements Persistent
     public ComponentContainerImplementation4Public getContainer() throws PersistenceException {
         return ((PersistentComponentManager)this.getTheObject()).getContainer();
     }
-    public void setContainer(ComponentContainerImplementation4Public newValue) throws PersistenceException {
+    public void setContainer(ComponentContainerImplementation4Public newValue) throws PersistenceException , model.CycleException{
         ((PersistentComponentManager)this.getTheObject()).setContainer(newValue);
     }
     public SubjInterface getSubService() throws PersistenceException {
@@ -44,6 +44,18 @@ public class ComponentManagerProxi extends PersistentProxi implements Persistent
          visitor.handleComponentManager(this);
     }
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleComponentManager(this);
+    }
+    public void accept(CompHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+        visitor.handleComponentManager(this);
+    }
+    public <R> R accept(CompHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleComponentManager(this);
+    }
+    public <E extends model.UserException>  void accept(CompHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleComponentManager(this);
+    }
+    public <R, E extends model.UserException> R accept(CompHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleComponentManager(this);
     }
     public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
@@ -72,6 +84,14 @@ public class ComponentManagerProxi extends PersistentProxi implements Persistent
     }
     
     
+    public boolean containsCompHierarchy(final CompHierarchyHIERARCHY part) 
+				throws PersistenceException{
+        return ((PersistentComponentManager)this.getTheObject()).containsCompHierarchy(part);
+    }
+    public boolean containsCompHierarchy(final CompHierarchyHIERARCHY part, final java.util.HashSet<CompHierarchyHIERARCHY> visited) 
+				throws PersistenceException{
+        return ((PersistentComponentManager)this.getTheObject()).containsCompHierarchy(part, visited);
+    }
     public void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentComponentManager)this.getTheObject()).deregister(observee);
@@ -83,6 +103,14 @@ public class ComponentManagerProxi extends PersistentProxi implements Persistent
     public void register(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentComponentManager)this.getTheObject()).register(observee);
+    }
+    public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        return ((PersistentComponentManager)this.getTheObject()).strategyCompHierarchy(strategy);
+    }
+    public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy, final java.util.HashMap<CompHierarchyHIERARCHY,T> visited) 
+				throws PersistenceException{
+        return ((PersistentComponentManager)this.getTheObject()).strategyCompHierarchy(strategy, visited);
     }
     public void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{

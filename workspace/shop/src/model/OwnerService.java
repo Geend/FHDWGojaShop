@@ -544,32 +544,28 @@ public class OwnerService extends model.Service implements PersistentOwnerServic
         getThis().signalChanged(true);
     }
     public void changeCustomerDeliveryTimePrice(final CustomerDeliveryTime4Public customerDeliveryTime, final common.Fraction newValue) 
-				throws PersistenceException{
-        customerDeliveryTime.setPrice(newValue);
-        getThis().signalChanged(true);
-
+				throws model.InvalidInputException, PersistenceException{
+        getThis().getShop().changeCustomerDeliveryTimePrice(customerDeliveryTime,newValue);
     }
     public void changeCustomerDeliveryTimeTime(final CustomerDeliveryTime4Public customerDeliveryTime, final long newValue) 
-				throws PersistenceException{
-        customerDeliveryTime.setDeliveryTime(newValue);
-        getThis().signalChanged(true);
-
+				throws model.InvalidInputException, PersistenceException{
+        getThis().getShop().changeCustomerDeliveryTimeTime(customerDeliveryTime, newValue);
     }
     public void changeNewCustomerDefaultBalance(final common.Fraction newValue) 
-				throws PersistenceException{
-        getSettings().setNewCustomerDefaultBalance(newValue);
+				throws model.InvalidInputException, PersistenceException{
+        getSettings().changeNewCustomerDefaultBalance(newValue);
         getThis().signalChanged(true);
 
     }
     public void changeNewCustomerDefaultLimit(final common.Fraction newValue) 
-				throws PersistenceException{
-        getSettings().setNewCustomerDefaultLimit(newValue);
+				throws model.InvalidInputException, PersistenceException{
+        getSettings().changeNewCustomerDefaultLimit(newValue);
         getThis().signalChanged(true);
 
     }
     public void changeReturnPercentage(final common.Fraction newValue) 
-				throws PersistenceException{
-        getSettings().setReturnPercentage(newValue);
+				throws model.InvalidInputException, PersistenceException{
+        getSettings().changeReturnPercentage(newValue);
         getThis().signalChanged(true);
 
     }

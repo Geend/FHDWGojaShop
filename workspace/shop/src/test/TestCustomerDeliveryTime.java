@@ -101,6 +101,8 @@ public class TestCustomerDeliveryTime {
     public void ChangeCustomerDeliveryTimeInvalidPriceTest() throws Exception {
         exception.expect(InvalidInputException.class);
         TestPreparations.createCustomerDeliveryTime("Hi", new Fraction(1), 1);
+
+        //TODO! Use applyToAll instead of Iterator due to ConcurrentModificationExceptions
         Iterator<CustomerDeliveryTime4Public> itr = TestPreparations.getCustomerDeliveryTimes();
         while(itr.hasNext()) {
             CustomerDeliveryTime4Public c = itr.next();
@@ -134,16 +136,6 @@ public class TestCustomerDeliveryTime {
         TestPreparations.createCustomerDeliveryTime("Hi", new Fraction(2), 2);
     }
 
-    /**
-     * Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch eine Kundenlieferzeit anzulegen, die es mit der gleichen Lieferzeit schon gibt.
-     * @throws Exception
-     */
-    @Test
-    public void CreateCustomerDeliveryTimeSameTimeTest() throws Exception {
-        exception.expect(DoubleDefinitionException.class);
-        TestPreparations.createCustomerDeliveryTime("Hallo", new Fraction(1), 1);
-        TestPreparations.createCustomerDeliveryTime("Hullo", new Fraction(2), 1);
-    }
 
     /**
      * Testfall zum Überprüfen einer erwarteten Fehlermeldung beim Versuch die Lieferzeit einer Kundenlieferzeit auf einen Wert zu setzen, den es in einem anderen Kundenlieferzeit Objekt schon gibt.
@@ -154,6 +146,8 @@ public class TestCustomerDeliveryTime {
         exception.expect(InvalidInputException.class);
         TestPreparations.createCustomerDeliveryTime("Hallo", new Fraction(1), 4);
         TestPreparations.createCustomerDeliveryTime("Hullo", new Fraction(3), 1);
+
+        //TODO! Use applyToAll instead of Iterator due to ConcurrentModificationExceptions
         Iterator<CustomerDeliveryTime4Public> itr = TestPreparations.getCustomerDeliveryTimes();
         while(itr.hasNext()) {
             CustomerDeliveryTime4Public c = itr.next();

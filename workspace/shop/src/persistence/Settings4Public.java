@@ -6,11 +6,8 @@ import model.visitor.*;
 public interface Settings4Public extends Anything, SubjInterface, AbstractPersistentProxi {
     
     public common.Fraction getNewCustomerDefaultBalance() throws PersistenceException ;
-    public void setNewCustomerDefaultBalance(common.Fraction newValue) throws PersistenceException ;
     public common.Fraction getNewCustomerDefaultLimit() throws PersistenceException ;
-    public void setNewCustomerDefaultLimit(common.Fraction newValue) throws PersistenceException ;
     public common.Fraction getReturnPercentage() throws PersistenceException ;
-    public void setReturnPercentage(common.Fraction newValue) throws PersistenceException ;
     
     public void accept(AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;
@@ -23,6 +20,12 @@ public interface Settings4Public extends Anything, SubjInterface, AbstractPersis
     
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
+    public void changeNewCustomerDefaultBalance(final common.Fraction newValue) 
+				throws model.InvalidInputException, PersistenceException;
+    public void changeNewCustomerDefaultLimit(final common.Fraction newValue) 
+				throws model.InvalidInputException, PersistenceException;
+    public void changeReturnPercentage(final common.Fraction newValue) 
+				throws model.InvalidInputException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void initializeOnCreation() 

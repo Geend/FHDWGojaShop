@@ -2,6 +2,7 @@
 package model;
 
 import common.Fraction;
+import constants.StringConstants;
 import persistence.*;
 import model.visitor.*;
 
@@ -9,7 +10,7 @@ import model.visitor.*;
 /* Additional import section end */
 
 public class Settings extends PersistentObject implements PersistentSettings{
-    
+
     private static Settings4Public theSettings = null;
     public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
@@ -236,6 +237,25 @@ public class Settings extends PersistentObject implements PersistentSettings{
     
     // Start of section that contains operations that must be implemented.
     
+    public void changeNewCustomerDefaultBalance(final common.Fraction newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        if(newValue.isLess(Fraction.Null)){
+            throw new InvalidInputException(StringConstants.NEW_CUSTOMER_DEFAULT_BALANCE_NOT_NEGATIVE_MESSAGE);
+        }
+
+        getThis().setNewCustomerDefaultBalance(newValue);
+    }
+    public void changeNewCustomerDefaultLimit(final common.Fraction newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        getThis().setNewCustomerDefaultLimit(newValue);
+    }
+    public void changeReturnPercentage(final common.Fraction newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        if(newValue.isLess(Fraction.Null)){
+            throw new InvalidInputException(StringConstants.RETURN_PERCENTAGE_NOT_NEGATIVE_MESSAGE);
+        }
+        getThis().setReturnPercentage(newValue);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
     }

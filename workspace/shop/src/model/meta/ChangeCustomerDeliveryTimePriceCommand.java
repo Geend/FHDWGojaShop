@@ -231,8 +231,12 @@ public class ChangeCustomerDeliveryTimePriceCommand extends PersistentObject imp
     }
     public void execute() 
 				throws PersistenceException{
-        this.commandReceiver.changeCustomerDeliveryTimePrice(this.getCustomerDeliveryTime(), this.getNewValue());
-		
+        try{
+			this.commandReceiver.changeCustomerDeliveryTimePrice(this.getCustomerDeliveryTime(), this.getNewValue());
+		}
+		catch(model.InvalidInputException e){
+			this.commandException = e;
+		}
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{

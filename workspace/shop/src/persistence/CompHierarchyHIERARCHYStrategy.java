@@ -14,7 +14,9 @@ public interface CompHierarchyHIERARCHYStrategy<T> {
 				throws PersistenceException;
     public T ComponentContainerImplementation$$finalize(final ComponentContainerImplementation4Public ths, final T components) 
 				throws PersistenceException;
-    public T ProductGroup$$finalize(final ProductGroup4Public ths) 
+    public T ComponentManager$$finalize(final ComponentManager4Public ths, final T container) 
+				throws PersistenceException;
+    public T ProductGroup$$finalize(final ProductGroup4Public ths, final T container) 
 				throws PersistenceException;
 
     

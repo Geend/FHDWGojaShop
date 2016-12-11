@@ -246,9 +246,6 @@ public class MoveToCommand extends PersistentObject implements PersistentMoveToC
         try{
 			this.commandReceiver.moveTo(this.getComponent(), this.getNewParentGroup());
 		}
-		catch(model.InvalidMoveException e){
-			this.commandException = e;
-		}
 		catch(model.CycleException e){
 			this.commandException = e;
 		}

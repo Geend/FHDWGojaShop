@@ -315,7 +315,11 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
                     @Override
                     public void update(String text) throws ModelException {
 
-                        getConnection().changeNewCustomerDefaultBalance(Fraction.parse(text));
+                        try {
+                            getConnection().changeNewCustomerDefaultBalance(Fraction.parse(text));
+                        } catch (InvalidInputException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
@@ -329,7 +333,11 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
                     @Override
                     public void update(String text) throws ModelException {
 
-                        getConnection().changeNewCustomerDefaultLimit(Fraction.parse(text));
+                        try {
+                            getConnection().changeNewCustomerDefaultLimit(Fraction.parse(text));
+                        } catch (InvalidInputException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
@@ -342,7 +350,12 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
                 panel.registerUpdater(SettingsDefaultDetailPanel.Settings$$returnPercentage, new StandardUpdater() {
                     @Override
                     public void update(String text) throws ModelException {
-                        getConnection().changeReturnPercentage(Fraction.parse(text));
+                        try {
+                            getConnection().changeReturnPercentage(Fraction.parse(text));
+                        } catch (InvalidInputException e) {
+                            //TODO! Proper error handling
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
@@ -359,11 +372,15 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
             public void handleCustomerDeliveryTime(CustomerDeliveryTimeView customerDeliveryTime) throws ModelException {
 
                 CustomerDeliveryTimeDefaultDetailPanel panel = new CustomerDeliveryTimeDefaultDetailPanel(OwnerServiceClientView.this, customerDeliveryTime);
-
                 panel.registerUpdater(CustomerDeliveryTimeDefaultDetailPanel.CustomerDeliveryTime$$deliveryTime, new UpdaterForInteger() {
                     @Override
                     public void update(String text) throws ModelException {
-                        getConnection().changeCustomerDeliveryTimeTime(customerDeliveryTime, Integer.parseInt(text));
+                        try {
+                            getConnection().changeCustomerDeliveryTimeTime(customerDeliveryTime, Integer.parseInt(text));
+                        } catch (InvalidInputException e) {
+                            //TODO! Proper error handling
+                            e.printStackTrace();
+                        }
                     }
                 });
 
@@ -371,7 +388,12 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
                 panel.registerUpdater(CustomerDeliveryTimeDefaultDetailPanel.CustomerDeliveryTime$$price, new StandardUpdater() {
                     @Override
                     public void update(String text) throws ModelException {
-                        getConnection().changeCustomerDeliveryTimePrice(customerDeliveryTime, Fraction.parse(text));
+                        try {
+                            getConnection().changeCustomerDeliveryTimePrice(customerDeliveryTime, Fraction.parse(text));
+                        } catch (InvalidInputException e) {
+                            //TODO! Proper error handling
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override

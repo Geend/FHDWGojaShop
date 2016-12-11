@@ -65,7 +65,7 @@ public abstract class ComponentProxi extends PersistentProxi implements Persiste
         ((PersistentComponent)this.getTheObject()).initializeOnInstantiation();
     }
     public void moveTo(final ComponentContainer container) 
-				throws model.InvalidMoveException, model.CycleException, PersistenceException{
+				throws model.CycleException, PersistenceException{
         ((PersistentComponent)this.getTheObject()).moveTo(container);
     }
     public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy) 

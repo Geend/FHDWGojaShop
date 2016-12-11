@@ -25,7 +25,7 @@ public class ProductGroupICProxi extends ComponentICProxi implements PersistentP
     public ComponentContainerImplementation4Public getContainer() throws PersistenceException {
         return ((PersistentProductGroup)this.getTheObject()).getContainer();
     }
-    public void setContainer(ComponentContainerImplementation4Public newValue) throws PersistenceException {
+    public void setContainer(ComponentContainerImplementation4Public newValue) throws PersistenceException , model.CycleException{
         ((PersistentProductGroup)this.getTheObject()).setContainer(newValue);
     }
     public String getName() throws PersistenceException {
@@ -149,7 +149,7 @@ public class ProductGroupICProxi extends ComponentICProxi implements PersistentP
         ((PersistentProductGroup)this.getTheObject()).initializeOnInstantiation();
     }
     public void moveTo(final ComponentContainer container) 
-				throws model.InvalidMoveException, model.CycleException, PersistenceException{
+				throws model.CycleException, PersistenceException{
         ((PersistentProductGroup)this.getTheObject()).moveTo(container);
     }
     public ArticleWrapper4Public newArticle(final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 

@@ -92,6 +92,14 @@ public class CustomerDeliveryTimeICProxi extends PersistentInCacheProxiOptimisti
 				throws PersistenceException{
         ((PersistentCustomerDeliveryTime)this.getTheObject()).updateObservers(event);
     }
+    public void changePrice(final common.Fraction newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        ((PersistentCustomerDeliveryTime)this.getTheObject()).changePrice(newValue);
+    }
+    public void changeTime(final long newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        ((PersistentCustomerDeliveryTime)this.getTheObject()).changeTime(newValue);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentCustomerDeliveryTime)this.getTheObject()).copyingPrivateUserAttributes(copy);

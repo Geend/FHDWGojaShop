@@ -29,14 +29,11 @@ public abstract class UserExceptionStandardVisitor implements UserExceptionVisit
     public void handleUserAlreadyExistsException(UserAlreadyExistsException userAlreadyExistsException) throws ModelException{
         this.standardHandling(userAlreadyExistsException);
     }
-    public void handleDoubleDefinitionException(DoubleDefinitionException doubleDefinitionException) throws ModelException{
-        this.standardHandling(doubleDefinitionException);
-    }
     public void handleRestrictionException(RestrictionException restrictionException) throws ModelException{
         this.standardHandling(restrictionException);
     }
-    public void handleInvalidMoveException(InvalidMoveException invalidMoveException) throws ModelException{
-        this.standardHandling(invalidMoveException);
+    public void handleDoubleDefinitionException(DoubleDefinitionException doubleDefinitionException) throws ModelException{
+        this.standardHandling(doubleDefinitionException);
     }
     protected abstract void standardHandling(UserException userException) throws ModelException;
 }

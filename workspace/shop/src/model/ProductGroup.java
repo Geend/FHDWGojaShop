@@ -125,8 +125,9 @@ public class ProductGroup extends model.Component implements PersistentProductGr
     public ComponentContainerImplementation4Public getContainer() throws PersistenceException {
         return this.container;
     }
-    public void setContainer(ComponentContainerImplementation4Public newValue) throws PersistenceException {
+    public void setContainer(ComponentContainerImplementation4Public newValue) throws PersistenceException , model.CycleException{
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if (newValue.containsCompHierarchy(getThis())) throw new model.CycleException("Cycle in CompHierarchy detected!");
         if(newValue.isTheSameAs(this.container)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
@@ -226,6 +227,7 @@ public class ProductGroup extends model.Component implements PersistentProductGr
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
 		if(visited.contains(getThis())) return false;
+		if(getThis().getContainer() != null && getThis().getContainer().containsCompHierarchy(part, visited)) return true;
 		visited.add(getThis());
 		return false;
     }
@@ -262,7 +264,8 @@ public class ProductGroup extends model.Component implements PersistentProductGr
     public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy, final java.util.HashMap<CompHierarchyHIERARCHY,T> visited) 
 				throws PersistenceException{
         if (visited.containsKey(getThis())) return visited.get(getThis());
-		T result = strategy.ProductGroup$$finalize(getThis() );
+		T result$$container$$ProductGroup = this.getContainer().strategyCompHierarchy(strategy, visited);
+		T result = strategy.ProductGroup$$finalize(getThis() ,result$$container$$ProductGroup);
 		visited.put(getThis(),result);
 		return result;
     }
@@ -291,7 +294,12 @@ public class ProductGroup extends model.Component implements PersistentProductGr
     public void initializeOnCreation() 
 				throws PersistenceException{
         super.initializeOnCreation();
-        getThis().setContainer(ComponentContainerImplementation.createComponentContainerImplementation());
+        try {
+            getThis().setContainer(ComponentContainerImplementation.createComponentContainerImplementation());
+        } catch (CycleException e) {
+            //TODO! Proper error handling
+            e.printStackTrace();
+        }
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{

@@ -1,6 +1,7 @@
 
 package model;
 
+import common.Fraction;
 import constants.StringConstants;
 import persistence.*;
 import model.visitor.*;
@@ -217,11 +218,18 @@ public class CustomerDeliveryTimeManager extends PersistentObject implements Per
     public CustomerDeliveryTime4Public createCustomerDeliveryTime(final String name, final common.Fraction price, final long time) 
 				throws model.DoubleDefinitionException, model.InvalidInputException, PersistenceException{
 
-        if("".equals(name)) {
+        if ("".equals(name)) {
             throw new InvalidInputException(StringConstants.CDT_NAME_EMPTY_DEFINITION_EXCEPTION_MESSAGEE);
         }
-        if(CustomerDeliveryTime.getCustomerDeliveryTimeByName(name).getLength() > 0){
+        if (CustomerDeliveryTime.getCustomerDeliveryTimeByName(name).getLength() > 0) {
             throw new DoubleDefinitionException(StringConstants.CDT_NAME_DOUBLE_DEFINITION_EXCEPTION_MESSAGE);
+        }
+        if (price.isLess(Fraction.Null)) {
+            throw new InvalidInputException(StringConstants.CDT_NOT_NEGATIVE_MESSAGE);
+        }
+        if (time < 1) {
+            throw new InvalidInputException(StringConstants.CDT_TIME_GREATER_THAN_ZERO_MESSAGE);
+
         }
 
         CustomerDeliveryTime4Public customerDeliveryTime = CustomerDeliveryTime.createCustomerDeliveryTime(name, price, time);

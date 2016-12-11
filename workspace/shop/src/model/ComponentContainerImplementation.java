@@ -1,6 +1,7 @@
 
 package model;
 
+import common.Fraction;
 import constants.StringConstants;
 import persistence.*;
 import model.visitor.*;
@@ -304,6 +305,13 @@ public class ComponentContainerImplementation extends PersistentObject implement
         if(maxStock<minStock)//TODO <=?
         {
             throw new InvalidInputException(StringConstants.NEW_ARTICLE_MAX_STOCK_NOT_BELOW_MIN_STOCK_MESSAGE);
+        }
+        if(producerDeliveryTime < 1)
+        {
+            throw new InvalidInputException(StringConstants.PDT_GREATER_THAN_ZERO_MESSAGE);
+        }
+        if(price.isLess(Fraction.Null)){
+            throw new InvalidInputException(StringConstants.ARTICLE_PRICE_NOT_NEGATIVE_MESSAGE);
         }
 
         Article.getArticleByName(name).applyToAllException(article ->{

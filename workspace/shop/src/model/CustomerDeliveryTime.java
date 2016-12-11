@@ -1,6 +1,8 @@
 
 package model;
 
+import common.Fraction;
+import constants.StringConstants;
 import persistence.*;
 import model.visitor.*;
 
@@ -260,6 +262,21 @@ public class CustomerDeliveryTime extends PersistentObject implements Persistent
     
     // Start of section that contains operations that must be implemented.
     
+    public void changePrice(final common.Fraction newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        if(price.isLess(Fraction.Null))
+            throw new InvalidInputException(StringConstants.CDT_NOT_NEGATIVE_MESSAGE);
+
+        getThis().setPrice(newValue);
+    }
+    public void changeTime(final long newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        if(newValue < 1){
+            throw new InvalidInputException(StringConstants.CDT_TIME_GREATER_THAN_ZERO_MESSAGE);
+        }
+        getThis().setDeliveryTime(newValue);
+        
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes
