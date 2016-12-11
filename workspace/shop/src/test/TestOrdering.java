@@ -72,21 +72,5 @@ public class TestOrdering {
 
     private Producer4Public testProducer;
     private Article4Public testArt;
-    @Test
-    public void testSimpleOrder() throws Exception {
-        ShoppingCart4Public shoppingCart = ShoppingCart.createShoppingCart();
 
-
-        testArt.increaseStock(10);
-        testArt.startSelling();
-
-        //ComponentManager.getTheComponentManager().addComponent(testArt);
-
-       // shoppingCart.addArticle(ShoppingCartQuantifiedArticle.createShoppingCartQuantifiedArticle(
-       //         1, ArticleWrapper.createArticleWrapper(testArt.getName(),testArt, ComponentManager.getTheComponentManager())));
-       // orderManager.newOrder(shoppingCart, CustomerDeliveryTime.createCustomerDeliveryTime("default", new Fraction(3), 4));
-
-
-
-    }
 }

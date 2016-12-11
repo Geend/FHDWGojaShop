@@ -28,11 +28,11 @@ public interface Shop4Public extends Anything, SubjInterface, AbstractPersistent
     public void changeArticlePrice(final ArticleWrapper4Public article, final common.Fraction newPrice, final Invoker invoker) 
 				throws PersistenceException;
     public void changeCustomerDeliveryTimePrice(final CustomerDeliveryTime4Public customerDeliveryTime, final common.Fraction newValue) 
-				throws PersistenceException;
+				throws model.InvalidInputException, PersistenceException;
     public void changeCustomerDeliveryTimePrice(final CustomerDeliveryTime4Public customerDeliveryTime, final common.Fraction newValue, final Invoker invoker) 
 				throws PersistenceException;
     public void changeCustomerDeliveryTimeTime(final CustomerDeliveryTime4Public customerDeliveryTime, final long newValue) 
-				throws PersistenceException;
+				throws model.InvalidInputException, PersistenceException;
     public void changeCustomerDeliveryTimeTime(final CustomerDeliveryTime4Public customerDeliveryTime, final long newValue, final Invoker invoker) 
 				throws PersistenceException;
     public void createCustomerDeliveryTime(final String name, final common.Fraction price, final long time) 
@@ -44,7 +44,7 @@ public interface Shop4Public extends Anything, SubjInterface, AbstractPersistent
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
     public void moveTo(final Component4Public component, final ComponentContainer newParentGroup) 
-				throws model.InvalidMoveException, model.CycleException, PersistenceException;
+				throws model.CycleException, PersistenceException;
     public void moveTo(final Component4Public component, final ComponentContainer newParentGroup, final Invoker invoker) 
 				throws PersistenceException;
     public ArticleWrapper4Public newArticle(final ComponentContainer parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
@@ -78,9 +78,9 @@ public interface Shop4Public extends Anything, SubjInterface, AbstractPersistent
     public void changeArticlePriceImplementation(final ArticleWrapper4Public article, final common.Fraction newPrice) 
 				throws model.InvalidInputException, PersistenceException;
     public void changeCustomerDeliveryTimePriceImplementation(final CustomerDeliveryTime4Public customerDeliveryTime, final common.Fraction newValue) 
-				throws PersistenceException;
+				throws model.InvalidInputException, PersistenceException;
     public void changeCustomerDeliveryTimeTimeImplementation(final CustomerDeliveryTime4Public customerDeliveryTime, final long newValue) 
-				throws PersistenceException;
+				throws model.InvalidInputException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void createCustomerDeliveryTimeImplementation(final String name, final common.Fraction price, final long time) 
@@ -92,7 +92,7 @@ public interface Shop4Public extends Anything, SubjInterface, AbstractPersistent
     public void initializeOnInstantiation() 
 				throws PersistenceException;
     public void moveToImplementation(final Component4Public component, final ComponentContainer newParentGroup) 
-				throws model.InvalidMoveException, model.CycleException, PersistenceException;
+				throws model.CycleException, PersistenceException;
     public ArticleWrapper4Public newArticleImplementation(final ComponentContainer parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 
 				throws model.DoubleDefinitionException, model.InvalidInputException, model.CycleException, PersistenceException;
     public ProductGroup4Public newProductGroupImplementation(final ComponentContainer parent, final String name) 

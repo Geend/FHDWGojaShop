@@ -92,6 +92,18 @@ public class SettingsICProxi extends PersistentInCacheProxiOptimistic implements
 				throws PersistenceException{
         ((PersistentSettings)this.getTheObject()).updateObservers(event);
     }
+    public void changeNewCustomerDefaultBalance(final common.Fraction newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        ((PersistentSettings)this.getTheObject()).changeNewCustomerDefaultBalance(newValue);
+    }
+    public void changeNewCustomerDefaultLimit(final common.Fraction newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        ((PersistentSettings)this.getTheObject()).changeNewCustomerDefaultLimit(newValue);
+    }
+    public void changeReturnPercentage(final common.Fraction newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        ((PersistentSettings)this.getTheObject()).changeReturnPercentage(newValue);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentSettings)this.getTheObject()).copyingPrivateUserAttributes(copy);

@@ -53,7 +53,8 @@ public class TestSettings {
     @Test
     public void CustomerLimitBalanceInvalidTest() throws Exception {
         exception.expect(InvalidInputException.class);
-        Settings.getTheSettings().setNewCustomerDefaultBalance(new Fraction(-1));
+        //TODO! Are limits always positiv or negative?
+        Settings.getTheSettings().changeNewCustomerDefaultLimit(new Fraction(-1));
     }
 
     /**
@@ -63,7 +64,7 @@ public class TestSettings {
     @Test
     public void CustomerDefaultBalanceInvalidTest() throws Exception {
         exception.expect(InvalidInputException.class);
-        Settings.getTheSettings().setNewCustomerDefaultLimit(new Fraction(-1));
+        Settings.getTheSettings().changeNewCustomerDefaultBalance(new Fraction(-1));
     }
 
     /**
@@ -73,7 +74,7 @@ public class TestSettings {
     @Test
     public void CustomerInvalidRetourPercentageTest() throws Exception {
         exception.expect(InvalidInputException.class);
-        Settings.getTheSettings().setReturnPercentage(new Fraction(-1));
+        Settings.getTheSettings().changeReturnPercentage(new Fraction(-1));
     }
 
 }

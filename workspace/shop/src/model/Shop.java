@@ -216,7 +216,7 @@ public class Shop extends PersistentObject implements PersistentShop{
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public void changeCustomerDeliveryTimePrice(final CustomerDeliveryTime4Public customerDeliveryTime, final common.Fraction newValue) 
-				throws PersistenceException{
+				throws model.InvalidInputException, PersistenceException{
         model.meta.ShopChangeCustomerDeliveryTimePriceCustomerDeliveryTimeFractionMssg event = new model.meta.ShopChangeCustomerDeliveryTimePriceCustomerDeliveryTimeFractionMssg(customerDeliveryTime, newValue, getThis());
 		event.execute();
 		getThis().updateObservers(event);
@@ -232,7 +232,7 @@ public class Shop extends PersistentObject implements PersistentShop{
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public void changeCustomerDeliveryTimeTime(final CustomerDeliveryTime4Public customerDeliveryTime, final long newValue) 
-				throws PersistenceException{
+				throws model.InvalidInputException, PersistenceException{
         model.meta.ShopChangeCustomerDeliveryTimeTimeCustomerDeliveryTimeIntegerMssg event = new model.meta.ShopChangeCustomerDeliveryTimeTimeCustomerDeliveryTimeIntegerMssg(customerDeliveryTime, newValue, getThis());
 		event.execute();
 		getThis().updateObservers(event);
@@ -285,7 +285,7 @@ public class Shop extends PersistentObject implements PersistentShop{
 		}
     }
     public void moveTo(final Component4Public component, final ComponentContainer newParentGroup) 
-				throws model.InvalidMoveException, model.CycleException, PersistenceException{
+				throws model.CycleException, PersistenceException{
         model.meta.ShopMoveToComponentComponentContainerMssg event = new model.meta.ShopMoveToComponentComponentContainerMssg(component, newParentGroup, getThis());
 		event.execute();
 		getThis().updateObservers(event);
@@ -438,13 +438,13 @@ public class Shop extends PersistentObject implements PersistentShop{
 				throws model.InvalidInputException, PersistenceException{
         article.getArticle().changePrice(newPrice);
     }
-    public void changeCustomerDeliveryTimePriceImplementation(final CustomerDeliveryTime4Public customerDeliveryTime, final common.Fraction newValue)
-				throws PersistenceException{
-        customerDeliveryTime.setPrice(newValue);
+    public void changeCustomerDeliveryTimePriceImplementation(final CustomerDeliveryTime4Public customerDeliveryTime, final common.Fraction newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        customerDeliveryTime.changePrice(newValue);
     }
     public void changeCustomerDeliveryTimeTimeImplementation(final CustomerDeliveryTime4Public customerDeliveryTime, final long newValue) 
-				throws PersistenceException{
-        customerDeliveryTime.setDeliveryTime(newValue);
+				throws model.InvalidInputException, PersistenceException{
+        customerDeliveryTime.changeTime(newValue);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -471,7 +471,7 @@ public class Shop extends PersistentObject implements PersistentShop{
 
     }
     public void moveToImplementation(final Component4Public component, final ComponentContainer newParentGroup) 
-				throws model.InvalidMoveException, model.CycleException, PersistenceException{
+				throws model.CycleException, PersistenceException{
         component.moveTo(newParentGroup);
     }
     public ArticleWrapper4Public newArticleImplementation(final ComponentContainer parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 

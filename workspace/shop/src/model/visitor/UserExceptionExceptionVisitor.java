@@ -9,7 +9,6 @@ public interface UserExceptionExceptionVisitor<E extends model.UserException> ex
     public void handleDoubleDefinitionException(model.DoubleDefinitionException doubleDefinitionException) throws PersistenceException, E;
     public void handleEmptyCartException(model.EmptyCartException emptyCartException) throws PersistenceException, E;
     public void handleInvalidInputException(model.InvalidInputException invalidInputException) throws PersistenceException, E;
-    public void handleInvalidMoveException(model.InvalidMoveException invalidMoveException) throws PersistenceException, E;
     public void handleNotEnoughMoneyException(model.NotEnoughMoneyException notEnoughMoneyException) throws PersistenceException, E;
     public void handleOrderNotAcceptableException(model.OrderNotAcceptableException orderNotAcceptableException) throws PersistenceException, E;
     public void handleRestrictionException(model.RestrictionException restrictionException) throws PersistenceException, E;

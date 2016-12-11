@@ -135,7 +135,7 @@ public class ArticleWrapperICProxi extends ComponentICProxi implements Persisten
         ((PersistentArticleWrapper)this.getTheObject()).initializeOnInstantiation();
     }
     public void moveTo(final ComponentContainer container) 
-				throws model.InvalidMoveException, model.CycleException, PersistenceException{
+				throws model.CycleException, PersistenceException{
         ((PersistentArticleWrapper)this.getTheObject()).moveTo(container);
     }
 

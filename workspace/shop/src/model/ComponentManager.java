@@ -115,8 +115,9 @@ public class ComponentManager extends PersistentObject implements PersistentComp
     public ComponentContainerImplementation4Public getContainer() throws PersistenceException {
         return this.container;
     }
-    public void setContainer(ComponentContainerImplementation4Public newValue) throws PersistenceException {
+    public void setContainer(ComponentContainerImplementation4Public newValue) throws PersistenceException , model.CycleException{
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if (newValue.containsCompHierarchy(getThis())) throw new model.CycleException("Cycle in CompHierarchy detected!");
         if(newValue.isTheSameAs(this.container)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
@@ -175,6 +176,18 @@ public class ComponentManager extends PersistentObject implements PersistentComp
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleComponentManager(this);
     }
+    public void accept(CompHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+        visitor.handleComponentManager(this);
+    }
+    public <R> R accept(CompHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleComponentManager(this);
+    }
+    public <E extends model.UserException>  void accept(CompHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleComponentManager(this);
+    }
+    public <R, E extends model.UserException> R accept(CompHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleComponentManager(this);
+    }
     public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
         visitor.handleComponentManager(this);
     }
@@ -205,6 +218,18 @@ public class ComponentManager extends PersistentObject implements PersistentComp
     }
     
     
+    public boolean containsCompHierarchy(final CompHierarchyHIERARCHY part) 
+				throws PersistenceException{
+        return getThis().containsCompHierarchy(part, new java.util.HashSet<CompHierarchyHIERARCHY>());
+    }
+    public boolean containsCompHierarchy(final CompHierarchyHIERARCHY part, final java.util.HashSet<CompHierarchyHIERARCHY> visited) 
+				throws PersistenceException{
+        if(getThis().equals(part)) return true;
+		if(visited.contains(getThis())) return false;
+		if(getThis().getContainer() != null && getThis().getContainer().containsCompHierarchy(part, visited)) return true;
+		visited.add(getThis());
+		return false;
+    }
     public synchronized void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
@@ -229,6 +254,18 @@ public class ComponentManager extends PersistentObject implements PersistentComp
 		}
 		subService.register(observee);
     }
+    public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        return getThis().strategyCompHierarchy(strategy, new java.util.HashMap<CompHierarchyHIERARCHY,T>());
+    }
+    public <T> T strategyCompHierarchy(final CompHierarchyHIERARCHYStrategy<T> strategy, final java.util.HashMap<CompHierarchyHIERARCHY,T> visited) 
+				throws PersistenceException{
+        if (visited.containsKey(getThis())) return visited.get(getThis());
+		T result$$container$$ComponentManager = this.getContainer().strategyCompHierarchy(strategy, visited);
+		T result = strategy.ComponentManager$$finalize(getThis() ,result$$container$$ComponentManager);
+		visited.put(getThis(),result);
+		return result;
+    }
     public synchronized void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
@@ -251,7 +288,12 @@ public class ComponentManager extends PersistentObject implements PersistentComp
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        getThis().setContainer(ComponentContainerImplementation.createComponentContainerImplementation());
+        try {
+            getThis().setContainer(ComponentContainerImplementation.createComponentContainerImplementation());
+        } catch (CycleException e) {
+            //TODO! Proper error handeling
+            e.printStackTrace();
+        }
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{

@@ -25,11 +25,9 @@ public abstract class UserExceptionDirectVisitor implements UserExceptionVisitor
     }
     public abstract void handleUserAlreadyExistsException(model.UserAlreadyExistsException userAlreadyExistsException) throws PersistenceException;
     
-    public abstract void handleDoubleDefinitionException(model.DoubleDefinitionException doubleDefinitionException) throws PersistenceException;
-    
     public abstract void handleRestrictionException(model.RestrictionException restrictionException) throws PersistenceException;
     
-    public abstract void handleInvalidMoveException(model.InvalidMoveException invalidMoveException) throws PersistenceException;
+    public abstract void handleDoubleDefinitionException(model.DoubleDefinitionException doubleDefinitionException) throws PersistenceException;
     
     
 }

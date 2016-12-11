@@ -50,14 +50,14 @@ server OwnerService extends Service {
 
 	//Customer Delivery Time
 	void createCustomerDeliveryTime@@Neue_Kundenlieferzeit(CustomerDeliveryTimeManager customerDeliveryTimeManager, String name, Fraction price, Integer time) throws DoubleDefinitionException, InvalidInputException;
-	no-view void changeCustomerDeliveryTimePrice(CustomerDeliveryTime customerDeliveryTime, Fraction newValue);
-	no-view void changeCustomerDeliveryTimeTime(CustomerDeliveryTime customerDeliveryTime, Integer newValue);
+	no-view void changeCustomerDeliveryTimePrice(CustomerDeliveryTime customerDeliveryTime, Fraction newValue) throws InvalidInputException;
+	no-view void changeCustomerDeliveryTimeTime(CustomerDeliveryTime customerDeliveryTime, Integer newValue) throws InvalidInputException;
 
 
 	//Settings
-	no-view void changeNewCustomerDefaultBalance(Fraction newValue );
-	no-view void changeNewCustomerDefaultLimit(Fraction newValue);
-	no-view void changeReturnPercentage(Fraction newValue);
+	no-view void changeNewCustomerDefaultBalance(Fraction newValue ) throws InvalidInputException;
+	no-view void changeNewCustomerDefaultLimit(Fraction newValue) throws InvalidInputException;
+	no-view void changeReturnPercentage(Fraction newValue) throws InvalidInputException;
 
 
 	//Only for testing
@@ -126,7 +126,7 @@ singleton Shop{
 	active event ProductGroup newProductGroup(ComponentContainer parent, String name) throws CycleException, DoubleDefinitionException, InvalidInputException;
 
 
-	active event void moveTo(Component component, ComponentContainer newParentGroup)throws CycleException, InvalidMoveException;
+	active event void moveTo(Component component, ComponentContainer newParentGroup)throws CycleException;
 
 	active event void changeArticleName(ArticleWrapper article, String newName) throws InvalidInputException;
 	active event void changeArticlePrice##cap(ArticleWrapper article, Fraction newPrice) throws InvalidInputException;
@@ -136,8 +136,8 @@ singleton Shop{
 
 	//Customer Delivery Time
 	active event void createCustomerDeliveryTime##ccdt(String name, Fraction price, Integer time) throws DoubleDefinitionException, InvalidInputException;
-	active event void changeCustomerDeliveryTimePrice##ccdtp(CustomerDeliveryTime customerDeliveryTime, Fraction newValue);
-	active event void changeCustomerDeliveryTimeTime##ccdtt(CustomerDeliveryTime customerDeliveryTime, Integer newValue);
+	active event void changeCustomerDeliveryTimePrice##ccdtp(CustomerDeliveryTime customerDeliveryTime, Fraction newValue) throws InvalidInputException;
+	active event void changeCustomerDeliveryTimeTime##ccdtt(CustomerDeliveryTime customerDeliveryTime, Integer newValue) throws InvalidInputException;
 
 
 
@@ -178,9 +178,13 @@ singleton CustomerDeliveryTimeManager##cdtm {
 }
 
 singleton Settings{
-	public-write Fraction newCustomerDefaultBalance##ncdb;
-	public-write Fraction newCustomerDefaultLimit##ncdlOwn;
-	public-write Fraction returnPercentage;
+	public Fraction newCustomerDefaultBalance##ncdb;
+	public Fraction newCustomerDefaultLimit##ncdlOwn;
+	public Fraction returnPercentage;
+
+	void changeNewCustomerDefaultBalance(Fraction newValue) throws InvalidInputException;
+	void changeNewCustomerDefaultLimit(Fraction newValue) throws InvalidInputException;
+	void changeReturnPercentage(Fraction newValue) throws InvalidInputException;
 }
 
 singleton ReOrderManager covers BackgroundTask{
@@ -245,7 +249,7 @@ singleton GlobalOrderArchive##ooa{
 	void addOrder(Order order);
 }
 
-//The ReturnManager is only used for displaying ongoing returns for the Owner. The actual return logic is done in the GlobalOrderManager.
+//The ReturnManager is only  used for displaying ongoing returns for the Owner. The actual return logic is done in the GlobalOrderManager.
 singleton ReturnManager{
 	public ArticleReturn ** articleReturn;
 	void addArticleReturn##aar(ArticleReturn articleReturn);
@@ -258,13 +262,12 @@ hierarchy collapsed CompHierarchy;
 
 
 singleton ComponentManager implements ComponentContainer{
-	skip-view ComponentContainerImplementation container;
-
+	skip-view ComponentContainerImplementation container hierarchy CompHierarchy;
 }
 
 abstract class Component{
 	prior no-view ComponentContainer parent;
-	void moveTo(ComponentContainer container) throws CycleException, InvalidMoveException;
+	void moveTo(ComponentContainer container) throws CycleException;
 }
 
 interface ComponentContainer{
@@ -280,7 +283,7 @@ class ComponentContainerImplementation##cci implements ComponentContainer{
 }
 
 class ProductGroup extends Component implements ComponentContainer{
-	skip-view  ComponentContainerImplementation container;
+	skip-view  ComponentContainerImplementation container hierarchy CompHierarchy;
 	public-write prior indexed String name@@Name;
 }
 
@@ -403,8 +406,11 @@ class CustomerAccount{
 
 class CustomerDeliveryTime{
 	prior public indexed String name;
-	prior public-write Fraction price;
-	prior public-write Integer deliveryTime;
+	prior public Fraction price;
+	prior public Integer deliveryTime;
+
+	void changePrice(Fraction newValue) throws InvalidInputException;
+	void changeTime(Integer newValue) throws InvalidInputException;
 }
 
 class ShoppingCart{
@@ -462,8 +468,8 @@ class FinishedOrderState##fos extends OrderStatus{
 
 
 abstract exception ArticleOrderException{}
-exception InvalidMoveException{}
-exception InvalidInputException{} //TODO: Isn't the CycleException enough?
+//exception InvalidMoveException{}//TODO: Isn't the CycleException enough?
+exception InvalidInputException{} 
 
 exception DoubleDefinitionException{}
 exception UserAlreadyExistsException{}

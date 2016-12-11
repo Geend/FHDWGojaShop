@@ -194,23 +194,23 @@ public class OwnerServiceICProxi extends ServiceICProxi implements PersistentOwn
         ((PersistentOwnerService)this.getTheObject()).changeArticleProducerDeliveryTime(article, newValue);
     }
     public void changeCustomerDeliveryTimePrice(final CustomerDeliveryTime4Public customerDeliveryTime, final common.Fraction newValue) 
-				throws PersistenceException{
+				throws model.InvalidInputException, PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).changeCustomerDeliveryTimePrice(customerDeliveryTime, newValue);
     }
     public void changeCustomerDeliveryTimeTime(final CustomerDeliveryTime4Public customerDeliveryTime, final long newValue) 
-				throws PersistenceException{
+				throws model.InvalidInputException, PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).changeCustomerDeliveryTimeTime(customerDeliveryTime, newValue);
     }
     public void changeNewCustomerDefaultBalance(final common.Fraction newValue) 
-				throws PersistenceException{
+				throws model.InvalidInputException, PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).changeNewCustomerDefaultBalance(newValue);
     }
     public void changeNewCustomerDefaultLimit(final common.Fraction newValue) 
-				throws PersistenceException{
+				throws model.InvalidInputException, PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).changeNewCustomerDefaultLimit(newValue);
     }
     public void changeReturnPercentage(final common.Fraction newValue) 
-				throws PersistenceException{
+				throws model.InvalidInputException, PersistenceException{
         ((PersistentOwnerService)this.getTheObject()).changeReturnPercentage(newValue);
     }
     public void connected(final String user) 

@@ -79,7 +79,7 @@ public class ShopProxi extends PersistentProxi implements PersistentShop{
         ((PersistentShop)this.getTheObject()).changeArticlePrice(article, newPrice, invoker);
     }
     public void changeCustomerDeliveryTimePrice(final CustomerDeliveryTime4Public customerDeliveryTime, final common.Fraction newValue) 
-				throws PersistenceException{
+				throws model.InvalidInputException, PersistenceException{
         ((PersistentShop)this.getTheObject()).changeCustomerDeliveryTimePrice(customerDeliveryTime, newValue);
     }
     public void changeCustomerDeliveryTimePrice(final CustomerDeliveryTime4Public customerDeliveryTime, final common.Fraction newValue, final Invoker invoker) 
@@ -87,7 +87,7 @@ public class ShopProxi extends PersistentProxi implements PersistentShop{
         ((PersistentShop)this.getTheObject()).changeCustomerDeliveryTimePrice(customerDeliveryTime, newValue, invoker);
     }
     public void changeCustomerDeliveryTimeTime(final CustomerDeliveryTime4Public customerDeliveryTime, final long newValue) 
-				throws PersistenceException{
+				throws model.InvalidInputException, PersistenceException{
         ((PersistentShop)this.getTheObject()).changeCustomerDeliveryTimeTime(customerDeliveryTime, newValue);
     }
     public void changeCustomerDeliveryTimeTime(final CustomerDeliveryTime4Public customerDeliveryTime, final long newValue, final Invoker invoker) 
@@ -115,7 +115,7 @@ public class ShopProxi extends PersistentProxi implements PersistentShop{
         ((PersistentShop)this.getTheObject()).initialize(This, final$$Fields);
     }
     public void moveTo(final Component4Public component, final ComponentContainer newParentGroup) 
-				throws model.InvalidMoveException, model.CycleException, PersistenceException{
+				throws model.CycleException, PersistenceException{
         ((PersistentShop)this.getTheObject()).moveTo(component, newParentGroup);
     }
     public void moveTo(final Component4Public component, final ComponentContainer newParentGroup, final Invoker invoker) 
@@ -191,11 +191,11 @@ public class ShopProxi extends PersistentProxi implements PersistentShop{
         ((PersistentShop)this.getTheObject()).changeArticlePriceImplementation(article, newPrice);
     }
     public void changeCustomerDeliveryTimePriceImplementation(final CustomerDeliveryTime4Public customerDeliveryTime, final common.Fraction newValue) 
-				throws PersistenceException{
+				throws model.InvalidInputException, PersistenceException{
         ((PersistentShop)this.getTheObject()).changeCustomerDeliveryTimePriceImplementation(customerDeliveryTime, newValue);
     }
     public void changeCustomerDeliveryTimeTimeImplementation(final CustomerDeliveryTime4Public customerDeliveryTime, final long newValue) 
-				throws PersistenceException{
+				throws model.InvalidInputException, PersistenceException{
         ((PersistentShop)this.getTheObject()).changeCustomerDeliveryTimeTimeImplementation(customerDeliveryTime, newValue);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
@@ -219,7 +219,7 @@ public class ShopProxi extends PersistentProxi implements PersistentShop{
         ((PersistentShop)this.getTheObject()).initializeOnInstantiation();
     }
     public void moveToImplementation(final Component4Public component, final ComponentContainer newParentGroup) 
-				throws model.InvalidMoveException, model.CycleException, PersistenceException{
+				throws model.CycleException, PersistenceException{
         ((PersistentShop)this.getTheObject()).moveToImplementation(component, newParentGroup);
     }
     public ArticleWrapper4Public newArticleImplementation(final ComponentContainer parent, final String name, final common.Fraction price, final long minStock, final long maxStock, final long producerDeliveryTime, final Producer4Public producer) 

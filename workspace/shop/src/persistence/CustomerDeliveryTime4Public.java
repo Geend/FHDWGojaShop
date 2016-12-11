@@ -7,9 +7,7 @@ public interface CustomerDeliveryTime4Public extends Anything, SubjInterface, Ab
     
     public String getName() throws PersistenceException ;
     public common.Fraction getPrice() throws PersistenceException ;
-    public void setPrice(common.Fraction newValue) throws PersistenceException ;
     public long getDeliveryTime() throws PersistenceException ;
-    public void setDeliveryTime(long newValue) throws PersistenceException ;
     
     public void accept(AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;
@@ -22,6 +20,10 @@ public interface CustomerDeliveryTime4Public extends Anything, SubjInterface, Ab
     
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
+    public void changePrice(final common.Fraction newValue) 
+				throws model.InvalidInputException, PersistenceException;
+    public void changeTime(final long newValue) 
+				throws model.InvalidInputException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void initializeOnCreation() 
