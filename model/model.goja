@@ -210,8 +210,8 @@ abstract class OrderManager{
 class CustomerOrderManager##com extends OrderManager{
 	prior no-view CustomerAccount account;
 
-	void newOrder(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime) throws NotEnoughMoneyException, EmptyCartException,  ArticleOrderException;
-	void newPreOrder(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime) throws NotEnoughMoneyException, EmptyCartException, ArticleNotInSaleException;
+	Order newOrder(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime) throws NotEnoughMoneyException, EmptyCartException,  ArticleOrderException;
+	Order newPreOrder(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime) throws NotEnoughMoneyException, EmptyCartException, ArticleNotInSaleException;
 
 	//Accepts the order. OrderQuantifiedArticles in the OrderQuantifiedArticleMarkedForReturnState will get returned.
 	void acceptOrder(Order order) throws NotEnoughMoneyException, OrderNotAcceptableException;

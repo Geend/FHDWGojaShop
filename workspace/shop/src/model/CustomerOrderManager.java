@@ -304,7 +304,7 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
     public void initializeOnInstantiation() 
 				throws PersistenceException{
     }
-    public void newOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
+    public Order4Public newOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
 				throws model.EmptyCartException, model.ArticleOrderException, model.NotEnoughMoneyException, PersistenceException{
         if(cart.getArticles().getLength() == 0)
             throw new EmptyCartException();
@@ -339,11 +339,10 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
         GlobalOrderManager.getTheGlobalOrderManager().addOrder(order);
 
         order.setState(InTransitOrderState.createInTransitOrderState(customerDeliveryTime.getDeliveryTime()));
-
+        return order;
     }
-    public void newPreOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
+    public Order4Public newPreOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
 				throws model.EmptyCartException, model.NotEnoughMoneyException, model.ArticleNotInSaleException, PersistenceException{
-
         if(cart.getArticles().getLength() == 0)
             throw new EmptyCartException();
 
@@ -413,6 +412,7 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
         GlobalOrderManager.getTheGlobalOrderManager().addOrder(order);
 
         order.setState(PreOrderState.createPreOrderState());
+        return order;
     }
     
     
