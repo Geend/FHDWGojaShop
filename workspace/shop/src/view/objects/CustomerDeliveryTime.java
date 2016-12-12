@@ -99,11 +99,11 @@ public class CustomerDeliveryTime extends ViewObject implements CustomerDelivery
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
-                if(rowIndex == 0) return "name";
+                if(rowIndex == 0) return "Name";
                 rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return "price";
+                if(rowIndex == 0) return "Preis";
                 rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return "deliveryTime";
+                if(rowIndex == 0) return "Lieferzeit";
                 rowIndex = rowIndex - 1;
             } else {
                 if(rowIndex == 0) return this.getName();

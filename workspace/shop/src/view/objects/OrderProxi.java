@@ -22,7 +22,15 @@ public class OrderProxi extends ViewProxi implements OrderView{
             customerDeliveryTime = view.objects.ViewProxi.createProxi(customerDeliveryTime$Info,connectionKey);
             customerDeliveryTime.setToString(customerDeliveryTime$Info.getToString());
         }
+        ViewProxi customerAccount = null;
+        String customerAccount$String = (String)resultTable.get("customerAccount");
+        if (customerAccount$String != null) {
+            common.ProxiInformation customerAccount$Info = common.RPCConstantsAndServices.createProxiInformation(customerAccount$String);
+            customerAccount = view.objects.ViewProxi.createProxi(customerAccount$Info,connectionKey);
+            customerAccount.setToString(customerAccount$Info.getToString());
+        }
         common.Fraction totalPrice = common.Fraction.parse((String)resultTable.get("totalPrice"));
+        common.Fraction returnPercentageAtOrderTime = common.Fraction.parse((String)resultTable.get("returnPercentageAtOrderTime"));
         ViewProxi state = null;
         String state$String = (String)resultTable.get("state");
         if (state$String != null) {
@@ -30,7 +38,7 @@ public class OrderProxi extends ViewProxi implements OrderView{
             state = view.objects.ViewProxi.createProxi(state$Info,connectionKey);
             state.setToString(state$Info.getToString());
         }
-        OrderView result$$ = new Order(articles,(CustomerDeliveryTimeView)customerDeliveryTime,(common.Fraction)totalPrice,(OrderStatusView)state, this.getId(), this.getClassId());
+        OrderView result$$ = new Order(articles,(CustomerDeliveryTimeView)customerDeliveryTime,(CustomerAccountView)customerAccount,(common.Fraction)totalPrice,(common.Fraction)returnPercentageAtOrderTime,(OrderStatusView)state, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -44,22 +52,22 @@ public class OrderProxi extends ViewProxi implements OrderView{
         index = index - this.getArticles().size();
         if(index == 0 && this.getCustomerDeliveryTime() != null) return new CustomerDeliveryTimeOrderWrapper(this, originalIndex, (ViewRoot)this.getCustomerDeliveryTime());
         if(this.getCustomerDeliveryTime() != null) index = index - 1;
-        if(index == 0 && this.getState() != null) return new StateOrderWrapper(this, originalIndex, (ViewRoot)this.getState());
-        if(this.getState() != null) index = index - 1;
+        if(index == 0 && this.getCustomerAccount() != null) return new CustomerAccountOrderWrapper(this, originalIndex, (ViewRoot)this.getCustomerAccount());
+        if(this.getCustomerAccount() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getArticles().size())
             + (this.getCustomerDeliveryTime() == null ? 0 : 1)
-            + (this.getState() == null ? 0 : 1);
+            + (this.getCustomerAccount() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
             && (this.getArticles().size() == 0)
             && (this.getCustomerDeliveryTime() == null ? true : false)
-            && (this.getState() == null ? true : false);
+            && (this.getCustomerAccount() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -70,8 +78,8 @@ public class OrderProxi extends ViewProxi implements OrderView{
         }
         if(this.getCustomerDeliveryTime() != null && this.getCustomerDeliveryTime().equals(child)) return result;
         if(this.getCustomerDeliveryTime() != null) result = result + 1;
-        if(this.getState() != null && this.getState().equals(child)) return result;
-        if(this.getState() != null) result = result + 1;
+        if(this.getCustomerAccount() != null && this.getCustomerAccount().equals(child)) return result;
+        if(this.getCustomerAccount() != null) result = result + 1;
         return -1;
     }
     
@@ -87,11 +95,23 @@ public class OrderProxi extends ViewProxi implements OrderView{
     public void setCustomerDeliveryTime(CustomerDeliveryTimeView newValue) throws ModelException {
         ((Order)this.getTheObject()).setCustomerDeliveryTime(newValue);
     }
+    public CustomerAccountView getCustomerAccount()throws ModelException{
+        return ((Order)this.getTheObject()).getCustomerAccount();
+    }
+    public void setCustomerAccount(CustomerAccountView newValue) throws ModelException {
+        ((Order)this.getTheObject()).setCustomerAccount(newValue);
+    }
     public common.Fraction getTotalPrice()throws ModelException{
         return ((Order)this.getTheObject()).getTotalPrice();
     }
     public void setTotalPrice(common.Fraction newValue) throws ModelException {
         ((Order)this.getTheObject()).setTotalPrice(newValue);
+    }
+    public common.Fraction getReturnPercentageAtOrderTime()throws ModelException{
+        return ((Order)this.getTheObject()).getReturnPercentageAtOrderTime();
+    }
+    public void setReturnPercentageAtOrderTime(common.Fraction newValue) throws ModelException {
+        ((Order)this.getTheObject()).setReturnPercentageAtOrderTime(newValue);
     }
     public OrderStatusView getState()throws ModelException{
         return ((Order)this.getTheObject()).getState();

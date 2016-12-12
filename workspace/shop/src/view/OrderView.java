@@ -10,8 +10,12 @@ public interface OrderView extends Anything, AbstractViewRoot {
     public void setArticles(java.util.Vector<OrderQuantifiedArticleView> newValue) throws ModelException ;
     public CustomerDeliveryTimeView getCustomerDeliveryTime()throws ModelException;
     public void setCustomerDeliveryTime(CustomerDeliveryTimeView newValue) throws ModelException ;
+    public CustomerAccountView getCustomerAccount()throws ModelException;
+    public void setCustomerAccount(CustomerAccountView newValue) throws ModelException ;
     public common.Fraction getTotalPrice()throws ModelException;
     public void setTotalPrice(common.Fraction newValue) throws ModelException ;
+    public common.Fraction getReturnPercentageAtOrderTime()throws ModelException;
+    public void setReturnPercentageAtOrderTime(common.Fraction newValue) throws ModelException ;
     public OrderStatusView getState()throws ModelException;
     public void setState(OrderStatusView newValue) throws ModelException ;
     

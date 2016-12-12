@@ -1,18 +1,20 @@
 model shop {
-
-// Server relevant classes - region begin
 server Server {
  	public Service service;
 }
 
+//------------------------------------------------
+//--------------------Services--------------------
+//------------------------------------------------
 abstract server Service {
 	//Refresh
 	void reloadUI@@Aktualisieren();
 }
 
 server OwnerService extends Service {
-
-	//Manager
+	//-----------------
+	//-----Manager-----
+	//-----------------
 	server-only observe Shop shop;
 
    ComponentManager componentManager;
@@ -26,49 +28,86 @@ server OwnerService extends Service {
 
 	GlobalOrderArchive orderArchive;
 
-	//Producer
+	//------------------
+	//-----Producer-----
+	//------------------
+	//Legt einen neuen Hersteller an. Ist der Name nicht eindeutig wird eine DoubleDefinitionException geworfen.
 	void createProducer@@Hersteller_anlegen(ProducerLst prmanager, String name) throws DoubleDefinitionException, InvalidInputException;
 
-	//Articles
-	//TODO: Prevent article creation with same name and producer
-	void newArticle@@Neuer_Artikel(ComponentContainer parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException, DoubleDefinitionException;
-	void newProductGroup@@Neue_Produktgruppe(ComponentContainer parent, String name) throws CycleException, DoubleDefinitionException;
-	//void newProductGroup@@Neue_Produktgruppe(String name) throws DoubleDefinitionException, CycleException;
+	//--------------------
+	//-----Components-----k
+	//--------------------
+	//Legt einen neuen Artikel an, sofern es keinen Artikel mit gleichem Namen und Hersteller gibt.
+	void newArticle@@Neuer_Artikel(ComponentContainer parent, String name@@Bezeichnung, Fraction price@@Preis, Integer minStock@@Mindestlagerbestand, Integer maxStock@@Maximallagerbestand, Integer producerDeliveryTime@@Herstellerlieferzeit, Producer producer@@Hersteller) throws CycleException, DoubleDefinitionException;
 
-	void moveTo@@verschieben(Component component, ComponentContainer newParentGroup)throws CycleException;
+	//Legt eine neue Produktgruppe als Kind des <<parent>> ComponentContainers. Das Anlegen zweier Produktrgruppen in einem ComponentContainer mit dem selbem Namen wird verhindert (es wird eine DoubleDefinitionException geworfen).
+	void newProductGroup@@Neue_Produktgruppe(ComponentContainer parent, String name@@Name) throws CycleException, DoubleDefinitionException;
 
+	//Verschiebt eine Component aus ihrem derzeitigen ComponentConatiner nach <<newParentGroup>>. Zyklen werden dabei verhindert.
+	void moveTo@@verschieben(Component component, ComponentContainer newParentGroup@@Zielgruppe)throws CycleException;
 
+	//Ã„ndert den Namen eines Artikels TODO: PrÃ¼fen ob es schon einen Artikel mit <<newName>> und gleichem Hersteller gibt.
 	no-view void changeArticleName(ArticleWrapper article, String newName);
+
+	//Ändert den Preis eines Artikels. Laufende Bestellungen sind von der Änderung nicht betroffen.
 	no-view void changeArticlePrice(ArticleWrapper article, Fraction newPrice) throws InvalidInputException;
+
+	//Ändert die Herstellerlieferzeit eines Arikelts. Laufende Nachbestellungen sind davon nicht betroffen.
 	no-view void changeArticleProducerDeliveryTime(ArticleWrapper article, Integer newValue) throws InvalidInputException;
 
+	//Ändert den Mindestlagerbestand eines Artikels auf <<newValue>>. Liegt der neue Wert über dem alten wird eine Nachbestellung (um maxStock zu erreichen) ausgelößt.
+	no-view void changeMinStock(ArticleWrapper article, Integer newValue) throws InvalidInputException;
+
+	//Ändert den Maximallagerbestand eines Artikel auf <<newValue>>.
+	no-view void changeMaxStock(ArticleWrapper article, Integer newValue) throws InvalidInputException;
+
+	//Gibt einen Artikel zum Verkauf frei. Es werden ausreichend Artikel nachbestellt, um maxStock zu erreichen.
 	void startSelling@@Verkauf_starten(ArticleWrapper article checked);
+
+	//Beendet des Verkaufen eines Artikels. Sind noch Artikel vorhanden werden diese als Restposten weiter verkauft.
 	void stopSelling@@Verkauf_beenden(ArticleWrapper article checked);
 
 	no-view Article getArticle(ArticleWrapper wrapper);
 
+	//--------------------------------
+	//-----Customer Delivery Time-----
+	//--------------------------------
+	//Legt eine neue Kundenlieferzeit an. Der Name einen Lieferzeit muss dabei eindeutig sein.
+	void createCustomerDeliveryTime@@Neue_Kundenlieferzeit(CustomerDeliveryTimeManager customerDeliveryTimeManager, String name@@Name, Fraction price@@Preis, Integer time@@Lieferzeit) throws DoubleDefinitionException, InvalidInputException;
+	
+	//Ändert den Preis einer Kundenlieferzeit. Laufende Bestellungen sind davon nicht betroffen.
+	no-view void changeCustomerDeliveryTimePrice(CustomerDeliveryTime customerDeliveryTime, Fraction newValue@@Neuer_Preis) throws InvalidInputException;
+	
+	//Ändert die Zeit einer Kundenlieferzeit. Bereits versendete Bestellungen sind davon nicht betroffen.
+	no-view void changeCustomerDeliveryTimeTime(CustomerDeliveryTime customerDeliveryTime, Integer newValue@@Neue_Lieferzeit) throws InvalidInputException;
 
-	//Customer Delivery Time
-	void createCustomerDeliveryTime@@Neue_Kundenlieferzeit(CustomerDeliveryTimeManager customerDeliveryTimeManager, String name, Fraction price, Integer time) throws DoubleDefinitionException, InvalidInputException;
-	no-view void changeCustomerDeliveryTimePrice(CustomerDeliveryTime customerDeliveryTime, Fraction newValue) throws InvalidInputException;
-	no-view void changeCustomerDeliveryTimeTime(CustomerDeliveryTime customerDeliveryTime, Integer newValue) throws InvalidInputException;
-
-
-	//Settings
+	//------------------
+	//-----Settings-----
+	//------------------
+	//Ändert das Startguthaben von Neukunden
 	no-view void changeNewCustomerDefaultBalance(Fraction newValue ) throws InvalidInputException;
+
+	//Ändert das Limit von Neukunden
 	no-view void changeNewCustomerDefaultLimit(Fraction newValue) throws InvalidInputException;
+
+	//Ändert den Prozentsatz für Retouren
 	no-view void changeReturnPercentage(Fraction newValue) throws InvalidInputException;
 
 
-	//Only for testing
-	void reduceArticleStock(ArticleWrapper article, Integer quantity) throws NotEnoughStockException;
-	void increaseArticleStock(ArticleWrapper article, Integer quantity);
+	//-----------------
+	//-----Testing-----
+	//-----------------
+	//Only for testing (remove no-view if you want to use the functions)
+	no-view void reduceArticleStock(ArticleWrapper article, Integer quantity) throws NotEnoughStockException;
+	no-view void increaseArticleStock(ArticleWrapper article, Integer quantity);
 }
 
 
 
 server CustomerService extends Service {
-
+	//-----------------
+	//-----Manager-----
+	//-----------------
 	server-only observe Shop shop;
 
 	CustomerArticleLst articleLst;
@@ -79,57 +118,96 @@ server CustomerService extends Service {
 	ShoppingCart cart;
 	observe CustomerOrderManager orderManager;
 
-	//ShoppingCart
+	//--------------------
+	//----ShoppingCart----
+	//--------------------
+	//FÃ¼gt eine Artikel mit einer bestimmten Anzahl zum Warenkorb hinzu.
 	void addToCart@@In_den_Warenkorb(ArticleWrapper article checked, Integer quantity@@Anzahl);
+
+	//Ändert die Anzahl eines Artikels im Warenkorb. Werte unter 1 werden unterbunden.
 	void changeArticleQuantity@@Anzahl_ï¿½ndern(ShoppingCartQuantifiedArticle article, Integer newQuantity@@Anzahl);
+	
+	//Entfernt <<article>> aus dem Warenkorb.
 	void removeFromCart@@Entfernen(ShoppingCartQuantifiedArticle article);
+	
+	//Entfernt alle in <<cart>> enthaltene Artikel aus diesem.
 	void emptyCart@@Leeren(ShoppingCart cart);
 
 	//Ordering
+	/*Bestellt den Inhalt des Warenkorbs <<cart>>. Kann die Bestellung ausgeführt werden (wenn genügend Artikel vorhanden sind und der Kunde
+	 genug Geld hat) wird der Warenkorb geleert.*/
 	void order@@Bestellen(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime@@Versandart) throws NotEnoughStockException, NotEnoughMoneyException, EmptyCartException;
+
+	/*Bestellt den Inhalt des Warenkorbs <<cart>>. Artikel von denen nicht genug vorhanden sind werden beim Hersteller nachbestellt (unzwar ausreichend viele, um nach dem Abarbeiten der
+	 Vorbestellung maxStock viele zu haben). Noch vorhandene Bestände werden schon reserviert.
+	Artikel von denen schon ausreichend viele vorhanden sind, werden bis zum eintreffen der nachbestellten Artikel 
+	reserviert.*/
 	void preOrder@@Vorbestellen(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime@@Versandart) throws NotEnoughMoneyException, EmptyCartException;
 
+	/*Ist eine Bestellung im WaitingForAcceptState kann sie mit acceptOrder() vom Kunden angenommen werden. Dabei wird dem Kunden 
+	der berechnete Gesamtpreis abgezogen. Als Retour markierte Artikel werden zurück geschickt. Der Gesamtpreis wird entsprechend
+	des einstellbaren Prozentsatzes für Retouren angepasst. */
 	void acceptOrder@@Lieferung_annehmen(Order order);
+
+	//Markiert einen Artikel als Retour
 	void markForReturn@@Als_Retour_markieren(OrderQuantifiedArticle article checked);
+
+	//Entfernt die Retour-Markierung eines Artikels
 	void unmarkForReturn@@Retour_markierung_entfernen(OrderQuantifiedArticle article checked);
 
+	/*Bricht eine Vorbestellung ab. Kann ausgeführt werden, solange die Vorbestellung noch nicht im Zustand InTransit ist.
+	 Die reservierten Artikel werden wieder zum Verkauf angeboten*/
+	void cancelPreOrder@@Stornieren(Order order checked);
+
 	//Money
-	void deposit@@Einzahlen(Fraction amount);
-	void withdraw@@Auszahlen(Fraction amount) throws NotEnoughMoneyException;
+	//Fügt dem <<customerAccount>> <<amount>>€ hinzu
+	void deposit@@Einzahlen(CustomerAccount customerAccount, Fraction amount);
+	
+	//Zieht dem <<customerAccount>> <<amount>>€ ab, solange der Kontostand dadurch nicht unter 0 fällt. Ansonsten wird eine NotEnoughMoneyException geworfen.
+	void withdraw@@Auszahlen(CustomerAccount customerAccount, Fraction amount) throws NotEnoughMoneyException;
 
 	//Search
-	void findArticle@@Artikel_suchen(String name);
-	void clearError(ErrorDisplay error);
-	void clear();
-
+	//Sucht nach Artikeln und fügt die Suchergebnisse der <<customerArticleLst>> hinzu. Es können die Oracle Platzhalter verwendet werden.
+	void findArticle@@Artikel_suchen(CustomerArticleLst customerArticleLst, String name@@Bezeichnung);
+	
+	//Leert die Suchliste <<customerArticleLst>>
+	void clear@@Suche_zurücksetzen(CustomerArticleLst customerArticleLst);
+	
+	//Löscht alle Fehlermeldungen
+	void clearError@@Fehler_zurücksetzten(ErrorDisplay error);
 
 }
 
 server CustomerRegisterService##crs extends Service {
-	active void register(String accountName, String password PASSWORD) throws UserAlreadyExistsException;
+	//Registriert ein neues Kundenkunde. Der Benutzername muss eindeutig sein (ansosnten wird eine UserAlreadyExistsException geworfen).
+	active void register@@Registrieren(String accountName@@Benutzername, String password@@Kennwort PASSWORD) throws UserAlreadyExistsException;
 }
-// Server relevant classes -- region end
 
+//-----------------------------------------------
+//--------------------Manager--------------------
+//-----------------------------------------------
 
-
-
-//The Shop contains all operations that are handled as transactions and/or events. The Services are supposed to delegate the users call to the Shop. This is especially important for operations that effect the Owner and the Customers immediately at the same time (ie start/stop selling of an article or ordering a shopping cart).
+//The Shop contains most operations that are handled as transactions and/or events. The Services are supposed to delegate the users call to the Shop. This is especially important for operations that effect the Owner and the Customers immediately at the same time (ie start/stop selling of an article or ordering a shopping cart).
 singleton Shop{
 
-	//---Owner Operations---
+	//--------------------------
+	//-----Owner Operations-----	
+	//--------------------------
+	//For operation description see the OwnerService server
+
 	//Producer
 	event Producer createProducer(String name) throws DoubleDefinitionException, InvalidInputException;
 
 	//Articles
-	//TODO: Prevent article creation with same name and producer
 	active event ArticleWrapper newArticle(ComponentContainer parent, String name, Fraction price, Integer minStock, Integer maxStock, Integer producerDeliveryTime, Producer producer) throws CycleException, DoubleDefinitionException, InvalidInputException;
 	active event ProductGroup newProductGroup(ComponentContainer parent, String name) throws CycleException, DoubleDefinitionException, InvalidInputException;
 
-
 	active event void moveTo(Component component, ComponentContainer newParentGroup)throws CycleException;
 
-	active event void changeArticleName(ArticleWrapper article, String newName) throws InvalidInputException;
+	active event void changeArticleName(ArticleWrapper article, String newName) throws InvalidInputException, DoubleDefinitionException;
 	active event void changeArticlePrice##cap(ArticleWrapper article, Fraction newPrice) throws InvalidInputException;
+	active event void changeMinStock(ArticleWrapper article, Integer newValue) throws InvalidInputException;
+	active event void changeMaxStock(ArticleWrapper article, Integer newValue) throws InvalidInputException;
 
 	active event void startSelling(ArticleWrapper article);
 	active event void stopSelling(ArticleWrapper article);
@@ -140,26 +218,19 @@ singleton Shop{
 	active event void changeCustomerDeliveryTimeTime##ccdtt(CustomerDeliveryTime customerDeliveryTime, Integer newValue) throws InvalidInputException;
 
 
-
-	//---Customer Operations---
-
-	//Orders the cart. If the ordering is successful the cart gets emptied.
+	//-----------------------------
+	//-----Customer Operations-----	
+	//-----------------------------
+	//For operation description see the CustomerService server
 	active event void orderCart(CustomerOrderManager manager, ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime@@Versandart) throws NotEnoughMoneyException, EmptyCartException, ArticleOrderException;
-
-	active event void preOrderCart(CustomerOrderManager manager, ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime@@Versandart) throws NotEnoughMoneyException, EmptyCartException, ArticleNotInSaleException;
-
+	active event void preOrderCart(CustomerOrderManager manager, ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime@@Versandart) throws NotEnoughMoneyException, EmptyCartException, ArticleOrderException;
 	active event void acceptOrder(CustomerOrderManager manager, Order order) throws OrderNotAcceptableException, NotEnoughMoneyException;
+	
+	active event void cancelPreOrder(CustomerOrderManager manager, Order order);
 
 }
 
-
-
-
-
-
-
-
-// manager relevant classes -- region begin
+//CustomerArticleLsts are used for the article search functionality for each customer
 class CustomerArticleLst##cal {
 	public ArticleWrapper ** articles;
 
@@ -167,26 +238,29 @@ class CustomerArticleLst##cal {
 	void clear();
 }
 
+//The ProducerLst holds all existing Producers
 singleton ProducerLst {
 	public Producer ** currentProducer##currProd;
 	active Producer createProducer(String name) throws DoubleDefinitionException, InvalidInputException;
 }
 
+//The CustomerDeliveryTimeManager holds all existing CustomerDeliveryTimes
 singleton CustomerDeliveryTimeManager##cdtm {
 	public CustomerDeliveryTime ** customerDeliveryTimes##cdts;
 	CustomerDeliveryTime createCustomerDeliveryTime##ccdt(String name, Fraction price, Integer time) throws DoubleDefinitionException, InvalidInputException;
 }
 
 singleton Settings{
-	public Fraction newCustomerDefaultBalance##ncdb;
-	public Fraction newCustomerDefaultLimit##ncdlOwn;
-	public Fraction returnPercentage;
+	public Fraction newCustomerDefaultBalance##ncdb@@Neukunden_Startguthaben;
+	public Fraction newCustomerDefaultLimit##ncdlOwn@@Neukunden_Limit;
+	public Fraction returnPercentage@@Retouren_Prozentsatz;
 
 	void changeNewCustomerDefaultBalance(Fraction newValue) throws InvalidInputException;
 	void changeNewCustomerDefaultLimit(Fraction newValue) throws InvalidInputException;
 	void changeReturnPercentage(Fraction newValue) throws InvalidInputException;
 }
 
+//The ReOrderManager is responsible for reordering articles at the producers (and simulating delivery times).
 singleton ReOrderManager covers BackgroundTask{
 	ReOrderQuantifiedArticle ** reorderArticles;
 
@@ -196,25 +270,23 @@ singleton ReOrderManager covers BackgroundTask{
 	//Reorders <<quantity>> amount of articles (used for preorders only)
 	void reOrderForPreorder##rofp(ArticleWrapper article, Integer quantity);
 
-
-
 	event void doReorderStep();
 }
 
 abstract class OrderManager{
 	public Order ** orders;
-
-
 }
 
 class CustomerOrderManager##com extends OrderManager{
 	prior no-view CustomerAccount account;
 
 	Order newOrder(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime) throws NotEnoughMoneyException, EmptyCartException,  ArticleOrderException;
-	Order newPreOrder(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime) throws NotEnoughMoneyException, EmptyCartException, ArticleNotInSaleException;
+	Order newPreOrder(ShoppingCart cart, CustomerDeliveryTime customerDeliveryTime) throws NotEnoughMoneyException, EmptyCartException, ArticleOrderException, ArticleNotInSaleException;
 
 	//Accepts the order. OrderQuantifiedArticles in the OrderQuantifiedArticleMarkedForReturnState will get returned.
 	void acceptOrder(Order order) throws NotEnoughMoneyException, OrderNotAcceptableException;
+
+	void cancelPreOrder(Order order);
 }
 
 singleton BackgroundTaskManager##btm{
@@ -249,15 +321,19 @@ singleton GlobalOrderArchive##ooa{
 	void addOrder(Order order);
 }
 
-//The ReturnManager is only  used for displaying ongoing returns for the Owner. The actual return logic is done in the GlobalOrderManager.
+//The ReturnManager is only used for displaying ongoing returns for the Owner. The actual return logic is done in the GlobalOrderManager.
 singleton ReturnManager{
 	public ArticleReturn ** articleReturn;
 	void addArticleReturn##aar(ArticleReturn articleReturn);
 	void removeArticleReturn##aar(ArticleReturn articleReturn);
 }
-// manager relevant classes -- region end
 
-// main model classes -- region begin
+
+
+
+//---------------------------------------------
+//--------------------Model--------------------
+//---------------------------------------------
 hierarchy collapsed CompHierarchy;
 
 
@@ -295,12 +371,12 @@ class ArticleWrapper extends Component{
 }
 
 class Article{
-	public-write prior indexed String name@@Name;
+	public prior indexed String name@@Bezeichnung;
 
 	public prior Fraction price@@Preis;
-	public-write prior Integer minStock@@Mindestlagerbestand;
-	public-write prior Integer maxStock@@Maximallagerbestand;
-	public-write Integer currentStock@@Lagerbestand;
+	public prior Integer minStock@@Mindestlagerbestand;
+	public prior Integer maxStock@@Maximallagerbestand;
+	public Integer currentStock@@Lagerbestand;
 	public prior Integer producerDeliveryTime@@Herstellerlieferzeit;
 
 	public-write no-view prior Producer producer;
@@ -317,16 +393,16 @@ class Article{
 	void startSelling();
 	void stopSelling();
 
-
+	void changeName(String newValue) throws InvalidInputException, DoubleDefinitionException;
 	void changePrice(Fraction newValue) throws InvalidInputException;
 	void changeProducerDeliveryTime(Integer newValue) throws InvalidInputException;
+	void changeMinStock(Integer newValue) throws InvalidInputException;
+	void changeMaxStock(Integer newValue) throws InvalidInputException;
 	//Report a goja bug? one-to-one wrapper not accessible despite being public
 	derived ArticleWrapper wrapper;
 }
 
 
-
-// Article States -- region begin
 abstract class ArticleState{
 }
 class NewCreated extends ArticleState{
@@ -337,26 +413,23 @@ class RemainingStock extends ArticleState{
 }
 class NotInSale extends ArticleState{
 }
-// Article States -- region end
-
-
 
 
 abstract class QuantifiedArticle{
-	prior public Integer quantity;
+	prior public Integer quantity@@Anzahl;
 	prior public no-view ArticleWrapper article;
 
 	void increaseQuantity(Integer amount);
 }
 
 class ShoppingCartQuantifiedArticle##scqa extends QuantifiedArticle{
-	active void changeArticleQuantity##caq(Integer newQuantity);
+	active void changeArticleQuantity##caq(Integer newQuantity) throws InvalidInputException;
 
-	derived Fraction price;
+	derived Fraction price@@Preis;
 }
 
 class OrderQuantifiedArticle##oqa extends QuantifiedArticle{
-	prior public Fraction articlePriceAtOrderTime##apatot;
+	prior public Fraction articlePriceAtOrderTime##apatot@@Preis;
 	public-write no-view OrderQuantifiedArticleState state;
 	void markForReturn();
 	void unmarkForReturn();
@@ -374,16 +447,12 @@ class OrderQuantifiedArticlePreOrder##ooapo extends OrderQuantifiedArticleState{
 }
 
 
-
-
-
 class ReturnQuantifiedArticle##rqa extends QuantifiedArticle{
-
 }
 
 class ReOrderQuantifiedArticle##roqa extends QuantifiedArticle{
-	Integer producerDeliveryTimeAtReorder##pdtar;
-	public-write Integer countdown;
+	no-view	Integer  producerDeliveryTimeAtReorder##pdtar;
+	public-write Integer countdown@@Verbleibende_Lieferzeit;
 }
 
 class Producer{
@@ -391,23 +460,25 @@ class Producer{
 }
 
 class CustomerAccount{
-	public prior indexed String name;
-	public-write prior Fraction balance;
-	public prior Fraction limit;
+	public prior indexed String name@@Benutzername;
+	public prior Fraction balance@@Kontostand;
+	prior Fraction limit@@Limit;
 	ShoppingCart shoppingCart;
 
 	active void deposit(Fraction amount);
+
 	active void withdraw(Fraction amount) throws NotEnoughMoneyException;
 
 	active void debit(Fraction amount) throws NotEnoughMoneyException;
+	void debitIgnoreLimit(Fraction amount);
 
+	extern Boolean checkForEnoughMoney(Fraction amount);
 }
 
-
 class CustomerDeliveryTime{
-	prior public indexed String name;
-	prior public Fraction price;
-	prior public Integer deliveryTime;
+	prior public indexed String name@@Name;
+	prior public Fraction price@@Preis;
+	prior public Integer deliveryTime@@Lieferzeit;
 
 	void changePrice(Fraction newValue) throws InvalidInputException;
 	void changeTime(Integer newValue) throws InvalidInputException;
@@ -424,11 +495,12 @@ class ShoppingCart{
 class Order{
 	public OrderQuantifiedArticle ** articles;
 	prior public CustomerDeliveryTime customerDeliveryTime;
+	prior public CustomerAccount customerAccount;
 	void addArticle(OrderQuantifiedArticle orderQuantifiedArticle);
 
-	public-write Fraction totalPrice;
-
-	prior public-write OrderStatus state;
+	public-write Fraction totalPrice@@Gesamtpreis;
+	public prior Fraction returnPercentageAtOrderTime##rpaot@@Retourenprozentsatz;
+	prior public-write no-view OrderStatus state;
 }
 
 class ArticleReturn{
@@ -453,22 +525,20 @@ class WaitingForAcceptOrderState##wfao extends OrderStatus{
 	public-write prior Integer ticksLeft;
 }
 class ArticlesInReturnOrderState##airos extends OrderStatus{
-
-	public prior ArticleReturn articleReturn;
-
+	public prior no-view ArticleReturn articleReturn;
 	public-write prior Integer ticksLeft;
 }
 
-
 class FinishedOrderState##fos extends OrderStatus{
 }
+class CanceledOrderState##cos extends OrderStatus{
+}
 
-
-// main model classes -- region end
-
-
+//--------------------------------------------------
+//--------------------Exceptions--------------------
+//--------------------------------------------------
 abstract exception ArticleOrderException{}
-//exception InvalidMoveException{}//TODO: Isn't the CycleException enough?
+
 exception InvalidInputException{} 
 
 exception DoubleDefinitionException{}

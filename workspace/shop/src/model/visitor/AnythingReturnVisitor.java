@@ -10,11 +10,14 @@ public interface AnythingReturnVisitor<R> extends ArticleStateReturnVisitor<R> ,
     public R handleArticle(Article4Public article) throws PersistenceException;
     public R handleArticleReturn(ArticleReturn4Public articleReturn) throws PersistenceException;
     public R handleBackgroundTaskManager(BackgroundTaskManager4Public backgroundTaskManager) throws PersistenceException;
+    public R handleCancelPreOrderCommand(CancelPreOrderCommand4Public cancelPreOrderCommand) throws PersistenceException;
     public R handleChangeArticleNameCommand(ChangeArticleNameCommand4Public changeArticleNameCommand) throws PersistenceException;
     public R handleChangeArticlePriceCommand(ChangeArticlePriceCommand4Public changeArticlePriceCommand) throws PersistenceException;
     public R handleChangeArticleQuantityCommand(ChangeArticleQuantityCommand4Public changeArticleQuantityCommand) throws PersistenceException;
     public R handleChangeCustomerDeliveryTimePriceCommand(ChangeCustomerDeliveryTimePriceCommand4Public changeCustomerDeliveryTimePriceCommand) throws PersistenceException;
     public R handleChangeCustomerDeliveryTimeTimeCommand(ChangeCustomerDeliveryTimeTimeCommand4Public changeCustomerDeliveryTimeTimeCommand) throws PersistenceException;
+    public R handleChangeMaxStockCommand(ChangeMaxStockCommand4Public changeMaxStockCommand) throws PersistenceException;
+    public R handleChangeMinStockCommand(ChangeMinStockCommand4Public changeMinStockCommand) throws PersistenceException;
     public R handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException;
     public R handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException;
     public R handleCommonDate(CommonDate4Public commonDate) throws PersistenceException;

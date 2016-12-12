@@ -126,6 +126,18 @@ public class ArticleICProxi extends PersistentInCacheProxiOptimistic implements 
 				throws PersistenceException{
         ((PersistentArticle)this.getTheObject()).updateObservers(event);
     }
+    public void changeMaxStock(final long newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        ((PersistentArticle)this.getTheObject()).changeMaxStock(newValue);
+    }
+    public void changeMinStock(final long newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        ((PersistentArticle)this.getTheObject()).changeMinStock(newValue);
+    }
+    public void changeName(final String newValue) 
+				throws model.DoubleDefinitionException, model.InvalidInputException, PersistenceException{
+        ((PersistentArticle)this.getTheObject()).changeName(newValue);
+    }
     public void changePrice(final common.Fraction newValue) 
 				throws model.InvalidInputException, PersistenceException{
         ((PersistentArticle)this.getTheObject()).changePrice(newValue);

@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.text.MessageFormat;
 import java.time.Instant;
 
+import constants.StringConstants;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
@@ -275,7 +276,7 @@ public class CustomerRegisterService extends model.Service implements Persistent
 
         }
         else {
-            throw new UserAlreadyExistsException(MessageFormat.format("User with name {0} already exists", accountName));
+            throw new UserAlreadyExistsException(MessageFormat.format(StringConstants.USER_ALREADY_EXSITS_MESSAGE, accountName));
         }
     }
     

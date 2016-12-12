@@ -33,11 +33,11 @@ public class ShopPreOrderCartCustomerOrderManagerShoppingCartCustomerDeliveryTim
             }
         }
     }
-    public synchronized void getResult() throws model.EmptyCartException, model.NotEnoughMoneyException, model.ArticleNotInSaleException, PersistenceException {
+    public synchronized void getResult() throws model.EmptyCartException, model.ArticleOrderException, model.NotEnoughMoneyException, PersistenceException {
         if(this.excptn != null) {
             if(this.excptn instanceof model.EmptyCartException) throw (model.EmptyCartException) this.excptn;
+            if(this.excptn instanceof model.ArticleOrderException) throw (model.ArticleOrderException) this.excptn;
             if(this.excptn instanceof model.NotEnoughMoneyException) throw (model.NotEnoughMoneyException) this.excptn;
-            if(this.excptn instanceof model.ArticleNotInSaleException) throw (model.ArticleNotInSaleException) this.excptn;
             if(this.excptn instanceof PersistenceException) throw (PersistenceException) this.excptn;
             if(this.excptn instanceof RuntimeException) throw (RuntimeException) this.excptn;
             throw new Error(this.excptn);

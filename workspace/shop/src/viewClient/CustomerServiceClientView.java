@@ -230,22 +230,6 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
 				this.result = null;
 			}
 
-			@Override
-			public void handleShoppingCartQuantifiedArticle(ShoppingCartQuantifiedArticleView shoppingCartQuantifiedArticle) throws ModelException {
-
-				ShoppingCartQuantifiedArticleDefaultDetailPanel panel = new ShoppingCartQuantifiedArticleDefaultDetailPanel(CustomerServiceClientView.this, shoppingCartQuantifiedArticle);
-
-				//TODO! fix this...
-				panel.registerUpdater(ShoppingCartQuantifiedArticleDefaultDetailPanel.QuantifiedArticle$$quantity, new UpdaterForInteger() {
-					@Override
-					public void update(String text) throws ModelException {
-						getConnection().changeArticleQuantity(shoppingCartQuantifiedArticle, Integer.getInteger(text));
-					}
-				});
-
-				this.result = panel;
-
-			}
 
 			//TODO Overwrite all handle methods for the types for which you intend to provide a special panel!
 		}
@@ -333,18 +317,19 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
         ImageView handle(ReloadUIPRMTRMenuItem menuItem);
         ImageView handle(MarkForReturnPRMTROrderQuantifiedArticlePRMTRMenuItem menuItem);
         ImageView handle(ChangeArticleQuantityPRMTRShoppingCartQuantifiedArticlePRMTRIntegerPRMTRMenuItem menuItem);
-        ImageView handle(FindArticlePRMTRStringPRMTRMenuItem menuItem);
-        ImageView handle(WithdrawPRMTRFractionPRMTRMenuItem menuItem);
+        ImageView handle(FindArticlePRMTRCustomerArticleLstPRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(WithdrawPRMTRCustomerAccountPRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(OrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem menuItem);
-        ImageView handle(DepositPRMTRFractionPRMTRMenuItem menuItem);
+        ImageView handle(DepositPRMTRCustomerAccountPRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(RemoveFromCartPRMTRShoppingCartQuantifiedArticlePRMTRMenuItem menuItem);
+        ImageView handle(ClearErrorPRMTRErrorDisplayPRMTRMenuItem menuItem);
         ImageView handle(AddToCartPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem);
         ImageView handle(EmptyCartPRMTRShoppingCartPRMTRMenuItem menuItem);
         ImageView handle(AcceptOrderPRMTROrderPRMTRMenuItem menuItem);
         ImageView handle(UnmarkForReturnPRMTROrderQuantifiedArticlePRMTRMenuItem menuItem);
+        ImageView handle(CancelPreOrderPRMTROrderPRMTRMenuItem menuItem);
+        ImageView handle(ClearPRMTRCustomerArticleLstPRMTRMenuItem menuItem);
         ImageView handle(PreOrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem menuItem);
-        ImageView handle(ClearErrorPRMTRErrorDisplayPRMTRMenuItem menuItem);
-        ImageView handle(ClearPRMTRMenuItem menuItem);
     }
     private abstract class CustomerServiceMenuItem extends MenuItem{
         private CustomerServiceMenuItem(){
@@ -367,12 +352,12 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
             return visitor.handle(this);
         }
     }
-    private class FindArticlePRMTRStringPRMTRMenuItem extends CustomerServiceMenuItem{
+    private class FindArticlePRMTRCustomerArticleLstPRMTRStringPRMTRMenuItem extends CustomerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
     }
-    private class WithdrawPRMTRFractionPRMTRMenuItem extends CustomerServiceMenuItem{
+    private class WithdrawPRMTRCustomerAccountPRMTRFractionPRMTRMenuItem extends CustomerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -382,12 +367,17 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
             return visitor.handle(this);
         }
     }
-    private class DepositPRMTRFractionPRMTRMenuItem extends CustomerServiceMenuItem{
+    private class DepositPRMTRCustomerAccountPRMTRFractionPRMTRMenuItem extends CustomerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
     }
     private class RemoveFromCartPRMTRShoppingCartQuantifiedArticlePRMTRMenuItem extends CustomerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class ClearErrorPRMTRErrorDisplayPRMTRMenuItem extends CustomerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -412,17 +402,17 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
             return visitor.handle(this);
         }
     }
+    private class CancelPreOrderPRMTROrderPRMTRMenuItem extends CustomerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class ClearPRMTRCustomerArticleLstPRMTRMenuItem extends CustomerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
     private class PreOrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem extends CustomerServiceMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class ClearErrorPRMTRErrorDisplayPRMTRMenuItem extends CustomerServiceMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class ClearPRMTRMenuItem extends CustomerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -451,57 +441,6 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
             }
         });
         result.add(currentButton);
-        currentButton = new javafx.scene.control.Button("Artikel suchen ... ");
-        currentButton.setGraphic(new FindArticlePRMTRStringPRMTRMenuItem().getGraphic());
-        currentButton.setOnAction(new EventHandler<ActionEvent>(){
-            public void handle(javafx.event.ActionEvent e) {
-                final CustomerServiceFindArticleStringMssgWizard wizard = new CustomerServiceFindArticleStringMssgWizard("Artikel suchen");
-                wizard.setWidth(getNavigationPanel().getWidth());
-                wizard.showAndWait();
-            }
-        });
-        result.add(currentButton);
-        currentButton = new javafx.scene.control.Button("Auszahlen ... ");
-        currentButton.setGraphic(new WithdrawPRMTRFractionPRMTRMenuItem().getGraphic());
-        currentButton.setOnAction(new EventHandler<ActionEvent>(){
-            public void handle(javafx.event.ActionEvent e) {
-                final CustomerServiceWithdrawFractionMssgWizard wizard = new CustomerServiceWithdrawFractionMssgWizard("Auszahlen");
-                wizard.setWidth(getNavigationPanel().getWidth());
-                wizard.showAndWait();
-            }
-        });
-        result.add(currentButton);
-        currentButton = new javafx.scene.control.Button("Einzahlen ... ");
-        currentButton.setGraphic(new DepositPRMTRFractionPRMTRMenuItem().getGraphic());
-        currentButton.setOnAction(new EventHandler<ActionEvent>(){
-            public void handle(javafx.event.ActionEvent e) {
-                final CustomerServiceDepositFractionMssgWizard wizard = new CustomerServiceDepositFractionMssgWizard("Einzahlen");
-                wizard.setWidth(getNavigationPanel().getWidth());
-                wizard.showAndWait();
-            }
-        });
-        result.add(currentButton);
-        currentButton = new javafx.scene.control.Button("clear");
-        currentButton.setGraphic(new ClearPRMTRMenuItem().getGraphic());
-        currentButton.setOnAction(new EventHandler<ActionEvent>(){
-            public void handle(javafx.event.ActionEvent e) {
-                Alert confirm = new Alert(AlertType.CONFIRMATION);
-                confirm.setTitle(GUIConstants.ConfirmButtonText);
-                confirm.setHeaderText(null);
-                confirm.setContentText("clear" + GUIConstants.ConfirmQuestionMark);
-                Optional<ButtonType> buttonResult = confirm.showAndWait();
-                if (buttonResult.get() == ButtonType.OK) {
-                    try {
-                        getConnection().clear();
-                        getConnection().setEagerRefresh();
-                        
-                    }catch(ModelException me){
-                        handleException(me);
-                    }
-                }
-            }
-        });
-        result.add(currentButton);
         return result;
     }
     private ContextMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations, final Point2D menuPos) {
@@ -519,57 +458,6 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
                 if (buttonResult.get() == ButtonType.OK) {
                     try {
                         getConnection().reloadUI();
-                        getConnection().setEagerRefresh();
-                        
-                    }catch(ModelException me){
-                        handleException(me);
-                    }
-                }
-            }
-        });
-        if (withStaticOperations) result.getItems().add(item);
-        item = new FindArticlePRMTRStringPRMTRMenuItem();
-        item.setText("(S) Artikel suchen ... ");
-        item.setOnAction(new EventHandler<ActionEvent>(){
-            public void handle(javafx.event.ActionEvent e) {
-                final CustomerServiceFindArticleStringMssgWizard wizard = new CustomerServiceFindArticleStringMssgWizard("Artikel suchen");
-                wizard.setWidth(getNavigationPanel().getWidth());
-                wizard.showAndWait();
-            }
-        });
-        if (withStaticOperations) result.getItems().add(item);
-        item = new WithdrawPRMTRFractionPRMTRMenuItem();
-        item.setText("(S) Auszahlen ... ");
-        item.setOnAction(new EventHandler<ActionEvent>(){
-            public void handle(javafx.event.ActionEvent e) {
-                final CustomerServiceWithdrawFractionMssgWizard wizard = new CustomerServiceWithdrawFractionMssgWizard("Auszahlen");
-                wizard.setWidth(getNavigationPanel().getWidth());
-                wizard.showAndWait();
-            }
-        });
-        if (withStaticOperations) result.getItems().add(item);
-        item = new DepositPRMTRFractionPRMTRMenuItem();
-        item.setText("(S) Einzahlen ... ");
-        item.setOnAction(new EventHandler<ActionEvent>(){
-            public void handle(javafx.event.ActionEvent e) {
-                final CustomerServiceDepositFractionMssgWizard wizard = new CustomerServiceDepositFractionMssgWizard("Einzahlen");
-                wizard.setWidth(getNavigationPanel().getWidth());
-                wizard.showAndWait();
-            }
-        });
-        if (withStaticOperations) result.getItems().add(item);
-        item = new ClearPRMTRMenuItem();
-        item.setText("(S) clear");
-        item.setOnAction(new EventHandler<ActionEvent>(){
-            public void handle(javafx.event.ActionEvent e) {
-                Alert confirm = new Alert(AlertType.CONFIRMATION);
-                confirm.setTitle(GUIConstants.ConfirmButtonText);
-                confirm.setHeaderText(null);
-                confirm.setContentText("clear" + GUIConstants.ConfirmQuestionMark);
-                Optional<ButtonType> buttonResult = confirm.showAndWait();
-                if (buttonResult.get() == ButtonType.OK) {
-                    try {
-                        getConnection().clear();
                         getConnection().setEagerRefresh();
                         
                     }catch(ModelException me){
@@ -608,6 +496,29 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
                     }
                 });
                 result.getItems().add(item);
+                if (filter_cancelPreOrder((OrderView) selected)) {
+                    item = new CancelPreOrderPRMTROrderPRMTRMenuItem();
+                    item.setText("Stornieren");
+                    item.setOnAction(new EventHandler<ActionEvent>(){
+                        public void handle(javafx.event.ActionEvent e) {
+                            Alert confirm = new Alert(AlertType.CONFIRMATION);
+                            confirm.setTitle(GUIConstants.ConfirmButtonText);
+                            confirm.setHeaderText(null);
+                            confirm.setContentText("Stornieren" + GUIConstants.ConfirmQuestionMark);
+                            Optional<ButtonType> buttonResult = confirm.showAndWait();
+                            if (buttonResult.get() == ButtonType.OK) {
+                                try {
+                                    getConnection().cancelPreOrder((OrderView)selected);
+                                    getConnection().setEagerRefresh();
+                                    
+                                }catch(ModelException me){
+                                    handleException(me);
+                                }
+                            }
+                        }
+                    });
+                    result.getItems().add(item);
+                }
             }
             if (selected instanceof OrderQuantifiedArticleView){
                 if (filter_markForReturn((OrderQuantifiedArticleView) selected)) {
@@ -704,13 +615,13 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
             }
             if (selected instanceof ErrorDisplayView){
                 item = new ClearErrorPRMTRErrorDisplayPRMTRMenuItem();
-                item.setText("clearError");
+                item.setText("Fehler zurücksetzten");
                 item.setOnAction(new EventHandler<ActionEvent>(){
                     public void handle(javafx.event.ActionEvent e) {
                         Alert confirm = new Alert(AlertType.CONFIRMATION);
                         confirm.setTitle(GUIConstants.ConfirmButtonText);
                         confirm.setHeaderText(null);
-                        confirm.setContentText("clearError" + GUIConstants.ConfirmQuestionMark);
+                        confirm.setContentText("Fehler zurücksetzten" + GUIConstants.ConfirmQuestionMark);
                         Optional<ButtonType> buttonResult = confirm.showAndWait();
                         if (buttonResult.get() == ButtonType.OK) {
                             try {
@@ -759,6 +670,64 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
                 });
                 result.getItems().add(item);
             }
+            if (selected instanceof CustomerArticleLstView){
+                item = new FindArticlePRMTRCustomerArticleLstPRMTRStringPRMTRMenuItem();
+                item.setText("Artikel suchen ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final CustomerServiceFindArticleCustomerArticleLstStringMssgWizard wizard = new CustomerServiceFindArticleCustomerArticleLstStringMssgWizard("Artikel suchen");
+                        wizard.setFirstArgument((CustomerArticleLstView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+                item = new ClearPRMTRCustomerArticleLstPRMTRMenuItem();
+                item.setText("Suche zurücksetzen");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        Alert confirm = new Alert(AlertType.CONFIRMATION);
+                        confirm.setTitle(GUIConstants.ConfirmButtonText);
+                        confirm.setHeaderText(null);
+                        confirm.setContentText("Suche zurücksetzen" + GUIConstants.ConfirmQuestionMark);
+                        Optional<ButtonType> buttonResult = confirm.showAndWait();
+                        if (buttonResult.get() == ButtonType.OK) {
+                            try {
+                                getConnection().clear((CustomerArticleLstView)selected);
+                                getConnection().setEagerRefresh();
+                                
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
+                    }
+                });
+                result.getItems().add(item);
+            }
+            if (selected instanceof CustomerAccountView){
+                item = new WithdrawPRMTRCustomerAccountPRMTRFractionPRMTRMenuItem();
+                item.setText("Auszahlen ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final CustomerServiceWithdrawCustomerAccountFractionMssgWizard wizard = new CustomerServiceWithdrawCustomerAccountFractionMssgWizard("Auszahlen");
+                        wizard.setFirstArgument((CustomerAccountView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+                item = new DepositPRMTRCustomerAccountPRMTRFractionPRMTRMenuItem();
+                item.setText("Einzahlen ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final CustomerServiceDepositCustomerAccountFractionMssgWizard wizard = new CustomerServiceDepositCustomerAccountFractionMssgWizard("Einzahlen");
+                        wizard.setFirstArgument((CustomerAccountView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+            }
             if (selected instanceof ArticleWrapperView){
                 if (filter_addToCart((ArticleWrapperView) selected)) {
                     item = new AddToCartPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem();
@@ -794,6 +763,9 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
     }
     private boolean filter_unmarkForReturn(OrderQuantifiedArticleView argument){
         return this.getPreCalculatedFilters().contains("+++unmarkForReturnPRMTROrderQuantifiedArticlePRMTR");
+    }
+    private boolean filter_cancelPreOrder(OrderView argument){
+        return this.getPreCalculatedFilters().contains("+++cancelPreOrderPRMTROrderPRMTR");
     }
     
 	class CustomerServiceAddToCartArticleWrapperIntegerMssgWizard extends Wizard {
@@ -890,21 +862,21 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
 		
 	}
 
-	class CustomerServiceDepositFractionMssgWizard extends Wizard {
+	class CustomerServiceDepositCustomerAccountFractionMssgWizard extends Wizard {
 
-		protected CustomerServiceDepositFractionMssgWizard(String operationName){
+		protected CustomerServiceDepositCustomerAccountFractionMssgWizard(String operationName){
 			super(CustomerServiceClientView.this);
 			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new DepositPRMTRFractionPRMTRMenuItem ().getGraphic());
+			getOkButton().setGraphic(new DepositPRMTRCustomerAccountPRMTRFractionPRMTRMenuItem ().getGraphic());
 		}
 		protected void initialize(){
-			this.helpFileName = "CustomerServiceDepositFractionMssgWizard.help";
+			this.helpFileName = "CustomerServiceDepositCustomerAccountFractionMssgWizard.help";
 			super.initialize();		
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().deposit(((FractionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().deposit(firstArgument, ((FractionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
 				getConnection().setEagerRefresh();
 				this.close();	
 			} catch(ModelException me){
@@ -926,23 +898,32 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
 		}
 		
 		
+		private CustomerAccountView firstArgument; 
+	
+		public void setFirstArgument(CustomerAccountView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
 	}
 
-	class CustomerServiceFindArticleStringMssgWizard extends Wizard {
+	class CustomerServiceFindArticleCustomerArticleLstStringMssgWizard extends Wizard {
 
-		protected CustomerServiceFindArticleStringMssgWizard(String operationName){
+		protected CustomerServiceFindArticleCustomerArticleLstStringMssgWizard(String operationName){
 			super(CustomerServiceClientView.this);
 			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new FindArticlePRMTRStringPRMTRMenuItem ().getGraphic());
+			getOkButton().setGraphic(new FindArticlePRMTRCustomerArticleLstPRMTRStringPRMTRMenuItem ().getGraphic());
 		}
 		protected void initialize(){
-			this.helpFileName = "CustomerServiceFindArticleStringMssgWizard.help";
+			this.helpFileName = "CustomerServiceFindArticleCustomerArticleLstStringMssgWizard.help";
 			super.initialize();		
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().findArticle(((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().findArticle(firstArgument, ((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
 				getConnection().setEagerRefresh();
 				this.close();	
 			} catch(ModelException me){
@@ -958,9 +939,18 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
 			return false;
 		}
 		protected void addParameters(){
-			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));		
+			getParametersPanel().getChildren().add(new StringSelectionPanel("Bezeichnung", this));		
 		}	
 		protected void handleDependencies(int i) {
+		}
+		
+		
+		private CustomerArticleLstView firstArgument; 
+	
+		public void setFirstArgument(CustomerArticleLstView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
 		}
 		
 		
@@ -1079,21 +1069,21 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
 		
 	}
 
-	class CustomerServiceWithdrawFractionMssgWizard extends Wizard {
+	class CustomerServiceWithdrawCustomerAccountFractionMssgWizard extends Wizard {
 
-		protected CustomerServiceWithdrawFractionMssgWizard(String operationName){
+		protected CustomerServiceWithdrawCustomerAccountFractionMssgWizard(String operationName){
 			super(CustomerServiceClientView.this);
 			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new WithdrawPRMTRFractionPRMTRMenuItem ().getGraphic());
+			getOkButton().setGraphic(new WithdrawPRMTRCustomerAccountPRMTRFractionPRMTRMenuItem ().getGraphic());
 		}
 		protected void initialize(){
-			this.helpFileName = "CustomerServiceWithdrawFractionMssgWizard.help";
+			this.helpFileName = "CustomerServiceWithdrawCustomerAccountFractionMssgWizard.help";
 			super.initialize();		
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().withdraw(((FractionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().withdraw(firstArgument, ((FractionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
 				getConnection().setEagerRefresh();
 				this.close();	
 			} catch(ModelException me){
@@ -1115,6 +1105,15 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
 			getParametersPanel().getChildren().add(new FractionSelectionPanel("amount", this));		
 		}	
 		protected void handleDependencies(int i) {
+		}
+		
+		
+		private CustomerAccountView firstArgument; 
+	
+		public void setFirstArgument(CustomerAccountView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
 		}
 		
 		
@@ -1145,29 +1144,31 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
 			}
 
 			@Override
+			public ImageView handle(FindArticlePRMTRCustomerArticleLstPRMTRStringPRMTRMenuItem menuItem) {
+				return null;
+			}
+
+			@Override
+			public ImageView handle(WithdrawPRMTRCustomerAccountPRMTRFractionPRMTRMenuItem menuItem) {
+				return null;
+			}
+
+			@Override
 			public ImageView handle(ClearErrorPRMTRErrorDisplayPRMTRMenuItem menuItem) {
 				return null;
 			}
 
 			@Override
-			public ImageView handle(ClearPRMTRMenuItem menuItem) {
+			public ImageView handle(ClearPRMTRCustomerArticleLstPRMTRMenuItem menuItem) {
 				return null;
 			}
+
 
 			@Override
 			public ImageView handle(ReloadUIPRMTRMenuItem menuItem) {
 				return null;
 			}
 
-			@Override
-			public ImageView handle(DepositPRMTRFractionPRMTRMenuItem menuItem) {
-				return null;
-			}
-
-			@Override
-			public ImageView handle(FindArticlePRMTRStringPRMTRMenuItem menuItem) {
-				return null;
-			}
 
 			@Override
 			public ImageView handle(MarkForReturnPRMTROrderQuantifiedArticlePRMTRMenuItem menuItem) {
@@ -1178,6 +1179,11 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
 			public ImageView handle(OrderPRMTRShoppingCartPRMTRCustomerDeliveryTimePRMTRMenuItem menuItem) {
 				return new ImageView(IconManager.getImage(IconConstants.CHECKOUT));
 
+			}
+
+			@Override
+			public ImageView handle(DepositPRMTRCustomerAccountPRMTRFractionPRMTRMenuItem menuItem) {
+				return null;
 			}
 
 			@Override
@@ -1196,9 +1202,10 @@ public class CustomerServiceClientView extends BorderPane implements ExceptionAn
 			}
 
 			@Override
-			public ImageView handle(WithdrawPRMTRFractionPRMTRMenuItem menuItem) {
+			public ImageView handle(CancelPreOrderPRMTROrderPRMTRMenuItem menuItem) {
 				return null;
 			}
+
 		});
 
 

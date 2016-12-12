@@ -86,6 +86,28 @@ public class CustomerServiceConnection extends ServiceConnection {
         
     }
     
+    public synchronized void cancelPreOrder(OrderView order) throws ModelException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            if (order == null){
+                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
+            } else {
+                parameters.add(((view.objects.ViewProxi)order).createProxiInformation());
+            }
+            java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "cancelPreOrder", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                throw new ModelException ("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")",0);
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
     public synchronized void changeArticleQuantity(ShoppingCartQuantifiedArticleView article, long newQuantity) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
@@ -131,9 +153,14 @@ public class CustomerServiceConnection extends ServiceConnection {
         
     }
     
-    public synchronized void clear() throws ModelException{
+    public synchronized void clear(CustomerArticleLstView customerArticleLst) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
+            if (customerArticleLst == null){
+                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
+            } else {
+                parameters.add(((view.objects.ViewProxi)customerArticleLst).createProxiInformation());
+            }
             java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "clear", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
@@ -148,9 +175,14 @@ public class CustomerServiceConnection extends ServiceConnection {
         
     }
     
-    public synchronized void deposit(common.Fraction amount) throws ModelException{
+    public synchronized void deposit(CustomerAccountView customerAccount, common.Fraction amount) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
+            if (customerAccount == null){
+                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
+            } else {
+                parameters.add(((view.objects.ViewProxi)customerAccount).createProxiInformation());
+            }
             parameters.add(amount.toString());
             java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "deposit", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
@@ -188,9 +220,14 @@ public class CustomerServiceConnection extends ServiceConnection {
         
     }
     
-    public synchronized void findArticle(String name) throws ModelException{
+    public synchronized void findArticle(CustomerArticleLstView customerArticleLst, String name) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
+            if (customerArticleLst == null){
+                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
+            } else {
+                parameters.add(((view.objects.ViewProxi)customerArticleLst).createProxiInformation());
+            }
             parameters.add(name);
             java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "findArticle", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
@@ -356,9 +393,14 @@ public class CustomerServiceConnection extends ServiceConnection {
     }
     
     @SuppressWarnings("unchecked")
-    public synchronized void withdraw(common.Fraction amount) throws ModelException, NotEnoughMoneyException{
+    public synchronized void withdraw(CustomerAccountView customerAccount, common.Fraction amount) throws ModelException, NotEnoughMoneyException{
         try {
             Vector<Object> parameters = new Vector<Object>();
+            if (customerAccount == null){
+                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
+            } else {
+                parameters.add(((view.objects.ViewProxi)customerAccount).createProxiInformation());
+            }
             parameters.add(amount.toString());
             java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "withdraw", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){

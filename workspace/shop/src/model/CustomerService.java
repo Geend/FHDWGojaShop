@@ -371,6 +371,9 @@ public class CustomerService extends model.Service implements PersistentCustomer
     public String customerService_Menu_Filter(final Anything anything) 
 				throws PersistenceException{
         String result = "+++";
+		if(anything instanceof Order4Public) {
+			if(this.filter_cancelPreOrder((Order4Public)anything)) result = result + "cancelPreOrderPRMTROrderPRMTR+++";
+		}
 		if(anything instanceof OrderQuantifiedArticle4Public) {
 			if(this.filter_markForReturn((OrderQuantifiedArticle4Public)anything)) result = result + "markForReturnPRMTROrderQuantifiedArticlePRMTR+++";
 			if(this.filter_unmarkForReturn((OrderQuantifiedArticle4Public)anything)) result = result + "unmarkForReturnPRMTROrderQuantifiedArticlePRMTR+++";
@@ -453,6 +456,10 @@ public class CustomerService extends model.Service implements PersistentCustomer
         ShoppingCartQuantifiedArticle4Public shoppingCartQuantifiedArticle4Public = ShoppingCartQuantifiedArticle.createShoppingCartQuantifiedArticle(quantity, article);
         getThis().getCart().addArticle(shoppingCartQuantifiedArticle4Public, getThis());
     }
+    public void cancelPreOrder(final Order4Public order) 
+				throws PersistenceException{
+        getThis().getShop().cancelPreOrder(getThis().getOrderManager(), order,getThis());
+    }
     public void changeArticleQuantity(final ShoppingCartQuantifiedArticle4Public article, final long newQuantity) 
 				throws PersistenceException{
         article.changeArticleQuantity(newQuantity, getThis());
@@ -462,9 +469,9 @@ public class CustomerService extends model.Service implements PersistentCustomer
         getThis().getErrors().removeAll(error);
         getThis().signalChanged(true);
     }
-    public void clear() 
+    public void clear(final CustomerArticleLst4Public customerArticleLst) 
 				throws PersistenceException{
-        getThis().getArticleLst().clear();
+        customerArticleLst.clear();
         getThis().signalChanged(true);
     }
     public void connected(final String user) 
@@ -473,9 +480,9 @@ public class CustomerService extends model.Service implements PersistentCustomer
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
     }
-    public void deposit(final common.Fraction amount) 
+    public void deposit(final CustomerAccount4Public customerAccount, final common.Fraction amount) 
 				throws PersistenceException{
-        getThis().getAccount().deposit(amount, getThis());
+        customerAccount.deposit(amount, getThis());
     }
     public void disconnected() 
 				throws PersistenceException{
@@ -485,9 +492,9 @@ public class CustomerService extends model.Service implements PersistentCustomer
         cart.empty();
         getThis().signalChanged(true);
     }
-    public void findArticle(final String name) 
+    public void findArticle(final CustomerArticleLst4Public customerArticleLst, final String name) 
 				throws PersistenceException{
-        getThis().getArticleLst().find(name);
+        customerArticleLst.find(name);
         getThis().signalChanged(true);
     }
     public void initializeOnCreation() 
@@ -508,13 +515,13 @@ public class CustomerService extends model.Service implements PersistentCustomer
     }
     public void markForReturn(final OrderQuantifiedArticle4Public article) 
 				throws PersistenceException{
-        //TODO! Prevent as long as article gets preorderd
         article.markForReturn();
         getThis().signalChanged(true);
     }
     public void orderManager_update(final model.meta.CustomerOrderManagerMssgs event) 
 				throws PersistenceException{
         //TODO: implement method: orderManager_update
+        getThis().signalChanged(true);
         
     }
     public void order(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
@@ -538,9 +545,9 @@ public class CustomerService extends model.Service implements PersistentCustomer
         article.unmarkForReturn();
         getThis().signalChanged(true);
     }
-    public void withdraw(final common.Fraction amount) 
+    public void withdraw(final CustomerAccount4Public customerAccount, final common.Fraction amount) 
 				throws model.NotEnoughMoneyException, PersistenceException{
-        getThis().getAccount().withdraw(amount, getThis());
+        customerAccount.withdraw(amount, getThis());
     }
     
     
@@ -593,7 +600,7 @@ public class CustomerService extends model.Service implements PersistentCustomer
 
             @Override
             public Boolean handleOrderQuantifiedArticlePreOrder(OrderQuantifiedArticlePreOrder4Public orderQuantifiedArticlePreOrder) throws PersistenceException {
-                return false; //TODO! In die doku schreiben
+                return false;
             }
         });
     }
@@ -612,10 +619,50 @@ public class CustomerService extends model.Service implements PersistentCustomer
 
             @Override
             public Boolean handleOrderQuantifiedArticlePreOrder(OrderQuantifiedArticlePreOrder4Public orderQuantifiedArticlePreOrder) throws PersistenceException {
-                return false;//TODO! In die doku schreiben
+                return false;
             }
         });
 
+    }
+    private boolean filter_cancelPreOrder(Order4Public anything) throws PersistenceException {
+
+        return anything.getState().accept(new OrderStatusReturnVisitor<Boolean>() {
+
+            @Override
+            public Boolean handleArticlesInReturnOrderState(ArticlesInReturnOrderState4Public articlesInReturnOrderState) throws PersistenceException {
+                return false;
+            }
+
+            @Override
+            public Boolean handleCanceledOrderState(CanceledOrderState4Public canceledOrderState) throws PersistenceException {
+                return false;
+            }
+
+            @Override
+            public Boolean handleFinishedOrderState(FinishedOrderState4Public finishedOrderState) throws PersistenceException {
+                return false;
+            }
+
+            @Override
+            public Boolean handleInTransitOrderState(InTransitOrderState4Public inTransitOrderState) throws PersistenceException {
+                return false;
+            }
+
+            @Override
+            public Boolean handlePreOrderState(PreOrderState4Public preOrderState) throws PersistenceException {
+                return true;
+            }
+
+            @Override
+            public Boolean handleProcessingOrderState(ProcessingOrderState4Public processingOrderState) throws PersistenceException {
+                return false;
+            }
+
+            @Override
+            public Boolean handleWaitingForAcceptOrderState(WaitingForAcceptOrderState4Public waitingForAcceptOrderState) throws PersistenceException {
+                return false;
+            }
+        });
     }
 
     /* End of protected part that is not overridden by persistence generator */

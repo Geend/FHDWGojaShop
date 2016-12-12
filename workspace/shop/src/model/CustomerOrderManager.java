@@ -3,6 +3,7 @@ package model;
 
 import common.Fraction;
 import constants.ShopConstants;
+import constants.StringConstants;
 import model.meta.OrderMssgs;
 import persistence.*;
 import model.visitor.*;
@@ -11,7 +12,6 @@ import view.objects.ArticleReturnReturnManagerWrapper;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 
 /* Additional import section end */
 
@@ -229,6 +229,11 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
             }
 
             @Override
+            public void handleCanceledOrderState(CanceledOrderState4Public canceledOrderState) throws PersistenceException, OrderNotAcceptableException {
+                throw new OrderNotAcceptableException("Die Bestellung wurde storniert.");
+            }
+
+            @Override
             public void handleFinishedOrderState(FinishedOrderState4Public finishedOrderState) throws PersistenceException, OrderNotAcceptableException {
                 throw new OrderNotAcceptableException("Die Bestellung wurde bereits angenommen.");
             }
@@ -256,7 +261,6 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
             }
         });
 
-
         ArticleReturn4Public articleReturn = ArticleReturn.createArticleReturn(order);
         order.getArticles().applyToAll(article -> {
             article.getState().accept(new OrderQuantifiedArticleStateVisitor() {
@@ -264,10 +268,10 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
                 public void handleOrderQuantifiedArticleMarkedForReturnState(OrderQuantifiedArticleMarkedForReturnState4Public orderQuantifiedArticleMarkedForReturnState) throws PersistenceException {
                     articleReturn.addArticle(ReturnQuantifiedArticle.createReturnQuantifiedArticle(article.getQuantity(), article.getArticle()));
 
-                    //Calculate the new totalPrice based on the ReturnPercentage value
+                    // Calculate the new totalPrice based on the ReturnPercentage value
                     Fraction newTotalPrice = order.getTotalPrice();
                     newTotalPrice = newTotalPrice.sub(article.getArticlePriceAtOrderTime().mul(article.getQuantity()));
-                    newTotalPrice = newTotalPrice.add(article.getArticlePriceAtOrderTime().mul(article.getQuantity()).mul(Settings.getTheSettings().getReturnPercentage()));
+                    newTotalPrice = newTotalPrice.add(article.getArticlePriceAtOrderTime().mul(article.getQuantity()).mul(order.getReturnPercentageAtOrderTime()));
                     order.setTotalPrice(newTotalPrice);
                 }
 
@@ -283,17 +287,44 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
             });
         });
 
-        //TODO! Account for the customers limit
         getThis().getAccount().debit(order.getTotalPrice());
 
-        if(articleReturn.getReturnArticles().getLength() > 0) {
+        if (articleReturn.getReturnArticles().getLength() > 0) {
             ReturnManager.getTheReturnManager().addArticleReturn(articleReturn);
             order.setState(ArticlesInReturnOrderState.createArticlesInReturnOrderState(articleReturn, ShopConstants.DEFAULT_RETURN_TIME));
-        }
-        else{
+        } else {
             GlobalOrderManager.getTheGlobalOrderManager().finishOrder(order);
         }
 
+    }
+    public void cancelPreOrder(final Order4Public order) 
+				throws PersistenceException{
+        order.setState(CanceledOrderState.createCanceledOrderState());
+
+        order.getArticles().applyToAll(article -> {
+
+
+            article.getState().accept(new OrderQuantifiedArticleStateVisitor() {
+                @Override
+                public void handleOrderQuantifiedArticleMarkedForReturnState(OrderQuantifiedArticleMarkedForReturnState4Public orderQuantifiedArticleMarkedForReturnState) throws PersistenceException {
+                    article.getArticle().getArticle().increaseStock(article.getQuantity());
+                }
+
+                @Override
+                public void handleOrderQuantifiedArticleNormalState(OrderQuantifiedArticleNormalState4Public orderQuantifiedArticleNormalState) throws PersistenceException {
+                    article.getArticle().getArticle().increaseStock( article.getQuantity());
+                }
+
+                @Override
+                public void handleOrderQuantifiedArticlePreOrder(OrderQuantifiedArticlePreOrder4Public orderQuantifiedArticlePreOrder) throws PersistenceException {
+                    long alreadyReduced = article.getQuantity() - orderQuantifiedArticlePreOrder.getLeftQuantity();
+                    article.getArticle().getArticle().increaseStock(alreadyReduced);
+                }
+            });
+
+            article.setState(OrderQuantifiedArticleNormalState.createOrderQuantifiedArticleNormalState());
+
+        });
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -306,10 +337,10 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
     }
     public Order4Public newOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
 				throws model.EmptyCartException, model.ArticleOrderException, model.NotEnoughMoneyException, PersistenceException{
-        if(cart.getArticles().getLength() == 0)
+        if (cart.getArticles().getLength() == 0)
             throw new EmptyCartException();
 
-        Order4Public order = Order.createOrder(customerDeliveryTime, ProcessingOrderState.createProcessingOrderState());
+        Order4Public order = Order.createOrder(customerDeliveryTime, getThis().getAccount(), Settings.getTheSettings().getReturnPercentage(), ProcessingOrderState.createProcessingOrderState());
 
         cart.getArticles().applyToAllException(shoppingCartQuantifiedArticle -> {
 
@@ -319,19 +350,14 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
 
             Fraction perArticlePrice = shoppingCartQuantifiedArticle.getArticle().getArticle().getPrice();
 
-            OrderQuantifiedArticle4Public orderQuantifiedArticle =
-                    OrderQuantifiedArticle.createOrderQuantifiedArticle(
-                            shoppingCartQuantifiedArticle.getQuantity(),
-                            articleWrapper,
-                            perArticlePrice);
+            OrderQuantifiedArticle4Public orderQuantifiedArticle = OrderQuantifiedArticle.createOrderQuantifiedArticle(shoppingCartQuantifiedArticle.getQuantity(), articleWrapper, perArticlePrice);
 
             order.addArticle(orderQuantifiedArticle);
 
             ReOrderManager.getTheReOrderManager().reOrderIfNecessary(articleWrapper);
         });
 
-        //TODO! Account for the customers limit
-        if(getThis().getAccount().getBalance().isLess(order.getTotalPrice())){
+        if (getThis().getAccount().checkForEnoughMoney(order.getTotalPrice())) {
             throw new NotEnoughMoneyException(order.getTotalPrice(), getThis().getAccount().getBalance());
         }
 
@@ -342,69 +368,61 @@ public class CustomerOrderManager extends model.OrderManager implements Persiste
         return order;
     }
     public Order4Public newPreOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.EmptyCartException, model.NotEnoughMoneyException, model.ArticleNotInSaleException, PersistenceException{
-        if(cart.getArticles().getLength() == 0)
+				throws model.EmptyCartException, model.ArticleOrderException, model.NotEnoughMoneyException, model.ArticleNotInSaleException, PersistenceException{
+        if (cart.getArticles().getLength() == 0)
             throw new EmptyCartException();
 
-        Order4Public order = Order.createOrder(customerDeliveryTime, ProcessingOrderState.createProcessingOrderState());
+        Order4Public order = Order.createOrder(customerDeliveryTime, getThis().getAccount(), Settings.getTheSettings().getReturnPercentage(), ProcessingOrderState.createProcessingOrderState());
 
         cart.getArticles().applyToAllException(shoppingCartQuantifiedArticle -> {
             ArticleWrapper4Public articleWrapper = shoppingCartQuantifiedArticle.getArticle();
 
-
             Fraction perArticlePrice = shoppingCartQuantifiedArticle.getArticle().getArticle().getPrice();
 
-            OrderQuantifiedArticle4Public orderQuantifiedArticle =
-                    OrderQuantifiedArticle.createOrderQuantifiedArticle(
-                            shoppingCartQuantifiedArticle.getQuantity(),
-                            articleWrapper,
-                            perArticlePrice);
+            OrderQuantifiedArticle4Public orderQuantifiedArticle = OrderQuantifiedArticle.createOrderQuantifiedArticle(shoppingCartQuantifiedArticle.getQuantity(), articleWrapper, perArticlePrice);
 
             order.addArticle(orderQuantifiedArticle);
 
-
-
             Long requestedQuantity = shoppingCartQuantifiedArticle.getQuantity();
-            Long currentStock =  shoppingCartQuantifiedArticle.getArticle().getArticle().getCurrentStock();
+            Long currentStock = shoppingCartQuantifiedArticle.getArticle().getArticle().getCurrentStock();
 
+            if (requestedQuantity > currentStock) {
+                shoppingCartQuantifiedArticle.getArticle().getArticle().getState().accept(new ArticleStateExceptionVisitor<ArticleOrderException>() {
+                    @Override
+                    public void handleInSale(InSale4Public inSale) throws PersistenceException, ArticleOrderException {
+                        Long diff = requestedQuantity - currentStock;
 
-            if(requestedQuantity > currentStock)
-            {
-                Long diff = requestedQuantity - currentStock;
+                        shoppingCartQuantifiedArticle.getArticle().getArticle().order(currentStock);
 
-                //"Reserve" all available articles for this pre order
-                try {
-                    shoppingCartQuantifiedArticle.getArticle().getArticle().order(currentStock);
-                } catch (NotEnoughStockException e) {
-                    //This can't happen because we already checked if we have enough stock.
-                    //Maybe there is a race condition problem when two customers order the same article at the same time.
-                    throw new Error(e);
-                }
+                        orderQuantifiedArticle.setState(OrderQuantifiedArticlePreOrder.createOrderQuantifiedArticlePreOrder(diff));
+                        // Order what we still need + enough to have maxStock after delivery of the preOrder
+                        ReOrderManager.getTheReOrderManager().reOrderForPreorder(articleWrapper, diff + articleWrapper.getArticle().getMaxStock());
+                    }
 
-                orderQuantifiedArticle.setState(OrderQuantifiedArticlePreOrder.createOrderQuantifiedArticlePreOrder(diff));
-                //Order what we still need + enough to have maxStock after delivery of the preOrder
-                ReOrderManager.getTheReOrderManager().reOrderForPreorder(articleWrapper, diff + articleWrapper.getArticle().getMaxStock());
+                    @Override
+                    public void handleNewCreated(NewCreated4Public newCreated) throws PersistenceException, ArticleOrderException {
+                        throw new ArticleNotInSaleException(StringConstants.ARTICLE_NOT_IN_SALE_EXCEPTION_MESSAGE);
+                    }
 
+                    @Override
+                    public void handleNotInSale(NotInSale4Public notInSale) throws PersistenceException, ArticleOrderException {
+                        throw new ArticleNotInSaleException(StringConstants.ARTICLE_NOT_IN_SALE_EXCEPTION_MESSAGE);
+                    }
+
+                    @Override
+                    public void handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException, NotEnoughStockException {
+                        // Don't reorder articles that are remaining stock
+                        throw new NotEnoughStockException(StringConstants.NOT_ENOUGH_REMAINING_STOCK_FOR_PREORDER_MESSAGE);
+                    }
+                });
+
+            } else {
+                shoppingCartQuantifiedArticle.getArticle().getArticle().reduceStock(shoppingCartQuantifiedArticle.getQuantity());
             }
-            else
-            {
-                try {
-                    shoppingCartQuantifiedArticle.getArticle().getArticle().reduceStock(shoppingCartQuantifiedArticle.getQuantity());
-                } catch (NotEnoughStockException e) {
-                    //This can't happen because we already checked if we have enough stock.
-                    //Maybe there is a race condition problem when two customers order the same article at the same time.
-                    throw new Error(e);
-                }
-            }
-
-
-
-
 
         });
 
-        //TODO! Account for the customers limit
-        if(getThis().getAccount().getBalance().isLess(order.getTotalPrice())){
+        if (getAccount().checkForEnoughMoney(order.getTotalPrice())) {
             throw new NotEnoughMoneyException(order.getTotalPrice(), getThis().getAccount().getBalance());
         }
 

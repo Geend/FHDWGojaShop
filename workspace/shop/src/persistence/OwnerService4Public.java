@@ -41,6 +41,10 @@ public interface OwnerService4Public extends Service4Public {
 				throws model.InvalidInputException, PersistenceException;
     public void changeCustomerDeliveryTimeTime(final CustomerDeliveryTime4Public customerDeliveryTime, final long newValue) 
 				throws model.InvalidInputException, PersistenceException;
+    public void changeMaxStock(final ArticleWrapper4Public article, final long newValue) 
+				throws model.InvalidInputException, PersistenceException;
+    public void changeMinStock(final ArticleWrapper4Public article, final long newValue) 
+				throws model.InvalidInputException, PersistenceException;
     public void changeNewCustomerDefaultBalance(final common.Fraction newValue) 
 				throws model.InvalidInputException, PersistenceException;
     public void changeNewCustomerDefaultLimit(final common.Fraction newValue) 

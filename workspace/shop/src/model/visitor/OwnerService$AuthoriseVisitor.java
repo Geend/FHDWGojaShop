@@ -22,6 +22,7 @@ public abstract class OwnerService$AuthoriseVisitor extends AnythingStandardVisi
     public abstract void handleOwnerService(PersistentOwnerService ownerService) throws PersistenceException;
     public abstract void handleFinishedOrderState(PersistentFinishedOrderState finishedOrderState) throws PersistenceException;
     public abstract void handleComponentManager(PersistentComponentManager componentManager) throws PersistenceException;
+    public abstract void handleShoppingCartQuantifiedArticle(PersistentShoppingCartQuantifiedArticle shoppingCartQuantifiedArticle) throws PersistenceException;
     public abstract void handleGlobalOrderArchive(PersistentGlobalOrderArchive globalOrderArchive) throws PersistenceException;
     public abstract void handleCustomerDeliveryTimeManager(PersistentCustomerDeliveryTimeManager customerDeliveryTimeManager) throws PersistenceException;
     public abstract void handleNewCreated(PersistentNewCreated newCreated) throws PersistenceException;
@@ -29,6 +30,7 @@ public abstract class OwnerService$AuthoriseVisitor extends AnythingStandardVisi
     public abstract void handleOrder(PersistentOrder order) throws PersistenceException;
     public abstract void handleWaitingForAcceptOrderState(PersistentWaitingForAcceptOrderState waitingForAcceptOrderState) throws PersistenceException;
     public abstract void handleOrderQuantifiedArticleNormalState(PersistentOrderQuantifiedArticleNormalState orderQuantifiedArticleNormalState) throws PersistenceException;
+    public abstract void handleCustomerAccount(PersistentCustomerAccount customerAccount) throws PersistenceException;
     public abstract void handleReturnQuantifiedArticle(PersistentReturnQuantifiedArticle returnQuantifiedArticle) throws PersistenceException;
     public abstract void handleInSale(PersistentInSale inSale) throws PersistenceException;
     public abstract void handleGlobalOrderManager(PersistentGlobalOrderManager globalOrderManager) throws PersistenceException;
@@ -36,8 +38,10 @@ public abstract class OwnerService$AuthoriseVisitor extends AnythingStandardVisi
     public abstract void handleInTransitOrderState(PersistentInTransitOrderState inTransitOrderState) throws PersistenceException;
     public abstract void handleShop(PersistentShop shop) throws PersistenceException;
     public abstract void handleProducer(PersistentProducer producer) throws PersistenceException;
+    public abstract void handleShoppingCart(PersistentShoppingCart shoppingCart) throws PersistenceException;
     public abstract void handleArticlesInReturnOrderState(PersistentArticlesInReturnOrderState articlesInReturnOrderState) throws PersistenceException;
     public abstract void handleOrderQuantifiedArticlePreOrder(PersistentOrderQuantifiedArticlePreOrder orderQuantifiedArticlePreOrder) throws PersistenceException;
+    public abstract void handleCanceledOrderState(PersistentCanceledOrderState canceledOrderState) throws PersistenceException;
     public abstract void handleArticleReturn(PersistentArticleReturn articleReturn) throws PersistenceException;
     public abstract void handleOrderQuantifiedArticleMarkedForReturnState(PersistentOrderQuantifiedArticleMarkedForReturnState orderQuantifiedArticleMarkedForReturnState) throws PersistenceException;
     public abstract void handleArticleWrapper(PersistentArticleWrapper articleWrapper) throws PersistenceException;

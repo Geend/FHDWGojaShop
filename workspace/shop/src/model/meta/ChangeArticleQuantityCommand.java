@@ -210,8 +210,12 @@ public class ChangeArticleQuantityCommand extends PersistentObject implements Pe
     }
     public void execute() 
 				throws PersistenceException{
-        this.commandReceiver.changeArticleQuantity(this.getNewQuantity());
-		
+        try{
+			this.commandReceiver.changeArticleQuantity(this.getNewQuantity());
+		}
+		catch(model.InvalidInputException e){
+			this.commandException = e;
+		}
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{

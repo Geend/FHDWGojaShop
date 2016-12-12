@@ -28,6 +28,7 @@ public abstract class CustomerService$AuthoriseVisitor extends AnythingStandardV
     public abstract void handleShoppingCart(PersistentShoppingCart shoppingCart) throws PersistenceException;
     public abstract void handleArticlesInReturnOrderState(PersistentArticlesInReturnOrderState articlesInReturnOrderState) throws PersistenceException;
     public abstract void handleOrderQuantifiedArticlePreOrder(PersistentOrderQuantifiedArticlePreOrder orderQuantifiedArticlePreOrder) throws PersistenceException;
+    public abstract void handleCanceledOrderState(PersistentCanceledOrderState canceledOrderState) throws PersistenceException;
     public abstract void handleArticleReturn(PersistentArticleReturn articleReturn) throws PersistenceException;
     public abstract void handleOrderQuantifiedArticleMarkedForReturnState(PersistentOrderQuantifiedArticleMarkedForReturnState orderQuantifiedArticleMarkedForReturnState) throws PersistenceException;
     public abstract void handleCustomerOrderManager(PersistentCustomerOrderManager customerOrderManager) throws PersistenceException;

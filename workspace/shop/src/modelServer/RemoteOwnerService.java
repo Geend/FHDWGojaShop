@@ -86,6 +86,32 @@ public  class RemoteOwnerService extends RemoteService {
         }
     }
     
+    public synchronized java.util.HashMap<?,?> changeMaxStock(String articleProxiString, String newValueAsString){
+        try {
+            PersistentArticleWrapper article = (PersistentArticleWrapper)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
+            long newValue = new Long(newValueAsString).longValue();
+            ((PersistentOwnerService)this.server).changeMaxStock(article, newValue);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.InvalidInputException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> changeMinStock(String articleProxiString, String newValueAsString){
+        try {
+            PersistentArticleWrapper article = (PersistentArticleWrapper)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
+            long newValue = new Long(newValueAsString).longValue();
+            ((PersistentOwnerService)this.server).changeMinStock(article, newValue);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.InvalidInputException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
     public synchronized java.util.HashMap<?,?> changeNewCustomerDefaultBalance(String newValueAsString){
         try {
             common.Fraction newValue = common.Fraction.parse(newValueAsString);

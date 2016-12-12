@@ -1320,6 +1320,9 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleOrderQuantifiedArticlePreOrder(view.OrderQuantifiedArticlePreOrderView object){
         result = new OrderQuantifiedArticlePreOrderDefaultDetailPanel(handler, object);
     }
+    public void handleCanceledOrderState(view.CanceledOrderStateView object){
+        result = new CanceledOrderStateDefaultDetailPanel(handler, object);
+    }
     public void handleCustomerOrderManager(view.CustomerOrderManagerView object){
         result = new CustomerOrderManagerDefaultDetailPanel(handler, object);
     }
@@ -1422,14 +1425,14 @@ class OrderQuantifiedArticleDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected void addFields(){
         try{
-            BaseTypePanel panel = new IntegerPanel(this, "quantity", this.getAnything().getQuantity());
+            BaseTypePanel panel = new IntegerPanel(this, "Anzahl", this.getAnything().getQuantity());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(QuantifiedArticle$$quantity, panel);
         }catch(ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }
         try{
-            BaseTypePanel panel = new FractionPanel(this, "articlePriceAtOrderTime", this.getAnything().getArticlePriceAtOrderTime());
+            BaseTypePanel panel = new FractionPanel(this, "Preis", this.getAnything().getArticlePriceAtOrderTime());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(OrderQuantifiedArticle$$articlePriceAtOrderTime, panel);
         }catch(ModelException e){
@@ -1490,7 +1493,6 @@ class ErrorDisplayDefaultDetailPanel extends DefaultDetailPanel{
 class ReOrderQuantifiedArticleDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String QuantifiedArticle$$quantity = "QuantifiedArticle$$quantity";
-    protected static final String ReOrderQuantifiedArticle$$producerDeliveryTimeAtReorder = "ReOrderQuantifiedArticle$$producerDeliveryTimeAtReorder";
     protected static final String ReOrderQuantifiedArticle$$countdown = "ReOrderQuantifiedArticle$$countdown";
     
     protected ReOrderQuantifiedArticleDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1498,21 +1500,14 @@ class ReOrderQuantifiedArticleDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected void addFields(){
         try{
-            BaseTypePanel panel = new IntegerPanel(this, "quantity", this.getAnything().getQuantity());
+            BaseTypePanel panel = new IntegerPanel(this, "Anzahl", this.getAnything().getQuantity());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(QuantifiedArticle$$quantity, panel);
         }catch(ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }
         try{
-            BaseTypePanel panel = new IntegerPanel(this, "producerDeliveryTimeAtReorder", this.getAnything().getProducerDeliveryTimeAtReorder());
-            this.getScrollablePane().getChildren().add(panel);
-            this.panels.put(ReOrderQuantifiedArticle$$producerDeliveryTimeAtReorder, panel);
-        }catch(ModelException e){
-            this.getExceptionAndEventhandler().handleException(e);
-        }
-        try{
-            BaseTypePanel panel = new IntegerPanel(this, "countdown", this.getAnything().getCountdown());
+            BaseTypePanel panel = new IntegerPanel(this, "Verbleibende Lieferzeit", this.getAnything().getCountdown());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(ReOrderQuantifiedArticle$$countdown, panel);
         }catch(ModelException e){
@@ -1620,21 +1615,21 @@ class SettingsDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected void addFields(){
         try{
-            BaseTypePanel panel = new FractionPanel(this, "newCustomerDefaultBalance", this.getAnything().getNewCustomerDefaultBalance());
+            BaseTypePanel panel = new FractionPanel(this, "Neukunden Startguthaben", this.getAnything().getNewCustomerDefaultBalance());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(Settings$$newCustomerDefaultBalance, panel);
         }catch(ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }
         try{
-            BaseTypePanel panel = new FractionPanel(this, "newCustomerDefaultLimit", this.getAnything().getNewCustomerDefaultLimit());
+            BaseTypePanel panel = new FractionPanel(this, "Neukunden Limit", this.getAnything().getNewCustomerDefaultLimit());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(Settings$$newCustomerDefaultLimit, panel);
         }catch(ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }
         try{
-            BaseTypePanel panel = new FractionPanel(this, "returnPercentage", this.getAnything().getReturnPercentage());
+            BaseTypePanel panel = new FractionPanel(this, "Retouren Prozentsatz", this.getAnything().getReturnPercentage());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(Settings$$returnPercentage, panel);
         }catch(ModelException e){
@@ -1651,17 +1646,25 @@ class OrderDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Order$$articles = "Order$$articles";
     protected static final String Order$$customerDeliveryTime = "Order$$customerDeliveryTime";
+    protected static final String Order$$customerAccount = "Order$$customerAccount";
     protected static final String Order$$totalPrice = "Order$$totalPrice";
-    protected static final String Order$$state = "Order$$state";
+    protected static final String Order$$returnPercentageAtOrderTime = "Order$$returnPercentageAtOrderTime";
     
     protected OrderDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
         try{
-            BaseTypePanel panel = new FractionPanel(this, "totalPrice", this.getAnything().getTotalPrice());
+            BaseTypePanel panel = new FractionPanel(this, "Gesamtpreis", this.getAnything().getTotalPrice());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(Order$$totalPrice, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new FractionPanel(this, "Retourenprozentsatz", this.getAnything().getReturnPercentageAtOrderTime());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(Order$$returnPercentageAtOrderTime, panel);
         }catch(ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }
@@ -1697,21 +1700,21 @@ class CustomerAccountDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected void addFields(){
         try{
-            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            BaseTypePanel panel = new StringPanel(this, "Benutzername", this.getAnything().getName());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(CustomerAccount$$name, panel);
         }catch(ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }
         try{
-            BaseTypePanel panel = new FractionPanel(this, "balance", this.getAnything().getBalance());
+            BaseTypePanel panel = new FractionPanel(this, "Kontostand", this.getAnything().getBalance());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(CustomerAccount$$balance, panel);
         }catch(ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }
         try{
-            BaseTypePanel panel = new FractionPanel(this, "limit", this.getAnything().getLimit());
+            BaseTypePanel panel = new FractionPanel(this, "Limit", this.getAnything().getLimit());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(CustomerAccount$$limit, panel);
         }catch(ModelException e){
@@ -1915,7 +1918,7 @@ class ArticleDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected void addFields(){
         try{
-            BaseTypePanel panel = new StringPanel(this, "Name", this.getAnything().getName());
+            BaseTypePanel panel = new StringPanel(this, "Bezeichnung", this.getAnything().getName());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(Article$$name, panel);
         }catch(ModelException e){
@@ -1988,21 +1991,21 @@ class CustomerDeliveryTimeDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected void addFields(){
         try{
-            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            BaseTypePanel panel = new StringPanel(this, "Name", this.getAnything().getName());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(CustomerDeliveryTime$$name, panel);
         }catch(ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }
         try{
-            BaseTypePanel panel = new FractionPanel(this, "price", this.getAnything().getPrice());
+            BaseTypePanel panel = new FractionPanel(this, "Preis", this.getAnything().getPrice());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(CustomerDeliveryTime$$price, panel);
         }catch(ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }
         try{
-            BaseTypePanel panel = new IntegerPanel(this, "deliveryTime", this.getAnything().getDeliveryTime());
+            BaseTypePanel panel = new IntegerPanel(this, "Lieferzeit", this.getAnything().getDeliveryTime());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(CustomerDeliveryTime$$deliveryTime, panel);
         }catch(ModelException e){
@@ -2090,14 +2093,14 @@ class ShoppingCartQuantifiedArticleDefaultDetailPanel extends DefaultDetailPanel
     }
     protected void addFields(){
         try{
-            BaseTypePanel panel = new IntegerPanel(this, "quantity", this.getAnything().getQuantity());
+            BaseTypePanel panel = new IntegerPanel(this, "Anzahl", this.getAnything().getQuantity());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(QuantifiedArticle$$quantity, panel);
         }catch(ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }
         try{
-            BaseTypePanel panel = new FractionPanel(this, "price", this.getAnything().getPrice());
+            BaseTypePanel panel = new FractionPanel(this, "Preis", this.getAnything().getPrice());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(ShoppingCartQuantifiedArticle$$price, panel);
         }catch(ModelException e){
@@ -2182,7 +2185,7 @@ class ReturnQuantifiedArticleDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected void addFields(){
         try{
-            BaseTypePanel panel = new IntegerPanel(this, "quantity", this.getAnything().getQuantity());
+            BaseTypePanel panel = new IntegerPanel(this, "Anzahl", this.getAnything().getQuantity());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(QuantifiedArticle$$quantity, panel);
         }catch(ModelException e){
@@ -2212,7 +2215,6 @@ class ShoppingCartDefaultDetailPanel extends DefaultDetailPanel{
 
 class ArticlesInReturnOrderStateDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String ArticlesInReturnOrderState$$articleReturn = "ArticlesInReturnOrderState$$articleReturn";
     protected static final String ArticlesInReturnOrderState$$ticksLeft = "ArticlesInReturnOrderState$$ticksLeft";
     
     protected ArticlesInReturnOrderStateDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -2252,6 +2254,19 @@ class OrderQuantifiedArticlePreOrderDefaultDetailPanel extends DefaultDetailPane
     }
     protected view.OrderQuantifiedArticlePreOrderView getAnything(){
         return (view.OrderQuantifiedArticlePreOrderView)this.anything;
+    }
+}
+
+class CanceledOrderStateDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected CanceledOrderStateDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.CanceledOrderStateView getAnything(){
+        return (view.CanceledOrderStateView)this.anything;
     }
 }
 

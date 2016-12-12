@@ -183,8 +183,25 @@ public class Shop extends PersistentObject implements PersistentShop{
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    public void cancelPreOrder(final CustomerOrderManager4Public manager, final Order4Public order) 
+				throws PersistenceException{
+        model.meta.ShopCancelPreOrderCustomerOrderManagerOrderMssg event = new model.meta.ShopCancelPreOrderCustomerOrderManagerOrderMssg(manager, order, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
+    public void cancelPreOrder(final CustomerOrderManager4Public manager, final Order4Public order, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		CancelPreOrderCommand4Public command = model.meta.CancelPreOrderCommand.createCancelPreOrderCommand(now, now);
+		command.setManager(manager);
+		command.setOrder(order);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void changeArticleName(final ArticleWrapper4Public article, final String newName) 
-				throws model.InvalidInputException, PersistenceException{
+				throws model.DoubleDefinitionException, model.InvalidInputException, PersistenceException{
         model.meta.ShopChangeArticleNameArticleWrapperStringMssg event = new model.meta.ShopChangeArticleNameArticleWrapperStringMssg(article, newName, getThis());
 		event.execute();
 		getThis().updateObservers(event);
@@ -243,6 +260,38 @@ public class Shop extends PersistentObject implements PersistentShop{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
 		ChangeCustomerDeliveryTimeTimeCommand4Public command = model.meta.ChangeCustomerDeliveryTimeTimeCommand.createChangeCustomerDeliveryTimeTimeCommand(newValue, now, now);
 		command.setCustomerDeliveryTime(customerDeliveryTime);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void changeMaxStock(final ArticleWrapper4Public article, final long newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        model.meta.ShopChangeMaxStockArticleWrapperIntegerMssg event = new model.meta.ShopChangeMaxStockArticleWrapperIntegerMssg(article, newValue, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
+    public void changeMaxStock(final ArticleWrapper4Public article, final long newValue, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		ChangeMaxStockCommand4Public command = model.meta.ChangeMaxStockCommand.createChangeMaxStockCommand(newValue, now, now);
+		command.setArticle(article);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void changeMinStock(final ArticleWrapper4Public article, final long newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        model.meta.ShopChangeMinStockArticleWrapperIntegerMssg event = new model.meta.ShopChangeMinStockArticleWrapperIntegerMssg(article, newValue, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
+    public void changeMinStock(final ArticleWrapper4Public article, final long newValue, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		ChangeMinStockCommand4Public command = model.meta.ChangeMinStockCommand.createChangeMinStockCommand(newValue, now, now);
+		command.setArticle(article);
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
@@ -353,7 +402,7 @@ public class Shop extends PersistentObject implements PersistentShop{
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public void preOrderCart(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.EmptyCartException, model.NotEnoughMoneyException, model.ArticleNotInSaleException, PersistenceException{
+				throws model.EmptyCartException, model.ArticleOrderException, model.NotEnoughMoneyException, PersistenceException{
         model.meta.ShopPreOrderCartCustomerOrderManagerShoppingCartCustomerDeliveryTimeMssg event = new model.meta.ShopPreOrderCartCustomerOrderManagerShoppingCartCustomerDeliveryTimeMssg(manager, cart, customerDeliveryTime, getThis());
 		event.execute();
 		getThis().updateObservers(event);
@@ -428,11 +477,13 @@ public class Shop extends PersistentObject implements PersistentShop{
 				throws model.OrderNotAcceptableException, model.NotEnoughMoneyException, PersistenceException{
         manager.acceptOrder(order);
     }
+    public void cancelPreOrderImplementation(final CustomerOrderManager4Public manager, final Order4Public order) 
+				throws PersistenceException{
+        manager.cancelPreOrder(order);
+    }
     public void changeArticleNameImplementation(final ArticleWrapper4Public article, final String newName) 
-				throws model.InvalidInputException, PersistenceException{
-        if("".equals(newName))
-            throw new InvalidInputException(StringConstants.ARTICLE_NAME_EMPTY_DEFINTION_EXCEPTION_TEXT);
-        article.getArticle().setName(newName);
+				throws model.DoubleDefinitionException, model.InvalidInputException, PersistenceException{
+        article.getArticle().changeName(newName);
     }
     public void changeArticlePriceImplementation(final ArticleWrapper4Public article, final common.Fraction newPrice) 
 				throws model.InvalidInputException, PersistenceException{
@@ -446,10 +497,16 @@ public class Shop extends PersistentObject implements PersistentShop{
 				throws model.InvalidInputException, PersistenceException{
         customerDeliveryTime.changeTime(newValue);
     }
+    public void changeMaxStockImplementation(final ArticleWrapper4Public article, final long newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        article.getArticle().changeMaxStock(newValue);
+    }
+    public void changeMinStockImplementation(final ArticleWrapper4Public article, final long newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        article.getArticle().changeMinStock(newValue);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        // TODO: implement method: copyingPrivateUserAttributes
-
     }
     public void createCustomerDeliveryTimeImplementation(final String name, final common.Fraction price, final long time) 
 				throws model.DoubleDefinitionException, model.InvalidInputException, PersistenceException{
@@ -463,11 +520,14 @@ public class Shop extends PersistentObject implements PersistentShop{
 				throws PersistenceException{
 
         makeTestData();
-        BackgroundTaskManager.getTheBackgroundTaskManager().startTasks();
+
+        //TODO! Only start the task when we aren't executing unit tests and do this in initOnInstantiation()?
+       BackgroundTaskManager.getTheBackgroundTaskManager().startTasks();
+
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        // TODO: implement method: initializeOnInstantiation
+        BackgroundTaskManager.getTheBackgroundTaskManager().startTasks();
 
     }
     public void moveToImplementation(final Component4Public component, final ComponentContainer newParentGroup) 
@@ -493,7 +553,7 @@ public class Shop extends PersistentObject implements PersistentShop{
         cart.empty();
     }
     public void preOrderCartImplementation(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.EmptyCartException, model.NotEnoughMoneyException, model.ArticleNotInSaleException, PersistenceException{
+				throws model.EmptyCartException, model.ArticleOrderException, model.NotEnoughMoneyException, PersistenceException{
         manager.newPreOrder(cart, customerDeliveryTime);
         cart.empty();
     }

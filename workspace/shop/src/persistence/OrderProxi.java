@@ -27,11 +27,23 @@ public class OrderProxi extends PersistentProxi implements PersistentOrder{
     public void setCustomerDeliveryTime(CustomerDeliveryTime4Public newValue) throws PersistenceException {
         ((PersistentOrder)this.getTheObject()).setCustomerDeliveryTime(newValue);
     }
+    public CustomerAccount4Public getCustomerAccount() throws PersistenceException {
+        return ((PersistentOrder)this.getTheObject()).getCustomerAccount();
+    }
+    public void setCustomerAccount(CustomerAccount4Public newValue) throws PersistenceException {
+        ((PersistentOrder)this.getTheObject()).setCustomerAccount(newValue);
+    }
     public common.Fraction getTotalPrice() throws PersistenceException {
         return ((PersistentOrder)this.getTheObject()).getTotalPrice();
     }
     public void setTotalPrice(common.Fraction newValue) throws PersistenceException {
         ((PersistentOrder)this.getTheObject()).setTotalPrice(newValue);
+    }
+    public common.Fraction getReturnPercentageAtOrderTime() throws PersistenceException {
+        return ((PersistentOrder)this.getTheObject()).getReturnPercentageAtOrderTime();
+    }
+    public void setReturnPercentageAtOrderTime(common.Fraction newValue) throws PersistenceException {
+        ((PersistentOrder)this.getTheObject()).setReturnPercentageAtOrderTime(newValue);
     }
     public OrderStatus4Public getState() throws PersistenceException {
         return ((PersistentOrder)this.getTheObject()).getState();

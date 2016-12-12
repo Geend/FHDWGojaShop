@@ -265,7 +265,7 @@ public class ReOrderManager extends PersistentObject implements PersistentReOrde
             orderArticle.setCountdown(orderArticle.getCountdown() - 1);
             if (orderArticle.getCountdown() == 0) {
                 Article4Public article = orderArticle.getArticle().getArticle();
-                article.setCurrentStock(article.getCurrentStock() + orderArticle.getQuantity());
+                article.increaseStock(orderArticle.getQuantity());
             }
         });
 

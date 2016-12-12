@@ -354,11 +354,11 @@ public class CustomerRegisterServiceClientView extends BorderPane implements Exc
             }
         });
         result.add(currentButton);
-        currentButton = new javafx.scene.control.Button("register ... ");
+        currentButton = new javafx.scene.control.Button("Registrieren ... ");
         currentButton.setGraphic(new RegisterPRMTRStringPRMTRStringPRMTRMenuItem().getGraphic());
         currentButton.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
-                final CustomerRegisterServiceRegisterStringStringMssgWizard wizard = new CustomerRegisterServiceRegisterStringStringMssgWizard("register");
+                final CustomerRegisterServiceRegisterStringStringMssgWizard wizard = new CustomerRegisterServiceRegisterStringStringMssgWizard("Registrieren");
                 wizard.setWidth(getNavigationPanel().getWidth());
                 wizard.showAndWait();
             }
@@ -391,10 +391,10 @@ public class CustomerRegisterServiceClientView extends BorderPane implements Exc
         });
         if (withStaticOperations) result.getItems().add(item);
         item = new RegisterPRMTRStringPRMTRStringPRMTRMenuItem();
-        item.setText("(S) register ... ");
+        item.setText("(S) Registrieren ... ");
         item.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
-                final CustomerRegisterServiceRegisterStringStringMssgWizard wizard = new CustomerRegisterServiceRegisterStringStringMssgWizard("register");
+                final CustomerRegisterServiceRegisterStringStringMssgWizard wizard = new CustomerRegisterServiceRegisterStringStringMssgWizard("Registrieren");
                 wizard.setWidth(getNavigationPanel().getWidth());
                 wizard.showAndWait();
             }
@@ -454,8 +454,8 @@ public class CustomerRegisterServiceClientView extends BorderPane implements Exc
 			return false;
 		}
 		protected void addParameters(){
-			getParametersPanel().getChildren().add(new StringSelectionPanel("accountName", this));
-			getParametersPanel().getChildren().add(new PasswordSelectionPanel("password", this));		
+			getParametersPanel().getChildren().add(new StringSelectionPanel("Benutzername", this));
+			getParametersPanel().getChildren().add(new PasswordSelectionPanel("Kennwort", this));		
 		}	
 		protected void handleDependencies(int i) {
 		}

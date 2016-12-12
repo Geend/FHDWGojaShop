@@ -31,6 +31,7 @@ public class OrderStatusFacade{
         if(Cache.getTheCache().contains(objectId, 338)) return 338;
         if(Cache.getTheCache().contains(objectId, 332)) return 332;
         if(Cache.getTheCache().contains(objectId, 361)) return 361;
+        if(Cache.getTheCache().contains(objectId, 456)) return 456;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

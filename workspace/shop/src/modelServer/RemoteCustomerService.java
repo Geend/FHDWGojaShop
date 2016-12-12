@@ -45,6 +45,16 @@ public  class RemoteCustomerService extends RemoteService {
         }
     }
     
+    public synchronized java.util.HashMap<?,?> cancelPreOrder(String orderProxiString){
+        try {
+            PersistentOrder order = (PersistentOrder)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(orderProxiString));
+            ((PersistentCustomerService)this.server).cancelPreOrder(order);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.HashMap<?,?> changeArticleQuantity(String articleProxiString, String newQuantityAsString){
         try {
             PersistentShoppingCartQuantifiedArticle article = (PersistentShoppingCartQuantifiedArticle)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(articleProxiString));
@@ -66,19 +76,21 @@ public  class RemoteCustomerService extends RemoteService {
         }
     }
     
-    public synchronized java.util.HashMap<?,?> clear(){
+    public synchronized java.util.HashMap<?,?> clear(String customerArticleLstProxiString){
         try {
-            ((PersistentCustomerService)this.server).clear();
+            PersistentCustomerArticleLst customerArticleLst = (PersistentCustomerArticleLst)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(customerArticleLstProxiString));
+            ((PersistentCustomerService)this.server).clear(customerArticleLst);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
         }
     }
     
-    public synchronized java.util.HashMap<?,?> deposit(String amountAsString){
+    public synchronized java.util.HashMap<?,?> deposit(String customerAccountProxiString, String amountAsString){
         try {
+            PersistentCustomerAccount customerAccount = (PersistentCustomerAccount)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(customerAccountProxiString));
             common.Fraction amount = common.Fraction.parse(amountAsString);
-            ((PersistentCustomerService)this.server).deposit(amount);
+            ((PersistentCustomerService)this.server).deposit(customerAccount, amount);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -95,9 +107,10 @@ public  class RemoteCustomerService extends RemoteService {
         }
     }
     
-    public synchronized java.util.HashMap<?,?> findArticle(String name){
+    public synchronized java.util.HashMap<?,?> findArticle(String customerArticleLstProxiString, String name){
         try {
-            ((PersistentCustomerService)this.server).findArticle(name);
+            PersistentCustomerArticleLst customerArticleLst = (PersistentCustomerArticleLst)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(customerArticleLstProxiString));
+            ((PersistentCustomerService)this.server).findArticle(customerArticleLst, name);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -175,10 +188,11 @@ public  class RemoteCustomerService extends RemoteService {
         }
     }
     
-    public synchronized java.util.HashMap<?,?> withdraw(String amountAsString){
+    public synchronized java.util.HashMap<?,?> withdraw(String customerAccountProxiString, String amountAsString){
         try {
+            PersistentCustomerAccount customerAccount = (PersistentCustomerAccount)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(customerAccountProxiString));
             common.Fraction amount = common.Fraction.parse(amountAsString);
-            ((PersistentCustomerService)this.server).withdraw(amount);
+            ((PersistentCustomerService)this.server).withdraw(customerAccount, amount);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

@@ -10,11 +10,14 @@ public interface AnythingReturnExceptionVisitor<R, E extends model.UserException
     public R handleArticle(Article4Public article) throws PersistenceException, E;
     public R handleArticleReturn(ArticleReturn4Public articleReturn) throws PersistenceException, E;
     public R handleBackgroundTaskManager(BackgroundTaskManager4Public backgroundTaskManager) throws PersistenceException, E;
+    public R handleCancelPreOrderCommand(CancelPreOrderCommand4Public cancelPreOrderCommand) throws PersistenceException, E;
     public R handleChangeArticleNameCommand(ChangeArticleNameCommand4Public changeArticleNameCommand) throws PersistenceException, E;
     public R handleChangeArticlePriceCommand(ChangeArticlePriceCommand4Public changeArticlePriceCommand) throws PersistenceException, E;
     public R handleChangeArticleQuantityCommand(ChangeArticleQuantityCommand4Public changeArticleQuantityCommand) throws PersistenceException, E;
     public R handleChangeCustomerDeliveryTimePriceCommand(ChangeCustomerDeliveryTimePriceCommand4Public changeCustomerDeliveryTimePriceCommand) throws PersistenceException, E;
     public R handleChangeCustomerDeliveryTimeTimeCommand(ChangeCustomerDeliveryTimeTimeCommand4Public changeCustomerDeliveryTimeTimeCommand) throws PersistenceException, E;
+    public R handleChangeMaxStockCommand(ChangeMaxStockCommand4Public changeMaxStockCommand) throws PersistenceException, E;
+    public R handleChangeMinStockCommand(ChangeMinStockCommand4Public changeMinStockCommand) throws PersistenceException, E;
     public R handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException, E;
     public R handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException, E;
     public R handleCommonDate(CommonDate4Public commonDate) throws PersistenceException, E;

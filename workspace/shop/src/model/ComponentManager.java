@@ -291,8 +291,8 @@ public class ComponentManager extends PersistentObject implements PersistentComp
         try {
             getThis().setContainer(ComponentContainerImplementation.createComponentContainerImplementation());
         } catch (CycleException e) {
-            //TODO! Proper error handeling
-            e.printStackTrace();
+            //This can't happen (a Cycle is not possible, because a new Component with no sub-compontents is created)
+            throw new Error(e);
         }
     }
     public void initializeOnInstantiation() 

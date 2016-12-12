@@ -1,0 +1,24 @@
+-Warnekorb: Preise anzeigen
+-Retour markierung bei abgeschlossenen bestellungen verhindern
+-Produktgruppen löschen und/oder Namen ändern können?!
+-fehlermeldung für balance+limit
+
+word: screenshots
+Testfälle: 
+-Withdraw beim CustomerAccount
+
+wird ignoriert:
+-Background Tasks bei unit tests nicht starten
+
+
+Erledigt:
+- Kunde sieht die Hersteller
+- Registrieren: Wenn man sich mit Public anmeldet ist in der Maske der Button zum Registrieren weg!
+- Laufende Retouren, Bestellung-Archiv usw sauber machen
+Gleiche name bei kundenlieferzeit und hersteller
+Artikel Herstellerlieferzeit änderbar
+- Kunde hat bei Annahme nicht genug Geld: Konto geht ins Minus (auch unter das Limit)
+-Todo GlobalOrderManger start reparieren
+-verbleibende zeite in bestellung anzeigen
+-keine nachbestellun bei restposten
+-mindestlagerbestand über lagerbesten setzten -> ?

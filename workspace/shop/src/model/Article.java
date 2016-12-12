@@ -388,10 +388,46 @@ public class Article extends PersistentObject implements PersistentArticle{
     
     // Start of section that contains operations that must be implemented.
     
+    public void changeMaxStock(final long newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        if(newValue < 0){
+            throw new InvalidInputException(StringConstants.NEW_ARTICLE_MAX_STOCK_NOT_NEGATIVE_MESSAGE);
+        }
+        if(getThis().getMinStock() > newValue){
+            throw new InvalidInputException(StringConstants.NEW_ARTICLE_MAX_STOCK_NOT_BELOW_MIN_STOCK_MESSAGE);
+        }
+
+        getThis().setMaxStock(newValue);
+    }
+    public void changeMinStock(final long newValue) 
+				throws model.InvalidInputException, PersistenceException{
+
+        if(newValue < 0){
+            throw new InvalidInputException(StringConstants.NEW_ARTICLE_MIN_STOCK_NOT_NEGATIVE_MESSAGE);
+        }
+        if(newValue > getThis().getMaxStock()){
+            throw new InvalidInputException(StringConstants.NEW_ARTICLE_MAX_STOCK_NOT_BELOW_MIN_STOCK_MESSAGE);
+        }
+
+        getThis().setMinStock(newValue);
+
+        ReOrderManager.getTheReOrderManager().reOrderIfNecessary(getThis().getMyWrapper());
+    }
+    public void changeName(final String newValue) 
+				throws model.DoubleDefinitionException, model.InvalidInputException, PersistenceException{
+        if("".equals(newValue))
+            throw new InvalidInputException(StringConstants.ARTICLE_NAME_EMPTY_DEFINTION_EXCEPTION_TEXT);
+        Article.getArticleByName(newValue).applyToAllException(article ->{
+            if(article.getProducer().equals(producer)){
+                throw new DoubleDefinitionException(StringConstants.ARTICLE_DOUBLE_DEFINITION_EXCEPTION_MESSAGE);
+            }
+        });
+        getThis().setName(newValue);
+    }
     public void changePrice(final common.Fraction newValue) 
 				throws model.InvalidInputException, PersistenceException{
         if(newValue.isLess(Fraction.Null))
-            throw new InvalidInputException(StringConstants.ARICLE_PRICE_NOT_NEGATIVE_MESSAGE);
+            throw new InvalidInputException(StringConstants.ARTICLE_PRICE_NOT_NEGATIVE_MESSAGE);
 
         getThis().setPrice(newValue);
     }
@@ -485,8 +521,31 @@ public class Article extends PersistentObject implements PersistentArticle{
 				throws model.NotEnoughStockException, PersistenceException{
         if (getThis().getCurrentStock() >= quantity) {
             getThis().setCurrentStock(getThis().getCurrentStock() - quantity);
+
+            getThis().getState().accept(new ArticleStateVisitor() {
+                @Override
+                public void handleInSale(InSale4Public inSale) throws PersistenceException {
+
+                }
+
+                @Override
+                public void handleNewCreated(NewCreated4Public newCreated) throws PersistenceException {
+
+                }
+
+                @Override
+                public void handleNotInSale(NotInSale4Public notInSale) throws PersistenceException {
+
+                }
+
+                @Override
+                public void handleRemainingStock(RemainingStock4Public remainingStock) throws PersistenceException {
+                    if(getThis().getCurrentStock() == 0)
+                        getThis().setState(NotInSale.createNotInSale());
+                }
+            });
         } else {
-            throw new NotEnoughStockException(getThis().getCurrentStock(), quantity);
+            throw new NotEnoughStockException(getThis().getCurrentStock(), quantity, getThis().getName());
         }
     }
     public void startSelling() 

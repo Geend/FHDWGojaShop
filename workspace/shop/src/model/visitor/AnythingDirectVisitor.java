@@ -46,6 +46,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleFinishedOrderState(FinishedOrderState4Public finishedOrderState) throws PersistenceException{
         this.handleOrderStatus(finishedOrderState);
     }
+    public void handleCanceledOrderState(CanceledOrderState4Public canceledOrderState) throws PersistenceException{
+        this.handleOrderStatus(canceledOrderState);
+    }
     public void handleProcessingOrderState(ProcessingOrderState4Public processingOrderState) throws PersistenceException{
         this.handleOrderStatus(processingOrderState);
     }
@@ -154,6 +157,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateProducerCommand(CreateProducerCommand4Public createProducerCommand) throws PersistenceException{
         this.handleCommonDate(createProducerCommand);
     }
+    public void handleChangeMinStockCommand(ChangeMinStockCommand4Public changeMinStockCommand) throws PersistenceException{
+        this.handleCommonDate(changeMinStockCommand);
+    }
     public void handleStartSellingCommand(StartSellingCommand4Public startSellingCommand) throws PersistenceException{
         this.handleCommonDate(startSellingCommand);
     }
@@ -168,6 +174,12 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public void handleOrderCartCommand(OrderCartCommand4Public orderCartCommand) throws PersistenceException{
         this.handleCommonDate(orderCartCommand);
+    }
+    public void handleChangeMaxStockCommand(ChangeMaxStockCommand4Public changeMaxStockCommand) throws PersistenceException{
+        this.handleCommonDate(changeMaxStockCommand);
+    }
+    public void handleCancelPreOrderCommand(CancelPreOrderCommand4Public cancelPreOrderCommand) throws PersistenceException{
+        this.handleCommonDate(cancelPreOrderCommand);
     }
     public void handleRegisterCommand(RegisterCommand4Public registerCommand) throws PersistenceException{
         this.handleCommonDate(registerCommand);

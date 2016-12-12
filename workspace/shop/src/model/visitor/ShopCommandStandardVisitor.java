@@ -8,6 +8,9 @@ public abstract class ShopCommandStandardVisitor implements ShopCommandVisitor {
     public void handleCreateCustomerDeliveryTimeCommand(CreateCustomerDeliveryTimeCommand4Public createCustomerDeliveryTimeCommand) throws PersistenceException{
         this.standardHandling(createCustomerDeliveryTimeCommand);
     }
+    public void handleChangeMinStockCommand(ChangeMinStockCommand4Public changeMinStockCommand) throws PersistenceException{
+        this.standardHandling(changeMinStockCommand);
+    }
     public void handleStartSellingCommand(StartSellingCommand4Public startSellingCommand) throws PersistenceException{
         this.standardHandling(startSellingCommand);
     }
@@ -19,6 +22,12 @@ public abstract class ShopCommandStandardVisitor implements ShopCommandVisitor {
     }
     public void handleOrderCartCommand(OrderCartCommand4Public orderCartCommand) throws PersistenceException{
         this.standardHandling(orderCartCommand);
+    }
+    public void handleChangeMaxStockCommand(ChangeMaxStockCommand4Public changeMaxStockCommand) throws PersistenceException{
+        this.standardHandling(changeMaxStockCommand);
+    }
+    public void handleCancelPreOrderCommand(CancelPreOrderCommand4Public cancelPreOrderCommand) throws PersistenceException{
+        this.standardHandling(cancelPreOrderCommand);
     }
     public void handlePreOrderCartCommand(PreOrderCartCommand4Public preOrderCartCommand) throws PersistenceException{
         this.standardHandling(preOrderCartCommand);

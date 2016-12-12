@@ -23,6 +23,8 @@ public interface CustomerOrderManager4Public extends OrderManager4Public {
 				throws PersistenceException;
     public void acceptOrder(final Order4Public order) 
 				throws model.OrderNotAcceptableException, model.NotEnoughMoneyException, PersistenceException;
+    public void cancelPreOrder(final Order4Public order) 
+				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void initializeOnCreation() 
@@ -32,7 +34,7 @@ public interface CustomerOrderManager4Public extends OrderManager4Public {
     public Order4Public newOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
 				throws model.EmptyCartException, model.ArticleOrderException, model.NotEnoughMoneyException, PersistenceException;
     public Order4Public newPreOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.EmptyCartException, model.NotEnoughMoneyException, model.ArticleNotInSaleException, PersistenceException;
+				throws model.EmptyCartException, model.ArticleOrderException, model.NotEnoughMoneyException, model.ArticleNotInSaleException, PersistenceException;
 
 }
 

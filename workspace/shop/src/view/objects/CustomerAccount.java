@@ -117,11 +117,11 @@ public class CustomerAccount extends ViewObject implements CustomerAccountView{
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
-                if(rowIndex == 0) return "name";
+                if(rowIndex == 0) return "Benutzername";
                 rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return "balance";
+                if(rowIndex == 0) return "Kontostand";
                 rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return "limit";
+                if(rowIndex == 0) return "Limit";
                 rowIndex = rowIndex - 1;
             } else {
                 if(rowIndex == 0) return this.getName();

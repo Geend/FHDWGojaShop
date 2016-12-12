@@ -7,8 +7,6 @@ public interface CustomerAccount4Public extends Anything, SubjInterface, Abstrac
     
     public String getName() throws PersistenceException ;
     public common.Fraction getBalance() throws PersistenceException ;
-    public void setBalance(common.Fraction newValue) throws PersistenceException ;
-    public common.Fraction getLimit() throws PersistenceException ;
     
     public void accept(AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;
@@ -27,7 +25,11 @@ public interface CustomerAccount4Public extends Anything, SubjInterface, Abstrac
 				throws PersistenceException;
     public void withdraw(final common.Fraction amount, final Invoker invoker) 
 				throws PersistenceException;
+    public Boolean checkForEnoughMoney(final common.Fraction amount) 
+				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException;
+    public void debitIgnoreLimit(final common.Fraction amount) 
 				throws PersistenceException;
     public void debit(final common.Fraction amount) 
 				throws model.NotEnoughMoneyException, PersistenceException;

@@ -29,24 +29,17 @@ public class ArticlesInReturnOrderStateProxi extends OrderStatusProxi implements
         return RemoteDepth;
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        int index = originalIndex;
-        if(index == 0 && this.getArticleReturn() != null) return new ArticleReturnArticlesInReturnOrderStateWrapper(this, originalIndex, (ViewRoot)this.getArticleReturn());
-        if(this.getArticleReturn() != null) index = index - 1;
+        
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 
-            + (this.getArticleReturn() == null ? 0 : 1);
+        return 0 ;
     }
     public boolean isLeaf() throws ModelException {
-        if (this.object == null) return this.getLeafInfo() == 0;
-        return true 
-            && (this.getArticleReturn() == null ? true : false);
+        return true;
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        int result = 0;
-        if(this.getArticleReturn() != null && this.getArticleReturn().equals(child)) return result;
-        if(this.getArticleReturn() != null) result = result + 1;
+        
         return -1;
     }
     

@@ -74,6 +74,7 @@ public class ConnectionHandler {
     public NotInSaleFacade theNotInSaleFacade;
     public NewProductGroupCommandFacade theNewProductGroupCommandFacade;
     public CustomerRegisterServiceFacade theCustomerRegisterServiceFacade;
+    public ChangeMaxStockCommandFacade theChangeMaxStockCommandFacade;
     public RegisterCommandFacade theRegisterCommandFacade;
     public ProcessingOrderStateFacade theProcessingOrderStateFacade;
     public ComponentContainerImplementationFacade theComponentContainerImplementationFacade;
@@ -126,10 +127,12 @@ public class ConnectionHandler {
     public DebitCommandFacade theDebitCommandFacade;
     public BackgroundTaskManagerFacade theBackgroundTaskManagerFacade;
     public WaitingForAcceptOrderStateFacade theWaitingForAcceptOrderStateFacade;
+    public ChangeMinStockCommandFacade theChangeMinStockCommandFacade;
     public CustomerServiceOrderManagerFacade theCustomerServiceOrderManagerFacade;
     public ServiceFacade theServiceFacade;
     public InSaleFacade theInSaleFacade;
     public ReturnQuantifiedArticleFacade theReturnQuantifiedArticleFacade;
+    public CancelPreOrderCommandFacade theCancelPreOrderCommandFacade;
     public OwnerServiceOrderManagerFacade theOwnerServiceOrderManagerFacade;
     public SubjFacade theSubjFacade;
     public CustomerServiceShopFacade theCustomerServiceShopFacade;
@@ -139,6 +142,7 @@ public class ConnectionHandler {
     public ArticlesInReturnOrderStateFacade theArticlesInReturnOrderStateFacade;
     public ChangeArticleQuantityCommandFacade theChangeArticleQuantityCommandFacade;
     public OrderQuantifiedArticlePreOrderFacade theOrderQuantifiedArticlePreOrderFacade;
+    public CanceledOrderStateFacade theCanceledOrderStateFacade;
     public ArticleStateFacade theArticleStateFacade;
     public CustomerOrderManagerFacade theCustomerOrderManagerFacade;
     public ChangeCustomerDeliveryTimePriceCommandFacade theChangeCustomerDeliveryTimePriceCommandFacade;
@@ -161,6 +165,7 @@ public class ConnectionHandler {
             this.theNotInSaleFacade= new NotInSaleFacade();
             this.theNewProductGroupCommandFacade= new NewProductGroupCommandFacade();
             this.theCustomerRegisterServiceFacade= new CustomerRegisterServiceFacade();
+            this.theChangeMaxStockCommandFacade= new ChangeMaxStockCommandFacade();
             this.theRegisterCommandFacade= new RegisterCommandFacade();
             this.theProcessingOrderStateFacade= new ProcessingOrderStateFacade();
             this.theComponentContainerImplementationFacade= new ComponentContainerImplementationFacade();
@@ -213,10 +218,12 @@ public class ConnectionHandler {
             this.theDebitCommandFacade= new DebitCommandFacade();
             this.theBackgroundTaskManagerFacade= new BackgroundTaskManagerFacade();
             this.theWaitingForAcceptOrderStateFacade= new WaitingForAcceptOrderStateFacade();
+            this.theChangeMinStockCommandFacade= new ChangeMinStockCommandFacade();
             this.theCustomerServiceOrderManagerFacade= new CustomerServiceOrderManagerFacade();
             this.theServiceFacade= new ServiceFacade();
             this.theInSaleFacade= new InSaleFacade();
             this.theReturnQuantifiedArticleFacade= new ReturnQuantifiedArticleFacade();
+            this.theCancelPreOrderCommandFacade= new CancelPreOrderCommandFacade();
             this.theOwnerServiceOrderManagerFacade= new OwnerServiceOrderManagerFacade();
             this.theSubjFacade= new SubjFacade();
             this.theCustomerServiceShopFacade= new CustomerServiceShopFacade();
@@ -226,6 +233,7 @@ public class ConnectionHandler {
             this.theArticlesInReturnOrderStateFacade= new ArticlesInReturnOrderStateFacade();
             this.theChangeArticleQuantityCommandFacade= new ChangeArticleQuantityCommandFacade();
             this.theOrderQuantifiedArticlePreOrderFacade= new OrderQuantifiedArticlePreOrderFacade();
+            this.theCanceledOrderStateFacade= new CanceledOrderStateFacade();
             this.theArticleStateFacade= new ArticleStateFacade();
             this.theCustomerOrderManagerFacade= new CustomerOrderManagerFacade();
             this.theChangeCustomerDeliveryTimePriceCommandFacade= new ChangeCustomerDeliveryTimePriceCommandFacade();

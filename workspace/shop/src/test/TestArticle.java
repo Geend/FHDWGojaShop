@@ -310,6 +310,7 @@ public class TestArticle {
      */
     @Test
     public void SetArticleAmountZeroTest() throws Exception {
+        exception.expect(InvalidInputException.class);
         Producer4Public producer = TestPreparations.createTestProducer();
         ArticleWrapper4Public article = TestPreparations.createTestArticle("Erdbeere", new Fraction(1), 10, 100, 2, producer);
         TestPreparations.StartShopSelling(article);
@@ -317,7 +318,7 @@ public class TestArticle {
         ShoppingCartQuantifiedArticle4Public shE = TestPreparations.createShoppingCartEntry(10, article);
         sh.addArticle(shE);
         shE.changeArticleQuantity(0);
-        Assert.assertEquals(0, sh.getArticles().getLength());
+        //Assert.assertEquals(0, sh.getArticles().getLength());
     }
 
     /**
@@ -363,14 +364,15 @@ public class TestArticle {
                 assert false;
             } catch (Exception e) {
                 try {
-                    TestPreparations.createTestArticle().getArticle().changeProducerDeliveryTime(-1);
+                    TestPreparations.createTestArticle("Erdbeere", new Fraction(1), 10, 100, 0, producer)
+                            .getArticle().changeProducerDeliveryTime(-1);
                     assert false;
                 } catch (Exception exx) {
                     try {
-                        TestPreparations.createTestArticle().getArticle().changeProducerDeliveryTime(0);
+                        TestPreparations.createTestArticle("Erdbeere", new Fraction(1), 10, 100, 0, producer).getArticle().changeProducerDeliveryTime(0);
                         assert false;
                     } catch (Exception rex) {
-                        return;
+                        throw rex;
                     }
                 }
             }

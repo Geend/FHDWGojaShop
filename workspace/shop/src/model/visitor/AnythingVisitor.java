@@ -10,11 +10,14 @@ public interface AnythingVisitor extends ArticleStateVisitor,BackgroundTaskVisit
     public void handleArticle(Article4Public article) throws PersistenceException;
     public void handleArticleReturn(ArticleReturn4Public articleReturn) throws PersistenceException;
     public void handleBackgroundTaskManager(BackgroundTaskManager4Public backgroundTaskManager) throws PersistenceException;
+    public void handleCancelPreOrderCommand(CancelPreOrderCommand4Public cancelPreOrderCommand) throws PersistenceException;
     public void handleChangeArticleNameCommand(ChangeArticleNameCommand4Public changeArticleNameCommand) throws PersistenceException;
     public void handleChangeArticlePriceCommand(ChangeArticlePriceCommand4Public changeArticlePriceCommand) throws PersistenceException;
     public void handleChangeArticleQuantityCommand(ChangeArticleQuantityCommand4Public changeArticleQuantityCommand) throws PersistenceException;
     public void handleChangeCustomerDeliveryTimePriceCommand(ChangeCustomerDeliveryTimePriceCommand4Public changeCustomerDeliveryTimePriceCommand) throws PersistenceException;
     public void handleChangeCustomerDeliveryTimeTimeCommand(ChangeCustomerDeliveryTimeTimeCommand4Public changeCustomerDeliveryTimeTimeCommand) throws PersistenceException;
+    public void handleChangeMaxStockCommand(ChangeMaxStockCommand4Public changeMaxStockCommand) throws PersistenceException;
+    public void handleChangeMinStockCommand(ChangeMinStockCommand4Public changeMinStockCommand) throws PersistenceException;
     public void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException;
     public void handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException;
     public void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException;

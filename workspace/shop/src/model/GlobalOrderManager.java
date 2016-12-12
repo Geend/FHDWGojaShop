@@ -1,6 +1,7 @@
 
 package model;
 
+import common.Fraction;
 import constants.ShopConstants;
 import model.meta.OrderMssgs;
 import persistence.*;
@@ -298,10 +299,8 @@ public class GlobalOrderManager extends model.OrderManager implements Persistent
     }
     public void handleOrderPreOrderStateImplementation(final Order4Public order, final PreOrderState4Public preOrderState) 
 				throws PersistenceException{
-        // TODO! Check if articles are available
+
         Iterator<OrderQuantifiedArticle4Public> iterator = order.getArticles().iterator();
-
-
         Boolean allPreOrdersFinished = true;
         while(iterator.hasNext())
         {
@@ -349,16 +348,24 @@ public class GlobalOrderManager extends model.OrderManager implements Persistent
         // Wait for the client to accept the order
         if (waitingForAcceptOrderState.getTicksLeft() == 1) {
             // Return the entire order if the acceptTime elapsed
-            order.setState(FinishedOrderState.createFinishedOrderState());
 
             ArticleReturn4Public articleReturn = ArticleReturn.createArticleReturn(order);
 
             order.getArticles().applyToAll(article -> {
+                article.markForReturn();
                 ReturnQuantifiedArticle4Public returnQuantifiedArticle4Public = ReturnQuantifiedArticle.createReturnQuantifiedArticle(article.getQuantity(), article.getArticle());
 
                 articleReturn.addArticle(returnQuantifiedArticle4Public);
+
+                Fraction newTotalPrice = order.getTotalPrice();
+                newTotalPrice = newTotalPrice.sub(article.getArticlePriceAtOrderTime().mul(article.getQuantity()));
+                newTotalPrice = newTotalPrice.add(article.getArticlePriceAtOrderTime().mul(article.getQuantity()).mul(order.getReturnPercentageAtOrderTime()));
+                order.setTotalPrice(newTotalPrice);
             });
 
+
+            order.getCustomerAccount().debitIgnoreLimit(order.getTotalPrice());
+            order.setState(ArticlesInReturnOrderState.createArticlesInReturnOrderState(articleReturn, ShopConstants.DEFAULT_RETURN_TIME));
             ReturnManager.getTheReturnManager().addArticleReturn(articleReturn);
 
         } else {
@@ -373,7 +380,6 @@ public class GlobalOrderManager extends model.OrderManager implements Persistent
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         super.initializeOnInstantiation();
-        // TODO: implement method: initializeOnInstantiation
     }
     public void startTask(final long tickTime) 
 				throws PersistenceException{
@@ -388,6 +394,10 @@ public class GlobalOrderManager extends model.OrderManager implements Persistent
                 @Override
                 public void handleArticlesInReturnOrderState(ArticlesInReturnOrderState4Public articlesInReturnOrderState) throws PersistenceException {
                     handleOrderArticlesInReturnOrderState(order, articlesInReturnOrderState);
+                }
+
+                @Override
+                public void handleCanceledOrderState(CanceledOrderState4Public canceledOrderState) throws PersistenceException {
                 }
 
                 @Override
@@ -421,6 +431,12 @@ public class GlobalOrderManager extends model.OrderManager implements Persistent
                     @Override
                     public Boolean handleArticlesInReturnOrderState(ArticlesInReturnOrderState4Public articlesInReturnOrderState) throws PersistenceException {
                         return true;
+                    }
+
+                    @Override
+                    public Boolean handleCanceledOrderState(CanceledOrderState4Public canceledOrderState) throws PersistenceException {
+                        GlobalOrderArchive.getTheGlobalOrderArchive().addOrder(order);
+                        return false;
                     }
 
                     @Override
