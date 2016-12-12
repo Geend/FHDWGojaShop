@@ -99,11 +99,11 @@ public class Settings extends ViewObject implements SettingsView{
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
-                if(rowIndex == 0) return "newCustomerDefaultBalance";
+                if(rowIndex == 0) return "Neukunden Startguthaben";
                 rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return "newCustomerDefaultLimit";
+                if(rowIndex == 0) return "Neukunden Limit";
                 rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return "returnPercentage";
+                if(rowIndex == 0) return "Retouren Prozentsatz";
                 rowIndex = rowIndex - 1;
             } else {
                 if(rowIndex == 0) return this.getNewCustomerDefaultBalance();

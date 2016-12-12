@@ -137,6 +137,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleOrderQuantifiedArticlePreOrder(OrderQuantifiedArticlePreOrderView orderQuantifiedArticlePreOrder) throws ModelException{
         this.standardHandling(orderQuantifiedArticlePreOrder);
     }
+    public void handleCanceledOrderState(CanceledOrderStateView canceledOrderState) throws ModelException{
+        this.standardHandling(canceledOrderState);
+    }
     public void handleCustomerOrderManager(CustomerOrderManagerView customerOrderManager) throws ModelException{
         this.standardHandling(customerOrderManager);
     }

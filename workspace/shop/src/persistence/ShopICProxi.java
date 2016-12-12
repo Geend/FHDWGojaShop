@@ -66,8 +66,16 @@ public class ShopICProxi extends PersistentInCacheProxiOptimistic implements Per
 				throws PersistenceException{
         ((PersistentShop)this.getTheObject()).acceptOrder(manager, order, invoker);
     }
+    public void cancelPreOrder(final CustomerOrderManager4Public manager, final Order4Public order) 
+				throws PersistenceException{
+        ((PersistentShop)this.getTheObject()).cancelPreOrder(manager, order);
+    }
+    public void cancelPreOrder(final CustomerOrderManager4Public manager, final Order4Public order, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentShop)this.getTheObject()).cancelPreOrder(manager, order, invoker);
+    }
     public void changeArticleName(final ArticleWrapper4Public article, final String newName) 
-				throws model.InvalidInputException, PersistenceException{
+				throws model.DoubleDefinitionException, model.InvalidInputException, PersistenceException{
         ((PersistentShop)this.getTheObject()).changeArticleName(article, newName);
     }
     public void changeArticleName(final ArticleWrapper4Public article, final String newName, final Invoker invoker) 
@@ -97,6 +105,22 @@ public class ShopICProxi extends PersistentInCacheProxiOptimistic implements Per
     public void changeCustomerDeliveryTimeTime(final CustomerDeliveryTime4Public customerDeliveryTime, final long newValue, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentShop)this.getTheObject()).changeCustomerDeliveryTimeTime(customerDeliveryTime, newValue, invoker);
+    }
+    public void changeMaxStock(final ArticleWrapper4Public article, final long newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        ((PersistentShop)this.getTheObject()).changeMaxStock(article, newValue);
+    }
+    public void changeMaxStock(final ArticleWrapper4Public article, final long newValue, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentShop)this.getTheObject()).changeMaxStock(article, newValue, invoker);
+    }
+    public void changeMinStock(final ArticleWrapper4Public article, final long newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        ((PersistentShop)this.getTheObject()).changeMinStock(article, newValue);
+    }
+    public void changeMinStock(final ArticleWrapper4Public article, final long newValue, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentShop)this.getTheObject()).changeMinStock(article, newValue, invoker);
     }
     public void createCustomerDeliveryTime(final String name, final common.Fraction price, final long time) 
 				throws model.DoubleDefinitionException, model.InvalidInputException, PersistenceException{
@@ -151,7 +175,7 @@ public class ShopICProxi extends PersistentInCacheProxiOptimistic implements Per
         ((PersistentShop)this.getTheObject()).orderCart(manager, cart, customerDeliveryTime, invoker);
     }
     public void preOrderCart(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.EmptyCartException, model.NotEnoughMoneyException, model.ArticleNotInSaleException, PersistenceException{
+				throws model.EmptyCartException, model.ArticleOrderException, model.NotEnoughMoneyException, PersistenceException{
         ((PersistentShop)this.getTheObject()).preOrderCart(manager, cart, customerDeliveryTime);
     }
     public void preOrderCart(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime, final Invoker invoker) 
@@ -186,8 +210,12 @@ public class ShopICProxi extends PersistentInCacheProxiOptimistic implements Per
 				throws model.OrderNotAcceptableException, model.NotEnoughMoneyException, PersistenceException{
         ((PersistentShop)this.getTheObject()).acceptOrderImplementation(manager, order);
     }
+    public void cancelPreOrderImplementation(final CustomerOrderManager4Public manager, final Order4Public order) 
+				throws PersistenceException{
+        ((PersistentShop)this.getTheObject()).cancelPreOrderImplementation(manager, order);
+    }
     public void changeArticleNameImplementation(final ArticleWrapper4Public article, final String newName) 
-				throws model.InvalidInputException, PersistenceException{
+				throws model.DoubleDefinitionException, model.InvalidInputException, PersistenceException{
         ((PersistentShop)this.getTheObject()).changeArticleNameImplementation(article, newName);
     }
     public void changeArticlePriceImplementation(final ArticleWrapper4Public article, final common.Fraction newPrice) 
@@ -201,6 +229,14 @@ public class ShopICProxi extends PersistentInCacheProxiOptimistic implements Per
     public void changeCustomerDeliveryTimeTimeImplementation(final CustomerDeliveryTime4Public customerDeliveryTime, final long newValue) 
 				throws model.InvalidInputException, PersistenceException{
         ((PersistentShop)this.getTheObject()).changeCustomerDeliveryTimeTimeImplementation(customerDeliveryTime, newValue);
+    }
+    public void changeMaxStockImplementation(final ArticleWrapper4Public article, final long newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        ((PersistentShop)this.getTheObject()).changeMaxStockImplementation(article, newValue);
+    }
+    public void changeMinStockImplementation(final ArticleWrapper4Public article, final long newValue) 
+				throws model.InvalidInputException, PersistenceException{
+        ((PersistentShop)this.getTheObject()).changeMinStockImplementation(article, newValue);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -239,7 +275,7 @@ public class ShopICProxi extends PersistentInCacheProxiOptimistic implements Per
         ((PersistentShop)this.getTheObject()).orderCartImplementation(manager, cart, customerDeliveryTime);
     }
     public void preOrderCartImplementation(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.EmptyCartException, model.NotEnoughMoneyException, model.ArticleNotInSaleException, PersistenceException{
+				throws model.EmptyCartException, model.ArticleOrderException, model.NotEnoughMoneyException, PersistenceException{
         ((PersistentShop)this.getTheObject()).preOrderCartImplementation(manager, cart, customerDeliveryTime);
     }
     public void startSellingImplementation(final ArticleWrapper4Public article) 

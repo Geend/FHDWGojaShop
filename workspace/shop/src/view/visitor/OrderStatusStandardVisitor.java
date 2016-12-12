@@ -17,6 +17,9 @@ public abstract class OrderStatusStandardVisitor implements OrderStatusVisitor {
     public void handleFinishedOrderState(FinishedOrderStateView finishedOrderState) throws ModelException{
         this.standardHandling(finishedOrderState);
     }
+    public void handleCanceledOrderState(CanceledOrderStateView canceledOrderState) throws ModelException{
+        this.standardHandling(canceledOrderState);
+    }
     public void handleProcessingOrderState(ProcessingOrderStateView processingOrderState) throws ModelException{
         this.standardHandling(processingOrderState);
     }

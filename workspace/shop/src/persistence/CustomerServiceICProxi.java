@@ -172,6 +172,10 @@ public class CustomerServiceICProxi extends ServiceICProxi implements Persistent
 				throws PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).addToCart(article, quantity);
     }
+    public void cancelPreOrder(final Order4Public order) 
+				throws PersistenceException{
+        ((PersistentCustomerService)this.getTheObject()).cancelPreOrder(order);
+    }
     public void changeArticleQuantity(final ShoppingCartQuantifiedArticle4Public article, final long newQuantity) 
 				throws PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).changeArticleQuantity(article, newQuantity);
@@ -180,9 +184,9 @@ public class CustomerServiceICProxi extends ServiceICProxi implements Persistent
 				throws PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).clearError(error);
     }
-    public void clear() 
+    public void clear(final CustomerArticleLst4Public customerArticleLst) 
 				throws PersistenceException{
-        ((PersistentCustomerService)this.getTheObject()).clear();
+        ((PersistentCustomerService)this.getTheObject()).clear(customerArticleLst);
     }
     public void connected(final String user) 
 				throws PersistenceException{
@@ -192,9 +196,9 @@ public class CustomerServiceICProxi extends ServiceICProxi implements Persistent
 				throws PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public void deposit(final common.Fraction amount) 
+    public void deposit(final CustomerAccount4Public customerAccount, final common.Fraction amount) 
 				throws PersistenceException{
-        ((PersistentCustomerService)this.getTheObject()).deposit(amount);
+        ((PersistentCustomerService)this.getTheObject()).deposit(customerAccount, amount);
     }
     public void disconnected() 
 				throws PersistenceException{
@@ -204,9 +208,9 @@ public class CustomerServiceICProxi extends ServiceICProxi implements Persistent
 				throws PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).emptyCart(cart);
     }
-    public void findArticle(final String name) 
+    public void findArticle(final CustomerArticleLst4Public customerArticleLst, final String name) 
 				throws PersistenceException{
-        ((PersistentCustomerService)this.getTheObject()).findArticle(name);
+        ((PersistentCustomerService)this.getTheObject()).findArticle(customerArticleLst, name);
     }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{
@@ -260,9 +264,9 @@ public class CustomerServiceICProxi extends ServiceICProxi implements Persistent
 				throws PersistenceException{
         ((PersistentCustomerService)this.getTheObject()).unmarkForReturn(article);
     }
-    public void withdraw(final common.Fraction amount) 
+    public void withdraw(final CustomerAccount4Public customerAccount, final common.Fraction amount) 
 				throws model.NotEnoughMoneyException, PersistenceException{
-        ((PersistentCustomerService)this.getTheObject()).withdraw(amount);
+        ((PersistentCustomerService)this.getTheObject()).withdraw(customerAccount, amount);
     }
 
     

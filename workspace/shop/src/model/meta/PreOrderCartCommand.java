@@ -270,10 +270,10 @@ public class PreOrderCartCommand extends PersistentObject implements PersistentP
 		catch(model.EmptyCartException e){
 			this.commandException = e;
 		}
-		catch(model.NotEnoughMoneyException e){
+		catch(model.ArticleOrderException e){
 			this.commandException = e;
 		}
-		catch(model.ArticleNotInSaleException e){
+		catch(model.NotEnoughMoneyException e){
 			this.commandException = e;
 		}
     }

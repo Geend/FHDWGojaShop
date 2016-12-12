@@ -81,7 +81,7 @@ public class ShoppingCartQuantifiedArticleProxi extends QuantifiedArticleProxi i
         ((PersistentShoppingCartQuantifiedArticle)this.getTheObject()).updateObservers(event);
     }
     public void changeArticleQuantity(final long newQuantity) 
-				throws PersistenceException{
+				throws model.InvalidInputException, PersistenceException{
         ((PersistentShoppingCartQuantifiedArticle)this.getTheObject()).changeArticleQuantity(newQuantity);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 

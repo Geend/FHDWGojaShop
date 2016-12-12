@@ -19,8 +19,12 @@ public interface Shop4Public extends Anything, SubjInterface, AbstractPersistent
 				throws model.OrderNotAcceptableException, model.NotEnoughMoneyException, PersistenceException;
     public void acceptOrder(final CustomerOrderManager4Public manager, final Order4Public order, final Invoker invoker) 
 				throws PersistenceException;
+    public void cancelPreOrder(final CustomerOrderManager4Public manager, final Order4Public order) 
+				throws PersistenceException;
+    public void cancelPreOrder(final CustomerOrderManager4Public manager, final Order4Public order, final Invoker invoker) 
+				throws PersistenceException;
     public void changeArticleName(final ArticleWrapper4Public article, final String newName) 
-				throws model.InvalidInputException, PersistenceException;
+				throws model.DoubleDefinitionException, model.InvalidInputException, PersistenceException;
     public void changeArticleName(final ArticleWrapper4Public article, final String newName, final Invoker invoker) 
 				throws PersistenceException;
     public void changeArticlePrice(final ArticleWrapper4Public article, final common.Fraction newPrice) 
@@ -34,6 +38,14 @@ public interface Shop4Public extends Anything, SubjInterface, AbstractPersistent
     public void changeCustomerDeliveryTimeTime(final CustomerDeliveryTime4Public customerDeliveryTime, final long newValue) 
 				throws model.InvalidInputException, PersistenceException;
     public void changeCustomerDeliveryTimeTime(final CustomerDeliveryTime4Public customerDeliveryTime, final long newValue, final Invoker invoker) 
+				throws PersistenceException;
+    public void changeMaxStock(final ArticleWrapper4Public article, final long newValue) 
+				throws model.InvalidInputException, PersistenceException;
+    public void changeMaxStock(final ArticleWrapper4Public article, final long newValue, final Invoker invoker) 
+				throws PersistenceException;
+    public void changeMinStock(final ArticleWrapper4Public article, final long newValue) 
+				throws model.InvalidInputException, PersistenceException;
+    public void changeMinStock(final ArticleWrapper4Public article, final long newValue, final Invoker invoker) 
 				throws PersistenceException;
     public void createCustomerDeliveryTime(final String name, final common.Fraction price, final long time) 
 				throws model.DoubleDefinitionException, model.InvalidInputException, PersistenceException;
@@ -60,7 +72,7 @@ public interface Shop4Public extends Anything, SubjInterface, AbstractPersistent
     public void orderCart(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime, final Invoker invoker) 
 				throws PersistenceException;
     public void preOrderCart(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.EmptyCartException, model.NotEnoughMoneyException, model.ArticleNotInSaleException, PersistenceException;
+				throws model.EmptyCartException, model.ArticleOrderException, model.NotEnoughMoneyException, PersistenceException;
     public void preOrderCart(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime, final Invoker invoker) 
 				throws PersistenceException;
     public void startSelling(final ArticleWrapper4Public article) 
@@ -73,13 +85,19 @@ public interface Shop4Public extends Anything, SubjInterface, AbstractPersistent
 				throws PersistenceException;
     public void acceptOrderImplementation(final CustomerOrderManager4Public manager, final Order4Public order) 
 				throws model.OrderNotAcceptableException, model.NotEnoughMoneyException, PersistenceException;
+    public void cancelPreOrderImplementation(final CustomerOrderManager4Public manager, final Order4Public order) 
+				throws PersistenceException;
     public void changeArticleNameImplementation(final ArticleWrapper4Public article, final String newName) 
-				throws model.InvalidInputException, PersistenceException;
+				throws model.DoubleDefinitionException, model.InvalidInputException, PersistenceException;
     public void changeArticlePriceImplementation(final ArticleWrapper4Public article, final common.Fraction newPrice) 
 				throws model.InvalidInputException, PersistenceException;
     public void changeCustomerDeliveryTimePriceImplementation(final CustomerDeliveryTime4Public customerDeliveryTime, final common.Fraction newValue) 
 				throws model.InvalidInputException, PersistenceException;
     public void changeCustomerDeliveryTimeTimeImplementation(final CustomerDeliveryTime4Public customerDeliveryTime, final long newValue) 
+				throws model.InvalidInputException, PersistenceException;
+    public void changeMaxStockImplementation(final ArticleWrapper4Public article, final long newValue) 
+				throws model.InvalidInputException, PersistenceException;
+    public void changeMinStockImplementation(final ArticleWrapper4Public article, final long newValue) 
 				throws model.InvalidInputException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
@@ -100,7 +118,7 @@ public interface Shop4Public extends Anything, SubjInterface, AbstractPersistent
     public void orderCartImplementation(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
 				throws model.EmptyCartException, model.ArticleOrderException, model.NotEnoughMoneyException, PersistenceException;
     public void preOrderCartImplementation(final CustomerOrderManager4Public manager, final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.EmptyCartException, model.NotEnoughMoneyException, model.ArticleNotInSaleException, PersistenceException;
+				throws model.EmptyCartException, model.ArticleOrderException, model.NotEnoughMoneyException, PersistenceException;
     public void startSellingImplementation(final ArticleWrapper4Public article) 
 				throws PersistenceException;
     public void stopSellingImplementation(final ArticleWrapper4Public article) 

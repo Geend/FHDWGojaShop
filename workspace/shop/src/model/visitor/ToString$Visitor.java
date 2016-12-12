@@ -47,6 +47,7 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleShoppingCart(ShoppingCart4Public shoppingCart) throws PersistenceException;
     public abstract void handleArticlesInReturnOrderState(ArticlesInReturnOrderState4Public articlesInReturnOrderState) throws PersistenceException;
     public abstract void handleOrderQuantifiedArticlePreOrder(OrderQuantifiedArticlePreOrder4Public orderQuantifiedArticlePreOrder) throws PersistenceException;
+    public abstract void handleCanceledOrderState(CanceledOrderState4Public canceledOrderState) throws PersistenceException;
     public abstract void handleCustomerOrderManager(CustomerOrderManager4Public customerOrderManager) throws PersistenceException;
     
 }

@@ -41,6 +41,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCustomerRegisterService(CustomerRegisterService4Public customerRegisterService) throws PersistenceException{
         this.standardHandling(customerRegisterService);
     }
+    public void handleChangeMaxStockCommand(ChangeMaxStockCommand4Public changeMaxStockCommand) throws PersistenceException{
+        this.standardHandling(changeMaxStockCommand);
+    }
     public void handleRegisterCommand(RegisterCommand4Public registerCommand) throws PersistenceException{
         this.standardHandling(registerCommand);
     }
@@ -182,8 +185,14 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleBackgroundTaskManager(BackgroundTaskManager4Public backgroundTaskManager) throws PersistenceException{
         this.standardHandling(backgroundTaskManager);
     }
+    public void handleChangeMinStockCommand(ChangeMinStockCommand4Public changeMinStockCommand) throws PersistenceException{
+        this.standardHandling(changeMinStockCommand);
+    }
     public void handleCustomerServiceOrderManager(CustomerServiceOrderManager4Public customerServiceOrderManager) throws PersistenceException{
         this.standardHandling(customerServiceOrderManager);
+    }
+    public void handleCancelPreOrderCommand(CancelPreOrderCommand4Public cancelPreOrderCommand) throws PersistenceException{
+        this.standardHandling(cancelPreOrderCommand);
     }
     public void handleReturnQuantifiedArticle(ReturnQuantifiedArticle4Public returnQuantifiedArticle) throws PersistenceException{
         this.standardHandling(returnQuantifiedArticle);
@@ -217,6 +226,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleOrderQuantifiedArticlePreOrder(OrderQuantifiedArticlePreOrder4Public orderQuantifiedArticlePreOrder) throws PersistenceException{
         this.standardHandling(orderQuantifiedArticlePreOrder);
+    }
+    public void handleCanceledOrderState(CanceledOrderState4Public canceledOrderState) throws PersistenceException{
+        this.standardHandling(canceledOrderState);
     }
     public void handleCustomerOrderManager(CustomerOrderManager4Public customerOrderManager) throws PersistenceException{
         this.standardHandling(customerOrderManager);

@@ -131,6 +131,9 @@ public abstract class SubjInterfaceStandardVisitor implements SubjInterfaceVisit
     public void handleOrderQuantifiedArticlePreOrder(OrderQuantifiedArticlePreOrder4Public orderQuantifiedArticlePreOrder) throws PersistenceException{
         this.standardHandling(orderQuantifiedArticlePreOrder);
     }
+    public void handleCanceledOrderState(CanceledOrderState4Public canceledOrderState) throws PersistenceException{
+        this.standardHandling(canceledOrderState);
+    }
     public void handleArticleReturn(ArticleReturn4Public articleReturn) throws PersistenceException{
         this.standardHandling(articleReturn);
     }

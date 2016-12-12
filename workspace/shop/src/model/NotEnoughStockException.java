@@ -75,8 +75,8 @@ public class NotEnoughStockException extends model.ArticleOrderException{
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    public NotEnoughStockException(Long avaliable, Long requested) throws PersistenceException {
-        super(MessageFormat.format(StringConstants.NOT_ENOUGH_STOCK_EXCEPTION_MESSAGE, avaliable, requested));
+    public NotEnoughStockException(Long avaliable, Long requested, String articleName) throws PersistenceException {
+        super(MessageFormat.format(StringConstants.NOT_ENOUGH_STOCK_EXCEPTION_MESSAGE, avaliable, requested, articleName));
     }
 
     /* End of protected part that is not overridden by persistence generator */

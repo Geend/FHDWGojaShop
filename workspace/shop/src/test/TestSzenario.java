@@ -261,7 +261,7 @@ public class TestSzenario {
         Order4Public c = customerOrderManager.newOrder(sh, ctd);
         BackgroundTaskManager.getTheBackgroundTaskManager().step();
         c.getArticles().applyToAllException(ar -> {
-            if (Long.compare(ar.getArticle().getId(), banane.getArticle().getId()) == 0)
+            if (ar.getArticle().getArticle().equals(banane.getArticle()) )
                 ar.markForReturn();
         });
         BackgroundTaskManager.getTheBackgroundTaskManager().step();

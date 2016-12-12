@@ -236,6 +236,9 @@ public class ChangeArticleNameCommand extends PersistentObject implements Persis
         try{
 			this.commandReceiver.changeArticleName(this.getArticle(), this.getNewName());
 		}
+		catch(model.DoubleDefinitionException e){
+			this.commandException = e;
+		}
 		catch(model.InvalidInputException e){
 			this.commandException = e;
 		}

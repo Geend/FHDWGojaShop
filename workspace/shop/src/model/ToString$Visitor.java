@@ -2,6 +2,7 @@ package model;
 
 import model.visitor.ArticleStateReturnVisitor;
 import model.visitor.OrderQuantifiedArticleStateVisitor;
+import model.visitor.OrderStatusReturnVisitor;
 import persistence.*;
 
 import java.text.MessageFormat;
@@ -240,6 +241,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
+	public void handleCanceledOrderState(CanceledOrderState4Public canceledOrderState) throws PersistenceException {
+
+	}
+
+	@Override
 	public void handleCustomerOrderManager(CustomerOrderManager4Public customerOrderManager) throws PersistenceException {
 		result = "Bestellungen";
 	}
@@ -306,13 +312,52 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleReturnQuantifiedArticle(ReturnQuantifiedArticle4Public returnQuantifiedArticle) throws PersistenceException {
 		result = returnQuantifiedArticle.getArticle().getArticle().getName();
-		//TODO! improve result
 	}
 
 
 	@Override
 	public void handleOrder(Order4Public order) throws PersistenceException {
-		result = "Bestellung";
+		result = "Bestellung (";
+
+		result += order.getState().accept(new OrderStatusReturnVisitor<String>() {
+
+			@Override
+			public String handleArticlesInReturnOrderState(ArticlesInReturnOrderState4Public articlesInReturnOrderState) throws PersistenceException {
+				return "in Retour - " +articlesInReturnOrderState.getTicksLeft() + " Ticks verbleibend";
+			}
+
+			@Override
+			public String handleCanceledOrderState(CanceledOrderState4Public canceledOrderState) throws PersistenceException {
+				return "storniert";
+			}
+
+			@Override
+			public String handleFinishedOrderState(FinishedOrderState4Public finishedOrderState) throws PersistenceException {
+				return "abgeschlossen";
+			}
+
+			@Override
+			public String handleInTransitOrderState(InTransitOrderState4Public inTransitOrderState) throws PersistenceException {
+				return "unterwegs - " +inTransitOrderState.getTicksLeft() + " Ticks verbleibend";
+			}
+
+			@Override
+			public String handlePreOrderState(PreOrderState4Public preOrderState) throws PersistenceException {
+				return "vorbestellt";
+			}
+
+			@Override
+			public String handleProcessingOrderState(ProcessingOrderState4Public processingOrderState) throws PersistenceException {
+				return "in Verarbeitung";
+			}
+
+			@Override
+			public String handleWaitingForAcceptOrderState(WaitingForAcceptOrderState4Public waitingForAcceptOrderState) throws PersistenceException {
+				return "warten auf Annahme - " +waitingForAcceptOrderState.getTicksLeft() + " Ticks verbleibend";
+			}
+		});
+
+		result += ")";
 	}
 
 

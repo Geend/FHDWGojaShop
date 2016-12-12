@@ -25,17 +25,17 @@ public class OrderFacade{
 	}
 
     /* If idCreateIfLessZero is negative, a new id is generated. */
-    public PersistentOrder newOrder(common.Fraction totalPrice,long idCreateIfLessZero) throws PersistenceException {
+    public PersistentOrder newOrder(common.Fraction totalPrice,common.Fraction returnPercentageAtOrderTime,long idCreateIfLessZero) throws PersistenceException {
         if(idCreateIfLessZero > 0) return (PersistentOrder)PersistentProxi.createProxi(idCreateIfLessZero, 238);
         long id = ConnectionHandler.getTheConnectionHandler().theOrderFacade.getNextId();
-        Order result = new Order(null,totalPrice,null,null,null,id);
+        Order result = new Order(null,null,totalPrice,returnPercentageAtOrderTime,null,null,null,id);
         Cache.getTheCache().put(result);
         return (PersistentOrder)PersistentProxi.createProxi(id, 238);
     }
     
-    public PersistentOrder newDelayedOrder(common.Fraction totalPrice) throws PersistenceException {
+    public PersistentOrder newDelayedOrder(common.Fraction totalPrice,common.Fraction returnPercentageAtOrderTime) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theOrderFacade.getNextId();
-        Order result = new Order(null,totalPrice,null,null,null,id);
+        Order result = new Order(null,null,totalPrice,returnPercentageAtOrderTime,null,null,null,id);
         Cache.getTheCache().put(result);
         return (PersistentOrder)PersistentProxi.createProxi(id, 238);
     }
@@ -61,7 +61,13 @@ public class OrderFacade{
     public void customerDeliveryTimeSet(long OrderId, CustomerDeliveryTime4Public customerDeliveryTimeVal) throws PersistenceException {
         
     }
+    public void customerAccountSet(long OrderId, CustomerAccount4Public customerAccountVal) throws PersistenceException {
+        
+    }
     public void totalPriceSet(long OrderId, common.Fraction totalPriceVal) throws PersistenceException {
+        
+    }
+    public void returnPercentageAtOrderTimeSet(long OrderId, common.Fraction returnPercentageAtOrderTimeVal) throws PersistenceException {
         
     }
     public void stateSet(long OrderId, OrderStatus4Public stateVal) throws PersistenceException {

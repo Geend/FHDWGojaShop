@@ -282,11 +282,15 @@ public class Cache {
 		this.number2NameMap.put(361, "ArticlesInReturnOrderState");
 		this.number2NameMap.put(363, "BackgroundTaskManager");
 		this.number2NameMap.put(367, "CONCBackgroundTask");
+		this.number2NameMap.put(458, "CancelPreOrderCommand");
+		this.number2NameMap.put(456, "CanceledOrderState");
 		this.number2NameMap.put(430, "ChangeArticleNameCommand");
 		this.number2NameMap.put(431, "ChangeArticlePriceCommand");
 		this.number2NameMap.put(294, "ChangeArticleQuantityCommand");
 		this.number2NameMap.put(411, "ChangeCustomerDeliveryTimePriceCommand");
 		this.number2NameMap.put(410, "ChangeCustomerDeliveryTimeTimeCommand");
+		this.number2NameMap.put(454, "ChangeMaxStockCommand");
+		this.number2NameMap.put(455, "ChangeMinStockCommand");
 		this.number2NameMap.put(-101, "CommandCoordinator");
 		this.number2NameMap.put(-105, "CommandExecuter");
 		this.number2NameMap.put(104, "CommonDate");

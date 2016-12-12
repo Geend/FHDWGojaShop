@@ -317,16 +317,21 @@ public class CustomerAccount extends PersistentObject implements PersistentCusto
     
     // Start of section that contains operations that must be implemented.
     
+    public Boolean checkForEnoughMoney(final common.Fraction amount) 
+				throws PersistenceException{
+        return getThis().getBalance().add(getThis().getLimit()).isLess(amount);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
+    }
+    public void debitIgnoreLimit(final common.Fraction amount) 
+				throws PersistenceException{
+        getThis().setBalance(getThis().getBalance().sub(amount));
     }
     public void debit(final common.Fraction amount) 
 				throws model.NotEnoughMoneyException, PersistenceException{
 
-        //TODO! Test if limit works correctly
-        if(getThis().getBalance().add(getThis().getLimit()).isLess(amount)){
+        if(checkForEnoughMoney(amount)){
             throw new NotEnoughMoneyException(MessageFormat.format("Nicht genug geld ({0}€) für Abbuchung von {1}€",getThis().getBalance(), amount));
         }
         else{
@@ -339,13 +344,9 @@ public class CustomerAccount extends PersistentObject implements PersistentCusto
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
     }
     public void withdraw(final common.Fraction amount) 
 				throws model.NotEnoughMoneyException, PersistenceException{

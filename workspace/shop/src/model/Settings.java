@@ -6,6 +6,8 @@ import constants.StringConstants;
 import persistence.*;
 import model.visitor.*;
 
+import java.math.BigInteger;
+
 
 /* Additional import section end */
 
@@ -247,6 +249,9 @@ public class Settings extends PersistentObject implements PersistentSettings{
     }
     public void changeNewCustomerDefaultLimit(final common.Fraction newValue) 
 				throws model.InvalidInputException, PersistenceException{
+        if(newValue.isLess(Fraction.Null)){
+            throw new InvalidInputException(StringConstants.NEW_CUSTOMER_DEFAULT_LIMIT_NOT_NEGATIVE_MESSAGE);
+        }
         getThis().setNewCustomerDefaultLimit(newValue);
     }
     public void changeReturnPercentage(final common.Fraction newValue) 
@@ -262,6 +267,7 @@ public class Settings extends PersistentObject implements PersistentSettings{
     public void initializeOnCreation() 
 				throws PersistenceException{
         getThis().setNewCustomerDefaultBalance(new Fraction(1000));
+        getThis().setReturnPercentage(new Fraction(BigInteger.ONE,BigInteger.TEN));
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{

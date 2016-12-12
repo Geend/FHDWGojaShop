@@ -7,8 +7,10 @@ public interface Order4Public extends Anything, SubjInterface, AbstractPersisten
     
     public Order_ArticlesProxi getArticles() throws PersistenceException ;
     public CustomerDeliveryTime4Public getCustomerDeliveryTime() throws PersistenceException ;
+    public CustomerAccount4Public getCustomerAccount() throws PersistenceException ;
     public common.Fraction getTotalPrice() throws PersistenceException ;
     public void setTotalPrice(common.Fraction newValue) throws PersistenceException ;
+    public common.Fraction getReturnPercentageAtOrderTime() throws PersistenceException ;
     public OrderStatus4Public getState() throws PersistenceException ;
     public void setState(OrderStatus4Public newValue) throws PersistenceException ;
     

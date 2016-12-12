@@ -10,11 +10,14 @@ public interface AnythingExceptionVisitor<E extends model.UserException> extends
     public void handleArticle(Article4Public article) throws PersistenceException, E;
     public void handleArticleReturn(ArticleReturn4Public articleReturn) throws PersistenceException, E;
     public void handleBackgroundTaskManager(BackgroundTaskManager4Public backgroundTaskManager) throws PersistenceException, E;
+    public void handleCancelPreOrderCommand(CancelPreOrderCommand4Public cancelPreOrderCommand) throws PersistenceException, E;
     public void handleChangeArticleNameCommand(ChangeArticleNameCommand4Public changeArticleNameCommand) throws PersistenceException, E;
     public void handleChangeArticlePriceCommand(ChangeArticlePriceCommand4Public changeArticlePriceCommand) throws PersistenceException, E;
     public void handleChangeArticleQuantityCommand(ChangeArticleQuantityCommand4Public changeArticleQuantityCommand) throws PersistenceException, E;
     public void handleChangeCustomerDeliveryTimePriceCommand(ChangeCustomerDeliveryTimePriceCommand4Public changeCustomerDeliveryTimePriceCommand) throws PersistenceException, E;
     public void handleChangeCustomerDeliveryTimeTimeCommand(ChangeCustomerDeliveryTimeTimeCommand4Public changeCustomerDeliveryTimeTimeCommand) throws PersistenceException, E;
+    public void handleChangeMaxStockCommand(ChangeMaxStockCommand4Public changeMaxStockCommand) throws PersistenceException, E;
+    public void handleChangeMinStockCommand(ChangeMinStockCommand4Public changeMinStockCommand) throws PersistenceException, E;
     public void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException, E;
     public void handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException, E;
     public void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException, E;

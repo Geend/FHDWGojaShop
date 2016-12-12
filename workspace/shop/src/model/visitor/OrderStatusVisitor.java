@@ -6,6 +6,7 @@ import persistence.*;
 public interface OrderStatusVisitor {
     
     public void handleArticlesInReturnOrderState(ArticlesInReturnOrderState4Public articlesInReturnOrderState) throws PersistenceException;
+    public void handleCanceledOrderState(CanceledOrderState4Public canceledOrderState) throws PersistenceException;
     public void handleFinishedOrderState(FinishedOrderState4Public finishedOrderState) throws PersistenceException;
     public void handleInTransitOrderState(InTransitOrderState4Public inTransitOrderState) throws PersistenceException;
     public void handlePreOrderState(PreOrderState4Public preOrderState) throws PersistenceException;

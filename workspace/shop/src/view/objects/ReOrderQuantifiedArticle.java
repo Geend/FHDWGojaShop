@@ -92,31 +92,23 @@ public class ReOrderQuantifiedArticle extends view.objects.QuantifiedArticle imp
     public int getQuantityIndex() throws ModelException {
         return 0;
     }
-    public int getProducerDeliveryTimeAtReorderIndex() throws ModelException {
-        return 0 + 1;
-    }
     public int getCountdownIndex() throws ModelException {
-        return 0 + 1 + 1;
+        return 0 + 1;
     }
     public int getRowCount(){
         return 0 
-            + 1
             + 1
             + 1;
     }
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
-                if(rowIndex == 0) return "quantity";
+                if(rowIndex == 0) return "Anzahl";
                 rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return "producerDeliveryTimeAtReorder";
-                rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return "countdown";
+                if(rowIndex == 0) return "Verbleibende Lieferzeit";
                 rowIndex = rowIndex - 1;
             } else {
                 if(rowIndex == 0) return new Long(getQuantity());
-                rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return new Long(getProducerDeliveryTimeAtReorder());
                 rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return new Long(getCountdown());
                 rowIndex = rowIndex - 1;
@@ -133,11 +125,6 @@ public class ReOrderQuantifiedArticle extends view.objects.QuantifiedArticle imp
     public void setValueAt(String newValue, int rowIndex) throws Exception {
         if(rowIndex == 0){
             this.setQuantity(Long.parseLong(newValue));
-            return;
-        }
-        rowIndex = rowIndex - 1;
-        if(rowIndex == 0){
-            this.setProducerDeliveryTimeAtReorder(Long.parseLong(newValue));
             return;
         }
         rowIndex = rowIndex - 1;

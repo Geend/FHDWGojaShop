@@ -90,6 +90,10 @@ public class CustomerOrderManagerICProxi extends OrderManagerICProxi implements 
 				throws model.OrderNotAcceptableException, model.NotEnoughMoneyException, PersistenceException{
         ((PersistentCustomerOrderManager)this.getTheObject()).acceptOrder(order);
     }
+    public void cancelPreOrder(final Order4Public order) 
+				throws PersistenceException{
+        ((PersistentCustomerOrderManager)this.getTheObject()).cancelPreOrder(order);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentCustomerOrderManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
@@ -107,7 +111,7 @@ public class CustomerOrderManagerICProxi extends OrderManagerICProxi implements 
         return ((PersistentCustomerOrderManager)this.getTheObject()).newOrder(cart, customerDeliveryTime);
     }
     public Order4Public newPreOrder(final ShoppingCart4Public cart, final CustomerDeliveryTime4Public customerDeliveryTime) 
-				throws model.EmptyCartException, model.NotEnoughMoneyException, model.ArticleNotInSaleException, PersistenceException{
+				throws model.EmptyCartException, model.ArticleOrderException, model.NotEnoughMoneyException, model.ArticleNotInSaleException, PersistenceException{
         return ((PersistentCustomerOrderManager)this.getTheObject()).newPreOrder(cart, customerDeliveryTime);
     }
 

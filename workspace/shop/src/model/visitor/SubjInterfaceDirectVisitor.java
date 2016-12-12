@@ -44,6 +44,9 @@ public abstract class SubjInterfaceDirectVisitor implements SubjInterfaceVisitor
     public void handleFinishedOrderState(FinishedOrderState4Public finishedOrderState) throws PersistenceException{
         this.handleOrderStatus(finishedOrderState);
     }
+    public void handleCanceledOrderState(CanceledOrderState4Public canceledOrderState) throws PersistenceException{
+        this.handleOrderStatus(canceledOrderState);
+    }
     public void handleProcessingOrderState(ProcessingOrderState4Public processingOrderState) throws PersistenceException{
         this.handleOrderStatus(processingOrderState);
     }

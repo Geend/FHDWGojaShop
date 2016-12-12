@@ -6,14 +6,10 @@ import model.visitor.*;
 public interface Article4Public extends Anything, SubjInterface, AbstractPersistentProxi {
     
     public String getName() throws PersistenceException ;
-    public void setName(String newValue) throws PersistenceException ;
     public common.Fraction getPrice() throws PersistenceException ;
     public long getMinStock() throws PersistenceException ;
-    public void setMinStock(long newValue) throws PersistenceException ;
     public long getMaxStock() throws PersistenceException ;
-    public void setMaxStock(long newValue) throws PersistenceException ;
     public long getCurrentStock() throws PersistenceException ;
-    public void setCurrentStock(long newValue) throws PersistenceException ;
     public long getProducerDeliveryTime() throws PersistenceException ;
     public Producer4Public getProducer() throws PersistenceException ;
     public void setProducer(Producer4Public newValue) throws PersistenceException ;
@@ -31,6 +27,12 @@ public interface Article4Public extends Anything, SubjInterface, AbstractPersist
     
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
+    public void changeMaxStock(final long newValue) 
+				throws model.InvalidInputException, PersistenceException;
+    public void changeMinStock(final long newValue) 
+				throws model.InvalidInputException, PersistenceException;
+    public void changeName(final String newValue) 
+				throws model.DoubleDefinitionException, model.InvalidInputException, PersistenceException;
     public void changePrice(final common.Fraction newValue) 
 				throws model.InvalidInputException, PersistenceException;
     public void changeProducerDeliveryTime(final long newValue) 

@@ -1,6 +1,7 @@
 
 package model;
 
+import constants.StringConstants;
 import persistence.*;
 import model.visitor.*;
 
@@ -194,8 +195,9 @@ public class ShoppingCartQuantifiedArticle extends model.QuantifiedArticle imple
     // Start of section that contains operations that must be implemented.
     
     public void changeArticleQuantity(final long newQuantity) 
-				throws PersistenceException{
-        //TODO! check if user input is valid
+				throws model.InvalidInputException, PersistenceException{
+        if(newQuantity < 1)
+            throw new InvalidInputException(StringConstants.ARTICLE_QUANTITY_GREATER_THAN_ZERO_MESSAGE);
         getThis().setQuantity(newQuantity);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 

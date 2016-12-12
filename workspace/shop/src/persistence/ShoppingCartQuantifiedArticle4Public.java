@@ -24,7 +24,7 @@ public interface ShoppingCartQuantifiedArticle4Public extends QuantifiedArticle4
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
     public void changeArticleQuantity(final long newQuantity) 
-				throws PersistenceException;
+				throws model.InvalidInputException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public common.Fraction getPrice() 

@@ -35,19 +35,21 @@ public interface CustomerService4Public extends Service4Public {
 				throws PersistenceException;
     public void addToCart(final ArticleWrapper4Public article, final long quantity) 
 				throws PersistenceException;
+    public void cancelPreOrder(final Order4Public order) 
+				throws PersistenceException;
     public void changeArticleQuantity(final ShoppingCartQuantifiedArticle4Public article, final long newQuantity) 
 				throws PersistenceException;
     public void clearError(final ErrorDisplay4Public error) 
 				throws PersistenceException;
-    public void clear() 
+    public void clear(final CustomerArticleLst4Public customerArticleLst) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
-    public void deposit(final common.Fraction amount) 
+    public void deposit(final CustomerAccount4Public customerAccount, final common.Fraction amount) 
 				throws PersistenceException;
     public void emptyCart(final ShoppingCart4Public cart) 
 				throws PersistenceException;
-    public void findArticle(final String name) 
+    public void findArticle(final CustomerArticleLst4Public customerArticleLst, final String name) 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
@@ -63,7 +65,7 @@ public interface CustomerService4Public extends Service4Public {
 				throws PersistenceException;
     public void unmarkForReturn(final OrderQuantifiedArticle4Public article) 
 				throws PersistenceException;
-    public void withdraw(final common.Fraction amount) 
+    public void withdraw(final CustomerAccount4Public customerAccount, final common.Fraction amount) 
 				throws model.NotEnoughMoneyException, PersistenceException;
 
 }

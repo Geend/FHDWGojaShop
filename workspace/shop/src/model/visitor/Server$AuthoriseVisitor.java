@@ -39,6 +39,7 @@ public abstract class Server$AuthoriseVisitor extends AnythingStandardVisitor{
     public abstract void handleProducer(PersistentProducer producer) throws PersistenceException;
     public abstract void handleArticlesInReturnOrderState(PersistentArticlesInReturnOrderState articlesInReturnOrderState) throws PersistenceException;
     public abstract void handleOrderQuantifiedArticlePreOrder(PersistentOrderQuantifiedArticlePreOrder orderQuantifiedArticlePreOrder) throws PersistenceException;
+    public abstract void handleCanceledOrderState(PersistentCanceledOrderState canceledOrderState) throws PersistenceException;
     public abstract void handleArticleReturn(PersistentArticleReturn articleReturn) throws PersistenceException;
     public abstract void handleOrderQuantifiedArticleMarkedForReturnState(PersistentOrderQuantifiedArticleMarkedForReturnState orderQuantifiedArticleMarkedForReturnState) throws PersistenceException;
     public abstract void handleCustomerOrderManager(PersistentCustomerOrderManager customerOrderManager) throws PersistenceException;

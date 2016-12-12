@@ -11,6 +11,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleCreateProducerCommand(CreateProducerCommand4Public createProducerCommand) throws PersistenceException{
         this.standardHandling(createProducerCommand);
     }
+    public void handleChangeMinStockCommand(ChangeMinStockCommand4Public changeMinStockCommand) throws PersistenceException{
+        this.standardHandling(changeMinStockCommand);
+    }
     public void handleStartSellingCommand(StartSellingCommand4Public startSellingCommand) throws PersistenceException{
         this.standardHandling(startSellingCommand);
     }
@@ -25,6 +28,12 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     }
     public void handleOrderCartCommand(OrderCartCommand4Public orderCartCommand) throws PersistenceException{
         this.standardHandling(orderCartCommand);
+    }
+    public void handleChangeMaxStockCommand(ChangeMaxStockCommand4Public changeMaxStockCommand) throws PersistenceException{
+        this.standardHandling(changeMaxStockCommand);
+    }
+    public void handleCancelPreOrderCommand(CancelPreOrderCommand4Public cancelPreOrderCommand) throws PersistenceException{
+        this.standardHandling(cancelPreOrderCommand);
     }
     public void handleRegisterCommand(RegisterCommand4Public registerCommand) throws PersistenceException{
         this.standardHandling(registerCommand);

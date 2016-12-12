@@ -192,7 +192,7 @@ public class Article extends ViewObject implements ArticleView{
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
-                if(rowIndex == 0) return "Name";
+                if(rowIndex == 0) return "Bezeichnung";
                 rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return "Preis";
                 rowIndex = rowIndex - 1;

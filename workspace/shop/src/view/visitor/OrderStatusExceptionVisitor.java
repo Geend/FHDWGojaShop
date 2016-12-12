@@ -6,6 +6,7 @@ import view.*;
 public interface OrderStatusExceptionVisitor<E extends view.UserException> {
     
     public void handleArticlesInReturnOrderState(ArticlesInReturnOrderStateView articlesInReturnOrderState) throws ModelException, E;
+    public void handleCanceledOrderState(CanceledOrderStateView canceledOrderState) throws ModelException, E;
     public void handleFinishedOrderState(FinishedOrderStateView finishedOrderState) throws ModelException, E;
     public void handleInTransitOrderState(InTransitOrderStateView inTransitOrderState) throws ModelException, E;
     public void handlePreOrderState(PreOrderStateView preOrderState) throws ModelException, E;

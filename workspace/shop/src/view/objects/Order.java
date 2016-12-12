@@ -11,15 +11,19 @@ public class Order extends ViewObject implements OrderView{
     
     protected java.util.Vector<OrderQuantifiedArticleView> articles;
     protected CustomerDeliveryTimeView customerDeliveryTime;
+    protected CustomerAccountView customerAccount;
     protected common.Fraction totalPrice;
+    protected common.Fraction returnPercentageAtOrderTime;
     protected OrderStatusView state;
     
-    public Order(java.util.Vector<OrderQuantifiedArticleView> articles,CustomerDeliveryTimeView customerDeliveryTime,common.Fraction totalPrice,OrderStatusView state,long id, long classId) {
+    public Order(java.util.Vector<OrderQuantifiedArticleView> articles,CustomerDeliveryTimeView customerDeliveryTime,CustomerAccountView customerAccount,common.Fraction totalPrice,common.Fraction returnPercentageAtOrderTime,OrderStatusView state,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.articles = articles;
         this.customerDeliveryTime = customerDeliveryTime;
+        this.customerAccount = customerAccount;
         this.totalPrice = totalPrice;
+        this.returnPercentageAtOrderTime = returnPercentageAtOrderTime;
         this.state = state;        
     }
     
@@ -43,11 +47,23 @@ public class Order extends ViewObject implements OrderView{
     public void setCustomerDeliveryTime(CustomerDeliveryTimeView newValue) throws ModelException {
         this.customerDeliveryTime = newValue;
     }
+    public CustomerAccountView getCustomerAccount()throws ModelException{
+        return this.customerAccount;
+    }
+    public void setCustomerAccount(CustomerAccountView newValue) throws ModelException {
+        this.customerAccount = newValue;
+    }
     public common.Fraction getTotalPrice()throws ModelException{
         return this.totalPrice;
     }
     public void setTotalPrice(common.Fraction newValue) throws ModelException {
         this.totalPrice = newValue;
+    }
+    public common.Fraction getReturnPercentageAtOrderTime()throws ModelException{
+        return this.returnPercentageAtOrderTime;
+    }
+    public void setReturnPercentageAtOrderTime(common.Fraction newValue) throws ModelException {
+        this.returnPercentageAtOrderTime = newValue;
     }
     public OrderStatusView getState()throws ModelException{
         return this.state;
@@ -78,6 +94,10 @@ public class Order extends ViewObject implements OrderView{
         if (customerDeliveryTime != null) {
             ((ViewProxi)customerDeliveryTime).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(customerDeliveryTime.getClassId(), customerDeliveryTime.getId())));
         }
+        CustomerAccountView customerAccount = this.getCustomerAccount();
+        if (customerAccount != null) {
+            ((ViewProxi)customerAccount).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(customerAccount.getClassId(), customerAccount.getId())));
+        }
         OrderStatusView state = this.getState();
         if (state != null) {
             ((ViewProxi)state).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(state.getClassId(), state.getId())));
@@ -93,21 +113,21 @@ public class Order extends ViewObject implements OrderView{
         index = index - this.getArticles().size();
         if(index == 0 && this.getCustomerDeliveryTime() != null) return new CustomerDeliveryTimeOrderWrapper(this, originalIndex, (ViewRoot)this.getCustomerDeliveryTime());
         if(this.getCustomerDeliveryTime() != null) index = index - 1;
-        if(index == 0 && this.getState() != null) return new StateOrderWrapper(this, originalIndex, (ViewRoot)this.getState());
-        if(this.getState() != null) index = index - 1;
+        if(index == 0 && this.getCustomerAccount() != null) return new CustomerAccountOrderWrapper(this, originalIndex, (ViewRoot)this.getCustomerAccount());
+        if(this.getCustomerAccount() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getArticles().size())
             + (this.getCustomerDeliveryTime() == null ? 0 : 1)
-            + (this.getState() == null ? 0 : 1);
+            + (this.getCustomerAccount() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         return true 
             && (this.getArticles().size() == 0)
             && (this.getCustomerDeliveryTime() == null ? true : false)
-            && (this.getState() == null ? true : false);
+            && (this.getCustomerAccount() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -118,24 +138,32 @@ public class Order extends ViewObject implements OrderView{
         }
         if(this.getCustomerDeliveryTime() != null && this.getCustomerDeliveryTime().equals(child)) return result;
         if(this.getCustomerDeliveryTime() != null) result = result + 1;
-        if(this.getState() != null && this.getState().equals(child)) return result;
-        if(this.getState() != null) result = result + 1;
+        if(this.getCustomerAccount() != null && this.getCustomerAccount().equals(child)) return result;
+        if(this.getCustomerAccount() != null) result = result + 1;
         return -1;
     }
     public int getTotalPriceIndex() throws ModelException {
-        return 0 + this.getArticles().size() + (this.getCustomerDeliveryTime() == null ? 0 : 1);
+        return 0 + this.getArticles().size() + (this.getCustomerDeliveryTime() == null ? 0 : 1) + (this.getCustomerAccount() == null ? 0 : 1);
+    }
+    public int getReturnPercentageAtOrderTimeIndex() throws ModelException {
+        return 0 + this.getArticles().size() + (this.getCustomerDeliveryTime() == null ? 0 : 1) + (this.getCustomerAccount() == null ? 0 : 1) + 1;
     }
     public int getRowCount(){
         return 0 
+            + 1
             + 1;
     }
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
-                if(rowIndex == 0) return "totalPrice";
+                if(rowIndex == 0) return "Gesamtpreis";
+                rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return "Retourenprozentsatz";
                 rowIndex = rowIndex - 1;
             } else {
                 if(rowIndex == 0) return this.getTotalPrice();
+                rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return this.getReturnPercentageAtOrderTime();
                 rowIndex = rowIndex - 1;
             }
             throw new ModelException("Table index out of bounds!", -1);
@@ -150,6 +178,11 @@ public class Order extends ViewObject implements OrderView{
     public void setValueAt(String newValue, int rowIndex) throws Exception {
         if(rowIndex == 0){
             this.setTotalPrice(common.Fraction.parse(newValue));
+            return;
+        }
+        rowIndex = rowIndex - 1;
+        if(rowIndex == 0){
+            this.setReturnPercentageAtOrderTime(common.Fraction.parse(newValue));
             return;
         }
         rowIndex = rowIndex - 1;

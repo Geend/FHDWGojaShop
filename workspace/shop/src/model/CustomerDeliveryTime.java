@@ -264,7 +264,7 @@ public class CustomerDeliveryTime extends PersistentObject implements Persistent
     
     public void changePrice(final common.Fraction newValue) 
 				throws model.InvalidInputException, PersistenceException{
-        if(price.isLess(Fraction.Null))
+        if(newValue.isLess(Fraction.Null))
             throw new InvalidInputException(StringConstants.CDT_NOT_NEGATIVE_MESSAGE);
 
         getThis().setPrice(newValue);

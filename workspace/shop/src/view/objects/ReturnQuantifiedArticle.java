@@ -83,7 +83,7 @@ public class ReturnQuantifiedArticle extends view.objects.QuantifiedArticle impl
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
-                if(rowIndex == 0) return "quantity";
+                if(rowIndex == 0) return "Anzahl";
                 rowIndex = rowIndex - 1;
             } else {
                 if(rowIndex == 0) return new Long(getQuantity());

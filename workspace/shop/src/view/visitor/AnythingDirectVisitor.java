@@ -44,6 +44,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleFinishedOrderState(FinishedOrderStateView finishedOrderState) throws ModelException{
         this.handleOrderStatus(finishedOrderState);
     }
+    public void handleCanceledOrderState(CanceledOrderStateView canceledOrderState) throws ModelException{
+        this.handleOrderStatus(canceledOrderState);
+    }
     public void handleProcessingOrderState(ProcessingOrderStateView processingOrderState) throws ModelException{
         this.handleOrderStatus(processingOrderState);
     }

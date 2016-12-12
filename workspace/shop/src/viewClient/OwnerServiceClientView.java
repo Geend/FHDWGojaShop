@@ -278,14 +278,13 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
                                     Fraction.parse(text));
                         } catch (InvalidInputException e) {
                             //TODO! Proper error handling
-
                             e.printStackTrace();
                         }
                     }
 
                     @Override
                     public boolean check(String text) throws ModelException {
-                       //TODO! Implement checking of string
+
                         return true;
                     }
                 });
@@ -295,6 +294,29 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
                     public void update(String text) throws ModelException {
                         try {
                             getConnection().changeArticleProducerDeliveryTime(articleWrapper, Integer.parseInt(text));
+                        } catch (InvalidInputException e) {
+                            //TODO! Proper error handling
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+                panel.registerUpdater(ArticleDefaultDetailPanel.Article$$minStock, new UpdaterForInteger() {
+                    @Override
+                    public void update(String text) throws ModelException {
+                        try {
+                            getConnection().changeMinStock(articleWrapper, Integer.parseInt(text));
+                        } catch (InvalidInputException e) {
+                            //TODO! Proper error handling
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                panel.registerUpdater(ArticleDefaultDetailPanel.Article$$maxStock, new UpdaterForInteger() {
+                    @Override
+                    public void update(String text) throws ModelException {
+                        try {
+                            getConnection().changeMaxStock(articleWrapper, Integer.parseInt(text));
                         } catch (InvalidInputException e) {
                             //TODO! Proper error handling
                             e.printStackTrace();
@@ -523,8 +545,6 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
         ImageView handle(NewArticlePRMTRComponentContainerPRMTRStringPRMTRFractionPRMTRIntegerPRMTRIntegerPRMTRIntegerPRMTRProducerPRMTRMenuItem menuItem);
         ImageView handle(StopSellingPRMTRArticleWrapperPRMTRMenuItem menuItem);
         ImageView handle(StartSellingPRMTRArticleWrapperPRMTRMenuItem menuItem);
-        ImageView handle(IncreaseArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem);
-        ImageView handle(ReduceArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem);
         ImageView handle(MoveToPRMTRComponentPRMTRComponentContainerPRMTRMenuItem menuItem);
     }
     private abstract class OwnerServiceMenuItem extends MenuItem{
@@ -564,16 +584,6 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
         }
     }
     private class StartSellingPRMTRArticleWrapperPRMTRMenuItem extends OwnerServiceMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class IncreaseArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem extends OwnerServiceMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class ReduceArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem extends OwnerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -750,28 +760,6 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
                     });
                     result.getItems().add(item);
                 }
-                item = new IncreaseArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem();
-                item.setText("increaseArticleStock ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final OwnerServiceIncreaseArticleStockArticleWrapperIntegerMssgWizard wizard = new OwnerServiceIncreaseArticleStockArticleWrapperIntegerMssgWizard("increaseArticleStock");
-                        wizard.setFirstArgument((ArticleWrapperView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-                item = new ReduceArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem();
-                item.setText("reduceArticleStock ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final OwnerServiceReduceArticleStockArticleWrapperIntegerMssgWizard wizard = new OwnerServiceReduceArticleStockArticleWrapperIntegerMssgWizard("reduceArticleStock");
-                        wizard.setFirstArgument((ArticleWrapperView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
             }
             
         }
@@ -830,9 +818,9 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 			return false;
 		}
 		protected void addParameters(){
-			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));
-			getParametersPanel().getChildren().add(new FractionSelectionPanel("price", this));
-			getParametersPanel().getChildren().add(new IntegerSelectionPanel("time", this));		
+			getParametersPanel().getChildren().add(new StringSelectionPanel("Name", this));
+			getParametersPanel().getChildren().add(new FractionSelectionPanel("Preis", this));
+			getParametersPanel().getChildren().add(new IntegerSelectionPanel("Lieferzeit", this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -902,53 +890,6 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 		
 	}
 
-	class OwnerServiceIncreaseArticleStockArticleWrapperIntegerMssgWizard extends Wizard {
-
-		protected OwnerServiceIncreaseArticleStockArticleWrapperIntegerMssgWizard(String operationName){
-			super(OwnerServiceClientView.this);
-			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new IncreaseArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem ().getGraphic());
-		}
-		protected void initialize(){
-			this.helpFileName = "OwnerServiceIncreaseArticleStockArticleWrapperIntegerMssgWizard.help";
-			super.initialize();		
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().increaseArticleStock(firstArgument, ((IntegerSelectionPanel)getParametersPanel().getChildren().get(0)).getResult().longValue());
-				getConnection().setEagerRefresh();
-				this.close();	
-			} catch(ModelException me){
-				handleException(me);
-				this.close();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		protected boolean isModifying () {
-			return false;
-		}
-		protected void addParameters(){
-			getParametersPanel().getChildren().add(new IntegerSelectionPanel("quantity", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private ArticleWrapperView firstArgument; 
-	
-		public void setFirstArgument(ArticleWrapperView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
 	class OwnerServiceMoveToComponentComponentContainerMssgWizard extends Wizard {
 
 		protected OwnerServiceMoveToComponentComponentContainerMssgWizard(String operationName){
@@ -982,7 +923,7 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 			return false;
 		}
 		protected void addParameters(){
-			final ObjectSelectionPanel panel1 = new ObjectSelectionPanel("newParentGroup", "view.ComponentContainer", null, this);
+			final ObjectSelectionPanel panel1 = new ObjectSelectionPanel("Zielgruppe", "view.ComponentContainer", null, this);
 			getParametersPanel().getChildren().add(panel1);
 			panel1.setBrowserRoot((ViewRoot) getConnection().getOwnerServiceView());		
 		}	
@@ -1042,12 +983,12 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 			return false;
 		}
 		protected void addParameters(){
-			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));
-			getParametersPanel().getChildren().add(new FractionSelectionPanel("price", this));
-			getParametersPanel().getChildren().add(new IntegerSelectionPanel("minStock", this));
-			getParametersPanel().getChildren().add(new IntegerSelectionPanel("maxStock", this));
-			getParametersPanel().getChildren().add(new IntegerSelectionPanel("producerDeliveryTime", this));
-			final ObjectSelectionPanel panel2 = new ObjectSelectionPanel("producer", "view.ProducerView", null, this);
+			getParametersPanel().getChildren().add(new StringSelectionPanel("Bezeichnung", this));
+			getParametersPanel().getChildren().add(new FractionSelectionPanel("Preis", this));
+			getParametersPanel().getChildren().add(new IntegerSelectionPanel("Mindestlagerbestand", this));
+			getParametersPanel().getChildren().add(new IntegerSelectionPanel("Maximallagerbestand", this));
+			getParametersPanel().getChildren().add(new IntegerSelectionPanel("Herstellerlieferzeit", this));
+			final ObjectSelectionPanel panel2 = new ObjectSelectionPanel("Hersteller", "view.ProducerView", null, this);
 			getParametersPanel().getChildren().add(panel2);
 			panel2.setBrowserRoot((ViewRoot) getConnection().getOwnerServiceView());		
 		}	
@@ -1102,7 +1043,7 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 			return false;
 		}
 		protected void addParameters(){
-			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));		
+			getParametersPanel().getChildren().add(new StringSelectionPanel("Name", this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -1111,56 +1052,6 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 		private ComponentContainer firstArgument; 
 	
 		public void setFirstArgument(ComponentContainer firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
-	class OwnerServiceReduceArticleStockArticleWrapperIntegerMssgWizard extends Wizard {
-
-		protected OwnerServiceReduceArticleStockArticleWrapperIntegerMssgWizard(String operationName){
-			super(OwnerServiceClientView.this);
-			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new ReduceArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem ().getGraphic());
-		}
-		protected void initialize(){
-			this.helpFileName = "OwnerServiceReduceArticleStockArticleWrapperIntegerMssgWizard.help";
-			super.initialize();		
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().reduceArticleStock(firstArgument, ((IntegerSelectionPanel)getParametersPanel().getChildren().get(0)).getResult().longValue());
-				getConnection().setEagerRefresh();
-				this.close();	
-			} catch(ModelException me){
-				handleException(me);
-				this.close();
-			}
-			catch(NotEnoughStockException e) {
-				getStatusBar().setText(e.getMessage());
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		protected boolean isModifying () {
-			return false;
-		}
-		protected void addParameters(){
-			getParametersPanel().getChildren().add(new IntegerSelectionPanel("quantity", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private ArticleWrapperView firstArgument; 
-	
-		public void setFirstArgument(ArticleWrapperView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -1200,19 +1091,6 @@ public class OwnerServiceClientView extends BorderPane implements ExceptionAndEv
 
             
 
-            @Override
-            public ImageView handle(IncreaseArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem) {
-                return null;
-            }
-
-
-
-
-
-            @Override
-            public ImageView handle(ReduceArticleStockPRMTRArticleWrapperPRMTRIntegerPRMTRMenuItem menuItem) {
-                return null;
-            }
 
             @Override
             public ImageView handle(ReloadUIPRMTRMenuItem menuItem) {

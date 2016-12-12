@@ -180,7 +180,6 @@ public class ArticlesInReturnOrderState extends model.OrderStatus implements Per
          return visitor.handleArticlesInReturnOrderState(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getArticleReturn() != null) return 1;
         return 0;
     }
     

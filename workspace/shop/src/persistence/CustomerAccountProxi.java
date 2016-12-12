@@ -106,9 +106,17 @@ public class CustomerAccountProxi extends PersistentProxi implements PersistentC
 				throws PersistenceException{
         ((PersistentCustomerAccount)this.getTheObject()).withdraw(amount, invoker);
     }
+    public Boolean checkForEnoughMoney(final common.Fraction amount) 
+				throws PersistenceException{
+        return ((PersistentCustomerAccount)this.getTheObject()).checkForEnoughMoney(amount);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentCustomerAccount)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public void debitIgnoreLimit(final common.Fraction amount) 
+				throws PersistenceException{
+        ((PersistentCustomerAccount)this.getTheObject()).debitIgnoreLimit(amount);
     }
     public void debit(final common.Fraction amount) 
 				throws model.NotEnoughMoneyException, PersistenceException{
